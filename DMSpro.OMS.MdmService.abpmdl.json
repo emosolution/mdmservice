@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "DMSpro.OMS.MdmService.Domain.Shared": {
+      "path": "src/DMSpro.OMS.MdmService.Domain.Shared/DMSpro.OMS.MdmService.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.Application.Contracts": {
+      "path": "src/DMSpro.OMS.MdmService.Application.Contracts/DMSpro.OMS.MdmService.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.Domain": {
+      "path": "src/DMSpro.OMS.MdmService.Domain/DMSpro.OMS.MdmService.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.Application": {
+      "path": "src/DMSpro.OMS.MdmService.Application/DMSpro.OMS.MdmService.Application.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.EntityFrameworkCore": {
+      "path": "src/DMSpro.OMS.MdmService.EntityFrameworkCore/DMSpro.OMS.MdmService.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.HttpApi": {
+      "path": "src/DMSpro.OMS.MdmService.HttpApi/DMSpro.OMS.MdmService.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.HttpApi.Client": {
+      "path": "src/DMSpro.OMS.MdmService.HttpApi.Client/DMSpro.OMS.MdmService.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.HttpApi.Host": {
+      "path": "src/DMSpro.OMS.MdmService.HttpApi.Host/DMSpro.OMS.MdmService.HttpApi.Host.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.Web": {
+      "path": "src/DMSpro.OMS.MdmService.Web/DMSpro.OMS.MdmService.Web.abppkg.json",
+      "folder": "src"
+    },
+    "DMSpro.OMS.MdmService.Domain.Tests": {
+      "path": "test/DMSpro.OMS.MdmService.Domain.Tests/DMSpro.OMS.MdmService.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DMSpro.OMS.MdmService.EntityFrameworkCore.Tests": {
+      "path": "test/DMSpro.OMS.MdmService.EntityFrameworkCore.Tests/DMSpro.OMS.MdmService.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "DMSpro.OMS.MdmService.TestBase": {
+      "path": "test/DMSpro.OMS.MdmService.TestBase/DMSpro.OMS.MdmService.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "DMSpro.OMS.MdmService.Application.Tests": {
+      "path": "test/DMSpro.OMS.MdmService.Application.Tests/DMSpro.OMS.MdmService.Application.Tests.abppkg.json",
+      "folder": "test"
+    }
+  }
+}

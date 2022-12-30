@@ -1,0 +1,140 @@
+using DMSpro.OMS.MdmService.ItemMasters;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
+
+namespace DMSpro.OMS.MdmService.ItemMasters
+{
+    public interface IItemMasterRepository : IRepository<ItemMaster, Guid>
+    {
+        Task<ItemMasterWithNavigationProperties> GetWithNavigationPropertiesAsync(
+    Guid id,
+    CancellationToken cancellationToken = default
+);
+
+        Task<List<ItemMasterWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
+            string filterText = null,
+            string code = null,
+            string name = null,
+            string shortName = null,
+            string erpCode = null,
+            string barcode = null,
+            bool? purchasble = null,
+            bool? saleable = null,
+            bool? inventoriable = null,
+            bool? active = null,
+            ManageType? manageType = null,
+            ExpiredType? expiredType = null,
+            int? expiredValueMin = null,
+            int? expiredValueMax = null,
+            IssueMethod? issueMethod = null,
+            bool? canUpdate = null,
+            int? basePriceMin = null,
+            int? basePriceMax = null,
+            Guid? itemTypeId = null,
+            Guid? vATId = null,
+            Guid? uOMGroupId = null,
+            Guid? inventoryUnitId = null,
+            Guid? purUnitId = null,
+            Guid? salesUnit = null,
+            Guid? attr0Id = null,
+            Guid? attr1Id = null,
+            Guid? attr2Id = null,
+            Guid? attr3Id = null,
+            Guid? attr4Id = null,
+            Guid? attr5Id = null,
+            Guid? attr6Id = null,
+            Guid? attr7Id = null,
+            Guid? attr8Id = null,
+            Guid? attr9Id = null,
+            Guid? attr10Id = null,
+            Guid? attr11Id = null,
+            Guid? attr12Id = null,
+            Guid? attr13Id = null,
+            Guid? attr14Id = null,
+            Guid? attr15Id = null,
+            Guid? attr16Id = null,
+            Guid? attr17Id = null,
+            Guid? attr18Id = null,
+            Guid? attr19Id = null,
+            string sorting = null,
+            int maxResultCount = int.MaxValue,
+            int skipCount = 0,
+            CancellationToken cancellationToken = default
+        );
+
+        Task<List<ItemMaster>> GetListAsync(
+                    string filterText = null,
+                    string code = null,
+                    string name = null,
+                    string shortName = null,
+                    string erpCode = null,
+                    string barcode = null,
+                    bool? purchasble = null,
+                    bool? saleable = null,
+                    bool? inventoriable = null,
+                    bool? active = null,
+                    ManageType? manageType = null,
+                    ExpiredType? expiredType = null,
+                    int? expiredValueMin = null,
+                    int? expiredValueMax = null,
+                    IssueMethod? issueMethod = null,
+                    bool? canUpdate = null,
+                    int? basePriceMin = null,
+                    int? basePriceMax = null,
+                    string sorting = null,
+                    int maxResultCount = int.MaxValue,
+                    int skipCount = 0,
+                    CancellationToken cancellationToken = default
+                );
+
+        Task<long> GetCountAsync(
+            string filterText = null,
+            string code = null,
+            string name = null,
+            string shortName = null,
+            string erpCode = null,
+            string barcode = null,
+            bool? purchasble = null,
+            bool? saleable = null,
+            bool? inventoriable = null,
+            bool? active = null,
+            ManageType? manageType = null,
+            ExpiredType? expiredType = null,
+            int? expiredValueMin = null,
+            int? expiredValueMax = null,
+            IssueMethod? issueMethod = null,
+            bool? canUpdate = null,
+            int? basePriceMin = null,
+            int? basePriceMax = null,
+            Guid? itemTypeId = null,
+            Guid? vATId = null,
+            Guid? uOMGroupId = null,
+            Guid? inventoryUnitId = null,
+            Guid? purUnitId = null,
+            Guid? salesUnit = null,
+            Guid? attr0Id = null,
+            Guid? attr1Id = null,
+            Guid? attr2Id = null,
+            Guid? attr3Id = null,
+            Guid? attr4Id = null,
+            Guid? attr5Id = null,
+            Guid? attr6Id = null,
+            Guid? attr7Id = null,
+            Guid? attr8Id = null,
+            Guid? attr9Id = null,
+            Guid? attr10Id = null,
+            Guid? attr11Id = null,
+            Guid? attr12Id = null,
+            Guid? attr13Id = null,
+            Guid? attr14Id = null,
+            Guid? attr15Id = null,
+            Guid? attr16Id = null,
+            Guid? attr17Id = null,
+            Guid? attr18Id = null,
+            Guid? attr19Id = null,
+            CancellationToken cancellationToken = default);
+    }
+}
