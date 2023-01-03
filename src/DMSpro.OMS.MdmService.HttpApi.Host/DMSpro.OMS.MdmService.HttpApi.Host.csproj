@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\shared\DMSpro.OMS.Shared.Hosting.Microservices\DMSpro.OMS.Shared.Hosting.Microservices.csproj" />
+        <!--<ProjectReference Include="..\..\..\commondll\Development\shared\DMSpro.OMS.Shared.Hosting.Microservices\DMSpro.OMS.Shared.Hosting.Microservices.csproj" />-->
         <ProjectReference Include="..\DMSpro.OMS.MdmService.Application\DMSpro.OMS.MdmService.Application.csproj" />
         <ProjectReference Include="..\DMSpro.OMS.MdmService.EntityFrameworkCore\DMSpro.OMS.MdmService.EntityFrameworkCore.csproj" />
         <ProjectReference Include="..\DMSpro.OMS.MdmService.HttpApi\DMSpro.OMS.MdmService.HttpApi.csproj" />
@@ -125,7 +125,7 @@
         <HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Domain\DMSpro.OMS.Shared.Domain.dll</HintPath>
       </Reference>
       <Reference Include="DMSpro.OMS.Shared.Hosting.Microservices">
-        <HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Hosting.Microservices\DMSpro.OMS.Shared.Hosting.Microservices.dll</HintPath>
+		  <HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Hosting.Microservices\DMSpro.OMS.Shared.Hosting.Microservices.dll</HintPath>
       </Reference>
       <Reference Include="DMSpro.OMS.Shared.Hosting">
         <HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Hosting\DMSpro.OMS.Shared.Hosting.dll</HintPath>
