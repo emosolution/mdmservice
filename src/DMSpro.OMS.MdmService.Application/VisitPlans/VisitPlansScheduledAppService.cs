@@ -298,7 +298,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 for (DateTime dt = holiday.StartDate.Date; dt <= holiday.EndDate.Date; dt = dt.AddDays(1))
                 {
-                    result.Add(dt);
+                    if (!result.Contains(dt))
+                    {
+                        result.Add(dt);
+                    }
                 }
             }
             return result;

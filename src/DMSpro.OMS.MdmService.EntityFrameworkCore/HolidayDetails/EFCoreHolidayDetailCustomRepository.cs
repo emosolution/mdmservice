@@ -21,7 +21,9 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         public async Task<List<HolidayDetail>> GetHolidayDetailsWithinRange(DateTime dateStart, DateTime dateEnd, CancellationToken cancellationToken = default)
         {
             DateTime dateEndMax = dateEnd.Date.AddDays(1).AddSeconds(-1);
-            return (await GetDbSetAsync()).Where(b => b.StartDate.Date >= dateStart.Date || b.EndDate.Date <= dateEndMax).ToList();
+            return (await GetDbSetAsync()).Where(b => (b.StartDate.Date <= dateStart.Date && b.EndDate.Date >= dateEndMax) ||
+                (b.StartDate.Date >= dateStart.Date && b.StartDate.Date <= dateEndMax) ||
+                (b.EndDate.Date >= dateStart.Date && b.EndDate.Date <= dateEndMax)).ToList();
         }
     }
 }
