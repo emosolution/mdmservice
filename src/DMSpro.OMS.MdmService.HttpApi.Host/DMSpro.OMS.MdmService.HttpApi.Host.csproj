@@ -103,7 +103,10 @@
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="6.0.2" />
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="6.0.2" />
     </ItemGroup>
-
+    <!-- Grpc -->
+    <ItemGroup>
+        <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
+    </ItemGroup>
     <ItemGroup>
         <Compile Remove="Logs\**" />
         <Content Remove="Logs\**" />
@@ -113,6 +116,8 @@
         <None Remove="DMSpro.OMS.Shared.Hosting.Microservices" />
         <None Remove="DMSpro.OMS.Shared.Hosting" />
         <None Remove="DMSpro.OMS.Shared.Hosting.AspNetCore" />
+        <None Remove="DMSpro.OMS.SaasService.EntityFrameworkCore" />
+        <None Remove="DMSpro.OMS.AdministrationService.EntityFrameworkCore" />
     </ItemGroup>
 
     <ItemGroup>
@@ -127,6 +132,12 @@
       </Reference>
       <Reference Include="DMSpro.OMS.Shared.Hosting.AspNetCore">
         <HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Hosting.AspNetCore\DMSpro.OMS.Shared.Hosting.AspNetCore.dll</HintPath>
+      </Reference>
+      <Reference Include="DMSpro.OMS.SaasService.EntityFrameworkCore">
+        <HintPath>..\..\..\commondll\Development\Services\saas\DMSpro.OMS.SaasService.EntityFrameworkCore.dll</HintPath>
+      </Reference>
+      <Reference Include="DMSpro.OMS.AdministrationService.EntityFrameworkCore">
+        <HintPath>..\..\..\commondll\Development\Services\administration\DMSpro.OMS.AdministrationService.EntityFrameworkCore.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>
