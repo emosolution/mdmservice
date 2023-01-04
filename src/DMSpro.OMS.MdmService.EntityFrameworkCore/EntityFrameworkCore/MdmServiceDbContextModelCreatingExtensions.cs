@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
 using DMSpro.OMS.MdmService.Vendors;
@@ -848,6 +849,14 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute18Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CompanyIdentityUserAssignment>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
+        b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
+        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

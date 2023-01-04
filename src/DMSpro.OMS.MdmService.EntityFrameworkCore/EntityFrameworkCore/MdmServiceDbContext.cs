@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -64,6 +65,7 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 [ConnectionStringName(MdmServiceDbProperties.ConnectionStringName)]
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
+    public DbSet<CompanyIdentityUserAssignment> CompanyIdentityUserAssignments { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<SystemConfig> SystemConfigs { get; set; }
     public DbSet<Vendor> Vendors { get; set; }

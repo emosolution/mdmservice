@@ -27,6 +27,8 @@ public class MdmServiceMenuContributor : IMenuContributor
         AddMenuItemSalesOrganizations(context, moduleMenu);
         AddMenuItemCustomers(context, moduleMenu);
         AddMenuItemRouteAndMCP(context, moduleMenu);
+
+        AddMenuItemCompanyIdentityUserAssignments(context, moduleMenu);
     }
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
@@ -126,11 +128,13 @@ public class MdmServiceMenuContributor : IMenuContributor
            )
             .RequirePermissions(false, MdmServicePermissions.CompanyMasters.Default,
                 MdmServicePermissions.VATs.Default,
-                MdmServicePermissions.SalesChannels.Default)
+                MdmServicePermissions.SalesChannels.Default,
+                MdmServicePermissions.CompanyIdentityUserAssignments.Default)
             .RequireFeatures(false,
                 MdmFeatures.CompanyMaster,
                 MdmFeatures.VATs,
-                MdmFeatures.SalesChannels);
+                MdmFeatures.SalesChannels,
+                MdmFeatures.CompanyIdentityUserAssignments);
 
         parentMenu.AddItem(groupMenu);
 
@@ -162,6 +166,16 @@ public class MdmServiceMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.SalesChannels.Default
             ).RequireFeatures(MdmFeatures.SalesChannels)
+        );
+
+        groupMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.CompanyIdentityUserAssignments,
+                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:CompanyIdentityUserAssignments"],
+                "/CompanyIdentityUserAssignments",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.CompanyIdentityUserAssignments.Default
+            ).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments)
         );
     }
 
@@ -578,17 +592,15 @@ public class MdmServiceMenuContributor : IMenuContributor
             ).RequireFeatures(MdmFeatures.Vendors)
         );
 
-
-         groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.CustomerAssignments,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:CustomerAssignments"],
-                "/Mdm/CustomerAssignments",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CustomerAssignments.Default
-            ).RequireFeatures(MdmFeatures.CustomerAssignments)
-        );
-
+        groupMenu.AddItem(
+           new ApplicationMenuItem(
+               Menus.MdmServiceMenus.CustomerAssignments,
+               context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:CustomerAssignments"],
+               "/Mdm/CustomerAssignments",
+               icon: "fa fa-file-alt",
+               requiredPermissionName: MdmServicePermissions.CustomerAssignments.Default
+           ).RequireFeatures(MdmFeatures.CustomerAssignments)
+       );
 
         groupMenu.AddItem(
             new ApplicationMenuItem(
@@ -720,5 +732,10 @@ public class MdmServiceMenuContributor : IMenuContributor
                 requiredPermissionName: MdmServicePermissions.RouteAssignments.Default
             ).RequireFeatures(MdmFeatures.RouteAssignments)
         );
+    }
+
+    private static void AddMenuItemCompanyIdentityUserAssignments(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    {
+        
     }
 }

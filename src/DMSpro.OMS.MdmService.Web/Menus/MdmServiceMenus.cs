@@ -22,6 +22,7 @@ public class MdmServiceMenus
     public const string WeightMeasurements = Measurements + ".WeightMeasurements";
     public const string VATs = Companies + ".VATs";
     public const string SalesChannels = Companies + ".SalesChannels";
+    public const string CompanyIdentityUserAssignments = Companies + ".CompanyIdentityUserAssignments";
 
     public const string Product = Prefix + ".Products";
     public const string UOMs = Product + ".UOMs";
@@ -85,5 +86,4 @@ public class MdmServiceMenus
     public const string MCPDetails = RouteAndMCP + ".MCPDetail";
     public const string VisitPlans = RouteAndMCP + ".VisitPlans";
     public const string RouteAssignments = RouteAndMCP + ".RouteAssignments";
-
 }

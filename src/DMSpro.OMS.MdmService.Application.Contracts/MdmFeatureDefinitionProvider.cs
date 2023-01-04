@@ -103,6 +103,14 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
+            enableCompany.CreateChild(
+                MdmFeatures.CompanyIdentityUserAssignments,
+                defaultValue: "false",
+                displayName: LocalizableString
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableCompanyIdentityUserAssignment"),
+                valueType: new ToggleStringValueType()
+            );
+
             // Product group
             var enableProduct = enableMdm.CreateChild(
                 MdmFeatures.Product,

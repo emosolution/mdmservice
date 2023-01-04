@@ -1,0 +1,62 @@
+{
+  "Id": "e56b2931-8cfe-4926-98c3-bd6f848d78ec",
+  "Name": "CompanyIdentityUserAssignment",
+  "OriginalName": "CompanyIdentityUserAssignment",
+  "NamePlural": "CompanyIdentityUserAssignments",
+  "DatabaseTableName": "CompanyIdentityUserAssignments",
+  "Namespace": "CompanyIdentityUserAssignments",
+  "BaseClass": "FullAuditedAggregateRoot",
+  "MenuIcon": "file-alt",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "CheckConcurrency": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldExportExcel": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": true,
+  "Properties": [
+    {
+      "Id": "d974485f-7094-4c57-a583-66911311d306",
+      "Name": "IdentityUserId",
+      "Type": "Guid",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "EntityNameWithDuplicationNumber": "Company",
+      "EntitySetNameWithDuplicationNumber": "Companies",
+      "ReferencePropertyName": "Company",
+      "UiPickType": "Dropdown",
+      "IsRequired": true,
+      "Name": "CompanyId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.Companies",
+      "EntityName": "Company",
+      "EntitySetName": "Companies",
+      "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
+      "DtoEntityName": "CompanyDto",
+      "Type": "Guid"
+    }
+  ],
+  "NavigationConnections": [],
+  "PhysicalFileName": "CompanyIdentityUserAssignment.json"
+}

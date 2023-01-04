@@ -1031,6 +1031,9 @@
     "EntityFieldName:MDMService:RouteAssignment:EmployeeCode": "Employee Code",
     "EntityFieldName:MDMService:RouteAssignment:EmployeeFullName": "Employee Full Name",
     "EntityFieldName:MDMService:RouteAssignment:EffectiveDate": "Effective Date",
-    "EntityFieldName:MDMService:RouteAssignment:EndDate": "End Date"
+    "EntityFieldName:MDMService:RouteAssignment:EndDate": "End Date",
+    "Feature:MDMService:EnableCompanyIdentityUserAssignment": "Enable company and user assignment",
+    "Permission:MdmService:CompanyIdentityUserAssignments": "Company And User Assignments",
+    "Menu:MdmService:CompanyIdentityUserAssignments": "Company And User Assignments"
   }
 }

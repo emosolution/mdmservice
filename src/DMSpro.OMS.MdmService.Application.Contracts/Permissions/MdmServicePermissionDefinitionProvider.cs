@@ -51,6 +51,11 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SalesChannels);
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SalesChannels);
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SalesChannels);
+        
+        var companyIdentityUserAssignmentPermission = myGroup.AddPermission(MdmServicePermissions.CompanyIdentityUserAssignments.Default, L("Permission:MdmService:CompanyIdentityUserAssignments")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
+        companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
+        companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
+        companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
 
         // Product group
         var uomPermission = myGroup.AddPermission(MdmServicePermissions.UOMs.Default, L("Permission:MdmService:UOM")).RequireFeatures(MdmFeatures.UOMs);
