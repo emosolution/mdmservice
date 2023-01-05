@@ -36,7 +36,6 @@ using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -242,17 +241,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
         b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
         b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
-    });
-
-        builder.Entity<ItemGroupList>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroupLists", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroupList.TenantId));
-        b.Property(x => x.Rate).HasColumnName(nameof(ItemGroupList.Rate));
-        b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemMaster>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<ItemGroupAttr>(b =>

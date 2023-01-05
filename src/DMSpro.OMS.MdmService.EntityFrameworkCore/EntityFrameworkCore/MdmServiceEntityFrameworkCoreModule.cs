@@ -36,7 +36,6 @@ using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -113,8 +112,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ItemGroup, ItemGroups.EfCoreItemGroupRepository>();
 
             options.AddRepository<ItemGroupAttr, ItemGroupAttrs.EfCoreItemGroupAttrRepository>();
-
-            options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
             options.AddRepository<PriceListDetail, PriceListDetails.EfCorePriceListDetailRepository>();
 

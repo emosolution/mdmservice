@@ -36,7 +36,6 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
-using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -121,9 +120,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<ItemGroupAttr, ItemGroupAttrDto>();
         CreateMap<ItemGroupAttr, ItemGroupAttrExcelDto>();
-
-        CreateMap<ItemGroupList, ItemGroupListDto>();
-        CreateMap<ItemGroupList, ItemGroupListExcelDto>();
 
         CreateMap<PriceListDetail, PriceListDetailDto>();
         CreateMap<PriceListDetail, PriceListDetailExcelDto>();
@@ -224,7 +220,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>();
         CreateMap<ItemMaster, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
         CreateMap<ItemGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<ItemGroupAttrWithNavigationProperties, ItemGroupAttrWithNavigationPropertiesDto>();
