@@ -34,14 +34,14 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
     //private readonly ILogger<MdmServiceDistributedEventHandler> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
-    private readonly IItemAttributeRepository _itemAttributeRepository;
+    private readonly IItemAttributeCustomRepository _itemAttributeCustomRepository;
     private readonly ICustomerAttributeRepository _customerAttributeRepository;
     private readonly IGuidGenerator _guidGenerator;
 
     private readonly ISystemDataRepository _systemDataRepository;
 
     public MdmServiceDistributedEventHandler(
-        IItemAttributeRepository itemAttributeRepository,
+        IItemAttributeCustomRepository itemAttributeCustomRepository,
         ICustomerAttributeRepository customerAttributeRepository,
         //ICurrentTenant currentTenant,
         //ILogger<MdmServiceDistributedEventHandler> logger,
@@ -50,7 +50,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         ISystemDataRepository systemDataRepository
         )
     {
-        _itemAttributeRepository = itemAttributeRepository;
+        _itemAttributeCustomRepository = itemAttributeCustomRepository;
         _customerAttributeRepository = customerAttributeRepository;
 
         //_currentTenant = currentTenant;
@@ -68,16 +68,16 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
             var abpUnitOfWorkOptions = new AbpUnitOfWorkOptions { IsTransactional = true };
             using var uow = _unitOfWorkManager.Begin(abpUnitOfWorkOptions, true);
             List<ItemAttribute> seedProductAttributes = new List<ItemAttribute>();
-            //for (int i = 0; i < ITEM_ATTRIBUTE_ROWS; i++)
-            //{
-            //    short AttrNo = (short)i;
-            //    string AttrName = "Attribute " + i;
-            //    Guid id = _guidGenerator.Create();
-            //    ItemAttribute data = new ItemAttribute(id, AttrNo, AttrName, false, false, null);
-            //    data.TenantId = eventData.Id;
-            //    seedProductAttributes.Add(data);
-            //}
-            //await _itemAttributeRepository.CreateWithExcepAsync(seedProductAttributes);
+            for (int i = 0; i < ITEM_ATTRIBUTE_ROWS; i++)
+            {
+                short AttrNo = (short)i;
+                string AttrName = "Attribute " + i;
+                Guid id = _guidGenerator.Create();
+                ItemAttribute data = new ItemAttribute(id, AttrNo, AttrName, false, false, null);
+                data.TenantId = eventData.Id;
+                seedProductAttributes.Add(data);
+            }
+            await _itemAttributeCustomRepository.CreateWithExcepAsync(seedProductAttributes);
 
             List<CustomerAttribute> seedCustomerAttributes= new List<CustomerAttribute>();
             for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)
