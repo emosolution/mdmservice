@@ -1,4 +1,6 @@
+using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -28,5 +30,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemGroupAttributeExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
     }
 }

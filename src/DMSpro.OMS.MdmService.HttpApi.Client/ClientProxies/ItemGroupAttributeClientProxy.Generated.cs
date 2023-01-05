@@ -7,6 +7,8 @@ using Volo.Abp.Http.Modeling;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.ClientProxying;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 using DMSpro.OMS.MdmService.Shared;
 using Volo.Abp.Content;
 
@@ -30,6 +32,14 @@ public partial class ItemGroupAttributeClientProxy : ClientProxyBase<IItemGroupA
         return await RequestAsync<ItemGroupAttributeWithNavigationPropertiesDto>(nameof(GetWithNavigationPropertiesAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
+        });
+    }
+
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
 
