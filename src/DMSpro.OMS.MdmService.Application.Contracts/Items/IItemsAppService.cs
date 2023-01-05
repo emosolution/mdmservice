@@ -1,4 +1,6 @@
+using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -12,6 +14,8 @@ namespace DMSpro.OMS.MdmService.Items
         Task<PagedResultDto<ItemWithNavigationPropertiesDto>> GetListAsync(GetItemsInput input);
 
         Task<ItemWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<ItemDto> GetAsync(Guid id);
 
