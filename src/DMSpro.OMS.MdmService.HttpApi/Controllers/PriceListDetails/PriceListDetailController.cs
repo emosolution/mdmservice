@@ -68,6 +68,13 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceListDetails
             return _priceListDetailsAppService.GetUOMLookupAsync(input);
         }
 
+        [HttpGet]
+        [Route("item-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
+        {
+            return _priceListDetailsAppService.GetItemLookupAsync(input);
+        }
+
         [HttpPost]
         public virtual Task<PriceListDetailDto> CreateAsync(PriceListDetailCreateDto input)
         {

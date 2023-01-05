@@ -28,7 +28,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
                 {
                     PriceListDetail = priceListDetail,
                     PriceList = dbContext.PriceLists.FirstOrDefault(c => c.Id == priceListDetail.PriceListId),
-                    UOM = dbContext.UOMs.FirstOrDefault(c => c.Id == priceListDetail.UOMId)
+                    UOM = dbContext.UOMs.FirstOrDefault(c => c.Id == priceListDetail.UOMId),
+                    Item = dbContext.Items.FirstOrDefault(c => c.Id == priceListDetail.ItemId)
                 }).FirstOrDefault();
         }
 
@@ -40,14 +41,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             int? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
-            Guid? uomId = null,
+            Guid? uOMId = null,
+            Guid? itemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, priceMin, priceMax, basedOnPriceMin, basedOnPriceMax, description, priceListId, uomId);
+            query = ApplyFilter(query, filterText, priceMin, priceMax, basedOnPriceMin, basedOnPriceMax, description, priceListId, uOMId, itemId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? PriceListDetailConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -59,12 +61,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
                    from priceList in priceLists.DefaultIfEmpty()
                    join uOM in (await GetDbContextAsync()).UOMs on priceListDetail.UOMId equals uOM.Id into uOMs
                    from uOM in uOMs.DefaultIfEmpty()
+                   join item in (await GetDbContextAsync()).Items on priceListDetail.ItemId equals item.Id into items
+                   from item in items.DefaultIfEmpty()
 
                    select new PriceListDetailWithNavigationProperties
                    {
                        PriceListDetail = priceListDetail,
                        PriceList = priceList,
-                       UOM = uOM
+                       UOM = uOM,
+                       Item = item
                    };
         }
 
@@ -77,7 +82,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             int? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
-            Guid? uomId = null)
+            Guid? uOMId = null,
+            Guid? itemId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.PriceListDetail.Description.Contains(filterText))
@@ -87,7 +93,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
                     .WhereIf(basedOnPriceMax.HasValue, e => e.PriceListDetail.BasedOnPrice <= basedOnPriceMax.Value)
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.PriceListDetail.Description.Contains(description))
                     .WhereIf(priceListId != null && priceListId != Guid.Empty, e => e.PriceList != null && e.PriceList.Id == priceListId)
-                    .WhereIf(uomId != null && uomId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uomId);
+                    .WhereIf(uOMId != null && uOMId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uOMId)
+                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.Item != null && e.Item.Id == itemId);
         }
 
         public async Task<List<PriceListDetail>> GetListAsync(
@@ -115,11 +122,12 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             int? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
-            Guid? uomId = null,
+            Guid? uOMId = null,
+            Guid? itemId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, priceMin, priceMax, basedOnPriceMin, basedOnPriceMax, description, priceListId, uomId);
+            query = ApplyFilter(query, filterText, priceMin, priceMax, basedOnPriceMin, basedOnPriceMax, description, priceListId, uOMId, itemId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 

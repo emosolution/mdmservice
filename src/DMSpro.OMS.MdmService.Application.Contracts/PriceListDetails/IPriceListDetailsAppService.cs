@@ -6,6 +6,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 using DevExtreme.AspNet.Data.ResponseModel;
+
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
     public interface IPriceListDetailsAppService : IApplicationService
@@ -15,12 +16,14 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         Task<PriceListDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-        
+
         Task<PriceListDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input);
+
+        Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.PriceLists;
 using System;
@@ -18,11 +19,13 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         private readonly UOMsDataSeedContributor _uOMsDataSeedContributor;
 
-        public PriceListDetailsDataSeedContributor(IPriceListDetailRepository priceListDetailRepository, IUnitOfWorkManager unitOfWorkManager, PriceListsDataSeedContributor priceListsDataSeedContributor, UOMsDataSeedContributor uOMsDataSeedContributor)
+        private readonly ItemsDataSeedContributor _itemsDataSeedContributor;
+
+        public PriceListDetailsDataSeedContributor(IPriceListDetailRepository priceListDetailRepository, IUnitOfWorkManager unitOfWorkManager, PriceListsDataSeedContributor priceListsDataSeedContributor, UOMsDataSeedContributor uOMsDataSeedContributor, ItemsDataSeedContributor itemsDataSeedContributor)
         {
             _priceListDetailRepository = priceListDetailRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _priceListsDataSeedContributor = priceListsDataSeedContributor; _uOMsDataSeedContributor = uOMsDataSeedContributor;
+            _priceListsDataSeedContributor = priceListsDataSeedContributor; _uOMsDataSeedContributor = uOMsDataSeedContributor; _itemsDataSeedContributor = itemsDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -34,25 +37,28 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
             await _priceListsDataSeedContributor.SeedAsync(context);
             await _uOMsDataSeedContributor.SeedAsync(context);
+            await _itemsDataSeedContributor.SeedAsync(context);
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"),
-                price: 1644042918,
-                basedOnPrice: 1416648660,
-                description: "d76f06c53cce4b66b273813284f9a4c120f40e38bd034b2ca0260176",
+                id: Guid.Parse("0e4184d8-69c6-4e16-90a4-c44f3d08337a"),
+                price: 540001679,
+                basedOnPrice: 990352987,
+                description: "d097712be59d450f937ca72bcb5554df0b277ef715d448448e261b7dd3b077935581e78e954f43c780c494dad85",
                 priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             ));
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("161f23e8-de0a-4c06-9e8e-7a265acf0803"),
-                price: 1636551312,
-                basedOnPrice: 409292364,
-                description: "f23907d612f14b05ad4007c1f96b7f1af7d9fe910fdd4547b60904846d7d351176c2d6faf3a64a6a8c2d282c5",
+                id: Guid.Parse("814e2f11-06f4-45cf-9e36-80df209fbc15"),
+                price: 1394487410,
+                basedOnPrice: 947230766,
+                description: "16589b337a17494c88f35913b5daa0d9c89d3d369fdc4ee1b23",
                 priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

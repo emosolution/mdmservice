@@ -114,6 +114,21 @@
       "DtoNamespace": "DMSpro.OMS.MdmService.UOMs",
       "DtoEntityName": "UOMDto",
       "Type": "Guid"
+    },
+    {
+      "EntityNameWithDuplicationNumber": "Item",
+      "EntitySetNameWithDuplicationNumber": "Items",
+      "ReferencePropertyName": "Item",
+      "UiPickType": "Dropdown",
+      "IsRequired": true,
+      "Name": "ItemId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.Items",
+      "EntityName": "Item",
+      "EntitySetName": "Items",
+      "DtoNamespace": "DMSpro.OMS.MdmService.Items",
+      "DtoEntityName": "ItemDto",
+      "Type": "Guid"
     }
   ],
   "NavigationConnections": [],

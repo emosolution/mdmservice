@@ -67,6 +67,14 @@ public partial class PriceListDetailClientProxy : ClientProxyBase<IPriceListDeta
         });
     }
 
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
     public virtual async Task<PriceListDetailDto> CreateAsync(PriceListDetailCreateDto input)
     {
         return await RequestAsync<PriceListDetailDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue

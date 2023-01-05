@@ -21,7 +21,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             int? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
-            Guid? uomId = null,
+            Guid? uOMId = null,
+            Guid? itemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -49,7 +50,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             int? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
-            Guid? uomId = null,
+            Guid? uOMId = null,
+            Guid? itemId = null,
             CancellationToken cancellationToken = default);
     }
 }
