@@ -82,7 +82,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemAttributes);
         itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemAttributes);
         itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemAttributes);
-        
+
         var itemPermission = myGroup.AddPermission(MdmServicePermissions.Items.Default, L("Permission:MdmService:Item")).RequireFeatures(MdmFeatures.Items);
         itemPermission.AddChild(MdmServicePermissions.Items.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Items);
         itemPermission.AddChild(MdmServicePermissions.Items.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Items);
