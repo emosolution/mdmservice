@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -27,14 +27,14 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         public virtual GroupType Type { get; set; }
 
-        public virtual Status Status { get; set; }
+        public virtual GroupStatus Status { get; set; }
 
         public ItemGroup()
         {
 
         }
 
-        public ItemGroup(Guid id, string code, string name, string description, GroupType type, Status status)
+        public ItemGroup(Guid id, string code, string name, string description, GroupType type, GroupStatus status)
         {
 
             Id = id;

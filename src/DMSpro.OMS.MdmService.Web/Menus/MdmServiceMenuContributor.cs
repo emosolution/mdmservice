@@ -27,8 +27,6 @@ public class MdmServiceMenuContributor : IMenuContributor
         AddMenuItemSalesOrganizations(context, moduleMenu);
         AddMenuItemCustomers(context, moduleMenu);
         AddMenuItemRouteAndMCP(context, moduleMenu);
-
-        AddMenuItemCompanyIdentityUserAssignments(context, moduleMenu);
     }
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
@@ -192,9 +190,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 MdmServicePermissions.UOMGroupDetails.Default,
                 MdmServicePermissions.ProductAttributes.Default,
                 MdmServicePermissions.ProdAttributeValues.Default,
-                MdmServicePermissions.ItemMasters.Default,
-                MdmServicePermissions.ItemImages.Default,
-                MdmServicePermissions.ItemAttachments.Default,
                 MdmServicePermissions.ItemGroups.Default,
                 MdmServicePermissions.ItemGroupAttrs.Default,
                 MdmServicePermissions.ItemGroupLists.Default,
@@ -260,36 +255,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.ProdAttributeValues.Default
             ).RequireFeatures(MdmFeatures.ProductAttributes)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ItemMasters,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemMasters"],
-                "/Mdm/ItemMasters",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemMasters.Default
-            ).RequireFeatures(MdmFeatures.Item)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ItemImages,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemImages"],
-                "/Mdm/ItemImages",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemImages.Default
-            ).RequireFeatures(MdmFeatures.Item)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ItemAttachments,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemAttachments"],
-                "/Mdm/ItemAttachments",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemAttachments.Default
-            ).RequireFeatures(MdmFeatures.Item)
         );
 
         groupMenu.AddItem(
@@ -721,10 +686,5 @@ public class MdmServiceMenuContributor : IMenuContributor
                 requiredPermissionName: MdmServicePermissions.RouteAssignments.Default
             ).RequireFeatures(MdmFeatures.RouteAssignments)
         );
-    }
-
-    private static void AddMenuItemCompanyIdentityUserAssignments(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
-    {
-        
     }
 }

@@ -84,12 +84,12 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "e9987a8a-0a02-44c7-bbf1-d6d5346caea2",
+      "Id": "b2a97ca7-72ae-4b74-9025-505f0224baf6",
       "Name": "Type",
       "Type": "enum",
       "EnumType": "GroupType",
-      "EnumNamespace": "DMSpro.OMS.MdmService.ItemMasters",
-      "EnumAngularImport": "shared/enums/type",
+      "EnumNamespace": "DMSpro.OMS.MdmService.ItemGroups",
+      "EnumAngularImport": "shared/enums/group-type",
       "EnumFilePath": "/src/DMSpro.OMS.MdmService.Domain.Shared/ItemGroups/ItemGroupType.cs",
       "DefaultValue": null,
       "IsNullable": false,
@@ -109,11 +109,11 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "5e9bf522-339c-4e0c-9a39-847141423796",
+      "Id": "e8ff7c45-65a2-4262-8541-289bfef78faa",
       "Name": "Status",
       "Type": "enum",
-      "EnumType": "Status",
-      "EnumNamespace": "DMSpro.OMS.MdmService.ItemMasters",
+      "EnumType": "GroupStatus",
+      "EnumNamespace": "DMSpro.OMS.MdmService.ItemGroups",
       "EnumAngularImport": "shared/enums/status",
       "EnumFilePath": "/src/DMSpro.OMS.MdmService.Domain.Shared/ItemGroups/ItemGroupStatus.cs",
       "DefaultValue": null,

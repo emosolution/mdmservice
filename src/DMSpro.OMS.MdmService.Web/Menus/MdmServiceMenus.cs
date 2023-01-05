@@ -33,7 +33,7 @@ public class MdmServiceMenus
     public const string ProductAttributeDefs = ProductAttributes + ".ProductAttributeDefs";
     public const string ProdAttributeValues = ProductAttributes + ".ProdAttributeValues";
     public const string Item = Product + ".Items";
-    public const string ItemMasters = Item + ".ItemMasters";
+    public const string Items = Item + ".Items";
     public const string ItemImages = Item + ".ItemImages";
     public const string ItemAttachments = Item + ".ItemAttachments";
     public const string ItemGroups = Product + ".ItemGroups";

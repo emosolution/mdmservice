@@ -38,7 +38,6 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
@@ -206,18 +205,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.ParentProdAttributeValueId).OnDelete(DeleteBehavior.NoAction);
     });
 
-        builder.Entity<ItemGroup>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroups", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroup.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(ItemGroup.Code)).IsRequired().HasMaxLength(ItemGroupConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(ItemGroup.Name)).IsRequired();
-        b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
-        b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
-        b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
-    });
-
         builder.Entity<ItemGroupAttr>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroupAttrs", MdmServiceDbProperties.DbSchema);
@@ -290,54 +277,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.IdentityUserId).HasColumnName(nameof(EmployeeProfile.IdentityUserId));
         b.HasOne<WorkingPosition>().WithMany().HasForeignKey(x => x.WorkingPositionId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.EmployeeTypeId).OnDelete(DeleteBehavior.NoAction);
-    });
-
-        builder.Entity<ItemMaster>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemMasters", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemMaster.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(ItemMaster.Code)).IsRequired().HasMaxLength(ItemMasterConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(ItemMaster.Name)).IsRequired().HasMaxLength(ItemMasterConsts.NameMaxLength);
-        b.Property(x => x.ShortName).HasColumnName(nameof(ItemMaster.ShortName)).HasMaxLength(ItemMasterConsts.ShortNameMaxLength);
-        b.Property(x => x.ERPCode).HasColumnName(nameof(ItemMaster.ERPCode)).HasMaxLength(ItemMasterConsts.ERPCodeMaxLength);
-        b.Property(x => x.Barcode).HasColumnName(nameof(ItemMaster.Barcode)).HasMaxLength(ItemMasterConsts.BarcodeMaxLength);
-        b.Property(x => x.Purchasble).HasColumnName(nameof(ItemMaster.Purchasble));
-        b.Property(x => x.Saleable).HasColumnName(nameof(ItemMaster.Saleable));
-        b.Property(x => x.Inventoriable).HasColumnName(nameof(ItemMaster.Inventoriable));
-        b.Property(x => x.Active).HasColumnName(nameof(ItemMaster.Active));
-        b.Property(x => x.ManageType).HasColumnName(nameof(ItemMaster.ManageType));
-        b.Property(x => x.ExpiredType).HasColumnName(nameof(ItemMaster.ExpiredType));
-        b.Property(x => x.ExpiredValue).HasColumnName(nameof(ItemMaster.ExpiredValue));
-        b.Property(x => x.IssueMethod).HasColumnName(nameof(ItemMaster.IssueMethod));
-        b.Property(x => x.CanUpdate).HasColumnName(nameof(ItemMaster.CanUpdate));
-        b.Property(x => x.BasePrice).HasColumnName(nameof(ItemMaster.BasePrice));
-        b.HasOne<SystemData>().WithMany().IsRequired().HasForeignKey(x => x.ItemTypeId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<VAT>().WithMany().IsRequired().HasForeignKey(x => x.VATId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOMGroup>().WithMany().IsRequired().HasForeignKey(x => x.UOMGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.InventoryUnitId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.PurUnitId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.SalesUnit).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<PriceList>(b =>
@@ -811,6 +750,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(PriceListDetail.Description)).IsRequired();
         b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<ItemGroup>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroups", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroup.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(ItemGroup.Code)).IsRequired().HasMaxLength(ItemGroupConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(ItemGroup.Name)).IsRequired();
+        b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
+        b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
+        b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
     });
     }
 }

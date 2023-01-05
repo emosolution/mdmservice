@@ -38,7 +38,6 @@ using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
@@ -103,9 +102,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<ProdAttributeValue, ProdAttributeValueDto>();
         CreateMap<ProdAttributeValue, ProdAttributeValueExcelDto>();
-
-        CreateMap<ItemMaster, ItemMasterDto>();
-        CreateMap<ItemMaster, ItemMasterExcelDto>();
 
         CreateMap<ItemGroup, ItemGroupDto>();
         CreateMap<ItemGroup, ItemGroupExcelDto>();
@@ -202,13 +198,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ProductAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
         CreateMap<ProdAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
 
-        CreateMap<ItemMasterWithNavigationProperties, ItemMasterWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.ValueCode));
         CreateMap<VAT, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<ItemMaster, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name));
-
-        CreateMap<ItemMaster, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<ItemGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 

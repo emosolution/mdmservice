@@ -1,7 +1,7 @@
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.Vendors;
 using DMSpro.OMS.MdmService.CustomerAttachments;
 using DMSpro.OMS.MdmService.CustomerContacts;
@@ -39,7 +39,6 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
@@ -101,7 +100,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<PriceListDetail> PriceListDetails { get; set; }
     public DbSet<ItemGroupAttr> ItemGroupAttrs { get; set; }
     public DbSet<ItemGroup> ItemGroups { get; set; }
-    public DbSet<ItemMaster> ItemMasters { get; set; }
     public DbSet<ProdAttributeValue> ProdAttributeValues { get; set; }
     public DbSet<ProductAttribute> ProductAttributes { get; set; }
     public DbSet<UOMGroupDetail> UOMGroupDetails { get; set; }

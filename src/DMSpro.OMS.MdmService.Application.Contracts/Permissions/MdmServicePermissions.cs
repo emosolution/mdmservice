@@ -151,30 +151,6 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
-    public static class ItemMasters
-    {
-        public const string Default = GroupName + ".ItemMasters";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemImages
-    {
-        public const string Default = GroupName + ".ItemImages";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemAttachments
-    {
-        public const string Default = GroupName + ".ItemAttachments";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
     public static class ItemGroups
     {
         public const string Default = GroupName + ".ItemGroups";

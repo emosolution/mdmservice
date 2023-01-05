@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ItemAttachment");
+                name: "ItemAttachments");
 
             migrationBuilder.DropTable(
                 name: "ItemImages");
@@ -19,7 +19,7 @@ namespace DMSpro.OMS.MdmService.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ItemAttachment",
+                name: "ItemAttachments",
                 columns: table => new
                 {
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)

@@ -1,4 +1,4 @@
-﻿namespace DMSpro.OMS.MdmService.ItemMasters
+﻿namespace DMSpro.OMS.MdmService.ItemGroups
 {
     public enum GroupType
     {

@@ -42,7 +42,7 @@ public partial class CompanyInZoneClientProxy : ClientProxyBase<ICompanyInZonesA
             { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
-    
+
     public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
     {
         return await RequestAsync<CompanyInZoneDto>(nameof(GetAsync), new ClientProxyRequestTypeValue
