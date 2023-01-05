@@ -434,6 +434,11 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<ItemImageDto, ItemImageUpdateViewModel>();
         CreateMap<ItemImageUpdateViewModel, ItemImageUpdateDto>();
         CreateMap<ItemImageCreateViewModel, ItemImageCreateDto>();
+        
+        CreateMap<ItemAttachmentDto, ItemAttachmentUpdateViewModel>();
+        CreateMap<ItemAttachmentUpdateViewModel, ItemAttachmentUpdateDto>();
+        CreateMap<ItemAttachmentCreateViewModel, ItemAttachmentCreateDto>();
         */
+
     }
 }

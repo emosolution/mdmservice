@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
@@ -336,5 +337,9 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemImage, ItemImageDto>();
         CreateMap<ItemImage, ItemImageExcelDto>();
         CreateMap<ItemImageWithNavigationProperties, ItemImageWithNavigationPropertiesDto>();
+
+        CreateMap<ItemAttachment, ItemAttachmentDto>();
+        CreateMap<ItemAttachment, ItemAttachmentExcelDto>();
+        CreateMap<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>();
     }
 }

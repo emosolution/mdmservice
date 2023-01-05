@@ -275,6 +275,16 @@ public class MdmServiceMenuContributor : IMenuContributor
             ).RequireFeatures(MdmFeatures.Items)
         );
 
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.ItemAttachments,
+                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemAttachments"],
+                "/ItemAttachments",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.Items.Default
+            ).RequireFeatures(MdmFeatures.Items)
+        );
+
         groupMenu.AddItem(
             new ApplicationMenuItem(
                 Menus.MdmServiceMenus.ItemGroups,

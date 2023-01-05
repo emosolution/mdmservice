@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
@@ -185,6 +186,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Item, Items.EfCoreItemRepository>();
 
             options.AddRepository<ItemImage, ItemImages.EfCoreItemImageRepository>();
+
+            options.AddRepository<ItemAttachment, ItemAttachments.EfCoreItemAttachmentRepository>();
 
         });
 

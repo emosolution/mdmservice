@@ -108,7 +108,8 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/ItemAttributeValues/Index", MdmServicePermissions.ItemAttributeValues.Default);
             options.Conventions.AuthorizePage("/ItemGroupAttributes/Index", MdmServicePermissions.ItemGroupAttributes.Default);
             options.Conventions.AuthorizePage("/Items/Index", MdmServicePermissions.Items.Default);
-            options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.ItemImages.Default);
+            options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.Items.Default);
+            options.Conventions.AuthorizePage("/ItemAttachments/Index", MdmServicePermissions.Items.Default);
         });
     }
 }

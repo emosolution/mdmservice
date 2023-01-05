@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
@@ -821,6 +822,16 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Url).HasColumnName(nameof(ItemImage.Url)).IsRequired().HasMaxLength(ItemImageConsts.UrlMaxLength);
         b.Property(x => x.Active).HasColumnName(nameof(ItemImage.Active));
         b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
+        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<ItemAttachment>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttachments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttachment.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description)).HasMaxLength(ItemAttachmentConsts.DescriptionMaxLength);
+        b.Property(x => x.Url).HasColumnName(nameof(ItemAttachment.Url)).IsRequired().HasMaxLength(ItemAttachmentConsts.UrlMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
     }

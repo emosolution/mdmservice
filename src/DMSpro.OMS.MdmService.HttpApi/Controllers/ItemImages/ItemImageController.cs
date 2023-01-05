@@ -7,7 +7,6 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemImages;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 
