@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
@@ -39,8 +40,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         public virtual async Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input)
         {
-            var totalCount = await _itemAttributeRepository.GetCountAsync(input.FilterText, input.AttrNo, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory);
-            var items = await _itemAttributeRepository.GetListAsync(input.FilterText, input.AttrNo, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemAttributeRepository.GetCountAsync(input.FilterText, input.AttrNoMin, input.AttrNoMax, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory);
+            var items = await _itemAttributeRepository.GetListAsync(input.FilterText, input.AttrNoMin, input.AttrNoMax, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemAttributeDto>
             {
@@ -104,7 +105,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemAttributeRepository.GetListAsync(input.FilterText, input.AttrNo, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory);
+            var items = await _itemAttributeRepository.GetListAsync(input.FilterText, input.AttrNoMin, input.AttrNoMax, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory);
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemAttribute>, List<ItemAttributeExcelDto>>(items));

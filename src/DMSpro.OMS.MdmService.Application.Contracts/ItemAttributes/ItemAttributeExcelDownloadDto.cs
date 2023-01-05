@@ -9,7 +9,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         public string FilterText { get; set; }
 
-        public string AttrNo { get; set; }
+        public int? AttrNoMin { get; set; }
+        public int? AttrNoMax { get; set; }
         public string AttrName { get; set; }
         public int? HierarchyLevelMin { get; set; }
         public int? HierarchyLevelMax { get; set; }

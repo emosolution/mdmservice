@@ -6,9 +6,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 {
     public class ItemAttributeCreateDto
     {
-        [Required]
-        [StringLength(ItemAttributeConsts.AttrNoMaxLength, MinimumLength = ItemAttributeConsts.AttrNoMinLength)]
-        public string AttrNo { get; set; }
+        [Range(ItemAttributeConsts.AttrNoMinLength, ItemAttributeConsts.AttrNoMaxLength)]
+        public int AttrNo { get; set; }
         [Required]
         [StringLength(ItemAttributeConsts.AttrNameMaxLength, MinimumLength = ItemAttributeConsts.AttrNameMinLength)]
         public string AttrName { get; set; }

@@ -20,10 +20,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         }
 
         public async Task<ItemAttribute> CreateAsync(
-        string attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null)
+        int attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null)
         {
-            Check.NotNullOrWhiteSpace(attrNo, nameof(attrNo));
-            Check.Length(attrNo, nameof(attrNo), ItemAttributeConsts.AttrNoMaxLength, ItemAttributeConsts.AttrNoMinLength);
+            Check.Range(attrNo, nameof(attrNo), ItemAttributeConsts.AttrNoMinLength, ItemAttributeConsts.AttrNoMaxLength);
             Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName), ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
 
@@ -37,11 +36,10 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         public async Task<ItemAttribute> UpdateAsync(
             Guid id,
-            string attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null, [CanBeNull] string concurrencyStamp = null
+            int attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null, [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNullOrWhiteSpace(attrNo, nameof(attrNo));
-            Check.Length(attrNo, nameof(attrNo), ItemAttributeConsts.AttrNoMaxLength, ItemAttributeConsts.AttrNoMinLength);
+            Check.Range(attrNo, nameof(attrNo), ItemAttributeConsts.AttrNoMinLength, ItemAttributeConsts.AttrNoMaxLength);
             Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName), ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
 

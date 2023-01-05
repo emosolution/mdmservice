@@ -21,7 +21,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         public async Task<List<ItemAttribute>> GetListAsync(
             string filterText = null,
-            string attrNo = null,
+            int? attrNoMin = null,
+            int? attrNoMax = null,
             string attrName = null,
             int? hierarchyLevelMin = null,
             int? hierarchyLevelMax = null,
@@ -32,14 +33,15 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, attrNo, attrName, hierarchyLevelMin, hierarchyLevelMax, active, isSellingCategory);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, attrNoMin, attrNoMax, attrName, hierarchyLevelMin, hierarchyLevelMax, active, isSellingCategory);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemAttributeConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
 
         public async Task<long> GetCountAsync(
             string filterText = null,
-            string attrNo = null,
+            int? attrNoMin = null,
+            int? attrNoMax = null,
             string attrName = null,
             int? hierarchyLevelMin = null,
             int? hierarchyLevelMax = null,
@@ -47,14 +49,15 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             bool? isSellingCategory = null,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetDbSetAsync()), filterText, attrNo, attrName, hierarchyLevelMin, hierarchyLevelMax, active, isSellingCategory);
+            var query = ApplyFilter((await GetDbSetAsync()), filterText, attrNoMin, attrNoMax, attrName, hierarchyLevelMin, hierarchyLevelMax, active, isSellingCategory);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
         protected virtual IQueryable<ItemAttribute> ApplyFilter(
             IQueryable<ItemAttribute> query,
             string filterText,
-            string attrNo = null,
+            int? attrNoMin = null,
+            int? attrNoMax = null,
             string attrName = null,
             int? hierarchyLevelMin = null,
             int? hierarchyLevelMax = null,
@@ -62,8 +65,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             bool? isSellingCategory = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.AttrNo.Contains(filterText) || e.AttrName.Contains(filterText))
-                    .WhereIf(!string.IsNullOrWhiteSpace(attrNo), e => e.AttrNo.Contains(attrNo))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.AttrName.Contains(filterText))
+                    .WhereIf(attrNoMin.HasValue, e => e.AttrNo >= attrNoMin.Value)
+                    .WhereIf(attrNoMax.HasValue, e => e.AttrNo <= attrNoMax.Value)
                     .WhereIf(!string.IsNullOrWhiteSpace(attrName), e => e.AttrName.Contains(attrName))
                     .WhereIf(hierarchyLevelMin.HasValue, e => e.HierarchyLevel >= hierarchyLevelMin.Value)
                     .WhereIf(hierarchyLevelMax.HasValue, e => e.HierarchyLevel <= hierarchyLevelMax.Value)

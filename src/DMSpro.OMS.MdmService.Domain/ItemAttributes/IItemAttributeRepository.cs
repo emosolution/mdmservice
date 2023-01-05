@@ -10,7 +10,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
     {
         Task<List<ItemAttribute>> GetListAsync(
             string filterText = null,
-            string attrNo = null,
+            int? attrNoMin = null,
+            int? attrNoMax = null,
             string attrName = null,
             int? hierarchyLevelMin = null,
             int? hierarchyLevelMax = null,
@@ -24,7 +25,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         Task<long> GetCountAsync(
             string filterText = null,
-            string attrNo = null,
+            int? attrNoMin = null,
+            int? attrNoMax = null,
             string attrName = null,
             int? hierarchyLevelMin = null,
             int? hierarchyLevelMax = null,

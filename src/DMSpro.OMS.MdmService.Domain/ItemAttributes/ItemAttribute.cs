@@ -15,8 +15,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
     {
         public virtual Guid? TenantId { get; set; }
 
-        [NotNull]
-        public virtual string AttrNo { get; set; }
+        public virtual int AttrNo { get; set; }
 
         [NotNull]
         public virtual string AttrName { get; set; }
@@ -32,12 +31,20 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         }
 
-        public ItemAttribute(Guid id, string attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null)
+        public ItemAttribute(Guid id, int attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null)
         {
 
             Id = id;
-            Check.NotNull(attrNo, nameof(attrNo));
-            Check.Length(attrNo, nameof(attrNo), ItemAttributeConsts.AttrNoMaxLength, ItemAttributeConsts.AttrNoMinLength);
+            if (attrNo < ItemAttributeConsts.AttrNoMinLength)
+            {
+                throw new ArgumentOutOfRangeException(nameof(attrNo), attrNo, "The value of 'attrNo' cannot be lower than " + ItemAttributeConsts.AttrNoMinLength);
+            }
+
+            if (attrNo > ItemAttributeConsts.AttrNoMaxLength)
+            {
+                throw new ArgumentOutOfRangeException(nameof(attrNo), attrNo, "The value of 'attrNo' cannot be greater than " + ItemAttributeConsts.AttrNoMaxLength);
+            }
+
             Check.NotNull(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName), ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
             AttrNo = attrNo;

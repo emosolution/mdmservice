@@ -6,7 +6,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 {
     public class ItemAttributeDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        public string AttrNo { get; set; }
+        public int AttrNo { get; set; }
         public string AttrName { get; set; }
         public int? HierarchyLevel { get; set; }
         public bool Active { get; set; }

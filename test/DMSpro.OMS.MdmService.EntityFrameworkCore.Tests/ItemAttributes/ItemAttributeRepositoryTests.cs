@@ -25,8 +25,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             {
                 // Act
                 var result = await _itemAttributeRepository.GetListAsync(
-                    attrNo: "2cd9bbff3ab948e5a83e",
-                    attrName: "8ef91d393d6947069f1e",
+                    attrName: "601d6242fcbb447b8d0b",
                     active: true,
                     isSellingCategory: true
                 );
@@ -34,7 +33,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"));
+                result.First().Id.ShouldBe(Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"));
             });
         }
 
@@ -46,8 +45,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             {
                 // Act
                 var result = await _itemAttributeRepository.GetCountAsync(
-                    attrNo: "c61b88a8e7ec45ab8944",
-                    attrName: "7328332efef9415f93b7",
+                    attrName: "e0f2827c1ba846ad8edf",
                     active: true,
                     isSellingCategory: true
                 );

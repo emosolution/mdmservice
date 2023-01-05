@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("308c03f7-7ce6-4f77-821c-601577c38001")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("d3b859c6-5b84-454c-a914-68680e430af5")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemAttributesAppService.GetAsync(Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"));
+            var result = await _itemAttributesAppService.GetAsync(Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"));
+            result.Id.ShouldBe(Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"));
         }
 
         [Fact]
@@ -48,9 +48,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             // Arrange
             var input = new ItemAttributeCreateDto
             {
-                AttrNo = "69a0120576f1404ba36b",
-                AttrName = "6892ed684e7e40a1bbba",
-                HierarchyLevel = 1165194849,
+                AttrNo = 2,
+                AttrName = "04e16c4ea1cf4dfaae70",
+                HierarchyLevel = 1325607738,
                 Active = true,
                 IsSellingCategory = true
             };
@@ -62,9 +62,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             var result = await _itemAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.AttrNo.ShouldBe("69a0120576f1404ba36b");
-            result.AttrName.ShouldBe("6892ed684e7e40a1bbba");
-            result.HierarchyLevel.ShouldBe(1165194849);
+            result.AttrNo.ShouldBe(2);
+            result.AttrName.ShouldBe("04e16c4ea1cf4dfaae70");
+            result.HierarchyLevel.ShouldBe(1325607738);
             result.Active.ShouldBe(true);
             result.IsSellingCategory.ShouldBe(true);
         }
@@ -75,23 +75,23 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             // Arrange
             var input = new ItemAttributeUpdateDto()
             {
-                AttrNo = "563a228672264ffb8538",
-                AttrName = "b1382b1024d04c4799b1",
-                HierarchyLevel = 1189393895,
+                AttrNo = 15,
+                AttrName = "1105b8c5666347a6964b",
+                HierarchyLevel = 1250698271,
                 Active = true,
                 IsSellingCategory = true
             };
 
             // Act
-            var serviceResult = await _itemAttributesAppService.UpdateAsync(Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"), input);
+            var serviceResult = await _itemAttributesAppService.UpdateAsync(Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"), input);
 
             // Assert
             var result = await _itemAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.AttrNo.ShouldBe("563a228672264ffb8538");
-            result.AttrName.ShouldBe("b1382b1024d04c4799b1");
-            result.HierarchyLevel.ShouldBe(1189393895);
+            result.AttrNo.ShouldBe(15);
+            result.AttrName.ShouldBe("1105b8c5666347a6964b");
+            result.HierarchyLevel.ShouldBe(1250698271);
             result.Active.ShouldBe(true);
             result.IsSellingCategory.ShouldBe(true);
         }
@@ -100,10 +100,10 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         public async Task DeleteAsync()
         {
             // Act
-            await _itemAttributesAppService.DeleteAsync(Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"));
+            await _itemAttributesAppService.DeleteAsync(Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"));
 
             // Assert
-            var result = await _itemAttributeRepository.FindAsync(c => c.Id == Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"));
+            var result = await _itemAttributeRepository.FindAsync(c => c.Id == Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"));
 
             result.ShouldBeNull();
         }

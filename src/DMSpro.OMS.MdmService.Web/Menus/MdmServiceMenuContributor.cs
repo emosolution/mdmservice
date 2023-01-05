@@ -251,7 +251,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 "/ItemAttributeValues",
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.ItemAttributeValues.Default
-            )
+            ).RequireFeatures(MdmFeatures.ItemAttributes)
         );
 
         groupMenu.AddItem(

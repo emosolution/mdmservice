@@ -711,18 +711,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
     });
 
-        builder.Entity<ItemAttribute>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributes", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttribute.TenantId));
-        b.Property(x => x.AttrNo).HasColumnName(nameof(ItemAttribute.AttrNo)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNoMaxLength);
-        b.Property(x => x.AttrName).HasColumnName(nameof(ItemAttribute.AttrName)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNameMaxLength);
-        b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
-        b.Property(x => x.Active).HasColumnName(nameof(ItemAttribute.Active));
-        b.Property(x => x.IsSellingCategory).HasColumnName(nameof(ItemAttribute.IsSellingCategory));
-    });
-
         builder.Entity<ItemAttributeValue>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributeValues", MdmServiceDbProperties.DbSchema);
@@ -731,6 +719,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.AttrValName).HasColumnName(nameof(ItemAttributeValue.AttrValName)).IsRequired().HasMaxLength(ItemAttributeValueConsts.AttrValNameMaxLength);
         b.HasOne<ItemAttribute>().WithMany().IsRequired().HasForeignKey(x => x.ItemAttributeId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<ItemAttribute>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributes", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttribute.TenantId));
+        b.Property(x => x.AttrNo).HasColumnName(nameof(ItemAttribute.AttrNo)).HasMaxLength(ItemAttributeConsts.AttrNoMaxLength);
+        b.Property(x => x.AttrName).HasColumnName(nameof(ItemAttribute.AttrName)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNameMaxLength);
+        b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
+        b.Property(x => x.Active).HasColumnName(nameof(ItemAttribute.Active));
+        b.Property(x => x.IsSellingCategory).HasColumnName(nameof(ItemAttribute.IsSellingCategory));
     });
     }
 }
