@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
@@ -315,5 +316,9 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
 
         CreateMap<ItemAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
+
+        CreateMap<ItemGroupAttribute, ItemGroupAttributeDto>();
+        CreateMap<ItemGroupAttribute, ItemGroupAttributeExcelDto>();
+        CreateMap<ItemGroupAttributeWithNavigationProperties, ItemGroupAttributeWithNavigationPropertiesDto>();
     }
 }

@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DMSpro.OMS.MdmService.Migrations
 {
     [DbContext(typeof(MdmServiceDbContext))]
-    partial class MdmServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230105101343_Added_ItemGroupAttribute")]
+    partial class Added_ItemGroupAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2273,9 +2275,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("Attr4Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Attr5Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("Attr6Id")
                         .HasColumnType("uniqueidentifier");
 
@@ -2372,8 +2371,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasIndex("Attr3Id");
 
                     b.HasIndex("Attr4Id");
-
-                    b.HasIndex("Attr5Id");
 
                     b.HasIndex("Attr6Id");
 
@@ -4967,11 +4964,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasOne("DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValue", null)
                         .WithMany()
                         .HasForeignKey("Attr4Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValue", null)
-                        .WithMany()
-                        .HasForeignKey("Attr5Id")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValue", null)

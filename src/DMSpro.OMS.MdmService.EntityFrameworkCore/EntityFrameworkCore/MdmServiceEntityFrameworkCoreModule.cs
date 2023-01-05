@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
@@ -176,6 +177,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ItemAttribute, ItemAttributes.EfCoreItemAttributeRepository>();
 
             options.AddRepository<ItemAttributeValue, ItemAttributeValues.EfCoreItemAttributeValueRepository>();
+
+            options.AddRepository<ItemGroupAttribute, ItemGroupAttributes.EfCoreItemGroupAttributeRepository>();
 
         });
 

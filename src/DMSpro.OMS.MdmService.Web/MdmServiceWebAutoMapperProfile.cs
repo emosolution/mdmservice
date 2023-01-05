@@ -1,4 +1,6 @@
 /*
+using DMSpro.OMS.MdmService.Web.Pages.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.Web.Pages.ItemAttributes;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.Web.Pages.ItemAttributeValues;
@@ -418,6 +420,10 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<ItemAttributeValueDto, ItemAttributeValueUpdateViewModel>();
         CreateMap<ItemAttributeValueUpdateViewModel, ItemAttributeValueUpdateDto>();
         CreateMap<ItemAttributeValueCreateViewModel, ItemAttributeValueCreateDto>();
+        
+        CreateMap<ItemGroupAttributeDto, ItemGroupAttributeUpdateViewModel>();
+        CreateMap<ItemGroupAttributeUpdateViewModel, ItemGroupAttributeUpdateDto>();
+        CreateMap<ItemGroupAttributeCreateViewModel, ItemGroupAttributeCreateDto>();
         */
     }
 }

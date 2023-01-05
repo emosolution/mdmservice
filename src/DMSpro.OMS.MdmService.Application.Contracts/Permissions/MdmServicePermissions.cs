@@ -159,6 +159,14 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
+    public static class ItemGroupAttributes
+    {
+        public const string Default = GroupName + ".ItemGroupAttributes";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
     public static class PriceLists
     {
         public const string Default = GroupName + ".PriceLists";

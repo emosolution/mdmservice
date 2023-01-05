@@ -106,6 +106,7 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/CompanyIdentityUserAssignments/Index", MdmServicePermissions.CompanyIdentityUserAssignments.Default);
             options.Conventions.AuthorizePage("/ItemAttributes/Index", MdmServicePermissions.ItemAttributes.Default);
             options.Conventions.AuthorizePage("/ItemAttributeValues/Index", MdmServicePermissions.ItemAttributeValues.Default);
+            options.Conventions.AuthorizePage("/ItemGroupAttributes/Index", MdmServicePermissions.ItemGroupAttributes.Default);
         });
     }
 }
