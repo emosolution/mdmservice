@@ -1,6 +1,8 @@
 /*
 using DMSpro.OMS.MdmService.Web.Pages.ItemAttributes;
 using DMSpro.OMS.MdmService.ItemAttributes;
+using DMSpro.OMS.MdmService.Web.Pages.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.Web.Pages.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Web.Pages.Vendors;
@@ -412,6 +414,10 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<ItemAttributeDto, ItemAttributeUpdateViewModel>();
         CreateMap<ItemAttributeUpdateViewModel, ItemAttributeUpdateDto>();
         CreateMap<ItemAttributeCreateViewModel, ItemAttributeCreateDto>();
+
+        CreateMap<ItemAttributeValueDto, ItemAttributeValueUpdateViewModel>();
+        CreateMap<ItemAttributeValueUpdateViewModel, ItemAttributeValueUpdateDto>();
+        CreateMap<ItemAttributeValueCreateViewModel, ItemAttributeValueCreateDto>();
         */
     }
 }

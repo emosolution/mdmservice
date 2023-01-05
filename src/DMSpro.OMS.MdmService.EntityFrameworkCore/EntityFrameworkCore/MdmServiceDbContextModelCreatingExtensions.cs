@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
@@ -720,6 +721,16 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
         b.Property(x => x.Active).HasColumnName(nameof(ItemAttribute.Active));
         b.Property(x => x.IsSellingCategory).HasColumnName(nameof(ItemAttribute.IsSellingCategory));
+    });
+
+        builder.Entity<ItemAttributeValue>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributeValues", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttributeValue.TenantId));
+        b.Property(x => x.AttrValName).HasColumnName(nameof(ItemAttributeValue.AttrValName)).IsRequired().HasMaxLength(ItemAttributeValueConsts.AttrValNameMaxLength);
+        b.HasOne<ItemAttribute>().WithMany().IsRequired().HasForeignKey(x => x.ItemAttributeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

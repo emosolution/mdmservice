@@ -22,24 +22,26 @@ using Volo.Abp.Uow;
 using Volo.Saas;
 using Volo.Saas.Tenants;
 using DMSpro.OMS.MdmService.SystemDatas;
+using DMSpro.OMS.MdmService.ItemAttributes;
+
 namespace DMSpro.OMS.MdmService;
 public class MdmServiceDistributedEventHandler : IDistributedEventHandler<TenantCreatedEto>, ITransientDependency
 {
-    private static int PRODUCT_ATTRIBUTE_ROWS = 20;
+    private static int ITEM_ATTRIBUTE_ROWS = 20;
     private static int CUSTOMER_ATTRIBUTE_ROWS = 20;
 
     //private readonly ICurrentTenant _currentTenant;
     //private readonly ILogger<MdmServiceDistributedEventHandler> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
-    //private readonly IProductAttributeRepository _productAttributeRepository;
+    private readonly IItemAttributeRepository _itemAttributeRepository;
     private readonly ICustomerAttributeRepository _customerAttributeRepository;
     private readonly IGuidGenerator _guidGenerator;
 
     private readonly ISystemDataRepository _systemDataRepository;
 
     public MdmServiceDistributedEventHandler(
-        //IProductAttributeRepository productAttributeRepository,
+        IItemAttributeRepository itemAttributeRepository,
         ICustomerAttributeRepository customerAttributeRepository,
         //ICurrentTenant currentTenant,
         //ILogger<MdmServiceDistributedEventHandler> logger,
@@ -48,7 +50,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         ISystemDataRepository systemDataRepository
         )
     {
-        //_productAttributeRepository = productAttributeRepository;
+        _itemAttributeRepository = itemAttributeRepository;
         _customerAttributeRepository = customerAttributeRepository;
 
         //_currentTenant = currentTenant;
@@ -65,17 +67,17 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         {
             var abpUnitOfWorkOptions = new AbpUnitOfWorkOptions { IsTransactional = true };
             using var uow = _unitOfWorkManager.Begin(abpUnitOfWorkOptions, true);
-            //List<ProductAttribute> seedProductAttributes= new List<ProductAttribute>();
-            //for (int i = 0; i < PRODUCT_ATTRIBUTE_ROWS; i++)
+            List<ItemAttribute> seedProductAttributes = new List<ItemAttribute>();
+            //for (int i = 0; i < ITEM_ATTRIBUTE_ROWS; i++)
             //{
             //    short AttrNo = (short)i;
             //    string AttrName = "Attribute " + i;
             //    Guid id = _guidGenerator.Create();
-            //    ProductAttribute data = new ProductAttribute(id, AttrNo, AttrName, false, false, null);
+            //    ItemAttribute data = new ItemAttribute(id, AttrNo, AttrName, false, false, null);
             //    data.TenantId = eventData.Id;
             //    seedProductAttributes.Add(data);
             //}
-            //await _productAttributeRepository.CreateWithExcepAsync(seedProductAttributes);
+            //await _itemAttributeRepository.CreateWithExcepAsync(seedProductAttributes);
 
             List<CustomerAttribute> seedCustomerAttributes= new List<CustomerAttribute>();
             for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)

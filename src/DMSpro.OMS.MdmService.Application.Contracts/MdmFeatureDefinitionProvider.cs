@@ -148,7 +148,7 @@ namespace DMSpro.OMS.MdmService
                 MdmFeatures.Item,
                 defaultValue: "false",
                 displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItem"),
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItemMaster"),
                 valueType: new ToggleStringValueType()
             );
 

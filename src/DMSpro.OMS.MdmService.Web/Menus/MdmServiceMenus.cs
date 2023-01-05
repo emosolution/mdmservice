@@ -30,6 +30,7 @@ public class MdmServiceMenus
     public const string UOMGroupDef = UOMGroups + ".UOMGroupDef";
     public const string UOMGroupDetails = UOMGroups + ".UOMGroupDetails";
     public const string ItemAttributes = Item + ".ItemAttributes";
+    public const string ItemAttributeValues = Item + ".ItemAttributeValues";
     public const string Items = Item + ".Items";
     public const string ItemImages = Item + ".ItemImages";
     public const string ItemAttachments = Item + ".ItemAttachments";

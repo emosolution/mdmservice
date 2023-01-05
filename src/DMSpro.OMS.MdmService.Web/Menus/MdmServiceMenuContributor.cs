@@ -246,6 +246,16 @@ public class MdmServiceMenuContributor : IMenuContributor
 
         groupMenu.AddItem(
             new ApplicationMenuItem(
+                Menus.MdmServiceMenus.ItemAttributeValues,
+                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemAttributeValue"],
+                "/ItemAttributeValues",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.ItemAttributeValues.Default
+            )
+        );
+
+        groupMenu.AddItem(
+            new ApplicationMenuItem(
                 Menus.MdmServiceMenus.ItemGroups,
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroups"],
                 "/Mdm/ItemGroups",
