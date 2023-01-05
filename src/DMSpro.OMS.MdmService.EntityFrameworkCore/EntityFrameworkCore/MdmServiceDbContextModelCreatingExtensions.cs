@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
@@ -707,6 +708,18 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
         b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
         b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
+    });
+
+        builder.Entity<ItemAttribute>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributes", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttribute.TenantId));
+        b.Property(x => x.AttrNo).HasColumnName(nameof(ItemAttribute.AttrNo)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNoMaxLength);
+        b.Property(x => x.AttrName).HasColumnName(nameof(ItemAttribute.AttrName)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNameMaxLength);
+        b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
+        b.Property(x => x.Active).HasColumnName(nameof(ItemAttribute.Active));
+        b.Property(x => x.IsSellingCategory).HasColumnName(nameof(ItemAttribute.IsSellingCategory));
     });
     }
 }

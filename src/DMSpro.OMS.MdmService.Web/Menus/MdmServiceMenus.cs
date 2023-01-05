@@ -24,23 +24,23 @@ public class MdmServiceMenus
     public const string SalesChannels = Companies + ".SalesChannels";
     public const string CompanyIdentityUserAssignments = Companies + ".CompanyIdentityUserAssignments";
 
-    public const string Product = Prefix + ".Products";
-    public const string UOMs = Product + ".UOMs";
-    public const string UOMGroups = Product + ".UOMGroups";
+    public const string Item = Prefix + ".Products";
+    public const string UOMs = Item + ".UOMs";
+    public const string UOMGroups = Item + ".UOMGroups";
     public const string UOMGroupDef = UOMGroups + ".UOMGroupDef";
     public const string UOMGroupDetails = UOMGroups + ".UOMGroupDetails";
-    public const string Item = Product + ".Items";
+    public const string ItemAttributes = Item + ".ItemAttributes";
     public const string Items = Item + ".Items";
     public const string ItemImages = Item + ".ItemImages";
     public const string ItemAttachments = Item + ".ItemAttachments";
-    public const string ItemGroups = Product + ".ItemGroups";
-    public const string PriceLists = Product + ".PriceLists";
+    public const string ItemGroups = Item + ".ItemGroups";
+    public const string PriceLists = Item + ".PriceLists";
     public const string PriceListDefs = PriceLists + ".PriceListDefs";
     public const string PriceListDetails = PriceLists + ".PriceListDetails";
-    public const string PriceUpdate = Product + ".PriceUpdates";
+    public const string PriceUpdate = Item + ".PriceUpdates";
     public const string PriceUpdateDefs = PriceUpdate + ".PriceUpdateDefs";
     public const string PriceUpdateDetails = PriceUpdate + ".PriceUpdateDetails";
-    public const string PriceListAssignments = Product + ".PriceAssignments";
+    public const string PriceListAssignments = Item + ".PriceAssignments";
 
     public const string SalesOrganizations = Prefix + ".SalesOrganizations";
     public const string WorkingPositions = SalesOrganizations + ".WorkingPositions";

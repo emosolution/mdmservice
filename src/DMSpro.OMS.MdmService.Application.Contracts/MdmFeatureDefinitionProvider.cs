@@ -111,40 +111,8 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
-            // Product group
-            var enableProduct = enableMdm.CreateChild(
-                MdmFeatures.Product,
-                defaultValue: "false",
-                displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableProduct"),
-                valueType: new ToggleStringValueType()
-            );
-
-            enableProduct.CreateChild(
-                MdmFeatures.UOMs,
-                defaultValue: "false",
-                displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableUOM"),
-                valueType: new ToggleStringValueType()
-            );
-
-            enableProduct.CreateChild(
-                MdmFeatures.UOMGroups,
-                defaultValue: "false",
-                displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableUOMGroup"),
-                valueType: new ToggleStringValueType()
-            );
-
-            enableProduct.CreateChild(
-                MdmFeatures.ProductAttributes,
-                defaultValue: "false",
-                displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableProductAttribute"),
-                valueType: new ToggleStringValueType()
-            );
-
-            enableProduct.CreateChild(
+            // Item group
+            var enableItem = enableMdm.CreateChild(
                 MdmFeatures.Item,
                 defaultValue: "false",
                 displayName: LocalizableString
@@ -152,7 +120,39 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
-            enableProduct.CreateChild(
+            enableItem.CreateChild(
+                MdmFeatures.UOMs,
+                defaultValue: "false",
+                displayName: LocalizableString
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableUOM"),
+                valueType: new ToggleStringValueType()
+            );
+
+            enableItem.CreateChild(
+                MdmFeatures.UOMGroups,
+                defaultValue: "false",
+                displayName: LocalizableString
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableUOMGroup"),
+                valueType: new ToggleStringValueType()
+            );
+
+            enableItem.CreateChild(
+                MdmFeatures.ItemAttributes,
+                defaultValue: "false",
+                displayName: LocalizableString
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItemAttribute"),
+                valueType: new ToggleStringValueType()
+            );
+
+            enableItem.CreateChild(
+                MdmFeatures.Item,
+                defaultValue: "false",
+                displayName: LocalizableString
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItem"),
+                valueType: new ToggleStringValueType()
+            );
+
+            enableItem.CreateChild(
                 MdmFeatures.ItemGroups,
                 defaultValue: "false",
                 displayName: LocalizableString
@@ -160,7 +160,7 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
-            enableProduct.CreateChild(
+            enableItem.CreateChild(
                 MdmFeatures.PriceLists,
                 defaultValue: "false",
                 displayName: LocalizableString
@@ -168,7 +168,7 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
-            enableProduct.CreateChild(
+            enableItem.CreateChild(
                 MdmFeatures.PriceUpdate,
                 defaultValue: "false",
                 displayName: LocalizableString
@@ -176,7 +176,7 @@ namespace DMSpro.OMS.MdmService
                 valueType: new ToggleStringValueType()
             );
 
-            enableProduct.CreateChild(
+            enableItem.CreateChild(
                 MdmFeatures.PriceListAssignments,
                 defaultValue: "false",
                 displayName: LocalizableString

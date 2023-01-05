@@ -180,14 +180,15 @@ public class MdmServiceMenuContributor : IMenuContributor
     private static void AddMenuItemItems(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
     {
         ApplicationMenuItem groupMenu = new ApplicationMenuItem(
-               Menus.MdmServiceMenus.Product,
-               context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:GroupMenu:Product"],
+               Menus.MdmServiceMenus.Item,
+               context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:GroupMenu:Item"],
                null,
                icon: "fa fa-file-alt"
            )
             .RequirePermissions(false, MdmServicePermissions.UOMs.Default,
                 MdmServicePermissions.UOMGroups.Default,
                 MdmServicePermissions.UOMGroupDetails.Default,
+                MdmServicePermissions.ItemAttributes.Default,
                 MdmServicePermissions.ItemGroups.Default,
                 MdmServicePermissions.PriceLists.Default,
                 MdmServicePermissions.PriceListDetails.Default,
@@ -196,6 +197,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 MdmServicePermissions.PriceListAssignments.Default)
             .RequireFeatures(false, MdmFeatures.UOMs,
                 MdmFeatures.UOMGroups,
+                MdmFeatures.ItemAttributes,
                 MdmFeatures.Item, MdmFeatures.ItemGroups,
                 MdmFeatures.PriceLists, MdmFeatures.PriceUpdate,
                 MdmFeatures.PriceListAssignments);
@@ -230,6 +232,16 @@ public class MdmServiceMenuContributor : IMenuContributor
                icon: "fa fa-file-alt",
                requiredPermissionName: MdmServicePermissions.UOMGroupDetails.Default
            ).RequireFeatures(MdmFeatures.UOMGroups)
+        );
+
+        groupMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.ItemAttributes,
+                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemAttributes"],
+                "/ItemAttributes",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.ItemAttributes.Default
+            ).RequireFeatures(MdmFeatures.ItemAttributes)
         );
 
         groupMenu.AddItem(

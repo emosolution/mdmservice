@@ -101,7 +101,7 @@ public class MdmServicePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-    
+
     public static class CompanyIdentityUserAssignments
     {
         public const string Default = GroupName + ".CompanyIdentityUserAssignments";
@@ -130,6 +130,14 @@ public class MdmServicePermissions
     public static class UOMGroupDetails
     {
         public const string Default = GroupName + ".UOMGroupDetails";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class ItemAttributes
+    {
+        public const string Default = GroupName + ".ItemAttributes";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";

@@ -1,4 +1,6 @@
 /*
+using DMSpro.OMS.MdmService.Web.Pages.ItemAttributes;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.Web.Pages.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Web.Pages.Vendors;
@@ -407,6 +409,9 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<CompanyIdentityUserAssignmentUpdateViewModel, CompanyIdentityUserAssignmentUpdateDto>();
         CreateMap<CompanyIdentityUserAssignmentCreateViewModel, CompanyIdentityUserAssignmentCreateDto>();
 
+        CreateMap<ItemAttributeDto, ItemAttributeUpdateViewModel>();
+        CreateMap<ItemAttributeUpdateViewModel, ItemAttributeUpdateDto>();
+        CreateMap<ItemAttributeCreateViewModel, ItemAttributeCreateDto>();
         */
     }
 }

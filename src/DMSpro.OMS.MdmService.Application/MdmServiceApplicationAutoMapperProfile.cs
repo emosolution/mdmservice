@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
@@ -303,5 +304,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto>();
         CreateMap<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentExcelDto>();
         CreateMap<CompanyIdentityUserAssignmentWithNavigationProperties, CompanyIdentityUserAssignmentWithNavigationPropertiesDto>();
+
+        CreateMap<ItemAttribute, ItemAttributeDto>();
+        CreateMap<ItemAttribute, ItemAttributeExcelDto>();
     }
 }
