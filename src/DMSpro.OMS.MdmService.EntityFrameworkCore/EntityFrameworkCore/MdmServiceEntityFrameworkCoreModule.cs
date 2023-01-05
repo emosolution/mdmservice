@@ -27,7 +27,6 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
-using DMSpro.OMS.MdmService.SSHistoryInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.WorkingPositions;
@@ -132,8 +131,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<SalesOrgEmpAssignment, SalesOrgEmpAssignments.EfCoreSalesOrgEmpAssignmentRepository>();
 
             options.AddRepository<CompanyInZone, CompanyInZones.EfCoreCompanyInZoneRepository>();
-
-            options.AddRepository<SSHistoryInZone, SSHistoryInZones.EfCoreSSHistoryInZoneRepository>();
 
             options.AddRepository<CustomerInZone, CustomerInZones.EfCoreCustomerInZoneRepository>();
 

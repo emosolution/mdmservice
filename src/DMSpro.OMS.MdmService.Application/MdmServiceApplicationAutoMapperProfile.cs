@@ -28,7 +28,6 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
-using DMSpro.OMS.MdmService.SSHistoryInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.WorkingPositions;
@@ -149,9 +148,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CompanyInZone, CompanyInZoneDto>();
         CreateMap<CompanyInZone, CompanyInZoneExcelDto>();
-
-        CreateMap<SSHistoryInZone, SSHistoryInZoneDto>();
-        CreateMap<SSHistoryInZone, SSHistoryInZoneExcelDto>();
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
@@ -281,8 +277,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<SalesOrgEmpAssignmentWithNavigationProperties, SalesOrgEmpAssignmentWithNavigationPropertiesDto>();
         CreateMap<SalesOrgHierarchy, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<SSHistoryInZoneWithNavigationProperties, SSHistoryInZoneWithNavigationPropertiesDto>();
 
         CreateMap<CompanyInZoneWithNavigationProperties, CompanyInZoneWithNavigationPropertiesDto>();
         CreateMap<Company, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

@@ -86,7 +86,6 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/SalesOrgHierarchies/Index", MdmServicePermissions.SalesOrgHierarchies.Default);
             options.Conventions.AuthorizePage("/SalesOrgEmpAssignments/Index", MdmServicePermissions.SalesOrgEmpAssignments.Default);
             options.Conventions.AuthorizePage("/CompanyInZones/Index", MdmServicePermissions.CompanyInZones.Default);
-            options.Conventions.AuthorizePage("/SSHistoryInZones/Index", MdmServicePermissions.SSHistoryInZones.Default);
             options.Conventions.AuthorizePage("/CustomerInZones/Index", MdmServicePermissions.CustomerInZones.Default);
             options.Conventions.AuthorizePage("/EmployeeInZones/Index", MdmServicePermissions.EmployeeInZones.Default);
             options.Conventions.AuthorizePage("/CustomerAttributes/Index", MdmServicePermissions.CustomerAttributes.Default);

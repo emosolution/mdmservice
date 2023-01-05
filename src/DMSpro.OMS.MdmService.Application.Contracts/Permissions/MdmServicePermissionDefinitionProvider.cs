@@ -164,11 +164,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         salesOrgEmpAssignmentPermission.AddChild(MdmServicePermissions.SalesOrgEmpAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SalesOrgs);
         salesOrgEmpAssignmentPermission.AddChild(MdmServicePermissions.SalesOrgEmpAssignments.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SalesOrgs);
 
-        var ssHistoryInZonePermission = myGroup.AddPermission(MdmServicePermissions.SSHistoryInZones.Default, L("Permission:MdmService:SSHistoryInZone")).RequireFeatures(MdmFeatures.SellingZones);
-        ssHistoryInZonePermission.AddChild(MdmServicePermissions.SSHistoryInZones.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SellingZones);
-        ssHistoryInZonePermission.AddChild(MdmServicePermissions.SSHistoryInZones.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SellingZones);
-        ssHistoryInZonePermission.AddChild(MdmServicePermissions.SSHistoryInZones.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SellingZones);
-
         var companyInZonePermission = myGroup.AddPermission(MdmServicePermissions.CompanyInZones.Default, L("Permission:MdmService:CompanyInZone")).RequireFeatures(MdmFeatures.SellingZones);
         companyInZonePermission.AddChild(MdmServicePermissions.CompanyInZones.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SellingZones);
         companyInZonePermission.AddChild(MdmServicePermissions.CompanyInZones.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SellingZones);

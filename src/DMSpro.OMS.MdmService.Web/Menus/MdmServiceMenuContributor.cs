@@ -387,7 +387,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 MdmServicePermissions.SalesOrgHeaders.Default,
                 MdmServicePermissions.SalesOrgHierarchies.Default,
                 MdmServicePermissions.SalesOrgEmpAssignments.Default,
-                MdmServicePermissions.SSHistoryInZones.Default,
                 MdmServicePermissions.CompanyInZones.Default,
                 MdmServicePermissions.CustomerInZones.Default,
                 MdmServicePermissions.EmployeeInZones.Default)
@@ -465,16 +464,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.SalesOrgEmpAssignments.Default
             ).RequireFeatures(MdmFeatures.SalesOrgs)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.SSHistoryInZones,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:SSHistoryInZone"],
-                "/Mdm/SSHistoryInZones",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.SSHistoryInZones.Default
-            ).RequireFeatures(MdmFeatures.SellingZones)
         );
 
         groupMenu.AddItem(

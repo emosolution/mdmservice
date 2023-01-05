@@ -58,7 +58,6 @@ public class MdmServiceMenus
     public const string SalesOrgHierarchies = Prefix + ".SalesOrgHierarchies";
     public const string SalesOrgEmpAssignments = SalesOrgs + ".SalesOrgEmpAssignments";
     public const string SellingZones = SalesOrganizations + ".SellingZones";
-    public const string SSHistoryInZones = SellingZones + ".SSHistoryInZones";
     public const string CompanyInZones = SellingZones + ".CompanyInZones";
     public const string CustomerInZones = SellingZones + ".CustomerInZones";
     public const string EmployeeInZones = SellingZones + ".EmployeeInZones";

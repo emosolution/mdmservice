@@ -27,7 +27,6 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
-using DMSpro.OMS.MdmService.SSHistoryInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.WorkingPositions;
@@ -478,16 +477,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.EndDate).HasColumnName(nameof(SalesOrgEmpAssignment.EndDate));
         b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
-    });
-        builder.Entity<SSHistoryInZone>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SSHistoryInZones", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(SSHistoryInZone.TenantId));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(SSHistoryInZone.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(SSHistoryInZone.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CompanyInZone>(b =>
     {

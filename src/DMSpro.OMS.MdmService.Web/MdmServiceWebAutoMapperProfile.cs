@@ -55,8 +55,6 @@ using DMSpro.OMS.MdmService.Web.Pages.EmployeeInZones;
 using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.Web.Pages.CustomerInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
-using DMSpro.OMS.MdmService.Web.Pages.SSHistoryInZones;
-using DMSpro.OMS.MdmService.SSHistoryInZones;
 using DMSpro.OMS.MdmService.Web.Pages.CompanyInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.Web.Pages.SalesOrgEmpAssignments;
@@ -141,7 +139,6 @@ using DMSpro.OMS.MdmService.Web.Pages.CustomerGroups;
 using DMSpro.OMS.MdmService.Web.Pages.CustomerAttributes;
 using DMSpro.OMS.MdmService.Web.Pages.EmployeeInZones;
 using DMSpro.OMS.MdmService.Web.Pages.CustomerInZones;
-using DMSpro.OMS.MdmService.Web.Pages.SSHistoryInZones;
 using DMSpro.OMS.MdmService.Web.Pages.CompanyInZones;
 using DMSpro.OMS.MdmService.Web.Pages.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.Web.Pages.WorkingPositions;
@@ -281,10 +278,6 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<CompanyInZoneDto, CompanyInZoneUpdateViewModel>();
         CreateMap<CompanyInZoneUpdateViewModel, CompanyInZoneUpdateDto>();
         CreateMap<CompanyInZoneCreateViewModel, CompanyInZoneCreateDto>();
-
-        CreateMap<SSHistoryInZoneDto, SSHistoryInZoneUpdateViewModel>();
-        CreateMap<SSHistoryInZoneUpdateViewModel, SSHistoryInZoneUpdateDto>();
-        CreateMap<SSHistoryInZoneCreateViewModel, SSHistoryInZoneCreateDto>();
 
         CreateMap<CustomerInZoneDto, CustomerInZoneUpdateViewModel>();
         CreateMap<CustomerInZoneUpdateViewModel, CustomerInZoneUpdateDto>();
