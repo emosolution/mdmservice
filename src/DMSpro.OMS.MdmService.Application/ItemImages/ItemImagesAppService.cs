@@ -12,18 +12,21 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemImages;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.MdmService.ItemAttributes;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
 
-    [Authorize(MdmServicePermissions.ItemImages.Default)]
+    [Authorize(MdmServicePermissions.Items.Default)]
     public class ItemImagesAppService : ApplicationService, IItemImagesAppService
     {
         private readonly IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
@@ -56,6 +59,18 @@ namespace DMSpro.OMS.MdmService.ItemImages
                 (await _itemImageRepository.GetWithNavigationPropertiesAsync(id));
         }
 
+        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var items = await _itemImageRepository.GetQueryableAsync();
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+
+            return results;
+
+        }
+
         public virtual async Task<ItemImageDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemImage, ItemImageDto>(await _itemImageRepository.GetAsync(id));
@@ -77,13 +92,13 @@ namespace DMSpro.OMS.MdmService.ItemImages
             };
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Delete)]
+        [Authorize(MdmServicePermissions.Items.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _itemImageRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Create)]
+        [Authorize(MdmServicePermissions.Items.Create)]
         public virtual async Task<ItemImageDto> CreateAsync(ItemImageCreateDto input)
         {
             if (input.ItemId == default)
@@ -98,7 +113,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Edit)]
+        [Authorize(MdmServicePermissions.Items.Edit)]
         public virtual async Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input)
         {
             if (input.ItemId == default)

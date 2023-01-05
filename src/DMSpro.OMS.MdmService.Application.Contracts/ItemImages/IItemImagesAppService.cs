@@ -5,6 +5,8 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
@@ -27,5 +29,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemImageExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
     }
 }
