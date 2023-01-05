@@ -478,16 +478,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<CompanyInZone>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyInZones", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CompanyInZone.TenantId));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(CompanyInZone.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(CompanyInZone.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-    });
+
         builder.Entity<SalesOrgHierarchy>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SalesOrgHierarchies", MdmServiceDbProperties.DbSchema);
@@ -845,6 +836,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
         b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
+        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CompanyInZone>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyInZones", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CompanyInZone.TenantId));
+        b.Property(x => x.EffectiveDate).HasColumnName(nameof(CompanyInZone.EffectiveDate));
+        b.Property(x => x.EndDate).HasColumnName(nameof(CompanyInZone.EndDate));
+        b.Property(x => x.IsBase).HasColumnName(nameof(CompanyInZone.IsBase));
+        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
     }

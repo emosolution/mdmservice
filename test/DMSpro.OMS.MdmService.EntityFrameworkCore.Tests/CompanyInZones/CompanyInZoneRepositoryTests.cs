@@ -25,13 +25,13 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             {
                 // Act
                 var result = await _companyInZoneRepository.GetListAsync(
-
+                    isBase: true
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("08b30c2c-e937-4587-9680-14f5a2916420"));
+                result.First().Id.ShouldBe(Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"));
             });
         }
 
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             {
                 // Act
                 var result = await _companyInZoneRepository.GetCountAsync(
-
+                    isBase: true
                 );
 
                 // Assert
