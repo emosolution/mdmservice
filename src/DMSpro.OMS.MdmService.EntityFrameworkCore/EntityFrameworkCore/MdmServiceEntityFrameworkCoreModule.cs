@@ -38,8 +38,6 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
@@ -104,10 +102,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ProdAttributeValue, ProdAttributeValues.EfCoreProdAttributeValueRepository>();
 
             options.AddRepository<ItemMaster, ItemMasters.EfCoreItemMasterRepository>();
-
-            options.AddRepository<ItemImage, ItemImages.EfCoreItemImageRepository>();
-
-            options.AddRepository<ItemAttachment, ItemAttachments.EfCoreItemAttachmentRepository>();
 
             options.AddRepository<ItemGroup, ItemGroups.EfCoreItemGroupRepository>();
 

@@ -38,8 +38,6 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
@@ -206,29 +204,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.AttrValName).HasColumnName(nameof(ProdAttributeValue.AttrValName)).IsRequired().HasMaxLength(ProdAttributeValueConsts.AttrValNameMaxLength);
         b.HasOne<ProductAttribute>().WithMany().IsRequired().HasForeignKey(x => x.ProdAttributeId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ProdAttributeValue>().WithMany().HasForeignKey(x => x.ParentProdAttributeValueId).OnDelete(DeleteBehavior.NoAction);
-    });
-
-        builder.Entity<ItemImage>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemImages", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemImage.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(ItemImage.Description));
-        b.Property(x => x.Active).HasColumnName(nameof(ItemImage.Active));
-        b.Property(x => x.URL).HasColumnName(nameof(ItemImage.URL)).IsRequired();
-        b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
-        b.HasOne<ItemMaster>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-    });
-
-        builder.Entity<ItemAttachment>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttachments", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttachment.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description));
-        b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
-        b.Property(x => x.URL).HasColumnName(nameof(ItemAttachment.URL)).IsRequired();
-        b.HasOne<ItemMaster>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<ItemGroup>(b =>

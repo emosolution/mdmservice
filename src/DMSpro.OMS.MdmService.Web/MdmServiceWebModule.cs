@@ -72,8 +72,6 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/ProductAttributes/Index", MdmServicePermissions.ProductAttributes.Default);
             options.Conventions.AuthorizePage("/ProdAttributeValues/Index", MdmServicePermissions.ProdAttributeValues.Default);
             options.Conventions.AuthorizePage("/ItemMasters/Index", MdmServicePermissions.ItemMasters.Default);
-            options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.ItemImages.Default);
-            options.Conventions.AuthorizePage("/ItemAttachments/Index", MdmServicePermissions.ItemAttachments.Default);
             options.Conventions.AuthorizePage("/ItemGroups/Index", MdmServicePermissions.ItemGroups.Default);
             options.Conventions.AuthorizePage("/ItemGroupAttrs/Index", MdmServicePermissions.ItemGroupAttrs.Default);
             options.Conventions.AuthorizePage("/ItemGroupLists/Index", MdmServicePermissions.ItemGroupLists.Default);

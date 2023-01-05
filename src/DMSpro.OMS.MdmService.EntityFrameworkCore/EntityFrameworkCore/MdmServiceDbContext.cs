@@ -39,8 +39,6 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProductAttributes;
@@ -103,8 +101,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<PriceListDetail> PriceListDetails { get; set; }
     public DbSet<ItemGroupAttr> ItemGroupAttrs { get; set; }
     public DbSet<ItemGroup> ItemGroups { get; set; }
-    public DbSet<ItemAttachment> ItemAttachments { get; set; }
-    public DbSet<ItemImage> ItemImages { get; set; }
     public DbSet<ItemMaster> ItemMasters { get; set; }
     public DbSet<ProdAttributeValue> ProdAttributeValues { get; set; }
     public DbSet<ProductAttribute> ProductAttributes { get; set; }
