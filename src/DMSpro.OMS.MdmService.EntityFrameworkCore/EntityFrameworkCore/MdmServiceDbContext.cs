@@ -37,10 +37,7 @@ using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ProdAttributeValues;
-using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.UOMs;
@@ -98,10 +95,7 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<PricelistAssignment> PricelistAssignments { get; set; }
     public DbSet<PriceUpdate> PriceUpdates { get; set; }
     public DbSet<PriceListDetail> PriceListDetails { get; set; }
-    public DbSet<ItemGroupAttr> ItemGroupAttrs { get; set; }
     public DbSet<ItemGroup> ItemGroups { get; set; }
-    public DbSet<ProdAttributeValue> ProdAttributeValues { get; set; }
-    public DbSet<ProductAttribute> ProductAttributes { get; set; }
     public DbSet<UOMGroupDetail> UOMGroupDetails { get; set; }
     public DbSet<UOMGroup> UOMGroups { get; set; }
     public DbSet<UOM> UOMs { get; set; }

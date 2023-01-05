@@ -1,7 +1,6 @@
 using AutoMapper.Internal.Mappers;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ProductAttributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -33,14 +32,14 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
     //private readonly ILogger<MdmServiceDistributedEventHandler> _logger;
     private readonly IUnitOfWorkManager _unitOfWorkManager;
 
-    private readonly IProductAttributeRepository _productAttributeRepository;
+    //private readonly IProductAttributeRepository _productAttributeRepository;
     private readonly ICustomerAttributeRepository _customerAttributeRepository;
     private readonly IGuidGenerator _guidGenerator;
 
     private readonly ISystemDataRepository _systemDataRepository;
 
     public MdmServiceDistributedEventHandler(
-        IProductAttributeRepository productAttributeRepository,
+        //IProductAttributeRepository productAttributeRepository,
         ICustomerAttributeRepository customerAttributeRepository,
         //ICurrentTenant currentTenant,
         //ILogger<MdmServiceDistributedEventHandler> logger,
@@ -49,7 +48,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         ISystemDataRepository systemDataRepository
         )
     {
-        _productAttributeRepository = productAttributeRepository;
+        //_productAttributeRepository = productAttributeRepository;
         _customerAttributeRepository = customerAttributeRepository;
 
         //_currentTenant = currentTenant;
@@ -66,17 +65,17 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         {
             var abpUnitOfWorkOptions = new AbpUnitOfWorkOptions { IsTransactional = true };
             using var uow = _unitOfWorkManager.Begin(abpUnitOfWorkOptions, true);
-            List<ProductAttribute> seedProductAttributes= new List<ProductAttribute>();
-            for (int i = 0; i < PRODUCT_ATTRIBUTE_ROWS; i++)
-            {
-                short AttrNo = (short)i;
-                string AttrName = "Attribute " + i;
-                Guid id = _guidGenerator.Create();
-                ProductAttribute data = new ProductAttribute(id, AttrNo, AttrName, false, false, null);
-                data.TenantId = eventData.Id;
-                seedProductAttributes.Add(data);
-            }
-            await _productAttributeRepository.CreateWithExcepAsync(seedProductAttributes);
+            //List<ProductAttribute> seedProductAttributes= new List<ProductAttribute>();
+            //for (int i = 0; i < PRODUCT_ATTRIBUTE_ROWS; i++)
+            //{
+            //    short AttrNo = (short)i;
+            //    string AttrName = "Attribute " + i;
+            //    Guid id = _guidGenerator.Create();
+            //    ProductAttribute data = new ProductAttribute(id, AttrNo, AttrName, false, false, null);
+            //    data.TenantId = eventData.Id;
+            //    seedProductAttributes.Add(data);
+            //}
+            //await _productAttributeRepository.CreateWithExcepAsync(seedProductAttributes);
 
             List<CustomerAttribute> seedCustomerAttributes= new List<CustomerAttribute>();
             for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)

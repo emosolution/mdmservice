@@ -23,7 +23,7 @@ public class MdmServiceMenuContributor : IMenuContributor
         AddMenuItemAdministration(context, moduleMenu);
         AddMenuItemGeographical(context, moduleMenu);
         AddMenuItemCompanies(context, moduleMenu);
-        AddMenuItemProducts(context, moduleMenu);
+        AddMenuItemItems(context, moduleMenu);
         AddMenuItemSalesOrganizations(context, moduleMenu);
         AddMenuItemCustomers(context, moduleMenu);
         AddMenuItemRouteAndMCP(context, moduleMenu);
@@ -177,7 +177,7 @@ public class MdmServiceMenuContributor : IMenuContributor
         );
     }
 
-    private static void AddMenuItemProducts(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    private static void AddMenuItemItems(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
     {
         ApplicationMenuItem groupMenu = new ApplicationMenuItem(
                Menus.MdmServiceMenus.Product,
@@ -188,11 +188,7 @@ public class MdmServiceMenuContributor : IMenuContributor
             .RequirePermissions(false, MdmServicePermissions.UOMs.Default,
                 MdmServicePermissions.UOMGroups.Default,
                 MdmServicePermissions.UOMGroupDetails.Default,
-                MdmServicePermissions.ProductAttributes.Default,
-                MdmServicePermissions.ProdAttributeValues.Default,
                 MdmServicePermissions.ItemGroups.Default,
-                MdmServicePermissions.ItemGroupAttrs.Default,
-                MdmServicePermissions.ItemGroupLists.Default,
                 MdmServicePermissions.PriceLists.Default,
                 MdmServicePermissions.PriceListDetails.Default,
                 MdmServicePermissions.PriceUpdates.Default,
@@ -200,7 +196,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 MdmServicePermissions.PriceListAssignments.Default)
             .RequireFeatures(false, MdmFeatures.UOMs,
                 MdmFeatures.UOMGroups,
-                MdmFeatures.ProductAttributes,
                 MdmFeatures.Item, MdmFeatures.ItemGroups,
                 MdmFeatures.PriceLists, MdmFeatures.PriceUpdate,
                 MdmFeatures.PriceListAssignments);
@@ -238,52 +233,12 @@ public class MdmServiceMenuContributor : IMenuContributor
         );
 
         groupMenu.AddItem(
-          new ApplicationMenuItem(
-              Menus.MdmServiceMenus.ProductAttributes,
-              context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ProductAttributes"],
-              "/Mdm/ProductAttributes",
-              icon: "fa fa-file-alt",
-              requiredPermissionName: MdmServicePermissions.ProductAttributes.Default
-          ).RequireFeatures(MdmFeatures.ProductAttributes)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ProdAttributeValues,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ProdAttributeValue"],
-                "/Mdm/ProdAttributeValues",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ProdAttributeValues.Default
-            ).RequireFeatures(MdmFeatures.ProductAttributes)
-        );
-
-        groupMenu.AddItem(
             new ApplicationMenuItem(
                 Menus.MdmServiceMenus.ItemGroups,
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroups"],
                 "/Mdm/ItemGroups",
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.ItemGroups.Default
-            ).RequireFeatures(MdmFeatures.ItemGroups)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ItemGroupAttrs,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroupAttrs"],
-                "/Mdm/ItemGroupAttrs",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemGroupAttrs.Default
-            ).RequireFeatures(MdmFeatures.ItemGroups)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.ItemGroupLists,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroupLists"],
-                "/Mdm/ItemGroupLists",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemGroupLists.Default
             ).RequireFeatures(MdmFeatures.ItemGroups)
         );
 

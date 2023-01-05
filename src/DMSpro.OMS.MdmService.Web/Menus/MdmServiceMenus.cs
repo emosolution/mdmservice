@@ -29,17 +29,11 @@ public class MdmServiceMenus
     public const string UOMGroups = Product + ".UOMGroups";
     public const string UOMGroupDef = UOMGroups + ".UOMGroupDef";
     public const string UOMGroupDetails = UOMGroups + ".UOMGroupDetails";
-    public const string ProductAttributes = Product + ".ProductAttributes";
-    public const string ProductAttributeDefs = ProductAttributes + ".ProductAttributeDefs";
-    public const string ProdAttributeValues = ProductAttributes + ".ProdAttributeValues";
     public const string Item = Product + ".Items";
     public const string Items = Item + ".Items";
     public const string ItemImages = Item + ".ItemImages";
     public const string ItemAttachments = Item + ".ItemAttachments";
     public const string ItemGroups = Product + ".ItemGroups";
-    public const string ItemGroupDefs = ItemGroups + ".ItemGroupDefs";
-    public const string ItemGroupAttrs = ItemGroups + ".ItemGroupAttrs";
-    public const string ItemGroupLists = ItemGroups + ".ItemGroupLists";
     public const string PriceLists = Product + ".PriceLists";
     public const string PriceListDefs = PriceLists + ".PriceListDefs";
     public const string PriceListDetails = PriceLists + ".PriceListDetails";
