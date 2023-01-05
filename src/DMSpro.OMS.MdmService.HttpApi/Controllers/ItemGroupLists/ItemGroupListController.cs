@@ -7,7 +7,8 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroupLists
 {
@@ -35,6 +36,13 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroupLists
         public Task<ItemGroupListWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _itemGroupListsAppService.GetWithNavigationPropertiesAsync(id);
+        }
+
+        [HttpGet]
+        [Route("GetListDevextremes")]
+        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            return _itemGroupListsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

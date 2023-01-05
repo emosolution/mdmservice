@@ -19,6 +19,11 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.MdmService.ItemAttributes;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
@@ -58,6 +63,18 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         {
             return ObjectMapper.Map<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>
                 (await _itemGroupListRepository.GetWithNavigationPropertiesAsync(id));
+        }
+
+        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var items = await _itemGroupListRepository.GetQueryableAsync();
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+
+            return results;
+
         }
 
         public virtual async Task<ItemGroupListDto> GetAsync(Guid id)
