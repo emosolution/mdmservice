@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                 rate: 715514576,
                 itemGroupId: Guid.Parse("699c2938-8d71-4223-80a9-088e15868879"),
                 itemId: Guid.Parse("fc6c541e-513e-4827-8fca-c4cce37b3c35"),
-                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
             ));
 
             await _itemGroupListRepository.InsertAsync(new ItemGroupList
@@ -54,7 +54,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                 rate: 1799215464,
                 itemGroupId: Guid.Parse("699c2938-8d71-4223-80a9-088e15868879"),
                 itemId: Guid.Parse("fc6c541e-513e-4827-8fca-c4cce37b3c35"),
-                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

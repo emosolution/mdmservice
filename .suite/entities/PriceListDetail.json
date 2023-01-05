@@ -101,21 +101,6 @@
       "Type": "Guid"
     },
     {
-      "EntityNameWithDuplicationNumber": "ItemMaster",
-      "EntitySetNameWithDuplicationNumber": "ItemMasters",
-      "ReferencePropertyName": "ItemMaster",
-      "UiPickType": "Dropdown",
-      "IsRequired": true,
-      "Name": "ItemMasterId",
-      "DisplayProperty": "Code",
-      "Namespace": "DMSpro.OMS.MdmService.ItemMasters",
-      "EntityName": "ItemMaster",
-      "EntitySetName": "ItemMasters",
-      "DtoNamespace": "DMSpro.OMS.MdmService.ItemMasters",
-      "DtoEntityName": "ItemMasterDto",
-      "Type": "Guid"
-    },
-    {
       "EntityNameWithDuplicationNumber": "UOM",
       "EntitySetNameWithDuplicationNumber": "UOMs",
       "ReferencePropertyName": "UOM",

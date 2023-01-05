@@ -1,6 +1,5 @@
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.UOMs;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.PriceLists;
 using System;
 using System.IO;
@@ -35,22 +34,20 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         private readonly IPriceListDetailRepository _priceListDetailRepository;
         private readonly PriceListDetailManager _priceListDetailManager;
         private readonly IRepository<PriceList, Guid> _priceListRepository;
-        private readonly IRepository<ItemMaster, Guid> _itemMasterRepository;
         private readonly IRepository<UOM, Guid> _uOMRepository;
 
-        public PriceListDetailsAppService(IPriceListDetailRepository priceListDetailRepository, PriceListDetailManager priceListDetailManager, IDistributedCache<PriceListDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository, IRepository<ItemMaster, Guid> itemMasterRepository, IRepository<UOM, Guid> uOMRepository)
+        public PriceListDetailsAppService(IPriceListDetailRepository priceListDetailRepository, PriceListDetailManager priceListDetailManager, IDistributedCache<PriceListDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository, IRepository<UOM, Guid> uOMRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _priceListDetailRepository = priceListDetailRepository;
             _priceListDetailManager = priceListDetailManager; _priceListRepository = priceListRepository;
-            _itemMasterRepository = itemMasterRepository;
             _uOMRepository = uOMRepository;
         }
 
         public virtual async Task<PagedResultDto<PriceListDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceListDetailsInput input)
         {
-            var totalCount = await _priceListDetailRepository.GetCountAsync(input.FilterText, input.PriceMin, input.PriceMax, input.BasedOnPriceMin, input.BasedOnPriceMax, input.Description, input.PriceListId, input.ItemMasterId, input.UOMId);
-            var items = await _priceListDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.PriceMin, input.PriceMax, input.BasedOnPriceMin, input.BasedOnPriceMax, input.Description, input.PriceListId, input.ItemMasterId, input.UOMId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _priceListDetailRepository.GetCountAsync(input.FilterText, input.PriceMin, input.PriceMax, input.BasedOnPriceMin, input.BasedOnPriceMax, input.Description, input.PriceListId, input.UOMId);
+            var items = await _priceListDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.PriceMin, input.PriceMax, input.BasedOnPriceMin, input.BasedOnPriceMax, input.Description, input.PriceListId, input.UOMId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<PriceListDetailWithNavigationPropertiesDto>
             {
@@ -97,22 +94,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
-        {
-            var query = (await _itemMasterRepository.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                    x => x.Code != null &&
-                         x.Code.Contains(input.Filter));
-
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemMaster>();
-            var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid>>
-            {
-                TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemMaster>, List<LookupDto<Guid>>>(lookupData)
-            };
-        }
-
         public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input)
         {
             var query = (await _uOMRepository.GetQueryableAsync())
@@ -142,17 +123,13 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
             }
-            if (input.ItemMasterId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
-            }
             if (input.UOMId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
 
             var priceListDetail = await _priceListDetailManager.CreateAsync(
-            input.PriceListId, input.ItemMasterId, input.UOMId, input.Price, input.Description, input.BasedOnPrice
+            input.PriceListId, input.UOMId, input.Price, input.Description, input.BasedOnPrice
             );
 
             return ObjectMapper.Map<PriceListDetail, PriceListDetailDto>(priceListDetail);
@@ -165,10 +142,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
             }
-            if (input.ItemMasterId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
-            }
             if (input.UOMId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
@@ -176,7 +149,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
             var priceListDetail = await _priceListDetailManager.UpdateAsync(
             id,
-            input.PriceListId, input.ItemMasterId, input.UOMId, input.Price, input.Description, input.BasedOnPrice, input.ConcurrencyStamp
+            input.PriceListId, input.UOMId, input.Price, input.Description, input.BasedOnPrice, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<PriceListDetail, PriceListDetailDto>(priceListDetail);

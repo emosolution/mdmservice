@@ -20,15 +20,15 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         }
 
         public async Task<ItemGroupList> CreateAsync(
-        Guid itemGroupId, Guid itemId, Guid uOMId, int rate)
+        Guid itemGroupId, Guid itemId, Guid uomId, int rate)
         {
             Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(itemId, nameof(itemId));
-            Check.NotNull(uOMId, nameof(uOMId));
+            Check.NotNull(uomId, nameof(uomId));
 
             var itemGroupList = new ItemGroupList(
              GuidGenerator.Create(),
-             itemGroupId, itemId, uOMId, rate
+             itemGroupId, itemId, uomId, rate
              );
 
             return await _itemGroupListRepository.InsertAsync(itemGroupList);
@@ -36,12 +36,12 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
         public async Task<ItemGroupList> UpdateAsync(
             Guid id,
-            Guid itemGroupId, Guid itemId, Guid uOMId, int rate, [CanBeNull] string concurrencyStamp = null
+            Guid itemGroupId, Guid itemId, Guid uomId, int rate, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(itemId, nameof(itemId));
-            Check.NotNull(uOMId, nameof(uOMId));
+            Check.NotNull(uomId, nameof(uomId));
 
             var queryable = await _itemGroupListRepository.GetQueryableAsync();
             var query = queryable.Where(x => x.Id == id);
@@ -50,7 +50,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
             itemGroupList.ItemGroupId = itemGroupId;
             itemGroupList.ItemId = itemId;
-            itemGroupList.UOMId = uOMId;
+            itemGroupList.UOMId = uomId;
             itemGroupList.Rate = rate;
 
             itemGroupList.SetConcurrencyStampIfNotNull(concurrencyStamp);

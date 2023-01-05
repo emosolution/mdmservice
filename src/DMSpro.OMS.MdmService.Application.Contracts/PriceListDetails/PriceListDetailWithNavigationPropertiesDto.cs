@@ -1,5 +1,4 @@
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.UOMs;
 
 using System;
@@ -13,7 +12,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         public PriceListDetailDto PriceListDetail { get; set; }
 
         public PriceListDto PriceList { get; set; }
-        public ItemMasterDto ItemMaster { get; set; }
         public UOMDto UOM { get; set; }
 
     }

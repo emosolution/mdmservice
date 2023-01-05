@@ -46,7 +46,7 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceListDetails
         {
             return _priceListDetailsAppService.GetListDevextremesAsync(inputDev);
         }
-
+        
         [HttpGet]
         [Route("{id}")]
         public virtual Task<PriceListDetailDto> GetAsync(Guid id)
@@ -59,13 +59,6 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceListDetails
         public Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
         {
             return _priceListDetailsAppService.GetPriceListLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("item-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
-        {
-            return _priceListDetailsAppService.GetItemMasterLookupAsync(input);
         }
 
         [HttpGet]

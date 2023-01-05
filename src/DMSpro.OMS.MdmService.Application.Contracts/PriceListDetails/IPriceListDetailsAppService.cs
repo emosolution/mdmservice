@@ -15,12 +15,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         Task<PriceListDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-
+        
         Task<PriceListDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input);
-
-        Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input);
 

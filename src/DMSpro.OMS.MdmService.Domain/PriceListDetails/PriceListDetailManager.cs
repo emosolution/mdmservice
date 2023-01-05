@@ -20,16 +20,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         }
 
         public async Task<PriceListDetail> CreateAsync(
-        Guid priceListId, Guid itemMasterId, Guid uOMId, int price, string description, int? basedOnPrice = null)
+        Guid priceListId, Guid uomId, int price, string description, int? basedOnPrice = null)
         {
             Check.NotNull(priceListId, nameof(priceListId));
-            Check.NotNull(itemMasterId, nameof(itemMasterId));
-            Check.NotNull(uOMId, nameof(uOMId));
+            Check.NotNull(uomId, nameof(uomId));
             Check.NotNullOrWhiteSpace(description, nameof(description));
 
             var priceListDetail = new PriceListDetail(
              GuidGenerator.Create(),
-             priceListId, itemMasterId, uOMId, price, description, basedOnPrice
+             priceListId, uomId, price, description, basedOnPrice
              );
 
             return await _priceListDetailRepository.InsertAsync(priceListDetail);
@@ -37,12 +36,11 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         public async Task<PriceListDetail> UpdateAsync(
             Guid id,
-            Guid priceListId, Guid itemMasterId, Guid uOMId, int price, string description, int? basedOnPrice = null, [CanBeNull] string concurrencyStamp = null
+            Guid priceListId, Guid uomId, int price, string description, int? basedOnPrice = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(priceListId, nameof(priceListId));
-            Check.NotNull(itemMasterId, nameof(itemMasterId));
-            Check.NotNull(uOMId, nameof(uOMId));
+            Check.NotNull(uomId, nameof(uomId));
             Check.NotNullOrWhiteSpace(description, nameof(description));
 
             var queryable = await _priceListDetailRepository.GetQueryableAsync();
@@ -51,8 +49,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             var priceListDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 
             priceListDetail.PriceListId = priceListId;
-            priceListDetail.ItemMasterId = itemMasterId;
-            priceListDetail.UOMId = uOMId;
+            priceListDetail.UOMId = uomId;
             priceListDetail.Price = price;
             priceListDetail.Description = description;
             priceListDetail.BasedOnPrice = basedOnPrice;

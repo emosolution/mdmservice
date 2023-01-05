@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.PriceListDetail.Id == Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46")).ShouldBe(true);
-            result.Items.Any(x => x.PriceListDetail.Id == Guid.Parse("be683c3f-83de-422b-8e19-34743edd5107")).ShouldBe(true);
+            result.Items.Any(x => x.PriceListDetail.Id == Guid.Parse("f8268675-0260-4229-ab59-b4900bead351")).ShouldBe(true);
+            result.Items.Any(x => x.PriceListDetail.Id == Guid.Parse("161f23e8-de0a-4c06-9e8e-7a265acf0803")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _priceListDetailsAppService.GetAsync(Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"));
+            var result = await _priceListDetailsAppService.GetAsync(Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"));
+            result.Id.ShouldBe(Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"));
         }
 
         [Fact]
@@ -48,11 +48,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             // Arrange
             var input = new PriceListDetailCreateDto
             {
-                Price = 572125898,
-                BasedOnPrice = 1768243427,
-                Description = "4a0b094455124da8a7920c7bd0ca6",
+                Price = 1087704098,
+                BasedOnPrice = 1493623584,
+                Description = "856a848e5910458fa61ce9fd69919f67d21ba5e30a9f4c6c9ab4ff17ddb098735911998539314fadb805c3ff3b611a563b",
                 PriceListId = Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                ItemMasterId = Guid.Parse("666f2923-445f-4a72-9068-7917e83b3464"),
                 UOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
             };
 
@@ -63,9 +62,9 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             var result = await _priceListDetailRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Price.ShouldBe(572125898);
-            result.BasedOnPrice.ShouldBe(1768243427);
-            result.Description.ShouldBe("4a0b094455124da8a7920c7bd0ca6");
+            result.Price.ShouldBe(1087704098);
+            result.BasedOnPrice.ShouldBe(1493623584);
+            result.Description.ShouldBe("856a848e5910458fa61ce9fd69919f67d21ba5e30a9f4c6c9ab4ff17ddb098735911998539314fadb805c3ff3b611a563b");
         }
 
         [Fact]
@@ -74,34 +73,33 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             // Arrange
             var input = new PriceListDetailUpdateDto()
             {
-                Price = 1723192200,
-                BasedOnPrice = 352772975,
-                Description = "2aa37dc4285b40",
+                Price = 594370578,
+                BasedOnPrice = 1892408547,
+                Description = "40eb4c866b8",
                 PriceListId = Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                ItemMasterId = Guid.Parse("666f2923-445f-4a72-9068-7917e83b3464"),
                 UOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
             };
 
             // Act
-            var serviceResult = await _priceListDetailsAppService.UpdateAsync(Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"), input);
+            var serviceResult = await _priceListDetailsAppService.UpdateAsync(Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"), input);
 
             // Assert
             var result = await _priceListDetailRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Price.ShouldBe(1723192200);
-            result.BasedOnPrice.ShouldBe(352772975);
-            result.Description.ShouldBe("2aa37dc4285b40");
+            result.Price.ShouldBe(594370578);
+            result.BasedOnPrice.ShouldBe(1892408547);
+            result.Description.ShouldBe("40eb4c866b8");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _priceListDetailsAppService.DeleteAsync(Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"));
+            await _priceListDetailsAppService.DeleteAsync(Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"));
 
             // Assert
-            var result = await _priceListDetailRepository.FindAsync(c => c.Id == Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"));
+            var result = await _priceListDetailRepository.FindAsync(c => c.Id == Guid.Parse("f8268675-0260-4229-ab59-b4900bead351"));
 
             result.ShouldBeNull();
         }

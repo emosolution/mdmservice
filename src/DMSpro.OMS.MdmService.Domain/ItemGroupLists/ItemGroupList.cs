@@ -28,14 +28,14 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
         }
 
-        public ItemGroupList(Guid id, Guid itemGroupId, Guid itemId, Guid uOMId, int rate)
+        public ItemGroupList(Guid id, Guid itemGroupId, Guid itemId, Guid uomId, int rate)
         {
 
             Id = id;
             Rate = rate;
             ItemGroupId = itemGroupId;
             ItemId = itemId;
-            UOMId = uOMId;
+            UOMId = uomId;
         }
 
     }

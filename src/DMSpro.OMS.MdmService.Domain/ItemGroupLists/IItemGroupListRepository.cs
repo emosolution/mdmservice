@@ -19,7 +19,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             int? rateMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -42,7 +42,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             int? rateMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             CancellationToken cancellationToken = default);
     }
 }

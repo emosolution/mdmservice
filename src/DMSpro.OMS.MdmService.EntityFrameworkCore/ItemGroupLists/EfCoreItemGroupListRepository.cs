@@ -39,14 +39,14 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             int? rateMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uOMId);
+            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uomId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemGroupListConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -77,7 +77,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             int? rateMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null)
+            Guid? uomId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
@@ -85,7 +85,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                     .WhereIf(rateMax.HasValue, e => e.ItemGroupList.Rate <= rateMax.Value)
                     .WhereIf(itemGroupId != null && itemGroupId != Guid.Empty, e => e.ItemGroup != null && e.ItemGroup.Id == itemGroupId)
                     .WhereIf(itemId != null && itemId != Guid.Empty, e => e.ItemMaster != null && e.ItemMaster.Id == itemId)
-                    .WhereIf(uOMId != null && uOMId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uOMId);
+                    .WhereIf(uomId != null && uomId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uomId);
         }
 
         public async Task<List<ItemGroupList>> GetListAsync(
@@ -108,11 +108,11 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             int? rateMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uOMId);
+            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uomId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 

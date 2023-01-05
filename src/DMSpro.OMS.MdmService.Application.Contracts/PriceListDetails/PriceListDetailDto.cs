@@ -10,7 +10,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         public int? BasedOnPrice { get; set; }
         public string Description { get; set; }
         public Guid PriceListId { get; set; }
-        public Guid ItemMasterId { get; set; }
         public Guid UOMId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
