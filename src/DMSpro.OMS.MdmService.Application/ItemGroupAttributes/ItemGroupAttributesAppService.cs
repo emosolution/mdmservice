@@ -13,7 +13,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -29,7 +28,7 @@ using DMSpro.OMS.MdmService.ItemAttributes;
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
 
-    [Authorize(MdmServicePermissions.ItemGroupAttributes.Default)]
+    [Authorize(MdmServicePermissions.ItemGroups.Default)]
     public class ItemGroupAttributesAppService : ApplicationService, IItemGroupAttributesAppService
     {
         private readonly IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
@@ -113,13 +112,13 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             };
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupAttributes.Delete)]
+        [Authorize(MdmServicePermissions.ItemGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _itemGroupAttributeRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupAttributes.Create)]
+        [Authorize(MdmServicePermissions.ItemGroups.Create)]
         public virtual async Task<ItemGroupAttributeDto> CreateAsync(ItemGroupAttributeCreateDto input)
         {
             if (input.ItemGroupId == default)
@@ -134,7 +133,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             return ObjectMapper.Map<ItemGroupAttribute, ItemGroupAttributeDto>(itemGroupAttribute);
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupAttributes.Edit)]
+        [Authorize(MdmServicePermissions.ItemGroups.Edit)]
         public virtual async Task<ItemGroupAttributeDto> UpdateAsync(Guid id, ItemGroupAttributeUpdateDto input)
         {
             if (input.ItemGroupId == default)

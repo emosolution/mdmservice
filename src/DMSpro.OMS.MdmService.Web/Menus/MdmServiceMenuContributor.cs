@@ -301,7 +301,17 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroupAttrs"],
                 "/ItemGroupAttributes",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemGroupAttributes.Default
+                requiredPermissionName: MdmServicePermissions.ItemGroups.Default
+            ).RequireFeatures(MdmFeatures.ItemGroups)
+        );
+
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.ItemGroupLists,
+                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemGroupLists"],
+                "/ItemGroupLists",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.ItemGroups.Default
             ).RequireFeatures(MdmFeatures.ItemGroups)
         );
 

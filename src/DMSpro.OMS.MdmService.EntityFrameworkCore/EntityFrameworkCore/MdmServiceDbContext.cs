@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.Items;
@@ -63,6 +64,7 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 [ConnectionStringName(MdmServiceDbProperties.ConnectionStringName)]
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
+    public DbSet<ItemGroupList> ItemGroupLists { get; set; }
     public DbSet<ItemAttachment> ItemAttachments { get; set; }
     public DbSet<ItemImage> ItemImages { get; set; }
     public DbSet<Item> Items { get; set; }

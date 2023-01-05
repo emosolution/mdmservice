@@ -93,11 +93,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         itemGroupPermission.AddChild(MdmServicePermissions.ItemGroups.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemGroups);
         itemGroupPermission.AddChild(MdmServicePermissions.ItemGroups.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemGroups);
 
-        var itemGroupAttributePermission = myGroup.AddPermission(MdmServicePermissions.ItemGroupAttributes.Default, L("Permission:MdmService:ItemGroupAttr")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttributePermission.AddChild(MdmServicePermissions.ItemGroupAttributes.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttributePermission.AddChild(MdmServicePermissions.ItemGroupAttributes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttributePermission.AddChild(MdmServicePermissions.ItemGroupAttributes.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemGroups);
-
         var priceListPermission = myGroup.AddPermission(MdmServicePermissions.PriceLists.Default, L("Permission:MdmService:PriceList")).RequireFeatures(MdmFeatures.PriceLists);
         priceListPermission.AddChild(MdmServicePermissions.PriceLists.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceLists);
         priceListPermission.AddChild(MdmServicePermissions.PriceLists.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceLists);

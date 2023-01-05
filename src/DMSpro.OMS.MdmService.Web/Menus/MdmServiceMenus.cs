@@ -35,6 +35,7 @@ public class MdmServiceMenus
     public const string ItemAttachments = ItemMaster + ".ItemAttachments";
     public const string ItemGroups = ItemMaster + ".ItemGroups";
     public const string ItemGroupAttributes = ItemMaster + ".ItemGroupAttributes";
+    public const string ItemGroupLists = ItemMaster + ".ItemGroupLists";
     public const string PriceLists = ItemMaster + ".PriceLists";
     public const string PriceListDefs = ItemMaster + ".PriceListDefs";
     public const string PriceListDetails = ItemMaster + ".PriceListDetails";
