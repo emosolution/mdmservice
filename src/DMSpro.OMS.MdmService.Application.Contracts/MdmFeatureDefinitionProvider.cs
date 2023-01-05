@@ -113,10 +113,10 @@ namespace DMSpro.OMS.MdmService
 
             // Item group
             var enableItem = enableMdm.CreateChild(
-                MdmFeatures.Item,
+                MdmFeatures.ItemMaster,
                 defaultValue: "false",
                 displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItem"),
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItemMaster"),
                 valueType: new ToggleStringValueType()
             );
 
@@ -145,10 +145,10 @@ namespace DMSpro.OMS.MdmService
             );
 
             enableItem.CreateChild(
-                MdmFeatures.Item,
+                MdmFeatures.Items,
                 defaultValue: "false",
                 displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItemMaster"),
+                                 .Create<MdmServiceResource>("Feature:MDMService:EnableItem"),
                 valueType: new ToggleStringValueType()
             );
 

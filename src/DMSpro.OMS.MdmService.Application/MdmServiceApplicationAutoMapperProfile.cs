@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttributes;
@@ -320,5 +321,13 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupAttribute, ItemGroupAttributeDto>();
         CreateMap<ItemGroupAttribute, ItemGroupAttributeExcelDto>();
         CreateMap<ItemGroupAttributeWithNavigationProperties, ItemGroupAttributeWithNavigationPropertiesDto>();
+
+        CreateMap<Item, ItemDto>();
+        CreateMap<Item, ItemExcelDto>();
+        CreateMap<ItemWithNavigationProperties, ItemWithNavigationPropertiesDto>();
+        CreateMap<SystemData, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
     }
 }

@@ -27,15 +27,15 @@
         public const string CompanyIdentityUserAssignments = Company + ".CompanyIdentityUserAssignments";
 
         //
-        public const string Item = GroupName + ".Products";
-        public const string UOMs = Item + ".UOMs";
-        public const string UOMGroups = Item + ".UOMGroups";
-        public const string ItemAttributes = Item + ".ItemAttributes";
-        public const string Items = Item + ".Items";
-        public const string ItemGroups = Item + ".ItemGroups";
-        public const string PriceLists = Item + ".PriceLists";
-        public const string PriceUpdate = Item + ".PriceUpdates";
-        public const string PriceListAssignments = Item + ".PriceListAssignments";
+        public const string ItemMaster = GroupName + ".Products";
+        public const string UOMs = ItemMaster + ".UOMs";
+        public const string UOMGroups = ItemMaster + ".UOMGroups";
+        public const string ItemAttributes = ItemMaster + ".ItemAttributes";
+        public const string Items = ItemMaster + ".Items";
+        public const string ItemGroups = ItemMaster + ".ItemGroups";
+        public const string PriceLists = ItemMaster + ".PriceLists";
+        public const string PriceUpdate = ItemMaster + ".PriceUpdates";
+        public const string PriceListAssignments = ItemMaster + ".PriceListAssignments";
         
         //
         public const string SalesOrganizations = GroupName + ".SalesOrganizations";

@@ -22,8 +22,4 @@
     <Content Remove="Localization\MdmService\*.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Items\" />
-  </ItemGroup>
-
 </Project>
