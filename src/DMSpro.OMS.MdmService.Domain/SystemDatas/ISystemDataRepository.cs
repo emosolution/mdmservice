@@ -25,5 +25,6 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             string valueCode = null,
             string valueName = null,
             CancellationToken cancellationToken = default);
+        Task<bool> CreateWithExcepAsync(List<SystemData> seedData);
     }
 }
