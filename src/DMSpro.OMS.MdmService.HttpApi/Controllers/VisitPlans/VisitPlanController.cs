@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +10,6 @@ using DMSpro.OMS.MdmService.Shared;
 
 //Dev
 using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
 {

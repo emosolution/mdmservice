@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
