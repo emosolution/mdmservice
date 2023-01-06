@@ -12,6 +12,11 @@ using System.Globalization;
 using Volo.Abp.Guids;
 using System.Linq;
 using DMSpro.OMS.MdmService.HolidayDetails;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.CompanyInZones;
+using System.ComponentModel.Design;
+using System.Xml.Linq;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
@@ -20,7 +25,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         private readonly IVisitPlanCustomRepository _visitPlanCustomRepository;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<Customer, Guid> _customerRepository;
+        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
+        private readonly IRepository<Company, Guid> _companyRepository;
         private readonly IRepository<MCPHeader, Guid> _mcpHeaderRepository;
+        private readonly ICompanyInZoneRepository _companyInZoneRepository;
         private readonly IMCPDetailCustomRepository _mcpDetailCustomRepository;
         private readonly IVisitPlanRepository _visitPlanRepository;
         private readonly IMCPHeaderCustomRepository _mCPHeaderCustomRepository;
@@ -28,6 +36,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         public VisitPlansScheduledAppService(IVisitPlanCustomRepository visitPlanCustomRepository,
             IGuidGenerator guidGenerator,
+            IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository,
+            IRepository<Company, Guid> companyRepository,
+            ICompanyInZoneRepository companyInZoneRepository,
             IRepository<Customer, Guid> customerRepository,
             IRepository<MCPHeader, Guid> mcpHeaderRepository,
             IMCPDetailCustomRepository mcpDetailCustomRepository,
@@ -40,6 +51,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             _visitPlanCustomRepository = visitPlanCustomRepository;
             _guidGenerator = guidGenerator;
             _customerRepository = customerRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+            _companyInZoneRepository = companyInZoneRepository;
+            _companyRepository = companyRepository;
             _mcpHeaderRepository = mcpHeaderRepository;
             _mcpDetailCustomRepository = mcpDetailCustomRepository;
             _mCPHeaderCustomRepository = mCPHeaderCustomRepository;
@@ -59,28 +73,43 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public async Task<List<VisitPlanDto>> GenerateAsync(VisitPlanGenerationInputDto input)
         {
             DateTime reference = DateTime.Now;
-            Tuple<DateTime, DateTime?> mcpHeaderDate = await GetMCPHeaderData(input.MCPHeaderId);
+            MCPHeader mcpHeader = await GetMCPHeaderData(input.MCPHeaderId);
+            CompanyInZone companyInZone = await CheckCompanyInZone(mcpHeader.RouteId, mcpHeader.CompanyId);
+            SalesOrgHierarchy route = await CheckRoute(mcpHeader.RouteId);
+            Tuple<DateTime, DateTime?> companyData = await GetCompanyData(mcpHeader.CompanyId);
             Tuple<DateTime, DateTime> processedInputDates = ProcessInputDates(reference, input.DateStart, input.DateEnd);
-            DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeaderDate.Item1).Date;
-            DateTime DateEnd = ((DateTime)GetMinDateFromList(processedInputDates.Item2, mcpHeaderDate.Item2)).Date;
+            DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeader.EffectiveDate, companyData.Item1, companyInZone.EffectiveDate.Date).Date;
+            DateTime DateEnd = ((DateTime)GetMinDateFromList(processedInputDates.Item2, mcpHeader.EndDate, companyData.Item2, companyInZone.EndDate)).Date;
             List<DateTime> holidays = await GetHolidayDates(DateStart, DateEnd);
             List<Tuple<DateTime, int, DayOfWeek>> DateDetails = GetDateDetails(DateStart, DateEnd, holidays);
             List<MCPDetail> MCPDetails = await GetMCPDetails(input.MCPHeaderId, input.MCPDetailIds);
             List<Guid> mcpDetailIds = MCPDetails.AsQueryable().Select(c => c.Id).ToList();
             await DeleteExistingVisitPlans(DateStart, DateEnd, mcpDetailIds);
             List<VisitPlan> allVisitPlans = new();
+            int successfulGeneration = 0;
             foreach (MCPDetail mCPDetail in MCPDetails)
             {
-                List<VisitPlan> visitPlans = await GenerateVisitPlanForMCPDetail(mCPDetail, DateStart, DateEnd, DateDetails);
-                allVisitPlans.AddRange(visitPlans);
+                try
+                {
+                    List<VisitPlan> visitPlans = await GenerateVisitPlanForMCPDetail(mCPDetail, DateStart, DateEnd, DateDetails,
+                        route.Id, mcpHeader.CompanyId, mcpHeader.ItemGroupId);
+                    allVisitPlans.AddRange(visitPlans);
+                    successfulGeneration++;
+                    Console.WriteLine($"{visitPlans.Count} visit plans will be generated for MCPDetail ${mCPDetail.Code}.");
+                }
+                catch (BusinessException be)
+                {
+                    Console.WriteLine($"Failed to generate visit plan for MCPDetail {mCPDetail.Code}. Error: {be.Message}.");
+                }
             }
             await _visitPlanRepository.InsertManyAsync(allVisitPlans);
 
+            Console.WriteLine($"{allVisitPlans.Count} visit plans were generated for {successfulGeneration}/{mcpDetailIds.Count} MCPDetail.");
             return ObjectMapper.Map<List<VisitPlan>, List<VisitPlanDto>>(allVisitPlans);
         }
 
         private async Task<List<VisitPlan>> GenerateVisitPlanForMCPDetail(MCPDetail mcpDetail, DateTime inputDateStart, DateTime inputDateEnd,
-            List<Tuple<DateTime, int, DayOfWeek>> dateDetails)
+            List<Tuple<DateTime, int, DayOfWeek>> dateDetails, Guid routeId, Guid companyId, Guid? itemGroupId)
         {
             List<VisitPlan> result = new();
             Customer customer = await _customerRepository.GetAsync(mcpDetail.CustomerId);
@@ -92,13 +121,13 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             DateTime? CustomerDateEnd = customer.EndDate;
             if (CustomerDateEnd != null && CustomerDateEnd < CustomerDateStart)
             {
-                throw new BusinessException("701", "Bad Customer Data", "End date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException("707", "Bad Customer Data", "Customer end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
             }
             DateTime MCPDetailDateStart = mcpDetail.EffectiveDate.Date;
             DateTime? MCPDetailDateEnd = mcpDetail.EndDate;
             if (MCPDetailDateEnd != null && MCPDetailDateEnd < MCPDetailDateStart)
             {
-                throw new BusinessException("702", "Bad MCPDetail Data", "End date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException("708", "Bad MCPDetail Data", "MCPDetail end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
             }
             DateTime dateStart = GetMaxDateFromList(inputDateStart, CustomerDateStart, MCPDetailDateStart);
             DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, CustomerDateEnd, MCPDetailDateEnd)).Date;
@@ -121,10 +150,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 {
                     continue;
                 }
-                //VisitPlan visitPlan =
-                //    new(_guidGenerator.Create(), mcpDetail.Id, date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, WeekNum, date.Month, date.Year)
-                //    { TenantId = mcpDetail.TenantId };
-                //result.Add(visitPlan);
+                VisitPlan visitPlan =
+                    new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, companyId, itemGroupId, 
+                        date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, WeekNum, date.Month, date.Year)
+                    { TenantId = mcpDetail.TenantId };
+                result.Add(visitPlan);
             }
             return result;
         }
@@ -272,14 +302,63 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return dates.ToList().AsQueryable().Min();
         }
 
-        private async Task<Tuple<DateTime, DateTime?>> GetMCPHeaderData(Guid mcpHeaderId)
+        private async Task<MCPHeader> GetMCPHeaderData(Guid mcpHeaderId)
         {
             MCPHeader mcpHeader = await _mcpHeaderRepository.GetAsync(mcpHeaderId);
             if (mcpHeader.EndDate != null && mcpHeader.EndDate < mcpHeader.EffectiveDate)
             {
-                throw new BusinessException("700", "Bad MCP Header Data", "End date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException("700", "Bad MCP Header Data", "MCPHeader end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
             }
-            return new Tuple<DateTime, DateTime?>(mcpHeader.EffectiveDate, mcpHeader.EndDate);
+            return mcpHeader;
+        }
+
+        private async Task<SalesOrgHierarchy> CheckRoute(Guid routeId)
+        {
+            SalesOrgHierarchy route = await _salesOrgHierarchyRepository.GetAsync(routeId);
+            if (!route.IsRoute)
+            {
+                throw new BusinessException("701", "Bad MCP Header Data", "RouteId does not represent a route", null, LogLevel.Critical);
+            }
+            if (!route.Active)
+            {
+                throw new BusinessException("702", "Bad MCP Header Data", "Route is no longer active", null, LogLevel.Critical);
+            }
+            return route;
+        }
+
+        private async Task<CompanyInZone> CheckCompanyInZone(Guid routeId, Guid companyId)
+        {
+            IQueryable<CompanyInZone> queryable = await _companyInZoneRepository.GetQueryableAsync();
+            var query = from companyInZone in queryable
+                        where companyInZone.SalesOrgHierarchyId == routeId &&
+                            companyInZone.CompanyId == companyId &&
+                            companyInZone.IsBase == true 
+                        select companyInZone;
+            var companyInZones = query.ToList();
+            if (companyInZones.Count < 1)
+            {
+                throw new BusinessException("703", "Bad MCP Header Data", "Company is not a base in the route", null, LogLevel.Critical);
+            }
+            if (companyInZones.Count > 1)
+            {
+                throw new BusinessException("704", "Bad MCP Header Data", "Multiple route with the same company assigned and based", null, LogLevel.Critical);
+            }
+            CompanyInZone result = companyInZones.First();
+            return result;
+        }
+
+        private async Task<Tuple<DateTime, DateTime?>> GetCompanyData(Guid companyId)
+        {
+            Company company = await _companyRepository.GetAsync(companyId);
+            if (!company.Active)
+            {
+                throw new BusinessException("705", "Bad MCP Header Data", "Company is not active", null, LogLevel.Critical);
+            }
+            if (company.EndDate != null && company.EndDate < company.EffectiveDate.Date)
+            {
+                throw new BusinessException("706", "Bad Customer Data", "Company end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+            }
+            return new Tuple<DateTime, DateTime?>(company.EffectiveDate.Date, company.EndDate);
         }
 
         private async Task DeleteExistingVisitPlans(DateTime DateStart, DateTime DateEnd, List<Guid> mcpDetailIds)
