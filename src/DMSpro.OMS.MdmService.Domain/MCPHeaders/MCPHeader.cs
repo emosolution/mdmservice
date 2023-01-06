@@ -1,5 +1,6 @@
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -28,13 +29,14 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         public virtual DateTime? EndDate { get; set; }
         public Guid RouteId { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public MCPHeader()
         {
 
         }
 
-        public MCPHeader(Guid id, Guid routeId, Guid companyId, string code, string name, DateTime effectiveDate, DateTime? endDate = null)
+        public MCPHeader(Guid id, Guid routeId, Guid companyId, Guid? itemGroupId, string code, string name, DateTime effectiveDate, DateTime? endDate = null)
         {
 
             Id = id;
@@ -46,6 +48,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             EndDate = endDate;
             RouteId = routeId;
             CompanyId = companyId;
+            ItemGroupId = itemGroupId;
         }
 
     }

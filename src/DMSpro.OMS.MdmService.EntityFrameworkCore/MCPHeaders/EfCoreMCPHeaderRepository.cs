@@ -24,11 +24,12 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             var dbContext = await GetDbContextAsync();
 
             return (await GetDbSetAsync()).Where(b => b.Id == id)
-                .Select(mcpHeader => new MCPHeaderWithNavigationProperties
+                .Select(mCPHeader => new MCPHeaderWithNavigationProperties
                 {
-                    MCPHeader = mcpHeader,
-                    SalesOrgHierarchy = dbContext.SalesOrgHierarchies.FirstOrDefault(c => c.Id == mcpHeader.RouteId),
-                    Company = dbContext.Companies.FirstOrDefault(c => c.Id == mcpHeader.CompanyId)
+                    MCPHeader = mCPHeader,
+                    SalesOrgHierarchy = dbContext.SalesOrgHierarchies.FirstOrDefault(c => c.Id == mCPHeader.RouteId),
+                    Company = dbContext.Companies.FirstOrDefault(c => c.Id == mCPHeader.CompanyId),
+                    ItemGroup = dbContext.ItemGroups.FirstOrDefault(c => c.Id == mCPHeader.ItemGroupId)
                 }).FirstOrDefault();
         }
 
@@ -42,30 +43,34 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime? endDateMax = null,
             Guid? routeId = null,
             Guid? companyId = null,
+            Guid? itemGroupId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, routeId, companyId);
+            query = ApplyFilter(query, filterText, code, name, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, routeId, companyId, itemGroupId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? MCPHeaderConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
 
         protected virtual async Task<IQueryable<MCPHeaderWithNavigationProperties>> GetQueryForNavigationPropertiesAsync()
         {
-            return from mcpHeader in (await GetDbSetAsync())
-                   join salesOrgHierarchy in (await GetDbContextAsync()).SalesOrgHierarchies on mcpHeader.RouteId equals salesOrgHierarchy.Id into salesOrgHierarchies
+            return from mCPHeader in (await GetDbSetAsync())
+                   join salesOrgHierarchy in (await GetDbContextAsync()).SalesOrgHierarchies on mCPHeader.RouteId equals salesOrgHierarchy.Id into salesOrgHierarchies
                    from salesOrgHierarchy in salesOrgHierarchies.DefaultIfEmpty()
-                   join company in (await GetDbContextAsync()).Companies on mcpHeader.CompanyId equals company.Id into companies
+                   join company in (await GetDbContextAsync()).Companies on mCPHeader.CompanyId equals company.Id into companies
                    from company in companies.DefaultIfEmpty()
+                   join itemGroup in (await GetDbContextAsync()).ItemGroups on mCPHeader.ItemGroupId equals itemGroup.Id into itemGroups
+                   from itemGroup in itemGroups.DefaultIfEmpty()
 
                    select new MCPHeaderWithNavigationProperties
                    {
-                       MCPHeader = mcpHeader,
+                       MCPHeader = mCPHeader,
                        SalesOrgHierarchy = salesOrgHierarchy,
-                       Company = company
+                       Company = company,
+                       ItemGroup = itemGroup
                    };
         }
 
@@ -79,7 +84,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
             Guid? routeId = null,
-            Guid? companyId = null)
+            Guid? companyId = null,
+            Guid? itemGroupId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.MCPHeader.Code.Contains(filterText) || e.MCPHeader.Name.Contains(filterText))
@@ -90,7 +96,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                     .WhereIf(endDateMin.HasValue, e => e.MCPHeader.EndDate >= endDateMin.Value)
                     .WhereIf(endDateMax.HasValue, e => e.MCPHeader.EndDate <= endDateMax.Value)
                     .WhereIf(routeId != null && routeId != Guid.Empty, e => e.SalesOrgHierarchy != null && e.SalesOrgHierarchy.Id == routeId)
-                    .WhereIf(companyId != null && companyId != Guid.Empty, e => e.Company != null && e.Company.Id == companyId);
+                    .WhereIf(companyId != null && companyId != Guid.Empty, e => e.Company != null && e.Company.Id == companyId)
+                    .WhereIf(itemGroupId != null && itemGroupId != Guid.Empty, e => e.ItemGroup != null && e.ItemGroup.Id == itemGroupId);
         }
 
         public async Task<List<MCPHeader>> GetListAsync(
@@ -121,10 +128,11 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime? endDateMax = null,
             Guid? routeId = null,
             Guid? companyId = null,
+            Guid? itemGroupId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, routeId, companyId);
+            query = ApplyFilter(query, filterText, code, name, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, routeId, companyId, itemGroupId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 

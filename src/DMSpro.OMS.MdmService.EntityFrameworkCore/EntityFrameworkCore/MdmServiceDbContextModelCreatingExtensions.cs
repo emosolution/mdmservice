@@ -520,18 +520,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<MCPHeader>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "MCPHeaders", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(MCPHeader.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(MCPHeader.Code)).IsRequired().HasMaxLength(MCPHeaderConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(MCPHeader.Name));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(MCPHeader.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(MCPHeader.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-    });
 
         builder.Entity<MCPDetail>(b =>
     {
@@ -845,6 +833,19 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<MCPHeader>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "MCPHeaders", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(MCPHeader.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(MCPHeader.Code)).IsRequired().HasMaxLength(MCPHeaderConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(MCPHeader.Name));
+        b.Property(x => x.EffectiveDate).HasColumnName(nameof(MCPHeader.EffectiveDate));
+        b.Property(x => x.EndDate).HasColumnName(nameof(MCPHeader.EndDate));
+        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>().WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

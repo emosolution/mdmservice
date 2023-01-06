@@ -346,5 +346,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupList, ItemGroupListDto>();
         CreateMap<ItemGroupList, ItemGroupListExcelDto>();
         CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
+
+        CreateMap<ItemGroup, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
     }
 }

@@ -1,5 +1,6 @@
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.ItemGroups;
 
 using System;
 using Volo.Abp.Application.Dtos;
@@ -13,6 +14,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 
         public SalesOrgHierarchyDto SalesOrgHierarchy { get; set; }
         public CompanyDto Company { get; set; }
+        public ItemGroupDto ItemGroup { get; set; }
 
     }
 }

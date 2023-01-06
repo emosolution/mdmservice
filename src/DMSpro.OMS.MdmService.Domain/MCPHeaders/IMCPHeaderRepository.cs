@@ -23,6 +23,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime? endDateMax = null,
             Guid? routeId = null,
             Guid? companyId = null,
+            Guid? itemGroupId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -53,6 +54,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime? endDateMax = null,
             Guid? routeId = null,
             Guid? companyId = null,
+            Guid? itemGroupId = null,
             CancellationToken cancellationToken = default);
     }
 }

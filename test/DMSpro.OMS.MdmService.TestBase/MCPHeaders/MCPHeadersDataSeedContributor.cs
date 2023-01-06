@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System;
@@ -18,11 +19,13 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 
         private readonly CompaniesDataSeedContributor _companiesDataSeedContributor;
 
-        public MCPHeadersDataSeedContributor(IMCPHeaderRepository mCPHeaderRepository, IUnitOfWorkManager unitOfWorkManager, SalesOrgHierarchiesDataSeedContributor salesOrgHierarchiesDataSeedContributor, CompaniesDataSeedContributor companiesDataSeedContributor)
+        private readonly ItemGroupsDataSeedContributor _itemGroupsDataSeedContributor;
+
+        public MCPHeadersDataSeedContributor(IMCPHeaderRepository mCPHeaderRepository, IUnitOfWorkManager unitOfWorkManager, SalesOrgHierarchiesDataSeedContributor salesOrgHierarchiesDataSeedContributor, CompaniesDataSeedContributor companiesDataSeedContributor, ItemGroupsDataSeedContributor itemGroupsDataSeedContributor)
         {
             _mCPHeaderRepository = mCPHeaderRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _salesOrgHierarchiesDataSeedContributor = salesOrgHierarchiesDataSeedContributor; _companiesDataSeedContributor = companiesDataSeedContributor;
+            _salesOrgHierarchiesDataSeedContributor = salesOrgHierarchiesDataSeedContributor; _companiesDataSeedContributor = companiesDataSeedContributor; _itemGroupsDataSeedContributor = itemGroupsDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -34,27 +37,30 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 
             await _salesOrgHierarchiesDataSeedContributor.SeedAsync(context);
             await _companiesDataSeedContributor.SeedAsync(context);
+            await _itemGroupsDataSeedContributor.SeedAsync(context);
 
             await _mCPHeaderRepository.InsertAsync(new MCPHeader
             (
-                id: Guid.Parse("c01415d9-e009-42ed-84c7-54d857286730"),
-                code: "9cbbdc5f3557449c98df",
-                name: "6e21c9cc5e574113b1",
-                effectiveDate: new DateTime(2015, 6, 14),
-                endDate: new DateTime(2002, 11, 11),
+                id: Guid.Parse("67fe0da1-b355-4812-ac13-ef2b20992acc"),
+                code: "a81b3cb09c174551a7d8",
+                name: "45ea898989144d088143a827498b16799a480162ca9343d28024a6540e2fe63a67dbfaa",
+                effectiveDate: new DateTime(2013, 11, 16),
+                endDate: new DateTime(2009, 5, 6),
                 routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557")
+                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
+                itemGroupId: null
             ));
 
             await _mCPHeaderRepository.InsertAsync(new MCPHeader
             (
-                id: Guid.Parse("00c6faa0-177a-4143-9ed3-1e27e13d4916"),
-                code: "75ddc503b6b347ddba91",
-                name: "daf4b0b576c549e9b98a4108968000a5879567d8666749eb9170a47a43012517da080b",
-                effectiveDate: new DateTime(2020, 6, 26),
-                endDate: new DateTime(2013, 5, 11),
+                id: Guid.Parse("eed14627-87a5-4c56-b5eb-569558c73523"),
+                code: "887957c52d62492789ce",
+                name: "d45f11acb702458ca4d2ebbcbc7db8175fd15fea9ee840db8e2ddc5f91bffc968019c2",
+                effectiveDate: new DateTime(2021, 1, 19),
+                endDate: new DateTime(2013, 6, 15),
                 routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557")
+                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
+                itemGroupId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

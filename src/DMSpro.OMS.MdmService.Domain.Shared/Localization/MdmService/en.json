@@ -928,6 +928,7 @@
     "Button.GenerateVisitPlans.MCPHeader": "Generate Visit Plans",
     "EntityFieldName:MDMService:MCPHeader:CompanyCode": "Company Code",
     "EntityFieldName:MDMService:MCPHeader:CompanyName": "Company Name",
+    "EntityFieldName:MDMService:MCPHeader:ItemGroup": "Item Group",
     "EntityFieldName:MDMService:MCPHeader:RouteCode": "Route Code",
     "EntityFieldName:MDMService:MCPHeader:Code": "Code",
     "EntityFieldName:MDMService:MCPHeader:Name": "Name",

@@ -1,3 +1,5 @@
+using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System;
@@ -35,19 +37,21 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         private readonly MCPHeaderManager _mCPHeaderManager;
         private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
         private readonly IRepository<Company, Guid> _companyRepository;
+        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
 
-        public MCPHeadersAppService(IMCPHeaderRepository mCPHeaderRepository, MCPHeaderManager mCPHeaderManager, IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<Company, Guid> companyRepository)
+        public MCPHeadersAppService(IMCPHeaderRepository mCPHeaderRepository, MCPHeaderManager mCPHeaderManager, IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<Company, Guid> companyRepository, IRepository<ItemGroup, Guid> itemGroupRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _mCPHeaderRepository = mCPHeaderRepository;
             _mCPHeaderManager = mCPHeaderManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
             _companyRepository = companyRepository;
+            _itemGroupRepository = itemGroupRepository;
         }
 
         public virtual async Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input)
         {
-            var totalCount = await _mCPHeaderRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.CompanyId);
-            var items = await _mCPHeaderRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _mCPHeaderRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.CompanyId, input.ItemGroupId);
+            var items = await _mCPHeaderRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.CompanyId, input.ItemGroupId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<MCPHeaderWithNavigationPropertiesDto>
             {
@@ -68,13 +72,12 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             return results;
                 
         }
-
+        
         public virtual async Task<MCPHeaderWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return ObjectMapper.Map<MCPHeaderWithNavigationProperties, MCPHeaderWithNavigationPropertiesDto>
                 (await _mCPHeaderRepository.GetWithNavigationPropertiesAsync(id));
         }
-
 
         public virtual async Task<MCPHeaderDto> GetAsync(Guid id)
         {
@@ -113,6 +116,22 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             };
         }
 
+        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        {
+            var query = (await _itemGroupRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
+
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemGroup>();
+            var totalCount = query.Count();
+            return new PagedResultDto<LookupDto<Guid?>>
+            {
+                TotalCount = totalCount,
+                Items = ObjectMapper.Map<List<ItemGroup>, List<LookupDto<Guid?>>>(lookupData)
+            };
+        }
+
         [Authorize(MdmServicePermissions.MCPHeaders.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
@@ -131,11 +150,11 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
 
-            var mcpHeader = await _mCPHeaderManager.CreateAsync(
-            input.RouteId, input.CompanyId, input.Code, input.Name, input.EffectiveDate, input.EndDate
+            var mCPHeader = await _mCPHeaderManager.CreateAsync(
+            input.RouteId, input.CompanyId, input.ItemGroupId, input.Code, input.Name, input.EffectiveDate, input.EndDate
             );
 
-            return ObjectMapper.Map<MCPHeader, MCPHeaderDto>(mcpHeader);
+            return ObjectMapper.Map<MCPHeader, MCPHeaderDto>(mCPHeader);
         }
 
         [Authorize(MdmServicePermissions.MCPHeaders.Edit)]
@@ -150,12 +169,12 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
 
-            var mcpHeader = await _mCPHeaderManager.UpdateAsync(
+            var mCPHeader = await _mCPHeaderManager.UpdateAsync(
             id,
-            input.RouteId, input.CompanyId, input.Code, input.Name, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp
+            input.RouteId, input.CompanyId, input.ItemGroupId, input.Code, input.Name, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp
             );
 
-            return ObjectMapper.Map<MCPHeader, MCPHeaderDto>(mcpHeader);
+            return ObjectMapper.Map<MCPHeader, MCPHeaderDto>(mCPHeader);
         }
 
         [AllowAnonymous]
