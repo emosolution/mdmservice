@@ -20,13 +20,12 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         }
 
         public async Task<VisitPlan> CreateAsync(
-        Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
+        Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid? itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
         {
             Check.NotNull(mCPDetailId, nameof(mCPDetailId));
             Check.NotNull(customerId, nameof(customerId));
             Check.NotNull(routeId, nameof(routeId));
             Check.NotNull(companyId, nameof(companyId));
-            Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(dateVisit, nameof(dateVisit));
             Check.NotNull(dayOfWeek, nameof(dayOfWeek));
 
@@ -40,14 +39,13 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         public async Task<VisitPlan> UpdateAsync(
             Guid id,
-            Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year, [CanBeNull] string concurrencyStamp = null
+            Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid? itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(mCPDetailId, nameof(mCPDetailId));
             Check.NotNull(customerId, nameof(customerId));
             Check.NotNull(routeId, nameof(routeId));
             Check.NotNull(companyId, nameof(companyId));
-            Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(dateVisit, nameof(dateVisit));
             Check.NotNull(dayOfWeek, nameof(dayOfWeek));
 

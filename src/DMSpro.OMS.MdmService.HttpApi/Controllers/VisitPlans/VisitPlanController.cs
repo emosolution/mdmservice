@@ -83,7 +83,7 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
 
         [HttpGet]
         [Route("item-group-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
         {
             return _visitPlansAppService.GetItemGroupLookupAsync(input);
         }

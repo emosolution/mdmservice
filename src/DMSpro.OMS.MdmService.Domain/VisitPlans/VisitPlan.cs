@@ -37,14 +37,14 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public Guid CustomerId { get; set; }
         public Guid RouteId { get; set; }
         public Guid CompanyId { get; set; }
-        public Guid ItemGroupId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public VisitPlan()
         {
 
         }
 
-        public VisitPlan(Guid id, Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
+        public VisitPlan(Guid id, Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid? itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
         {
 
             Id = id;

@@ -49,36 +49,36 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
             await _visitPlanRepository.InsertAsync(new VisitPlan
             (
-                id: Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"),
-                dateVisit: new DateTime(2014, 3, 14),
-                distance: 59657487,
-                visitOrder: 1144794777,
+                id: Guid.Parse("bd83721f-3a02-42d0-8187-4e5504558cd3"),
+                dateVisit: new DateTime(2008, 3, 16),
+                distance: 983691058,
+                visitOrder: 512221060,
                 dayOfWeek: default,
-                week: 252133698,
-                month: 1240510628,
-                year: 1264736186,
+                week: 989657167,
+                month: 1307483504,
+                year: 558824439,
                 mCPDetailId: Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
                 customerId: Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
                 routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
-                itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+                companyId: Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"),
+                itemGroupId: null
             ));
 
             await _visitPlanRepository.InsertAsync(new VisitPlan
             (
-                id: Guid.Parse("56b0c461-ef96-495e-8a92-2f7fc7779da8"),
-                dateVisit: new DateTime(2012, 6, 17),
-                distance: 1194760013,
-                visitOrder: 2047879628,
+                id: Guid.Parse("473b81d2-fc78-4a5b-ba79-f56cb707d365"),
+                dateVisit: new DateTime(2003, 2, 2),
+                distance: 1043636306,
+                visitOrder: 712029538,
                 dayOfWeek: default,
-                week: 1478265671,
-                month: 1823876200,
-                year: 1071534353,
+                week: 612409450,
+                month: 1532259848,
+                year: 557855497,
                 mCPDetailId: Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
                 customerId: Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
                 routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
-                itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+                companyId: Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"),
+                itemGroupId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

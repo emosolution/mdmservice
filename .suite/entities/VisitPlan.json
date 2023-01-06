@@ -246,7 +246,7 @@
       "EntitySetNameWithDuplicationNumber": "ItemGroups",
       "ReferencePropertyName": "ItemGroup",
       "UiPickType": "Dropdown",
-      "IsRequired": true,
+      "IsRequired": false,
       "Name": "ItemGroupId",
       "DisplayProperty": "Code",
       "Namespace": "DMSpro.OMS.MdmService.ItemGroups",

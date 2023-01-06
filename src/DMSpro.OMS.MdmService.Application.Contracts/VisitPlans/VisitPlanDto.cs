@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public Guid CustomerId { get; set; }
         public Guid RouteId { get; set; }
         public Guid CompanyId { get; set; }
-        public Guid ItemGroupId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

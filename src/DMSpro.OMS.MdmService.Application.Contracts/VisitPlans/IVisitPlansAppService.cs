@@ -15,7 +15,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         Task<VisitPlanWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-
+        
         Task<VisitPlanDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetMCPDetailLookupAsync(LookupRequestDto input);
@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

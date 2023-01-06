@@ -63,7 +63,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 Items = ObjectMapper.Map<List<VisitPlanWithNavigationProperties>, List<VisitPlanWithNavigationPropertiesDto>>(items)
             };
         }
-        
+
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {   
             var items = await _visitPlanRepository.GetQueryableAsync();    
@@ -75,7 +75,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return results;
                 
         }
-
+        
         public virtual async Task<VisitPlanWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return ObjectMapper.Map<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>
@@ -151,7 +151,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
         {
             var query = (await _itemGroupRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -160,10 +160,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemGroup>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid>>
+            return new PagedResultDto<LookupDto<Guid?>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemGroup>, List<LookupDto<Guid>>>(lookupData)
+                Items = ObjectMapper.Map<List<ItemGroup>, List<LookupDto<Guid?>>>(lookupData)
             };
         }
 
@@ -192,10 +192,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
-            if (input.ItemGroupId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
-            }
 
             var visitPlan = await _visitPlanManager.CreateAsync(
             input.MCPDetailId, input.CustomerId, input.RouteId, input.CompanyId, input.ItemGroupId, input.DateVisit, input.Distance, input.VisitOrder, input.DayOfWeek, input.Week, input.Month, input.Year
@@ -222,10 +218,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             if (input.CompanyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
-            }
-            if (input.ItemGroupId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
             }
 
             var visitPlan = await _visitPlanManager.UpdateAsync(
