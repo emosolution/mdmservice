@@ -103,36 +103,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
 
-        builder.Entity<Company>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Companies", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(Company.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(Company.Code)).IsRequired().HasMaxLength(CompanyConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(Company.Name)).IsRequired().HasMaxLength(CompanyConsts.NameMaxLength);
-        b.Property(x => x.Street).HasColumnName(nameof(Company.Street)).IsRequired();
-        b.Property(x => x.Address).HasColumnName(nameof(Company.Address)).IsRequired().HasMaxLength(CompanyConsts.AddressMaxLength);
-        b.Property(x => x.Phone).HasColumnName(nameof(Company.Phone)).HasMaxLength(CompanyConsts.PhoneMaxLength);
-        b.Property(x => x.License).HasColumnName(nameof(Company.License)).HasMaxLength(CompanyConsts.LicenseMaxLength);
-        b.Property(x => x.TaxCode).HasColumnName(nameof(Company.TaxCode)).HasMaxLength(CompanyConsts.TaxCodeMaxLength);
-        b.Property(x => x.VATName).HasColumnName(nameof(Company.VATName));
-        b.Property(x => x.VATAddress).HasColumnName(nameof(Company.VATAddress));
-        b.Property(x => x.ERPCode).HasColumnName(nameof(Company.ERPCode)).HasMaxLength(CompanyConsts.ERPCodeMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(Company.Active));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(Company.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(Company.EndDate));
-        b.Property(x => x.IsHO).HasColumnName(nameof(Company.IsHO));
-        b.Property(x => x.Latitude).HasColumnName(nameof(Company.Latitude));
-        b.Property(x => x.Longitude).HasColumnName(nameof(Company.Longitude));
-        b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName));
-        b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone));
-        b.HasOne<Company>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
-    });
         builder.Entity<DimensionMeasurement>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "DimensionMeasurements", MdmServiceDbProperties.DbSchema);
@@ -851,6 +821,36 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<Company>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Companies", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(Company.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(Company.Code)).IsRequired().HasMaxLength(CompanyConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(Company.Name)).IsRequired().HasMaxLength(CompanyConsts.NameMaxLength);
+        b.Property(x => x.Street).HasColumnName(nameof(Company.Street)).IsRequired();
+        b.Property(x => x.Address).HasColumnName(nameof(Company.Address)).IsRequired().HasMaxLength(CompanyConsts.AddressMaxLength);
+        b.Property(x => x.Phone).HasColumnName(nameof(Company.Phone)).HasMaxLength(CompanyConsts.PhoneMaxLength);
+        b.Property(x => x.License).HasColumnName(nameof(Company.License)).HasMaxLength(CompanyConsts.LicenseMaxLength);
+        b.Property(x => x.TaxCode).HasColumnName(nameof(Company.TaxCode)).HasMaxLength(CompanyConsts.TaxCodeMaxLength);
+        b.Property(x => x.VATName).HasColumnName(nameof(Company.VATName));
+        b.Property(x => x.VATAddress).HasColumnName(nameof(Company.VATAddress));
+        b.Property(x => x.ERPCode).HasColumnName(nameof(Company.ERPCode)).HasMaxLength(CompanyConsts.ERPCodeMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(Company.Active));
+        b.Property(x => x.EffectiveDate).HasColumnName(nameof(Company.EffectiveDate));
+        b.Property(x => x.EndDate).HasColumnName(nameof(Company.EndDate));
+        b.Property(x => x.IsHO).HasColumnName(nameof(Company.IsHO));
+        b.Property(x => x.Latitude).HasColumnName(nameof(Company.Latitude));
+        b.Property(x => x.Longitude).HasColumnName(nameof(Company.Longitude));
+        b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName));
+        b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone));
+        b.HasOne<Company>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

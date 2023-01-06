@@ -51,7 +51,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public virtual DateTime EffectiveDate { get; set; }
 
-        public virtual DateTime EndDate { get; set; }
+        public virtual DateTime? EndDate { get; set; }
 
         public virtual bool IsHO { get; set; }
 
@@ -78,7 +78,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         }
 
-        public Company(Guid id, Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, DateTime endDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone)
+        public Company(Guid id, Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null)
         {
 
             Id = id;
