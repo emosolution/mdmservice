@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -34,12 +35,12 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
         }
 
         [HttpGet]
-
         [Route("GetListDevextremes")]
         public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
             return _visitPlansAppService.GetListDevextremesAsync(inputDev);
         }
+        
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<VisitPlanWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
@@ -59,6 +60,34 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
         public Task<PagedResultDto<LookupDto<Guid>>> GetMCPDetailLookupAsync(LookupRequestDto input)
         {
             return _visitPlansAppService.GetMCPDetailLookupAsync(input);
+        }
+
+        [HttpGet]
+        [Route("customer-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
+        {
+            return _visitPlansAppService.GetCustomerLookupAsync(input);
+        }
+
+        [HttpGet]
+        [Route("sales-org-hierarchy-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
+        {
+            return _visitPlansAppService.GetSalesOrgHierarchyLookupAsync(input);
+        }
+
+        [HttpGet]
+        [Route("company-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
+        {
+            return _visitPlansAppService.GetCompanyLookupAsync(input);
+        }
+
+        [HttpGet]
+        [Route("item-group-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        {
+            return _visitPlansAppService.GetItemGroupLookupAsync(input);
         }
 
         [HttpPost]

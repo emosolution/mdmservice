@@ -20,6 +20,14 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         Task<PagedResultDto<LookupDto<Guid>>> GetMCPDetailLookupAsync(LookupRequestDto input);
 
+        Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input);
+
+        Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input);
+
+        Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
+
+        Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input);
+
         Task DeleteAsync(Guid id);
 
         Task<VisitPlanDto> CreateAsync(VisitPlanCreateDto input);

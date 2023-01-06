@@ -1,4 +1,8 @@
 using DMSpro.OMS.MdmService.MCPDetails;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -30,13 +34,17 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         public virtual int Year { get; set; }
         public Guid MCPDetailId { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid RouteId { get; set; }
+        public Guid CompanyId { get; set; }
+        public Guid ItemGroupId { get; set; }
 
         public VisitPlan()
         {
 
         }
 
-        public VisitPlan(Guid id, Guid mCPDetailId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
+        public VisitPlan(Guid id, Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
         {
 
             Id = id;
@@ -48,6 +56,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             Month = month;
             Year = year;
             MCPDetailId = mCPDetailId;
+            CustomerId = customerId;
+            RouteId = routeId;
+            CompanyId = companyId;
+            ItemGroupId = itemGroupId;
         }
 
     }

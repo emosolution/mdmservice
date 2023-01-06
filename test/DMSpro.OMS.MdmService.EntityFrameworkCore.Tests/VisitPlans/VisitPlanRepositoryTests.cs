@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"));
+                result.First().Id.ShouldBe(Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"));
             });
         }
 

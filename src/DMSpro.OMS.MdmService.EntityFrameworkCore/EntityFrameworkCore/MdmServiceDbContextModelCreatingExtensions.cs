@@ -565,20 +565,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ValueCode).HasColumnName(nameof(SystemData.ValueCode)).IsRequired().HasMaxLength(SystemDataConsts.ValueCodeMaxLength);
         b.Property(x => x.ValueName).HasColumnName(nameof(SystemData.ValueName)).IsRequired().HasMaxLength(SystemDataConsts.ValueNameMaxLength);
     });
-        builder.Entity<VisitPlan>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "VisitPlans", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(VisitPlan.TenantId));
-        b.Property(x => x.DateVisit).HasColumnName(nameof(VisitPlan.DateVisit));
-        b.Property(x => x.Distance).HasColumnName(nameof(VisitPlan.Distance));
-        b.Property(x => x.VisitOrder).HasColumnName(nameof(VisitPlan.VisitOrder));
-        b.Property(x => x.DayOfWeek).HasColumnName(nameof(VisitPlan.DayOfWeek));
-        b.Property(x => x.Week).HasColumnName(nameof(VisitPlan.Week));
-        b.Property(x => x.Month).HasColumnName(nameof(VisitPlan.Month));
-        b.Property(x => x.Year).HasColumnName(nameof(VisitPlan.Year));
-        b.HasOne<MCPDetail>().WithMany().IsRequired().HasForeignKey(x => x.MCPDetailId).OnDelete(DeleteBehavior.NoAction);
-    });
+
         builder.Entity<NumberingConfig>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigs", MdmServiceDbProperties.DbSchema);
@@ -846,6 +833,24 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemGroup>().WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<VisitPlan>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "VisitPlans", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(VisitPlan.TenantId));
+        b.Property(x => x.DateVisit).HasColumnName(nameof(VisitPlan.DateVisit));
+        b.Property(x => x.Distance).HasColumnName(nameof(VisitPlan.Distance));
+        b.Property(x => x.VisitOrder).HasColumnName(nameof(VisitPlan.VisitOrder));
+        b.Property(x => x.DayOfWeek).HasColumnName(nameof(VisitPlan.DayOfWeek));
+        b.Property(x => x.Week).HasColumnName(nameof(VisitPlan.Week));
+        b.Property(x => x.Month).HasColumnName(nameof(VisitPlan.Month));
+        b.Property(x => x.Year).HasColumnName(nameof(VisitPlan.Year));
+        b.HasOne<MCPDetail>().WithMany().IsRequired().HasForeignKey(x => x.MCPDetailId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

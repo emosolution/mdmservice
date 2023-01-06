@@ -59,6 +59,38 @@ public partial class VisitPlanClientProxy : ClientProxyBase<IVisitPlansAppServic
         });
     }
 
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCustomerLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetSalesOrgHierarchyLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemGroupLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
     public virtual async Task<VisitPlanDto> CreateAsync(VisitPlanCreateDto input)
     {
         return await RequestAsync<VisitPlanDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue

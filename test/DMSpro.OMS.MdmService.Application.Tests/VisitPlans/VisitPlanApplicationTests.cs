@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.VisitPlan.Id == Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5")).ShouldBe(true);
-            result.Items.Any(x => x.VisitPlan.Id == Guid.Parse("fd5dcdb3-5c17-4d42-97b0-af0437e6b5f0")).ShouldBe(true);
+            result.Items.Any(x => x.VisitPlan.Id == Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400")).ShouldBe(true);
+            result.Items.Any(x => x.VisitPlan.Id == Guid.Parse("56b0c461-ef96-495e-8a92-2f7fc7779da8")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _visitPlansAppService.GetAsync(Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"));
+            var result = await _visitPlansAppService.GetAsync(Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"));
+            result.Id.ShouldBe(Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"));
         }
 
         [Fact]
@@ -48,14 +48,18 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             // Arrange
             var input = new VisitPlanCreateDto
             {
-                DateVisit = new DateTime(2020, 4, 8),
-                Distance = 840561331,
-                VisitOrder = 1531089305,
+                DateVisit = new DateTime(2000, 2, 16),
+                Distance = 1218038870,
+                VisitOrder = 1475442832,
                 DayOfWeek = default,
-                Week = 1269643596,
-                Month = 534468423,
-                Year = 1933672059,
-                MCPDetailId = Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9")
+                Week = 1661194589,
+                Month = 671464393,
+                Year = 1451210064,
+                MCPDetailId = Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
+                CustomerId = Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
+                RouteId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
+                CompanyId = Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
+                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
             };
 
             // Act
@@ -65,13 +69,13 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             var result = await _visitPlanRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.DateVisit.ShouldBe(new DateTime(2020, 4, 8));
-            result.Distance.ShouldBe(840561331);
-            result.VisitOrder.ShouldBe(1531089305);
+            result.DateVisit.ShouldBe(new DateTime(2000, 2, 16));
+            result.Distance.ShouldBe(1218038870);
+            result.VisitOrder.ShouldBe(1475442832);
             result.DayOfWeek.ShouldBe(default);
-            result.Week.ShouldBe(1269643596);
-            result.Month.ShouldBe(534468423);
-            result.Year.ShouldBe(1933672059);
+            result.Week.ShouldBe(1661194589);
+            result.Month.ShouldBe(671464393);
+            result.Year.ShouldBe(1451210064);
         }
 
         [Fact]
@@ -80,40 +84,44 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             // Arrange
             var input = new VisitPlanUpdateDto()
             {
-                DateVisit = new DateTime(2007, 5, 15),
-                Distance = 497187821,
-                VisitOrder = 690384115,
+                DateVisit = new DateTime(2002, 3, 27),
+                Distance = 1338196626,
+                VisitOrder = 1856076201,
                 DayOfWeek = default,
-                Week = 2106656363,
-                Month = 253959642,
-                Year = 1864723990,
-                MCPDetailId = Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9")
+                Week = 1060723367,
+                Month = 524301992,
+                Year = 1256278073,
+                MCPDetailId = Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
+                CustomerId = Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
+                RouteId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
+                CompanyId = Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557"),
+                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
             };
 
             // Act
-            var serviceResult = await _visitPlansAppService.UpdateAsync(Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"), input);
+            var serviceResult = await _visitPlansAppService.UpdateAsync(Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"), input);
 
             // Assert
             var result = await _visitPlanRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.DateVisit.ShouldBe(new DateTime(2007, 5, 15));
-            result.Distance.ShouldBe(497187821);
-            result.VisitOrder.ShouldBe(690384115);
+            result.DateVisit.ShouldBe(new DateTime(2002, 3, 27));
+            result.Distance.ShouldBe(1338196626);
+            result.VisitOrder.ShouldBe(1856076201);
             result.DayOfWeek.ShouldBe(default);
-            result.Week.ShouldBe(2106656363);
-            result.Month.ShouldBe(253959642);
-            result.Year.ShouldBe(1864723990);
+            result.Week.ShouldBe(1060723367);
+            result.Month.ShouldBe(524301992);
+            result.Year.ShouldBe(1256278073);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _visitPlansAppService.DeleteAsync(Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"));
+            await _visitPlansAppService.DeleteAsync(Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"));
 
             // Assert
-            var result = await _visitPlanRepository.FindAsync(c => c.Id == Guid.Parse("0953a5bf-8ec9-4ce7-beba-1af369be39e5"));
+            var result = await _visitPlanRepository.FindAsync(c => c.Id == Guid.Parse("c4656915-1ccb-4eb8-adad-e074abebc400"));
 
             result.ShouldBeNull();
         }

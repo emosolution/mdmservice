@@ -29,6 +29,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             int? yearMin = null,
             int? yearMax = null,
             Guid? mCPDetailId = null,
+            Guid? customerId = null,
+            Guid? routeId = null,
+            Guid? companyId = null,
+            Guid? itemGroupId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -72,6 +76,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             int? yearMin = null,
             int? yearMax = null,
             Guid? mCPDetailId = null,
+            Guid? customerId = null,
+            Guid? routeId = null,
+            Guid? companyId = null,
+            Guid? itemGroupId = null,
             CancellationToken cancellationToken = default);
     }
 }

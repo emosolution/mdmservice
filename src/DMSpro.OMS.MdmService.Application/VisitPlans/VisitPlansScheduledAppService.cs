@@ -121,10 +121,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 {
                     continue;
                 }
-                VisitPlan visitPlan =
-                    new(_guidGenerator.Create(), mcpDetail.Id, date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, WeekNum, date.Month, date.Year)
-                    { TenantId = mcpDetail.TenantId };
-                result.Add(visitPlan);
+                //VisitPlan visitPlan =
+                //    new(_guidGenerator.Create(), mcpDetail.Id, date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, WeekNum, date.Month, date.Year)
+                //    { TenantId = mcpDetail.TenantId };
+                //result.Add(visitPlan);
             }
             return result;
         }
