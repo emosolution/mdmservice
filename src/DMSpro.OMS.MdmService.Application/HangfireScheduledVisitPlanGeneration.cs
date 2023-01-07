@@ -24,8 +24,7 @@ namespace DMSpro.OMS.MdmService
             _visitPlanScheduledAppService = visitPlanScheduledAppService; 
 
             RecurringJobId = nameof(HangfireScheduledVisitPlanGeneration);
-            //CronExpression = "0 1 * * *"; // 1AM of everyday
-            CronExpression = Cron.Minutely();
+            CronExpression = "0 1 * * *"; // 1AM of everyday
         }
 
         [UnitOfWork]
