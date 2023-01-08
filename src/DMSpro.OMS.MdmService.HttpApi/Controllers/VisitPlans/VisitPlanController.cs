@@ -8,16 +8,13 @@ using DMSpro.OMS.MdmService.VisitPlans;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("VisitPlan")]
     [Route("api/mdm-service/visit-plans")]
-    public class VisitPlanController : AbpController, IVisitPlansAppService
+    public partial class VisitPlanController : AbpController, IVisitPlansAppService
     {
         private readonly IVisitPlansAppService _visitPlansAppService;
 
@@ -30,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
         public Task<PagedResultDto<VisitPlanWithNavigationPropertiesDto>> GetListAsync(GetVisitPlansInput input)
         {
             return _visitPlansAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _visitPlansAppService.GetListDevextremesAsync(inputDev);
         }
         
         [HttpGet]

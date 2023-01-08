@@ -22,15 +22,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
 
     [Authorize(MdmServicePermissions.VisitPlans.Default)]
-    public class VisitPlansAppService : ApplicationService, IVisitPlansAppService
+    public partial class VisitPlansAppService : ApplicationService, IVisitPlansAppService
     {
         private readonly IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IVisitPlanRepository _visitPlanRepository;
@@ -62,18 +58,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<VisitPlanWithNavigationProperties>, List<VisitPlanWithNavigationPropertiesDto>>(items)
             };
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _visitPlanRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<VisitPlan>, IEnumerable<VisitPlanDto>>(results.data.Cast<VisitPlan>());
-            
-            return results;
-                
         }
         
         public virtual async Task<VisitPlanWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
