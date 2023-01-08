@@ -17,6 +17,7 @@
     },
     "DMSpro.OMS.MdmService.HttpApi.Host": {
       "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:44732",
       "environmentVariables": {
