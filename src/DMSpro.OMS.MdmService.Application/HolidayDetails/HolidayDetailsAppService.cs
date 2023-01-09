@@ -19,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
 
     [Authorize(MdmServicePermissions.HolidayDetails.Default)]
-    public class HolidayDetailsAppService : ApplicationService, IHolidayDetailsAppService
+    public partial class HolidayDetailsAppService : ApplicationService, IHolidayDetailsAppService
     {
         private readonly IDistributedCache<HolidayDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IHolidayDetailRepository _holidayDetailRepository;
@@ -52,19 +48,6 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
                 Items = ObjectMapper.Map<List<HolidayDetailWithNavigationProperties>, List<HolidayDetailWithNavigationPropertiesDto>>(items)
             };
         }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _holidayDetailRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<HolidayDetail>, IEnumerable<HolidayDetailDto>>(results.data.Cast<HolidayDetail>());
-            
-            return results;
-                
-        }
-
 
         public virtual async Task<HolidayDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
