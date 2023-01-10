@@ -9,6 +9,7 @@ using Volo.Abp.Http.Client.ClientProxying;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.Shared;
 using Volo.Abp.Content;
+using System.Collections.Generic;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 
@@ -119,6 +120,14 @@ public partial class VisitPlanClientProxy : ClientProxyBase<IVisitPlansAppServic
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task<List<VisitPlanDto>> GenerateWithPermissionAsync(VisitPlanGenerationInputDto input)
+    {
+        return await RequestAsync<List<VisitPlanDto>>(nameof(GenerateWithPermissionAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(VisitPlanGenerationInputDto), input }
+        });
     }
 
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)

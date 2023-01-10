@@ -28,25 +28,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
     [Authorize(MdmServicePermissions.VisitPlans.Default)]
     public partial class VisitPlansAppService : ApplicationService, IVisitPlansAppService
     {
-        private readonly IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IVisitPlanRepository _visitPlanRepository;
-        private readonly VisitPlanManager _visitPlanManager;
-        private readonly IRepository<MCPDetail, Guid> _mCPDetailRepository;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<Company, Guid> _companyRepository;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-
-        public VisitPlansAppService(IVisitPlanRepository visitPlanRepository, VisitPlanManager visitPlanManager, IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<MCPDetail, Guid> mCPDetailRepository, IRepository<Customer, Guid> customerRepository, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<Company, Guid> companyRepository, IRepository<ItemGroup, Guid> itemGroupRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _visitPlanRepository = visitPlanRepository;
-            _visitPlanManager = visitPlanManager; _mCPDetailRepository = mCPDetailRepository;
-            _customerRepository = customerRepository;
-            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _companyRepository = companyRepository;
-            _itemGroupRepository = itemGroupRepository;
-        }
+        // Move constructor to VisitPlansCustomAppService.cs
 
         public virtual async Task<PagedResultDto<VisitPlanWithNavigationPropertiesDto>> GetListAsync(GetVisitPlansInput input)
         {
