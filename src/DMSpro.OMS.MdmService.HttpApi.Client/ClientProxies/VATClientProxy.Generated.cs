@@ -7,10 +7,10 @@ using Volo.Abp.Http.Modeling;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.ClientProxying;
 using DMSpro.OMS.MdmService.VATs;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 
 // ReSharper disable once CheckNamespace
 namespace DMSpro.OMS.MdmService.Controllers.VATs.ClientProxies;
@@ -24,14 +24,6 @@ public partial class VATClientProxy : ClientProxyBase<IVATsAppService>, IVATsApp
         return await RequestAsync<PagedResultDto<VATDto>>(nameof(GetListAsync), new ClientProxyRequestTypeValue
         {
             { typeof(GetVATsInput), input }
-        });
-    }
-
-    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-    {
-        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
 
@@ -79,5 +71,13 @@ public partial class VATClientProxy : ClientProxyBase<IVATsAppService>, IVATsApp
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
     }
 }

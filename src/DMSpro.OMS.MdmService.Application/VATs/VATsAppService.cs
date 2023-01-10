@@ -18,15 +18,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.VATs
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.VATs.Default)]
-    public class VATsAppService : ApplicationService, IVATsAppService
+    public partial class VATsAppService : ApplicationService, IVATsAppService
     {
         private readonly IDistributedCache<VATExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IVATRepository _vATRepository;
@@ -50,18 +46,7 @@ namespace DMSpro.OMS.MdmService.VATs
                 Items = ObjectMapper.Map<List<VAT>, List<VATDto>>(items)
             };
         }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _vATRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<VAT>, IEnumerable<VATDto>>(results.data.Cast<VAT>());
-            
-            return results;
-                
-        }
+        
         public virtual async Task<VATDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<VAT, VATDto>(await _vATRepository.GetAsync(id));

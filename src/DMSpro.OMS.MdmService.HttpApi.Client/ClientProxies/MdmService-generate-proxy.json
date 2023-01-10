@@ -4007,6 +4007,286 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
             },
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/v-aTs/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
+                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/v-aTs",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
+                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/v-aTs/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
+                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/mdm-service/v-aTs/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "GetListAsExcelFileAsyncByInput": {
+              "uniqueName": "GetListAsExcelFileAsyncByInput",
+              "name": "GetListAsExcelFileAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/v-aTs/as-excel-file",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "DownloadToken",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FilterText",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Code",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Name",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "RateMin",
+                  "jsonName": null,
+                  "type": "System.UInt32?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "RateMax",
+                  "jsonName": null,
+                  "type": "System.UInt32?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "GetDownloadTokenAsync": {
+              "uniqueName": "GetDownloadTokenAsync",
+              "name": "GetDownloadTokenAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/v-aTs/download-token",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
+                "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
             "GetListDevextremesAsyncByInputDev": {
               "uniqueName": "GetListDevextremesAsyncByInputDev",
               "name": "GetListDevextremesAsync",
@@ -4292,286 +4572,6 @@
               "returnValue": {
                 "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
                 "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "GetAsyncById": {
-              "uniqueName": "GetAsyncById",
-              "name": "GetAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/v-aTs/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
-                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
-              "httpMethod": "POST",
-              "url": "api/mdm-service/v-aTs",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
-                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
-              "name": "UpdateAsync",
-              "httpMethod": "PUT",
-              "url": "api/mdm-service/v-aTs/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATUpdateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.VATs.VATDto",
-                "typeSimple": "DMSpro.OMS.MdmService.VATs.VATDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/mdm-service/v-aTs/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "GetListAsExcelFileAsyncByInput": {
-              "uniqueName": "GetListAsExcelFileAsyncByInput",
-              "name": "GetListAsExcelFileAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/v-aTs/as-excel-file",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.VATs.VATExcelDownloadDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "DownloadToken",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "FilterText",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Code",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Name",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "RateMin",
-                  "jsonName": null,
-                  "type": "System.UInt32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "RateMax",
-                  "jsonName": null,
-                  "type": "System.UInt32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Content.IRemoteStreamContent",
-                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
-            },
-            "GetDownloadTokenAsync": {
-              "uniqueName": "GetDownloadTokenAsync",
-              "name": "GetDownloadTokenAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/v-aTs/download-token",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
-                "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"

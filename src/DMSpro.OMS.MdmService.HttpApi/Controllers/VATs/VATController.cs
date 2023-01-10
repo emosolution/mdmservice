@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.VATs;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.VATs
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("VAT")]
     [Route("api/mdm-service/v-aTs")]
-    public class VATController : AbpController, IVATsAppService
+    public partial class VATController : AbpController, IVATsAppService
     {
         private readonly IVATsAppService _vATsAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.VATs
         public virtual Task<PagedResultDto<VATDto>> GetListAsync(GetVATsInput input)
         {
             return _vATsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _vATsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]
