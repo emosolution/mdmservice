@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
-    public interface IVisitPlansCustomAppService : IApplicationService
+    public partial interface IVisitPlansAppService
     {
         Task<List<VisitPlanDto>> GenerateWithPermissionAsync(VisitPlanGenerationInputDto input);
     }
