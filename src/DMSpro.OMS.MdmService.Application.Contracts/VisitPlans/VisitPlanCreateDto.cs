@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.VisitPlans;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
@@ -15,5 +16,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public int Month { get; set; }
         public int Year { get; set; }
         public Guid MCPDetailId { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid RouteId { get; set; }
+        public Guid CompanyId { get; set; }
+        public Guid? ItemGroupId { get; set; }
     }
 }

@@ -6,10 +6,12 @@ namespace DMSpro.OMS.MdmService.ItemImages
 {
     public class ItemImageCreateDto
     {
+        [StringLength(ItemImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public bool Active { get; set; } = true;
         [Required]
-        public string URL { get; set; }
+        [StringLength(ItemImageConsts.UrlMaxLength, MinimumLength = ItemImageConsts.UrlMinLength)]
+        public string Url { get; set; }
+        public bool Active { get; set; } = true;
         public int DisplayOrder { get; set; } = 0;
         public Guid ItemId { get; set; }
     }

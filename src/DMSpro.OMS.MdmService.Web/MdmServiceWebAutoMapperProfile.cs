@@ -1,4 +1,12 @@
 /*
+using DMSpro.OMS.MdmService.Web.Pages.Items;
+using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.Web.Pages.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.Web.Pages.ItemAttributes;
+using DMSpro.OMS.MdmService.ItemAttributes;
+using DMSpro.OMS.MdmService.Web.Pages.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.Web.Pages.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Web.Pages.Vendors;
@@ -81,8 +89,6 @@ using DMSpro.OMS.MdmService.Web.Pages.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.Web.Pages.ItemImages;
 using DMSpro.OMS.MdmService.ItemImages;
-using DMSpro.OMS.MdmService.Web.Pages.ItemMasters;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.Web.Pages.ProdAttributeValues;
 using DMSpro.OMS.MdmService.ProdAttributeValues;
 using DMSpro.OMS.MdmService.Web.Pages.ProductAttributes;
@@ -152,7 +158,6 @@ using DMSpro.OMS.MdmService.Web.Pages.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.Web.Pages.ItemGroups;
 using DMSpro.OMS.MdmService.Web.Pages.ItemAttachments;
 using DMSpro.OMS.MdmService.Web.Pages.ItemImages;
-using DMSpro.OMS.MdmService.Web.Pages.ItemMasters;
 using DMSpro.OMS.MdmService.Web.Pages.ProdAttributeValues;
 using DMSpro.OMS.MdmService.Web.Pages.ProductAttributes;
 using DMSpro.OMS.MdmService.Web.Pages.UOMGroupDetails;
@@ -173,7 +178,7 @@ namespace DMSpro.OMS.MdmService.Web;
 public class MdmServiceWebAutoMapperProfile : Profile
 {
     public MdmServiceWebAutoMapperProfile()
-    {   
+    {
         /*
         CreateMap<CompanyDto, CompanyUpdateViewModel>();
         CreateMap<CompanyUpdateViewModel, CompanyUpdateDto>();
@@ -222,10 +227,6 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<ProdAttributeValueDto, ProdAttributeValueUpdateViewModel>();
         CreateMap<ProdAttributeValueUpdateViewModel, ProdAttributeValueUpdateDto>();
         CreateMap<ProdAttributeValueCreateViewModel, ProdAttributeValueCreateDto>();
-
-        CreateMap<ItemMasterDto, ItemMasterUpdateViewModel>();
-        CreateMap<ItemMasterUpdateViewModel, ItemMasterUpdateDto>();
-        CreateMap<ItemMasterCreateViewModel, ItemMasterCreateDto>();
 
         CreateMap<ItemImageDto, ItemImageUpdateViewModel>();
         CreateMap<ItemImageUpdateViewModel, ItemImageUpdateDto>();
@@ -410,11 +411,38 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<CustomerUpdateViewModel, CustomerUpdateDto>();
         CreateMap<CustomerCreateViewModel, CustomerCreateDto>();
 
-
         CreateMap<CompanyIdentityUserAssignmentDto, CompanyIdentityUserAssignmentUpdateViewModel>();
         CreateMap<CompanyIdentityUserAssignmentUpdateViewModel, CompanyIdentityUserAssignmentUpdateDto>();
         CreateMap<CompanyIdentityUserAssignmentCreateViewModel, CompanyIdentityUserAssignmentCreateDto>();
 
+        CreateMap<ItemAttributeDto, ItemAttributeUpdateViewModel>();
+        CreateMap<ItemAttributeUpdateViewModel, ItemAttributeUpdateDto>();
+        CreateMap<ItemAttributeCreateViewModel, ItemAttributeCreateDto>();
+
+        CreateMap<ItemAttributeValueDto, ItemAttributeValueUpdateViewModel>();
+        CreateMap<ItemAttributeValueUpdateViewModel, ItemAttributeValueUpdateDto>();
+        CreateMap<ItemAttributeValueCreateViewModel, ItemAttributeValueCreateDto>();
+
+        CreateMap<ItemGroupAttributeDto, ItemGroupAttributeUpdateViewModel>();
+        CreateMap<ItemGroupAttributeUpdateViewModel, ItemGroupAttributeUpdateDto>();
+        CreateMap<ItemGroupAttributeCreateViewModel, ItemGroupAttributeCreateDto>();
+
+        CreateMap<ItemDto, ItemUpdateViewModel>();
+        CreateMap<ItemUpdateViewModel, ItemUpdateDto>();
+        CreateMap<ItemCreateViewModel, ItemCreateDto>();
+
+        CreateMap<ItemImageDto, ItemImageUpdateViewModel>();
+        CreateMap<ItemImageUpdateViewModel, ItemImageUpdateDto>();
+        CreateMap<ItemImageCreateViewModel, ItemImageCreateDto>();
+
+        CreateMap<ItemAttachmentDto, ItemAttachmentUpdateViewModel>();
+        CreateMap<ItemAttachmentUpdateViewModel, ItemAttachmentUpdateDto>();
+        CreateMap<ItemAttachmentCreateViewModel, ItemAttachmentCreateDto>();
+
+        CreateMap<ItemGroupListDto, ItemGroupListUpdateViewModel>();
+        CreateMap<ItemGroupListUpdateViewModel, ItemGroupListUpdateDto>();
+        CreateMap<ItemGroupListCreateViewModel, ItemGroupListCreateDto>();
         */
+
     }
 }

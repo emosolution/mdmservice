@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.ProductAttributes;
 using System;
 using System.Collections.Generic;
 using System.Threading;

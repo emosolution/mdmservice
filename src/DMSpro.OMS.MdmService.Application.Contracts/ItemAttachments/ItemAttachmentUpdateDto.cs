@@ -7,10 +7,12 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 {
     public class ItemAttachmentUpdateDto : IHasConcurrencyStamp
     {
+        [StringLength(ItemAttachmentConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public bool Active { get; set; }
         [Required]
-        public string URL { get; set; }
+        [StringLength(ItemAttachmentConsts.UrlMaxLength, MinimumLength = ItemAttachmentConsts.UrlMinLength)]
+        public string Url { get; set; }
+        public bool Active { get; set; }
         public Guid ItemId { get; set; }
 
         public string ConcurrencyStamp { get; set; }

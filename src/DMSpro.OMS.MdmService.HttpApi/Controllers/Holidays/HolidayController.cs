@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.Holidays;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Holidays
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Holiday")]
     [Route("api/mdm-service/holidays")]
-    public class HolidayController : AbpController, IHolidaysAppService
+    public partial class HolidayController : AbpController, IHolidaysAppService
     {
         private readonly IHolidaysAppService _holidaysAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Holidays
         public virtual Task<PagedResultDto<HolidayDto>> GetListAsync(GetHolidaysInput input)
         {
             return _holidaysAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _holidaysAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

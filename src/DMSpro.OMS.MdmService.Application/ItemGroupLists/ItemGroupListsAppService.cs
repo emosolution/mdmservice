@@ -1,5 +1,6 @@
+using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.UOMs;
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.IO;
@@ -13,44 +14,43 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemGroupLists;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
-
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-    [RemoteService(IsEnabled = false)]
-    [Authorize(MdmServicePermissions.ItemGroupLists.Default)]
+
+    [Authorize(MdmServicePermissions.ItemGroups.Default)]
     public class ItemGroupListsAppService : ApplicationService, IItemGroupListsAppService
     {
         private readonly IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemGroupListRepository _itemGroupListRepository;
         private readonly ItemGroupListManager _itemGroupListManager;
         private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-        private readonly IRepository<ItemMaster, Guid> _itemMasterRepository;
+        private readonly IRepository<Item, Guid> _itemRepository;
         private readonly IRepository<UOM, Guid> _uOMRepository;
 
-        public ItemGroupListsAppService(IItemGroupListRepository itemGroupListRepository, ItemGroupListManager itemGroupListManager, IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemGroup, Guid> itemGroupRepository, IRepository<ItemMaster, Guid> itemMasterRepository, IRepository<UOM, Guid> uOMRepository)
+        public ItemGroupListsAppService(IItemGroupListRepository itemGroupListRepository, ItemGroupListManager itemGroupListManager, IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemGroup, Guid> itemGroupRepository, IRepository<Item, Guid> itemRepository, IRepository<UOM, Guid> uOMRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemGroupListRepository = itemGroupListRepository;
             _itemGroupListManager = itemGroupListManager; _itemGroupRepository = itemGroupRepository;
-            _itemMasterRepository = itemMasterRepository;
+            _itemRepository = itemRepository;
             _uOMRepository = uOMRepository;
         }
 
         public virtual async Task<PagedResultDto<ItemGroupListWithNavigationPropertiesDto>> GetListAsync(GetItemGroupListsInput input)
         {
-            var totalCount = await _itemGroupListRepository.GetCountAsync(input.FilterText, input.RateMin, input.RateMax, input.ItemGroupId, input.ItemId, input.UOMId);
-            var items = await _itemGroupListRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.RateMin, input.RateMax, input.ItemGroupId, input.ItemId, input.UOMId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemGroupListRepository.GetCountAsync(input.FilterText, input.RateMin, input.RateMax, input.PriceMin, input.PriceMax, input.ItemGroupId, input.ItemId, input.UomId);
+            var items = await _itemGroupListRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.RateMin, input.RateMax, input.PriceMin, input.PriceMax, input.ItemGroupId, input.ItemId, input.UomId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemGroupListWithNavigationPropertiesDto>
             {
@@ -66,16 +66,17 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemGroupListRepository.GetQueryableAsync();    
+        {
+            var items = await _itemGroupListRepository.GetQueryableAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemGroupList>, IEnumerable<ItemGroupListDto>>(results.data.Cast<ItemGroupList>());
-            
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+
             return results;
-                
+
         }
+
         public virtual async Task<ItemGroupListDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemGroupList, ItemGroupListDto>(await _itemGroupListRepository.GetAsync(id));
@@ -97,19 +98,19 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            var query = (await _itemMasterRepository.GetQueryableAsync())
+            var query = (await _itemRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
                     x => x.Code != null &&
                          x.Code.Contains(input.Filter));
 
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemMaster>();
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Item>();
             var totalCount = query.Count();
             return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemMaster>, List<LookupDto<Guid>>>(lookupData)
+                Items = ObjectMapper.Map<List<Item>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -129,13 +130,13 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             };
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupLists.Delete)]
+        [Authorize(MdmServicePermissions.ItemGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _itemGroupListRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupLists.Create)]
+        [Authorize(MdmServicePermissions.ItemGroups.Create)]
         public virtual async Task<ItemGroupListDto> CreateAsync(ItemGroupListCreateDto input)
         {
             if (input.ItemGroupId == default)
@@ -144,21 +145,21 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             }
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
-            if (input.UOMId == default)
+            if (input.UomId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
 
             var itemGroupList = await _itemGroupListManager.CreateAsync(
-            input.ItemGroupId, input.ItemId, input.UOMId, input.Rate
+            input.ItemGroupId, input.ItemId, input.UomId, input.Rate, input.Price
             );
 
             return ObjectMapper.Map<ItemGroupList, ItemGroupListDto>(itemGroupList);
         }
 
-        [Authorize(MdmServicePermissions.ItemGroupLists.Edit)]
+        [Authorize(MdmServicePermissions.ItemGroups.Edit)]
         public virtual async Task<ItemGroupListDto> UpdateAsync(Guid id, ItemGroupListUpdateDto input)
         {
             if (input.ItemGroupId == default)
@@ -167,16 +168,16 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             }
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
-            if (input.UOMId == default)
+            if (input.UomId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
 
             var itemGroupList = await _itemGroupListManager.UpdateAsync(
             id,
-            input.ItemGroupId, input.ItemId, input.UOMId, input.Rate, input.ConcurrencyStamp
+            input.ItemGroupId, input.ItemId, input.UomId, input.Rate, input.Price, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<ItemGroupList, ItemGroupListDto>(itemGroupList);
@@ -191,7 +192,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemGroupListRepository.GetListAsync(input.FilterText, input.RateMin, input.RateMax);
+            var items = await _itemGroupListRepository.GetListAsync(input.FilterText, input.RateMin, input.RateMax, input.PriceMin, input.PriceMax);
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemGroupList>, List<ItemGroupListExcelDto>>(items));

@@ -27,7 +27,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 .Select(visitPlan => new VisitPlanWithNavigationProperties
                 {
                     VisitPlan = visitPlan,
-                    MCPDetail = dbContext.MCPDetails.FirstOrDefault(c => c.Id == visitPlan.MCPDetailId)
+                    MCPDetail = dbContext.MCPDetails.FirstOrDefault(c => c.Id == visitPlan.MCPDetailId),
+                    Customer = dbContext.Customers.FirstOrDefault(c => c.Id == visitPlan.CustomerId),
+                    SalesOrgHierarchy = dbContext.SalesOrgHierarchies.FirstOrDefault(c => c.Id == visitPlan.RouteId),
+                    Company = dbContext.Companies.FirstOrDefault(c => c.Id == visitPlan.CompanyId),
+                    ItemGroup = dbContext.ItemGroups.FirstOrDefault(c => c.Id == visitPlan.ItemGroupId)
                 }).FirstOrDefault();
         }
 
@@ -47,13 +51,17 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             int? yearMin = null,
             int? yearMax = null,
             Guid? mCPDetailId = null,
+            Guid? customerId = null,
+            Guid? routeId = null,
+            Guid? companyId = null,
+            Guid? itemGroupId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, dateVisitMin, dateVisitMax, distanceMin, distanceMax, visitOrderMin, visitOrderMax, dayOfWeek, weekMin, weekMax, monthMin, monthMax, yearMin, yearMax, mCPDetailId);
+            query = ApplyFilter(query, filterText, dateVisitMin, dateVisitMax, distanceMin, distanceMax, visitOrderMin, visitOrderMax, dayOfWeek, weekMin, weekMax, monthMin, monthMax, yearMin, yearMax, mCPDetailId, customerId, routeId, companyId, itemGroupId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? VisitPlanConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -63,11 +71,23 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return from visitPlan in (await GetDbSetAsync())
                    join mCPDetail in (await GetDbContextAsync()).MCPDetails on visitPlan.MCPDetailId equals mCPDetail.Id into mCPDetails
                    from mCPDetail in mCPDetails.DefaultIfEmpty()
+                   join customer in (await GetDbContextAsync()).Customers on visitPlan.CustomerId equals customer.Id into customers
+                   from customer in customers.DefaultIfEmpty()
+                   join salesOrgHierarchy in (await GetDbContextAsync()).SalesOrgHierarchies on visitPlan.RouteId equals salesOrgHierarchy.Id into salesOrgHierarchies
+                   from salesOrgHierarchy in salesOrgHierarchies.DefaultIfEmpty()
+                   join company in (await GetDbContextAsync()).Companies on visitPlan.CompanyId equals company.Id into companies
+                   from company in companies.DefaultIfEmpty()
+                   join itemGroup in (await GetDbContextAsync()).ItemGroups on visitPlan.ItemGroupId equals itemGroup.Id into itemGroups
+                   from itemGroup in itemGroups.DefaultIfEmpty()
 
                    select new VisitPlanWithNavigationProperties
                    {
                        VisitPlan = visitPlan,
-                       MCPDetail = mCPDetail
+                       MCPDetail = mCPDetail,
+                       Customer = customer,
+                       SalesOrgHierarchy = salesOrgHierarchy,
+                       Company = company,
+                       ItemGroup = itemGroup
                    };
         }
 
@@ -87,7 +107,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             int? monthMax = null,
             int? yearMin = null,
             int? yearMax = null,
-            Guid? mCPDetailId = null)
+            Guid? mCPDetailId = null,
+            Guid? customerId = null,
+            Guid? routeId = null,
+            Guid? companyId = null,
+            Guid? itemGroupId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
@@ -104,7 +128,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                     .WhereIf(monthMax.HasValue, e => e.VisitPlan.Month <= monthMax.Value)
                     .WhereIf(yearMin.HasValue, e => e.VisitPlan.Year >= yearMin.Value)
                     .WhereIf(yearMax.HasValue, e => e.VisitPlan.Year <= yearMax.Value)
-                    .WhereIf(mCPDetailId != null && mCPDetailId != Guid.Empty, e => e.MCPDetail != null && e.MCPDetail.Id == mCPDetailId);
+                    .WhereIf(mCPDetailId != null && mCPDetailId != Guid.Empty, e => e.MCPDetail != null && e.MCPDetail.Id == mCPDetailId)
+                    .WhereIf(customerId != null && customerId != Guid.Empty, e => e.Customer != null && e.Customer.Id == customerId)
+                    .WhereIf(routeId != null && routeId != Guid.Empty, e => e.SalesOrgHierarchy != null && e.SalesOrgHierarchy.Id == routeId)
+                    .WhereIf(companyId != null && companyId != Guid.Empty, e => e.Company != null && e.Company.Id == companyId)
+                    .WhereIf(itemGroupId != null && itemGroupId != Guid.Empty, e => e.ItemGroup != null && e.ItemGroup.Id == itemGroupId);
         }
 
         public async Task<List<VisitPlan>> GetListAsync(
@@ -148,10 +176,14 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             int? yearMin = null,
             int? yearMax = null,
             Guid? mCPDetailId = null,
+            Guid? customerId = null,
+            Guid? routeId = null,
+            Guid? companyId = null,
+            Guid? itemGroupId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, dateVisitMin, dateVisitMax, distanceMin, distanceMax, visitOrderMin, visitOrderMax, dayOfWeek, weekMin, weekMax, monthMin, monthMax, yearMin, yearMax, mCPDetailId);
+            query = ApplyFilter(query, filterText, dateVisitMin, dateVisitMax, distanceMin, distanceMax, visitOrderMin, visitOrderMax, dayOfWeek, weekMin, weekMax, monthMin, monthMax, yearMin, yearMax, mCPDetailId, customerId, routeId, companyId, itemGroupId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 

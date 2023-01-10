@@ -11,6 +11,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public DateTime? EffectiveDateMax { get; set; }
         public DateTime? EndDateMin { get; set; }
         public DateTime? EndDateMax { get; set; }
+        public bool? IsBase { get; set; }
         public Guid? SalesOrgHierarchyId { get; set; }
         public Guid? CompanyId { get; set; }
 

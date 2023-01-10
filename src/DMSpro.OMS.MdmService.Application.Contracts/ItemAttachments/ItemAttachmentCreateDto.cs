@@ -6,10 +6,12 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 {
     public class ItemAttachmentCreateDto
     {
+        [StringLength(ItemAttachmentConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public bool Active { get; set; } = true;
         [Required]
-        public string URL { get; set; }
+        [StringLength(ItemAttachmentConsts.UrlMaxLength, MinimumLength = ItemAttachmentConsts.UrlMinLength)]
+        public string Url { get; set; }
+        public bool Active { get; set; } = true;
         public Guid ItemId { get; set; }
     }
 }

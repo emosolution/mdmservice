@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 
 using System;
 using Volo.Abp.Application.Dtos;
@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
     {
         public ItemImageDto ItemImage { get; set; }
 
-        public ItemMasterDto ItemMaster { get; set; }
+        public ItemDto Item { get; set; }
 
     }
 }

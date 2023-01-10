@@ -39,7 +39,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
         {
             return _itemGroupsAppService.GetListDevextremesAsync(inputDev);
         }
-
+        
         [HttpGet]
         [Route("{id}")]
         public virtual Task<ItemGroupDto> GetAsync(Guid id)

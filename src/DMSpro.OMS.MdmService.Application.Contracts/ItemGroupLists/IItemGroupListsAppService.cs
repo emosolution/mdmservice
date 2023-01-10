@@ -4,8 +4,9 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
     public interface IItemGroupListsAppService : IApplicationService
@@ -14,13 +15,11 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
         Task<ItemGroupListWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-
         Task<ItemGroupListDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input);
 
@@ -33,5 +32,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemGroupListExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
     }
 }

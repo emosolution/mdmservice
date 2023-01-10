@@ -1,3 +1,10 @@
+using DMSpro.OMS.MdmService.ItemGroupLists;
+using DMSpro.OMS.MdmService.ItemAttachments;
+using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
@@ -36,14 +43,7 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
-using DMSpro.OMS.MdmService.ItemGroupLists;
-using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
-using DMSpro.OMS.MdmService.ItemMasters;
-using DMSpro.OMS.MdmService.ProdAttributeValues;
-using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.UOMs;
@@ -101,29 +101,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<UOMGroupDetail, UOMGroupDetailDto>();
         CreateMap<UOMGroupDetail, UOMGroupDetailExcelDto>();
 
-        CreateMap<ProductAttribute, ProductAttributeDto>();
-        CreateMap<ProductAttribute, ProductAttributeExcelDto>();
-
-        CreateMap<ProdAttributeValue, ProdAttributeValueDto>();
-        CreateMap<ProdAttributeValue, ProdAttributeValueExcelDto>();
-
-        CreateMap<ItemMaster, ItemMasterDto>();
-        CreateMap<ItemMaster, ItemMasterExcelDto>();
-
-        CreateMap<ItemImage, ItemImageDto>();
-        CreateMap<ItemImage, ItemImageExcelDto>();
-
-        CreateMap<ItemAttachment, ItemAttachmentDto>();
-        CreateMap<ItemAttachment, ItemAttachmentExcelDto>();
-
         CreateMap<ItemGroup, ItemGroupDto>();
         CreateMap<ItemGroup, ItemGroupExcelDto>();
-
-        CreateMap<ItemGroupAttr, ItemGroupAttrDto>();
-        CreateMap<ItemGroupAttr, ItemGroupAttrExcelDto>();
-
-        CreateMap<ItemGroupList, ItemGroupListDto>();
-        CreateMap<ItemGroupList, ItemGroupListExcelDto>();
 
         CreateMap<PriceListDetail, PriceListDetailDto>();
         CreateMap<PriceListDetail, PriceListDetailExcelDto>();
@@ -210,24 +189,10 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
         CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<ProdAttributeValueWithNavigationProperties, ProdAttributeValueWithNavigationPropertiesDto>();
-        CreateMap<ProductAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
-        CreateMap<ProdAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
-
-        CreateMap<ItemMasterWithNavigationProperties, ItemMasterWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.ValueCode));
         CreateMap<VAT, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<ItemImageWithNavigationProperties, ItemImageWithNavigationPropertiesDto>();
-        CreateMap<ItemMaster, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name));
-
-        CreateMap<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>();
-        CreateMap<ItemMaster, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
         CreateMap<ItemGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<ItemGroupAttrWithNavigationProperties, ItemGroupAttrWithNavigationPropertiesDto>();
 
         CreateMap<EmployeeProfile, EmployeeProfileDto>();
         CreateMap<EmployeeProfile, EmployeeProfileExcelDto>();
@@ -345,5 +310,43 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto>();
         CreateMap<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentExcelDto>();
         CreateMap<CompanyIdentityUserAssignmentWithNavigationProperties, CompanyIdentityUserAssignmentWithNavigationPropertiesDto>();
+
+        CreateMap<ItemAttribute, ItemAttributeDto>();
+        CreateMap<ItemAttribute, ItemAttributeExcelDto>();
+
+        CreateMap<ItemAttributeValue, ItemAttributeValueDto>();
+        CreateMap<ItemAttributeValue, ItemAttributeValueExcelDto>();
+        CreateMap<ItemAttributeValueWithNavigationProperties, ItemAttributeValueWithNavigationPropertiesDto>();
+        CreateMap<ItemAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
+
+        CreateMap<ItemAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
+
+        CreateMap<ItemGroupAttribute, ItemGroupAttributeDto>();
+        CreateMap<ItemGroupAttribute, ItemGroupAttributeExcelDto>();
+        CreateMap<ItemGroupAttributeWithNavigationProperties, ItemGroupAttributeWithNavigationPropertiesDto>();
+
+        CreateMap<Item, ItemDto>();
+        CreateMap<Item, ItemExcelDto>();
+        CreateMap<ItemWithNavigationProperties, ItemWithNavigationPropertiesDto>();
+        CreateMap<SystemData, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
+        CreateMap<UOMGroupDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Id));
+
+        CreateMap<Item, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+
+        CreateMap<ItemImage, ItemImageDto>();
+        CreateMap<ItemImage, ItemImageExcelDto>();
+        CreateMap<ItemImageWithNavigationProperties, ItemImageWithNavigationPropertiesDto>();
+
+        CreateMap<ItemAttachment, ItemAttachmentDto>();
+        CreateMap<ItemAttachment, ItemAttachmentExcelDto>();
+        CreateMap<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>();
+
+        CreateMap<ItemGroupList, ItemGroupListDto>();
+        CreateMap<ItemGroupList, ItemGroupListExcelDto>();
+        CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
+
+        CreateMap<ItemGroup, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
     }
 }

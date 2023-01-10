@@ -1,7 +1,14 @@
+using DMSpro.OMS.MdmService.ItemGroupLists;
+using DMSpro.OMS.MdmService.ItemAttachments;
+using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributes;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.Vendors;
 using DMSpro.OMS.MdmService.CustomerAttachments;
 using DMSpro.OMS.MdmService.CustomerContacts;
@@ -37,14 +44,7 @@ using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemGroupLists;
-using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
-using DMSpro.OMS.MdmService.ItemMasters;
-using DMSpro.OMS.MdmService.ProdAttributeValues;
-using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.UOMs;
@@ -64,6 +64,13 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 [ConnectionStringName(MdmServiceDbProperties.ConnectionStringName)]
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
+    public DbSet<ItemGroupList> ItemGroupLists { get; set; }
+    public DbSet<ItemAttachment> ItemAttachments { get; set; }
+    public DbSet<ItemImage> ItemImages { get; set; }
+    public DbSet<Item> Items { get; set; }
+    public DbSet<ItemGroupAttribute> ItemGroupAttributes { get; set; }
+    public DbSet<ItemAttributeValue> ItemAttributeValues { get; set; }
+    public DbSet<ItemAttribute> ItemAttributes { get; set; }
     public DbSet<CompanyIdentityUserAssignment> CompanyIdentityUserAssignments { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<SystemConfig> SystemConfigs { get; set; }
@@ -102,14 +109,7 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<PricelistAssignment> PricelistAssignments { get; set; }
     public DbSet<PriceUpdate> PriceUpdates { get; set; }
     public DbSet<PriceListDetail> PriceListDetails { get; set; }
-    public DbSet<ItemGroupList> ItemGroupLists { get; set; }
-    public DbSet<ItemGroupAttr> ItemGroupAttrs { get; set; }
     public DbSet<ItemGroup> ItemGroups { get; set; }
-    public DbSet<ItemAttachment> ItemAttachments { get; set; }
-    public DbSet<ItemImage> ItemImages { get; set; }
-    public DbSet<ItemMaster> ItemMasters { get; set; }
-    public DbSet<ProdAttributeValue> ProdAttributeValues { get; set; }
-    public DbSet<ProductAttribute> ProductAttributes { get; set; }
     public DbSet<UOMGroupDetail> UOMGroupDetails { get; set; }
     public DbSet<UOMGroup> UOMGroups { get; set; }
     public DbSet<UOM> UOMs { get; set; }

@@ -1,3 +1,10 @@
+using DMSpro.OMS.MdmService.ItemGroupLists;
+using DMSpro.OMS.MdmService.ItemAttachments;
+using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
@@ -36,14 +43,7 @@ using DMSpro.OMS.MdmService.PricelistAssignments;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemGroupLists;
-using DMSpro.OMS.MdmService.ItemGroupAttrs;
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttachments;
-using DMSpro.OMS.MdmService.ItemImages;
-using DMSpro.OMS.MdmService.ItemMasters;
-using DMSpro.OMS.MdmService.ProdAttributeValues;
-using DMSpro.OMS.MdmService.ProductAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.UOMs;
@@ -100,21 +100,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.AddRepository<UOMGroupDetail, UOMGroupDetails.EfCoreUOMGroupDetailRepository>();
 
-            options.AddRepository<ProductAttribute, ProductAttributes.EfCoreProductAttributeRepository>();
-
-            options.AddRepository<ProdAttributeValue, ProdAttributeValues.EfCoreProdAttributeValueRepository>();
-
-            options.AddRepository<ItemMaster, ItemMasters.EfCoreItemMasterRepository>();
-
-            options.AddRepository<ItemImage, ItemImages.EfCoreItemImageRepository>();
-
-            options.AddRepository<ItemAttachment, ItemAttachments.EfCoreItemAttachmentRepository>();
-
             options.AddRepository<ItemGroup, ItemGroups.EfCoreItemGroupRepository>();
-
-            options.AddRepository<ItemGroupAttr, ItemGroupAttrs.EfCoreItemGroupAttrRepository>();
-
-            options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
             options.AddRepository<PriceListDetail, PriceListDetails.EfCorePriceListDetailRepository>();
 
@@ -191,6 +177,20 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Customer, Customers.EfCoreCustomerRepository>();
 
             options.AddRepository<CompanyIdentityUserAssignment, CompanyIdentityUserAssignments.EfCoreCompanyIdentityUserAssignmentRepository>();
+
+            options.AddRepository<ItemAttribute, ItemAttributes.EfCoreItemAttributeRepository>();
+
+            options.AddRepository<ItemAttributeValue, ItemAttributeValues.EfCoreItemAttributeValueRepository>();
+
+            options.AddRepository<ItemGroupAttribute, ItemGroupAttributes.EfCoreItemGroupAttributeRepository>();
+
+            options.AddRepository<Item, Items.EfCoreItemRepository>();
+
+            options.AddRepository<ItemImage, ItemImages.EfCoreItemImageRepository>();
+
+            options.AddRepository<ItemAttachment, ItemAttachments.EfCoreItemAttachmentRepository>();
+
+            options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
         });
 

@@ -1,5 +1,5 @@
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
 using System;
 using System.Linq;
@@ -19,23 +19,26 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         public virtual Guid? TenantId { get; set; }
 
         public virtual int Rate { get; set; }
+
+        public virtual decimal Price { get; set; }
         public Guid ItemGroupId { get; set; }
         public Guid ItemId { get; set; }
-        public Guid UOMId { get; set; }
+        public Guid UomId { get; set; }
 
         public ItemGroupList()
         {
 
         }
 
-        public ItemGroupList(Guid id, Guid itemGroupId, Guid itemId, Guid uOMId, int rate)
+        public ItemGroupList(Guid id, Guid itemGroupId, Guid itemId, Guid uomId, int rate, decimal price)
         {
 
             Id = id;
             Rate = rate;
+            Price = price;
             ItemGroupId = itemGroupId;
             ItemId = itemId;
-            UOMId = uOMId;
+            UomId = uomId;
         }
 
     }

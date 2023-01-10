@@ -1,5 +1,5 @@
 using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
 
 using System;
@@ -13,7 +13,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         public ItemGroupListDto ItemGroupList { get; set; }
 
         public ItemGroupDto ItemGroup { get; set; }
-        public ItemMasterDto ItemMaster { get; set; }
+        public ItemDto Item { get; set; }
         public UOMDto UOM { get; set; }
 
     }

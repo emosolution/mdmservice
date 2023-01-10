@@ -28,8 +28,8 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                 {
                     ItemGroupList = itemGroupList,
                     ItemGroup = dbContext.ItemGroups.FirstOrDefault(c => c.Id == itemGroupList.ItemGroupId),
-                    ItemMaster = dbContext.ItemMasters.FirstOrDefault(c => c.Id == itemGroupList.ItemId),
-                    UOM = dbContext.UOMs.FirstOrDefault(c => c.Id == itemGroupList.UOMId)
+                    Item = dbContext.Items.FirstOrDefault(c => c.Id == itemGroupList.ItemId),
+                    UOM = dbContext.UOMs.FirstOrDefault(c => c.Id == itemGroupList.UomId)
                 }).FirstOrDefault();
         }
 
@@ -37,16 +37,18 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             string filterText = null,
             int? rateMin = null,
             int? rateMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uOMId);
+            query = ApplyFilter(query, filterText, rateMin, rateMax, priceMin, priceMax, itemGroupId, itemId, uomId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemGroupListConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -56,16 +58,16 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             return from itemGroupList in (await GetDbSetAsync())
                    join itemGroup in (await GetDbContextAsync()).ItemGroups on itemGroupList.ItemGroupId equals itemGroup.Id into itemGroups
                    from itemGroup in itemGroups.DefaultIfEmpty()
-                   join itemMaster in (await GetDbContextAsync()).ItemMasters on itemGroupList.ItemId equals itemMaster.Id into itemMasters
-                   from itemMaster in itemMasters.DefaultIfEmpty()
-                   join uOM in (await GetDbContextAsync()).UOMs on itemGroupList.UOMId equals uOM.Id into uOMs
+                   join item in (await GetDbContextAsync()).Items on itemGroupList.ItemId equals item.Id into items
+                   from item in items.DefaultIfEmpty()
+                   join uOM in (await GetDbContextAsync()).UOMs on itemGroupList.UomId equals uOM.Id into uOMs
                    from uOM in uOMs.DefaultIfEmpty()
 
                    select new ItemGroupListWithNavigationProperties
                    {
                        ItemGroupList = itemGroupList,
                        ItemGroup = itemGroup,
-                       ItemMaster = itemMaster,
+                       Item = item,
                        UOM = uOM
                    };
         }
@@ -75,29 +77,35 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             string filterText,
             int? rateMin = null,
             int? rateMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null)
+            Guid? uomId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
                     .WhereIf(rateMin.HasValue, e => e.ItemGroupList.Rate >= rateMin.Value)
                     .WhereIf(rateMax.HasValue, e => e.ItemGroupList.Rate <= rateMax.Value)
+                    .WhereIf(priceMin.HasValue, e => e.ItemGroupList.Price >= priceMin.Value)
+                    .WhereIf(priceMax.HasValue, e => e.ItemGroupList.Price <= priceMax.Value)
                     .WhereIf(itemGroupId != null && itemGroupId != Guid.Empty, e => e.ItemGroup != null && e.ItemGroup.Id == itemGroupId)
-                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.ItemMaster != null && e.ItemMaster.Id == itemId)
-                    .WhereIf(uOMId != null && uOMId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uOMId);
+                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.Item != null && e.Item.Id == itemId)
+                    .WhereIf(uomId != null && uomId != Guid.Empty, e => e.UOM != null && e.UOM.Id == uomId);
         }
 
         public async Task<List<ItemGroupList>> GetListAsync(
             string filterText = null,
             int? rateMin = null,
             int? rateMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, rateMin, rateMax);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, rateMin, rateMax, priceMin, priceMax);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemGroupListConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -106,13 +114,15 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             string filterText = null,
             int? rateMin = null,
             int? rateMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
             Guid? itemGroupId = null,
             Guid? itemId = null,
-            Guid? uOMId = null,
+            Guid? uomId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, rateMin, rateMax, itemGroupId, itemId, uOMId);
+            query = ApplyFilter(query, filterText, rateMin, rateMax, priceMin, priceMax, itemGroupId, itemId, uomId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -120,12 +130,16 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             IQueryable<ItemGroupList> query,
             string filterText,
             int? rateMin = null,
-            int? rateMax = null)
+            int? rateMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
                     .WhereIf(rateMin.HasValue, e => e.Rate >= rateMin.Value)
-                    .WhereIf(rateMax.HasValue, e => e.Rate <= rateMax.Value);
+                    .WhereIf(rateMax.HasValue, e => e.Rate <= rateMax.Value)
+                    .WhereIf(priceMin.HasValue, e => e.Price >= priceMin.Value)
+                    .WhereIf(priceMax.HasValue, e => e.Price <= priceMax.Value);
         }
     }
 }

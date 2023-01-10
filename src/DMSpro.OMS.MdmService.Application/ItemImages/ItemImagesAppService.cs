@@ -1,4 +1,5 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,40 +12,39 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemImages;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
-
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+
 namespace DMSpro.OMS.MdmService.ItemImages
 {
-    [RemoteService(IsEnabled = false)]
-    [Authorize(MdmServicePermissions.ItemImages.Default)]
+
+    [Authorize(MdmServicePermissions.Items.Default)]
     public class ItemImagesAppService : ApplicationService, IItemImagesAppService
     {
         private readonly IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemImageRepository _itemImageRepository;
         private readonly ItemImageManager _itemImageManager;
-        private readonly IRepository<ItemMaster, Guid> _itemMasterRepository;
+        private readonly IRepository<Item, Guid> _itemRepository;
 
-        public ItemImagesAppService(IItemImageRepository itemImageRepository, ItemImageManager itemImageManager, IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemMaster, Guid> itemMasterRepository)
+        public ItemImagesAppService(IItemImageRepository itemImageRepository, ItemImageManager itemImageManager, IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Item, Guid> itemRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemImageRepository = itemImageRepository;
-            _itemImageManager = itemImageManager; _itemMasterRepository = itemMasterRepository;
+            _itemImageManager = itemImageManager; _itemRepository = itemRepository;
         }
 
         public virtual async Task<PagedResultDto<ItemImageWithNavigationPropertiesDto>> GetListAsync(GetItemImagesInput input)
         {
-            var totalCount = await _itemImageRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.URL, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId);
-            var items = await _itemImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.URL, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemImageRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId);
+            var items = await _itemImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemImageWithNavigationPropertiesDto>
             {
@@ -60,69 +60,70 @@ namespace DMSpro.OMS.MdmService.ItemImages
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemImageRepository.GetQueryableAsync();    
+        {
+            var items = await _itemImageRepository.GetQueryableAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemImage>, IEnumerable<ItemImageDto>>(results.data.Cast<ItemImage>());
-            
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+
             return results;
-                
+
         }
+
         public virtual async Task<ItemImageDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemImage, ItemImageDto>(await _itemImageRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            var query = (await _itemMasterRepository.GetQueryableAsync())
+            var query = (await _itemRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                    x => x.Name != null &&
-                         x.Name.Contains(input.Filter));
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
 
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemMaster>();
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Item>();
             var totalCount = query.Count();
             return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemMaster>, List<LookupDto<Guid>>>(lookupData)
+                Items = ObjectMapper.Map<List<Item>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Delete)]
+        [Authorize(MdmServicePermissions.Items.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _itemImageRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Create)]
+        [Authorize(MdmServicePermissions.Items.Create)]
         public virtual async Task<ItemImageDto> CreateAsync(ItemImageCreateDto input)
         {
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
 
             var itemImage = await _itemImageManager.CreateAsync(
-            input.ItemId, input.Description, input.Active, input.URL, input.DisplayOrder
+            input.ItemId, input.Description, input.Url, input.Active, input.DisplayOrder
             );
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
         }
 
-        [Authorize(MdmServicePermissions.ItemImages.Edit)]
+        [Authorize(MdmServicePermissions.Items.Edit)]
         public virtual async Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input)
         {
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
 
             var itemImage = await _itemImageManager.UpdateAsync(
             id,
-            input.ItemId, input.Description, input.Active, input.URL, input.DisplayOrder, input.ConcurrencyStamp
+            input.ItemId, input.Description, input.Url, input.Active, input.DisplayOrder, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
@@ -137,7 +138,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemImageRepository.GetListAsync(input.FilterText, input.Description, input.Active, input.URL, input.DisplayOrderMin, input.DisplayOrderMax);
+            var items = await _itemImageRepository.GetListAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax);
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemImage>, List<ItemImageExcelDto>>(items));

@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         }
 
         public async Task<CompanyInZone> CreateAsync(
-        Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, DateTime? endDate = null)
+        Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, bool isBase, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(companyId, nameof(companyId));
@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
             var companyInZone = new CompanyInZone(
              GuidGenerator.Create(),
-             salesOrgHierarchyId, companyId, effectiveDate, endDate
+             salesOrgHierarchyId, companyId, effectiveDate, isBase, endDate
              );
 
             return await _companyInZoneRepository.InsertAsync(companyInZone);
@@ -36,7 +36,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         public async Task<CompanyInZone> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, bool isBase, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
@@ -51,6 +51,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             companyInZone.SalesOrgHierarchyId = salesOrgHierarchyId;
             companyInZone.CompanyId = companyId;
             companyInZone.EffectiveDate = effectiveDate;
+            companyInZone.IsBase = isBase;
             companyInZone.EndDate = endDate;
 
             companyInZone.SetConcurrencyStampIfNotNull(concurrencyStamp);

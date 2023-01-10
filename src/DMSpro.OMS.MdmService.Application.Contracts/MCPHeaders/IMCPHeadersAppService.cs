@@ -22,6 +22,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 
         Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
+        Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input);
+
         Task DeleteAsync(Guid id);
 
         Task<MCPHeaderDto> CreateAsync(MCPHeaderCreateDto input);

@@ -18,15 +18,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Holidays
 {
 
     [Authorize(MdmServicePermissions.Holidays.Default)]
-    public class HolidaysAppService : ApplicationService, IHolidaysAppService
+    public partial class HolidaysAppService : ApplicationService, IHolidaysAppService
     {
         private readonly IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IHolidayRepository _holidayRepository;
@@ -51,17 +47,6 @@ namespace DMSpro.OMS.MdmService.Holidays
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _holidayRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<Holiday>, IEnumerable<HolidayDto>>(results.data.Cast<Holiday>());
-            
-            return results;
-                
-        }
         public virtual async Task<HolidayDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<Holiday, HolidayDto>(await _holidayRepository.GetAsync(id));

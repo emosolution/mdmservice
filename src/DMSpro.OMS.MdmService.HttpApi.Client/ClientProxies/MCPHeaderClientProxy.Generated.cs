@@ -67,6 +67,14 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         });
     }
 
+    public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetItemGroupLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
     public virtual async Task<MCPHeaderDto> CreateAsync(MCPHeaderCreateDto input)
     {
         return await RequestAsync<MCPHeaderDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue

@@ -25,14 +25,14 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             {
                 // Act
                 var result = await _mCPHeaderRepository.GetListAsync(
-                    code: "9cbbdc5f3557449c98df",
-                    name: "6e21c9cc5e574113b1"
+                    code: "a81b3cb09c174551a7d8",
+                    name: "45ea898989144d088143a827498b16799a480162ca9343d28024a6540e2fe63a67dbfaa"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("c01415d9-e009-42ed-84c7-54d857286730"));
+                result.First().Id.ShouldBe(Guid.Parse("67fe0da1-b355-4812-ac13-ef2b20992acc"));
             });
         }
 
@@ -44,8 +44,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             {
                 // Act
                 var result = await _mCPHeaderRepository.GetCountAsync(
-                    code: "75ddc503b6b347ddba91",
-                    name: "daf4b0b576c549e9b98a4108968000a5879567d8666749eb9170a47a43012517da080b"
+                    code: "887957c52d62492789ce",
+                    name: "d45f11acb702458ca4d2ebbcbc7db8175fd15fea9ee840db8e2ddc5f91bffc968019c2"
                 );
 
                 // Assert

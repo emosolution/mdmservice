@@ -9,5 +9,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
             return string.Format(DefaultSorting, withEntityName ? "ItemImage." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
+        public const int UrlMinLength = 1;
+        public const int UrlMaxLength = 500;
     }
 }

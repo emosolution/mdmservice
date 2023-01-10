@@ -136,6 +136,21 @@
       "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
       "DtoEntityName": "CompanyDto",
       "Type": "Guid"
+    },
+    {
+      "EntityNameWithDuplicationNumber": "ItemGroup",
+      "EntitySetNameWithDuplicationNumber": "ItemGroups",
+      "ReferencePropertyName": "ItemGroup",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "ItemGroupId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.ItemGroups",
+      "EntityName": "ItemGroup",
+      "EntitySetName": "ItemGroups",
+      "DtoNamespace": "DMSpro.OMS.MdmService.ItemGroups",
+      "DtoEntityName": "ItemGroupDto",
+      "Type": "Guid"
     }
   ],
   "NavigationConnections": [],

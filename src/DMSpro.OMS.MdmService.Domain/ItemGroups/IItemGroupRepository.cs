@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,7 +15,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             string name = null,
             string description = null,
             GroupType? type = null,
-            Status? status = null,
+            GroupStatus? status = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             string name = null,
             string description = null,
             GroupType? type = null,
-            Status? status = null,
+            GroupStatus? status = null,
             CancellationToken cancellationToken = default);
     }
 }

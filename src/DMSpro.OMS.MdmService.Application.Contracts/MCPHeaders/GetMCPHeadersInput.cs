@@ -15,6 +15,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         public DateTime? EndDateMax { get; set; }
         public Guid? RouteId { get; set; }
         public Guid? CompanyId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public GetMCPHeadersInput()
         {

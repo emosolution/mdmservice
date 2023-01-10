@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -19,10 +19,10 @@ namespace DMSpro.OMS.MdmService.ItemImages
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        public virtual bool Active { get; set; }
-
         [NotNull]
-        public virtual string URL { get; set; }
+        public virtual string Url { get; set; }
+
+        public virtual bool Active { get; set; }
 
         public virtual int DisplayOrder { get; set; }
         public Guid ItemId { get; set; }
@@ -32,14 +32,16 @@ namespace DMSpro.OMS.MdmService.ItemImages
 
         }
 
-        public ItemImage(Guid id, Guid itemId, string description, bool active, string uRL, int displayOrder)
+        public ItemImage(Guid id, Guid itemId, string description, string url, bool active, int displayOrder)
         {
 
             Id = id;
-            Check.NotNull(uRL, nameof(uRL));
+            Check.Length(description, nameof(description), ItemImageConsts.DescriptionMaxLength, 0);
+            Check.NotNull(url, nameof(url));
+            Check.Length(url, nameof(url), ItemImageConsts.UrlMaxLength, ItemImageConsts.UrlMinLength);
             Description = description;
+            Url = url;
             Active = active;
-            URL = uRL;
             DisplayOrder = displayOrder;
             ItemId = itemId;
         }

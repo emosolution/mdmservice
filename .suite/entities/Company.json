@@ -282,7 +282,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "e468d9cb-4af0-4e9e-aeb7-c1fc512c7604",
+      "Id": "2f6d9a65-5dbe-4812-b795-10f0f1a6b773",
       "Name": "EndDate",
       "Type": "DateTime",
       "EnumType": "",
@@ -290,7 +290,7 @@
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
       "DefaultValue": null,
-      "IsNullable": false,
+      "IsNullable": true,
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,

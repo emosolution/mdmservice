@@ -12,8 +12,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         [Required]
         public string Description { get; set; }
         public Guid PriceListId { get; set; }
-        public Guid ItemMasterId { get; set; }
         public Guid UOMId { get; set; }
+        public Guid ItemId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

@@ -59,17 +59,17 @@ public partial class PriceListDetailClientProxy : ClientProxyBase<IPriceListDeta
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemMasterLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetUOMLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetUOMLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });

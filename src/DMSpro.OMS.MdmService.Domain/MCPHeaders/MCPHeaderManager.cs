@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         }
 
         public async Task<MCPHeader> CreateAsync(
-        Guid routeId, Guid companyId, string code, string name, DateTime effectiveDate, DateTime? endDate = null)
+        Guid routeId, Guid companyId, Guid? itemGroupId, string code, string name, DateTime effectiveDate, DateTime? endDate = null)
         {
             Check.NotNull(routeId, nameof(routeId));
             Check.NotNull(companyId, nameof(companyId));
@@ -28,17 +28,17 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             Check.Length(code, nameof(code), MCPHeaderConsts.CodeMaxLength, MCPHeaderConsts.CodeMinLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var mcpHeader = new MCPHeader(
+            var mCPHeader = new MCPHeader(
              GuidGenerator.Create(),
-             routeId, companyId, code, name, effectiveDate, endDate
+             routeId, companyId, itemGroupId, code, name, effectiveDate, endDate
              );
 
-            return await _mCPHeaderRepository.InsertAsync(mcpHeader);
+            return await _mCPHeaderRepository.InsertAsync(mCPHeader);
         }
 
         public async Task<MCPHeader> UpdateAsync(
             Guid id,
-            Guid routeId, Guid companyId, string code, string name, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid routeId, Guid companyId, Guid? itemGroupId, string code, string name, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(routeId, nameof(routeId));
@@ -50,17 +50,18 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             var queryable = await _mCPHeaderRepository.GetQueryableAsync();
             var query = queryable.Where(x => x.Id == id);
 
-            var mcpHeader = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var mCPHeader = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-            mcpHeader.RouteId = routeId;
-            mcpHeader.CompanyId = companyId;
-            mcpHeader.Code = code;
-            mcpHeader.Name = name;
-            mcpHeader.EffectiveDate = effectiveDate;
-            mcpHeader.EndDate = endDate;
+            mCPHeader.RouteId = routeId;
+            mCPHeader.CompanyId = companyId;
+            mCPHeader.ItemGroupId = itemGroupId;
+            mCPHeader.Code = code;
+            mCPHeader.Name = name;
+            mCPHeader.EffectiveDate = effectiveDate;
+            mCPHeader.EndDate = endDate;
 
-            mcpHeader.SetConcurrencyStampIfNotNull(concurrencyStamp);
-            return await _mCPHeaderRepository.UpdateAsync(mcpHeader);
+            mCPHeader.SetConcurrencyStampIfNotNull(concurrencyStamp);
+            return await _mCPHeaderRepository.UpdateAsync(mCPHeader);
         }
 
     }

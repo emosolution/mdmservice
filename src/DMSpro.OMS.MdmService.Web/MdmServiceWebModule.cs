@@ -69,14 +69,7 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/UOMs/Index", MdmServicePermissions.UOMs.Default);
             options.Conventions.AuthorizePage("/UOMGroups/Index", MdmServicePermissions.UOMGroups.Default);
             options.Conventions.AuthorizePage("/UOMGroupDetails/Index", MdmServicePermissions.UOMGroupDetails.Default);
-            options.Conventions.AuthorizePage("/ProductAttributes/Index", MdmServicePermissions.ProductAttributes.Default);
-            options.Conventions.AuthorizePage("/ProdAttributeValues/Index", MdmServicePermissions.ProdAttributeValues.Default);
-            options.Conventions.AuthorizePage("/ItemMasters/Index", MdmServicePermissions.ItemMasters.Default);
-            options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.ItemImages.Default);
-            options.Conventions.AuthorizePage("/ItemAttachments/Index", MdmServicePermissions.ItemAttachments.Default);
             options.Conventions.AuthorizePage("/ItemGroups/Index", MdmServicePermissions.ItemGroups.Default);
-            options.Conventions.AuthorizePage("/ItemGroupAttrs/Index", MdmServicePermissions.ItemGroupAttrs.Default);
-            options.Conventions.AuthorizePage("/ItemGroupLists/Index", MdmServicePermissions.ItemGroupLists.Default);
             options.Conventions.AuthorizePage("/PriceLists/Index", MdmServicePermissions.PriceLists.Default);
             options.Conventions.AuthorizePage("/PriceListDetails/Index", MdmServicePermissions.PriceListDetails.Default);
             options.Conventions.AuthorizePage("/PriceUpdates/Index", MdmServicePermissions.PriceUpdates.Default);
@@ -111,6 +104,13 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/CustomerAttachments/Index", MdmServicePermissions.Customers.Default);
             options.Conventions.AuthorizePage("/Vendors/Index", MdmServicePermissions.Vendors.Default);
             options.Conventions.AuthorizePage("/CompanyIdentityUserAssignments/Index", MdmServicePermissions.CompanyIdentityUserAssignments.Default);
+            options.Conventions.AuthorizePage("/ItemAttributes/Index", MdmServicePermissions.ItemAttributes.Default);
+            options.Conventions.AuthorizePage("/ItemAttributeValues/Index", MdmServicePermissions.ItemAttributeValues.Default);
+            options.Conventions.AuthorizePage("/ItemGroupAttributes/Index", MdmServicePermissions.ItemGroups.Default);
+            options.Conventions.AuthorizePage("/Items/Index", MdmServicePermissions.Items.Default);
+            options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.Items.Default);
+            options.Conventions.AuthorizePage("/ItemAttachments/Index", MdmServicePermissions.Items.Default);
+            options.Conventions.AuthorizePage("/ItemGroupLists/Index", MdmServicePermissions.ItemGroups.Default);
         });
     }
 }

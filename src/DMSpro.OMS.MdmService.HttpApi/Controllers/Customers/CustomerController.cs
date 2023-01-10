@@ -10,7 +10,6 @@ using Volo.Abp.Content;
 
 //Dev
 using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Customers
 {

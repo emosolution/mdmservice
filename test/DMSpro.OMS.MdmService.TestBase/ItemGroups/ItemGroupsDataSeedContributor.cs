@@ -29,20 +29,20 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
             await _itemGroupRepository.InsertAsync(new ItemGroup
             (
-                id: Guid.Parse("699c2938-8d71-4223-80a9-088e15868879"),
-                code: "548c63f3740c47dda15bbf4050c6b21223986c37545247f489",
-                name: "3f4af7093b2c4db",
-                description: "5c12998cdcab4f11a97c743ed5c9f3cd3ae98ae2f42a4635b28ee4788891a4fabf70aabb817a47c7a2ff8de9a6435e272ad0e0b08fc64c359363d9e2aacc6187d57aeb217dcc4405b8c6e7f723f9ca8f3699538c87544e4a996f0ec7ea3cabded95077832965492c8b0aecac6021ffa985b6125d74564d5290177b0629190d3",
+                id: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
+                code: "746d99bac73a4cd6b81003c9a1bd3af51cba731473a745e881",
+                name: "efbd496f87554979aff993fb19fa143f9ab9e94c2b014ab6944e7c1b0c59faf5b82fb09f26764f",
+                description: "49a9f322f6a94fccbc865d558ba6e723ec4ccac433514a8588ffaf7678c471c703dac16ea729486999fc9e50915b91c0b00611d471604282a5ca20a09e1637aef5591df420bb46668ee8a4b53d348ce98a981028897e424bb85d1b2d895fc7ff720583a06d694182b6d72d166bdf6bca83ef1cc67a6a441cac00d8134c13a1d",
                 type: default,
                 status: default
             ));
 
             await _itemGroupRepository.InsertAsync(new ItemGroup
             (
-                id: Guid.Parse("55b87b4f-c4fd-46ad-8a9f-cacef25649b4"),
-                code: "29556f2d8875464e8c3f528c21ee7feddbde035e6a8d4d27b8",
-                name: "9946d987b7a24688885d48f7008148fbf1890e",
-                description: "9f6a4bf9deef4b109a017a33fcac1317c1999d29b1f2425e93ca30f7c471c885319d9b6f87994ba580ebe4b451f5072ecd3c2b78a6934b18834202f1dd729f86abce066c947946f680e8567cccbe5e352ed3e6ea8628474e9a44d78b53ed7e14366dbc73db23469f9bc24e184a21d4ddfd7068cbc86f428696318dfe66dea05",
+                id: Guid.Parse("04ddce9f-a914-4f2b-86c2-f451fa6f8172"),
+                code: "39a5ad3d3dab48ac869d4b76d45ce8281e45992b5ac14669ab",
+                name: "0302befb22584420a54e3158031c10256b2e800e48b042c1ab6cda577d4dccb724c38be74",
+                description: "3969f07e88594c91be085b32d5faa0eff5455ef35636415088c42ba33358b42d2e5acb44c7154ed89934d1a90b67b1e4b73ac1773a67437980179da21fb9885e381c6b19e9ff4f17a8b2f7bad051f5f293ef922e01404e3d8d364d2684fbd2212ef7b3a016e64fb6ad3b297421664aec0fddee54350148bda126b870193470f",
                 type: default,
                 status: default
             ));

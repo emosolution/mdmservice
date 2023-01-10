@@ -16,8 +16,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
         Task<List<ItemImageWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             Guid? itemId = null,
@@ -30,8 +30,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
         Task<List<ItemImage>> GetListAsync(
                     string filterText = null,
                     string description = null,
+                    string url = null,
                     bool? active = null,
-                    string uRL = null,
                     int? displayOrderMin = null,
                     int? displayOrderMax = null,
                     string sorting = null,
@@ -43,8 +43,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
         Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             Guid? itemId = null,

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.VisitPlans;
 using Volo.Abp.Application.Dtos;
 using System;
 
@@ -21,6 +22,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public int? YearMin { get; set; }
         public int? YearMax { get; set; }
         public Guid? MCPDetailId { get; set; }
+        public Guid? CustomerId { get; set; }
+        public Guid? RouteId { get; set; }
+        public Guid? CompanyId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public GetVisitPlansInput()
         {

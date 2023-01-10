@@ -1,4 +1,5 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,40 +12,39 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemAttachments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
-
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    [RemoteService(IsEnabled = false)]
-    [Authorize(MdmServicePermissions.ItemAttachments.Default)]
+
+    [Authorize(MdmServicePermissions.Items.Default)]
     public class ItemAttachmentsAppService : ApplicationService, IItemAttachmentsAppService
     {
         private readonly IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemAttachmentRepository _itemAttachmentRepository;
         private readonly ItemAttachmentManager _itemAttachmentManager;
-        private readonly IRepository<ItemMaster, Guid> _itemMasterRepository;
+        private readonly IRepository<Item, Guid> _itemRepository;
 
-        public ItemAttachmentsAppService(IItemAttachmentRepository itemAttachmentRepository, ItemAttachmentManager itemAttachmentManager, IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemMaster, Guid> itemMasterRepository)
+        public ItemAttachmentsAppService(IItemAttachmentRepository itemAttachmentRepository, ItemAttachmentManager itemAttachmentManager, IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Item, Guid> itemRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemAttachmentRepository = itemAttachmentRepository;
-            _itemAttachmentManager = itemAttachmentManager; _itemMasterRepository = itemMasterRepository;
+            _itemAttachmentManager = itemAttachmentManager; _itemRepository = itemRepository;
         }
 
         public virtual async Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input)
         {
-            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.URL, input.ItemId);
-            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.URL, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.ItemId);
+            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>
             {
@@ -60,69 +60,70 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemAttachmentRepository.GetQueryableAsync();    
+        {
+            var items = await _itemAttachmentRepository.GetQueryableAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttachment>, IEnumerable<ItemAttachmentDto>>(results.data.Cast<ItemAttachment>());
-            
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+
             return results;
-                
+
         }
+
         public virtual async Task<ItemAttachmentDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(await _itemAttachmentRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            var query = (await _itemMasterRepository.GetQueryableAsync())
+            var query = (await _itemRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
                     x => x.Code != null &&
                          x.Code.Contains(input.Filter));
 
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemMaster>();
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Item>();
             var totalCount = query.Count();
             return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemMaster>, List<LookupDto<Guid>>>(lookupData)
+                Items = ObjectMapper.Map<List<Item>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
-        [Authorize(MdmServicePermissions.ItemAttachments.Delete)]
+        [Authorize(MdmServicePermissions.Items.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _itemAttachmentRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.ItemAttachments.Create)]
+        [Authorize(MdmServicePermissions.Items.Create)]
         public virtual async Task<ItemAttachmentDto> CreateAsync(ItemAttachmentCreateDto input)
         {
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
 
             var itemAttachment = await _itemAttachmentManager.CreateAsync(
-            input.ItemId, input.Description, input.Active, input.URL
+            input.ItemId, input.Description, input.Url, input.Active
             );
 
             return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);
         }
 
-        [Authorize(MdmServicePermissions.ItemAttachments.Edit)]
+        [Authorize(MdmServicePermissions.Items.Edit)]
         public virtual async Task<ItemAttachmentDto> UpdateAsync(Guid id, ItemAttachmentUpdateDto input)
         {
             if (input.ItemId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemMaster"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
 
             var itemAttachment = await _itemAttachmentManager.UpdateAsync(
             id,
-            input.ItemId, input.Description, input.Active, input.URL, input.ConcurrencyStamp
+            input.ItemId, input.Description, input.Url, input.Active, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);
@@ -137,7 +138,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemAttachmentRepository.GetListAsync(input.FilterText, input.Description, input.Active, input.URL);
+            var items = await _itemAttachmentRepository.GetListAsync(input.FilterText, input.Description, input.Url, input.Active);
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemAttachment>, List<ItemAttachmentExcelDto>>(items));

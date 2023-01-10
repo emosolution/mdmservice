@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             string name = null,
             string description = null,
             GroupType? type = null,
-            Status? status = null,
+            GroupStatus? status = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             string name = null,
             string description = null,
             GroupType? type = null,
-            Status? status = null,
+            GroupStatus? status = null,
             CancellationToken cancellationToken = default)
         {
             var query = ApplyFilter((await GetDbSetAsync()), filterText, code, name, description, type, status);
@@ -57,7 +57,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             string name = null,
             string description = null,
             GroupType? type = null,
-            Status? status = null)
+            GroupStatus? status = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText) || e.Name.Contains(filterText) || e.Description.Contains(filterText))

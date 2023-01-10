@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -6,12 +7,9 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
-
-//Dev
 using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroupLists
 {
     [RemoteService(Name = "MdmService")]
@@ -62,10 +60,10 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroupLists
         }
 
         [HttpGet]
-        [Route("item-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+        [Route("item-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            return _itemGroupListsAppService.GetItemMasterLookupAsync(input);
+            return _itemGroupListsAppService.GetItemLookupAsync(input);
         }
 
         [HttpGet]

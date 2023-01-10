@@ -20,6 +20,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public virtual DateTime EffectiveDate { get; set; }
 
         public virtual DateTime? EndDate { get; set; }
+
+        public virtual bool IsBase { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CompanyId { get; set; }
 
@@ -28,11 +30,12 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         }
 
-        public CompanyInZone(Guid id, Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, DateTime? endDate = null)
+        public CompanyInZone(Guid id, Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, bool isBase, DateTime? endDate = null)
         {
 
             Id = id;
             EffectiveDate = effectiveDate;
+            IsBase = isBase;
             EndDate = endDate;
             SalesOrgHierarchyId = salesOrgHierarchyId;
             CompanyId = companyId;

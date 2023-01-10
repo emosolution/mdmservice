@@ -51,9 +51,9 @@ public partial class ItemImageClientProxy : ClientProxyBase<IItemImagesAppServic
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemMasterLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetItemLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });

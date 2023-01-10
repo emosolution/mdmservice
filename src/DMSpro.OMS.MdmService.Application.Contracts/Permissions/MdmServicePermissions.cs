@@ -101,7 +101,7 @@ public class MdmServicePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-    
+
     public static class CompanyIdentityUserAssignments
     {
         public const string Default = GroupName + ".CompanyIdentityUserAssignments";
@@ -135,41 +135,25 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
-    public static class ProductAttributes
+    public static class ItemAttributes
     {
-        public const string Default = GroupName + ".ProductAttributes";
+        public const string Default = GroupName + ".ItemAttributes";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
 
-    public static class ProdAttributeValues
+    public static class ItemAttributeValues
     {
-        public const string Default = GroupName + ".ProdAttributeValues";
+        public const string Default = GroupName + ".ItemAttributeValues";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
 
-    public static class ItemMasters
+    public static class Items
     {
-        public const string Default = GroupName + ".ItemMasters";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemImages
-    {
-        public const string Default = GroupName + ".ItemImages";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemAttachments
-    {
-        public const string Default = GroupName + ".ItemAttachments";
+        public const string Default = GroupName + ".Items";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
@@ -178,22 +162,6 @@ public class MdmServicePermissions
     public static class ItemGroups
     {
         public const string Default = GroupName + ".ItemGroups";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemGroupAttrs
-    {
-        public const string Default = GroupName + ".ItemGroupAttrs";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class ItemGroupLists
-    {
-        public const string Default = GroupName + ".ItemGroupLists";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
@@ -438,5 +406,4 @@ public class MdmServicePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-
 }

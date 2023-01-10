@@ -27,15 +27,15 @@ namespace DMSpro.OMS.MdmService.ItemImages
                 .Select(itemImage => new ItemImageWithNavigationProperties
                 {
                     ItemImage = itemImage,
-                    ItemMaster = dbContext.ItemMasters.FirstOrDefault(c => c.Id == itemImage.ItemId)
+                    Item = dbContext.Items.FirstOrDefault(c => c.Id == itemImage.ItemId)
                 }).FirstOrDefault();
         }
 
         public async Task<List<ItemImageWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             Guid? itemId = null,
@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, uRL, displayOrderMin, displayOrderMax, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, displayOrderMin, displayOrderMax, itemId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemImageConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -53,13 +53,13 @@ namespace DMSpro.OMS.MdmService.ItemImages
         protected virtual async Task<IQueryable<ItemImageWithNavigationProperties>> GetQueryForNavigationPropertiesAsync()
         {
             return from itemImage in (await GetDbSetAsync())
-                   join itemMaster in (await GetDbContextAsync()).ItemMasters on itemImage.ItemId equals itemMaster.Id into itemMasters
-                   from itemMaster in itemMasters.DefaultIfEmpty()
+                   join item in (await GetDbContextAsync()).Items on itemImage.ItemId equals item.Id into items
+                   from item in items.DefaultIfEmpty()
 
                    select new ItemImageWithNavigationProperties
                    {
                        ItemImage = itemImage,
-                       ItemMaster = itemMaster
+                       Item = item
                    };
         }
 
@@ -67,27 +67,27 @@ namespace DMSpro.OMS.MdmService.ItemImages
             IQueryable<ItemImageWithNavigationProperties> query,
             string filterText,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             Guid? itemId = null)
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.ItemImage.Description.Contains(filterText) || e.ItemImage.URL.Contains(filterText))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.ItemImage.Description.Contains(filterText) || e.ItemImage.Url.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.ItemImage.Description.Contains(description))
+                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.ItemImage.Url.Contains(url))
                     .WhereIf(active.HasValue, e => e.ItemImage.Active == active)
-                    .WhereIf(!string.IsNullOrWhiteSpace(uRL), e => e.ItemImage.URL.Contains(uRL))
                     .WhereIf(displayOrderMin.HasValue, e => e.ItemImage.DisplayOrder >= displayOrderMin.Value)
                     .WhereIf(displayOrderMax.HasValue, e => e.ItemImage.DisplayOrder <= displayOrderMax.Value)
-                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.ItemMaster != null && e.ItemMaster.Id == itemId);
+                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.Item != null && e.Item.Id == itemId);
         }
 
         public async Task<List<ItemImage>> GetListAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             string sorting = null,
@@ -95,7 +95,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, active, uRL, displayOrderMin, displayOrderMax);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, url, active, displayOrderMin, displayOrderMax);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemImageConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -103,15 +103,15 @@ namespace DMSpro.OMS.MdmService.ItemImages
         public async Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null,
             Guid? itemId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, uRL, displayOrderMin, displayOrderMax, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, displayOrderMin, displayOrderMax, itemId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -119,16 +119,16 @@ namespace DMSpro.OMS.MdmService.ItemImages
             IQueryable<ItemImage> query,
             string filterText,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             int? displayOrderMin = null,
             int? displayOrderMax = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.URL.Contains(filterText))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.Url.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description))
+                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.Url.Contains(url))
                     .WhereIf(active.HasValue, e => e.Active == active)
-                    .WhereIf(!string.IsNullOrWhiteSpace(uRL), e => e.URL.Contains(uRL))
                     .WhereIf(displayOrderMin.HasValue, e => e.DisplayOrder >= displayOrderMin.Value)
                     .WhereIf(displayOrderMax.HasValue, e => e.DisplayOrder <= displayOrderMax.Value);
         }

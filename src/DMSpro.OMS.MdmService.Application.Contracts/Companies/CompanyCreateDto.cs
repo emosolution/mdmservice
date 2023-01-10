@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.Companies
         public string ERPCode { get; set; }
         public bool Active { get; set; } = true;
         public DateTime EffectiveDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public bool IsHO { get; set; } = false;
         public string Latitude { get; set; }
         public string Longitude { get; set; }

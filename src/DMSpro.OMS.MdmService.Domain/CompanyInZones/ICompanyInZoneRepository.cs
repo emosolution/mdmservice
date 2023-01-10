@@ -19,6 +19,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             DateTime? effectiveDateMax = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
+            bool? isBase = null,
             Guid? salesOrgHierarchyId = null,
             Guid? companyId = null,
             string sorting = null,
@@ -33,6 +34,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
                     DateTime? effectiveDateMax = null,
                     DateTime? endDateMin = null,
                     DateTime? endDateMax = null,
+                    bool? isBase = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -45,6 +47,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             DateTime? effectiveDateMax = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
+            bool? isBase = null,
             Guid? salesOrgHierarchyId = null,
             Guid? companyId = null,
             CancellationToken cancellationToken = default);

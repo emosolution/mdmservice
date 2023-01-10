@@ -1,6 +1,6 @@
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -25,15 +25,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         [NotNull]
         public virtual string Description { get; set; }
         public Guid PriceListId { get; set; }
-        public Guid ItemMasterId { get; set; }
         public Guid UOMId { get; set; }
+        public Guid ItemId { get; set; }
 
         public PriceListDetail()
         {
 
         }
 
-        public PriceListDetail(Guid id, Guid priceListId, Guid itemMasterId, Guid uOMId, int price, string description, int? basedOnPrice = null)
+        public PriceListDetail(Guid id, Guid priceListId, Guid uOMId, Guid itemId, int price, string description, int? basedOnPrice = null)
         {
 
             Id = id;
@@ -42,8 +42,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             Description = description;
             BasedOnPrice = basedOnPrice;
             PriceListId = priceListId;
-            ItemMasterId = itemMasterId;
             UOMId = uOMId;
+            ItemId = itemId;
         }
 
     }

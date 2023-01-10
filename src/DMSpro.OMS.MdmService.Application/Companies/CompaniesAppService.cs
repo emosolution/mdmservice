@@ -1,6 +1,4 @@
-using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.GeoMasters;
-using DMSpro.OMS.MdmService.Companies;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,9 +16,7 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.Shared.Grpc;
-using Grpc.Net.Client;
-using ProtoBuf.Grpc.Client;
+using DMSpro.OMS.MdmService.Shared;
 
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
@@ -28,7 +24,7 @@ using DMSpro.OMS.Shared.Lib.Parser;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Companies
 {
-    [RemoteService(IsEnabled = false)]
+
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
     public class CompaniesAppService : ApplicationService, ICompaniesAppService
     {
@@ -48,20 +44,6 @@ namespace DMSpro.OMS.MdmService.Companies
         {
             var totalCount = await _companyRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id);
             var items = await _companyRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Sorting, input.MaxResultCount, input.SkipCount);
-            
-            Console.WriteLine("-======== CALL PRODUCT SERVICE GRPC");
-            using (var channel = GrpcChannel.ForAddress("http://localhost:10050"))
-            {
-                var productAppService = channel.CreateGrpcService<IGrpcProductService>();
-                var productDtos = await productAppService.GetListAsync();
-
-                foreach (var productDto in productDtos)
-                {
-                    Console.WriteLine($"[Product] Id = {productDto.Id}, Name = {productDto.Name}");
-                }
-            }
-
-
 
             return new PagedResultDto<CompanyWithNavigationPropertiesDto>
             {
@@ -136,7 +118,7 @@ namespace DMSpro.OMS.MdmService.Companies
         {
 
             var company = await _companyManager.CreateAsync(
-            input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.EndDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone
+            input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.EndDate
             );
 
             return ObjectMapper.Map<Company, CompanyDto>(company);
@@ -148,7 +130,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
             var company = await _companyManager.UpdateAsync(
             id,
-            input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.EndDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.ConcurrencyStamp
+            input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.EndDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<Company, CompanyDto>(company);

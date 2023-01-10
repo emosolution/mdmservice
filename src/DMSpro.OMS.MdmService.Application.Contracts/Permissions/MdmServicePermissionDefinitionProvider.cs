@@ -51,7 +51,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SalesChannels);
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SalesChannels);
         salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SalesChannels);
-        
+
         var companyIdentityUserAssignmentPermission = myGroup.AddPermission(MdmServicePermissions.CompanyIdentityUserAssignments.Default, L("Permission:MdmService:CompanyIdentityUserAssignments")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
         companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
         companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
@@ -73,45 +73,25 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         uomGroupDetailPermission.AddChild(MdmServicePermissions.UOMGroupDetails.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.UOMGroups);
         uomGroupDetailPermission.AddChild(MdmServicePermissions.UOMGroupDetails.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.UOMGroups);
 
-        var productAttributePermission = myGroup.AddPermission(MdmServicePermissions.ProductAttributes.Default, L("Permission:MdmService:ProductAttribute")).RequireFeatures(MdmFeatures.ProductAttributes);
-        productAttributePermission.AddChild(MdmServicePermissions.ProductAttributes.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ProductAttributes);
-        productAttributePermission.AddChild(MdmServicePermissions.ProductAttributes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ProductAttributes);
-        productAttributePermission.AddChild(MdmServicePermissions.ProductAttributes.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ProductAttributes);
+        var itemAttributePermission = myGroup.AddPermission(MdmServicePermissions.ItemAttributes.Default, L("Permission:MdmService:ItemAttribute")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributePermission.AddChild(MdmServicePermissions.ItemAttributes.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributePermission.AddChild(MdmServicePermissions.ItemAttributes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributePermission.AddChild(MdmServicePermissions.ItemAttributes.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemAttributes);
 
-        var prodAttributeValuePermission = myGroup.AddPermission(MdmServicePermissions.ProdAttributeValues.Default, L("Permission:MdmService:ProdAttributeValue")).RequireFeatures(MdmFeatures.ProductAttributes);
-        prodAttributeValuePermission.AddChild(MdmServicePermissions.ProdAttributeValues.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ProductAttributes);
-        prodAttributeValuePermission.AddChild(MdmServicePermissions.ProdAttributeValues.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ProductAttributes);
-        prodAttributeValuePermission.AddChild(MdmServicePermissions.ProdAttributeValues.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ProductAttributes);
+        var itemAttributeValuePermission = myGroup.AddPermission(MdmServicePermissions.ItemAttributeValues.Default, L("Permission:MdmService:ItemAttributeValue")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemAttributes);
+        itemAttributeValuePermission.AddChild(MdmServicePermissions.ItemAttributeValues.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemAttributes);
 
-        var itemMasterPermission = myGroup.AddPermission(MdmServicePermissions.ItemMasters.Default, L("Permission:MdmService:ItemMaster")).RequireFeatures(MdmFeatures.Item);
-        itemMasterPermission.AddChild(MdmServicePermissions.ItemMasters.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Item);
-        itemMasterPermission.AddChild(MdmServicePermissions.ItemMasters.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Item);
-        itemMasterPermission.AddChild(MdmServicePermissions.ItemMasters.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Item);
-
-        var itemImagePermission = myGroup.AddPermission(MdmServicePermissions.ItemImages.Default, L("Permission:MdmService:ItemImage")).RequireFeatures(MdmFeatures.Item);
-        itemImagePermission.AddChild(MdmServicePermissions.ItemImages.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Item);
-        itemImagePermission.AddChild(MdmServicePermissions.ItemImages.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Item);
-        itemImagePermission.AddChild(MdmServicePermissions.ItemImages.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Item);
-
-        var itemAttachmentPermission = myGroup.AddPermission(MdmServicePermissions.ItemAttachments.Default, L("Permission:MdmService:ItemAttachment")).RequireFeatures(MdmFeatures.Item);
-        itemAttachmentPermission.AddChild(MdmServicePermissions.ItemAttachments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Item);
-        itemAttachmentPermission.AddChild(MdmServicePermissions.ItemAttachments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Item);
-        itemAttachmentPermission.AddChild(MdmServicePermissions.ItemAttachments.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Item);
+        var itemPermission = myGroup.AddPermission(MdmServicePermissions.Items.Default, L("Permission:MdmService:Item")).RequireFeatures(MdmFeatures.Items);
+        itemPermission.AddChild(MdmServicePermissions.Items.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Items);
+        itemPermission.AddChild(MdmServicePermissions.Items.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Items);
+        itemPermission.AddChild(MdmServicePermissions.Items.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Items);
 
         var itemGroupPermission = myGroup.AddPermission(MdmServicePermissions.ItemGroups.Default, L("Permission:MdmService:ItemGroup")).RequireFeatures(MdmFeatures.ItemGroups);
         itemGroupPermission.AddChild(MdmServicePermissions.ItemGroups.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemGroups);
         itemGroupPermission.AddChild(MdmServicePermissions.ItemGroups.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemGroups);
         itemGroupPermission.AddChild(MdmServicePermissions.ItemGroups.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemGroups);
-
-        var itemGroupAttrPermission = myGroup.AddPermission(MdmServicePermissions.ItemGroupAttrs.Default, L("Permission:MdmService:ItemGroupAttr")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttrPermission.AddChild(MdmServicePermissions.ItemGroupAttrs.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttrPermission.AddChild(MdmServicePermissions.ItemGroupAttrs.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupAttrPermission.AddChild(MdmServicePermissions.ItemGroupAttrs.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemGroups);
-
-        var itemGroupListPermission = myGroup.AddPermission(MdmServicePermissions.ItemGroupLists.Default, L("Permission:MdmService:ItemGroupList")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupListPermission.AddChild(MdmServicePermissions.ItemGroupLists.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupListPermission.AddChild(MdmServicePermissions.ItemGroupLists.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.ItemGroups);
-        itemGroupListPermission.AddChild(MdmServicePermissions.ItemGroupLists.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.ItemGroups);
 
         var priceListPermission = myGroup.AddPermission(MdmServicePermissions.PriceLists.Default, L("Permission:MdmService:PriceList")).RequireFeatures(MdmFeatures.PriceLists);
         priceListPermission.AddChild(MdmServicePermissions.PriceLists.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceLists);

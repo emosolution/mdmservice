@@ -1,5 +1,5 @@
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.PriceLists;
 using System;
 using System.Threading.Tasks;
@@ -17,15 +17,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly PriceListsDataSeedContributor _priceListsDataSeedContributor;
 
-        private readonly ItemMastersDataSeedContributor _itemMastersDataSeedContributor;
-
         private readonly UOMsDataSeedContributor _uOMsDataSeedContributor;
 
-        public PriceListDetailsDataSeedContributor(IPriceListDetailRepository priceListDetailRepository, IUnitOfWorkManager unitOfWorkManager, PriceListsDataSeedContributor priceListsDataSeedContributor, ItemMastersDataSeedContributor itemMastersDataSeedContributor, UOMsDataSeedContributor uOMsDataSeedContributor)
+        private readonly ItemsDataSeedContributor _itemsDataSeedContributor;
+
+        public PriceListDetailsDataSeedContributor(IPriceListDetailRepository priceListDetailRepository, IUnitOfWorkManager unitOfWorkManager, PriceListsDataSeedContributor priceListsDataSeedContributor, UOMsDataSeedContributor uOMsDataSeedContributor, ItemsDataSeedContributor itemsDataSeedContributor)
         {
             _priceListDetailRepository = priceListDetailRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _priceListsDataSeedContributor = priceListsDataSeedContributor; _itemMastersDataSeedContributor = itemMastersDataSeedContributor; _uOMsDataSeedContributor = uOMsDataSeedContributor;
+            _priceListsDataSeedContributor = priceListsDataSeedContributor; _uOMsDataSeedContributor = uOMsDataSeedContributor; _itemsDataSeedContributor = itemsDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -36,29 +36,29 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             }
 
             await _priceListsDataSeedContributor.SeedAsync(context);
-            await _itemMastersDataSeedContributor.SeedAsync(context);
             await _uOMsDataSeedContributor.SeedAsync(context);
+            await _itemsDataSeedContributor.SeedAsync(context);
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("6ddbcaf0-e4ed-47f2-a75d-fe074f949c46"),
-                price: 140043996,
-                basedOnPrice: 537506613,
-                description: "8ac9e1451f3849c0af1d3f",
+                id: Guid.Parse("0e4184d8-69c6-4e16-90a4-c44f3d08337a"),
+                price: 540001679,
+                basedOnPrice: 990352987,
+                description: "d097712be59d450f937ca72bcb5554df0b277ef715d448448e261b7dd3b077935581e78e954f43c780c494dad85",
                 priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                itemMasterId: Guid.Parse("666f2923-445f-4a72-9068-7917e83b3464"),
-                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             ));
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("be683c3f-83de-422b-8e19-34743edd5107"),
-                price: 517560199,
-                basedOnPrice: 995827501,
-                description: "b69cba5b86aa48cf8ea8440f792e294a69c238b342fa405e9862da18d780d7466271",
+                id: Guid.Parse("814e2f11-06f4-45cf-9e36-80df209fbc15"),
+                price: 1394487410,
+                basedOnPrice: 947230766,
+                description: "16589b337a17494c88f35913b5daa0d9c89d3d369fdc4ee1b23",
                 priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
-                itemMasterId: Guid.Parse("666f2923-445f-4a72-9068-7917e83b3464"),
-                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

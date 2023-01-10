@@ -7,10 +7,12 @@ namespace DMSpro.OMS.MdmService.ItemImages
 {
     public class ItemImageUpdateDto : IHasConcurrencyStamp
     {
+        [StringLength(ItemImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public bool Active { get; set; }
         [Required]
-        public string URL { get; set; }
+        [StringLength(ItemImageConsts.UrlMaxLength, MinimumLength = ItemImageConsts.UrlMinLength)]
+        public string Url { get; set; }
+        public bool Active { get; set; }
         public int DisplayOrder { get; set; }
         public Guid ItemId { get; set; }
 

@@ -1,11 +1,12 @@
+using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
     public interface IItemAttachmentsAppService : IApplicationService
@@ -14,11 +15,9 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         Task<ItemAttachmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-
         Task<ItemAttachmentDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 
@@ -29,5 +28,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttachmentExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
     }
 }

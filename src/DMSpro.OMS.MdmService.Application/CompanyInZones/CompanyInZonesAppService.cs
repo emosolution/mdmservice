@@ -46,8 +46,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         public virtual async Task<PagedResultDto<CompanyInZoneWithNavigationPropertiesDto>> GetListAsync(GetCompanyInZonesInput input)
         {
-            var totalCount = await _companyInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.CompanyId);
-            var items = await _companyInZoneRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _companyInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsBase, input.SalesOrgHierarchyId, input.CompanyId);
+            var items = await _companyInZoneRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsBase, input.SalesOrgHierarchyId, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<CompanyInZoneWithNavigationPropertiesDto>
             {
@@ -73,7 +73,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             return results;
                 
         }
-
+        
         public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(await _companyInZoneRepository.GetAsync(id));
@@ -130,7 +130,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             }
 
             var companyInZone = await _companyInZoneManager.CreateAsync(
-            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.EndDate
+            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.IsBase, input.EndDate
             );
 
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(companyInZone);
@@ -150,7 +150,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
             var companyInZone = await _companyInZoneManager.UpdateAsync(
             id,
-            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp
+            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.IsBase, input.EndDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(companyInZone);
@@ -165,7 +165,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _companyInZoneRepository.GetListAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax);
+            var items = await _companyInZoneRepository.GetListAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsBase);
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(ObjectMapper.Map<List<CompanyInZone>, List<CompanyInZoneExcelDto>>(items));

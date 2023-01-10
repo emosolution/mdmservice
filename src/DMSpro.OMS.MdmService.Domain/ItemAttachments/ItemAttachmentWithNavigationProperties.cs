@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
     {
         public ItemAttachment ItemAttachment { get; set; }
 
-        public ItemMaster ItemMaster { get; set; }
+        public Item Item { get; set; }
         
 
         

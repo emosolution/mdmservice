@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.ItemGroups;
 using Volo.Abp.Application.Dtos;
 using System;
 
@@ -12,7 +12,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         public string Name { get; set; }
         public string Description { get; set; }
         public GroupType? Type { get; set; }
-        public Status? Status { get; set; }
+        public GroupStatus? Status { get; set; }
 
         public GetItemGroupsInput()
         {

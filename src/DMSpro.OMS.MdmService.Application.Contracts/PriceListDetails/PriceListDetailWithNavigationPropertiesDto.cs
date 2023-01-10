@@ -1,6 +1,6 @@
 using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.ItemMasters;
 using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.Items;
 
 using System;
 using Volo.Abp.Application.Dtos;
@@ -13,8 +13,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         public PriceListDetailDto PriceListDetail { get; set; }
 
         public PriceListDto PriceList { get; set; }
-        public ItemMasterDto ItemMaster { get; set; }
         public UOMDto UOM { get; set; }
+        public ItemDto Item { get; set; }
 
     }
 }

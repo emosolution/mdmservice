@@ -47,6 +47,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
         {
             return _companiesAppService.GetListDevextremesAsync(inputDev);
         }
+        
         [HttpGet]
         [Route("{id}")]
         public virtual Task<CompanyDto> GetAsync(Guid id)

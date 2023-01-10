@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         }
 
         public async Task<ItemGroup> CreateAsync(
-        string code, string name, string description, GroupType type, Status status)
+        string code, string name, string description, GroupType type, GroupStatus status)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
@@ -40,7 +40,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         public async Task<ItemGroup> UpdateAsync(
             Guid id,
-            string code, string name, string description, GroupType type, Status status, [CanBeNull] string concurrencyStamp = null
+            string code, string name, string description, GroupType type, GroupStatus status, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));

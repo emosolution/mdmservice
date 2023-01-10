@@ -7,11 +7,9 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using Volo.Abp.Content;
-
-//Dev
 using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 {
     [RemoteService(Name = "MdmService")]
@@ -55,10 +53,10 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
         }
 
         [HttpGet]
-        [Route("item-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetItemMasterLookupAsync(LookupRequestDto input)
+        [Route("item-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            return _itemAttachmentsAppService.GetItemMasterLookupAsync(input);
+            return _itemAttachmentsAppService.GetItemLookupAsync(input);
         }
 
         [HttpPost]

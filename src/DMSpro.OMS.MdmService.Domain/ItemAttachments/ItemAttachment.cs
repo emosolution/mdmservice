@@ -1,4 +1,4 @@
-using DMSpro.OMS.MdmService.ItemMasters;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -19,10 +19,10 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        public virtual bool Active { get; set; }
-
         [NotNull]
-        public virtual string URL { get; set; }
+        public virtual string Url { get; set; }
+
+        public virtual bool Active { get; set; }
         public Guid ItemId { get; set; }
 
         public ItemAttachment()
@@ -30,14 +30,16 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         }
 
-        public ItemAttachment(Guid id, Guid itemId, string description, bool active, string uRL)
+        public ItemAttachment(Guid id, Guid itemId, string description, string url, bool active)
         {
 
             Id = id;
-            Check.NotNull(uRL, nameof(uRL));
+            Check.Length(description, nameof(description), ItemAttachmentConsts.DescriptionMaxLength, 0);
+            Check.NotNull(url, nameof(url));
+            Check.Length(url, nameof(url), ItemAttachmentConsts.UrlMaxLength, ItemAttachmentConsts.UrlMinLength);
             Description = description;
+            Url = url;
             Active = active;
-            URL = uRL;
             ItemId = itemId;
         }
 

@@ -27,15 +27,15 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 .Select(itemAttachment => new ItemAttachmentWithNavigationProperties
                 {
                     ItemAttachment = itemAttachment,
-                    ItemMaster = dbContext.ItemMasters.FirstOrDefault(c => c.Id == itemAttachment.ItemId)
+                    Item = dbContext.Items.FirstOrDefault(c => c.Id == itemAttachment.ItemId)
                 }).FirstOrDefault();
         }
 
         public async Task<List<ItemAttachmentWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             Guid? itemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, uRL, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, itemId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemAttachmentConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -51,13 +51,13 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         protected virtual async Task<IQueryable<ItemAttachmentWithNavigationProperties>> GetQueryForNavigationPropertiesAsync()
         {
             return from itemAttachment in (await GetDbSetAsync())
-                   join itemMaster in (await GetDbContextAsync()).ItemMasters on itemAttachment.ItemId equals itemMaster.Id into itemMasters
-                   from itemMaster in itemMasters.DefaultIfEmpty()
+                   join item in (await GetDbContextAsync()).Items on itemAttachment.ItemId equals item.Id into items
+                   from item in items.DefaultIfEmpty()
 
                    select new ItemAttachmentWithNavigationProperties
                    {
                        ItemAttachment = itemAttachment,
-                       ItemMaster = itemMaster
+                       Item = item
                    };
         }
 
@@ -65,29 +65,29 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             IQueryable<ItemAttachmentWithNavigationProperties> query,
             string filterText,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             Guid? itemId = null)
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.ItemAttachment.Description.Contains(filterText) || e.ItemAttachment.URL.Contains(filterText))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.ItemAttachment.Description.Contains(filterText) || e.ItemAttachment.Url.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.ItemAttachment.Description.Contains(description))
+                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.ItemAttachment.Url.Contains(url))
                     .WhereIf(active.HasValue, e => e.ItemAttachment.Active == active)
-                    .WhereIf(!string.IsNullOrWhiteSpace(uRL), e => e.ItemAttachment.URL.Contains(uRL))
-                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.ItemMaster != null && e.ItemMaster.Id == itemId);
+                    .WhereIf(itemId != null && itemId != Guid.Empty, e => e.Item != null && e.Item.Id == itemId);
         }
 
         public async Task<List<ItemAttachment>> GetListAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, active, uRL);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, url, active);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemAttachmentConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -95,13 +95,13 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         public async Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
+            string url = null,
             bool? active = null,
-            string uRL = null,
             Guid? itemId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, uRL, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, itemId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -109,14 +109,14 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             IQueryable<ItemAttachment> query,
             string filterText,
             string description = null,
-            bool? active = null,
-            string uRL = null)
+            string url = null,
+            bool? active = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.URL.Contains(filterText))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.Url.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description))
-                    .WhereIf(active.HasValue, e => e.Active == active)
-                    .WhereIf(!string.IsNullOrWhiteSpace(uRL), e => e.URL.Contains(uRL));
+                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.Url.Contains(url))
+                    .WhereIf(active.HasValue, e => e.Active == active);
         }
     }
 }
