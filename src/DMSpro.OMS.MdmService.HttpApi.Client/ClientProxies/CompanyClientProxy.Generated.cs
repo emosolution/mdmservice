@@ -7,10 +7,10 @@ using Volo.Abp.Http.Modeling;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.ClientProxying;
 using DMSpro.OMS.MdmService.Companies;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 using DMSpro.OMS.MdmService.Shared;
 using Volo.Abp.Content;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 
 // ReSharper disable once CheckNamespace
 namespace DMSpro.OMS.MdmService.Controllers.Companies.ClientProxies;
@@ -32,14 +32,6 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
         return await RequestAsync<CompanyWithNavigationPropertiesDto>(nameof(GetWithNavigationPropertiesAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
-        });
-    }
-
-    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-    {
-        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
 
@@ -103,5 +95,13 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
     }
 }

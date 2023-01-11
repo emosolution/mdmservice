@@ -18,15 +18,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Companies
 {
 
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
-    public class CompaniesAppService : ApplicationService, ICompaniesAppService
+    public partial class CompaniesAppService : ApplicationService, ICompaniesAppService
     {
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICompanyRepository _companyRepository;
@@ -50,18 +46,6 @@ namespace DMSpro.OMS.MdmService.Companies
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<CompanyWithNavigationProperties>, List<CompanyWithNavigationPropertiesDto>>(items)
             };
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _companyRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(results.data.Cast<Company>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CompanyWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
