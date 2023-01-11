@@ -25,24 +25,25 @@ namespace DMSpro.OMS.MdmService.Vendors
             {
                 // Act
                 var result = await _vendorRepository.GetListAsync(
-                    code: "bb0b4b33d1724aff81d7",
-                    name: "33b19b9b39ad4e7fb513411709beb21b98f19cb8b2ab4e0bbb5795135c2f0c82302d81d26b4540fa9b16f2bcb87e93305cb5b0f162664a318436c0bc57034cf0ff732eefae0f4f59b9c260c0675e6b602ebf66b2a055460ab6b1096d9318e30af05422f2",
-                    shortName: "2f80b77b8c024bdf8d8d6f449609d000f91e5991345e4688a10f8d0b370568de89955d189a274e86bc99d79bc3c75e50652e517bcfed4bfba361006d20eccf69c6e23e44ce534fa4be309051253243afbdb184ed95c94a85bd8dc750c1a784b8fe342436",
-                    phone1: "fa94ec6caf2f46f59dda3d5fdd3a4b18abce40921a4f40a6a72c4c8d7c89308bc2c207",
-                    phone2: "cf67e4b532bc4d33bc8be265a20519ec6e31e316a0ab47b9960e2c8",
-                    erpCode: "630c44c14a314281a6b8ea004",
+                    code: "ec0c4b5bfda24e14afb6",
+                    name: "a46456150a1d4a9fb117d9cfa5bdee243c44ab523f9a4fae91bbf890ad817fddb7f3aab05b9f4b88991b6043c131fea87dd7f3dcaa6f41c5ad98208b7ae04b27c4f6113bfd674e9da1eeb5192833b0eb5266294ff78c4bfd9551f5ed172b283332b63eb4",
+                    shortName: "9acfef8cc37b40019d2a381f976e7ebc2ef3a70f42ae48139422b1e2bea67fdec5f15824b2c74ebdaee60c1f75f55f4f2ba4b314e05a4068a83c487b84be732c80e008c0e5d049acbb1ecbf7c388ba3a6e6b6a7f586b48509a53415b6d3a0e19ab3b292a",
+                    phone1: "7be3bff1abde45f4b887f5f729524f1cb97d740dd4b74832af2231777f6293756c8646a87d334eb8a1f9c9ad9",
+                    phone2: "b9a55f1d1b2b45debdbf30cd3335be7d3",
+                    erpCode: "1239cb6299d244599425a15ad083368ddc442bb0499a4440b879e9fb215acd6925c9458ea9",
                     active: true,
-                    warehouseId: Guid.Parse("a551cfa2-7bb4-4a84-bd93-88684b7cb6fb"),
-                    street: "323939b5bf574d5a8f604db81331005d7f8efd2301ec45e0bf400d70d1ed0439",
-                    address: "f8957e363c07417387769a2a7e6799ea2dd0974b",
-                    latitude: "ba196ee992d04712ad",
-                    longitude: "a6bd5a2eb0694633a46633069846350a7d22d"
+                    linkedCompany: "b3b12ce857844831923b",
+                    warehouseId: Guid.Parse("cebddb84-f425-4f67-a045-5149bf03072b"),
+                    street: "2759a6b3a52347feaf02d897096091c22e5d87e096bc4a029beacb708b231c06fc3ba7d748f541e6bb269b6d860e4d93f",
+                    address: "8325723311a240ee9c013c682bd40c2a9ed7082f2d",
+                    latitude: "161294507a414d05ad24986bb905402f9571",
+                    longitude: "7a5704460ad14ed5b4ae562285bb56e397b4ec028d0646fc9548a441de9507674db881dc84704ba7"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("a626f6bb-483a-42fe-aa9e-177a7202e7b5"));
+                result.First().Id.ShouldBe(Guid.Parse("e19c23e6-f052-4267-bae1-7c923cd2d7db"));
             });
         }
 
@@ -54,18 +55,19 @@ namespace DMSpro.OMS.MdmService.Vendors
             {
                 // Act
                 var result = await _vendorRepository.GetCountAsync(
-                    code: "86e689b9162947d2958b",
-                    name: "bf45e211ba4e4b7e959f57dc277bbbfee777fba0a6404d61aff0e9a40c8c5a5392cbf67a5fd14d1db20ab095813c69b199dab7c2f8284398b6b9f70cf4eb3ca79605a784f3794d54893d89890e9f46e1327734d595c24c33bba4c652fbd06cd446f2686e",
-                    shortName: "3cdba0163b86409fb824e4cccf86f6cdceea8d89e113452eab5f2f9d68c04c709bf6adc00711419cbd8c82b1c45fc912791763275fc94ed093d5206756a6c765391b7b8215de4440955d18b42c26d5bf43eec5efb96b4f489a87ce0a70affc81e7860000",
-                    phone1: "3e0399ee6f2445f3868cf",
-                    phone2: "d9c55593bc114324b570af9fa77da3a3bd008e50b7114132b9ffd42d36fd09990643e5a626ab4",
-                    erpCode: "7e4de57144754e87a628f118621b474",
+                    code: "ebe53f13f66347a6bfc7",
+                    name: "ed9d3c14781b490eb974796ffef4c6677aa4af667d61410e95fc313d6eefb6dee93e18a60e504dca9e8e44d2d710a8893e36ff8c607f49a98eee482624a7f15d535299789db2471e9235c624aa8afce97b5aee4d95a24873a200fe7ae6883d4a02a7e5d4",
+                    shortName: "037cbfaea6f14c4a8afcd90d75393754faea0bdb7dda4614a981db41229ecf81647f6ffcee4245e6926ab2e9156d9e059b41e703d2a64845a46f8e461a8e92c2efb7d304374c4c74be0d69009f7cf014a538059a38274c46bef56ce0d0f140bb333d604e",
+                    phone1: "2a89eb2174484fe791361ebfadaf661fcd923",
+                    phone2: "b233fd5504f8460298fd4ac9ee4c86a5466a71f927f2459aa2da047d57faa6aa7ebbd95",
+                    erpCode: "ec2f722be84640258a71a5132a5b53dfdf57c5c7685f45cd859fc6613c05ca14add5280a",
                     active: true,
-                    warehouseId: Guid.Parse("402712da-6dbe-403a-93b2-59d18d8005c0"),
-                    street: "f91cc4f085934a7081fca146943b9b8a9c4fb5859b7b48c",
-                    address: "586e9cd0d7484a4ba24fe5dcb82458d1538e21913b5a44d2975af0d868b3f3707a2781242f1e4711b4c20199ad2d",
-                    latitude: "dd7e8ec4819e4e96841843e597297c8",
-                    longitude: "f4edb1421d0f433cb173333ca62d9cbe313ad89489eb4f048658d3540cceaaf"
+                    linkedCompany: "62ba645ecf2e46469124",
+                    warehouseId: Guid.Parse("b6db53d8-c31c-49ac-bfe8-5d1bde477f86"),
+                    street: "fe56bc1e2da447b8bf07807d4f132a4997d11b37cb434607b",
+                    address: "fb4670c3277143189dd9827b040ac88dfbb37f72e9c7437fa7b1ed92cf4dd7aafb856f7aebad4d849",
+                    latitude: "6e1d34e7018d41f",
+                    longitude: "44d97e81d5d4470bbf45da714e7d37e0c04fe85e18144841"
                 );
 
                 // Assert

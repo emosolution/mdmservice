@@ -194,6 +194,28 @@
       "OrdinalIndex": 0
     },
     {
+      "Id": "65176a2d-d221-470d-bca2-e8f2a03475cf",
+      "Name": "LinkedCompany",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": 20,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
+    },
+    {
       "Id": "313772d0-bbf4-4b6b-904e-46f18ee9d322",
       "Name": "WarehouseId",
       "Type": "Guid",
@@ -306,21 +328,6 @@
   ],
   "NavigationProperties": [
     {
-      "EntityNameWithDuplicationNumber": "Company",
-      "EntitySetNameWithDuplicationNumber": "Companies",
-      "ReferencePropertyName": "LinkedCompany",
-      "UiPickType": "Dropdown",
-      "IsRequired": true,
-      "Name": "LinkedCompanyId",
-      "DisplayProperty": "Code",
-      "Namespace": "DMSpro.OMS.MdmService.Companies",
-      "EntityName": "Company",
-      "EntitySetName": "Companies",
-      "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
-      "DtoEntityName": "CompanyDto",
-      "Type": "Guid"
-    },
-    {
       "EntityNameWithDuplicationNumber": "PriceList",
       "EntitySetNameWithDuplicationNumber": "PriceLists",
       "ReferencePropertyName": "PriceList",
@@ -408,6 +415,21 @@
       "EntitySetName": "GeoMasters",
       "DtoNamespace": "DMSpro.OMS.MdmService.GeoMasters",
       "DtoEntityName": "GeoMasterDto",
+      "Type": "Guid"
+    },
+    {
+      "EntityNameWithDuplicationNumber": "Company",
+      "EntitySetNameWithDuplicationNumber": "Companies",
+      "ReferencePropertyName": "Company",
+      "UiPickType": "Dropdown",
+      "IsRequired": true,
+      "Name": "CompanyId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.Companies",
+      "EntityName": "Company",
+      "EntitySetName": "Companies",
+      "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
+      "DtoEntityName": "CompanyDto",
       "Type": "Guid"
     }
   ],

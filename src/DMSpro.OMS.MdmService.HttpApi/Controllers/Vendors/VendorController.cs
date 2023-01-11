@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Vendors;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Vendors
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Vendor")]
     [Route("api/mdm-service/vendors")]
-    public class VendorController : AbpController, IVendorsAppService
+    public partial class VendorController : AbpController, IVendorsAppService
     {
         private readonly IVendorsAppService _vendorsAppService;
 
@@ -41,24 +37,10 @@ namespace DMSpro.OMS.MdmService.Controllers.Vendors
         }
 
         [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _vendorsAppService.GetListDevextremesAsync(inputDev);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<VendorDto> GetAsync(Guid id)
         {
             return _vendorsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-        {
-            return _vendorsAppService.GetCompanyLookupAsync(input);
         }
 
         [HttpGet]
@@ -73,6 +55,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Vendors
         public Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             return _vendorsAppService.GetGeoMasterLookupAsync(input);
+        }
+
+        [HttpGet]
+        [Route("company-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
+        {
+            return _vendorsAppService.GetCompanyLookupAsync(input);
         }
 
         [HttpPost]
