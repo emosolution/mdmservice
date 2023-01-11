@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DMSpro.OMS.MdmService.Migrations
 {
     [DbContext(typeof(MdmServiceDbContext))]
-    partial class MdmServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230111084856_Updated_Vendor_23011115485067")]
+    partial class Updated_Vendor_23011115485067
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

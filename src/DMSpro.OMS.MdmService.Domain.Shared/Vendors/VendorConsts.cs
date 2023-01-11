@@ -15,5 +15,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         public const int NameMaxLength = 200;
         public const int ShortNameMinLength = 1;
         public const int ShortNameMaxLength = 200;
+        public const int LinkedCompanyMaxLength = 20;
     }
 }

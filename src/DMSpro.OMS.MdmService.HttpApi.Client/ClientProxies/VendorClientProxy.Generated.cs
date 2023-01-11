@@ -7,10 +7,10 @@ using Volo.Abp.Http.Modeling;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.ClientProxying;
 using DMSpro.OMS.MdmService.Vendors;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 using DMSpro.OMS.MdmService.Shared;
 using Volo.Abp.Content;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 
 // ReSharper disable once CheckNamespace
 namespace DMSpro.OMS.MdmService.Controllers.Vendors.ClientProxies;
@@ -35,27 +35,11 @@ public partial class VendorClientProxy : ClientProxyBase<IVendorsAppService>, IV
         });
     }
 
-    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-    {
-        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(DataLoadOptionDevextreme), inputDev }
-        });
-    }
-
     public virtual async Task<VendorDto> GetAsync(Guid id)
     {
         return await RequestAsync<VendorDto>(nameof(GetAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
-        });
-    }
-
-    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-    {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(LookupRequestDto), input }
         });
     }
 
@@ -70,6 +54,14 @@ public partial class VendorClientProxy : ClientProxyBase<IVendorsAppService>, IV
     public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
     {
         return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetGeoMasterLookupAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(LookupRequestDto), input }
+        });
+    }
+
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
+    {
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });
@@ -111,5 +103,13 @@ public partial class VendorClientProxy : ClientProxyBase<IVendorsAppService>, IV
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
     }
 }
