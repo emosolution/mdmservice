@@ -15,6 +15,8 @@ using Prometheus;
 using Volo.Abp;
 using Volo.Abp.Modularity;
 using ProtoBuf.Grpc.Server;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.Vendors;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -102,6 +104,8 @@ public class MdmServiceHttpApiHostModule : AbpModule
         {
             endpoints.MapMetrics();
             endpoints.MapGrpcService<GrpcMdmService>();
+            endpoints.MapGrpcService<CompaniesGRPCAppService>();
+            endpoints.MapGrpcService<VendorsGRPCAppService>();
         });
     }
 
