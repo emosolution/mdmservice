@@ -57,7 +57,8 @@ using System;
 using DMSpro.OMS.MdmService.Shared;
 using Volo.Abp.AutoMapper;
 using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.Shared.Grpc;
+using DMSpro.OMS.Shared.GRPC.MdmService.Companies;
+using DMSpro.OMS.Shared.GRPC.MdmService.Vendors;
 using AutoMapper;
 
 namespace DMSpro.OMS.MdmService;
@@ -71,7 +72,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         * into multiple profile classes for a better organization. */
 
         CreateMap<Company, CompanyDto>();
-        CreateMap<Company, CompanyGrpcDto>();
+        CreateMap<Company, CompanyGRPCDto>();
+        CreateMap<CompanyDto, CompanyGRPCDto>();
         CreateMap<Company, CompanyExcelDto>();
 
         CreateMap<GeoMaster, GeoMasterDto>();
@@ -273,6 +275,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Vendor, VendorDto>();
         CreateMap<Vendor, VendorExcelDto>();
+        CreateMap<VendorDto, VendorGRPCDto>();
         CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
 
         CreateMap<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>();

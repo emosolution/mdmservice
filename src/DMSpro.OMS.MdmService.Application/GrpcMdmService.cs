@@ -6,7 +6,8 @@ using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
-using DMSpro.OMS.MdmService.Companies;    
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.Shared.GRPC.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -18,7 +19,7 @@ public class GrpcMdmService : ApplicationService, IGrpcMdmService
         ObjectMapperContext = typeof(MdmServiceApplicationModule);
     }
     //public async Task<List<CompanyGrpcDto>> GetListAsync(Guid? userId, Guid? tenantId)
-    public async Task<List<CompanyGrpcDto>> GetListAsync()
+    public async Task<List<CompanyGRPCDto>> GetListAsync()
     {
         
         // Console.WriteLine("=====COMPANY");
@@ -29,13 +30,13 @@ public class GrpcMdmService : ApplicationService, IGrpcMdmService
         //     var listComs = await _companyRepository.GetCountAsync("");
         //     Console.WriteLine(listComs);
         // }
-        return new List<CompanyGrpcDto>
+        return new List<CompanyGRPCDto>
         {
-            new CompanyGrpcDto { Id = Guid.NewGuid(), Name = "Company 1" },
-            new CompanyGrpcDto { Id = Guid.NewGuid(), Name = "Company 2" },
+            new CompanyGRPCDto { Id = Guid.NewGuid(), Name = "Company 1" },
+            new CompanyGRPCDto { Id = Guid.NewGuid(), Name = "Company 2" },
         };
     }
-    public async Task<GrpcPagedResultDto<CompanyGrpcDto>> GetListCompsAsync(DefaultFilterInput input)
+    public async Task<GrpcPagedResultDto<CompanyGRPCDto>> GetListCompsAsync(DefaultFilterInput input)
     {
         
         Console.WriteLine("=====COMPANY");
@@ -49,10 +50,10 @@ public class GrpcMdmService : ApplicationService, IGrpcMdmService
             Console.WriteLine("ASSSSSSSSS");
             Console.WriteLine(listComps);
             //ObjectMapperContext = typeof(MdmServiceApplicationModule);
-            return new GrpcPagedResultDto<CompanyGrpcDto>
+            return new GrpcPagedResultDto<CompanyGRPCDto>
             {
                 TotalCount = countComps,
-                Items = ObjectMapper.Map<List<Company>, List<CompanyGrpcDto>>(listComps)
+                Items = ObjectMapper.Map<List<Company>, List<CompanyGRPCDto>>(listComps)
             };
         }
         // return new List<CompanyGrpcDto>
