@@ -66,7 +66,9 @@ public class MdmServiceHttpApiHostModule : AbpModule
                     .AllowCredentials();
             });
         });
-        context.Services.AddCodeFirstGrpc();
+        
+        //context.Services.AddCodeFirstGrpc();
+        context.Services.AddGrpc().AddJsonTranscoding();//add this line
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -103,8 +105,8 @@ public class MdmServiceHttpApiHostModule : AbpModule
         app.UseConfiguredEndpoints(endpoints =>
         {
             endpoints.MapMetrics();
-            endpoints.MapGrpcService<GrpcMdmService>();
-            endpoints.MapGrpcService<CompaniesGRPCAppService>();
+            //endpoints.MapGrpcService<GrpcMdmService>();
+            //endpoints.MapGrpcService<CompaniesGRPCAppService>();
             endpoints.MapGrpcService<VendorsGRPCAppService>();
         });
     }

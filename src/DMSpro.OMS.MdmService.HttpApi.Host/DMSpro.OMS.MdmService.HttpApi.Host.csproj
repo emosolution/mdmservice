@@ -9,6 +9,8 @@
 
     <PropertyGroup Condition=" '$(RunConfiguration)' == 'DMSpro.OMS.MdmService.HttpApi.Host' " />
     <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -103,7 +105,11 @@
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="7.0.0" />
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="7.0.0" />
     </ItemGroup>
-    <!-- Grpc -->
+	<!-- gRPC v7.0 Protos -->
+	<ItemGroup>
+		<Protobuf Include="Protos\vendor.proto" GrpcServices="Server" />
+	</ItemGroup>
+    <!-- gRPC -->
     <ItemGroup>
         <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
     </ItemGroup>
