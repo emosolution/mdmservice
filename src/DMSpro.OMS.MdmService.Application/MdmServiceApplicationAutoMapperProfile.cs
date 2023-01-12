@@ -275,7 +275,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Vendor, VendorDto>();
         CreateMap<Vendor, VendorExcelDto>();
-        CreateMap<VendorDto, VendorGRPCDto>();
+        CreateMap<Vendor, VendorWithTenantIdDto>();
         CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
 
         CreateMap<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>();
