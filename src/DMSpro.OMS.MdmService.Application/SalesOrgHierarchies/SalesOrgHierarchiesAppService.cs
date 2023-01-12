@@ -108,7 +108,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            await _salesOrgHierarchyRepository.DeleteAsync(id);
+            await _salesOrgHierarchyManager.DeleteAsync(id);
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Create)]
