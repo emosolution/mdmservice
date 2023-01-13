@@ -4,7 +4,7 @@ using System;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-    public partial class VendorsInternalAppService : ApplicationService, IVendorsInternalAppService
+    public class VendorsInternalAppService : ApplicationService, IVendorsInternalAppService
     {
         private readonly IVendorRepository _vendorRepository;
 
