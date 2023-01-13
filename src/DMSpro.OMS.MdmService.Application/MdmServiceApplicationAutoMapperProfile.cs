@@ -1,3 +1,5 @@
+using System;
+using AutoMapper;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
@@ -53,13 +55,8 @@ using DMSpro.OMS.MdmService.DimensionMeasurements;
 using DMSpro.OMS.MdmService.Currencies;
 using DMSpro.OMS.MdmService.Streets;
 using DMSpro.OMS.MdmService.GeoMasters;
-using System;
 using DMSpro.OMS.MdmService.Shared;
-using Volo.Abp.AutoMapper;
 using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.Shared.GRPC.MdmService.Companies;
-using DMSpro.OMS.Shared.GRPC.MdmService.Vendors;
-using AutoMapper;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -72,9 +69,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         * into multiple profile classes for a better organization. */
 
         CreateMap<Company, CompanyDto>();
-        CreateMap<Company, CompanyGRPCDto>();
-        CreateMap<CompanyDto, CompanyGRPCDto>();
         CreateMap<Company, CompanyExcelDto>();
+        CreateMap<Company, CompanyWithTenantDto>();
 
         CreateMap<GeoMaster, GeoMasterDto>();
         CreateMap<GeoMaster, GeoMasterExcelDto>();
@@ -275,7 +271,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Vendor, VendorDto>();
         CreateMap<Vendor, VendorExcelDto>();
-        CreateMap<Vendor, VendorWithTenantIdDto>();
+        CreateMap<Vendor, VendorWithTenantDto>();
+
         CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
 
         CreateMap<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>();
