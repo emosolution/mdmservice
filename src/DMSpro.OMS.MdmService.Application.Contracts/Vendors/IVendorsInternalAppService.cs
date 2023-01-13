@@ -7,6 +7,6 @@ namespace DMSpro.OMS.MdmService.Vendors
 {
     public partial interface IVendorsInternalAppService
     {
-        Task<VendorWithTenantIdDto> GetWithTenantIdAsynce(Guid id);
+        Task<VendorWithTenantDto> GetWithTenantIdAsynce(Guid id);
     }
 }
