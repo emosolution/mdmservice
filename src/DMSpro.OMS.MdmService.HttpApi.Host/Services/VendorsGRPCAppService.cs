@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Grpc.Core;
-using DMSpro.OMS.MdmService.Protos.Vendors;
+using DMSpro.OMS.Shared.Protos.MdmService.Vendors;
 
 namespace DMSpro.OMS.MdmService.Vendors;
 
@@ -14,12 +14,12 @@ public class VendorsGRPCAppService : VendorsProtoAppService.VendorsProtoAppServi
         _vendorsInternalAppService = vendorsInternalAppService;
     }
 
-    public override async Task<GetAsyncVendorResponse> GetAsync(GetAsyncVendorRequest request, ServerCallContext context)
+    public override async Task<GetAsyncVendorResponse> GetVendor(GetAsyncVendorRequest request, ServerCallContext context)
     {
         Guid vendorId = new (request.VendorId);
-        VendorWithTenantIdDto vendorDto = await _vendorsInternalAppService.GetWithTenantIdAsynce(vendorId);
+        VendorWithTenantDto vendorDto = await _vendorsInternalAppService.GetWithTenantIdAsynce(vendorId);
         var response = new GetAsyncVendorResponse();
-        response.Vendor = new Protos.Vendors.Vendor()
+        response.Vendor = new OMS.Shared.Protos.MdmService.Vendors.Vendor()
         {
             Id = vendorDto.Id.ToString(),
             CompanyId = vendorDto.CompanyId.ToString(),

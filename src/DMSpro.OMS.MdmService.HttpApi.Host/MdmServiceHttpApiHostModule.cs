@@ -14,7 +14,6 @@ using DMSpro.OMS.Shared.Hosting.AspNetCore;
 using Prometheus;
 using Volo.Abp;
 using Volo.Abp.Modularity;
-using ProtoBuf.Grpc.Server;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.Vendors;
 
@@ -68,7 +67,7 @@ public class MdmServiceHttpApiHostModule : AbpModule
         });
         
         //context.Services.AddCodeFirstGrpc();
-        context.Services.AddGrpc().AddJsonTranscoding();//add this line
+        context.Services.AddGrpc().AddJsonTranscoding();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -105,8 +104,7 @@ public class MdmServiceHttpApiHostModule : AbpModule
         app.UseConfiguredEndpoints(endpoints =>
         {
             endpoints.MapMetrics();
-            //endpoints.MapGrpcService<GrpcMdmService>();
-            //endpoints.MapGrpcService<CompaniesGRPCAppService>();
+            endpoints.MapGrpcService<CompaniesGRPCAppService>();
             endpoints.MapGrpcService<VendorsGRPCAppService>();
         });
     }
