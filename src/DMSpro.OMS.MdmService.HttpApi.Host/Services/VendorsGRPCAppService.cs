@@ -14,11 +14,11 @@ public class VendorsGRPCAppService : VendorsProtoAppService.VendorsProtoAppServi
         _vendorsInternalAppService = vendorsInternalAppService;
     }
 
-    public override async Task<GetAsyncVendorResponse> GetVendor(GetAsyncVendorRequest request, ServerCallContext context)
+    public override async Task<GetVendorResponse> GetVendor(GetVendorRequest request, ServerCallContext context)
     {
         Guid vendorId = new (request.VendorId);
         VendorWithTenantDto vendorDto = await _vendorsInternalAppService.GetWithTenantIdAsynce(vendorId);
-        var response = new GetAsyncVendorResponse();
+        var response = new GetVendorResponse();
         response.Vendor = new OMS.Shared.Protos.MdmService.Vendors.Vendor()
         {
             Id = vendorDto.Id.ToString(),
