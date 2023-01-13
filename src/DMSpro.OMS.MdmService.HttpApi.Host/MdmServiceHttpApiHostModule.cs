@@ -66,7 +66,6 @@ public class MdmServiceHttpApiHostModule : AbpModule
             });
         });
         
-        //context.Services.AddCodeFirstGrpc();
         context.Services.AddGrpc().AddJsonTranscoding();
     }
 
