@@ -13,10 +13,10 @@ namespace DMSpro.OMS.MdmService.Vendors
             _vendorRepository = vendorRepository;
         }
 
-        public virtual async Task<VendorWithTenantIdDto> GetWithTenantIdAsynce(Guid id)
+        public virtual async Task<VendorWithTenantDto> GetWithTenantIdAsynce(Guid id)
         {
             Vendor vendor = await _vendorRepository.GetAsync(id);
-            return ObjectMapper.Map<Vendor, VendorWithTenantIdDto>(vendor);
+            return ObjectMapper.Map<Vendor, VendorWithTenantDto>(vendor);
         }
     }
 }
