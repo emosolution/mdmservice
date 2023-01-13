@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
 using System;
+using Volo.Abp.Application.Services;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-    public partial interface IVendorsInternalAppService
+    public interface IVendorsInternalAppService : IApplicationService
     {
         Task<VendorWithTenantDto> GetWithTenantIdAsynce(Guid id);
     }
