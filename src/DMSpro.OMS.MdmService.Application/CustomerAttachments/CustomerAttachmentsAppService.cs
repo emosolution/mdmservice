@@ -16,7 +16,6 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
-using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 using DMSpro.OMS.MdmService.Customers;
 
 using DevExtreme.AspNet.Data;
