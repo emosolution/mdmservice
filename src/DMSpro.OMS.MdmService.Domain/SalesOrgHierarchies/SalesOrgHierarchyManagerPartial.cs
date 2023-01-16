@@ -30,17 +30,27 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
              salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, active
              );
             await ValidateOrganizationUnitAsync(salesOrgHierarchy);
+            if(parentId is null){
+                salesOrgHierarchy.Level = 0;    
+            }else{
+                var parent_node = await _salesOrgHierarchyRepository.GetAsync(parentId.Value);
+                salesOrgHierarchy.Level = parent_node.Level + 1;
+            }
             salesOrgHierarchy.HierarchyCode = await GetNextChildCodeAsync(parentId);
-
+            // Check isSelling Zone, isRoute
+            
+            
             return await _salesOrgHierarchyRepository.InsertAsync(salesOrgHierarchy);
         }
 
         public virtual async Task<string> GetNextChildCodeAsync(Guid? parentId)
         {
             var lastChild = await GetLastChildOrNullAsync(parentId);
+            
             if (lastChild != null)
             {
                 return SalesOrgHierarchy.CalculateNextCode(lastChild.HierarchyCode);
+                
             }
 
             var parentCode = parentId != null
