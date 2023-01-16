@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -25,12 +26,16 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public async Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUserAndTenant(Guid identityUserId, Guid? tenantId)
         {
-            Company companyHO = await _companyCustomRepository.GetHOCompanyFromIdentityUserAndTenant(identityUserId, tenantId);
-            if (companyHO == null)
+            try
+            {
+                Company companyHO = await _companyCustomRepository.GetHOCompanyFromIdentityUserAndTenant(identityUserId, tenantId);
+                return ObjectMapper.Map<Company, CompanyWithTenantDto>(companyHO);
+            }
+            catch (EntityNotFoundException)
             {
                 return null;
             }
-            return ObjectMapper.Map<Company, CompanyWithTenantDto>(companyHO);
+
         }
 
         //public async Task<CompanyWithTenantDto> GetWithTenantIdAsynce(Guid id)

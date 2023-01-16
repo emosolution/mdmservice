@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using System;
+using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
@@ -15,8 +16,15 @@ namespace DMSpro.OMS.MdmService.Vendors
 
         public virtual async Task<VendorWithTenantDto> GetWithTenantIdAsynce(Guid id)
         {
-            Vendor vendor = await _vendorRepository.GetAsync(id);
-            return ObjectMapper.Map<Vendor, VendorWithTenantDto>(vendor);
+            try
+            {
+                Vendor vendor = await _vendorRepository.GetAsync(id);
+                return ObjectMapper.Map<Vendor, VendorWithTenantDto>(vendor);
+            }
+            catch (EntityNotFoundException)
+            {
+                return null;
+            }
         }
     }
 }
