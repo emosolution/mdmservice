@@ -277,7 +277,7 @@
     "Menu:MdmService:ItemAttributeValues": "Item Attribute Values",
     "Page.Title.ItemAttributeValue": "Item Attribute Values",
     "Button.New.ItemAttributeValue": "New Item Attribute Value",
-    "EntityFieldName:MDMService:ItemAttributeValue:ProdAttributeName": "Item Attribute Name",
+    "EntityFieldName:MDMService:ItemAttributeValue:ItemAttributeName": "Item Attribute Name",
     "EntityFieldName:MDMService:ItemAttributeValue:AttrValName": "Name",
     "EntityFieldName:MDMService:ItemAttributeValue:ParentName": "Parent Name",
     "Error:MDMService:ItemAttributeValue:550": "|||Missing at least one required parameter. Error level: Critical.|||",

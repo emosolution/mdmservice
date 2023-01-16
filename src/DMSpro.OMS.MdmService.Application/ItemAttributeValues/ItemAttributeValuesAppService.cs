@@ -54,11 +54,11 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {   
-            var items = await _itemAttributeRepository.GetQueryableAsync();    
+            var items = await _itemAttributeValueRepository.GetQueryableAsync();    
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption,inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+            results.data = ObjectMapper.Map<IEnumerable<ItemAttributeValue>, IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
             
             return results;
                 
