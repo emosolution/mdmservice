@@ -35,7 +35,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         response.Company = new OMS.Shared.Protos.MdmService.Companies.Company()
         {
             Id = companyDto.Id.ToString(),
-            TenantId = companyDto.TenantId.ToString(),
+            TenantId = companyDto.TenantId == null ?  "" : companyDto.TenantId.ToString(),
             Code = companyDto.Code,
             Name = companyDto.Name,
         };
