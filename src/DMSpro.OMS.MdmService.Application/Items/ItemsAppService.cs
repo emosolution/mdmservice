@@ -78,7 +78,7 @@ namespace DMSpro.OMS.MdmService.Items
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
+            results.data = ObjectMapper.Map<IEnumerable<Item>, IEnumerable<ItemDto>>(results.data.Cast<Item>());
 
             return results;
 
