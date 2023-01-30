@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using DMSpro.OMS.Shared.Protos.MdmService.Vendors;
-using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.Helpers;
 
 namespace DMSpro.OMS.MdmService.Vendors;
 
@@ -32,6 +32,7 @@ public class VendorsGRPCAppService : VendorsProtoAppService.VendorsProtoAppServi
             Code = vendorDto.Code,
             Name = vendorDto.Name,
             ShortName = vendorDto.ShortName,
+            Active = MDMHelpers.CheckActive(vendorDto.Active, vendorDto.CreationTime, vendorDto.EndDate),
         };
         return response;
     }
