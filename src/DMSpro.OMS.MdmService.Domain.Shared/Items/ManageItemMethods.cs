@@ -6,8 +6,8 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public enum ManageBy
     {
-        NONE,
-        LOT,
-        SERIAL
+        NONE = 0,
+        LOT = 1,
+        SERIAL = 2
     }
 }

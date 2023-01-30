@@ -6,10 +6,10 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
 {
     public enum ControlType
     {
-        CHECKBOX,
-        TEXT,
-        NUMBER,
-        LABEL,
-        COMBOBOX,
+        CHECKBOX = 0,
+        TEXT = 1,
+        NUMBER = 2,
+        LABEL = 3,
+        COMBOBOX = 4,
     }
 }

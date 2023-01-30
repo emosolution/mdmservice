@@ -146,11 +146,11 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "CHECKBOX": null,
-        "TEXT": null,
-        "NUMBER": null,
-        "LABEL": null,
-        "COMBOBOX": null
+        "CHECKBOX": 0,
+        "TEXT": 1,
+        "NUMBER": 2,
+        "LABEL": 3,
+        "COMBOBOX": 4
       },
       "IsSelected": true,
       "OrdinalIndex": 0

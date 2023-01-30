@@ -102,13 +102,13 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "OPEN": null,
-        "CONFIRMED": null,
-        "RELEASED": null,
-        "CANCELLED": null,
-        "COMPLETED": null,
-        "FAILED": null,
-        "INCOMPLETED": null
+        "OPEN": 0,
+        "CONFIRMED": 1,
+        "RELEASED": 2,
+        "CANCELLED": 3,
+        "COMPLETED": 4,
+        "FAILED": 5,
+        "INCOMPLETED": 6
       },
       "IsSelected": true,
       "OrdinalIndex": 0
