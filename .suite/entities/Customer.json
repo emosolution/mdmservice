@@ -859,10 +859,10 @@
     {
       "EntityNameWithDuplicationNumber": "CusAttributeValue17",
       "EntitySetNameWithDuplicationNumber": "CusAttributeValues17",
-      "ReferencePropertyName": "Attribute1I7d",
+      "ReferencePropertyName": "Attribute17",
       "UiPickType": "Dropdown",
       "IsRequired": false,
-      "Name": "Attribute1I7d",
+      "Name": "Attribute17Id",
       "DisplayProperty": "AttrValName",
       "Namespace": "DMSpro.OMS.MdmService.CusAttributeValues",
       "EntityName": "CusAttributeValue",

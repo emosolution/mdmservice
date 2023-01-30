@@ -101,7 +101,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? Attribute14Id { get; set; }
         public Guid? Attribute15Id { get; set; }
         public Guid? Attribute16Id { get; set; }
-        public Guid? Attribute1I7d { get; set; }
+        public Guid? Attribute17Id { get; set; }
         public Guid? Attribute18Id { get; set; }
         public Guid? Attribute19Id { get; set; }
         public Guid? PaymentId { get; set; }
@@ -111,7 +111,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
         }
 
-        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute1I7d, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
+        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
         {
 
             Id = id;
@@ -177,7 +177,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Attribute14Id = attribute14Id;
             Attribute15Id = attribute15Id;
             Attribute16Id = attribute16Id;
-            Attribute1I7d = attribute1I7d;
+            Attribute17Id = attribute17Id;
             Attribute18Id = attribute18Id;
             Attribute19Id = attribute19Id;
             PaymentId = paymentId;

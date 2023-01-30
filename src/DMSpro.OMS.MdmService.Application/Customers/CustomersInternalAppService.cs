@@ -11,7 +11,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
-    internal class CustomersInternalAppService : ApplicationService, ICustomersInternalAppService
+    public class CustomersInternalAppService : ApplicationService, ICustomersInternalAppService
     {
         private readonly ICustomerRepository _repository;
 

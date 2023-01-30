@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.Customers
                     CusAttributeValue14 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute14Id),
                     CusAttributeValue15 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute15Id),
                     CusAttributeValue16 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute16Id),
-                    CusAttributeValue17 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute1I7d),
+                    CusAttributeValue17 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute17Id),
                     CusAttributeValue18 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute18Id),
                     CusAttributeValue19 = dbContext.CusAttributeValues.FirstOrDefault(c => c.Id == customer.Attribute19Id),
                     Customer1 = dbContext.Customers.FirstOrDefault(c => c.Id == customer.PaymentId)
@@ -111,7 +111,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Guid? attribute14Id = null,
             Guid? attribute15Id = null,
             Guid? attribute16Id = null,
-            Guid? attribute1I7d = null,
+            Guid? attribute17Id = null,
             Guid? attribute18Id = null,
             Guid? attribute19Id = null,
             Guid? paymentId = null,
@@ -121,7 +121,7 @@ namespace DMSpro.OMS.MdmService.Customers
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, creditLimitMin, creditLimitMax, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDateMin, lastOrderDateMax, paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute1I7d, attribute18Id, attribute19Id, paymentId);
+            query = ApplyFilter(query, filterText, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, creditLimitMin, creditLimitMax, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDateMin, lastOrderDateMax, paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute17Id, attribute18Id, attribute19Id, paymentId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CustomerConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -179,7 +179,7 @@ namespace DMSpro.OMS.MdmService.Customers
                    from cusAttributeValue15 in cusAttributeValues15.DefaultIfEmpty()
                    join cusAttributeValue16 in (await GetDbContextAsync()).CusAttributeValues on customer.Attribute16Id equals cusAttributeValue16.Id into cusAttributeValues16
                    from cusAttributeValue16 in cusAttributeValues16.DefaultIfEmpty()
-                   join cusAttributeValue17 in (await GetDbContextAsync()).CusAttributeValues on customer.Attribute1I7d equals cusAttributeValue17.Id into cusAttributeValues17
+                   join cusAttributeValue17 in (await GetDbContextAsync()).CusAttributeValues on customer.Attribute17Id equals cusAttributeValue17.Id into cusAttributeValues17
                    from cusAttributeValue17 in cusAttributeValues17.DefaultIfEmpty()
                    join cusAttributeValue18 in (await GetDbContextAsync()).CusAttributeValues on customer.Attribute18Id equals cusAttributeValue18.Id into cusAttributeValues18
                    from cusAttributeValue18 in cusAttributeValues18.DefaultIfEmpty()
@@ -276,7 +276,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Guid? attribute14Id = null,
             Guid? attribute15Id = null,
             Guid? attribute16Id = null,
-            Guid? attribute1I7d = null,
+            Guid? attribute17Id = null,
             Guid? attribute18Id = null,
             Guid? attribute19Id = null,
             Guid? paymentId = null)
@@ -333,7 +333,7 @@ namespace DMSpro.OMS.MdmService.Customers
                     .WhereIf(attribute14Id != null && attribute14Id != Guid.Empty, e => e.CusAttributeValue14 != null && e.CusAttributeValue14.Id == attribute14Id)
                     .WhereIf(attribute15Id != null && attribute15Id != Guid.Empty, e => e.CusAttributeValue15 != null && e.CusAttributeValue15.Id == attribute15Id)
                     .WhereIf(attribute16Id != null && attribute16Id != Guid.Empty, e => e.CusAttributeValue16 != null && e.CusAttributeValue16.Id == attribute16Id)
-                    .WhereIf(attribute1I7d != null && attribute1I7d != Guid.Empty, e => e.CusAttributeValue17 != null && e.CusAttributeValue17.Id == attribute1I7d)
+                    .WhereIf(attribute17Id != null && attribute17Id != Guid.Empty, e => e.CusAttributeValue17 != null && e.CusAttributeValue17.Id == attribute17Id)
                     .WhereIf(attribute18Id != null && attribute18Id != Guid.Empty, e => e.CusAttributeValue18 != null && e.CusAttributeValue18.Id == attribute18Id)
                     .WhereIf(attribute19Id != null && attribute19Id != Guid.Empty, e => e.CusAttributeValue19 != null && e.CusAttributeValue19.Id == attribute19Id)
                     .WhereIf(paymentId != null && paymentId != Guid.Empty, e => e.Customer1 != null && e.Customer1.Id == paymentId);
@@ -428,14 +428,14 @@ namespace DMSpro.OMS.MdmService.Customers
             Guid? attribute14Id = null,
             Guid? attribute15Id = null,
             Guid? attribute16Id = null,
-            Guid? attribute1I7d = null,
+            Guid? attribute17Id = null,
             Guid? attribute18Id = null,
             Guid? attribute19Id = null,
             Guid? paymentId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, creditLimitMin, creditLimitMax, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDateMin, lastOrderDateMax, paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute1I7d, attribute18Id, attribute19Id, paymentId);
+            query = ApplyFilter(query, filterText, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, creditLimitMin, creditLimitMax, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDateMin, lastOrderDateMax, paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute17Id, attribute18Id, attribute19Id, paymentId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
