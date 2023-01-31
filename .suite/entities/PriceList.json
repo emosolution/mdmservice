@@ -102,10 +102,10 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "ADD": null,
-        "SUBTRACT": null,
-        "MULTIPLICATION": null,
-        "DIVISION": null
+        "ADD": 0,
+        "SUBTRACT": 1,
+        "MULTIPLICATION": 2,
+        "DIVISION": 3
       },
       "IsSelected": true,
       "OrdinalIndex": 0
@@ -151,8 +151,8 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "WHOLE_NUMBER": null,
-        "PERCENTAGE": null
+        "WHOLE_NUMBER": 0,
+        "PERCENTAGE": 1
       },
       "IsSelected": true,
       "OrdinalIndex": 0

@@ -74,7 +74,35 @@ $(function () {
 			sfaCustomerCode: $("#SFACustomerCodeFilter").val(),
 			lastOrderDateMin: $("#LastOrderDateFilterMin").data().datepicker.getFormattedDate('yyyy-mm-dd'),
 			lastOrderDateMax: $("#LastOrderDateFilterMax").data().datepicker.getFormattedDate('yyyy-mm-dd'),
-			paymentTermId: $("#PaymentTermIdFilter").val(),			linkedCompanyId: $("#LinkedCompanyIdFilter").val(),			priceListId: $("#PriceListIdFilter").val(),			geoMaster0Id: $("#GeoMaster0IdFilter").val(),			geoMaster1Id: $("#GeoMaster1IdFilter").val(),			geoMaster2Id: $("#GeoMaster2IdFilter").val(),			geoMaster3Id: $("#GeoMaster3IdFilter").val(),			geoMaster4Id: $("#GeoMaster4IdFilter").val(),			attribute0Id: $("#Attribute0IdFilter").val(),			attribute1Id: $("#Attribute1IdFilter").val(),			attribute2Id: $("#Attribute2IdFilter").val(),			attribute3Id: $("#Attribute3IdFilter").val(),			attribute4Id: $("#Attribute4IdFilter").val(),			attribute5Id: $("#Attribute5IdFilter").val(),			attribute6Id: $("#Attribute6IdFilter").val(),			attribute7Id: $("#Attribute7IdFilter").val(),			attribute8Id: $("#Attribute8IdFilter").val(),			attribute9Id: $("#Attribute9IdFilter").val(),			attribute10Id: $("#Attribute10IdFilter").val(),			attribute11Id: $("#Attribute11IdFilter").val(),			attribute12Id: $("#Attribute12IdFilter").val(),			attribute13Id: $("#Attribute13IdFilter").val(),			attribute14Id: $("#Attribute14IdFilter").val(),			attribute15Id: $("#Attribute15IdFilter").val(),			attribute16Id: $("#Attribute16IdFilter").val(),			attribute1I7d: $("#Attribute1I7dFilter").val(),			attribute18Id: $("#Attribute18IdFilter").val(),			attribute19Id: $("#Attribute19IdFilter").val(),			paymentId: $("#PaymentIdFilter").val()
+			paymentTermId: $("#PaymentTermIdFilter").val(),			
+            linkedCompanyId: $("#LinkedCompanyIdFilter").val(),		
+            priceListId: $("#PriceListIdFilter").val(),	
+            geoMaster0Id: $("#GeoMaster0IdFilter").val(),			
+            geoMaster1Id: $("#GeoMaster1IdFilter").val(),			
+            geoMaster2Id: $("#GeoMaster2IdFilter").val(),			
+            geoMaster3Id: $("#GeoMaster3IdFilter").val(),			
+            geoMaster4Id: $("#GeoMaster4IdFilter").val(),			
+            attribute0Id: $("#Attribute0IdFilter").val(),			
+            attribute1Id: $("#Attribute1IdFilter").val(),			
+            attribute2Id: $("#Attribute2IdFilter").val(),			
+            attribute3Id: $("#Attribute3IdFilter").val(),			
+            attribute4Id: $("#Attribute4IdFilter").val(),			
+            attribute5Id: $("#Attribute5IdFilter").val(),			
+            attribute6Id: $("#Attribute6IdFilter").val(),			
+            attribute7Id: $("#Attribute7IdFilter").val(),			
+            attribute8Id: $("#Attribute8IdFilter").val(),			
+            attribute9Id: $("#Attribute9IdFilter").val(),			
+            attribute10Id: $("#Attribute10IdFilter").val(),			
+            attribute11Id: $("#Attribute11IdFilter").val(),			
+            attribute12Id: $("#Attribute12IdFilter").val(),			
+            attribute13Id: $("#Attribute13IdFilter").val(),			
+            attribute14Id: $("#Attribute14IdFilter").val(),			
+            attribute15Id: $("#Attribute15IdFilter").val(),			
+            attribute16Id: $("#Attribute16IdFilter").val(),			
+            attribute17Id: $("#Attribute17IdFilter").val(),			
+            attribute18Id: $("#Attribute18IdFilter").val(),			
+            attribute19Id: $("#Attribute19IdFilter").val(),			
+            paymentId: $("#PaymentIdFilter").val()
         };
     };
 
@@ -402,7 +430,7 @@ $(function () {
 , 
                             { name: 'attribute16Id', value: input.attribute16Id }
 , 
-                            { name: 'attribute1I7d', value: input.attribute1I7d }
+                            { name: 'attribute17Id', value: input.attribute17Id }
 , 
                             { name: 'attribute18Id', value: input.attribute18Id }
 , 

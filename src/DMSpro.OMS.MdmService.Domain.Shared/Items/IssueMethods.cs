@@ -6,7 +6,7 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public enum IssueMethod
     {
-        FEFO,
-        SERIAL,
+        FEFO = 0,
+        SERIAL = 1,
     }
 }

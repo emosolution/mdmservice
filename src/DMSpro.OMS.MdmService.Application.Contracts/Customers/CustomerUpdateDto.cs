@@ -69,7 +69,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? Attribute14Id { get; set; }
         public Guid? Attribute15Id { get; set; }
         public Guid? Attribute16Id { get; set; }
-        public Guid? Attribute1I7d { get; set; }
+        public Guid? Attribute17Id { get; set; }
         public Guid? Attribute18Id { get; set; }
         public Guid? Attribute19Id { get; set; }
         public Guid? PaymentId { get; set; }

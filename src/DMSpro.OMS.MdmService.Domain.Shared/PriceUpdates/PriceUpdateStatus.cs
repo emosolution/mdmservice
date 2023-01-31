@@ -2,12 +2,12 @@
 {
     public enum PriceUpdateStatus
     {
-        OPEN,
-        CONFIRMED,
-        RELEASED,
-        CANCELLED,
-        COMPLETED,
-        FAILED,
-        INCOMPLETED,
+        OPEN = 0,
+        CONFIRMED = 1,
+        RELEASED = 2,
+        CANCELLED = 3,
+        COMPLETED = 4,
+        FAILED = 5,
+        INCOMPLETED = 6,
     }
 }

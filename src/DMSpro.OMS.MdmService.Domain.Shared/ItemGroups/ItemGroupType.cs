@@ -2,7 +2,7 @@
 {
     public enum GroupType
     {
-        ATTRIBUTE,
-        LIST
+        ATTRIBUTE = 0,
+        LIST = 1
     }
 }

@@ -137,7 +137,7 @@ namespace DMSpro.OMS.MdmService.Web.Pages.Customers
         [SelectItems(nameof(CusAttributeValueLookupList))]
         public Guid? Attribute16IdFilter { get; set; }
         [SelectItems(nameof(CusAttributeValueLookupList))]
-        public Guid? Attribute1I7dFilter { get; set; }
+        public Guid? Attribute17IdFilter { get; set; }
         [SelectItems(nameof(CusAttributeValueLookupList))]
         public Guid? Attribute18IdFilter { get; set; }
         [SelectItems(nameof(CusAttributeValueLookupList))]
