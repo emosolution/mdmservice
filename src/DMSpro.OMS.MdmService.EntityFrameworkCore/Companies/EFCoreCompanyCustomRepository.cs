@@ -40,7 +40,7 @@ namespace DMSpro.OMS.MdmService.Companies
             return companyHO;
         }
 
-        public async Task<Company> GetHOCompanyFromIdentityUserAndTenant(Guid identityUser, Guid? tenantId)
+        public async Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId)
         {
             Company companyHO = await GetHOCompanyOfTenant(tenantId);
             if (companyHO == null)

@@ -8,6 +8,8 @@ using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
+using Microsoft.IdentityModel.Tokens;
+using Volo.Saas.Tenants;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
@@ -34,12 +36,17 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         _employeeProfilesInternallAppService = employeeProfilesInternallAppService;
     }
 
-    public override async Task<CheckSOPORouteResponse> CheckSOPORoute(CheckSOPORouteRequest request, ServerCallContext context)
+    public override async Task<GetSOPORouteResponse> GetSOPORoute(GetSOPORouteRequest request, ServerCallContext context)
     {
         Guid id = new(request.RouteId);
         SalesOrgHierarchyWithTenantDto dto = await _internalAppService.GetWithTenantIdAsynce(id);
-        var response = new CheckSOPORouteResponse();
+        var response = new GetSOPORouteResponse();
         if (dto == null)
+        {
+            return response;
+        }
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : Guid.Parse(request.TenantId);
+        if (dto.TenantId != tenantId)
         {
             return response;
         }
@@ -56,7 +63,7 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         {
             return response;
         }
-        if (!CheckSellingZone(sellingZoneDto))
+        if (!CheckSellingZone(sellingZoneDto, tenantId))
         {
             return response;
         }
@@ -91,8 +98,12 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         return response;
     }
 
-    private bool CheckSellingZone(SalesOrgHierarchyWithTenantDto sellingZone)
+    private bool CheckSellingZone(SalesOrgHierarchyWithTenantDto sellingZone, Guid? tenantId)
     {
+        if (sellingZone.TenantId != tenantId)
+        {
+            return false;
+        }
         if (!sellingZone.IsSellingZone)
         {
             return false;
@@ -174,5 +185,4 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         }
         return true;
     }
-
 }
