@@ -35,6 +35,10 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             }else{
                 var parent_node = await _salesOrgHierarchyRepository.GetAsync(parentId.Value);
                 salesOrgHierarchy.Level = parent_node.Level + 1;
+                if(parent_node.IsRoute == true){
+                    throw new UserFriendlyException("Route cannot add subroute.");
+                    
+                }
             }
             salesOrgHierarchy.HierarchyCode = await GetNextChildCodeAsync(parentId);
             // Check isSelling Zone, isRoute
