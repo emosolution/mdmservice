@@ -39,6 +39,10 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                     throw new UserFriendlyException("Route cannot add subroute.");
                     
                 }
+                if(salesOrgHierarchy.IsRoute == true){
+                    parent_node.IsSellingZone = true;
+                    await _salesOrgHierarchyRepository.UpdateAsync(parent_node);
+                }
             }
             salesOrgHierarchy.HierarchyCode = await GetNextChildCodeAsync(parentId);
             // Check isSelling Zone, isRoute
@@ -189,7 +193,19 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             }
 
             var organizationUnit = await _salesOrgHierarchyRepository.GetAsync(id);
-
+            if(organizationUnit.IsRoute == true){
+                //Find other children
+                var other_children = await FindChildrenAsync(organizationUnit.ParentId, false);
+                foreach (var child in other_children){
+                    if(child.IsRoute){
+                        break;
+                    }else{
+                        var parentNode = await _salesOrgHierarchyRepository.GetAsync(organizationUnit.ParentId.Value);
+                        parentNode.IsSellingZone = false;
+                        await _salesOrgHierarchyRepository.UpdateAsync(parentNode);
+                    }
+                }
+            }
             await _salesOrgHierarchyRepository.RemoveAllMembersAsync(organizationUnit);
             //await OrganizationUnitRepository.RemoveAllRolesAsync(organizationUnit);
             await _salesOrgHierarchyRepository.DeleteAsync(id);
