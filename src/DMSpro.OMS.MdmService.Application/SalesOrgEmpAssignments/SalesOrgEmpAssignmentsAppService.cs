@@ -123,10 +123,20 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             if (input.SalesOrgHierarchyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+            }else{
+                var saleOSalesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
+                if(saleOSalesOrgHierarchy == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+                }
             }
             if (input.EmployeeProfileId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
+            }else{
+                var employeeProfile = await _employeeProfileRepository.GetAsync(input.EmployeeProfileId);
+                if(employeeProfile == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
+                }
             }
 
             var salesOrgEmpAssignment = await _salesOrgEmpAssignmentManager.CreateAsync(
