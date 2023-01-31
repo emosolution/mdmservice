@@ -34,7 +34,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
         private readonly CustomerInZoneManager _customerInZoneManager;
         private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
         private readonly IRepository<Customer, Guid> _customerRepository;
-
+        
         public CustomerInZonesAppService(ICustomerInZoneRepository customerInZoneRepository, CustomerInZoneManager customerInZoneManager,
             IRepository<Customer, Guid> customerRepository,
             IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository
@@ -124,11 +124,22 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             if (input.SalesOrgHierarchyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+            }else{
+                var salesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
+                if(salesOrgHierarchy == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+                }
             }
             if (input.CustomerId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
+            }else{
+                var customer = await _customerRepository.GetAsync(input.CustomerId);
+                if(customer == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
+                }
             }
+
 
             var customerInZone = await _customerInZoneManager.CreateAsync(
             input.SalesOrgHierarchyId, input.CustomerId, input.EffectiveDate, input.EndDate
