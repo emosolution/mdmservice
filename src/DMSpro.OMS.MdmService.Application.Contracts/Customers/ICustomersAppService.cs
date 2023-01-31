@@ -17,24 +17,24 @@ namespace DMSpro.OMS.MdmService.Customers
 
         Task<CustomerWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
-
+        
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         
         Task<CustomerDto> GetAsync(Guid id);
 
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetCusAttributeValueLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetCusAttributeValueLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetCustomerLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

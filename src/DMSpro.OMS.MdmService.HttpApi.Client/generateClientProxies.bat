@@ -1,0 +1,1 @@
+abp generate-proxy -t csharp -u https://localhost:44732 -m MdmService --without-contracts

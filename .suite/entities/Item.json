@@ -256,9 +256,9 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "NONE": null,
-        "LOT": null,
-        "SERIAL": null
+        "NONE": 0,
+        "LOT": 1,
+        "SERIAL": 2
       },
       "IsSelected": true,
       "OrdinalIndex": 0
@@ -282,10 +282,10 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "DAY": null,
-        "WEEK": null,
-        "MONTH": null,
-        "YEAR": null
+        "DAY": 0,
+        "WEEK": 1,
+        "MONTH": 2,
+        "YEAR": 3
       },
       "IsSelected": true,
       "OrdinalIndex": 0
@@ -331,8 +331,8 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "FEFO": null,
-        "SERIAL": null
+        "FEFO": 0,
+        "SERIAL": 1
       },
       "IsSelected": true,
       "OrdinalIndex": 0

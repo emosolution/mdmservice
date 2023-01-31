@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.Customers
         }
 
         public async Task<Customer> CreateAsync(
-        Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute1I7d, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
+        Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
             var customer = new Customer(
              GuidGenerator.Create(),
-             paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute1I7d, attribute18Id, attribute19Id, paymentId, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDate, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDate, endDate, creditLimit
+             paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute17Id, attribute18Id, attribute19Id, paymentId, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDate, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDate, endDate, creditLimit
              );
 
             return await _customerRepository.InsertAsync(customer);
@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
         public async Task<Customer> UpdateAsync(
             Guid id,
-            Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute1I7d, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, [CanBeNull] string concurrencyStamp = null
+            Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(priceListId, nameof(priceListId));
@@ -75,10 +75,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength, CustomerConsts.SFACustomerCodeMinLength);
             Check.NotNull(lastOrderDate, nameof(lastOrderDate));
 
-            var queryable = await _customerRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customer = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customer = await _customerRepository.GetAsync(id);
 
             customer.PaymentTermId = paymentTermId;
             customer.LinkedCompanyId = linkedCompanyId;
@@ -105,7 +102,7 @@ namespace DMSpro.OMS.MdmService.Customers
             customer.Attribute14Id = attribute14Id;
             customer.Attribute15Id = attribute15Id;
             customer.Attribute16Id = attribute16Id;
-            customer.Attribute1I7d = attribute1I7d;
+            customer.Attribute17Id = attribute17Id;
             customer.Attribute18Id = attribute18Id;
             customer.Attribute19Id = attribute19Id;
             customer.PaymentId = paymentId;

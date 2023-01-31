@@ -2,9 +2,9 @@
 {
     public enum ArithmeticOperator
     {
-        ADD,
-        SUBTRACT,
-        MULTIPLICATION,
-        DIVISION,
+        ADD = 0,
+        SUBTRACT = 1,
+        MULTIPLICATION = 2,
+        DIVISION = 3,
     }
 }

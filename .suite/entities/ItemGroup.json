@@ -102,8 +102,8 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "ATTRIBUTE": null,
-        "LIST": null
+        "ATTRIBUTE": 0,
+        "LIST": 1
       },
       "IsSelected": true,
       "OrdinalIndex": 0
@@ -127,9 +127,9 @@
       "Regex": "",
       "EmailValidation": false,
       "EnumValues": {
-        "OPEN": null,
-        "RELEASED": null,
-        "CANCELLED": null
+        "OPEN": 0,
+        "RELEASED": 1,
+        "CANCELLED": 2
       },
       "IsSelected": true,
       "OrdinalIndex": 0
