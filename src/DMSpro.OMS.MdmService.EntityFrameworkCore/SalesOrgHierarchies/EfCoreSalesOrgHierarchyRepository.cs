@@ -11,13 +11,14 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
+    public partial class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
     {
         public EfCoreSalesOrgHierarchyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
 
         }
+        
 
         public async Task<SalesOrgHierarchyWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default)
         {
@@ -161,5 +162,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                     .WhereIf(!string.IsNullOrWhiteSpace(hierarchyCode), e => e.HierarchyCode.Contains(hierarchyCode))
                     .WhereIf(active.HasValue, e => e.Active == active);
         }
+
+        
+
     }
 }
