@@ -48,6 +48,13 @@ namespace DMSpro.OMS.MdmService.Controllers.UOMGroupDetails
         }
 
         [HttpGet]
+        [Route("GetListDevextremeswithNavigation")]
+        public Task<LoadResult> GetListDevextremeswithNavigationAsync(DataLoadOptionDevextreme inputDev)
+        {
+            return _uOMGroupDetailsAppService.GetListDevextremeswithNavigationAsync(inputDev);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public virtual Task<UOMGroupDetailDto> GetAsync(Guid id)
         {
