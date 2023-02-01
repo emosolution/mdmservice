@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public interface IEmployeeProfileRepository : IRepository<EmployeeProfile, Guid>
+    public partial interface IEmployeeProfileRepository : IRepository<EmployeeProfile, Guid>
     {
         Task<EmployeeProfileWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

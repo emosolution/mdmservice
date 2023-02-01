@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
-    public class EfCoreEmployeeImageRepository : EfCoreRepository<MdmServiceDbContext, EmployeeImage, Guid>, IEmployeeImageRepository
+    public partial class EfCoreEmployeeImageRepository : EfCoreRepository<MdmServiceDbContext, EmployeeImage, Guid>, IEmployeeImageRepository
     {
         public EfCoreEmployeeImageRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

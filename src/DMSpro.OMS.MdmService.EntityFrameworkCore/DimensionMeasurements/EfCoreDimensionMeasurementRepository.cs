@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
-    public class EfCoreDimensionMeasurementRepository : EfCoreRepository<MdmServiceDbContext, DimensionMeasurement, Guid>, IDimensionMeasurementRepository
+    public partial class EfCoreDimensionMeasurementRepository : EfCoreRepository<MdmServiceDbContext, DimensionMeasurement, Guid>, IDimensionMeasurementRepository
     {
         public EfCoreDimensionMeasurementRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

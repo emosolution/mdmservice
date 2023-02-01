@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-    public class EfCoreNumberingConfigRepository : EfCoreRepository<MdmServiceDbContext, NumberingConfig, Guid>, INumberingConfigRepository
+    public partial class EfCoreNumberingConfigRepository : EfCoreRepository<MdmServiceDbContext, NumberingConfig, Guid>, INumberingConfigRepository
     {
         public EfCoreNumberingConfigRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

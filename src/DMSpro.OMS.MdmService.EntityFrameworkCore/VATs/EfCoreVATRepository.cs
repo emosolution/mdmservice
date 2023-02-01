@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.VATs
 {
-    public class EfCoreVATRepository : EfCoreRepository<MdmServiceDbContext, VAT, Guid>, IVATRepository
+    public partial class EfCoreVATRepository : EfCoreRepository<MdmServiceDbContext, VAT, Guid>, IVATRepository
     {
         public EfCoreVATRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

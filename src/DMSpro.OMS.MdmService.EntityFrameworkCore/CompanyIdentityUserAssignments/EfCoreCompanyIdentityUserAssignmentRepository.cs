@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-    public class EfCoreCompanyIdentityUserAssignmentRepository : EfCoreRepository<MdmServiceDbContext, CompanyIdentityUserAssignment, Guid>, ICompanyIdentityUserAssignmentRepository
+    public partial class EfCoreCompanyIdentityUserAssignmentRepository : EfCoreRepository<MdmServiceDbContext, CompanyIdentityUserAssignment, Guid>, ICompanyIdentityUserAssignmentRepository
     {
         public EfCoreCompanyIdentityUserAssignmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

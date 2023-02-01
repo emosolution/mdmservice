@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.RouteAssignments
 {
-    public interface IRouteAssignmentRepository : IRepository<RouteAssignment, Guid>
+    public partial interface IRouteAssignmentRepository : IRepository<RouteAssignment, Guid>
     {
         Task<RouteAssignmentWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

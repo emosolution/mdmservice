@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
+    public partial class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
     {
         public EfCoreSalesOrgHierarchyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

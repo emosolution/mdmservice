@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
-    public interface IVisitPlanRepository : IRepository<VisitPlan, Guid>
+    public partial interface IVisitPlanRepository : IRepository<VisitPlan, Guid>
     {
         Task<VisitPlanWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

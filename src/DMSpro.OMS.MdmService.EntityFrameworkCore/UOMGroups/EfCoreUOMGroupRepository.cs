@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
-    public class EfCoreUOMGroupRepository : EfCoreRepository<MdmServiceDbContext, UOMGroup, Guid>, IUOMGroupRepository
+    public partial class EfCoreUOMGroupRepository : EfCoreRepository<MdmServiceDbContext, UOMGroup, Guid>, IUOMGroupRepository
     {
         public EfCoreUOMGroupRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

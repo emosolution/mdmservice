@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.VATs
 {
-    public interface IVATRepository : IRepository<VAT, Guid>
+    public partial interface IVATRepository : IRepository<VAT, Guid>
     {
         Task<List<VAT>> GetListAsync(
             string filterText = null,

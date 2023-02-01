@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SystemConfigs
 {
-    public interface ISystemConfigRepository : IRepository<SystemConfig, Guid>
+    public partial interface ISystemConfigRepository : IRepository<SystemConfig, Guid>
     {
         Task<List<SystemConfig>> GetListAsync(
             string filterText = null,

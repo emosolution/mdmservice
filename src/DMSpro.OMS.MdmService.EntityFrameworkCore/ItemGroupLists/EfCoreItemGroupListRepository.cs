@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-    public class EfCoreItemGroupListRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupList, Guid>, IItemGroupListRepository
+    public partial class EfCoreItemGroupListRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupList, Guid>, IItemGroupListRepository
     {
         public EfCoreItemGroupListRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

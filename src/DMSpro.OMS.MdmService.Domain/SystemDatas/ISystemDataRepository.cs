@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public interface ISystemDataRepository : IRepository<SystemData, Guid>
+    public partial interface ISystemDataRepository : IRepository<SystemData, Guid>
     {
         Task<List<SystemData>> GetListAsync(
             string filterText = null,

@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-    public class EfCoreHolidayDetailRepository : EfCoreRepository<MdmServiceDbContext, HolidayDetail, Guid>, IHolidayDetailRepository
+    public partial class EfCoreHolidayDetailRepository : EfCoreRepository<MdmServiceDbContext, HolidayDetail, Guid>, IHolidayDetailRepository
     {
         public EfCoreHolidayDetailRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

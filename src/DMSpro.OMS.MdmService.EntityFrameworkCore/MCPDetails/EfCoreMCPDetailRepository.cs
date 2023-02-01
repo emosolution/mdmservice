@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public class EfCoreMCPDetailRepository : EfCoreRepository<MdmServiceDbContext, MCPDetail, Guid>, IMCPDetailRepository
+    public partial class EfCoreMCPDetailRepository : EfCoreRepository<MdmServiceDbContext, MCPDetail, Guid>, IMCPDetailRepository
     {
         public EfCoreMCPDetailRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

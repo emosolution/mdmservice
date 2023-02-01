@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public interface ISalesOrgHeaderRepository : IRepository<SalesOrgHeader, Guid>
+    public partial interface ISalesOrgHeaderRepository : IRepository<SalesOrgHeader, Guid>
     {
         Task<List<SalesOrgHeader>> GetListAsync(
             string filterText = null,

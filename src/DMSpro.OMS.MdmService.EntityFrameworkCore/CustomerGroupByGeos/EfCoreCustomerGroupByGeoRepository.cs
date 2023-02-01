@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
-    public class EfCoreCustomerGroupByGeoRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroupByGeo, Guid>, ICustomerGroupByGeoRepository
+    public partial class EfCoreCustomerGroupByGeoRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroupByGeo, Guid>, ICustomerGroupByGeoRepository
     {
         public EfCoreCustomerGroupByGeoRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

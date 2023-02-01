@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
-    public interface ICustomerAttributeRepository : IRepository<CustomerAttribute, Guid>
+    public partial interface ICustomerAttributeRepository : IRepository<CustomerAttribute, Guid>
     {
         Task<List<CustomerAttribute>> GetListAsync(
             string filterText = null,

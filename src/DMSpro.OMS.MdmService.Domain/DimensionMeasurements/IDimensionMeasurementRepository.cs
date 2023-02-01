@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
-    public interface IDimensionMeasurementRepository : IRepository<DimensionMeasurement, Guid>
+    public partial interface IDimensionMeasurementRepository : IRepository<DimensionMeasurement, Guid>
     {
         Task<List<DimensionMeasurement>> GetListAsync(
             string filterText = null,

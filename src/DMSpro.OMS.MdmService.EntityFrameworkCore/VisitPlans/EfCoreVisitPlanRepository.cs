@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
-    public class EfCoreVisitPlanRepository : EfCoreRepository<MdmServiceDbContext, VisitPlan, Guid>, IVisitPlanRepository
+    public partial class EfCoreVisitPlanRepository : EfCoreRepository<MdmServiceDbContext, VisitPlan, Guid>, IVisitPlanRepository
     {
         public EfCoreVisitPlanRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

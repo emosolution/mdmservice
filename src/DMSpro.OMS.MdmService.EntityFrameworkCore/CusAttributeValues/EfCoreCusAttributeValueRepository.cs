@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    public class EfCoreCusAttributeValueRepository : EfCoreRepository<MdmServiceDbContext, CusAttributeValue, Guid>, ICusAttributeValueRepository
+    public partial class EfCoreCusAttributeValueRepository : EfCoreRepository<MdmServiceDbContext, CusAttributeValue, Guid>, ICusAttributeValueRepository
     {
         public EfCoreCusAttributeValueRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

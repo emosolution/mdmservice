@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.UOMs
 {
-    public interface IUOMRepository : IRepository<UOM, Guid>
+    public partial interface IUOMRepository : IRepository<UOM, Guid>
     {
         Task<List<UOM>> GetListAsync(
             string filterText = null,

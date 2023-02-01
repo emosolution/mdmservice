@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public interface IItemGroupRepository : IRepository<ItemGroup, Guid>
+    public partial interface IItemGroupRepository : IRepository<ItemGroup, Guid>
     {
         Task<List<ItemGroup>> GetListAsync(
             string filterText = null,

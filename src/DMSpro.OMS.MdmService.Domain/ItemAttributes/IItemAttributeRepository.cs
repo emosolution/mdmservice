@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
-    public interface IItemAttributeRepository : IRepository<ItemAttribute, Guid>
+    public partial interface IItemAttributeRepository : IRepository<ItemAttribute, Guid>
     {
         Task<List<ItemAttribute>> GetListAsync(
             string filterText = null,

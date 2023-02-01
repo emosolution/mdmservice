@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
-    public interface IEmployeeInZoneRepository : IRepository<EmployeeInZone, Guid>
+    public partial interface IEmployeeInZoneRepository : IRepository<EmployeeInZone, Guid>
     {
         Task<EmployeeInZoneWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
-    public interface ISalesChannelRepository : IRepository<SalesChannel, Guid>
+    public partial interface ISalesChannelRepository : IRepository<SalesChannel, Guid>
     {
         Task<List<SalesChannel>> GetListAsync(
             string filterText = null,

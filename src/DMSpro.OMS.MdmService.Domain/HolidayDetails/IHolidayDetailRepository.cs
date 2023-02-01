@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-    public interface IHolidayDetailRepository : IRepository<HolidayDetail, Guid>
+    public partial interface IHolidayDetailRepository : IRepository<HolidayDetail, Guid>
     {
         Task<HolidayDetailWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

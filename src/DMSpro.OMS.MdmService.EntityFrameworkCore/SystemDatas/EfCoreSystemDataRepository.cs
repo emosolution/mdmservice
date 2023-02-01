@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public class EfCoreSystemDataRepository : EfCoreRepository<MdmServiceDbContext, SystemData, Guid>, ISystemDataRepository
+    public partial class EfCoreSystemDataRepository : EfCoreRepository<MdmServiceDbContext, SystemData, Guid>, ISystemDataRepository
     {
         public EfCoreSystemDataRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

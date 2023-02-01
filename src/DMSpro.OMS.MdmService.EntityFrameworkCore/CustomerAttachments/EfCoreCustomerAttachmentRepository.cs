@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
-    public class EfCoreCustomerAttachmentRepository : EfCoreRepository<MdmServiceDbContext, CustomerAttachment, Guid>, ICustomerAttachmentRepository
+    public partial class EfCoreCustomerAttachmentRepository : EfCoreRepository<MdmServiceDbContext, CustomerAttachment, Guid>, ICustomerAttachmentRepository
     {
         public EfCoreCustomerAttachmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)
