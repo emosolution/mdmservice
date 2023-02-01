@@ -7,6 +7,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Companies;
 using Volo.Abp.Content;
+using Microsoft.AspNetCore.Http;
 
 namespace DMSpro.OMS.MdmService.Controllers.Companies
 {

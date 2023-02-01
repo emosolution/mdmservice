@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public interface IGeoMasterRepository : IRepository<GeoMaster, Guid>
+    public partial interface IGeoMasterRepository : IRepository<GeoMaster, Guid>
     {
         Task<GeoMasterWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

@@ -27,13 +27,14 @@ namespace DMSpro.OMS.MdmService.Companies
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICompanyRepository _companyRepository;
         private readonly CompanyManager _companyManager;
-        private readonly IRepository<GeoMaster, Guid> _geoMasterRepository;
+        private readonly IGeoMasterRepository _geoMasterRepository;
 
-        public CompaniesAppService(ICompanyRepository companyRepository, CompanyManager companyManager, IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<GeoMaster, Guid> geoMasterRepository)
+        public CompaniesAppService(ICompanyRepository companyRepository, CompanyManager companyManager, IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IGeoMasterRepository geoMasterRepository)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyRepository = companyRepository;
-            _companyManager = companyManager; _geoMasterRepository = geoMasterRepository;
+            _companyManager = companyManager; 
+            _geoMasterRepository = geoMasterRepository;
         }
 
         public virtual async Task<PagedResultDto<CompanyWithNavigationPropertiesDto>> GetListAsync(GetCompaniesInput input)
