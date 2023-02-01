@@ -1,16 +1,12 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemGroups;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -18,15 +14,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public class ItemGroupsAppService : ApplicationService, IItemGroupsAppService
+    public partial class ItemGroupsAppService : ApplicationService, IItemGroupsAppService
     {
         private readonly IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemGroupRepository _itemGroupRepository;
@@ -51,17 +43,6 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemGroupRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemGroup>, IEnumerable<ItemGroupDto>>(results.data.Cast<ItemGroup>());
-            
-            return results;
-                
-        }
         public virtual async Task<ItemGroupDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemGroup, ItemGroupDto>(await _itemGroupRepository.GetAsync(id));

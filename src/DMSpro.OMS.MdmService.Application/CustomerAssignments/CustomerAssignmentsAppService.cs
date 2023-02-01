@@ -11,25 +11,19 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.CustomerAssignments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
-using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 using DMSpro.OMS.MdmService.Customers;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
 
     [Authorize(MdmServicePermissions.CustomerAssignments.Default)]
-    public class CustomerAssignmentsAppService : ApplicationService, ICustomerAssignmentsAppService
+    public partial class CustomerAssignmentsAppService : ApplicationService, ICustomerAssignmentsAppService
     {
         private readonly IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerAssignmentRepository _customerAssignmentRepository;
@@ -64,19 +58,6 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
         {
             return ObjectMapper.Map<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>
                 (await _customerAssignmentRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerAssignmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerAssignment>, IEnumerable<CustomerAssignmentDto>>(results.data.Cast<CustomerAssignment>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerAssignmentDto> GetAsync(Guid id)

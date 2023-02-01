@@ -3,6 +3,7 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -103,6 +104,22 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
         {
             { typeof(DataLoadOptionDevextreme), inputDev }
+        });
+    }
+
+    public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
+    {
+        return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(IFormFile), file }
+        });
+    }
+
+    public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+    {
+        return await RequestAsync<int>(nameof(InsertFromExcelAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(IFormFile), file }
         });
     }
 }

@@ -1,14 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
@@ -17,15 +13,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
 
     [Authorize(MdmServicePermissions.ItemAttributes.Default)]
-    public class ItemAttributesAppService : ApplicationService, IItemAttributesAppService
+    public partial class ItemAttributesAppService : ApplicationService, IItemAttributesAppService
     {
         private readonly IDistributedCache<ItemAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemAttributeRepository _itemAttributeRepository;
@@ -48,18 +40,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<ItemAttribute>, List<ItemAttributeDto>>(items)
             };
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemAttributeRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
-            
-            return results;
-                
         }
 
         public virtual async Task<ItemAttributeDto> GetAsync(Guid id)

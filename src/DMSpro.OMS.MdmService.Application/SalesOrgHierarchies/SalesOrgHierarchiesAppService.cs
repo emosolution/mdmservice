@@ -18,15 +18,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
 
     [Authorize(MdmServicePermissions.SalesOrgHierarchies.Default)]
-    public class SalesOrgHierarchiesAppService : ApplicationService, ISalesOrgHierarchiesAppService
+    public partial class SalesOrgHierarchiesAppService : ApplicationService, ISalesOrgHierarchiesAppService
     {
         private readonly IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
@@ -57,17 +53,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             return ObjectMapper.Map<SalesOrgHierarchyWithNavigationProperties, SalesOrgHierarchyWithNavigationPropertiesDto>
                 (await _salesOrgHierarchyRepository.GetWithNavigationPropertiesAsync(id));
         }
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _salesOrgHierarchyRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<SalesOrgHierarchy>, IEnumerable<SalesOrgHierarchyDto>>(results.data.Cast<SalesOrgHierarchy>());
-            
-            return results;
-                
-        }
+       
         public virtual async Task<SalesOrgHierarchyDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(await _salesOrgHierarchyRepository.GetAsync(id));

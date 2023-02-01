@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.DimensionMeasurements
     [Area("mdmService")]
     [ControllerName("DimensionMeasurement")]
     [Route("api/mdm-service/dimension-measurements")]
-    public class DimensionMeasurementController : AbpController, IDimensionMeasurementsAppService
+    public partial class DimensionMeasurementController : AbpController, IDimensionMeasurementsAppService
     {
         private readonly IDimensionMeasurementsAppService _dimensionMeasurementsAppService;
 

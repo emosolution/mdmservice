@@ -18,15 +18,11 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
 
     [Authorize(MdmServicePermissions.CusAttributeValues.Default)]
-    public class CusAttributeValuesAppService : ApplicationService, ICusAttributeValuesAppService
+    public partial class CusAttributeValuesAppService : ApplicationService, ICusAttributeValuesAppService
     {
         private readonly IDistributedCache<CusAttributeValueExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICusAttributeValueRepository _cusAttributeValueRepository;
@@ -56,18 +52,6 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
         {
             return ObjectMapper.Map<CusAttributeValueWithNavigationProperties, CusAttributeValueWithNavigationPropertiesDto>
                 (await _cusAttributeValueRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _cusAttributeValueRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CusAttributeValue>, IEnumerable<CusAttributeValueDto>>(results.data.Cast<CusAttributeValue>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CusAttributeValueDto> GetAsync(Guid id)

@@ -4,18 +4,16 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
-    public interface IPriceListDetailsAppService : IApplicationService
+    public partial interface IPriceListDetailsAppService : IApplicationService
     {
         Task<PagedResultDto<PriceListDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceListDetailsInput input);
 
         Task<PriceListDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<PriceListDetailDto> GetAsync(Guid id);
 

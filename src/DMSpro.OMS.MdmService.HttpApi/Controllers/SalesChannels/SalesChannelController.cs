@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.SalesChannels;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.SalesChannels
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("SalesChannel")]
     [Route("api/mdm-service/sales-channels")]
-    public class SalesChannelController : AbpController, ISalesChannelsAppService
+    public partial class SalesChannelController : AbpController, ISalesChannelsAppService
     {
         private readonly ISalesChannelsAppService _salesChannelsAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesChannels
         public virtual Task<PagedResultDto<SalesChannelDto>> GetListAsync(GetSalesChannelsInput input)
         {
             return _salesChannelsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _salesChannelsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

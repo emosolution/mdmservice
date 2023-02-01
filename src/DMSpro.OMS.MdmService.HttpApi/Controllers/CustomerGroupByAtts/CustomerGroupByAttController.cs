@@ -8,17 +8,17 @@ using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByAtts
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerGroupByAtt")]
     [Route("api/mdm-service/customer-group-by-atts")]
-    public class CustomerGroupByAttController : AbpController, ICustomerGroupByAttsAppService
+    public partial class CustomerGroupByAttController : AbpController, ICustomerGroupByAttsAppService
     {
         private readonly ICustomerGroupByAttsAppService _customerGroupByAttsAppService;
 
@@ -33,12 +33,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByAtts
             return _customerGroupByAttsAppService.GetListAsync(input);
         }
 
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerGroupByAttsAppService.GetListDevextremesAsync(inputDev);
-        }
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<CustomerGroupByAttWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

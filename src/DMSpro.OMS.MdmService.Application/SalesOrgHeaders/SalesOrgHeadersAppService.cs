@@ -1,14 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
@@ -17,15 +13,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
 
     [Authorize(MdmServicePermissions.SalesOrgHeaders.Default)]
-    public class SalesOrgHeadersAppService : ApplicationService, ISalesOrgHeadersAppService
+    public partial class SalesOrgHeadersAppService : ApplicationService, ISalesOrgHeadersAppService
     {
         private readonly IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
@@ -50,17 +42,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _salesOrgHeaderRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<SalesOrgHeader>, IEnumerable<SalesOrgHeaderDto>>(results.data.Cast<SalesOrgHeader>());
-            
-            return results;
-                
-        }
         public virtual async Task<SalesOrgHeaderDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<SalesOrgHeader, SalesOrgHeaderDto>(await _salesOrgHeaderRepository.GetAsync(id));

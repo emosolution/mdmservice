@@ -32,9 +32,6 @@
 		<Reference Include="DMSpro.OMS.Shared.Lib">
 			<HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Lib\DMSpro.OMS.Shared.Lib.dll</HintPath>
 		</Reference>
-		<Reference Include="DMSpro.OMS.Shared.Domain">
-			<HintPath>..\..\..\commondll\Development\Shared\DMSpro.OMS.Shared.Domain\DMSpro.OMS.Shared.Domain.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 	<!-- ABP 6.0.2 GRPC -->

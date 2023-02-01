@@ -8,17 +8,17 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.CustomerGroups
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerGroup")]
     [Route("api/mdm-service/customer-groups")]
-    public class CustomerGroupController : AbpController, ICustomerGroupsAppService
+    public partial class CustomerGroupController : AbpController, ICustomerGroupsAppService
     {
         private readonly ICustomerGroupsAppService _customerGroupsAppService;
 
@@ -31,12 +31,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerGroups
         public virtual Task<PagedResultDto<CustomerGroupDto>> GetListAsync(GetCustomerGroupsInput input)
         {
             return _customerGroupsAppService.GetListAsync(input);
-        }
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerGroupsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

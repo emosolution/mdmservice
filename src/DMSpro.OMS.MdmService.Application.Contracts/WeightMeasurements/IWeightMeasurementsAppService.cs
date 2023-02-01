@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-    public interface IWeightMeasurementsAppService : IApplicationService
+    public partial interface IWeightMeasurementsAppService : IApplicationService
     {
         Task<PagedResultDto<WeightMeasurementDto>> GetListAsync(GetWeightMeasurementsInput input);
 

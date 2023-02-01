@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.MCPHeaders;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("MCPHeader")]
     [Route("api/mdm-service/m-cPHeaders")]
-    public class MCPHeaderController : AbpController, IMCPHeadersAppService
+    public partial class MCPHeaderController : AbpController, IMCPHeadersAppService
     {
         private readonly IMCPHeadersAppService _mCPHeadersAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
         public Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input)
         {
             return _mCPHeadersAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _mCPHeadersAppService.GetListDevextremesAsync(inputDev);
         }
         
         [HttpGet]

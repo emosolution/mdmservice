@@ -3,6 +3,7 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,14 +26,6 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         return await RequestAsync<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>>(nameof(GetListAsync), new ClientProxyRequestTypeValue
         {
             { typeof(GetMCPHeadersInput), input }
-        });
-    }
-
-    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-    {
-        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
 
@@ -112,5 +105,29 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
+    }
+
+    public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
+    {
+        return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(IFormFile), file }
+        });
+    }
+
+    public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+    {
+        return await RequestAsync<int>(nameof(InsertFromExcelAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(IFormFile), file }
+        });
     }
 }

@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.MCPDetails;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
 
     [Authorize(MdmServicePermissions.MCPDetails.Default)]
-    public class MCPDetailsAppService : ApplicationService, IMCPDetailsAppService
+    public partial class MCPDetailsAppService : ApplicationService, IMCPDetailsAppService
     {
         private readonly IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IMCPDetailRepository _mCPDetailRepository;
@@ -58,18 +53,6 @@ namespace DMSpro.OMS.MdmService.MCPDetails
                 Items = ObjectMapper.Map<List<MCPDetailWithNavigationProperties>, List<MCPDetailWithNavigationPropertiesDto>>(items)
             };
         }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _mCPDetailRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<MCPDetail>, IEnumerable<MCPDetailDto>>(results.data.Cast<MCPDetail>());
-            
-            return results;
-        } 
 
         public virtual async Task<MCPDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {

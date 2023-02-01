@@ -23,7 +23,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
 
     [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Default)]
-    public class CompanyIdentityUserAssignmentsAppService : ApplicationService, ICompanyIdentityUserAssignmentsAppService
+    public partial class CompanyIdentityUserAssignmentsAppService : ApplicationService, ICompanyIdentityUserAssignmentsAppService
     {
         private readonly IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;

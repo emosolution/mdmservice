@@ -1,6 +1,6 @@
-using DevExtreme.AspNet.Data.ResponseModel;
+
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    public interface IItemAttachmentsAppService : IApplicationService
+    public partial interface IItemAttachmentsAppService : IApplicationService
     {
         Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input);
 
@@ -29,6 +29,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
 
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        
     }
 }

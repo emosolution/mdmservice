@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Currencies
     [Area("mdmService")]
     [ControllerName("Currency")]
     [Route("api/mdm-service/currencies")]
-    public class CurrencyController : AbpController, ICurrenciesAppService
+    public partial class CurrencyController : AbpController, ICurrenciesAppService
     {
         private readonly ICurrenciesAppService _currenciesAppService;
 

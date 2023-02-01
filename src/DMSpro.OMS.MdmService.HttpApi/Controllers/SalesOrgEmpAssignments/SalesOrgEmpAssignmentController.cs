@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.SalesOrgEmpAssignments
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("SalesOrgEmpAssignment")]
     [Route("api/mdm-service/sales-org-emp-assignments")]
-    public class SalesOrgEmpAssignmentController : AbpController, ISalesOrgEmpAssignmentsAppService
+    public partial class SalesOrgEmpAssignmentController : AbpController, ISalesOrgEmpAssignmentsAppService
     {
         private readonly ISalesOrgEmpAssignmentsAppService _salesOrgEmpAssignmentsAppService;
 
@@ -39,14 +35,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgEmpAssignments
         {
             return _salesOrgEmpAssignmentsAppService.GetWithNavigationPropertiesAsync(id);
         }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetListDevextremesAsync(inputDev);
-        }
-
 
         [HttpGet]
         [Route("{id}")]

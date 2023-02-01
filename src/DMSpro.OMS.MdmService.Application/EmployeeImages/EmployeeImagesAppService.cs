@@ -12,22 +12,17 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.EmployeeImages;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public class EmployeeImagesAppService : ApplicationService, IEmployeeImagesAppService
+    public partial class EmployeeImagesAppService : ApplicationService, IEmployeeImagesAppService
     {
         private readonly IDistributedCache<EmployeeImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IEmployeeImageRepository _employeeImageRepository;
@@ -59,17 +54,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 (await _employeeImageRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _employeeImageRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<EmployeeImage>, IEnumerable<EmployeeImageDto>>(results.data.Cast<EmployeeImage>());
-            
-            return results;
-                
-        }
         public virtual async Task<EmployeeImageDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(await _employeeImageRepository.GetAsync(id));

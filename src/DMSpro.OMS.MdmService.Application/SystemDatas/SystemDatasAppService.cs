@@ -1,16 +1,11 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.SystemDatas;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -18,15 +13,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
 
     [Authorize(MdmServicePermissions.SystemData.Default)]
-    public class SystemDatasAppService : ApplicationService, ISystemDatasAppService
+    public partial class SystemDatasAppService : ApplicationService, ISystemDatasAppService
     {
         private readonly IDistributedCache<SystemDataExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISystemDataRepository _systemDataRepository;
@@ -51,17 +42,6 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _systemDataRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<SystemData>, IEnumerable<SystemDataDto>>(results.data.Cast<SystemData>());
-            
-            return results;
-                
-        }
         public virtual async Task<SystemDataDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<SystemData, SystemDataDto>(await _systemDataRepository.GetAsync(id));
