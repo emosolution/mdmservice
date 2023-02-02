@@ -62,7 +62,7 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 
         public virtual async Task<LoadResult> GetListDevextremeswithNavigationAsync(DataLoadOptionDevextreme inputDev)
         {   
-            var items = await _uOMGroupDetailRepository.GetListWithNavigationPropertiesAsync();    
+            var items = await _uOMGroupDetailRepository.GetQueryAbleForNavigationPropertiesAsync();    
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption,inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
