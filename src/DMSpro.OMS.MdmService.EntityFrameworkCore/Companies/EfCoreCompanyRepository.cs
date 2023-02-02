@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class EfCoreCompanyRepository : EfCoreRepository<MdmServiceDbContext, Company, Guid>, ICompanyRepository
+    public partial class EfCoreCompanyRepository : EfCoreRepository<MdmServiceDbContext, Company, Guid>, ICompanyRepository
     {
         public EfCoreCompanyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

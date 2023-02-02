@@ -14,22 +14,17 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.PriceListDetails;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
 
     [Authorize(MdmServicePermissions.PriceListDetails.Default)]
-    public class PriceListDetailsAppService : ApplicationService, IPriceListDetailsAppService
+    public partial class PriceListDetailsAppService : ApplicationService, IPriceListDetailsAppService
     {
         private readonly IDistributedCache<PriceListDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
@@ -63,18 +58,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         {
             return ObjectMapper.Map<PriceListDetailWithNavigationProperties, PriceListDetailWithNavigationPropertiesDto>
                 (await _priceListDetailRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _priceListDetailRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<PriceListDetail>, IEnumerable<PriceListDetailDto>>(results.data.Cast<PriceListDetail>());
-            
-            return results;
-                
         }
 
         public virtual async Task<PriceListDetailDto> GetAsync(Guid id)

@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-    public interface IWeightMeasurementRepository : IRepository<WeightMeasurement, Guid>
+    public partial interface IWeightMeasurementRepository : IRepository<WeightMeasurement, Guid>
     {
         Task<List<WeightMeasurement>> GetListAsync(
             string filterText = null,

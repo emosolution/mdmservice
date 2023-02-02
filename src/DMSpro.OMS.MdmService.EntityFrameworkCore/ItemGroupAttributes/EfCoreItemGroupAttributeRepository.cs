@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
-    public class EfCoreItemGroupAttributeRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupAttribute, Guid>, IItemGroupAttributeRepository
+    public partial class EfCoreItemGroupAttributeRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupAttribute, Guid>, IItemGroupAttributeRepository
     {
         public EfCoreItemGroupAttributeRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

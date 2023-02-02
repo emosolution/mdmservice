@@ -11,7 +11,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.PriceUpdates;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -19,15 +18,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
 
     [Authorize(MdmServicePermissions.PriceUpdates.Default)]
-    public class PriceUpdatesAppService : ApplicationService, IPriceUpdatesAppService
+    public partial class PriceUpdatesAppService : ApplicationService, IPriceUpdatesAppService
     {
         private readonly IDistributedCache<PriceUpdateExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IPriceUpdateRepository _priceUpdateRepository;
@@ -59,17 +54,6 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
                 (await _priceUpdateRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _priceUpdateRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<PriceUpdate>, IEnumerable<PriceUpdateDto>>(results.data.Cast<PriceUpdate>());
-            
-            return results;
-                
-        }
         public virtual async Task<PriceUpdateDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(await _priceUpdateRepository.GetAsync(id));

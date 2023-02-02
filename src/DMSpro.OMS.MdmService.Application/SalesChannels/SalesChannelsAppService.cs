@@ -1,16 +1,12 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.SalesChannels;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -18,15 +14,15 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.SalesChannels.Default)]
-    public class SalesChannelsAppService : ApplicationService, ISalesChannelsAppService
+    public partial class SalesChannelsAppService : ApplicationService, ISalesChannelsAppService
     {
         private readonly IDistributedCache<SalesChannelExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISalesChannelRepository _salesChannelRepository;
@@ -51,17 +47,6 @@ namespace DMSpro.OMS.MdmService.SalesChannels
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _salesChannelRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<SalesChannel>, IEnumerable<SalesChannelDto>>(results.data.Cast<SalesChannel>());
-            
-            return results;
-                
-        }
         public virtual async Task<SalesChannelDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<SalesChannel, SalesChannelDto>(await _salesChannelRepository.GetAsync(id));

@@ -16,18 +16,13 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 using DMSpro.OMS.MdmService.Customers;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public class CustomerContactsAppService : ApplicationService, ICustomerContactsAppService
+    public partial class CustomerContactsAppService : ApplicationService, ICustomerContactsAppService
     {
         private readonly IDistributedCache<CustomerContactExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerContactRepository _customerContactRepository;
@@ -60,18 +55,6 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
         {
             return ObjectMapper.Map<CustomerContactWithNavigationProperties, CustomerContactWithNavigationPropertiesDto>
                 (await _customerContactRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerContactRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerContact>, IEnumerable<CustomerContactDto>>(results.data.Cast<CustomerContact>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerContactDto> GetAsync(Guid id)

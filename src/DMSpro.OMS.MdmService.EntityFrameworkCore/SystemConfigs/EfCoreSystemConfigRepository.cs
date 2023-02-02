@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SystemConfigs
 {
-    public class EfCoreSystemConfigRepository : EfCoreRepository<MdmServiceDbContext, SystemConfig, Guid>, ISystemConfigRepository
+    public partial class EfCoreSystemConfigRepository : EfCoreRepository<MdmServiceDbContext, SystemConfig, Guid>, ISystemConfigRepository
     {
         public EfCoreSystemConfigRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

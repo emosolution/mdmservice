@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
-    public interface IPricelistAssignmentRepository : IRepository<PricelistAssignment, Guid>
+    public partial interface IPricelistAssignmentRepository : IRepository<PricelistAssignment, Guid>
     {
         Task<PricelistAssignmentWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
-    public interface IPriceUpdateRepository : IRepository<PriceUpdate, Guid>
+    public partial interface IPriceUpdateRepository : IRepository<PriceUpdate, Guid>
     {
         Task<PriceUpdateWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

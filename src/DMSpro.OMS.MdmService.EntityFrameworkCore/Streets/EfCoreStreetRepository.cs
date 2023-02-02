@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.Streets
 {
-    public class EfCoreStreetRepository : EfCoreRepository<MdmServiceDbContext, Street, Guid>, IStreetRepository
+    public partial class EfCoreStreetRepository : EfCoreRepository<MdmServiceDbContext, Street, Guid>, IStreetRepository
     {
         public EfCoreStreetRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

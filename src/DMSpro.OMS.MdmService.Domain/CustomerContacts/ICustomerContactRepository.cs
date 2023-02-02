@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-    public interface ICustomerContactRepository : IRepository<CustomerContact, Guid>
+    public partial interface ICustomerContactRepository : IRepository<CustomerContact, Guid>
     {
         Task<CustomerContactWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

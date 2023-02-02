@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
-    public class EfCoreCustomerAssignmentRepository : EfCoreRepository<MdmServiceDbContext, CustomerAssignment, Guid>, ICustomerAssignmentRepository
+    public partial class EfCoreCustomerAssignmentRepository : EfCoreRepository<MdmServiceDbContext, CustomerAssignment, Guid>, ICustomerAssignmentRepository
     {
         public EfCoreCustomerAssignmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-    public class EfCoreSalesOrgEmpAssignmentRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgEmpAssignment, Guid>, ISalesOrgEmpAssignmentRepository
+    public partial class EfCoreSalesOrgEmpAssignmentRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgEmpAssignment, Guid>, ISalesOrgEmpAssignmentRepository
     {
         public EfCoreSalesOrgEmpAssignmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.CustomerGroupByGeos;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByGeos
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerGroupByGeo")]
     [Route("api/mdm-service/customer-group-by-geos")]
-    public class CustomerGroupByGeoController : AbpController, ICustomerGroupByGeosAppService
+    public partial class CustomerGroupByGeoController : AbpController, ICustomerGroupByGeosAppService
     {
         private readonly ICustomerGroupByGeosAppService _customerGroupByGeosAppService;
 
@@ -33,12 +29,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByGeos
             return _customerGroupByGeosAppService.GetListAsync(input);
         }
 
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerGroupByGeosAppService.GetListDevextremesAsync(inputDev);
-        }
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<CustomerGroupByGeoWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

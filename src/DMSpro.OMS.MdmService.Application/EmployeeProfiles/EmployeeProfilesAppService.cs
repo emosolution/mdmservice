@@ -8,27 +8,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.EmployeeProfiles;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public class EmployeeProfilesAppService : ApplicationService, IEmployeeProfilesAppService
+    public partial class EmployeeProfilesAppService : ApplicationService, IEmployeeProfilesAppService
     {
         private readonly IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
@@ -62,17 +56,6 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
                 (await _employeeProfileRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _employeeProfileRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<EmployeeProfile>, IEnumerable<EmployeeProfileDto>>(results.data.Cast<EmployeeProfile>());
-            
-            return results;
-                
-        }
         public virtual async Task<EmployeeProfileDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<EmployeeProfile, EmployeeProfileDto>(await _employeeProfileRepository.GetAsync(id));

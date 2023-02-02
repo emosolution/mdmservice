@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.CustomerContacts;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.CustomerContacts
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerContact")]
     [Route("api/mdm-service/customer-contacts")]
-    public class CustomerContactController : AbpController, ICustomerContactsAppService
+    public partial class CustomerContactController : AbpController, ICustomerContactsAppService
     {
         private readonly ICustomerContactsAppService _customerContactsAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerContacts
         public Task<CustomerContactWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _customerContactsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerContactsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

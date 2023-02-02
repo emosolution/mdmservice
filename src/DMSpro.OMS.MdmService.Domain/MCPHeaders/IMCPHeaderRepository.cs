@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    public interface IMCPHeaderRepository : IRepository<MCPHeader, Guid>
+    public partial interface IMCPHeaderRepository : IRepository<MCPHeader, Guid>
     {
         Task<MCPHeaderWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

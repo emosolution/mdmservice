@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Streets
 {
-    public interface IStreetRepository : IRepository<Street, Guid>
+    public partial interface IStreetRepository : IRepository<Street, Guid>
     {
         Task<List<Street>> GetListAsync(
             string filterText = null,

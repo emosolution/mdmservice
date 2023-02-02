@@ -4,15 +4,13 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public interface ISalesOrgHeadersAppService : IApplicationService
+    public partial interface ISalesOrgHeadersAppService : IApplicationService
     {
         Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<SalesOrgHeaderDto> GetAsync(Guid id);
 

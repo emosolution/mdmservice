@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public interface IWorkingPositionRepository : IRepository<WorkingPosition, Guid>
+    public partial interface IWorkingPositionRepository : IRepository<WorkingPosition, Guid>
     {
         Task<List<WorkingPosition>> GetListAsync(
             string filterText = null,

@@ -1,6 +1,7 @@
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
@@ -22,18 +23,18 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
 			return _companiesAppService.GetListDevextremesAsync(inputDev);
 		}
 
-        [HttpPost]
-        [Route("InsertFromExcel")]
-        public async Task<int> InsertFromExcelAsync(IFormFile file)
-        {
-            return await _companiesAppService.InsertFromExcelAsync(file);
-        }
+		[HttpPost]
+		[Route("update-from-excel")]
+		public Task<int> UpdateFromExcelAsync(IFormFile file)
+		{
+			return _companiesAppService.UpdateFromExcelAsync(file);
+		}
 
-        [HttpPost]
-        [Route("UpdateFromExcel")]
-        public async Task<int> UpdateFromExcelAsync(IFormFile file)
+		[HttpPost]
+		[Route("insert-from-excel")]
+		public Task<int> InsertFromExcelAsync(IFormFile file)
         {
-            return 0;
+            return _companiesAppService.InsertFromExcelAsync(file);
         }
-    }
+	}
 }

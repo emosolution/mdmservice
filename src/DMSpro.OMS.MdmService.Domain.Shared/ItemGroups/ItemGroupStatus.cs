@@ -2,8 +2,8 @@
 {
     public enum GroupStatus
     {
-        OPEN,
-        RELEASED,
-        CANCELLED
+        OPEN = 0,
+        RELEASED = 1,
+        CANCELLED = 2 
     }
 }

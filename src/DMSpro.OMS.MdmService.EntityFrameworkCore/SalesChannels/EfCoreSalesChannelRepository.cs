@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
-    public class EfCoreSalesChannelRepository : EfCoreRepository<MdmServiceDbContext, SalesChannel, Guid>, ISalesChannelRepository
+    public partial class EfCoreSalesChannelRepository : EfCoreRepository<MdmServiceDbContext, SalesChannel, Guid>, ISalesChannelRepository
     {
         public EfCoreSalesChannelRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

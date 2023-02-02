@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.Routes;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Routes
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Route")]
     [Route("api/mdm-service/routes")]
-    public class RouteController : AbpController, IRoutesAppService
+    public partial class RouteController : AbpController, IRoutesAppService
     {
         private readonly IRoutesAppService _routesAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Routes
         public Task<PagedResultDto<RouteWithNavigationPropertiesDto>> GetListAsync(GetRoutesInput input)
         {
             return _routesAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _routesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

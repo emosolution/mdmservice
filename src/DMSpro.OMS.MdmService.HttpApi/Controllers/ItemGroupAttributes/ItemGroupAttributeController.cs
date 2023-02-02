@@ -7,8 +7,6 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using Volo.Abp.Content;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroupAttributes
 {
@@ -16,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroupAttributes
     [Area("mdmService")]
     [ControllerName("ItemGroupAttribute")]
     [Route("api/mdm-service/item-group-attributes")]
-    public class ItemGroupAttributeController : AbpController, IItemGroupAttributesAppService
+    public partial class ItemGroupAttributeController : AbpController, IItemGroupAttributesAppService
     {
         private readonly IItemGroupAttributesAppService _itemGroupAttributesAppService;
 
@@ -36,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroupAttributes
         public Task<ItemGroupAttributeWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _itemGroupAttributesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _itemGroupAttributesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

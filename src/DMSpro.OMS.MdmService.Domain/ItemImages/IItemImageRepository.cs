@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
-    public interface IItemImageRepository : IRepository<ItemImage, Guid>
+    public partial interface IItemImageRepository : IRepository<ItemImage, Guid>
     {
         Task<ItemImageWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

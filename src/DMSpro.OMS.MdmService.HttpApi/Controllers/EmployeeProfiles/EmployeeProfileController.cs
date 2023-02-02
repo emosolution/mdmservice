@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("EmployeeProfile")]
     [Route("api/mdm-service/employee-profiles")]
-    public class EmployeeProfileController : AbpController, IEmployeeProfilesAppService
+    public partial class EmployeeProfileController : AbpController, IEmployeeProfilesAppService
     {
         private readonly IEmployeeProfilesAppService _employeeProfilesAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
         public Task<EmployeeProfileWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _employeeProfilesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _employeeProfilesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

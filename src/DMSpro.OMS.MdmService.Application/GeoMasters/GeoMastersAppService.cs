@@ -16,15 +16,11 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.GeoMasters.Default)]
-    public class GeoMastersAppService : ApplicationService, IGeoMastersAppService
+    public partial class GeoMastersAppService : ApplicationService, IGeoMastersAppService
     {
         private readonly IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IGeoMasterRepository _geoMasterRepository;
@@ -74,34 +70,6 @@ namespace DMSpro.OMS.MdmService.GeoMasters
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid?>>>(lookupData)
             };
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            
-            //Console.WriteLine(JsonSerializer.Serialize(inputDev));
-            
-
-            //_geoRepository.GetListAsync()
-            //var items = await _geoMasterRepository.GetDataContext();
-            
-            var items = await _geoMasterRepository.GetQueryableAsync();
-            
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            //Console.WriteLine(items.Count());
-            //MdmServiceDbContext.
-            //System.Linq.Load(source, options, CancellationToken.None, true).GetAwaiter().GetResult();
-            //loadOptions.ExpressionLog
-            
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            Console.WriteLine(results.totalCount);
-            //Console.WriteLine(results.data.Cast<GeoMasterDto>);
-            //results.data = results.data.Cast<GeoMasterDto>();
-            results.data = ObjectMapper.Map<IEnumerable<GeoMaster>, IEnumerable<GeoMasterDto>>(results.data.Cast<GeoMaster>());
-            
-            return results;
-                
         }
 
         [Authorize(MdmServicePermissions.GeoMasters.Delete)]

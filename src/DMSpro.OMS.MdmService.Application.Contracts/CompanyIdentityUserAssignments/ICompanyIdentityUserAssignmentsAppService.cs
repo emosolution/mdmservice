@@ -7,7 +7,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-    public interface ICompanyIdentityUserAssignmentsAppService : IApplicationService
+    public partial interface ICompanyIdentityUserAssignmentsAppService : IApplicationService
     {
         Task<PagedResultDto<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCompanyIdentityUserAssignmentsInput input);
 

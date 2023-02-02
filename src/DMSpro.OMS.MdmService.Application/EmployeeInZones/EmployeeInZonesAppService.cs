@@ -19,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
 
     [Authorize(MdmServicePermissions.EmployeeInZones.Default)]
-    public class EmployeeInZonesAppService : ApplicationService, IEmployeeInZonesAppService
+    public partial class EmployeeInZonesAppService : ApplicationService, IEmployeeInZonesAppService
     {
         private readonly IDistributedCache<EmployeeInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IEmployeeInZoneRepository _employeeInZoneRepository;
@@ -59,18 +55,6 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
         {
             return ObjectMapper.Map<EmployeeInZoneWithNavigationProperties, EmployeeInZoneWithNavigationPropertiesDto>
                 (await _employeeInZoneRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _employeeInZoneRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<EmployeeInZone>, IEnumerable<EmployeeInZoneDto>>(results.data.Cast<EmployeeInZone>());
-            
-            return results;
-                
         }
 
         public virtual async Task<EmployeeInZoneDto> GetAsync(Guid id)

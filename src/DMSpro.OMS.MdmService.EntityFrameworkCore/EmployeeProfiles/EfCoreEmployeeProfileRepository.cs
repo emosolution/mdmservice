@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public class EfCoreEmployeeProfileRepository : EfCoreRepository<MdmServiceDbContext, EmployeeProfile, Guid>, IEmployeeProfileRepository
+    public partial class EfCoreEmployeeProfileRepository : EfCoreRepository<MdmServiceDbContext, EmployeeProfile, Guid>, IEmployeeProfileRepository
     {
         public EfCoreEmployeeProfileRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

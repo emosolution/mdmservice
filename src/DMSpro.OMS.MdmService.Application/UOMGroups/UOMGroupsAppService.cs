@@ -3,14 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.UOMGroups;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -18,15 +15,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.UOMGroups.Default)]
-    public class UOMGroupsAppService : ApplicationService, IUOMGroupsAppService
+    public partial class UOMGroupsAppService : ApplicationService, IUOMGroupsAppService
     {
         private readonly IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IUOMGroupRepository _uOMGroupRepository;
@@ -51,17 +44,6 @@ namespace DMSpro.OMS.MdmService.UOMGroups
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _uOMGroupRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<UOMGroup>, IEnumerable<UOMGroupDto>>(results.data.Cast<UOMGroup>());
-            
-            return results;
-                
-        }
         public virtual async Task<UOMGroupDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<UOMGroup, UOMGroupDto>(await _uOMGroupRepository.GetAsync(id));

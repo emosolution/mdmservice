@@ -13,22 +13,17 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
 
     [Authorize(MdmServicePermissions.PriceUpdateDetails.Default)]
-    public class PriceUpdateDetailsAppService : ApplicationService, IPriceUpdateDetailsAppService
+    public partial class PriceUpdateDetailsAppService : ApplicationService, IPriceUpdateDetailsAppService
     {
         private readonly IDistributedCache<PriceUpdateDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IPriceUpdateDetailRepository _priceUpdateDetailRepository;
@@ -62,17 +57,6 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
                 (await _priceUpdateDetailRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _priceUpdateDetailRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<PriceUpdateDetail>, IEnumerable<PriceUpdateDetailDto>>(results.data.Cast<PriceUpdateDetail>());
-            
-            return results;
-                
-        }
         public virtual async Task<PriceUpdateDetailDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<PriceUpdateDetail, PriceUpdateDetailDto>(await _priceUpdateDetailRepository.GetAsync(id));

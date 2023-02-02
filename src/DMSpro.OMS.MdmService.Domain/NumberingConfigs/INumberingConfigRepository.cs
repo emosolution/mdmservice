@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-    public interface INumberingConfigRepository : IRepository<NumberingConfig, Guid>
+    public partial interface INumberingConfigRepository : IRepository<NumberingConfig, Guid>
     {
         Task<NumberingConfigWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

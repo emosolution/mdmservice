@@ -6,8 +6,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
 {
     public enum Type
     {
-        ATTRIBUTE,
-        LIST,
-        GEO,
+        ATTRIBUTE = 0,
+        LIST = 1,
+        GEO = 2,
     }
 }

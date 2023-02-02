@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.NumberingConfigs;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("NumberingConfig")]
     [Route("api/mdm-service/numbering-configs")]
-    public class NumberingConfigController : AbpController, INumberingConfigsAppService
+    public partial class NumberingConfigController : AbpController, INumberingConfigsAppService
     {
         private readonly INumberingConfigsAppService _numberingConfigsAppService;
 
@@ -32,15 +28,6 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
         {
             return _numberingConfigsAppService.GetListAsync(input);
         }
-
-        [HttpGet]
-
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _numberingConfigsAppService.GetListDevextremesAsync(inputDev);
-        }
-
 
         [HttpGet]
         [Route("with-navigation-properties/{id}")]

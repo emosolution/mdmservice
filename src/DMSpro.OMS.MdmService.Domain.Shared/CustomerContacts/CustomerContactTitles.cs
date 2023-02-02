@@ -6,9 +6,9 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 {
     public enum Title
     {
-        MR,
-        MRS,
-        MISS,
-        NONE,
+        MR = 0,
+        MRS = 1,
+        MISS = 2,
+        NONE = 3,
     }
 }

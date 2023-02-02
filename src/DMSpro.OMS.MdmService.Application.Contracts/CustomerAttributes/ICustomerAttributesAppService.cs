@@ -4,15 +4,13 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
-    public interface ICustomerAttributesAppService : IApplicationService
+    public partial interface ICustomerAttributesAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerAttributeDto>> GetListAsync(GetCustomerAttributesInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<CustomerAttributeDto> GetAsync(Guid id);
 

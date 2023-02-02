@@ -4,16 +4,14 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
-    public interface IItemAttributesAppService : IApplicationService
+    public partial interface IItemAttributesAppService : IApplicationService
     {
         Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<ItemAttributeDto> GetAsync(Guid id);
 

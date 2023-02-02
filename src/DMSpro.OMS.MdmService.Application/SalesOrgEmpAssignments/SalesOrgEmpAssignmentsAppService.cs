@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
 
     [Authorize(MdmServicePermissions.SalesOrgEmpAssignments.Default)]
-    public class SalesOrgEmpAssignmentsAppService : ApplicationService, ISalesOrgEmpAssignmentsAppService
+    public partial class SalesOrgEmpAssignmentsAppService : ApplicationService, ISalesOrgEmpAssignmentsAppService
     {
         private readonly IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
@@ -60,18 +55,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         {
             return ObjectMapper.Map<SalesOrgEmpAssignmentWithNavigationProperties, SalesOrgEmpAssignmentWithNavigationPropertiesDto>
                 (await _salesOrgEmpAssignmentRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _salesOrgEmpAssignmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<SalesOrgEmpAssignment>, IEnumerable<SalesOrgEmpAssignmentDto>>(results.data.Cast<SalesOrgEmpAssignment>());
-            
-            return results;
-                
         }
 
         public virtual async Task<SalesOrgEmpAssignmentDto> GetAsync(Guid id)
@@ -123,10 +106,20 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             if (input.SalesOrgHierarchyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+            }else{
+                var saleOSalesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
+                if(saleOSalesOrgHierarchy == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
+                }
             }
             if (input.EmployeeProfileId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
+            }else{
+                var employeeProfile = await _employeeProfileRepository.GetAsync(input.EmployeeProfileId);
+                if(employeeProfile == null){
+                    throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
+                }
             }
 
             var salesOrgEmpAssignment = await _salesOrgEmpAssignmentManager.CreateAsync(

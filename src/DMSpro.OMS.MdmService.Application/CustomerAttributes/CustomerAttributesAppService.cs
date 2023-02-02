@@ -1,14 +1,11 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
@@ -17,15 +14,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
 
     [Authorize(MdmServicePermissions.CustomerAttributes.Default)]
-    public class CustomerAttributesAppService : ApplicationService, ICustomerAttributesAppService
+    public partial class CustomerAttributesAppService : ApplicationService, ICustomerAttributesAppService
     {
         private readonly IDistributedCache<CustomerAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerAttributeRepository _customerAttributeRepository;
@@ -48,18 +41,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<CustomerAttribute>, List<CustomerAttributeDto>>(items)
             };
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerAttributeRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerAttribute>, IEnumerable<CustomerAttributeDto>>(results.data.Cast<CustomerAttribute>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerAttributeDto> GetAsync(Guid id)

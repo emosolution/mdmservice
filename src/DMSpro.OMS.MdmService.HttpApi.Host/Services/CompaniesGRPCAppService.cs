@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DMSpro.OMS.MdmService.Vendors;
 using DMSpro.OMS.Shared.Protos.MdmService.Companies;
 using Grpc.Core;
-using Volo.Abp;
+using DMSpro.OMS.MdmService.Helpers;
 
 namespace DMSpro.OMS.MdmService.Companies;
 
@@ -16,8 +15,10 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         _companiesInternalAppService = companiesInternalAppService;
     }
 
-    public override async Task<GetHOCompanyFromIdentityUserAndTenantResponse> GetHOCompanyFromIdentityUserAndTenant(
-        GetHOCompanyFromIdentityUserAndTenantRequest request, ServerCallContext context)
+
+    public override async Task<CompanyResponse> GetHOCompanyWithIdentityUser(
+        GetHOCompanyWithIdentityUserRequest request, ServerCallContext context)
+
     {
         Guid? tenantId = null;
         if (!string.IsNullOrEmpty(request.TenantId))
@@ -25,9 +26,9 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             tenantId = new Guid(request.TenantId);
         }
         CompanyWithTenantDto companyDto =
-            await _companiesInternalAppService.GetHOCompanyFromIdentityUserAndTenant(
+            await _companiesInternalAppService.GetHOCompanyFromIdentityUser(
                 new Guid(request.IdentityUserId), tenantId);
-        var response = new GetHOCompanyFromIdentityUserAndTenantResponse();
+        var response = new CompanyResponse();
         if (companyDto == null)
         {
             return response;
@@ -35,9 +36,37 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         response.Company = new OMS.Shared.Protos.MdmService.Companies.Company()
         {
             Id = companyDto.Id.ToString(),
-            TenantId = companyDto.TenantId == null ?  "" : companyDto.TenantId.ToString(),
+            TenantId = companyDto.TenantId == null ? "" : companyDto.TenantId.ToString(),
             Code = companyDto.Code,
             Name = companyDto.Name,
+            Active = false,
+            HO = companyDto.IsHO,
+        };
+        return response;
+    }
+
+
+    public override async Task<CompanyResponse> GetCompanyWithIdentityUser(
+        GetCompanyWithIdentityUserRequest request, ServerCallContext context)
+    {
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId)? null : Guid.Parse(request.TenantId);
+        CompanyWithTenantDto companyDto =
+            await _companiesInternalAppService.CheckCompanyBelongToIdentityUser(
+                new Guid(request.CompanyId), new Guid(request.IdentityUserId), tenantId);
+        var response = new CompanyResponse();
+        if (companyDto == null)
+        {
+            return response;
+        }
+
+        response.Company = new OMS.Shared.Protos.MdmService.Companies.Company()
+        {
+            Id = companyDto.Id.ToString(),
+            TenantId = request.TenantId,
+            Code = companyDto.Code,
+            Name = companyDto.Name,
+            Active = MDMHelpers.CheckActive(companyDto.Active, companyDto.EffectiveDate, companyDto.EndDate),
+            HO = companyDto.IsHO
         };
         return response;
     }

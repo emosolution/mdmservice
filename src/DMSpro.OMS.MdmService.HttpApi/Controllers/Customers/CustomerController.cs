@@ -8,16 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Customers;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Customers
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Customer")]
     [Route("api/mdm-service/customers")]
-    public class CustomerController : AbpController, ICustomersAppService
+    public partial class CustomerController : AbpController, ICustomersAppService
     {
         private readonly ICustomersAppService _customersAppService;
 
@@ -40,12 +37,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Customers
         }
 
         [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customersAppService.GetListDevextremesAsync(inputDev);
-        }
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<CustomerDto> GetAsync(Guid id)
         {
@@ -54,14 +45,14 @@ namespace DMSpro.OMS.MdmService.Controllers.Customers
 
         [HttpGet]
         [Route("system-data-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
         {
             return _customersAppService.GetSystemDataLookupAsync(input);
         }
 
         [HttpGet]
         [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
         {
             return _customersAppService.GetCompanyLookupAsync(input);
         }
@@ -75,21 +66,21 @@ namespace DMSpro.OMS.MdmService.Controllers.Customers
 
         [HttpGet]
         [Route("geo-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             return _customersAppService.GetGeoMasterLookupAsync(input);
         }
 
         [HttpGet]
         [Route("cus-attribute-value-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetCusAttributeValueLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCusAttributeValueLookupAsync(LookupRequestDto input)
         {
             return _customersAppService.GetCusAttributeValueLookupAsync(input);
         }
 
         [HttpGet]
         [Route("customer-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetCustomerLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
         {
             return _customersAppService.GetCustomerLookupAsync(input);
         }

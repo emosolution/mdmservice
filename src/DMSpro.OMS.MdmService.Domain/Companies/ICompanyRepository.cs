@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public interface ICompanyRepository : IRepository<Company, Guid>
+    public partial interface ICompanyRepository : IRepository<Company, Guid>
     {
         Task<CompanyWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default);
 

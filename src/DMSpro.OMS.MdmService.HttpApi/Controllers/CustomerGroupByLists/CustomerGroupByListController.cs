@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByLists
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerGroupByList")]
     [Route("api/mdm-service/customer-group-by-lists")]
-    public class CustomerGroupByListController : AbpController, ICustomerGroupByListsAppService
+    public partial class CustomerGroupByListController : AbpController, ICustomerGroupByListsAppService
     {
         private readonly ICustomerGroupByListsAppService _customerGroupByListsAppService;
 
@@ -32,13 +28,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByLists
         {
             return _customerGroupByListsAppService.GetListAsync(input);
         }
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerGroupByListsAppService.GetListDevextremesAsync(inputDev);
-        }
-
+        
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<CustomerGroupByListWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

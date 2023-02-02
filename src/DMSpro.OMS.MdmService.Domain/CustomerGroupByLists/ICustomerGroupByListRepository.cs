@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
-    public interface ICustomerGroupByListRepository : IRepository<CustomerGroupByList, Guid>
+    public partial interface ICustomerGroupByListRepository : IRepository<CustomerGroupByList, Guid>
     {
         Task<CustomerGroupByListWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

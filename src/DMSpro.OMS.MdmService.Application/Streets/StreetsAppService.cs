@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Streets
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.Streets.Default)]
-    public class StreetsAppService : ApplicationService, IStreetsAppService
+    public partial class StreetsAppService : ApplicationService, IStreetsAppService
     {
         private readonly IDistributedCache<StreetExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IStreetRepository _streetRepository;

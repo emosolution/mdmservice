@@ -19,10 +19,10 @@ namespace DMSpro.OMS.MdmService.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.Companies.Company", b =>
                 {
@@ -1192,13 +1192,13 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("Attribute16Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("Attribute17Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("Attribute18Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("Attribute19Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("Attribute1I7d")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("Attribute1Id")
@@ -1408,11 +1408,11 @@ namespace DMSpro.OMS.MdmService.Migrations
 
                     b.HasIndex("Attribute16Id");
 
+                    b.HasIndex("Attribute17Id");
+
                     b.HasIndex("Attribute18Id");
 
                     b.HasIndex("Attribute19Id");
-
-                    b.HasIndex("Attribute1I7d");
 
                     b.HasIndex("Attribute1Id");
 
@@ -2150,6 +2150,76 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.ToTable("ItemAttachments", (string)null);
                 });
 
+            modelBuilder.Entity("DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AttrValName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("AttrValName");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<Guid>("ItemAttributeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TenantId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemAttributeId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("ItemAttributeValues", (string)null);
+                });
+
             modelBuilder.Entity("DMSpro.OMS.MdmService.ItemAttributes.ItemAttribute", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2225,76 +2295,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemAttributes", (string)null);
-                });
-
-            modelBuilder.Entity("DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValue", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AttrValName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("AttrValName");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<Guid>("ItemAttributeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemAttributeId");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("ItemAttributeValues", (string)null);
                 });
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.ItemGroupAttributes.ItemGroupAttribute", b =>
@@ -3243,74 +3243,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.ToTable("NumberingConfigs", (string)null);
                 });
 
-            modelBuilder.Entity("DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid>("CustomerGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<Guid>("PriceListId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerGroupId");
-
-                    b.HasIndex("PriceListId");
-
-                    b.ToTable("PricelistAssignments", (string)null);
-                });
-
             modelBuilder.Entity("DMSpro.OMS.MdmService.PriceListDetails.PriceListDetail", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3637,6 +3569,74 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasIndex("PriceListId");
 
                     b.ToTable("PriceUpdates", (string)null);
+                });
+
+            modelBuilder.Entity("DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid>("CustomerGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid>("PriceListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TenantId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerGroupId");
+
+                    b.HasIndex("PriceListId");
+
+                    b.ToTable("PricelistAssignments", (string)null);
                 });
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.RouteAssignments.RouteAssignment", b =>
@@ -5225,17 +5225,17 @@ namespace DMSpro.OMS.MdmService.Migrations
 
                     b.HasOne("DMSpro.OMS.MdmService.CusAttributeValues.CusAttributeValue", null)
                         .WithMany()
+                        .HasForeignKey("Attribute17Id")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("DMSpro.OMS.MdmService.CusAttributeValues.CusAttributeValue", null)
+                        .WithMany()
                         .HasForeignKey("Attribute18Id")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("DMSpro.OMS.MdmService.CusAttributeValues.CusAttributeValue", null)
                         .WithMany()
                         .HasForeignKey("Attribute19Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("DMSpro.OMS.MdmService.CusAttributeValues.CusAttributeValue", null)
-                        .WithMany()
-                        .HasForeignKey("Attribute1I7d")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("DMSpro.OMS.MdmService.CusAttributeValues.CusAttributeValue", null)
@@ -5742,21 +5742,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
                 });
 
-            modelBuilder.Entity("DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignment", b =>
-                {
-                    b.HasOne("DMSpro.OMS.MdmService.CustomerGroups.CustomerGroup", null)
-                        .WithMany()
-                        .HasForeignKey("CustomerGroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("DMSpro.OMS.MdmService.PriceLists.PriceList", null)
-                        .WithMany()
-                        .HasForeignKey("PriceListId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DMSpro.OMS.MdmService.PriceListDetails.PriceListDetail", b =>
                 {
                     b.HasOne("DMSpro.OMS.MdmService.Items.Item", null)
@@ -5803,6 +5788,21 @@ namespace DMSpro.OMS.MdmService.Migrations
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.PriceUpdates.PriceUpdate", b =>
                 {
+                    b.HasOne("DMSpro.OMS.MdmService.PriceLists.PriceList", null)
+                        .WithMany()
+                        .HasForeignKey("PriceListId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignment", b =>
+                {
+                    b.HasOne("DMSpro.OMS.MdmService.CustomerGroups.CustomerGroup", null)
+                        .WithMany()
+                        .HasForeignKey("CustomerGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("DMSpro.OMS.MdmService.PriceLists.PriceList", null)
                         .WithMany()
                         .HasForeignKey("PriceListId")

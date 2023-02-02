@@ -4,12 +4,12 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-    public interface IItemGroupListsAppService : IApplicationService
+    public partial interface IItemGroupListsAppService : IApplicationService
     {
         Task<PagedResultDto<ItemGroupListWithNavigationPropertiesDto>> GetListAsync(GetItemGroupListsInput input);
 
@@ -32,7 +32,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemGroupListExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        
     }
 }

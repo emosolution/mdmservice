@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Currencies
 {
-    public interface ICurrencyRepository : IRepository<Currency, Guid>
+    public partial interface ICurrencyRepository : IRepository<Currency, Guid>
     {
         Task<List<Currency>> GetListAsync(
             string filterText = null,

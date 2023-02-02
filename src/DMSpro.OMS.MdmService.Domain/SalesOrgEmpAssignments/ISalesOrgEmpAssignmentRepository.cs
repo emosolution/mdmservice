@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-    public interface ISalesOrgEmpAssignmentRepository : IRepository<SalesOrgEmpAssignment, Guid>
+    public partial interface ISalesOrgEmpAssignmentRepository : IRepository<SalesOrgEmpAssignment, Guid>
     {
         Task<SalesOrgEmpAssignmentWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

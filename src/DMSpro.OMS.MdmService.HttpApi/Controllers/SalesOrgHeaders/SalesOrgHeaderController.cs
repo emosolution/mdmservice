@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("SalesOrgHeader")]
     [Route("api/mdm-service/sales-org-headers")]
-    public class SalesOrgHeaderController : AbpController, ISalesOrgHeadersAppService
+    public partial class SalesOrgHeaderController : AbpController, ISalesOrgHeadersAppService
     {
         private readonly ISalesOrgHeadersAppService _salesOrgHeadersAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
         public virtual Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input)
         {
             return _salesOrgHeadersAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _salesOrgHeadersAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

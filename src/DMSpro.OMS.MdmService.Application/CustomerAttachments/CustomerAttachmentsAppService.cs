@@ -18,15 +18,11 @@ using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public class CustomerAttachmentsAppService : ApplicationService, ICustomerAttachmentsAppService
+    public partial class CustomerAttachmentsAppService : ApplicationService, ICustomerAttachmentsAppService
     {
         private readonly IDistributedCache<CustomerAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerAttachmentRepository _customerAttachmentRepository;
@@ -59,18 +55,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         {
             return ObjectMapper.Map<CustomerAttachmentWithNavigationProperties, CustomerAttachmentWithNavigationPropertiesDto>
                 (await _customerAttachmentRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerAttachmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerAttachment>, IEnumerable<CustomerAttachmentDto>>(results.data.Cast<CustomerAttachment>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerAttachmentDto> GetAsync(Guid id)

@@ -8,16 +8,16 @@ using DMSpro.OMS.MdmService.CustomerAttributes;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributes
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerAttribute")]
     [Route("api/mdm-service/customer-attributes")]
-    public class CustomerAttributeController : AbpController, ICustomerAttributesAppService
+    public partial class CustomerAttributeController : AbpController, ICustomerAttributesAppService
     {
         private readonly ICustomerAttributesAppService _customerAttributesAppService;
 
@@ -30,13 +30,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributes
         public virtual Task<PagedResultDto<CustomerAttributeDto>> GetListAsync(GetCustomerAttributesInput input)
         {
             return _customerAttributesAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerAttributesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

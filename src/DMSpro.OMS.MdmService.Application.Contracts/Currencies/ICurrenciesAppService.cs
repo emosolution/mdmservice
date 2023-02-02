@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Currencies
 {
-    public interface ICurrenciesAppService : IApplicationService
+    public partial interface ICurrenciesAppService : IApplicationService
     {
         Task<PagedResultDto<CurrencyDto>> GetListAsync(GetCurrenciesInput input);
 

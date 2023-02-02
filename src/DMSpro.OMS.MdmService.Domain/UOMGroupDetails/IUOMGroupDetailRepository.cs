@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
-    public interface IUOMGroupDetailRepository : IRepository<UOMGroupDetail, Guid>
+    public partial interface IUOMGroupDetailRepository : IRepository<UOMGroupDetail, Guid>
     {
         Task<UOMGroupDetailWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

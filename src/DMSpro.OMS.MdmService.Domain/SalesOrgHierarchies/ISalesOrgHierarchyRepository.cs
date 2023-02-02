@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public interface ISalesOrgHierarchyRepository : IRepository<SalesOrgHierarchy, Guid>
+    public partial interface ISalesOrgHierarchyRepository : IRepository<SalesOrgHierarchy, Guid>
     {
         Task<SalesOrgHierarchyWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,
@@ -60,5 +60,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             Guid? salesOrgHeaderId = null,
             Guid? parentId = null,
             CancellationToken cancellationToken = default);
+        
+
     }
 }

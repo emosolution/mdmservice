@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.Routes
 {
-    public class EfCoreRouteRepository : EfCoreRepository<MdmServiceDbContext, Route, Guid>, IRouteRepository
+    public partial class EfCoreRouteRepository : EfCoreRepository<MdmServiceDbContext, Route, Guid>, IRouteRepository
     {
         public EfCoreRouteRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

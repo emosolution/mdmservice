@@ -13,22 +13,20 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.UOMGroupDetails;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Lib.Parser;
 using DMSpro.OMS.Shared.Domain.Devextreme;
+using DevExtreme.AspNet.Data;
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
 
     [Authorize(MdmServicePermissions.UOMGroupDetails.Default)]
-    public class UOMGroupDetailsAppService : ApplicationService, IUOMGroupDetailsAppService
+    public partial class UOMGroupDetailsAppService : ApplicationService, IUOMGroupDetailsAppService
     {
         private readonly IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
@@ -62,13 +60,13 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
                 (await _uOMGroupDetailRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        public virtual async Task<LoadResult> GetListDevextremeswithNavigationAsync(DataLoadOptionDevextreme inputDev)
         {   
-            var items = await _uOMGroupDetailRepository.GetQueryableAsync();    
+            var items = await _uOMGroupDetailRepository.GetQueryAbleForNavigationPropertiesAsync();    
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption,inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<UOMGroupDetail>, IEnumerable<UOMGroupDetailDto>>(results.data.Cast<UOMGroupDetail>());
+            results.data = ObjectMapper.Map<IEnumerable<UOMGroupDetailWithNavigationProperties>, IEnumerable<UOMGroupDetailWithNavigationPropertiesDto>>(results.data.Cast<UOMGroupDetailWithNavigationProperties>());
             
             return results;
                 

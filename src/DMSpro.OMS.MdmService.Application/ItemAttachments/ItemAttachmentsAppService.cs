@@ -17,17 +17,12 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.MdmService.ItemAttributes;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DMSpro.OMS.Shared.Lib.Parser;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
 
     [Authorize(MdmServicePermissions.Items.Default)]
-    public class ItemAttachmentsAppService : ApplicationService, IItemAttachmentsAppService
+    public partial class ItemAttachmentsAppService : ApplicationService, IItemAttachmentsAppService
     {
         private readonly IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemAttachmentRepository _itemAttachmentRepository;
@@ -57,18 +52,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         {
             return ObjectMapper.Map<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>
                 (await _itemAttachmentRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            var items = await _itemAttachmentRepository.GetQueryableAsync();
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption, inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttribute>, IEnumerable<ItemAttributeDto>>(results.data.Cast<ItemAttribute>());
-
-            return results;
-
         }
 
         public virtual async Task<ItemAttachmentDto> GetAsync(Guid id)

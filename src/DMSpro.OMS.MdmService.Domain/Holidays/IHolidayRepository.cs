@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Holidays
 {
-    public interface IHolidayRepository : IRepository<Holiday, Guid>
+    public partial interface IHolidayRepository : IRepository<Holiday, Guid>
     {
         Task<List<Holiday>> GetListAsync(
             string filterText = null,

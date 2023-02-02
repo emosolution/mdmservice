@@ -13,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public class SalesOrgHierarchy : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SalesOrgHierarchy : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
@@ -68,6 +68,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             SalesOrgHeaderId = salesOrgHeaderId;
             ParentId = parentId;
         }
+
+    
 
     }
 }

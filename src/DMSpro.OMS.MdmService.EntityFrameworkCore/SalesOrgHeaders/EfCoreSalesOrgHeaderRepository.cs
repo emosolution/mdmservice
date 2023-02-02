@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public class EfCoreSalesOrgHeaderRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHeader, Guid>, ISalesOrgHeaderRepository
+    public partial class EfCoreSalesOrgHeaderRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHeader, Guid>, ISalesOrgHeaderRepository
     {
         public EfCoreSalesOrgHeaderRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-    public interface ICompanyIdentityUserAssignmentRepository : IRepository<CompanyIdentityUserAssignment, Guid>
+    public partial interface ICompanyIdentityUserAssignmentRepository : IRepository<CompanyIdentityUserAssignment, Guid>
     {
         Task<CompanyIdentityUserAssignmentWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

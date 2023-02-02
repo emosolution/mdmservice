@@ -7,8 +7,6 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemImages;
 using Volo.Abp.Content;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemImages
 {
@@ -16,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemImages
     [Area("mdmService")]
     [ControllerName("ItemImage")]
     [Route("api/mdm-service/item-images")]
-    public class ItemImageController : AbpController, IItemImagesAppService
+    public partial class ItemImageController : AbpController, IItemImagesAppService
     {
         private readonly IItemImagesAppService _itemImagesAppService;
 
@@ -36,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemImages
         public Task<ItemImageWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _itemImagesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _itemImagesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

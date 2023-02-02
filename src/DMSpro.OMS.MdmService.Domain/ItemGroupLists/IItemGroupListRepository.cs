@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-    public interface IItemGroupListRepository : IRepository<ItemGroupList, Guid>
+    public partial interface IItemGroupListRepository : IRepository<ItemGroupList, Guid>
     {
         Task<ItemGroupListWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

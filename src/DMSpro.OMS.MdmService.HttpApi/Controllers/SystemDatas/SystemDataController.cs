@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.SystemDatas
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("SystemData")]
     [Route("api/mdm-service/system-datas")]
-    public class SystemDataController : AbpController, ISystemDatasAppService
+    public partial class SystemDataController : AbpController, ISystemDatasAppService
     {
         private readonly ISystemDatasAppService _systemDatasAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SystemDatas
         public virtual Task<PagedResultDto<SystemDataDto>> GetListAsync(GetSystemDatasInput input)
         {
             return _systemDatasAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _systemDatasAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

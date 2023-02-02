@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    public interface ICusAttributeValueRepository : IRepository<CusAttributeValue, Guid>
+    public partial interface ICusAttributeValueRepository : IRepository<CusAttributeValue, Guid>
     {
         Task<CusAttributeValueWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

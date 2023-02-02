@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.RouteAssignments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.RouteAssignments
 {
 
     [Authorize(MdmServicePermissions.RouteAssignments.Default)]
-    public class RouteAssignmentsAppService : ApplicationService, IRouteAssignmentsAppService
+    public partial class RouteAssignmentsAppService : ApplicationService, IRouteAssignmentsAppService
     {
         private readonly IDistributedCache<RouteAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IRouteAssignmentRepository _routeAssignmentRepository;
@@ -54,19 +49,6 @@ namespace DMSpro.OMS.MdmService.RouteAssignments
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<RouteAssignmentWithNavigationProperties>, List<RouteAssignmentWithNavigationPropertiesDto>>(items)
             };
-        }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _routeAssignmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<RouteAssignment>, IEnumerable<RouteAssignmentDto>>(results.data.Cast<RouteAssignment>());
-            
-            return results;
-                
         }
 
         public virtual async Task<RouteAssignmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

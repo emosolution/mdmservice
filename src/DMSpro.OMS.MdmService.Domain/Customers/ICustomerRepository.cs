@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
-    public interface ICustomerRepository : IRepository<Customer, Guid>
+    public partial interface ICustomerRepository : IRepository<Customer, Guid>
     {
         Task<CustomerWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,
@@ -65,7 +65,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Guid? attribute14Id = null,
             Guid? attribute15Id = null,
             Guid? attribute16Id = null,
-            Guid? attribute1I7d = null,
+            Guid? attribute17Id = null,
             Guid? attribute18Id = null,
             Guid? attribute19Id = null,
             Guid? paymentId = null,
@@ -160,7 +160,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Guid? attribute14Id = null,
             Guid? attribute15Id = null,
             Guid? attribute16Id = null,
-            Guid? attribute1I7d = null,
+            Guid? attribute17Id = null,
             Guid? attribute18Id = null,
             Guid? attribute19Id = null,
             Guid? paymentId = null,

@@ -8,17 +8,17 @@ using DMSpro.OMS.MdmService.UOMGroups;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.UOMGroups
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("UOMGroup")]
     [Route("api/mdm-service/u-oMGroups")]
-    public class UOMGroupController : AbpController, IUOMGroupsAppService
+    public partial class UOMGroupController : AbpController, IUOMGroupsAppService
     {
         private readonly IUOMGroupsAppService _uOMGroupsAppService;
 
@@ -31,13 +31,6 @@ namespace DMSpro.OMS.MdmService.Controllers.UOMGroups
         public virtual Task<PagedResultDto<UOMGroupDto>> GetListAsync(GetUOMGroupsInput input)
         {
             return _uOMGroupsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _uOMGroupsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

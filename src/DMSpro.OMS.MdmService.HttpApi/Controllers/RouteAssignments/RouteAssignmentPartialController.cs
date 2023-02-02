@@ -1,0 +1,33 @@
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
+namespace DMSpro.OMS.MdmService.Controllers.RouteAssignments
+{
+	public partial class RouteAssignmentController
+	{
+
+		[HttpGet]
+		[Route("GetListDevextremes")]
+		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+		{
+			return _routeAssignmentsAppService.GetListDevextremesAsync(inputDev);
+		}
+
+		[HttpPost]
+		[Route("update-from-excel")]
+		public Task<int> UpdateFromExcelAsync(IFormFile file)
+		{
+			return _routeAssignmentsAppService.UpdateFromExcelAsync(file);
+		}
+
+		[HttpPost]
+		[Route("insert-from-excel")]
+		public Task<int> InsertFromExcelAsync(IFormFile file)
+        {
+            return _routeAssignmentsAppService.InsertFromExcelAsync(file);
+        }
+	}
+}

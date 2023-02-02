@@ -10,6 +10,8 @@ namespace DMSpro.OMS.MdmService.Companies
     {
         //Task<CompanyWithTenantDto> GetWithTenantIdAsynce(Guid id);
 
-        Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUserAndTenant(Guid identityUserId, Guid? tenantId);
+        Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUser(Guid identityUserId, Guid? tenantId);
+
+        Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUser(Guid companyId, Guid identityUserId, Guid? tenantId);
     }
 }

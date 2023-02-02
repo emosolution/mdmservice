@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Currencies
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.Currencies.Default)]
-    public class CurrenciesAppService : ApplicationService, ICurrenciesAppService
+    public partial class CurrenciesAppService : ApplicationService, ICurrenciesAppService
     {
         private readonly IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICurrencyRepository _currencyRepository;

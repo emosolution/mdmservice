@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-    public class EfCoreWeightMeasurementRepository : EfCoreRepository<MdmServiceDbContext, WeightMeasurement, Guid>, IWeightMeasurementRepository
+    public partial class EfCoreWeightMeasurementRepository : EfCoreRepository<MdmServiceDbContext, WeightMeasurement, Guid>, IWeightMeasurementRepository
     {
         public EfCoreWeightMeasurementRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

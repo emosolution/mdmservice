@@ -11,6 +11,12 @@ using System;
 using OfficeOpenXml;
 using Volo.Abp;
 
+using Microsoft.AspNetCore.Http;
+using Volo.Abp;
+using System.IO;
+using System;
+
+
 namespace DMSpro.OMS.MdmService.Companies
 {
 	public partial class CompaniesAppService
@@ -34,12 +40,12 @@ namespace DMSpro.OMS.MdmService.Companies
         {
             if (file == null || file.Length <= 0) //file empty
             {
-                throw new BusinessException(message: L["FormFile is empty"]);
+                throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
             }
 
             if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase)) //not support file extention
             {
-                throw new BusinessException(message: L["Not support file extention"]);
+                throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
             }
 
             //var postedFile = HttpContext.Request.Form.Files[0];

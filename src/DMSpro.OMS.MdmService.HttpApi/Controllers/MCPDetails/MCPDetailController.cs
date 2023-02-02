@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.MCPDetails;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.MCPDetails
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("MCPDetail")]
     [Route("api/mdm-service/m-cPDetails")]
-    public class MCPDetailController : AbpController, IMCPDetailsAppService
+    public partial class MCPDetailController : AbpController, IMCPDetailsAppService
     {
         private readonly IMCPDetailsAppService _mCPDetailsAppService;
 
@@ -33,12 +29,6 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPDetails
             return _mCPDetailsAppService.GetListAsync(input);
         }
 
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _mCPDetailsAppService.GetListDevextremesAsync(inputDev);
-        }
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<MCPDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

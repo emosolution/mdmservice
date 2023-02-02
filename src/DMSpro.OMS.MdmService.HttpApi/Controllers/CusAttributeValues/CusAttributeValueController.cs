@@ -8,17 +8,17 @@ using DMSpro.OMS.MdmService.CusAttributeValues;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.CusAttributeValues
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CusAttributeValue")]
     [Route("api/mdm-service/cus-attribute-values")]
-    public class CusAttributeValueController : AbpController, ICusAttributeValuesAppService
+    public partial class CusAttributeValueController : AbpController, ICusAttributeValuesAppService
     {
         private readonly ICusAttributeValuesAppService _cusAttributeValuesAppService;
 
@@ -38,13 +38,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CusAttributeValues
         public Task<CusAttributeValueWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _cusAttributeValuesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _cusAttributeValuesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]
