@@ -16,6 +16,13 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
 			return _companyIdentityUserAssignmentsAppService.GetListDevextremesAsync(inputDev);
 		}
 
+		[HttpGet]
+		[Route("GetListCompanyByCurrentUser")]
+		public Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
+		{
+			return _companyIdentityUserAssignmentsAppService.GetListCompanyByCurrentUserAsync(inputDev);
+		}
+
 		[HttpPost]
 		[Route("update-from-excel")]
 		public Task<int> UpdateFromExcelAsync(IFormFile file)

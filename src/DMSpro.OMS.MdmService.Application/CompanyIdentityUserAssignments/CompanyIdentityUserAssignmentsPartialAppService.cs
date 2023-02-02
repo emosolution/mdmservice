@@ -24,6 +24,16 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 			return results;
 		}
 
+		public virtual async Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
+		{
+			var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(CurrentUser.Id.Value);
+			var base_dataloadoption = new DataSourceLoadOptionsBase();
+			DataLoadParser.Parse(base_dataloadoption,inputDev);
+			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+			results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
+			return results;
+		}
+
 		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
 		{
 			return null;

@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 	{
 		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
+		Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev);
 		Task<int>UpdateFromExcelAsync(IFormFile file);
 
 		Task<int> InsertFromExcelAsync(IFormFile file);
