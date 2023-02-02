@@ -39,7 +39,7 @@ public class ItemsGRPCAppService : ItemsProtoAppService.ItemsProtoAppServiceBase
                 Salesable = entity.IsSaleable,
                 Inventoriable = entity.IsInventoriable,
                 VATId = entity.VatId.ToString(),
-                UOMGroupID = entity.UomGroupId.ToString(),
+                UOMGroupId = entity.UomGroupId.ToString(),
                 InventoryUOMId = entity.InventoryUOMId.ToString(),
                 PurUOMId = entity.PurUOMId.ToString(),
                 SalesUOMId = entity.SalesUOMId.ToString(),
