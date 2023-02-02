@@ -8,79 +8,85 @@ using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
+using DMSpro.OMS.Shared.Protos.MdmService.Vendors;
+using System.Linq;
+using Volo.Saas.Tenants;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppService.SalesOrgHierarchiesProtoAppServiceBase
 {
-    private readonly ISalesOrgHierarchiesInternalAppService _internalAppService;
+    private readonly ISalesOrgHierarchyRepository _repository;
     private readonly ISalesOrgEmpAssignmentsAppService _employeeAssignmentsAppService;
     private readonly ICompanyInZonesAppService _companyInZonesAppService;
     private readonly ICustomerInZonesAppService _customerInZonesAppService;
-    private readonly IEmployeeProfilesInternalAppService _employeeProfilesInternallAppService;
+    private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
     public SalesOrgHierarchiesGRPCAppService(
-        ISalesOrgHierarchiesInternalAppService internalAppService,
+        ISalesOrgHierarchyRepository repository,
         ISalesOrgEmpAssignmentsAppService employeeAssignmentsAppService,
         ICompanyInZonesAppService companyInZonesAppService,
         ICustomerInZonesAppService customerInZonesAppService,
-        IEmployeeProfilesInternalAppService employeeProfilesInternallAppService
+        IEmployeeProfileRepository employeeProfileRepository
     )
     {
-        _internalAppService = internalAppService;
+        _repository = repository;
         _employeeAssignmentsAppService = employeeAssignmentsAppService;
         _companyInZonesAppService = companyInZonesAppService;
         _customerInZonesAppService = customerInZonesAppService;
-        _employeeProfilesInternallAppService = employeeProfilesInternallAppService;
+        _employeeProfileRepository = employeeProfileRepository;
     }
 
     public override async Task<GetSOPORouteResponse> GetSOPORoute(GetSOPORouteRequest request, ServerCallContext context)
     {
         Guid id = new(request.RouteId);
-        SalesOrgHierarchyWithTenantDto dto = await _internalAppService.GetWithTenantIdAsynce(id);
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
+        IQueryable<SalesOrgHierarchy> queryable = await _repository.GetQueryableAsync();
+        var query = from item in queryable
+                    where item.Id == id && item.TenantId == tenantId
+                    select item;
+        SalesOrgHierarchy route = query.FirstOrDefault();
         var response = new GetSOPORouteResponse();
-        if (dto == null)
+        if (route == null)
         {
             return response;
         }
-        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : Guid.Parse(request.TenantId);
-        if (dto.TenantId != tenantId)
+        if (!route.Active)
         {
             return response;
         }
-        if (!dto.Active)
+        if (route.ParentId == null)
         {
             return response;
         }
-        if (dto.ParentId == null)
+        var sellingZonequery = from item in queryable
+                    where item.Id == route.ParentId && item.TenantId == tenantId
+                    select item;
+        SalesOrgHierarchy sellingZone = query.FirstOrDefault();
+        if (sellingZone == null)
         {
             return response;
         }
-        SalesOrgHierarchyWithTenantDto sellingZoneDto = await _internalAppService.GetWithTenantIdAsynce((Guid)dto.ParentId);
-        if (sellingZoneDto == null)
-        {
-            return response;
-        }
-        if (!CheckSellingZone(sellingZoneDto, tenantId))
+        if (!CheckSellingZone(sellingZone, tenantId))
         {
             return response;
         }
         Employee employee = null;
         if (!string.IsNullOrEmpty(request.EmployeeId))
         {
-            employee = await CheckEmployee(request.EmployeeId, sellingZoneDto.Id);
+            employee = await CheckEmployee(request.EmployeeId, sellingZone.Id);
             if (employee == null)
             {
                 return response;
             }
         }
-        if (!(await CheckCompany(request.CompanyId, sellingZoneDto.Id)))
+        if (!(await CheckCompany(request.CompanyId, sellingZone.Id)))
         {
             return response;
         }
         if (!string.IsNullOrEmpty(request.CustomerId))
         {
-            if (!(await CheckCustomer(request.CustomerId, sellingZoneDto.Id)))
+            if (!(await CheckCustomer(request.CustomerId, sellingZone.Id)))
             {
                 return response;
             }
@@ -88,15 +94,15 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
 
         response.Route = new OMS.Shared.Protos.MdmService.SalesOrgHierarchies.Route()
         {
-            TenantId = dto.TenantId == null ? "" : dto.TenantId.ToString(),
-            Code = dto.Code,
-            Name = dto.Name,
+            TenantId = route.TenantId == null ? "" : route.TenantId.ToString(),
+            Code = route.Code,
+            Name = route.Name,
         };
         response.Employee = employee;
         return response;
     }
 
-    private bool CheckSellingZone(SalesOrgHierarchyWithTenantDto sellingZone, Guid? tenantId)
+    private static bool CheckSellingZone(SalesOrgHierarchy sellingZone, Guid? tenantId)
     {
         if (sellingZone.TenantId != tenantId)
         {
@@ -126,8 +132,11 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         {
             return null;
         }
-        EmployeeProfileWithTenantDto employee =
-            await _employeeProfilesInternallAppService.GetWithTenantIdAsynce(Guid.Parse(employeeId));
+        IQueryable<EmployeeProfile> queryable = await _employeeProfileRepository.GetQueryableAsync();
+        var query = from item in queryable
+                    where item.Id == Guid.Parse(employeeId)
+                    select item;
+        EmployeeProfile employee = query.FirstOrDefault();
         DateTime effectiveDate = DateTime.Now;
         if (employee.EffectiveDate != null)
         {

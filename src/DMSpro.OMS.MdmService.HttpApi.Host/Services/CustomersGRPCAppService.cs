@@ -5,33 +5,34 @@ using DMSpro.OMS.Shared.Protos.MdmService.Customers;
 using DMSpro.OMS.MdmService.Helpers;
 using DMSpro.OMS.MdmService.CustomerAssignments;
 using System.Collections.Generic;
+using Volo.Abp.Domain.Repositories;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.Customers;
 
 public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAppServiceBase
 {
-    private readonly ICustomersInternalAppService _internalAppService;
     private readonly ICustomerAssignmentRepository _customerAssignmentRepository;
+    private readonly ICustomerRepository _repository;
 
-
-    public CustomersGRPCAppService(ICustomersInternalAppService internalAppService,
+    public CustomersGRPCAppService(ICustomerRepository repository,
         ICustomerAssignmentRepository customerAssignmentRepository)
     {
-        _internalAppService = internalAppService;
+        _repository = repository;
         _customerAssignmentRepository = customerAssignmentRepository;
     }
 
     public override async Task<CustomerResponse> GetCustomerWithCompany(GetCustomerWithCompanyRequest request, ServerCallContext context)
     {
         Guid id = new(request.CustomerId);
-        CustomerWithTenantDto dto = await _internalAppService.GetWithTenantIdAsynce(id);
-        var response = new CustomerResponse();
-        if (dto == null)
-        {
-            return response;
-        }
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : Guid.Parse(request.TenantId);
-        if (dto.TenantId != tenantId)
+        IQueryable<Customer> queryable = await _repository.GetQueryableAsync();
+        var query = from item in queryable
+                    where item.Id == id && item.TenantId == tenantId
+                    select item;
+        Customer customer = query.FirstOrDefault();
+        var response = new CustomerResponse();
+        if (customer == null)
         {
             return response;
         }
@@ -68,14 +69,14 @@ public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAp
         {
             return response;
         }
-        bool customerActive = MDMHelpers.CheckActive(dto.Active, dto.EffectiveDate, dto.EndDate);
+        bool customerActive = MDMHelpers.CheckActive(customer.Active, customer.EffectiveDate, customer.EndDate);
         response.Customer = new OMS.Shared.Protos.MdmService.Customers.Customer()
         {
-            Id = dto.Id.ToString(),
+            Id = customer.Id.ToString(),
             CompanyId = customerAssignment.CompanyId.ToString(),
             TenantId = request.TenantId,
-            Code = dto.Code,
-            Name = dto.Name,
+            Code = customer.Code,
+            Name = customer.Name,
             Active = customerActive && assignmentActive,
         };
         return response;
