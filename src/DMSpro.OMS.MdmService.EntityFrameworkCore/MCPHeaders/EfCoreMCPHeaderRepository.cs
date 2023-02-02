@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    public class EfCoreMCPHeaderRepository : EfCoreRepository<MdmServiceDbContext, MCPHeader, Guid>, IMCPHeaderRepository
+    public partial class EfCoreMCPHeaderRepository : EfCoreRepository<MdmServiceDbContext, MCPHeader, Guid>, IMCPHeaderRepository
     {
         public EfCoreMCPHeaderRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

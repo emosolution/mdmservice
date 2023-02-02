@@ -5,15 +5,13 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
-    public interface ISalesChannelsAppService : IApplicationService
+    public partial interface ISalesChannelsAppService : IApplicationService
     {
         Task<PagedResultDto<SalesChannelDto>> GetListAsync(GetSalesChannelsInput input);
-        
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
         
         Task<SalesChannelDto> GetAsync(Guid id);
 

@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.WeightMeasurements.Default)]
-    public class WeightMeasurementsAppService : ApplicationService, IWeightMeasurementsAppService
+    public partial class WeightMeasurementsAppService : ApplicationService, IWeightMeasurementsAppService
     {
         private readonly IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IWeightMeasurementRepository _weightMeasurementRepository;

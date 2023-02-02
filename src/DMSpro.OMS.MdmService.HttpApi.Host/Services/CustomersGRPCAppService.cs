@@ -21,36 +21,63 @@ public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAp
         _customerAssignmentRepository = customerAssignmentRepository;
     }
 
-    public override async Task<GetCustomerResponse> GetCustomerWithCompany(GetCustomerRequest request, ServerCallContext context)
+    public override async Task<CustomerResponse> GetCustomerWithCompany(GetCustomerWithCompanyRequest request, ServerCallContext context)
     {
         Guid id = new(request.CustomerId);
         CustomerWithTenantDto dto = await _internalAppService.GetWithTenantIdAsynce(id);
-        var response = new GetCustomerResponse();
+        var response = new CustomerResponse();
         if (dto == null)
         {
             return response;
         }
-        List<CustomerAssignmentWithNavigationProperties> assignments = 
-            await _customerAssignmentRepository.GetListWithNavigationPropertiesAsync
-            (
-                customerId: id, companyId: Guid.Parse(request.CompanyId)
-            );
-        if (assignments.Count != 1)
+
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : Guid.Parse(request.TenantId);
+        if (dto.TenantId != tenantId)
         {
             return response;
         }
-
-        CustomerAssignment assignment = assignments[0].CustomerAssignment;
-        bool assignmentActive = MDMHelpers.CheckActive(true, assignment.EffectiveDate, assignment.EndDate);
-        bool companyActive = MDMHelpers.CheckActive(dto.Active, dto.EffectiveDate, dto.EndDate);
+        List<CustomerAssignmentWithNavigationProperties> assignments =
+            await _customerAssignmentRepository.GetListWithNavigationPropertiesAsync(
+                customerId: id, companyId: Guid.Parse(request.CompanyId));
+        CustomerAssignment customerAssignment = null;
+        bool assignmentActive = false;
+        if (assignments.Count == 1)
+        {
+            customerAssignment = assignments[0].CustomerAssignment;
+            assignmentActive = MDMHelpers.CheckActive(true, customerAssignment.EffectiveDate, customerAssignment.EndDate);
+        }
+        else
+        {
+            int activeCount = 0;
+            foreach (CustomerAssignmentWithNavigationProperties item in assignments)
+            {
+                CustomerAssignment assignment = item.CustomerAssignment;
+                bool active = MDMHelpers.CheckActive(true, assignment.EffectiveDate, assignment.EndDate);
+                if (active)
+                {
+                    customerAssignment = assignment;
+                    assignmentActive = true;
+                    activeCount++;
+                }
+            }
+            if (activeCount != 1)
+            {
+                return response;
+            }
+        }
+        if (customerAssignment.TenantId != tenantId)
+        {
+            return response;
+        }
+        bool customerActive = MDMHelpers.CheckActive(dto.Active, dto.EffectiveDate, dto.EndDate);
         response.Customer = new OMS.Shared.Protos.MdmService.Customers.Customer()
         {
             Id = dto.Id.ToString(),
-            CompanyId = assignment.CompanyId.ToString(),
-            TenantId = dto.TenantId == null ? "" : dto.TenantId.ToString(),
+            CompanyId = customerAssignment.CompanyId.ToString(),
+            TenantId = request.TenantId,
             Code = dto.Code,
             Name = dto.Name,
-            Active =  companyActive && assignmentActive,
+            Active = customerActive && assignmentActive,
         };
         return response;
     }

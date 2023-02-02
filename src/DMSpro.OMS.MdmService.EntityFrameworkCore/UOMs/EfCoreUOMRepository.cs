@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.UOMs
 {
-    public class EfCoreUOMRepository : EfCoreRepository<MdmServiceDbContext, UOM, Guid>, IUOMRepository
+    public partial class EfCoreUOMRepository : EfCoreRepository<MdmServiceDbContext, UOM, Guid>, IUOMRepository
     {
         public EfCoreUOMRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.CustomerAttachments;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerAttachment")]
     [Route("api/mdm-service/customer-attachments")]
-    public class CustomerAttachmentController : AbpController, ICustomerAttachmentsAppService
+    public partial class CustomerAttachmentController : AbpController, ICustomerAttachmentsAppService
     {
         private readonly ICustomerAttachmentsAppService _customerAttachmentsAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
         public Task<CustomerAttachmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _customerAttachmentsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerAttachmentsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

@@ -9,17 +9,17 @@ using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Content;
 
 //For Devextreme
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
 
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("GeoMaster")]
     [Route("api/mdm-service/geo-masters")]
-    public class GeoMasterController : AbpController, IGeoMastersAppService
+    public partial class GeoMasterController : AbpController, IGeoMastersAppService
     {
         private readonly IGeoMastersAppService _geoMastersAppService;
 
@@ -32,19 +32,6 @@ namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
         public Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input)
         {
             return _geoMastersAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            Console.WriteLine(HttpContext.Request.Query["take"].ToString());
-            Console.WriteLine(Request.Query["take"].ToString());
-            Console.WriteLine("======");
-            Console.WriteLine(Request.Headers);
-            Console.WriteLine("======");
-            Console.WriteLine(inputDev.Take);
-            return _geoMastersAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

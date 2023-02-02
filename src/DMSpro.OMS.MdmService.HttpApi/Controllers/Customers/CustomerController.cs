@@ -8,16 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Customers;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.Customers
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Customer")]
     [Route("api/mdm-service/customers")]
-    public class CustomerController : AbpController, ICustomersAppService
+    public partial class CustomerController : AbpController, ICustomersAppService
     {
         private readonly ICustomersAppService _customersAppService;
 
@@ -39,12 +36,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Customers
             return _customersAppService.GetWithNavigationPropertiesAsync(id);
         }
 
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customersAppService.GetListDevextremesAsync(inputDev);
-        }
         [HttpGet]
         [Route("{id}")]
         public virtual Task<CustomerDto> GetAsync(Guid id)

@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.Currencies
 {
-    public class EfCoreCurrencyRepository : EfCoreRepository<MdmServiceDbContext, Currency, Guid>, ICurrencyRepository
+    public partial class EfCoreCurrencyRepository : EfCoreRepository<MdmServiceDbContext, Currency, Guid>, ICurrencyRepository
     {
         public EfCoreCurrencyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

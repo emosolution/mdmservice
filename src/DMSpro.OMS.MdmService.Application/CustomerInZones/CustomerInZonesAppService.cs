@@ -19,15 +19,11 @@ using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
 
     [Authorize(MdmServicePermissions.CustomerInZones.Default)]
-    public class CustomerInZonesAppService : ApplicationService, ICustomerInZonesAppService
+    public partial class CustomerInZonesAppService : ApplicationService, ICustomerInZonesAppService
     {
         private readonly IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerInZoneRepository _customerInZoneRepository;
@@ -64,17 +60,6 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
                 (await _customerInZoneRepository.GetWithNavigationPropertiesAsync(id));
         }
         
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerInZoneRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerInZone>, IEnumerable<CustomerInZoneDto>>(results.data.Cast<CustomerInZone>());
-            
-            return results;
-                
-        }
         public virtual async Task<CustomerInZoneDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<CustomerInZone, CustomerInZoneDto>(await _customerInZoneRepository.GetAsync(id));

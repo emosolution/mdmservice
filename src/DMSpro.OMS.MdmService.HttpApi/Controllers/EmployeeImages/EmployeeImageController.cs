@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.EmployeeImages;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("EmployeeImage")]
     [Route("api/mdm-service/employee-images")]
-    public class EmployeeImageController : AbpController, IEmployeeImagesAppService
+    public partial class EmployeeImageController : AbpController, IEmployeeImagesAppService
     {
         private readonly IEmployeeImagesAppService _employeeImagesAppService;
 
@@ -38,12 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         public Task<EmployeeImageWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _employeeImagesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _employeeImagesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

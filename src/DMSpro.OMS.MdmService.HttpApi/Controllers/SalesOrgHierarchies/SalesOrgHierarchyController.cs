@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHierarchies
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("SalesOrgHierarchy")]
     [Route("api/mdm-service/sales-org-hierarchies")]
-    public class SalesOrgHierarchyController : AbpController, ISalesOrgHierarchiesAppService
+    public partial class SalesOrgHierarchyController : AbpController, ISalesOrgHierarchiesAppService
     {
         private readonly ISalesOrgHierarchiesAppService _salesOrgHierarchiesAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHierarchies
         public Task<SalesOrgHierarchyWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _salesOrgHierarchiesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _salesOrgHierarchiesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

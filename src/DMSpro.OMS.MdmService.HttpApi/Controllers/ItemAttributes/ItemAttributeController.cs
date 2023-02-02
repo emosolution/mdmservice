@@ -8,16 +8,13 @@ using DMSpro.OMS.MdmService.ItemAttributes;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("ItemAttribute")]
     [Route("api/mdm-service/item-attributes")]
-    public class ItemAttributeController : AbpController, IItemAttributesAppService
+    public partial class ItemAttributeController : AbpController, IItemAttributesAppService
     {
         private readonly IItemAttributesAppService _itemAttributesAppService;
 
@@ -30,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
         public virtual Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input)
         {
             return _itemAttributesAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _itemAttributesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

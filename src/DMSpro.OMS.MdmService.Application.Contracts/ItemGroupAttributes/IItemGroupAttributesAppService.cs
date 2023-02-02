@@ -1,6 +1,6 @@
-using DevExtreme.AspNet.Data.ResponseModel;
+
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
-    public interface IItemGroupAttributesAppService : IApplicationService
+    public partial interface IItemGroupAttributesAppService : IApplicationService
     {
         Task<PagedResultDto<ItemGroupAttributeWithNavigationPropertiesDto>> GetListAsync(GetItemGroupAttributesInput input);
 
@@ -31,6 +31,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
 
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        
     }
 }

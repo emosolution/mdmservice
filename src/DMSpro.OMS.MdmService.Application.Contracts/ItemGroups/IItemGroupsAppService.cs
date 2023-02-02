@@ -4,15 +4,13 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public interface IItemGroupsAppService : IApplicationService
+    public partial interface IItemGroupsAppService : IApplicationService
     {
         Task<PagedResultDto<ItemGroupDto>> GetListAsync(GetItemGroupsInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<ItemGroupDto> GetAsync(Guid id);
 

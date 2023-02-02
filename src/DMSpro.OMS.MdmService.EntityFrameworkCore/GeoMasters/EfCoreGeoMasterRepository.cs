@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public class EfCoreGeoMasterRepository : EfCoreRepository<MdmServiceDbContext, GeoMaster, Guid>, IGeoMasterRepository
+    public partial class EfCoreGeoMasterRepository : EfCoreRepository<MdmServiceDbContext, GeoMaster, Guid>, IGeoMasterRepository
     {
         public EfCoreGeoMasterRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

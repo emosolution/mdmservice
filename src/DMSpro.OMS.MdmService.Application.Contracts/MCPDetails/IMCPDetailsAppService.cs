@@ -4,18 +4,16 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public interface IMCPDetailsAppService : IApplicationService
+    public partial interface IMCPDetailsAppService : IApplicationService
     {
         Task<PagedResultDto<MCPDetailWithNavigationPropertiesDto>> GetListAsync(GetMCPDetailsInput input);
 
         Task<MCPDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-
+        
         Task<MCPDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input);

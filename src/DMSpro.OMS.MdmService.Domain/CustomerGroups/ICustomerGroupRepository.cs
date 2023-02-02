@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CustomerGroups
 {
-    public interface ICustomerGroupRepository : IRepository<CustomerGroup, Guid>
+    public partial interface ICustomerGroupRepository : IRepository<CustomerGroup, Guid>
     {
         Task<List<CustomerGroup>> GetListAsync(
             string filterText = null,

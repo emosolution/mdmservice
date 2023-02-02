@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
 
     [Authorize(MdmServicePermissions.CustomerGroupByAtts.Default)]
-    public class CustomerGroupByAttsAppService : ApplicationService, ICustomerGroupByAttsAppService
+    public partial class CustomerGroupByAttsAppService : ApplicationService, ICustomerGroupByAttsAppService
     {
         private readonly IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerGroupByAttRepository _customerGroupByAttRepository;
@@ -54,19 +49,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<CustomerGroupByAttWithNavigationProperties>, List<CustomerGroupByAttWithNavigationPropertiesDto>>(items)
             };
-        }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerGroupByAttRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerGroupByAtt>, IEnumerable<CustomerGroupByAttDto>>(results.data.Cast<CustomerGroupByAtt>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerGroupByAttWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

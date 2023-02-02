@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.DimensionMeasurements.Default)]
-    public class DimensionMeasurementsAppService : ApplicationService, IDimensionMeasurementsAppService
+    public partial class DimensionMeasurementsAppService : ApplicationService, IDimensionMeasurementsAppService
     {
         private readonly IDistributedCache<DimensionMeasurementExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IDimensionMeasurementRepository _dimensionMeasurementRepository;

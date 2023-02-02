@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.WeightMeasurements
     [Area("mdmService")]
     [ControllerName("WeightMeasurement")]
     [Route("api/mdm-service/weight-measurements")]
-    public class WeightMeasurementController : AbpController, IWeightMeasurementsAppService
+    public partial class WeightMeasurementController : AbpController, IWeightMeasurementsAppService
     {
         private readonly IWeightMeasurementsAppService _weightMeasurementsAppService;
 

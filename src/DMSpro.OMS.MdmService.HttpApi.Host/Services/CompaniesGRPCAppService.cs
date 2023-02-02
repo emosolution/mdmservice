@@ -15,8 +15,10 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         _companiesInternalAppService = companiesInternalAppService;
     }
 
-    public override async Task<CompanyResponse> GetHOCompanyFromIdentityUserAndTenant(
-        GetCompanyFromIdentityUserAndTenantRequest request, ServerCallContext context)
+
+    public override async Task<CompanyResponse> GetHOCompanyWithIdentityUser(
+        GetHOCompanyWithIdentityUserRequest request, ServerCallContext context)
+
     {
         Guid? tenantId = null;
         if (!string.IsNullOrEmpty(request.TenantId))
@@ -24,7 +26,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             tenantId = new Guid(request.TenantId);
         }
         CompanyWithTenantDto companyDto =
-            await _companiesInternalAppService.GetHOCompanyFromIdentityUserAndTenant(
+            await _companiesInternalAppService.GetHOCompanyFromIdentityUser(
                 new Guid(request.IdentityUserId), tenantId);
         var response = new CompanyResponse();
         if (companyDto == null)
@@ -37,21 +39,19 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             TenantId = companyDto.TenantId == null ? "" : companyDto.TenantId.ToString(),
             Code = companyDto.Code,
             Name = companyDto.Name,
-            Active = false
+            Active = false,
+            HO = companyDto.IsHO,
         };
         return response;
     }
 
-    public override async Task<CompanyResponse> CheckCompanyBelongToIdentityUserAndTenant(
-        CheckCompanyBelongToIdentityUserAndTenantRequest request, ServerCallContext context)
+
+    public override async Task<CompanyResponse> GetCompanyWithIdentityUser(
+        GetCompanyWithIdentityUserRequest request, ServerCallContext context)
     {
-        Guid? tenantId = null;
-        if (!string.IsNullOrEmpty(request.TenantId))
-        {
-            tenantId = new Guid(request.TenantId);
-        }
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId)? null : Guid.Parse(request.TenantId);
         CompanyWithTenantDto companyDto =
-            await _companiesInternalAppService.CheckCompanyBelongToIdentityUserAndTenant(
+            await _companiesInternalAppService.CheckCompanyBelongToIdentityUser(
                 new Guid(request.CompanyId), new Guid(request.IdentityUserId), tenantId);
         var response = new CompanyResponse();
         if (companyDto == null)
@@ -62,7 +62,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         response.Company = new OMS.Shared.Protos.MdmService.Companies.Company()
         {
             Id = companyDto.Id.ToString(),
-            TenantId = companyDto.TenantId == null ? "" : companyDto.TenantId.ToString(),
+            TenantId = request.TenantId,
             Code = companyDto.Code,
             Name = companyDto.Name,
             Active = MDMHelpers.CheckActive(companyDto.Active, companyDto.EffectiveDate, companyDto.EndDate),

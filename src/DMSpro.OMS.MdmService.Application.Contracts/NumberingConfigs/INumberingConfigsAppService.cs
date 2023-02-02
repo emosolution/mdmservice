@@ -4,17 +4,15 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-    public interface INumberingConfigsAppService : IApplicationService
+    public partial interface INumberingConfigsAppService : IApplicationService
     {
         Task<PagedResultDto<NumberingConfigWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigsInput input);
 
         Task<NumberingConfigWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<NumberingConfigDto> GetAsync(Guid id);
 

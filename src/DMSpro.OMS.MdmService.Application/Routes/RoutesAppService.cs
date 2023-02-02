@@ -20,15 +20,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Routes
 {
 
     [Authorize(MdmServicePermissions.Routes.Default)]
-    public class RoutesAppService : ApplicationService, IRoutesAppService
+    public partial class RoutesAppService : ApplicationService, IRoutesAppService
     {
         private readonly IDistributedCache<RouteExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IRouteRepository _routeRepository;
@@ -56,19 +52,6 @@ namespace DMSpro.OMS.MdmService.Routes
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<RouteWithNavigationProperties>, List<RouteWithNavigationPropertiesDto>>(items)
             };
-        }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _routeRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<Route>, IEnumerable<RouteDto>>(results.data.Cast<Route>());
-            
-            return results;
-                
         }
 
         public virtual async Task<RouteWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

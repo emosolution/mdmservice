@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public class EfCoreWorkingPositionRepository : EfCoreRepository<MdmServiceDbContext, WorkingPosition, Guid>, IWorkingPositionRepository
+    public partial class EfCoreWorkingPositionRepository : EfCoreRepository<MdmServiceDbContext, WorkingPosition, Guid>, IWorkingPositionRepository
     {
         public EfCoreWorkingPositionRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

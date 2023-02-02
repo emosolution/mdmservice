@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
-    public class EfCorePricelistAssignmentRepository : EfCoreRepository<MdmServiceDbContext, PricelistAssignment, Guid>, IPricelistAssignmentRepository
+    public partial class EfCorePricelistAssignmentRepository : EfCoreRepository<MdmServiceDbContext, PricelistAssignment, Guid>, IPricelistAssignmentRepository
     {
         public EfCorePricelistAssignmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

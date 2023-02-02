@@ -18,15 +18,11 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
 
     [Authorize(MdmServicePermissions.ItemAttributeValues.Default)]
-    public class ItemAttributeValuesAppService : ApplicationService, IItemAttributeValuesAppService
+    public partial class ItemAttributeValuesAppService : ApplicationService, IItemAttributeValuesAppService
     {
         private readonly IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
@@ -51,19 +47,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
                 Items = ObjectMapper.Map<List<ItemAttributeValueWithNavigationProperties>, List<ItemAttributeValueWithNavigationPropertiesDto>>(items)
             };
         }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _itemAttributeValueRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<ItemAttributeValue>, IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
-            
-            return results;
-                
-        }
-
         public virtual async Task<ItemAttributeValueWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return ObjectMapper.Map<ItemAttributeValueWithNavigationProperties, ItemAttributeValueWithNavigationPropertiesDto>

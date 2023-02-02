@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
-    public class EfCorePriceUpdateDetailRepository : EfCoreRepository<MdmServiceDbContext, PriceUpdateDetail, Guid>, IPriceUpdateDetailRepository
+    public partial class EfCorePriceUpdateDetailRepository : EfCoreRepository<MdmServiceDbContext, PriceUpdateDetail, Guid>, IPriceUpdateDetailRepository
     {
         public EfCorePriceUpdateDetailRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

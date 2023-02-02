@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.WorkingPositions;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.WorkingPositions
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("WorkingPosition")]
     [Route("api/mdm-service/working-positions")]
-    public class WorkingPositionController : AbpController, IWorkingPositionsAppService
+    public partial class WorkingPositionController : AbpController, IWorkingPositionsAppService
     {
         private readonly IWorkingPositionsAppService _workingPositionsAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.WorkingPositions
         public virtual Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input)
         {
             return _workingPositionsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _workingPositionsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

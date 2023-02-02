@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    public class EfCoreItemAttachmentRepository : EfCoreRepository<MdmServiceDbContext, ItemAttachment, Guid>, IItemAttachmentRepository
+    public partial class EfCoreItemAttachmentRepository : EfCoreRepository<MdmServiceDbContext, ItemAttachment, Guid>, IItemAttachmentRepository
     {
         public EfCoreItemAttachmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

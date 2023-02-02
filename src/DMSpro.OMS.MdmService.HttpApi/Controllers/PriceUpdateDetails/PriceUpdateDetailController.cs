@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.PriceUpdateDetails
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("PriceUpdateDetail")]
     [Route("api/mdm-service/price-update-details")]
-    public class PriceUpdateDetailController : AbpController, IPriceUpdateDetailsAppService
+    public partial class PriceUpdateDetailController : AbpController, IPriceUpdateDetailsAppService
     {
         private readonly IPriceUpdateDetailsAppService _priceUpdateDetailsAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceUpdateDetails
         public Task<PriceUpdateDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _priceUpdateDetailsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _priceUpdateDetailsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

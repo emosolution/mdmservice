@@ -20,15 +20,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
 
     [Authorize(MdmServicePermissions.MCPHeaders.Default)]
-    public class MCPHeadersAppService : ApplicationService, IMCPHeadersAppService
+    public partial class MCPHeadersAppService : ApplicationService, IMCPHeadersAppService
     {
         private readonly IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IMCPHeaderRepository _mCPHeaderRepository;
@@ -58,19 +54,6 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             };
         }
 
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _mCPHeaderRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<MCPHeader>, IEnumerable<MCPHeaderDto>>(results.data.Cast<MCPHeader>());
-            
-            return results;
-                
-        }
-        
         public virtual async Task<MCPHeaderWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return ObjectMapper.Map<MCPHeaderWithNavigationProperties, MCPHeaderWithNavigationPropertiesDto>

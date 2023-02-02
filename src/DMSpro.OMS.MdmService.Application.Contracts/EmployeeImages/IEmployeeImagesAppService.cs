@@ -4,17 +4,15 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
-    public interface IEmployeeImagesAppService : IApplicationService
+    public partial interface IEmployeeImagesAppService : IApplicationService
     {
         Task<PagedResultDto<EmployeeImageWithNavigationPropertiesDto>> GetListAsync(GetEmployeeImagesInput input);
 
         Task<EmployeeImageWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<EmployeeImageDto> GetAsync(Guid id);
 

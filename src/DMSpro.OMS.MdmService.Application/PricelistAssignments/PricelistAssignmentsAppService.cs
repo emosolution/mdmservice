@@ -13,22 +13,17 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.PricelistAssignments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
 
     [Authorize(MdmServicePermissions.PriceListAssignments.Default)]
-    public class PricelistAssignmentsAppService : ApplicationService, IPricelistAssignmentsAppService
+    public partial class PricelistAssignmentsAppService : ApplicationService, IPricelistAssignmentsAppService
     {
         private readonly IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IPricelistAssignmentRepository _pricelistAssignmentRepository;
@@ -62,17 +57,6 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
                 (await _pricelistAssignmentRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _pricelistAssignmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<PricelistAssignment>, IEnumerable<PricelistAssignmentDto>>(results.data.Cast<PricelistAssignment>());
-            
-            return results;
-                
-        }
         public virtual async Task<PricelistAssignmentDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<PricelistAssignment, PricelistAssignmentDto>(await _pricelistAssignmentRepository.GetAsync(id));

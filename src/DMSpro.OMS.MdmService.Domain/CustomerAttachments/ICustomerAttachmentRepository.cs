@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
-    public interface ICustomerAttachmentRepository : IRepository<CustomerAttachment, Guid>
+    public partial interface ICustomerAttachmentRepository : IRepository<CustomerAttachment, Guid>
     {
         Task<CustomerAttachmentWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

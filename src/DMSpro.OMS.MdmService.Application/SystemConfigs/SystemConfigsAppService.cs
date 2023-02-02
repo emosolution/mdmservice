@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
 {
 
     [Authorize(MdmServicePermissions.SystemConfig.Default)]
-    public class SystemConfigsAppService : ApplicationService, ISystemConfigsAppService
+    public partial class SystemConfigsAppService : ApplicationService, ISystemConfigsAppService
     {
         private readonly IDistributedCache<SystemConfigExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ISystemConfigRepository _systemConfigRepository;

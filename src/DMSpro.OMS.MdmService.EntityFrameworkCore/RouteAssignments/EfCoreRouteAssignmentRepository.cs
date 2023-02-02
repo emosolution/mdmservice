@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.RouteAssignments
 {
-    public class EfCoreRouteAssignmentRepository : EfCoreRepository<MdmServiceDbContext, RouteAssignment, Guid>, IRouteAssignmentRepository
+    public partial class EfCoreRouteAssignmentRepository : EfCoreRepository<MdmServiceDbContext, RouteAssignment, Guid>, IRouteAssignmentRepository
     {
         public EfCoreRouteAssignmentRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

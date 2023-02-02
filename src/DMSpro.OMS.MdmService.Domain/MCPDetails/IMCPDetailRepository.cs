@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public interface IMCPDetailRepository : IRepository<MCPDetail, Guid>
+    public partial interface IMCPDetailRepository : IRepository<MCPDetail, Guid>
     {
         Task<MCPDetailWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

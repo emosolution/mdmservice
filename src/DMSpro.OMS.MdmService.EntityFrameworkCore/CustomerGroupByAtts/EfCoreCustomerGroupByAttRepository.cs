@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
-    public class EfCoreCustomerGroupByAttRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroupByAtt, Guid>, ICustomerGroupByAttRepository
+    public partial class EfCoreCustomerGroupByAttRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroupByAtt, Guid>, ICustomerGroupByAttRepository
     {
         public EfCoreCustomerGroupByAttRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

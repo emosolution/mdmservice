@@ -4,17 +4,15 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-    public interface ICustomerContactsAppService : IApplicationService
+    public partial interface ICustomerContactsAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerContactWithNavigationPropertiesDto>> GetListAsync(GetCustomerContactsInput input);
 
         Task<CustomerContactWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<CustomerContactDto> GetAsync(Guid id);
 

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
-    public interface IItemImagesAppService : IApplicationService
+    public partial interface IItemImagesAppService : IApplicationService
     {
         Task<PagedResultDto<ItemImageWithNavigationPropertiesDto>> GetListAsync(GetItemImagesInput input);
 
@@ -28,7 +28,6 @@ namespace DMSpro.OMS.MdmService.ItemImages
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemImageExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        
     }
 }

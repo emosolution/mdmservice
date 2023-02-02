@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.RouteAssignments;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.RouteAssignments
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("RouteAssignment")]
     [Route("api/mdm-service/route-assignments")]
-    public class RouteAssignmentController : AbpController, IRouteAssignmentsAppService
+    public partial class RouteAssignmentController : AbpController, IRouteAssignmentsAppService
     {
         private readonly IRouteAssignmentsAppService _routeAssignmentsAppService;
 
@@ -31,13 +27,6 @@ namespace DMSpro.OMS.MdmService.Controllers.RouteAssignments
         public Task<PagedResultDto<RouteAssignmentWithNavigationPropertiesDto>> GetListAsync(GetRouteAssignmentsInput input)
         {
             return _routeAssignmentsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _routeAssignmentsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

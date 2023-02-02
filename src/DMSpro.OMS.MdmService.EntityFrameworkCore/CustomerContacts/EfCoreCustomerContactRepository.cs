@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-    public class EfCoreCustomerContactRepository : EfCoreRepository<MdmServiceDbContext, CustomerContact, Guid>, ICustomerContactRepository
+    public partial class EfCoreCustomerContactRepository : EfCoreRepository<MdmServiceDbContext, CustomerContact, Guid>, ICustomerContactRepository
     {
         public EfCoreCustomerContactRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

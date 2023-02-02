@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerGroups
 {
-    public class EfCoreCustomerGroupRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroup, Guid>, ICustomerGroupRepository
+    public partial class EfCoreCustomerGroupRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroup, Guid>, ICustomerGroupRepository
     {
         public EfCoreCustomerGroupRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.SystemConfigs
     [Area("mdmService")]
     [ControllerName("SystemConfig")]
     [Route("api/mdm-service/system-configs")]
-    public class SystemConfigController : AbpController, ISystemConfigsAppService
+    public partial class SystemConfigController : AbpController, ISystemConfigsAppService
     {
         private readonly ISystemConfigsAppService _systemConfigsAppService;
 

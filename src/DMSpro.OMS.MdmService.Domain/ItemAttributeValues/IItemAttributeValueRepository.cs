@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
-    public interface IItemAttributeValueRepository : IRepository<ItemAttributeValue, Guid>
+    public partial interface IItemAttributeValueRepository : IRepository<ItemAttributeValue, Guid>
     {
         Task<ItemAttributeValueWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

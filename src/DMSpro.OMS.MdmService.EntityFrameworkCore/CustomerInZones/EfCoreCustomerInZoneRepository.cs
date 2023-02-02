@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
-    public class EfCoreCustomerInZoneRepository : EfCoreRepository<MdmServiceDbContext, CustomerInZone, Guid>, ICustomerInZoneRepository
+    public partial class EfCoreCustomerInZoneRepository : EfCoreRepository<MdmServiceDbContext, CustomerInZone, Guid>, ICustomerInZoneRepository
     {
         public EfCoreCustomerInZoneRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

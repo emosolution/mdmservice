@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-    public interface IVendorRepository : IRepository<Vendor, Guid>
+    public partial interface IVendorRepository : IRepository<Vendor, Guid>
     {
         Task<VendorWithNavigationProperties> GetWithNavigationPropertiesAsync(
     Guid id,

@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.CompanyInZones;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
 
     [Authorize(MdmServicePermissions.CompanyInZones.Default)]
-    public class CompanyInZonesAppService : ApplicationService, ICompanyInZonesAppService
+    public partial class CompanyInZonesAppService : ApplicationService, ICompanyInZonesAppService
     {
         private readonly IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
@@ -62,18 +57,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
                 (await _companyInZoneRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _companyInZoneRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CompanyInZone>, IEnumerable<CompanyInZoneDto>>(results.data.Cast<CompanyInZone>());
-            
-            return results;
-                
-        }
-        
         public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(await _companyInZoneRepository.GetAsync(id));

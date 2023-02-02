@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Streets
 {
-    public interface IStreetsAppService : IApplicationService
+    public partial interface IStreetsAppService : IApplicationService
     {
         Task<PagedResultDto<StreetDto>> GetListAsync(GetStreetsInput input);
 

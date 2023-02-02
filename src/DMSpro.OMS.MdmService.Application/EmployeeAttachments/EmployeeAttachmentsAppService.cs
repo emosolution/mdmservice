@@ -12,22 +12,17 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.EmployeeAttachments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public class EmployeeAttachmentsAppService : ApplicationService, IEmployeeAttachmentsAppService
+    public partial class EmployeeAttachmentsAppService : ApplicationService, IEmployeeAttachmentsAppService
     {
         private readonly IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
@@ -57,18 +52,6 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         {
             return ObjectMapper.Map<EmployeeAttachmentWithNavigationProperties, EmployeeAttachmentWithNavigationPropertiesDto>
                 (await _employeeAttachmentRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _employeeAttachmentRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<EmployeeAttachment>, IEnumerable<EmployeeAttachmentDto>>(results.data.Cast<EmployeeAttachment>());
-            
-            return results;
-                
         }
 
         public virtual async Task<EmployeeAttachmentDto> GetAsync(Guid id)

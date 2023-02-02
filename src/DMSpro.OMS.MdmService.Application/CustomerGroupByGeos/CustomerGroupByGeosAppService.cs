@@ -12,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.CustomerGroupByGeos;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -20,15 +19,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
 
     [Authorize(MdmServicePermissions.CustomerGroupByGeos.Default)]
-    public class CustomerGroupByGeosAppService : ApplicationService, ICustomerGroupByGeosAppService
+    public partial class CustomerGroupByGeosAppService : ApplicationService, ICustomerGroupByGeosAppService
     {
         private readonly IDistributedCache<CustomerGroupByGeoExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly ICustomerGroupByGeoRepository _customerGroupByGeoRepository;
@@ -54,19 +49,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<CustomerGroupByGeoWithNavigationProperties>, List<CustomerGroupByGeoWithNavigationPropertiesDto>>(items)
             };
-        }
-
-
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _customerGroupByGeoRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<CustomerGroupByGeo>, IEnumerable<CustomerGroupByGeoDto>>(results.data.Cast<CustomerGroupByGeo>());
-            
-            return results;
-                
         }
 
         public virtual async Task<CustomerGroupByGeoWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)

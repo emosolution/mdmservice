@@ -8,17 +8,13 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.PricelistAssignments;
 using Volo.Abp.Content;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.PricelistAssignments
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("PricelistAssignment")]
     [Route("api/mdm-service/pricelist-assignments")]
-    public class PricelistAssignmentController : AbpController, IPricelistAssignmentsAppService
+    public partial class PricelistAssignmentController : AbpController, IPricelistAssignmentsAppService
     {
         private readonly IPricelistAssignmentsAppService _pricelistAssignmentsAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.PricelistAssignments
         public Task<PricelistAssignmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _pricelistAssignmentsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _pricelistAssignmentsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

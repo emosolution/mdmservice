@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-    public class EfCoreVendorRepository : EfCoreRepository<MdmServiceDbContext, Vendor, Guid>, IVendorRepository
+    public partial class EfCoreVendorRepository : EfCoreRepository<MdmServiceDbContext, Vendor, Guid>, IVendorRepository
     {
         public EfCoreVendorRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

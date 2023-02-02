@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
     [Area("mdmService")]
     [ControllerName("CompanyIdentityUserAssignment")]
     [Route("api/mdm-service/company-identity-user-assignments")]
-    public class CompanyIdentityUserAssignmentController : AbpController, ICompanyIdentityUserAssignmentsAppService
+    public partial class CompanyIdentityUserAssignmentController : AbpController, ICompanyIdentityUserAssignmentsAppService
     {
         private readonly ICompanyIdentityUserAssignmentsAppService _companyIdentityUserAssignmentsAppService;
 

@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Streets
     [Area("mdmService")]
     [ControllerName("Street")]
     [Route("api/mdm-service/streets")]
-    public class StreetController : AbpController, IStreetsAppService
+    public partial class StreetController : AbpController, IStreetsAppService
     {
         private readonly IStreetsAppService _streetsAppService;
 

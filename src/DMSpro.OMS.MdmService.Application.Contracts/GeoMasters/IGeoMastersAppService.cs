@@ -4,16 +4,15 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public interface IGeoMastersAppService : IApplicationService
+    public partial interface IGeoMastersAppService : IApplicationService
     {
         Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        
         Task<GeoMasterWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
         Task<GeoMasterDto> GetAsync(Guid id);

@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.ItemGroups;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("ItemGroup")]
     [Route("api/mdm-service/item-groups")]
-    public class ItemGroupController : AbpController, IItemGroupsAppService
+    public partial class ItemGroupController : AbpController, IItemGroupsAppService
     {
         private readonly IItemGroupsAppService _itemGroupsAppService;
 
@@ -33,13 +29,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
             return _itemGroupsAppService.GetListAsync(input);
         }
 
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _itemGroupsAppService.GetListDevextremesAsync(inputDev);
-        }
-        
         [HttpGet]
         [Route("{id}")]
         public virtual Task<ItemGroupDto> GetAsync(Guid id)

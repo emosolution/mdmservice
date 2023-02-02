@@ -7,17 +7,17 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.CustomerAssignments;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
+
+
+
+
 namespace DMSpro.OMS.MdmService.Controllers.CustomerAssignments
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerAssignment")]
     [Route("api/mdm-service/customer-assignments")]
-    public class CustomerAssignmentController : AbpController, ICustomerAssignmentsAppService
+    public partial class CustomerAssignmentController : AbpController, ICustomerAssignmentsAppService
     {
         private readonly ICustomerAssignmentsAppService _customerAssignmentsAppService;
 
@@ -37,13 +37,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAssignments
         public Task<CustomerAssignmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _customerAssignmentsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _customerAssignmentsAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

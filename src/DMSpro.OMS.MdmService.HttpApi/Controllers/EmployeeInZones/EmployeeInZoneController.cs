@@ -8,17 +8,13 @@ using DMSpro.OMS.MdmService.EmployeeInZones;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-//Dev
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeInZones
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("EmployeeInZone")]
     [Route("api/mdm-service/employee-in-zones")]
-    public class EmployeeInZoneController : AbpController, IEmployeeInZonesAppService
+    public partial class EmployeeInZoneController : AbpController, IEmployeeInZonesAppService
     {
         private readonly IEmployeeInZonesAppService _employeeInZonesAppService;
 
@@ -38,13 +34,6 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeInZones
         public Task<EmployeeInZoneWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
         {
             return _employeeInZonesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _employeeInZonesAppService.GetListDevextremesAsync(inputDev);
         }
 
         [HttpGet]

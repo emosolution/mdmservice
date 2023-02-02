@@ -3,14 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.UOMs;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
@@ -18,15 +15,11 @@ using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.UOMs
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.UOMs.Default)]
-    public class UOMsAppService : ApplicationService, IUOMsAppService
+    public partial class UOMsAppService : ApplicationService, IUOMsAppService
     {
         private readonly IDistributedCache<UOMExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IUOMRepository _uOMRepository;
@@ -51,17 +44,6 @@ namespace DMSpro.OMS.MdmService.UOMs
             };
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _uOMRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<UOM>, IEnumerable<UOMDto>>(results.data.Cast<UOM>());
-            
-            return results;
-                
-        }
         public virtual async Task<UOMDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<UOM, UOMDto>(await _uOMRepository.GetAsync(id));

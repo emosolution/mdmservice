@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public class EfCoreItemGroupRepository : EfCoreRepository<MdmServiceDbContext, ItemGroup, Guid>, IItemGroupRepository
+    public partial class EfCoreItemGroupRepository : EfCoreRepository<MdmServiceDbContext, ItemGroup, Guid>, IItemGroupRepository
     {
         public EfCoreItemGroupRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

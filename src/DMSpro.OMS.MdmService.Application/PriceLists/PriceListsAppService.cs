@@ -15,15 +15,11 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.PriceLists
 {
 
     [Authorize(MdmServicePermissions.PriceLists.Default)]
-    public class PriceListsAppService : ApplicationService, IPriceListsAppService
+    public partial class PriceListsAppService : ApplicationService, IPriceListsAppService
     {
         private readonly IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly IPriceListRepository _priceListRepository;
@@ -54,17 +50,6 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 (await _priceListRepository.GetWithNavigationPropertiesAsync(id));
         }
 
-        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {   
-            var items = await _priceListRepository.GetQueryableAsync();    
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption,inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);    
-            results.data = ObjectMapper.Map<IEnumerable<PriceList>, IEnumerable<PriceListDto>>(results.data.Cast<PriceList>());
-            
-            return results;
-                
-        }
         public virtual async Task<PriceListDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<PriceList, PriceListDto>(await _priceListRepository.GetAsync(id));

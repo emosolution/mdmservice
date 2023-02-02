@@ -4,15 +4,13 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+
+
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public interface IWorkingPositionsAppService : IApplicationService
+    public partial interface IWorkingPositionsAppService : IApplicationService
     {
         Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input);
-
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
         Task<WorkingPositionDto> GetAsync(Guid id);
 

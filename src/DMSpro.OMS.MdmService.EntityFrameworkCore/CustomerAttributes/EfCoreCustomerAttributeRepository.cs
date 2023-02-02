@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
-    public class EfCoreCustomerAttributeRepository : EfCoreRepository<MdmServiceDbContext, CustomerAttribute, Guid>, ICustomerAttributeRepository
+    public partial class EfCoreCustomerAttributeRepository : EfCoreRepository<MdmServiceDbContext, CustomerAttribute, Guid>, ICustomerAttributeRepository
     {
         public EfCoreCustomerAttributeRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

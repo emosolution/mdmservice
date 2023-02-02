@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
-    public class EfCorePriceListDetailRepository : EfCoreRepository<MdmServiceDbContext, PriceListDetail, Guid>, IPriceListDetailRepository
+    public partial class EfCorePriceListDetailRepository : EfCoreRepository<MdmServiceDbContext, PriceListDetail, Guid>, IPriceListDetailRepository
     {
         public EfCorePriceListDetailRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)
