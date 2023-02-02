@@ -8,8 +8,6 @@ using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
-using Microsoft.IdentityModel.Tokens;
-using Volo.Saas.Tenants;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 

@@ -16,6 +16,9 @@ using Volo.Abp;
 using Volo.Abp.Modularity;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.Vendors;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.VATs;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -105,6 +108,9 @@ public class MdmServiceHttpApiHostModule : AbpModule
             endpoints.MapMetrics();
             endpoints.MapGrpcService<CompaniesGRPCAppService>();
             endpoints.MapGrpcService<VendorsGRPCAppService>();
+            endpoints.MapGrpcService<CustomersGRPCAppService>();
+            endpoints.MapGrpcService<SalesOrgHierarchiesGRPCAppService>();
+            endpoints.MapGrpcService<VATsGRPCAppService>();
         });
     }
 

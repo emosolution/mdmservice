@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using DMSpro.OMS.Shared.Protos.MdmService.Vendors;
 using DMSpro.OMS.MdmService.Helpers;
-using Castle.Components.DictionaryAdapter.Xml;
 
 namespace DMSpro.OMS.MdmService.Vendors;
 

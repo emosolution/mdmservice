@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using DMSpro.OMS.Shared.Protos.MdmService.VATs;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.VATs;
 
@@ -14,28 +16,32 @@ public class VATsGRPCAppService : VATsProtoAppService.VATsProtoAppServiceBase
         _repository = repository;
     }
 
-    public override async Task<VATResponse> GetVAT(GetVATRequest request, ServerCallContext context)
+    public override async Task<ListVATResponse> GetListVAT(GetListVATRequest request, ServerCallContext context)
     {
-        Guid id = new (request.VATId);
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
-        var entity = await _repository.GetAsync(id);
-        var response = new VATResponse();
-        if (entity == null)
+        List<DMSpro.OMS.Shared.Protos.MdmService.VATs.VAT> VATs = new();
+        IQueryable<VAT> queryable = await _repository.GetQueryableAsync();
+        var query = from vat in queryable
+            where request.VATIds.Contains(vat.Id.ToString())
+            select vat;
+        List<VAT> entities = query.ToList<VAT>();
+        foreach (VAT entity in entities)
         {
-            return response;
+            if (tenantId != entity.TenantId)
+            {
+                continue;
+            }
+            VATs.Add(new DMSpro.OMS.Shared.Protos.MdmService.VATs.VAT()
+            {
+                Id = entity.Id.ToString(),
+                TenantId = request.TenantId,
+                Code = entity.Code,
+                Name = entity.Name,
+                Rate = entity.Rate,
+            });
         }
-        if (tenantId != entity.TenantId) 
-        {
-            return response;
-        }
-        response.VAT = new OMS.Shared.Protos.MdmService.VATs.VAT()
-        {
-            Id = entity.Id.ToString(),
-            TenantId = request.TenantId,
-            Code = entity.Code,
-            Name = entity.Name,
-            Rate = entity.Rate,
-        };
+        ListVATResponse response = new();
+        response.VATs.Add(VATs);
         return response;
     }
 }
