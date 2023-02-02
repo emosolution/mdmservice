@@ -99,6 +99,14 @@ public partial class CompanyIdentityUserAssignmentClientProxy : ClientProxyBase<
         });
     }
 
+    public virtual async Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListCompanyByCurrentUserAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
+    }
+
     public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
     {
         return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue
