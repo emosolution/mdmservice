@@ -33,7 +33,7 @@ public class VATsGRPCAppService : VATsProtoAppService.VATsProtoAppServiceBase
             }
             VATs.Add(new DMSpro.OMS.Shared.Protos.MdmService.VATs.VAT()
             {
-                Id = entity.Id.ToString(),
+                //Id = entity.Id.ToString(),
                 TenantId = request.TenantId,
                 Code = entity.Code,
                 Name = entity.Name,

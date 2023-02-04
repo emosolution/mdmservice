@@ -1,13 +1,12 @@
+using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.Shared;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
-using DMSpro.OMS.MdmService.Companies;
+using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Content;
-using Microsoft.AspNetCore.Http;
 
 namespace DMSpro.OMS.MdmService.Controllers.Companies
 {
@@ -36,7 +35,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
         {
             return _companiesAppService.GetWithNavigationPropertiesAsync(id);
         }
-        
+
         [HttpGet]
         [Route("{id}")]
         public virtual Task<CompanyDto> GetAsync(Guid id)
