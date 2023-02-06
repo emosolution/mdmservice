@@ -40,8 +40,9 @@ namespace DMSpro.OMS.MdmService.Companies
                 throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
             }
 
-            if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-                //|| !Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)) //not support file extention
+            if (!(Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase) 
+                || Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
+                //not support file extention
             {
                 throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
             }
@@ -69,16 +70,6 @@ namespace DMSpro.OMS.MdmService.Companies
                         var sheetTable = worksheets[i * 2];
                         var sheetData = worksheets[i * 2 + 1];
 
-                        //var table = new DataTable();
-                        //var data = new DataTable();
-
-                        //table = ReadExcelToDataTable(sheetTable, true);
-
-                        //var rowCount = table.Rows.Count;
-                        //var columnCount = data.Columns.Count;
-
-                        //if (rowCount != columnCount) throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-
                         var data = ReadExcelToDatatable(sheetTable, sheetData);
 
                         companies = data.AsEnumerable().Select(row =>
@@ -95,7 +86,7 @@ namespace DMSpro.OMS.MdmService.Companies
                                 GeoLevel1Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel1Code"]).Result,
                                 GeoLevel2Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel2Code"]).Result,
                                 GeoLevel3Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel3Code"]).Result,
-                                //GeoLevel4Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel4Code"]).Result,
+                                GeoLevel4Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel4Code"]).Result,
                             };
 
                         }).ToList();
@@ -103,91 +94,71 @@ namespace DMSpro.OMS.MdmService.Companies
                 }
             }
 
-            //await _companyRepository.InsertManyAsync(companies);
+            await _companyRepository.InsertManyAsync(companies);
 
             return companies.Count;
         }
 
-        private DataTable ReadExcelAndCreateDataTable(ExcelWorksheet worksheet)
-        {
-            DataTable dt = new DataTable();
+        //private DataTable ReadExcelAndCreateDataTable(ExcelWorksheet worksheet)
+        //{
+        //    DataTable dt = new DataTable();
 
-            //int totalColumns = worksheet.Dimension.End.Column;
-            //int totalRows = worksheet.Dimension.End.Row;
+        //    var rowCount = worksheet.Dimension.End.Row;
+        //    var colCount = worksheet.Dimension.End.Column;
 
-            //for (int i = 1; i <= totalColumns; i++)
-            //{
-            //    dataTable.Columns.Add();
-            //}
+        //    //create a list to hold the column names
+        //    var columnNames = new List<string>();
 
-            //for (int i = 1; i <= totalRows; i++)
-            //{
-            //    DataRow dr = dataTable.NewRow();
-            //    for (int j = 1; j <= totalColumns; j++)
-            //    {
-            //        dr[j - 1] = worksheet.Cells[i, j].Value;
-            //    }
-            //    dataTable.Rows.Add(dr);
-            //}
+        //    //needed to keep track of empty column headers
+        //    int currentColumn = 1;
 
-            //return dataTable;
+        //    //loop all columns in the sheet and add them to the datatable
+        //    foreach (var cell in worksheet.Cells[1, 1, 1, colCount])
+        //    {
+        //        string columnName = cell.Text.Trim();
 
-            var rowCount = worksheet.Dimension.End.Row;
-            var colCount = worksheet.Dimension.End.Column;
+        //        //check if the previous header was empty and add it if it was
+        //        if (cell.Start.Column != currentColumn)
+        //        {
+        //            columnNames.Add("Header_" + currentColumn);
+        //            dt.Columns.Add("Header_" + currentColumn);
+        //            currentColumn++;
+        //        }
 
-            //create a list to hold the column names
-            var columnNames = new List<string>();
+        //        //add the column name to the list to count the duplicates
+        //        columnNames.Add(columnName);
 
-            //needed to keep track of empty column headers
-            int currentColumn = 1;
+        //        //count the duplicate column names and make them unique to avoid the exception
+        //        //A column named 'Name' already belongs to this DataTable
+        //        int occurrences = columnNames.Count(x => x.Equals(columnName));
+        //        if (occurrences > 1)
+        //        {
+        //            columnName = columnName + "_" + occurrences;
+        //        }
 
-            //loop all columns in the sheet and add them to the datatable
-            foreach (var cell in worksheet.Cells[1, 1, 1, colCount])
-            {
-                string columnName = cell.Text.Trim();
+        //        //add the column to the datatable
+        //        dt.Columns.Add(columnName);
 
-                //check if the previous header was empty and add it if it was
-                if (cell.Start.Column != currentColumn)
-                {
-                    columnNames.Add("Header_" + currentColumn);
-                    dt.Columns.Add("Header_" + currentColumn);
-                    currentColumn++;
-                }
+        //        currentColumn++;
+        //    }
 
-                //add the column name to the list to count the duplicates
-                columnNames.Add(columnName);
+        //    //start adding the contents of the excel file to the companies
+        //    for (int i = 2; i <= rowCount; i++)
+        //    {
+        //        var row = worksheet.Cells[i, 1, i, colCount];
+        //        int count = row.Columns;
+        //        var newRow = dt.NewRow();
 
-                //count the duplicate column names and make them unique to avoid the exception
-                //A column named 'Name' already belongs to this DataTable
-                int occurrences = columnNames.Count(x => x.Equals(columnName));
-                if (occurrences > 1)
-                {
-                    columnName = columnName + "_" + occurrences;
-                }
+        //        //loop all cells in the row
+        //        foreach (var cell in row)
+        //        {
+        //            newRow[cell.Start.Column - 1] = cell.Value;
+        //        }
+        //        dt.Rows.Add(newRow);
+        //    }
 
-                //add the column to the datatable
-                dt.Columns.Add(columnName);
-
-                currentColumn++;
-            }
-
-            //start adding the contents of the excel file to the companies
-            for (int i = 2; i <= rowCount; i++)
-            {
-                var row = worksheet.Cells[i, 1, i, colCount];
-                int count = row.Columns;
-                var newRow = dt.NewRow();
-
-                //loop all cells in the row
-                foreach (var cell in row)
-                {
-                    newRow[cell.Start.Column - 1] = cell.Value;
-                }
-                dt.Rows.Add(newRow);
-            }
-
-            return dt;
-        }
+        //    return dt;
+        //}
 
         private DataTable ReadExcelToDatatable(ExcelWorksheet sheetTable, ExcelWorksheet sheetData)
         {
