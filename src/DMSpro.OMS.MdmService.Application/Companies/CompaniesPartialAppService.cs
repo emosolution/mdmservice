@@ -22,7 +22,9 @@ namespace DMSpro.OMS.MdmService.Companies
 			var base_dataloadoption = new DataSourceLoadOptionsBase();
 			DataLoadParser.Parse(base_dataloadoption,inputDev);
 			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(results.data.Cast<Company>());
+
+			if(string.IsNullOrEmpty(inputDev.Group))
+				results.data = ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(results.data.Cast<Company>());
 			return results;
 		}
 
