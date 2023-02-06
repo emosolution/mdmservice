@@ -5,7 +5,6 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.Companies
@@ -14,13 +13,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
     [Area("mdmService")]
     [ControllerName("Company")]
     [Route("api/mdm-service/companies")]
-    public partial class CompanyController : AbpController, ICompaniesAppService
+    public partial class CompanyController : PartialController<ICompaniesAppService>, ICompaniesAppService
     {
         private readonly ICompaniesAppService _companiesAppService;
 
-        public CompanyController(ICompaniesAppService companiesAppService)
+        public CompanyController(ICompaniesAppService appService) : base(appService)
         {
-            _companiesAppService = companiesAppService;
+            _companiesAppService = appService;
         }
 
         [HttpGet]
