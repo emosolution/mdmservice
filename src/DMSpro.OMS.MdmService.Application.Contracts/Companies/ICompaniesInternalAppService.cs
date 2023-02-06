@@ -8,8 +8,6 @@ namespace DMSpro.OMS.MdmService.Companies
 {
     public interface ICompaniesInternalAppService : IApplicationService
     {
-        //Task<CompanyWithTenantDto> GetWithTenantIdAsynce(Guid id);
-
         Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUser(Guid identityUserId, Guid? tenantId);
 
         Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUser(Guid companyId, Guid identityUserId, Guid? tenantId);

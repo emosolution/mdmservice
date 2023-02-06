@@ -3,47 +3,46 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using DMSpro.OMS.Shared.Protos.MdmService.Vendors;
 using DMSpro.OMS.MdmService.Helpers;
+using DMSpro.OMS.Shared.Protos.MdmService.Customers;
+using System.Linq;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Vendors;
 
 public class VendorsGRPCAppService : VendorsProtoAppService.VendorsProtoAppServiceBase
 {
-    readonly IVendorsInternalAppService _vendorsInternalAppService;
+    readonly IVendorRepository _repository;
 
-    public VendorsGRPCAppService(IVendorsInternalAppService vendorsInternalAppService)
+    public VendorsGRPCAppService(IVendorRepository repository)
     {
-        _vendorsInternalAppService = vendorsInternalAppService;
+        _repository = repository;
     }
 
 
     public override async Task<VendorResponse> GetVendor(GetVendorRequest request, ServerCallContext context)
     {
-        Guid vendorId = new (request.VendorId);
+        Guid id = new (request.VendorId);
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
-        VendorWithTenantDto vendorDto = await _vendorsInternalAppService.GetWithTenantIdAsynce(vendorId);
+        IQueryable<Vendor> queryable = await _repository.GetQueryableAsync();
+        var query = from item in queryable
+                    where item.Id == id && item.TenantId == tenantId
+                    select item;
+        Vendor vendor = query.FirstOrDefault();
         var response = new VendorResponse();
-
-        if (vendorDto == null)
-        {
-            return response;
-        }
-
-        if (tenantId != vendorDto.TenantId) 
+        if (vendor == null)
         {
             return response;
         }
 
         response.Vendor = new OMS.Shared.Protos.MdmService.Vendors.Vendor()
         {
-            Id = vendorDto.Id.ToString(),
-            CompanyId = vendorDto.CompanyId.ToString(),
-
+            Id = vendor.Id.ToString(),
+            CompanyId = vendor.CompanyId.ToString(),
             TenantId = request.TenantId,
-
-            Code = vendorDto.Code,
-            Name = vendorDto.Name,
-            ShortName = vendorDto.ShortName,
-            Active = MDMHelpers.CheckActive(vendorDto.Active, vendorDto.CreationTime, vendorDto.EndDate),
+            Code = vendor.Code,
+            Name = vendor.Name,
+            ShortName = vendor.ShortName,
+            Active = MDMHelpers.CheckActive(vendor.Active, vendor.CreationTime, vendor.EndDate),
         };
         return response;
     }

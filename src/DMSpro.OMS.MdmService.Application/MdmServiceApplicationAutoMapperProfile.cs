@@ -193,7 +193,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<EmployeeProfile, EmployeeProfileDto>();
-        CreateMap<EmployeeProfile, EmployeeProfileWithTenantDto>();
         CreateMap<EmployeeProfile, EmployeeProfileExcelDto>();
         CreateMap<EmployeeProfileWithNavigationProperties, EmployeeProfileWithNavigationPropertiesDto>();
         CreateMap<WorkingPosition, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -233,7 +232,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesOrgHeader, SalesOrgHeaderExcelDto>();
 
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyDto>();
-        CreateMap<SalesOrgHierarchy, SalesOrgHierarchyWithTenantDto>();
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyExcelDto>();
         CreateMap<SalesOrgHierarchyWithNavigationProperties, SalesOrgHierarchyWithNavigationPropertiesDto>();
         CreateMap<SalesOrgHeader, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -257,7 +255,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Customer, CustomerDto>();
         CreateMap<Customer, CustomerExcelDto>();
-        CreateMap<Customer, CustomerWithTenantDto>();
         CreateMap<CustomerWithNavigationProperties, CustomerWithNavigationPropertiesDto>();
         CreateMap<Customer, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
@@ -274,7 +271,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Vendor, VendorDto>();
         CreateMap<Vendor, VendorExcelDto>();
-        CreateMap<Vendor, VendorWithTenantDto>();
 
         CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
 
