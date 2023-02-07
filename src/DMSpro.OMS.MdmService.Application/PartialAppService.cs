@@ -21,7 +21,7 @@ using System.Text.Json;
 
 namespace DMSpro.OMS.MdmService
 {
-    public class PartialsAppService<T, TDto, TRepository> : ApplicationService, IPartialsAppservice
+    public class PartialAppService<T, TDto, TRepository> : ApplicationService, IPartialAppservice
         where T : class, IEntity, new()
         where TDto : class
         where TRepository : class, IRepository<T>
@@ -46,7 +46,7 @@ namespace DMSpro.OMS.MdmService
 
         protected readonly Dictionary<string, object> _repositories = new();
 
-        public PartialsAppService(ICurrentTenant currentTenant, TRepository repository)
+        public PartialAppService(ICurrentTenant currentTenant, TRepository repository)
         {
             _repository = repository;
             _currentTenant = currentTenant;

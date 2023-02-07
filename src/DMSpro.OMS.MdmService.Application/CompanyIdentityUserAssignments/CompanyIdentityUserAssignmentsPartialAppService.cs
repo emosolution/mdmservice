@@ -18,19 +18,9 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 		{
 			var items = await _companyIdentityUserAssignmentRepository.GetQueryableAsync();
 			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
+			DataLoadParser.Parse(base_dataloadoption, inputDev);
 			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
 			results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignment>, IEnumerable<CompanyIdentityUserAssignmentDto>>(results.data.Cast<CompanyIdentityUserAssignment>());
-			return results;
-		}
-
-		public virtual async Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(CurrentUser.Id.Value);
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
 			return results;
 		}
 

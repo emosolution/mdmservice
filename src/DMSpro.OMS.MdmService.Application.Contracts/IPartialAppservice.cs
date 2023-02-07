@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DMSpro.OMS.MdmService
 {
-    public interface IPartialsAppservice
+    public interface IPartialAppservice
     {
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
         Task<int> InsertFromExcelAsync(IFormFile file);

@@ -9,12 +9,12 @@ using Volo.Abp.AspNetCore.Mvc;
 
 namespace DMSpro.OMS.MdmService.Controllers
 {
-    public class PartialController<TAppService> : AbpController, IPartialsAppservice
-        where TAppService : class, IPartialsAppservice
+    public class PartialController<TAppService> : AbpController, IPartialAppservice
+        where TAppService : class, IPartialAppservice
     {
-        private readonly IPartialsAppservice _appService;
+        private readonly IPartialAppservice _appService;
 
-        public PartialController(IPartialsAppservice appService)
+        public PartialController(IPartialAppservice appService)
         {
             _appService = appService;
         }
