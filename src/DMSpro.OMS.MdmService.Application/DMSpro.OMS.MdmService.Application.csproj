@@ -20,6 +20,18 @@
 		<PackageReference Include="Hangfire.SqlServer" Version="1.7.29" />
 	</ItemGroup>
 
+	<!-- gRPC 7.0 -->
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.0" />
+		<Protobuf Include="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\IdentityService\*.proto" 
+				  AdditionalImportDirs="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\google\;..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\shared\" 
+				  GrpcServices="Client" />
+		<Protobuf Include="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\Shared\*.proto" 
+				  AdditionalImportDirs="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\google\" 
+				  GrpcServices="Client" />
+	</ItemGroup>
+
 	<!-- DEVEXTREME -->
 	<ItemGroup>
 		<None Remove="DMSpro.OMS.Shared.Lib" />

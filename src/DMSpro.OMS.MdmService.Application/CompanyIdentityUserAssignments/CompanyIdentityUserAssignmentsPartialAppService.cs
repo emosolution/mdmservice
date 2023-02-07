@@ -9,40 +9,38 @@ using Microsoft.AspNetCore.Http;
 using Volo.Abp;
 using System.IO;
 using System;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.GeoMasters;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
+using Microsoft.Extensions.Configuration;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-	public partial class CompanyIdentityUserAssignmentsAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _companyIdentityUserAssignmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption, inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignment>, IEnumerable<CompanyIdentityUserAssignmentDto>>(results.data.Cast<CompanyIdentityUserAssignment>());
-			return results;
-		}
+    public partial class CompanyIdentityUserAssignmentsAppService :
+        PartialAppService<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto, ICompanyIdentityUserAssignmentRepository>,
+        ICompanyIdentityUserAssignmentsAppService
+    {
+        private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
+        private readonly IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        private readonly CompanyIdentityUserAssignmentManager _companyIdentityUserAssignmentManager;
+        private readonly ICompanyRepository _companyRepository;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        public CompanyIdentityUserAssignmentsAppService(ICurrentTenant currentTenant,
+            ICompanyIdentityUserAssignmentRepository repository,
+            CompanyIdentityUserAssignmentManager companyIdentityUserAssignmentManager,
+            IConfiguration settingProvider,
+            ICompanyRepository companyRepository,
+            IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _companyIdentityUserAssignmentRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _companyIdentityUserAssignmentManager = companyIdentityUserAssignmentManager;
+            _companyRepository = companyRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _companyIdentityUserAssignmentRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
+        }
 	}
 }

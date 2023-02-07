@@ -18,6 +18,9 @@ using System.Reflection;
 using Volo.Abp.Data;
 using Volo.Abp.MultiTenancy;
 using System.Text.Json;
+using Grpc.Net.Client;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.Shared.Protos.Shared.Import;
 
 namespace DMSpro.OMS.MdmService
 {
@@ -29,6 +32,7 @@ namespace DMSpro.OMS.MdmService
         protected readonly IRepository<T> _repository;
 
         private readonly ICurrentTenant _currentTenant;
+        private readonly IConfiguration _settingProvider;
         private static readonly List<Type> _knownNumberTypes = new()
         {
             typeof(uint),
@@ -39,17 +43,22 @@ namespace DMSpro.OMS.MdmService
         private Dictionary<string, Type> _entityProperties = new();
         private readonly Dictionary<string, string> _getIdByCodeFromDBAndSheet = new();
         private readonly Dictionary<string, string> _getIdByCodeFromDBOnly = new();
+        private readonly Dictionary<string, string> _getIdFromGRPC = new();
         private readonly Dictionary<string, Guid> _entityCodeAndIdFromSheet = new();
         private readonly Dictionary<string, List<string>> _codeToGetFromDB = new();
+        private readonly Dictionary<string, List<string>> _codeToGetFromGRPC = new();
         private readonly Dictionary<Guid, Dictionary<string, string>> _entityCodeValue = new();
         private readonly Dictionary<string, bool> _codePropertyAllowNull = new();
+        private readonly Dictionary<string, string> _grpcInfo = new();
 
         protected readonly Dictionary<string, object> _repositories = new();
 
-        public PartialAppService(ICurrentTenant currentTenant, TRepository repository)
+        public PartialAppService(ICurrentTenant currentTenant,
+            TRepository repository, IConfiguration settingProvider)
         {
             _repository = repository;
             _currentTenant = currentTenant;
+            _settingProvider = settingProvider;
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -171,13 +180,16 @@ namespace DMSpro.OMS.MdmService
             }
 
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB(result);
-            FillIdByCodeProperties(result, idAndCodeFromDB);
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC = await FindIdByCodeFromGRPC(result, tenantId);
+            FillIdByCodeProperties(result, idAndCodeFromDB, idAndCodeFromGRPC);
 
             return result;
 
         }
 
-        private void FillIdByCodeProperties(List<T> entities, Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB)
+        private void FillIdByCodeProperties(List<T> entities, 
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB,
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC)
         {
             foreach (T entity in entities)
             {
@@ -219,7 +231,37 @@ namespace DMSpro.OMS.MdmService
                     }
                     property.SetValue(entity, id);
                 }
+                foreach (string propertyName in _getIdFromGRPC.Keys)
+                {
+                    string repoName = _getIdFromGRPC[propertyName];
+                    PropertyInfo property = entityType.GetProperty(propertyName);
+                    string code = GetCodeForProperty(entityId, property, repoName);
+                    id = GetIdByCodeFromGRPC(repoName, code, idAndCodeFromGRPC);
+                    if (id == null && !_codePropertyAllowNull[propertyName])
+                    {
+                        var detailDict = new Dictionary<string, string> { ["code"] = code };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportHandler:566",
+                            code: "1", details: detailString);
+                    }
+                    property.SetValue(entity, id);
+                }
             }
+        }
+
+        private Guid? GetIdByCodeFromGRPC(string repoName, string code,
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC)
+        {
+            if (code == null)
+            {
+                return null;
+            }
+            Dictionary<string, Guid> idAndCode = idAndCodeFromGRPC[repoName];
+            if (!idAndCode.ContainsKey(code))
+            {
+                return null;
+            }
+            return idAndCode[code];
         }
 
         private Guid? GetIdByCodeFromSheet(string code)
@@ -252,7 +294,7 @@ namespace DMSpro.OMS.MdmService
             return codePropertyAndValue[property.Name];
         }
 
-        private Guid? GetIdByCodeFromDB(string repoName, string code,
+        private static Guid? GetIdByCodeFromDB(string repoName, string code,
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB)
         {
             if (code == null)
@@ -267,6 +309,57 @@ namespace DMSpro.OMS.MdmService
             return idAndCode[code];
         }
 
+        private async Task<Dictionary<string, Dictionary<string, Guid>>> 
+            FindIdByCodeFromGRPC(List<T> entities, Guid? tenantId)
+        {
+            Dictionary<string, Dictionary<string, Guid>> result = new();
+            foreach (string repoName in _codeToGetFromGRPC.Keys)
+            {
+                List<string> codes = _codeToGetFromGRPC[repoName];
+                if (codes.Count < 1)
+                {
+                    continue;
+                }
+                string connectionString = _grpcInfo[repoName];
+                using (GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider[connectionString]))
+                {
+                    string typeName = $"{repoName}ProtoAppService.{repoName}ProtoAppServiceClient";
+                    Type repoType = Type.GetType(typeName);
+                    object client = Activator.CreateInstance(repoType, args: channel);
+                    MethodInfo method = client.GetType().GetMethod("GetCodeAndIdWithCode");
+                    if (method == null)
+                    {
+                        var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportHandler:564",
+                            code: "1", details: detailString);
+                    }
+
+                    ListCodeAndIdRequest request = new();
+                    request.TenantId = tenantId == null ? "" : tenantId.ToString();
+                    request.Codes.Add(codes);
+                    object resultTask = method.Invoke(client, new object[] { request });
+                    if (resultTask is Task<ListCodeAndIdResponse> task)
+                    {
+                        ListCodeAndIdResponse response = await task;
+                        List<CodeAndId> items = response.CodeAndIds.ToList();
+                        if (items.Count != codes.Count)
+                        {
+                            throw new BusinessException(message: "Error:ImportHandler:565", code: "1");
+                        }
+                        Dictionary<string, Guid> foundCodeAndIds = new();
+                        foreach (CodeAndId item in items)
+                        {
+                            string code = item.Code;
+                            Guid id = Guid.Parse(item.Id);
+                            foundCodeAndIds.Add(code, id);
+                        }
+                        result.Add(repoName, foundCodeAndIds);
+                    }
+                }
+            }
+            return result;
+        }
 
         private async Task<Dictionary<string, Dictionary<string, Guid>>> FindIdByCodeFromDB(List<T> entities)
         {
@@ -292,8 +385,8 @@ namespace DMSpro.OMS.MdmService
                 {
                     var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportHandler:559", 
-                        code: "1", details:detailString);
+                    throw new BusinessException(message: "Error:ImportHandler:559",
+                        code: "1", details: detailString);
                 }
 
                 object resultTask = method.Invoke(repo, new object[] { codes });
@@ -329,7 +422,8 @@ namespace DMSpro.OMS.MdmService
         private void HandleGuidType(T entity, PropertyInfo property, string propertyName, Object value, Guid entityId)
         {
             if (!_getIdByCodeFromDBOnly.ContainsKey(propertyName) &&
-                !_getIdByCodeFromDBAndSheet.ContainsKey(propertyName))
+                !_getIdByCodeFromDBAndSheet.ContainsKey(propertyName) &&
+                !_getIdFromGRPC.ContainsKey(propertyName))
             {
                 Guid? id = value == null || string.IsNullOrEmpty(value.ToString()) ?
                     null : Guid.Parse(value.ToString());
@@ -350,26 +444,34 @@ namespace DMSpro.OMS.MdmService
             string code = value.ToString();
             codePropertyNameAndValue.Add(propertyName, code);
             string repoName = "";
+            Dictionary<string, List<string>> codeList = null;
             if (_getIdByCodeFromDBOnly.ContainsKey(propertyName))
             {
                 repoName = _getIdByCodeFromDBOnly[propertyName];
+                codeList = _codeToGetFromDB;
             }
             else if (_getIdByCodeFromDBAndSheet.ContainsKey(propertyName))
             {
                 repoName = _getIdByCodeFromDBAndSheet[propertyName];
+                codeList = _codeToGetFromDB;
+            }
+            else if (_getIdFromGRPC.ContainsKey(propertyName))
+            {
+                repoName = _getIdFromGRPC[propertyName];
+                codeList = _codeToGetFromGRPC;
             }
             if (string.IsNullOrEmpty(repoName))
             {
                 var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:561", 
+                throw new BusinessException(message: "Error:ImportHandler:561",
                     code: "1", details: detailString);
             }
-            if (!_codeToGetFromDB.ContainsKey(repoName))
+            if (!codeList.ContainsKey(repoName))
             {
-                _codeToGetFromDB.Add(repoName, new List<string>());
+                codeList.Add(repoName, new List<string>());
             }
-            List<string> codes = _codeToGetFromDB[repoName];
+            List<string> codes = codeList[repoName];
             if (codes.Contains(code))
             {
                 return;
@@ -403,6 +505,27 @@ namespace DMSpro.OMS.MdmService
                 {
                     _getIdByCodeFromDBOnly.Add(col.ColumnName, getIdByCodeFromDBOnlyValue.ToString().Trim());
                     _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                }
+
+                var getIdFromGRPCValue = sheetTable.Cells[i, 6].Value;
+                if (getIdFromGRPCValue != null)
+                {
+                    string protoName = getIdFromGRPCValue.ToString().Trim();
+                    var gRPCConnectionString = sheetTable.Cells[i, 7].Value;
+                    if (gRPCConnectionString != null)
+                    {
+                        string connectionString = gRPCConnectionString.ToString().Trim();
+                        _getIdFromGRPC.Add(col.ColumnName, protoName);
+                        _grpcInfo.Add(protoName, connectionString);
+                        _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                    }
+                    else
+                    {
+                        var detailDict = new Dictionary<string, string> { ["columnName"] = col.ColumnName };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportHandler:563",
+                            code: "1", details: detailString);
+                    }
                 }
 
                 switch (sheetTable.Cells[i, 2].Value.ToString().Trim())
@@ -476,12 +599,13 @@ namespace DMSpro.OMS.MdmService
                 var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
                 if (!knownTypes.Contains(type))
                 {
-                    var detailDict = new Dictionary<string, string> { 
+                    var detailDict = new Dictionary<string, string>
+                    {
                         ["propertyName"] = prop.Name,
                         ["typeName"] = type.Name,
                     };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportHandler:562", 
+                    throw new BusinessException(message: "Error:ImportHandler:562",
                         code: "1", details: detailString);
                 }
                 result.Add(prop.Name, type);

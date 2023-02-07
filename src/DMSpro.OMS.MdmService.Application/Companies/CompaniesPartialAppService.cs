@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -18,15 +19,16 @@ namespace DMSpro.OMS.MdmService.Companies
         public CompaniesAppService(ICurrentTenant currentTenant,
             ICompanyRepository repository,
             CompanyManager companyManager,
+            IConfiguration settingProvider,
             IGeoMasterRepository geoMasterRepository,
             IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository)
+            : base(currentTenant, repository, settingProvider)
         {
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyManager = companyManager;
             _geoMasterRepository = geoMasterRepository;
-            
+
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IGeoMasterRepository", _geoMasterRepository));
             _repositories.AddIfNotContains(
