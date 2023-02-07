@@ -71,14 +71,14 @@ namespace DMSpro.OMS.MdmService
         {
             if (file == null || file.Length <= 0) //file empty
             {
-                throw new BusinessException(message: "Error:ImportExportHandler:550", code: "0");
+                throw new BusinessException(message: "Error:ImportHandler:550", code: "0");
             }
 
             if (!(Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase)
                 || Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
             //not support file extention
             {
-                throw new BusinessException(message: "Error:ImportExportHandler:551", code: "0");
+                throw new BusinessException(message: "Error:ImportHandler:551", code: "0");
             }
 
             List<T> entities = new();
@@ -96,7 +96,7 @@ namespace DMSpro.OMS.MdmService
 
                     if (worksheets.Count % 2 != 0)
                     {
-                        throw new BusinessException(message: "Error:ImportExportHandler:552", code: "0");
+                        throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
                     }
 
                     int tableCount = worksheets.Count / 2;
@@ -133,7 +133,7 @@ namespace DMSpro.OMS.MdmService
                     {
                         var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportExportHandler:553",
+                        throw new BusinessException(message: "Error:ImportHandler:553",
                             code: "0", details: detailString);
                     }
                     Type type = _entityProperties[propertyName];
@@ -195,7 +195,7 @@ namespace DMSpro.OMS.MdmService
                     {
                         var detailDict = new Dictionary<string, string> { ["code"] = code };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportExportHandler:554",
+                        throw new BusinessException(message: "Error:ImportHandler:554",
                             code: "1", details: detailString);
                     }
                     property.SetValue(entity, id);
@@ -214,7 +214,7 @@ namespace DMSpro.OMS.MdmService
                     {
                         var detailDict = new Dictionary<string, string> { ["code"] = code };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportExportHandler:555",
+                        throw new BusinessException(message: "Error:ImportHandler:555",
                             code: "1", details: detailString);
                     }
                     property.SetValue(entity, id);
@@ -239,14 +239,14 @@ namespace DMSpro.OMS.MdmService
         {
             if (!_entityCodeValue.Keys.Contains(entityId))
             {
-                throw new BusinessException(message: "Error:ImportExportHandler:556", code: "1");
+                throw new BusinessException(message: "Error:ImportHandler:556", code: "1");
             }
             Dictionary<string, string> codePropertyAndValue = _entityCodeValue[entityId];
             if (!codePropertyAndValue.ContainsKey(property.Name))
             {
                 var detailDict = new Dictionary<string, string> { ["propertyName"] = property.Name };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportExportHandler:557",
+                throw new BusinessException(message: "Error:ImportHandler:557",
                     code: "1", details: detailString);
             }
             return codePropertyAndValue[property.Name];
@@ -282,7 +282,7 @@ namespace DMSpro.OMS.MdmService
                 {
                     var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportExportHandler:558",
+                    throw new BusinessException(message: "Error:ImportHandler:558",
                         code: "1", details: detailString);
                 }
                 object repo = _repositories[repoName];
@@ -292,7 +292,7 @@ namespace DMSpro.OMS.MdmService
                 {
                     var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportExportHandler:559", 
+                    throw new BusinessException(message: "Error:ImportHandler:559", 
                         code: "1", details:detailString);
                 }
 
@@ -302,7 +302,7 @@ namespace DMSpro.OMS.MdmService
                     Dictionary<string, Guid> idAndCode = await task;
                     if (idAndCode.Count != codes.Count)
                     {
-                        throw new BusinessException(message: "Error:ImportExportHandler:560", code: "1");
+                        throw new BusinessException(message: "Error:ImportHandler:560", code: "1");
                     }
                     result.Add(repoName, idAndCode);
                 }
@@ -362,7 +362,7 @@ namespace DMSpro.OMS.MdmService
             {
                 var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportExportHandler:561", 
+                throw new BusinessException(message: "Error:ImportHandler:561", 
                     code: "1", details: detailString);
             }
             if (!_codeToGetFromDB.ContainsKey(repoName))
@@ -481,7 +481,7 @@ namespace DMSpro.OMS.MdmService
                         ["typeName"] = type.Name,
                     };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportExportHandler:562", 
+                    throw new BusinessException(message: "Error:ImportHandler:562", 
                         code: "1", details: detailString);
                 }
                 result.Add(prop.Name, type);
