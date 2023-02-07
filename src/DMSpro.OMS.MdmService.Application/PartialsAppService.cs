@@ -16,20 +16,19 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Application.Dtos;
 using System.Reflection;
-using Org.BouncyCastle.Asn1.Cms;
 using Volo.Abp.Data;
+using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService
 {
     public class PartialsAppService<T, TDto, TRepository> : ApplicationService, IPartialsAppservice
-        where T : class, IEntity<Guid>, new()
-        where TDto : class, IEntityDto
-        where TRepository : class, IRepository<T, Guid>
+        where T : class, IEntity, new()
+        where TDto : class
+        where TRepository : class, IRepository<T>
     {
-        protected readonly IRepository<T, Guid> _repository;
-        
-        private readonly Dictionary<string, Type> _entityProperties = new();
-        private static readonly Dictionary<string, bool> _entityGetIdByCode = new();
+        protected readonly IRepository<T> _repository;
+
+        private readonly ICurrentTenant _currentTenant;
         private static readonly List<Type> _knownNumberTypes = new()
         {
             typeof(uint),
@@ -37,10 +36,20 @@ namespace DMSpro.OMS.MdmService
             typeof(decimal),
         };
 
-        public PartialsAppService(TRepository repository)
+        private Dictionary<string, Type> _entityProperties = new();
+        private readonly Dictionary<string, string> _getIdByCodeFromDBAndSheet = new();
+        private readonly Dictionary<string, string> _getIdByCodeFromDBOnly = new();
+        private readonly Dictionary<string, Guid> _entityCodeAndIdFromSheet = new();
+        private readonly Dictionary<string, List<string>> _codeToGetFromDB = new();
+        private readonly Dictionary<Guid, Dictionary<string, string>> _entityCodeValue = new();
+        private readonly Dictionary<string, bool> _codePropertyAllowNull = new();
+
+        protected readonly Dictionary<string, object> _repositories = new();
+
+        public PartialsAppService(ICurrentTenant currentTenant, TRepository repository)
         {
             _repository = repository;
-            _entityProperties = GetEntityProperties();
+            _currentTenant = currentTenant;
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -72,7 +81,8 @@ namespace DMSpro.OMS.MdmService
                 throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
             }
 
-            var entities = new List<T>();
+            List<T> entities = new();
+            _entityProperties = GetEntityProperties();
 
             using (var stream = new MemoryStream())
             {
@@ -103,6 +113,7 @@ namespace DMSpro.OMS.MdmService
             }
 
             await _repository.InsertManyAsync(entities);
+            await UnitOfWorkManager.Current.SaveChangesAsync();
 
             return entities.Count;
         }
@@ -110,17 +121,26 @@ namespace DMSpro.OMS.MdmService
         private async Task<List<T>> CreateEntityList(DataTable data)
         {
             List<T> result = new();
+            Guid? tenantId = _currentTenant.Id;
+
             foreach (DataRow row in data.AsEnumerable())
             {
                 T entity = new();
-                foreach (string propertyName in _entityProperties.Keys)
+                Guid id = GuidGenerator.Create();
+                foreach (DataColumn col in data.Columns)
                 {
+                    string propertyName = col.ColumnName;
+                    if (!_entityProperties.ContainsKey(propertyName))
+                    {
+                        throw new BusinessException(message: $"Entity does not have a property named {propertyName}.", code: "1");
+                    }
                     Type type = _entityProperties[propertyName];
                     var value = row[propertyName];
                     var property = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
                     if (type == typeof(string))
                     {
-                        property.SetValue(entity, value);
+                        string valueString = value == null || value == DBNull.Value ? "" : value.ToString();
+                        property.SetValue(entity, valueString);
                     }
                     else if (type == typeof(bool))
                     {
@@ -128,7 +148,7 @@ namespace DMSpro.OMS.MdmService
                     }
                     else if (type == typeof(DateTime))
                     {
-                        property.SetValue(entity, (DateTime) value);
+                        property.SetValue(entity, (DateTime)value);
                     }
                     else if (_knownNumberTypes.Contains(type))
                     {
@@ -136,42 +156,211 @@ namespace DMSpro.OMS.MdmService
                     }
                     else if (type == typeof(Enum))
                     {
-                        property.SetValue(entity, (Enum) value);
-                    }else if (type == typeof(Guid))
+                        property.SetValue(entity, (Enum)value);
+                    }
+                    else if (type == typeof(Guid))
                     {
-                        Guid? id = null;
-                        if (_entityGetIdByCode[propertyName])
-                        {
-                            id = await GetIdByCodeForImport(propertyName, value.ToString());
-                        }
-                        else
-                        {
-                            id = (Guid?)value;
-                        }
-                        property.SetValue(entity, id);
+                        HandleGuidType(entity, property, propertyName, value, id);
                     }
                 }
+                SetTenantId(entity, tenantId);
+                SetId(entity, row, id);
                 result.Add(entity);
             }
 
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB(result);
+            FillIdByCodeProperties(result, idAndCodeFromDB);
+
             return result;
-            
-            //    {
-            //        Code = (string)row["Code"],
-            //        Name = (string)row["Name"],
-            //        Street = (string)row["Street"],
-            //        Address = (string)row["Address"],
-            //        Active = (bool)(row["Active"] ?? true),
-            //        EffectiveDate = (DateTime)(row["EffectiveDate"] ?? DateTime.Now),
-            //        GeoLevel0Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel0Code"]).Result,
-            //        GeoLevel1Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel1Code"]).Result,
-            //        GeoLevel2Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel2Code"]).Result,
-            //        GeoLevel3Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel3Code"]).Result,
-            //        GeoLevel4Id = _geoMasterRepository.GetIdByCodeAsync((string)row["GeoLevel4Code"]).Result,
-            //    };
+
         }
 
-        private static DataTable ReadExcelToDatatable(ExcelWorksheet sheetTable, ExcelWorksheet sheetData)
+        private void FillIdByCodeProperties(List<T> entities, Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB)
+        {
+            foreach (T entity in entities)
+            {
+                Type entityType = entity.GetType();
+                PropertyInfo idProperty = entityType.GetProperty("Id");
+                Guid entityId = (Guid)idProperty.GetValue(entity, null);
+                Guid? id = null;
+                foreach (string propertyName in _getIdByCodeFromDBOnly.Keys)
+                {
+                    string repoName = _getIdByCodeFromDBOnly[propertyName];
+                    PropertyInfo property = entityType.GetProperty(propertyName);
+                    string code = GetCodeForProperty(entityId, property, repoName);
+                    id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
+                    if (id == null && !_codePropertyAllowNull[propertyName])
+                    {
+                        throw new BusinessException(
+                            message: $"There is no Id value can be found in database for code {code}", code: "1");
+                    }
+                    property.SetValue(entity, id);
+                }
+                foreach (string propertyName in _getIdByCodeFromDBAndSheet.Keys)
+                {
+                    string repoName = _getIdByCodeFromDBAndSheet[propertyName];
+                    PropertyInfo property = entityType.GetProperty(propertyName);
+                    string code = GetCodeForProperty(entityId, property, repoName);
+                    id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
+                    if (id == null)
+                    {
+                        id = GetIdByCodeFromSheet(code);
+                    }
+                    if (id == null && !_codePropertyAllowNull[propertyName])
+                    {
+                        throw new BusinessException(
+                           message: $"There is no Id value can be found in database or sheet for code {code}", code: "1");
+                    }
+                    property.SetValue(entity, id);
+                }
+            }
+        }
+
+        private Guid? GetIdByCodeFromSheet(string code)
+        {
+            if (code == null)
+            {
+                return null;
+            }
+            if (!_entityCodeAndIdFromSheet.ContainsKey(code))
+            {
+                return null;
+            }
+            return _entityCodeAndIdFromSheet[code];
+        }
+
+        private string GetCodeForProperty(Guid entityId, PropertyInfo property, string repoName)
+        {
+            if (!_entityCodeValue.Keys.Contains(entityId))
+            {
+                throw new BusinessException(message: $"There is no Code value can be found for an entity", code: "1");
+            }
+            Dictionary<string, string> codePropertyAndValue = _entityCodeValue[entityId];
+            if (!codePropertyAndValue.ContainsKey(property.Name))
+            {
+                throw new BusinessException(message: $"There is code value can be found for property {property.Name}",
+                    code: "1");
+            }
+            return codePropertyAndValue[property.Name];
+        }
+
+        private Guid? GetIdByCodeFromDB(string repoName, string code,
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB)
+        {
+            if (code == null)
+            {
+                return null;
+            }
+            Dictionary<string, Guid> idAndCode = idAndCodeFromDB[repoName];
+            if (!idAndCode.ContainsKey(code))
+            {
+                return null;
+            }
+            return idAndCode[code];
+        }
+
+
+        private async Task<Dictionary<string, Dictionary<string, Guid>>> FindIdByCodeFromDB(List<T> entities)
+        {
+            Dictionary<string, Dictionary<string, Guid>> result = new();
+            foreach (string repoName in _codeToGetFromDB.Keys)
+            {
+                List<string> codes = _codeToGetFromDB[repoName];
+                if (codes.Count < 1)
+                {
+                    continue;
+                }
+                if (!_repositories.ContainsKey(repoName))
+                {
+                    throw new BusinessException(message: $"Cannot find repository with name {repoName} to get Id by code", code: "1");
+                }
+                object repo = _repositories[repoName];
+                Type repoType = repo.GetType();
+                MethodInfo method = repoType.GetMethod("GetListIdByCodeAsync");
+                if (method == null)
+                {
+                    throw new BusinessException(message: $"Repository {repoName} does not have the required methods", code: "1");
+                }
+
+                object resultTask = method.Invoke(repo, new object[] { codes });
+                if (resultTask is Task<Dictionary<string, Guid>> task)
+                {
+                    Dictionary<string, Guid> idAndCode = await task;
+                    if (idAndCode.Count != codes.Count)
+                    {
+                        throw new BusinessException(message: "Not all Code can be found in database", code: "1");
+                    }
+                    result.Add(repoName, idAndCode);
+                }
+            }
+            return result;
+        }
+
+        private static void SetTenantId(T entity, Guid? tenantId)
+        {
+            var property = typeof(T).GetProperty("TenantId", BindingFlags.Public | BindingFlags.Instance);
+            property.SetValue(entity, tenantId);
+        }
+
+        private void SetId(T entity, DataRow row, Guid id)
+        {
+            var property = typeof(T).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
+            property.SetValue(entity, id);
+            if (_entityProperties.ContainsKey("Code"))
+            {
+                _entityCodeAndIdFromSheet.Add(row["Code"].ToString(), id);
+            }
+        }
+
+        private void HandleGuidType(T entity, PropertyInfo property, string propertyName, Object value, Guid entityId)
+        {
+            if (!_getIdByCodeFromDBOnly.ContainsKey(propertyName) &&
+                !_getIdByCodeFromDBAndSheet.ContainsKey(propertyName))
+            {
+                Guid? id = value == null || string.IsNullOrEmpty(value.ToString()) ?
+                    null : Guid.Parse(value.ToString());
+                property.SetValue(entity, id);
+                return;
+            }
+            if (!_entityCodeValue.Keys.Contains(entityId))
+            {
+                _entityCodeValue.Add(entityId, new Dictionary<string, string>());
+            }
+            Dictionary<string, string> codePropertyNameAndValue = _entityCodeValue[entityId];
+            if (value == null || value == DBNull.Value || string.IsNullOrEmpty(value.ToString()))
+            {
+                codePropertyNameAndValue.Add(propertyName, null);
+                return;
+            }
+
+            string code = value.ToString();
+            codePropertyNameAndValue.Add(propertyName, code);
+            string repoName = "";
+            if (_getIdByCodeFromDBOnly.ContainsKey(propertyName))
+            {
+                repoName = _getIdByCodeFromDBOnly[propertyName];
+            }
+            else if (_getIdByCodeFromDBAndSheet.ContainsKey(propertyName))
+            {
+                repoName = _getIdByCodeFromDBAndSheet[propertyName];
+            }
+            if (string.IsNullOrEmpty(repoName))
+            {
+                throw new BusinessException(message: $"Cannot find a repository to check for property {propertyName}", code: "1");
+            }
+            if (!_codeToGetFromDB.ContainsKey(repoName))
+            {
+                _codeToGetFromDB.Add(repoName, new List<string>());
+            }
+            List<string> codes = _codeToGetFromDB[repoName];
+            if (codes.Contains(code))
+            {
+                return;
+            }
+            codes.Add(value.ToString());
+        }
+
+        private DataTable ReadExcelToDatatable(ExcelWorksheet sheetTable, ExcelWorksheet sheetData)
         {
             DataTable dt = new();
             int colCount = sheetTable.Dimension.End.Column;
@@ -185,11 +374,18 @@ namespace DMSpro.OMS.MdmService
                 var allowNull = bool.Parse(sheetTable.Cells[i, 3].Value.ToString().Trim());
                 col.AllowDBNull = allowNull;
 
-                var getIdByCodeSheetValue = sheetTable.Cells[i, 4].Value;
-                if (getIdByCodeSheetValue != null)
+                var getIdByCodeFromDBAndSheetValue = sheetTable.Cells[i, 4].Value;
+                if (getIdByCodeFromDBAndSheetValue != null)
                 {
-                    bool getIdByCode = bool.Parse(getIdByCodeSheetValue.ToString().Trim());
-                    _entityGetIdByCode.Add(col.ColumnName, getIdByCode);
+                    _getIdByCodeFromDBAndSheet.Add(col.ColumnName, getIdByCodeFromDBAndSheetValue.ToString().Trim());
+                    _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                }
+
+                var getIdByCodeFromDBOnlyValue = sheetTable.Cells[i, 5].Value;
+                if (getIdByCodeFromDBOnlyValue != null)
+                {
+                    _getIdByCodeFromDBOnly.Add(col.ColumnName, getIdByCodeFromDBOnlyValue.ToString().Trim());
+                    _codePropertyAllowNull.Add(col.ColumnName, allowNull);
                 }
 
                 switch (sheetTable.Cells[i, 2].Value.ToString().Trim())
@@ -268,11 +464,6 @@ namespace DMSpro.OMS.MdmService
                 result.Add(prop.Name, type);
             }
             return result;
-        }
-
-        protected virtual Task<Guid?> GetIdByCodeForImport(string propertyName, string code)
-        {
-            throw new NotImplementedException();
         }
     }
 }

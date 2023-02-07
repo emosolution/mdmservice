@@ -2,10 +2,8 @@ using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
-using System;
-using Org.BouncyCastle.Asn1.Tsp;
-using Volo.Abp;
+using Volo.Abp.MultiTenancy;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -17,25 +15,22 @@ namespace DMSpro.OMS.MdmService.Companies
         private readonly CompanyManager _companyManager;
         private readonly IGeoMasterRepository _geoMasterRepository;
 
-        public CompaniesAppService(ICompanyRepository repository,
+        public CompaniesAppService(ICurrentTenant currentTenant,
+            ICompanyRepository repository,
             CompanyManager companyManager,
-            IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
-            IGeoMasterRepository geoMasterRepository)
-            : base(repository)
+            IGeoMasterRepository geoMasterRepository,
+            IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository)
         {
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyManager = companyManager;
             _geoMasterRepository = geoMasterRepository;
-        }
-
-        protected override async Task<Guid?> GetIdByCodeForImport(string propertyName, string code)
-        {
-            if (propertyName.Contains("GeoLevel"))
-            {
-                return await _geoMasterRepository.GetIdByCodeAsync(code);
-            }
-            throw new BusinessException(message: $"Encounter unknown propery {propertyName} when importing", code: "1");
+            
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IGeoMasterRepository", _geoMasterRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
         }
     }
 }
