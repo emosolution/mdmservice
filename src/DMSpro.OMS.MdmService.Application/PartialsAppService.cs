@@ -14,10 +14,10 @@ using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Application.Dtos;
 using System.Reflection;
 using Volo.Abp.Data;
 using Volo.Abp.MultiTenancy;
+using System.Text.Json;
 
 namespace DMSpro.OMS.MdmService
 {
@@ -71,14 +71,14 @@ namespace DMSpro.OMS.MdmService
         {
             if (file == null || file.Length <= 0) //file empty
             {
-                throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
+                throw new BusinessException(message: "Error:ImportExportHandler:550", code: "0");
             }
 
             if (!(Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase)
                 || Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
             //not support file extention
             {
-                throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
+                throw new BusinessException(message: "Error:ImportExportHandler:551", code: "0");
             }
 
             List<T> entities = new();
@@ -96,7 +96,7 @@ namespace DMSpro.OMS.MdmService
 
                     if (worksheets.Count % 2 != 0)
                     {
-                        throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
+                        throw new BusinessException(message: "Error:ImportExportHandler:552", code: "0");
                     }
 
                     int tableCount = worksheets.Count / 2;
@@ -113,7 +113,6 @@ namespace DMSpro.OMS.MdmService
             }
 
             await _repository.InsertManyAsync(entities);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
 
             return entities.Count;
         }
@@ -132,7 +131,10 @@ namespace DMSpro.OMS.MdmService
                     string propertyName = col.ColumnName;
                     if (!_entityProperties.ContainsKey(propertyName))
                     {
-                        throw new BusinessException(message: $"Entity does not have a property named {propertyName}.", code: "1");
+                        var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportExportHandler:553",
+                            code: "0", details: detailString);
                     }
                     Type type = _entityProperties[propertyName];
                     var value = row[propertyName];
@@ -191,8 +193,10 @@ namespace DMSpro.OMS.MdmService
                     id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
                     if (id == null && !_codePropertyAllowNull[propertyName])
                     {
-                        throw new BusinessException(
-                            message: $"There is no Id value can be found in database for code {code}", code: "1");
+                        var detailDict = new Dictionary<string, string> { ["code"] = code };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportExportHandler:554",
+                            code: "1", details: detailString);
                     }
                     property.SetValue(entity, id);
                 }
@@ -208,8 +212,10 @@ namespace DMSpro.OMS.MdmService
                     }
                     if (id == null && !_codePropertyAllowNull[propertyName])
                     {
-                        throw new BusinessException(
-                           message: $"There is no Id value can be found in database or sheet for code {code}", code: "1");
+                        var detailDict = new Dictionary<string, string> { ["code"] = code };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: "Error:ImportExportHandler:555",
+                            code: "1", details: detailString);
                     }
                     property.SetValue(entity, id);
                 }
@@ -233,13 +239,15 @@ namespace DMSpro.OMS.MdmService
         {
             if (!_entityCodeValue.Keys.Contains(entityId))
             {
-                throw new BusinessException(message: $"There is no Code value can be found for an entity", code: "1");
+                throw new BusinessException(message: "Error:ImportExportHandler:556", code: "1");
             }
             Dictionary<string, string> codePropertyAndValue = _entityCodeValue[entityId];
             if (!codePropertyAndValue.ContainsKey(property.Name))
             {
-                throw new BusinessException(message: $"There is code value can be found for property {property.Name}",
-                    code: "1");
+                var detailDict = new Dictionary<string, string> { ["propertyName"] = property.Name };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: "Error:ImportExportHandler:557",
+                    code: "1", details: detailString);
             }
             return codePropertyAndValue[property.Name];
         }
@@ -272,14 +280,20 @@ namespace DMSpro.OMS.MdmService
                 }
                 if (!_repositories.ContainsKey(repoName))
                 {
-                    throw new BusinessException(message: $"Cannot find repository with name {repoName} to get Id by code", code: "1");
+                    var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
+                    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                    throw new BusinessException(message: "Error:ImportExportHandler:558",
+                        code: "1", details: detailString);
                 }
                 object repo = _repositories[repoName];
                 Type repoType = repo.GetType();
                 MethodInfo method = repoType.GetMethod("GetListIdByCodeAsync");
                 if (method == null)
                 {
-                    throw new BusinessException(message: $"Repository {repoName} does not have the required methods", code: "1");
+                    var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
+                    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                    throw new BusinessException(message: "Error:ImportExportHandler:559", 
+                        code: "1", details:detailString);
                 }
 
                 object resultTask = method.Invoke(repo, new object[] { codes });
@@ -288,7 +302,7 @@ namespace DMSpro.OMS.MdmService
                     Dictionary<string, Guid> idAndCode = await task;
                     if (idAndCode.Count != codes.Count)
                     {
-                        throw new BusinessException(message: "Not all Code can be found in database", code: "1");
+                        throw new BusinessException(message: "Error:ImportExportHandler:560", code: "1");
                     }
                     result.Add(repoName, idAndCode);
                 }
@@ -346,7 +360,10 @@ namespace DMSpro.OMS.MdmService
             }
             if (string.IsNullOrEmpty(repoName))
             {
-                throw new BusinessException(message: $"Cannot find a repository to check for property {propertyName}", code: "1");
+                var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: "Error:ImportExportHandler:561", 
+                    code: "1", details: detailString);
             }
             if (!_codeToGetFromDB.ContainsKey(repoName))
             {
@@ -459,7 +476,13 @@ namespace DMSpro.OMS.MdmService
                 var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
                 if (!knownTypes.Contains(type))
                 {
-                    throw new BusinessException(message: $"Unknown entity's property ({prop.Name}) of unknown type ({type.Name}) encountered during import");
+                    var detailDict = new Dictionary<string, string> { 
+                        ["propertyName"] = prop.Name,
+                        ["typeName"] = type.Name,
+                    };
+                    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                    throw new BusinessException(message: "Error:ImportExportHandler:562", 
+                        code: "1", details: detailString);
                 }
                 result.Add(prop.Name, type);
             }
