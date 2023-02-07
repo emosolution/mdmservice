@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DMSpro.OMS.MdmService.Companies
+namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-	public partial interface ICompanyRepository
+	public partial interface IMCPHeaderRepository
 	{
 		Task<Guid?> GetIdByCodeAsync(string code);
 

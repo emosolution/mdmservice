@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DMSpro.OMS.MdmService.Companies
+namespace DMSpro.OMS.MdmService.Currencies
 {
-	public partial interface ICompanyRepository
+	public partial interface ICurrencyRepository
 	{
 		Task<Guid?> GetIdByCodeAsync(string code);
 

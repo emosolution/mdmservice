@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DMSpro.OMS.MdmService.Companies
+namespace DMSpro.OMS.MdmService.PriceUpdates
 {
-	public partial interface ICompanyRepository
+	public partial interface IPriceUpdateRepository
 	{
 		Task<Guid?> GetIdByCodeAsync(string code);
 
