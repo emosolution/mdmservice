@@ -9,5 +9,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
     public partial interface IGeoMasterRepository
     {
         Task<Guid?> GetIdByCodeAsync(string code);
+
+        Task<Dictionary<string, Guid>> GetListIdByCodeAsync(List<string> codes);
     }
 }
