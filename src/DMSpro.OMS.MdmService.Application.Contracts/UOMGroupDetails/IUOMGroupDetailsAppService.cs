@@ -15,8 +15,6 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 
         Task<UOMGroupDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
-        Task<LoadResult> GetListDevextremeswithNavigationAsync(DataLoadOptionDevextreme inputDev);
-        
         Task<UOMGroupDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetUOMGroupLookupAsync(LookupRequestDto input);
