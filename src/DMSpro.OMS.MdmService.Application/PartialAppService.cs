@@ -1,26 +1,26 @@
-﻿using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 using DMSpro.OMS.Shared.Lib.Parser;
+using DMSpro.OMS.Shared.Protos.Shared.Import;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using System.Reflection;
-using Volo.Abp.Data;
 using Volo.Abp.MultiTenancy;
-using System.Text.Json;
-using Grpc.Net.Client;
-using Microsoft.Extensions.Configuration;
-using DMSpro.OMS.Shared.Protos.Shared.Import;
 
 namespace DMSpro.OMS.MdmService
 {
@@ -174,9 +174,13 @@ namespace DMSpro.OMS.MdmService
                         HandleGuidType(entity, property, propertyName, value, id);
                     }
                 }
-                SetTenantId(entity, tenantId);
+                //SetTenantId(entity, tenantId);
                 SetId(entity, row, id);
                 result.Add(entity);
+            }
+            if (_entityProperties.ContainsKey("Code"))
+            {
+                CheckForCodeUniqueness();
             }
 
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB(result);
@@ -187,7 +191,28 @@ namespace DMSpro.OMS.MdmService
 
         }
 
-        private void FillIdByCodeProperties(List<T> entities, 
+        private async void CheckForCodeUniqueness()
+        {
+            List<string> codes = _entityCodeAndIdFromSheet.Keys.ToList();
+            Type repoType = _repository.GetType();
+            MethodInfo method = repoType.GetMethod("GetListIdByCodeAsync");
+            if (method == null)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:567", code: "1");
+            }
+
+            object resultTask = method.Invoke(_repository, new object[] { codes });
+            if (resultTask is Task<Dictionary<string, Guid>> task)
+            {
+                Dictionary<string, Guid> idAndCode = await task;
+                if (idAndCode.Count > 0)
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:568", code: "0");
+                }
+            } 
+        }
+
+        private void FillIdByCodeProperties(List<T> entities,
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB,
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC)
         {
@@ -249,7 +274,7 @@ namespace DMSpro.OMS.MdmService
             }
         }
 
-        private Guid? GetIdByCodeFromGRPC(string repoName, string code,
+        private static Guid? GetIdByCodeFromGRPC(string repoName, string code,
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC)
         {
             if (code == null)
@@ -309,7 +334,7 @@ namespace DMSpro.OMS.MdmService
             return idAndCode[code];
         }
 
-        private async Task<Dictionary<string, Dictionary<string, Guid>>> 
+        private async Task<Dictionary<string, Dictionary<string, Guid>>>
             FindIdByCodeFromGRPC(List<T> entities, Guid? tenantId)
         {
             Dictionary<string, Dictionary<string, Guid>> result = new();
@@ -413,10 +438,18 @@ namespace DMSpro.OMS.MdmService
         {
             var property = typeof(T).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
             property.SetValue(entity, id);
-            if (_entityProperties.ContainsKey("Code"))
+            if (!_entityProperties.ContainsKey("Code"))
             {
-                _entityCodeAndIdFromSheet.Add(row["Code"].ToString(), id);
+                return;
             }
+            string code = row["Code"].ToString().Trim();
+            if (_entityCodeAndIdFromSheet.ContainsKey(code))
+            {
+                var detailDict = new Dictionary<string, string> { ["code"] = code };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: "Error:ImportHandler:569", code: "0", details: detailString);
+            }
+            _entityCodeAndIdFromSheet.Add(code, id);
         }
 
         private void HandleGuidType(T entity, PropertyInfo property, string propertyName, Object value, Guid entityId)

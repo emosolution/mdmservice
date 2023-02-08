@@ -1,48 +1,31 @@
-using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-	public partial class GeoMastersAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _geoMasterRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<GeoMaster>, IEnumerable<GeoMasterDto>>(results.data.Cast<GeoMaster>());
-			return results;
-		}
+    public partial class GeoMastersAppService : PartialAppService<GeoMaster, GeoMasterDto, IGeoMasterRepository>, 
+        IGeoMastersAppService
+    {
+        private readonly IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        private readonly IGeoMasterRepository _geoMasterRepository;
+        private readonly GeoMasterManager _geoMasterManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        public GeoMastersAppService(ICurrentTenant currentTenant,
+            IGeoMasterRepository repository,
+            GeoMasterManager geoMasterManager,
+            IConfiguration settingProvider,
+            IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _geoMasterRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _geoMasterManager = geoMasterManager;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _geoMasterRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IGeoMasterRepository", _geoMasterRepository));
+        }
+    }
 }

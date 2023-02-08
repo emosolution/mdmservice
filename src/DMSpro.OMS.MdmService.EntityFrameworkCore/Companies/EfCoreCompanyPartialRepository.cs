@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -23,6 +24,10 @@ namespace DMSpro.OMS.MdmService.Companies
             }
             foreach (var item in items)
             {
+                if (result.ContainsKey(item.Code))
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:570", code: "1");
+                }
                 Guid id = item.Id;
                 string code = item.Code;    
                 result.Add(code, id);

@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public partial interface IGeoMastersAppService : IApplicationService
+    public partial interface IGeoMastersAppService : IApplicationService, IPartialAppservice
     {
         Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input);
         

@@ -1013,7 +1013,11 @@
     "Error:ImportHandler:563": "GRPC information is not completed for column {columnName}",
     "Error:ImportHandler:564": "GRPC service {repoName} does not have the required methods",
     "Error:ImportHandler:565": "Not all Code can be found from gRPC",
-    "Error:ImportHandler:566": "There is no Id value can be found from gRPC service for code {code}"
-
+    "Error:ImportHandler:566": "There is no Id value can be found from gRPC service for code {code}",
+    "Error:ImportHandler:567": "Cannot found method to check uniqueness",
+    "Error:ImportHandler:568": "At least one of the code already exists in database",
+    "Error:ImportHandler:569": "Code {code} appears more than once in sheet data",
+    "Error:ImportHandler:570": "Code {code} appears more than once in database"
   }
 }
+
