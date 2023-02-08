@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    public partial interface ICusAttributeValuesAppService : IApplicationService
+    public partial interface ICusAttributeValuesAppService : IApplicationService, IPartialAppService 
     {
         Task<PagedResultDto<CusAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetCusAttributeValuesInput input);
 

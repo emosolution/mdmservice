@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
-    public partial interface ICustomerAttachmentsAppService : IApplicationService
+    public partial interface ICustomerAttachmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerAttachmentWithNavigationPropertiesDto>> GetListAsync(GetCustomerAttachmentsInput input);
 

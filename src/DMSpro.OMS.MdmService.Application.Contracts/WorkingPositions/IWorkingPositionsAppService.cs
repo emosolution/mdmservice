@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public partial interface IWorkingPositionsAppService : IApplicationService
+    public partial interface IWorkingPositionsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input);
 

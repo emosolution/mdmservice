@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.Customers
 
 {
-    public partial interface ICustomersAppService : IApplicationService
+    public partial interface ICustomersAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerWithNavigationPropertiesDto>> GetListAsync(GetCustomersInput input);
 
@@ -18,7 +18,6 @@ namespace DMSpro.OMS.MdmService.Customers
 
         Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input);
 
-        // Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input);
         Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input);

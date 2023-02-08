@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
-    public partial interface IPriceListsAppService : IApplicationService
+    public partial interface IPriceListsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<PriceListWithNavigationPropertiesDto>> GetListAsync(GetPriceListsInput input);
 

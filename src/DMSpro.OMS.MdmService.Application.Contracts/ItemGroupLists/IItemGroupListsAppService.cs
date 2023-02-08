@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-    public partial interface IItemGroupListsAppService : IApplicationService
+    public partial interface IItemGroupListsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemGroupListWithNavigationPropertiesDto>> GetListAsync(GetItemGroupListsInput input);
 

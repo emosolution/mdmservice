@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-    public partial interface ISalesOrgEmpAssignmentsAppService : IApplicationService
+    public partial interface ISalesOrgEmpAssignmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgEmpAssignmentsInput input);
 

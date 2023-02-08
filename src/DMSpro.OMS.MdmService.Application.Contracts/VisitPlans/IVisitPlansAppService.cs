@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
-    public partial interface IVisitPlansAppService : IApplicationService
+    public partial interface IVisitPlansAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<VisitPlanWithNavigationPropertiesDto>> GetListAsync(GetVisitPlansInput input);
 

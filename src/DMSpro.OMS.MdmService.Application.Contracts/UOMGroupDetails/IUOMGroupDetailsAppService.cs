@@ -9,7 +9,7 @@ using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
-    public partial interface IUOMGroupDetailsAppService : IApplicationService
+    public partial interface IUOMGroupDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<UOMGroupDetailWithNavigationPropertiesDto>> GetListAsync(GetUOMGroupDetailsInput input);
 

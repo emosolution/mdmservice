@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
-    public partial interface ICustomerGroupByListsAppService : IApplicationService
+    public partial interface ICustomerGroupByListsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerGroupByListWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByListsInput input);
 

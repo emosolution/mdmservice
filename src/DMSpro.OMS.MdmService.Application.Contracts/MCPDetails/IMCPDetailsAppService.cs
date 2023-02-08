@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public partial interface IMCPDetailsAppService : IApplicationService
+    public partial interface IMCPDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<MCPDetailWithNavigationPropertiesDto>> GetListAsync(GetMCPDetailsInput input);
 

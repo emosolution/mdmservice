@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
-    public partial interface IItemAttributesAppService : IApplicationService
+    public partial interface IItemAttributesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input);
 

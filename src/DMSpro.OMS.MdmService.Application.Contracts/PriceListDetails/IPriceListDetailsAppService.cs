@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
-    public partial interface IPriceListDetailsAppService : IApplicationService
+    public partial interface IPriceListDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<PriceListDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceListDetailsInput input);
 

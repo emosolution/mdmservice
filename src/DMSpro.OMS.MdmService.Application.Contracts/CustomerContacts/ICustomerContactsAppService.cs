@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-    public partial interface ICustomerContactsAppService : IApplicationService
+    public partial interface ICustomerContactsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerContactWithNavigationPropertiesDto>> GetListAsync(GetCustomerContactsInput input);
 

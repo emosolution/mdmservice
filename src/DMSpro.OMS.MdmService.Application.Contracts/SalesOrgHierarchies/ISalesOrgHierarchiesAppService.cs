@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public partial interface ISalesOrgHierarchiesAppService : IApplicationService
+    public partial interface ISalesOrgHierarchiesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SalesOrgHierarchyWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgHierarchiesInput input);
 

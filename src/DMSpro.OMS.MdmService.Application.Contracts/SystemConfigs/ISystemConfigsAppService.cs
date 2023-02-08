@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.SystemConfigs
 {
-    public partial interface ISystemConfigsAppService : IApplicationService
+    public partial interface ISystemConfigsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SystemConfigDto>> GetListAsync(GetSystemConfigsInput input);
 

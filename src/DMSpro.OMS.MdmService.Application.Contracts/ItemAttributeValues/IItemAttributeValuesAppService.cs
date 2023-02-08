@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
-    public partial interface IItemAttributeValuesAppService : IApplicationService
+    public partial interface IItemAttributeValuesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetItemAttributeValuesInput input);
 

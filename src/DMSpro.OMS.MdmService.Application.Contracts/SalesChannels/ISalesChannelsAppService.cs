@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
-    public partial interface ISalesChannelsAppService : IApplicationService
+    public partial interface ISalesChannelsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SalesChannelDto>> GetListAsync(GetSalesChannelsInput input);
         

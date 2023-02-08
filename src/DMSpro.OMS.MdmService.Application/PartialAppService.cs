@@ -24,7 +24,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService
 {
-    public class PartialAppService<T, TDto, TRepository> : ApplicationService, IPartialAppservice
+    public class PartialAppService<T, TDto, TRepository> : ApplicationService, IPartialAppService
         where T : class, IEntity, new()
         where TDto : class
         where TRepository : class, IRepository<T>

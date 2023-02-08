@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
-    public partial interface ICustomerAssignmentsAppService : IApplicationService
+    public partial interface ICustomerAssignmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCustomerAssignmentsInput input);
 

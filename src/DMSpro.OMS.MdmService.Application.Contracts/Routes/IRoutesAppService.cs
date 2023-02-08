@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Routes
 {
-    public partial interface IRoutesAppService : IApplicationService
+    public partial interface IRoutesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<RouteWithNavigationPropertiesDto>> GetListAsync(GetRoutesInput input);
 

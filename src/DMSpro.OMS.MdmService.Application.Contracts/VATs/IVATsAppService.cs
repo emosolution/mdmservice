@@ -6,7 +6,7 @@ using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.VATs
 {
-    public partial interface IVATsAppService : IApplicationService
+    public partial interface IVATsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<VATDto>> GetListAsync(GetVATsInput input);
 

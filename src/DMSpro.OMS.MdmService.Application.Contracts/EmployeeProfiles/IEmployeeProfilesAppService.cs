@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public partial interface IEmployeeProfilesAppService : IApplicationService
+    public partial interface IEmployeeProfilesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<EmployeeProfileWithNavigationPropertiesDto>> GetListAsync(GetEmployeeProfilesInput input);
 

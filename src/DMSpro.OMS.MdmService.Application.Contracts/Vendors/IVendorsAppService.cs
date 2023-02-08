@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-    public partial interface IVendorsAppService : IApplicationService
+    public partial interface IVendorsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<VendorWithNavigationPropertiesDto>> GetListAsync(GetVendorsInput input);
 

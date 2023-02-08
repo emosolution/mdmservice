@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Items
 {
-    public partial interface IItemsAppService : IApplicationService
+    public partial interface IItemsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemWithNavigationPropertiesDto>> GetListAsync(GetItemsInput input);
 

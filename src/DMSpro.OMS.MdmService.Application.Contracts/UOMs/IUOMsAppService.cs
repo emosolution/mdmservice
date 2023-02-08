@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.UOMs
 {
-    public partial interface IUOMsAppService : IApplicationService
+    public partial interface IUOMsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<UOMDto>> GetListAsync(GetUOMsInput input);
 

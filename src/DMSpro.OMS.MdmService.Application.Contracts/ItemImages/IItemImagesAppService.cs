@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
-    public partial interface IItemImagesAppService : IApplicationService
+    public partial interface IItemImagesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemImageWithNavigationPropertiesDto>> GetListAsync(GetItemImagesInput input);
 

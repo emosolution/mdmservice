@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-    public partial interface IHolidayDetailsAppService : IApplicationService
+    public partial interface IHolidayDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<HolidayDetailWithNavigationPropertiesDto>> GetListAsync(GetHolidayDetailsInput input);
 

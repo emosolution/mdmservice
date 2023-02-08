@@ -9,7 +9,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    public partial interface IItemAttachmentsAppService : IApplicationService
+    public partial interface IItemAttachmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input);
 

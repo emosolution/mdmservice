@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
-    public partial interface IUOMGroupsAppService : IApplicationService
+    public partial interface IUOMGroupsAppService : IApplicationService, IPartialAppService 
     {
         Task<PagedResultDto<UOMGroupDto>> GetListAsync(GetUOMGroupsInput input);
 

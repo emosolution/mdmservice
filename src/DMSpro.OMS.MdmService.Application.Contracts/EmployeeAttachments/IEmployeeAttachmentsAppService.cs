@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
-    public partial interface IEmployeeAttachmentsAppService : IApplicationService
+    public partial interface IEmployeeAttachmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<EmployeeAttachmentWithNavigationPropertiesDto>> GetListAsync(GetEmployeeAttachmentsInput input);
 

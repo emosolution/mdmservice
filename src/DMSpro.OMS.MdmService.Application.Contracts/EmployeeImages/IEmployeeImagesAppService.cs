@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
-    public partial interface IEmployeeImagesAppService : IApplicationService
+    public partial interface IEmployeeImagesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<EmployeeImageWithNavigationPropertiesDto>> GetListAsync(GetEmployeeImagesInput input);
 

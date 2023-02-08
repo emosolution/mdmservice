@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public partial interface IItemGroupsAppService : IApplicationService
+    public partial interface IItemGroupsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemGroupDto>> GetListAsync(GetItemGroupsInput input);
 

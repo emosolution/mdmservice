@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
-    public partial interface ICompanyInZonesAppService : IApplicationService
+    public partial interface ICompanyInZonesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CompanyInZoneWithNavigationPropertiesDto>> GetListAsync(GetCompanyInZonesInput input);
 

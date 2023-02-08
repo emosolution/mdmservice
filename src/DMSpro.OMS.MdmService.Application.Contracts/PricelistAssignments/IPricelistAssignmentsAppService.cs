@@ -8,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
-    public partial interface IPricelistAssignmentsAppService : IApplicationService
+    public partial interface IPricelistAssignmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<PricelistAssignmentWithNavigationPropertiesDto>> GetListAsync(GetPricelistAssignmentsInput input);
 

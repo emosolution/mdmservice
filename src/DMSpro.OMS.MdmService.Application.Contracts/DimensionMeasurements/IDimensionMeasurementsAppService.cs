@@ -7,7 +7,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
-    public partial interface IDimensionMeasurementsAppService : IApplicationService
+    public partial interface IDimensionMeasurementsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<DimensionMeasurementDto>> GetListAsync(GetDimensionMeasurementsInput input);
 

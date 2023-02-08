@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
-    public partial interface ICustomerAttributesAppService : IApplicationService
+    public partial interface ICustomerAttributesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerAttributeDto>> GetListAsync(GetCustomerAttributesInput input);
 

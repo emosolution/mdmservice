@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
-    public partial interface ICustomerGroupByGeosAppService : IApplicationService
+    public partial interface ICustomerGroupByGeosAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<CustomerGroupByGeoWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByGeosInput input);
 

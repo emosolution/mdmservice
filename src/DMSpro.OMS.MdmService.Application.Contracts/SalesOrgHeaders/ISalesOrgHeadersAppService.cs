@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public partial interface ISalesOrgHeadersAppService : IApplicationService
+    public partial interface ISalesOrgHeadersAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input);
 

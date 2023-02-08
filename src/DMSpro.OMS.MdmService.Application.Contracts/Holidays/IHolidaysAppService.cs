@@ -6,7 +6,7 @@ using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.Holidays
 {
-    public partial interface IHolidaysAppService : IApplicationService
+    public partial interface IHolidaysAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<HolidayDto>> GetListAsync(GetHolidaysInput input);
 

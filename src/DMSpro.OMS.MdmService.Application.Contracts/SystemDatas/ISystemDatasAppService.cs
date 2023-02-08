@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public partial interface ISystemDatasAppService : IApplicationService
+    public partial interface ISystemDatasAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SystemDataDto>> GetListAsync(GetSystemDatasInput input);
 

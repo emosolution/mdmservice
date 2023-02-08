@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    public partial interface IMCPHeadersAppService : IApplicationService
+    public partial interface IMCPHeadersAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input);
 
