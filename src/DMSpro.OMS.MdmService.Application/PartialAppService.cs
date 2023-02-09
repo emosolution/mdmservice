@@ -15,12 +15,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Transactions;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Uow;
 
 namespace DMSpro.OMS.MdmService
 {
@@ -30,6 +32,7 @@ namespace DMSpro.OMS.MdmService
         where TRepository : class, IRepository<T>
     {
         protected readonly IRepository<T> _repository;
+        protected readonly IUnitOfWorkManager _unitOfWorkManager;
 
         private readonly ICurrentTenant _currentTenant;
         private readonly IConfiguration _settingProvider;
@@ -54,11 +57,13 @@ namespace DMSpro.OMS.MdmService
         protected readonly Dictionary<string, object> _repositories = new();
 
         public PartialAppService(ICurrentTenant currentTenant,
-            TRepository repository, IConfiguration settingProvider)
+            TRepository repository, IConfiguration settingProvider,
+            IUnitOfWorkManager unitOfWorkManager)
         {
             _repository = repository;
             _currentTenant = currentTenant;
             _settingProvider = settingProvider;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -90,38 +95,56 @@ namespace DMSpro.OMS.MdmService
                 throw new BusinessException(message: "Error:ImportHandler:551", code: "0");
             }
 
+
             List<T> entities = new();
             _entityProperties = GetEntityProperties();
 
-            using (var stream = new MemoryStream())
+            var options = new AbpUnitOfWorkOptions
             {
-                await file.CopyToAsync(stream);
+                IsTransactional = true
+            };
 
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-                using (var package = new ExcelPackage(stream))
+            using (var uow = _unitOfWorkManager.Begin(options, true)) 
+            {
+                try
                 {
-                    var worksheets = package.Workbook.Worksheets;
-
-                    if (worksheets.Count % 2 != 0)
+                    using (var stream = new MemoryStream())
                     {
-                        throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
+                        await file.CopyToAsync(stream);
+
+                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                        using (var package = new ExcelPackage(stream))
+                        {
+                            var worksheets = package.Workbook.Worksheets;
+
+                            if (worksheets.Count % 2 != 0)
+                            {
+                                throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
+                            }
+
+                            int tableCount = worksheets.Count / 2;
+                            for (int i = 0; i < tableCount; i++)
+                            {
+                                var sheetTable = worksheets[i * 2];
+                                var sheetData = worksheets[i * 2 + 1];
+
+                                var data = ReadExcelToDatatable(sheetTable, sheetData);
+
+                                entities = await CreateEntityList(data);
+                            }
+                        }
                     }
 
-                    int tableCount = worksheets.Count / 2;
-                    for (int i = 0; i < tableCount; i++)
-                    {
-                        var sheetTable = worksheets[i * 2];
-                        var sheetData = worksheets[i * 2 + 1];
-
-                        var data = ReadExcelToDatatable(sheetTable, sheetData);
-
-                        entities = await CreateEntityList(data);
-                    }
+                    await _repository.InsertManyAsync(entities);
+                    await uow.CompleteAsync();
+                }
+                catch (Exception)
+                {
+                    uow.Dispose();
+                    throw;
                 }
             }
-
-            await _repository.InsertManyAsync(entities);
 
             return entities.Count;
         }

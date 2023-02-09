@@ -5,24 +5,28 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Volo.Abp.Uow;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
     public partial class CompaniesAppService : PartialAppService<Company, CompanyDto, ICompanyRepository>, ICompaniesAppService
     {
+        private readonly IGeoMasterRepository _geoMasterRepository;
+
         private readonly ICompanyRepository _companyRepository;
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly CompanyManager _companyManager;
-        private readonly IGeoMasterRepository _geoMasterRepository;
 
-        public CompaniesAppService(ICurrentTenant currentTenant,
+        public CompaniesAppService(
+            IGeoMasterRepository geoMasterRepository,
+            ICurrentTenant currentTenant,
             ICompanyRepository repository,
             CompanyManager companyManager,
             IConfiguration settingProvider,
-            IGeoMasterRepository geoMasterRepository,
+            IUnitOfWorkManager unitOfWorkManager,
             IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, unitOfWorkManager)
         {
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
