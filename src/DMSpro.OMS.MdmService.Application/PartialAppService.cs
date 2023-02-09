@@ -21,7 +21,7 @@ using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.Uow;
+using Grpc.Core;
 
 namespace DMSpro.OMS.MdmService
 {
@@ -96,11 +96,6 @@ namespace DMSpro.OMS.MdmService
 
             List<T> entities = new();
             _entityProperties = GetEntityProperties();
-
-            var options = new AbpUnitOfWorkOptions
-            {
-                IsTransactional = true
-            };
 
             using (var stream = new MemoryStream())
             {
@@ -243,7 +238,7 @@ namespace DMSpro.OMS.MdmService
                 }
                 foreach (string propertyName in _getIdFromGRPC.Keys)
                 {
-                    SetIdProperty(propertyName, _getIdFromGRPC, CheckTypes.DB_AND_SHEET,
+                    SetIdProperty(propertyName, _getIdFromGRPC, CheckTypes.GRPC,
                         entityType, entityId, entity, idAndCodeFromDB, idAndCodeFromGRPC,
                         "Error:ImportHandler:556");
                 }
@@ -359,12 +354,15 @@ namespace DMSpro.OMS.MdmService
                     continue;
                 }
                 string connectionString = _grpcInfo[repoName];
-                using (GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider[connectionString]))
+                using (GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider.GetValue<string>(connectionString)))
                 {
                     string typeName = $"{repoName}ProtoAppService.{repoName}ProtoAppServiceClient";
-                    Type repoType = Type.GetType(typeName);
-                    object client = Activator.CreateInstance(repoType, args: channel);
-                    MethodInfo method = client.GetType().GetMethod("GetCodeAndIdWithCode");
+                    Type protoType = Type.GetType($"DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers.{repoName}ProtoAppService");
+                    Type protoClientType = (Type) protoType.GetMember($"{repoName}ProtoAppServiceClient")[0];
+                    object client = Activator.CreateInstance(protoClientType, args: channel);
+                    MethodInfo method = client.GetType().GetMethod("GetCodeAndIdWithCodeAsync",
+                        BindingFlags.Instance | BindingFlags.Public,
+                        new Type[] { typeof(ListCodeAndIdRequest), typeof(CallOptions) });
                     if (method == null)
                     {
                         var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
@@ -376,8 +374,8 @@ namespace DMSpro.OMS.MdmService
                     ListCodeAndIdRequest request = new();
                     request.TenantId = tenantId == null ? "" : tenantId.ToString();
                     request.Codes.Add(codes);
-                    object resultTask = method.Invoke(client, new object[] { request });
-                    if (resultTask is Task<ListCodeAndIdResponse> task)
+                    object resultTask = method.Invoke(client, new object[] { request, new CallOptions() });
+                    if (resultTask is AsyncUnaryCall<ListCodeAndIdResponse> task)
                     {
                         ListCodeAndIdResponse response = await task;
                         List<CodeAndId> items = response.CodeAndIds.ToList();
