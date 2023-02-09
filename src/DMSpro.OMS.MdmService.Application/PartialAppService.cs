@@ -15,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Transactions;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
@@ -32,10 +31,9 @@ namespace DMSpro.OMS.MdmService
         where TRepository : class, IRepository<T>
     {
         protected readonly IRepository<T> _repository;
-        protected readonly IUnitOfWorkManager _unitOfWorkManager;
-
-        private readonly ICurrentTenant _currentTenant;
+        protected readonly ICurrentTenant _currentTenant;
         private readonly IConfiguration _settingProvider;
+
         private static readonly List<Type> _knownNumberTypes = new()
         {
             typeof(uint),
@@ -53,17 +51,17 @@ namespace DMSpro.OMS.MdmService
         private readonly Dictionary<Guid, Dictionary<string, string>> _entityCodeValue = new();
         private readonly Dictionary<string, bool> _codePropertyAllowNull = new();
         private readonly Dictionary<string, string> _grpcInfo = new();
+        private readonly List<string> _codeFromDBAndSheetRepo = new();
 
         protected readonly Dictionary<string, object> _repositories = new();
 
         public PartialAppService(ICurrentTenant currentTenant,
-            TRepository repository, IConfiguration settingProvider,
-            IUnitOfWorkManager unitOfWorkManager)
+            TRepository repository,
+            IConfiguration settingProvider)
         {
             _repository = repository;
-            _currentTenant = currentTenant;
             _settingProvider = settingProvider;
-            _unitOfWorkManager = unitOfWorkManager;
+            _currentTenant = currentTenant;
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -104,47 +102,35 @@ namespace DMSpro.OMS.MdmService
                 IsTransactional = true
             };
 
-            using (var uow = _unitOfWorkManager.Begin(options, true)) 
+            using (var stream = new MemoryStream())
             {
-                try
+                await file.CopyToAsync(stream);
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage(stream))
                 {
-                    using (var stream = new MemoryStream())
+                    var worksheets = package.Workbook.Worksheets;
+
+                    if (worksheets.Count % 2 != 0)
                     {
-                        await file.CopyToAsync(stream);
-
-                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-                        using (var package = new ExcelPackage(stream))
-                        {
-                            var worksheets = package.Workbook.Worksheets;
-
-                            if (worksheets.Count % 2 != 0)
-                            {
-                                throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
-                            }
-
-                            int tableCount = worksheets.Count / 2;
-                            for (int i = 0; i < tableCount; i++)
-                            {
-                                var sheetTable = worksheets[i * 2];
-                                var sheetData = worksheets[i * 2 + 1];
-
-                                var data = ReadExcelToDatatable(sheetTable, sheetData);
-
-                                entities = await CreateEntityList(data);
-                            }
-                        }
+                        throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
                     }
 
-                    await _repository.InsertManyAsync(entities);
-                    await uow.CompleteAsync();
-                }
-                catch (Exception)
-                {
-                    uow.Dispose();
-                    throw;
+                    int tableCount = worksheets.Count / 2;
+                    for (int i = 0; i < tableCount; i++)
+                    {
+                        var sheetTable = worksheets[i * 2];
+                        var sheetData = worksheets[i * 2 + 1];
+
+                        var data = ReadExcelToDatatable(sheetTable, sheetData);
+
+                        entities = await CreateEntityList(data);
+                    }
                 }
             }
+
+            await _repository.InsertManyAsync(entities);
 
             return entities.Count;
         }
@@ -152,7 +138,6 @@ namespace DMSpro.OMS.MdmService
         private async Task<List<T>> CreateEntityList(DataTable data)
         {
             List<T> result = new();
-            Guid? tenantId = _currentTenant.Id;
 
             foreach (DataRow row in data.AsEnumerable())
             {
@@ -197,42 +182,41 @@ namespace DMSpro.OMS.MdmService
                         HandleGuidType(entity, property, propertyName, value, id);
                     }
                 }
-                //SetTenantId(entity, tenantId);
                 SetId(entity, row, id);
                 result.Add(entity);
             }
             if (_entityProperties.ContainsKey("Code"))
             {
-                CheckForCodeUniqueness();
+                await CheckForCodeUniqueness();
             }
 
-            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB(result);
-            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC = await FindIdByCodeFromGRPC(result, tenantId);
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB();
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC = await FindIdByCodeFromGRPC();
             FillIdByCodeProperties(result, idAndCodeFromDB, idAndCodeFromGRPC);
 
             return result;
 
         }
 
-        private async void CheckForCodeUniqueness()
+        private async Task CheckForCodeUniqueness()
         {
             List<string> codes = _entityCodeAndIdFromSheet.Keys.ToList();
             Type repoType = _repository.GetType();
-            MethodInfo method = repoType.GetMethod("GetListIdByCodeAsync");
+            MethodInfo method = repoType.GetMethod("GetCountByCodeAsync");
             if (method == null)
             {
                 throw new BusinessException(message: "Error:ImportHandler:567", code: "1");
             }
 
             object resultTask = method.Invoke(_repository, new object[] { codes });
-            if (resultTask is Task<Dictionary<string, Guid>> task)
+            if (resultTask is Task<int> task)
             {
-                Dictionary<string, Guid> idAndCode = await task;
-                if (idAndCode.Count > 0)
+                int idCount = await task;
+                if (idCount > 0)
                 {
                     throw new BusinessException(message: "Error:ImportHandler:568", code: "0");
                 }
-            } 
+            }
         }
 
         private void FillIdByCodeProperties(List<T> entities,
@@ -247,54 +231,60 @@ namespace DMSpro.OMS.MdmService
                 Guid? id = null;
                 foreach (string propertyName in _getIdByCodeFromDBOnly.Keys)
                 {
-                    string repoName = _getIdByCodeFromDBOnly[propertyName];
-                    PropertyInfo property = entityType.GetProperty(propertyName);
-                    string code = GetCodeForProperty(entityId, property, repoName);
-                    id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
-                    if (id == null && !_codePropertyAllowNull[propertyName])
-                    {
-                        var detailDict = new Dictionary<string, string> { ["code"] = code };
-                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:554",
-                            code: "1", details: detailString);
-                    }
-                    property.SetValue(entity, id);
+                    SetIdProperty(propertyName, _getIdByCodeFromDBOnly, CheckTypes.DB_ONLY,
+                        entityType, entityId, entity, idAndCodeFromDB, idAndCodeFromGRPC,
+                        "Error:ImportHandler:554");
                 }
                 foreach (string propertyName in _getIdByCodeFromDBAndSheet.Keys)
                 {
-                    string repoName = _getIdByCodeFromDBAndSheet[propertyName];
-                    PropertyInfo property = entityType.GetProperty(propertyName);
-                    string code = GetCodeForProperty(entityId, property, repoName);
-                    id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
-                    if (id == null)
-                    {
-                        id = GetIdByCodeFromSheet(code);
-                    }
-                    if (id == null && !_codePropertyAllowNull[propertyName])
-                    {
-                        var detailDict = new Dictionary<string, string> { ["code"] = code };
-                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:555",
-                            code: "1", details: detailString);
-                    }
-                    property.SetValue(entity, id);
+                    SetIdProperty(propertyName, _getIdByCodeFromDBAndSheet, CheckTypes.DB_AND_SHEET,
+                        entityType, entityId, entity, idAndCodeFromDB, idAndCodeFromGRPC,
+                        "Error:ImportHandler:555");
                 }
                 foreach (string propertyName in _getIdFromGRPC.Keys)
                 {
-                    string repoName = _getIdFromGRPC[propertyName];
-                    PropertyInfo property = entityType.GetProperty(propertyName);
-                    string code = GetCodeForProperty(entityId, property, repoName);
-                    id = GetIdByCodeFromGRPC(repoName, code, idAndCodeFromGRPC);
-                    if (id == null && !_codePropertyAllowNull[propertyName])
-                    {
-                        var detailDict = new Dictionary<string, string> { ["code"] = code };
-                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:566",
-                            code: "1", details: detailString);
-                    }
-                    property.SetValue(entity, id);
+                    SetIdProperty(propertyName, _getIdFromGRPC, CheckTypes.DB_AND_SHEET,
+                        entityType, entityId, entity, idAndCodeFromDB, idAndCodeFromGRPC,
+                        "Error:ImportHandler:556");
                 }
             }
+        }
+
+        private void SetIdProperty(string propertyName, Dictionary<string, string> repoDictionary,
+            CheckTypes type, Type entityType, Guid entityId, T entity,
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB,
+            Dictionary<string, Dictionary<string, Guid>> idAndCodeFromGRPC,
+            string errorString)
+        {
+            Guid? id;
+            string repoName = repoDictionary[propertyName];
+            PropertyInfo property = entityType.GetProperty(propertyName);
+            string code = GetCodeForProperty(entityId, property);
+            if (code == null && _codePropertyAllowNull[propertyName])
+            {
+                property.SetValue(entity, null);
+                return;
+            }
+            if (type != CheckTypes.GRPC)
+            {
+                id = GetIdByCodeFromDB(repoName, code, idAndCodeFromDB);
+            }
+            else
+            {
+                id = GetIdByCodeFromGRPC(repoName, code, idAndCodeFromGRPC);
+            }
+            if (id == null && type == CheckTypes.DB_AND_SHEET)
+            {
+                id = GetIdByCodeFromSheet(code);
+            }
+            if (id == null && !_codePropertyAllowNull[propertyName])
+            {
+                var detailDict = new Dictionary<string, string> { ["code"] = code };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: errorString,
+                    code: "1", details: detailString);
+            }
+            property.SetValue(entity, id);
         }
 
         private static Guid? GetIdByCodeFromGRPC(string repoName, string code,
@@ -325,7 +315,7 @@ namespace DMSpro.OMS.MdmService
             return _entityCodeAndIdFromSheet[code];
         }
 
-        private string GetCodeForProperty(Guid entityId, PropertyInfo property, string repoName)
+        private string GetCodeForProperty(Guid entityId, PropertyInfo property)
         {
             if (!_entityCodeValue.Keys.Contains(entityId))
             {
@@ -357,9 +347,9 @@ namespace DMSpro.OMS.MdmService
             return idAndCode[code];
         }
 
-        private async Task<Dictionary<string, Dictionary<string, Guid>>>
-            FindIdByCodeFromGRPC(List<T> entities, Guid? tenantId)
+        private async Task<Dictionary<string, Dictionary<string, Guid>>> FindIdByCodeFromGRPC()
         {
+            Guid? tenantId = _currentTenant.Id;
             Dictionary<string, Dictionary<string, Guid>> result = new();
             foreach (string repoName in _codeToGetFromGRPC.Keys)
             {
@@ -409,7 +399,7 @@ namespace DMSpro.OMS.MdmService
             return result;
         }
 
-        private async Task<Dictionary<string, Dictionary<string, Guid>>> FindIdByCodeFromDB(List<T> entities)
+        private async Task<Dictionary<string, Dictionary<string, Guid>>> FindIdByCodeFromDB()
         {
             Dictionary<string, Dictionary<string, Guid>> result = new();
             foreach (string repoName in _codeToGetFromDB.Keys)
@@ -437,24 +427,15 @@ namespace DMSpro.OMS.MdmService
                         code: "1", details: detailString);
                 }
 
-                object resultTask = method.Invoke(repo, new object[] { codes });
-                if (resultTask is Task<Dictionary<string, Guid>> task)
+                var task = (Task<Dictionary<string, Guid>>)method.Invoke(repo, new object[] { codes });
+                Dictionary<string, Guid> idAndCode = await task;
+                if (!_codeFromDBAndSheetRepo.Contains(repoName) && idAndCode.Count != codes.Count)
                 {
-                    Dictionary<string, Guid> idAndCode = await task;
-                    if (idAndCode.Count != codes.Count)
-                    {
-                        throw new BusinessException(message: "Error:ImportHandler:560", code: "1");
-                    }
-                    result.Add(repoName, idAndCode);
+                    throw new BusinessException(message: "Error:ImportHandler:560", code: "1");
                 }
+                result.Add(repoName, idAndCode);
             }
             return result;
-        }
-
-        private static void SetTenantId(T entity, Guid? tenantId)
-        {
-            var property = typeof(T).GetProperty("TenantId", BindingFlags.Public | BindingFlags.Instance);
-            property.SetValue(entity, tenantId);
         }
 
         private void SetId(T entity, DataRow row, Guid id)
@@ -510,6 +491,10 @@ namespace DMSpro.OMS.MdmService
             {
                 repoName = _getIdByCodeFromDBAndSheet[propertyName];
                 codeList = _codeToGetFromDB;
+                if (!_codeFromDBAndSheetRepo.Contains(repoName))
+                {
+                    _codeFromDBAndSheetRepo.Add(repoName);
+                }
             }
             else if (_getIdFromGRPC.ContainsKey(propertyName))
             {
@@ -667,6 +652,13 @@ namespace DMSpro.OMS.MdmService
                 result.Add(prop.Name, type);
             }
             return result;
+        }
+
+        private enum CheckTypes
+        {
+            DB_ONLY,
+            DB_AND_SHEET,
+            GRPC,
         }
     }
 }

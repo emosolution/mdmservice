@@ -3,7 +3,6 @@ using DMSpro.OMS.MdmService.Companies;
 using Volo.Abp.Caching;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
-using Volo.Abp.Uow;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -21,9 +20,8 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             CompanyIdentityUserAssignmentManager companyIdentityUserAssignmentManager,
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
-            IUnitOfWorkManager unitOfWorkManager,
             IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider, unitOfWorkManager)
+            : base(currentTenant, repository, settingProvider)
         {
             _companyIdentityUserAssignmentRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Volo.Abp.Caching;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
-using DMSpro.OMS.MdmService.Companies;
-using Volo.Abp.Uow;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
@@ -18,9 +16,8 @@ namespace DMSpro.OMS.MdmService.GeoMasters
             IGeoMasterRepository repository,
             GeoMasterManager geoMasterManager,
             IConfiguration settingProvider,
-            IUnitOfWorkManager unitOfWorkManager,
             IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider, unitOfWorkManager)
+            : base(currentTenant, repository, settingProvider)
         {
             _geoMasterRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

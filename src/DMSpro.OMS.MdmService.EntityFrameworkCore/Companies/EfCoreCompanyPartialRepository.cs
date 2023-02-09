@@ -34,5 +34,11 @@ namespace DMSpro.OMS.MdmService.Companies
             }
             return result;
         }
+
+        public virtual async Task<int> GetCountByCodeAsync(List<string> codes)
+        {
+            var items = (await GetDbSetAsync()).Where(x => codes.Contains(x.Code));
+            return items.Count();
+        }
     }
 }

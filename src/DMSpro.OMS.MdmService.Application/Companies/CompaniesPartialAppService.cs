@@ -18,15 +18,13 @@ namespace DMSpro.OMS.MdmService.Companies
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly CompanyManager _companyManager;
 
-        public CompaniesAppService(
+        public CompaniesAppService(ICurrentTenant currentTenant,
             IGeoMasterRepository geoMasterRepository,
-            ICurrentTenant currentTenant,
             ICompanyRepository repository,
             CompanyManager companyManager,
             IConfiguration settingProvider,
-            IUnitOfWorkManager unitOfWorkManager,
             IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider, unitOfWorkManager)
+            : base(currentTenant, repository, settingProvider)
         {
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
