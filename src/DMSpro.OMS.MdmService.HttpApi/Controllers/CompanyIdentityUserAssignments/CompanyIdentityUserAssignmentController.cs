@@ -6,6 +6,11 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using Volo.Abp.Content;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Volo.Abp;
+using Volo.Abp.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using DMSpro.OMS.MdmService.Controllers.Partial;
 
 namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
@@ -14,14 +19,59 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
     [Area("mdmService")]
     [ControllerName("CompanyIdentityUserAssignment")]
     [Route("api/mdm-service/company-identity-user-assignments")]
-    public partial class CompanyIdentityUserAssignmentController : PartialController<ICompanyIdentityUserAssignmentsAppService>, 
+    public partial class CompanyIdentityUserAssignmentController :  
         ICompanyIdentityUserAssignmentsAppService
     {
         private readonly ICompanyIdentityUserAssignmentsAppService _companyIdentityUserAssignmentsAppService;
 
-        public CompanyIdentityUserAssignmentController(ICompanyIdentityUserAssignmentsAppService appService) : base(appService)
+        public CompanyIdentityUserAssignmentController(ICompanyIdentityUserAssignmentsAppService appService)
         {
             _companyIdentityUserAssignmentsAppService = appService;
+        }
+
+
+
+        [HttpGet]
+        [Route("GetListDevextremes")]
+        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            return _companyIdentityUserAssignmentsAppService.GetListDevextremesAsync(inputDev);
+        }
+
+        [HttpPost]
+        [Route("update-from-excel")]
+        public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
+        {
+            try
+            {
+                return await _companyIdentityUserAssignmentsAppService.UpdateFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("insert-from-excel")]
+        public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+        {
+            try
+            {
+                return await _companyIdentityUserAssignmentsAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpGet]

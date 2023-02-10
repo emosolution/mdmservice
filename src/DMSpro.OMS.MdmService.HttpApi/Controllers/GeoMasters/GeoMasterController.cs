@@ -6,6 +6,9 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Content;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
 using DMSpro.OMS.MdmService.Controllers.Partial;
 
 namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
@@ -14,13 +17,57 @@ namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
     [Area("mdmService")]
     [ControllerName("GeoMaster")]
     [Route("api/mdm-service/geo-masters")]
-    public partial class GeoMasterController : PartialController<IGeoMastersAppService>, IGeoMastersAppService
+    public partial class GeoMasterController :  IGeoMastersAppService
     {
         private readonly IGeoMastersAppService _geoMastersAppService;
 
-        public GeoMasterController(IGeoMastersAppService appService) : base(appService)
+        public GeoMasterController(IGeoMastersAppService appService)
         {
             _geoMastersAppService = appService;
+        }
+
+
+        [HttpGet]
+        [Route("GetListDevextremes")]
+        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            return _geoMastersAppService.GetListDevextremesAsync(inputDev);
+        }
+
+        [HttpPost]
+        [Route("update-from-excel")]
+        public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
+        {
+            try
+            {
+                return await _geoMastersAppService.UpdateFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("insert-from-excel")]
+        public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+        {
+            try
+            {
+                return await _geoMastersAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpGet]
