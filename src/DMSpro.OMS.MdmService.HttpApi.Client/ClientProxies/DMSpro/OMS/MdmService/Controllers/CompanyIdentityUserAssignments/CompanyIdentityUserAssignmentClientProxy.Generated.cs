@@ -91,17 +91,17 @@ public partial class CompanyIdentityUserAssignmentClientProxy : ClientProxyBase<
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+    public virtual async Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
     {
-        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<LoadResult>(nameof(GetListCompanyByCurrentUserAsync), new ClientProxyRequestTypeValue
         {
             { typeof(DataLoadOptionDevextreme), inputDev }
         });
     }
 
-    public virtual async Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
+    public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
-        return await RequestAsync<LoadResult>(nameof(GetListCompanyByCurrentUserAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
         {
             { typeof(DataLoadOptionDevextreme), inputDev }
         });
