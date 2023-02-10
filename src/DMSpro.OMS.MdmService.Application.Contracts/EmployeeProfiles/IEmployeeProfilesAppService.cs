@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public partial interface IEmployeeProfilesAppService : IApplicationService
+    public partial interface IEmployeeProfilesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<EmployeeProfileWithNavigationPropertiesDto>> GetListAsync(GetEmployeeProfilesInput input);
 

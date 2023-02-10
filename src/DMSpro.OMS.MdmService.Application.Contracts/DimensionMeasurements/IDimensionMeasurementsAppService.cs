@@ -4,10 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
-    public partial interface IDimensionMeasurementsAppService : IApplicationService
+    public partial interface IDimensionMeasurementsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<DimensionMeasurementDto>> GetListAsync(GetDimensionMeasurementsInput input);
 

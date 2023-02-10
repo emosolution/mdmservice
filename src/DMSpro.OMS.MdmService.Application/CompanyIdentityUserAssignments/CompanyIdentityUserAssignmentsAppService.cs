@@ -9,34 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
 
     [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Default)]
-    public partial class CompanyIdentityUserAssignmentsAppService : ApplicationService, ICompanyIdentityUserAssignmentsAppService
+    public partial class CompanyIdentityUserAssignmentsAppService 
     {
-        private readonly IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
-        private readonly CompanyIdentityUserAssignmentManager _companyIdentityUserAssignmentManager;
-        private readonly IRepository<Company, Guid> _companyRepository;
-
-        public CompanyIdentityUserAssignmentsAppService(ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository, CompanyIdentityUserAssignmentManager companyIdentityUserAssignmentManager, IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Company, Guid> companyRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
-            _companyIdentityUserAssignmentManager = companyIdentityUserAssignmentManager; _companyRepository = companyRepository;
-        }
-
         public virtual async Task<PagedResultDto<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCompanyIdentityUserAssignmentsInput input)
         {
             var totalCount = await _companyIdentityUserAssignmentRepository.GetCountAsync(input.FilterText, input.IdentityUserId, input.CompanyId);

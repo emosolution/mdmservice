@@ -3,15 +3,10 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Content;
-
-//For Devextreme
-
-
-
+using DMSpro.OMS.MdmService.Controllers.Partial;
 
 namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
 {
@@ -19,13 +14,13 @@ namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
     [Area("mdmService")]
     [ControllerName("GeoMaster")]
     [Route("api/mdm-service/geo-masters")]
-    public partial class GeoMasterController : AbpController, IGeoMastersAppService
+    public partial class GeoMasterController : PartialController<IGeoMastersAppService>, IGeoMastersAppService
     {
         private readonly IGeoMastersAppService _geoMastersAppService;
 
-        public GeoMasterController(IGeoMastersAppService geoMastersAppService)
+        public GeoMasterController(IGeoMastersAppService appService) : base(appService)
         {
-            _geoMastersAppService = geoMastersAppService;
+            _geoMastersAppService = appService;
         }
 
         [HttpGet]

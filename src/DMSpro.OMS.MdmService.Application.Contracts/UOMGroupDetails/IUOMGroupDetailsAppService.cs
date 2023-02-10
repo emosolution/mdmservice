@@ -4,19 +4,16 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
-    public partial interface IUOMGroupDetailsAppService : IApplicationService
+    public partial interface IUOMGroupDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<UOMGroupDetailWithNavigationPropertiesDto>> GetListAsync(GetUOMGroupDetailsInput input);
 
         Task<UOMGroupDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
-        Task<LoadResult> GetListDevextremeswithNavigationAsync(DataLoadOptionDevextreme inputDev);
-        
         Task<UOMGroupDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetUOMGroupLookupAsync(LookupRequestDto input);

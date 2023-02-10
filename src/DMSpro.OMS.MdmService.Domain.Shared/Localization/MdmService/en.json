@@ -996,6 +996,28 @@
     "Feature:MDMService:EnableCompanyIdentityUserAssignment": "Enable company and user assignment",
     "Permission:MdmService:CompanyIdentityUserAssignments": "Company And User Assignments",
     "Menu:MdmService:CompanyIdentityUserAssignments": "Company And User Assignments",
-    "AThanh": "ThanhHQ"
+    "AThanh": "ThanhHQ",
+    "Error:ImportHandler:550": "Empty form file",
+    "Error:ImportHandler:551": "Import file notSupported",
+    "Error:ImportHandler:552": "Import file contains bad format",
+    "Error:ImportHandler:553": "Entity does not have a property named {propertyName}",
+    "Error:ImportHandler:554": "There is no Id value can be found in database for code {code}",
+    "Error:ImportHandler:555": "There is no Id value can be found in database or sheet for code {code}",
+    "Error:ImportHandler:556": "There is no Code value can be found for an entity",
+    "Error:ImportHandler:557": "There is code value can be found for property {propertyName}",
+    "Error:ImportHandler:558": "Cannot find repository with name {repoName} to get Id by code",
+    "Error:ImportHandler:559": "Repository {repoName} does not have the required methods",
+    "Error:ImportHandler:560": "Not all Code can be found in database",
+    "Error:ImportHandler:561": "Cannot find a repository to check for property {propertyName}",
+    "Error:ImportHandler:562": "Unknown entity's property ({propertyName}) of unknown type ({typeName}) encountered during import",
+    "Error:ImportHandler:563": "GRPC information is not completed for column {columnName}",
+    "Error:ImportHandler:564": "GRPC service {repoName} does not have the required methods",
+    "Error:ImportHandler:565": "Not all Code can be found from gRPC",
+    "Error:ImportHandler:566": "There is no Id value can be found from gRPC service for code {code}",
+    "Error:ImportHandler:567": "Cannot found method to check uniqueness",
+    "Error:ImportHandler:568": "At least one of the code already exists in database",
+    "Error:ImportHandler:569": "Code {code} appears more than once in sheet data",
+    "Error:ImportHandler:570": "Code {code} appears more than once in database"
   }
 }
+

@@ -4,10 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.Streets
 {
-    public partial interface IStreetsAppService : IApplicationService
+    public partial interface IStreetsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<StreetDto>> GetListAsync(GetStreetsInput input);
 

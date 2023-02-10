@@ -3,10 +3,10 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.Controllers.Partial;
 
 namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
 {
@@ -14,13 +14,14 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
     [Area("mdmService")]
     [ControllerName("CompanyIdentityUserAssignment")]
     [Route("api/mdm-service/company-identity-user-assignments")]
-    public partial class CompanyIdentityUserAssignmentController : AbpController, ICompanyIdentityUserAssignmentsAppService
+    public partial class CompanyIdentityUserAssignmentController : PartialController<ICompanyIdentityUserAssignmentsAppService>, 
+        ICompanyIdentityUserAssignmentsAppService
     {
         private readonly ICompanyIdentityUserAssignmentsAppService _companyIdentityUserAssignmentsAppService;
 
-        public CompanyIdentityUserAssignmentController(ICompanyIdentityUserAssignmentsAppService companyIdentityUserAssignmentsAppService)
+        public CompanyIdentityUserAssignmentController(ICompanyIdentityUserAssignmentsAppService appService) : base(appService)
         {
-            _companyIdentityUserAssignmentsAppService = companyIdentityUserAssignmentsAppService;
+            _companyIdentityUserAssignmentsAppService = appService;
         }
 
         [HttpGet]

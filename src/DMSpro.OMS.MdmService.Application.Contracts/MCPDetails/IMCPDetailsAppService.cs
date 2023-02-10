@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public partial interface IMCPDetailsAppService : IApplicationService
+    public partial interface IMCPDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<MCPDetailWithNavigationPropertiesDto>> GetListAsync(GetMCPDetailsInput input);
 

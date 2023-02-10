@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    public partial interface IMCPHeadersAppService : IApplicationService
+    public partial interface IMCPHeadersAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input);
 

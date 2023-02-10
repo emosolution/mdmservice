@@ -1,6 +1,5 @@
-
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -9,7 +8,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    public partial interface IItemAttachmentsAppService : IApplicationService
+    public partial interface IItemAttachmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input);
 

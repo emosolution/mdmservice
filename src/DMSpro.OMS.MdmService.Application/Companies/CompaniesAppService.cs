@@ -6,15 +6,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,20 +18,8 @@ namespace DMSpro.OMS.MdmService.Companies
 {
 
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
-    public partial class CompaniesAppService : ApplicationService, ICompaniesAppService
-    {
-        private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICompanyRepository _companyRepository;
-        private readonly CompanyManager _companyManager;
-        private readonly IRepository<GeoMaster, Guid> _geoMasterRepository;
-
-        public CompaniesAppService(ICompanyRepository companyRepository, CompanyManager companyManager, IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<GeoMaster, Guid> geoMasterRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _companyRepository = companyRepository;
-            _companyManager = companyManager; _geoMasterRepository = geoMasterRepository;
-        }
-
+    public partial class CompaniesAppService
+    { 
         public virtual async Task<PagedResultDto<CompanyWithNavigationPropertiesDto>> GetListAsync(GetCompaniesInput input)
         {
             var totalCount = await _companyRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id);

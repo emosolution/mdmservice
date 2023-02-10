@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-    public partial interface ISalesOrgEmpAssignmentsAppService : IApplicationService
+    public partial interface ISalesOrgEmpAssignmentsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgEmpAssignmentsInput input);
 

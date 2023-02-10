@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public partial interface IWorkingPositionsAppService : IApplicationService
+    public partial interface IWorkingPositionsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input);
 

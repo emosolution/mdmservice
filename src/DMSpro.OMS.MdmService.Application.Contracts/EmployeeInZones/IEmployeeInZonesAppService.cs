@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
-    public partial interface IEmployeeInZonesAppService : IApplicationService
+    public partial interface IEmployeeInZonesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<EmployeeInZoneWithNavigationPropertiesDto>> GetListAsync(GetEmployeeInZonesInput input);
 

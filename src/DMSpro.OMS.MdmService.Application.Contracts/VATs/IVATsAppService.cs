@@ -4,9 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Partial;
+
 namespace DMSpro.OMS.MdmService.VATs
 {
-    public partial interface IVATsAppService : IApplicationService
+    public partial interface IVATsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<VATDto>> GetListAsync(GetVATsInput input);
 

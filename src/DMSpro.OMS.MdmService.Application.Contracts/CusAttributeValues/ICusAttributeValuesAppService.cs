@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    public partial interface ICusAttributeValuesAppService : IApplicationService
+    public partial interface ICusAttributeValuesAppService : IApplicationService, IPartialAppService 
     {
         Task<PagedResultDto<CusAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetCusAttributeValuesInput input);
 

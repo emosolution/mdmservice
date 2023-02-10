@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
-    public partial interface IPriceListDetailsAppService : IApplicationService
+    public partial interface IPriceListDetailsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<PriceListDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceListDetailsInput input);
 

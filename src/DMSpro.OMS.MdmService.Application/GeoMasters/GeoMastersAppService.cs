@@ -20,19 +20,8 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.GeoMasters.Default)]
-    public partial class GeoMastersAppService : ApplicationService, IGeoMastersAppService
-    {
-        private readonly IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IGeoMasterRepository _geoMasterRepository;
-        private readonly GeoMasterManager _geoMasterManager;
-
-        public GeoMastersAppService(IGeoMasterRepository geoMasterRepository, GeoMasterManager geoMasterManager, IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _geoMasterRepository = geoMasterRepository;
-            _geoMasterManager = geoMasterManager;
-        }
-
+    public partial class GeoMastersAppService
+    { 
         public virtual async Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input)
         {
             var totalCount = await _geoMasterRepository.GetCountAsync(input.FilterText, input.Code, input.ERPCode, input.Name, input.LevelMin, input.LevelMax, input.ParentId);

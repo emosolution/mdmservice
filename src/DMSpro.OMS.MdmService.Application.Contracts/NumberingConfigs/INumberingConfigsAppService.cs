@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-    public partial interface INumberingConfigsAppService : IApplicationService
+    public partial interface INumberingConfigsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<NumberingConfigWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigsInput input);
 

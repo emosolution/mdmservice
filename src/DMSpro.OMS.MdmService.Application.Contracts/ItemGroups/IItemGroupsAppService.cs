@@ -4,11 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public partial interface IItemGroupsAppService : IApplicationService
+    public partial interface IItemGroupsAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemGroupDto>> GetListAsync(GetItemGroupsInput input);
 

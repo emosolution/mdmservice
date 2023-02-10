@@ -1,15 +1,14 @@
-
 using DMSpro.OMS.MdmService.Shared;
-
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
-    public partial interface IItemGroupAttributesAppService : IApplicationService
+    public partial interface IItemGroupAttributesAppService : IApplicationService, IPartialAppService
     {
         Task<PagedResultDto<ItemGroupAttributeWithNavigationPropertiesDto>> GetListAsync(GetItemGroupAttributesInput input);
 
