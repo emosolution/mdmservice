@@ -9,5 +9,7 @@ namespace DMSpro.OMS.MdmService.Currencies
 		Task<Guid?> GetIdByCodeAsync(string code);
 
 		Task<Dictionary<string, Guid>> GetListIdByCodeAsync(List<string> codes);
+
+		Task<int> GetCountByCodeAsync(List<string> codes);
 	}
 }
