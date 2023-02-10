@@ -3,6 +3,7 @@ using DMSpro.OMS.MdmService.Companies;
 using Volo.Abp.Caching;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {

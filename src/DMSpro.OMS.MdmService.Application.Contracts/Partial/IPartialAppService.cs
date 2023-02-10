@@ -3,8 +3,8 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace DMSpro.OMS.MdmService
-{
+namespace DMSpro.OMS.MdmService.Partial
+{ 
     public interface IPartialAppService
     {
         Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);

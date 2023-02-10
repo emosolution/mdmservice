@@ -23,7 +23,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
 using Grpc.Core;
 
-namespace DMSpro.OMS.MdmService
+namespace DMSpro.OMS.MdmService.Partial
 {
     public class PartialAppService<T, TDto, TRepository> : ApplicationService, IPartialAppService
         where T : class, IEntity, new()
@@ -50,9 +50,10 @@ namespace DMSpro.OMS.MdmService
         private readonly Dictionary<string, List<string>> _codeToGetFromGRPC = new();
         private readonly Dictionary<Guid, Dictionary<string, string>> _entityCodeValue = new();
         private readonly Dictionary<string, bool> _codePropertyAllowNull = new();
-        private readonly Dictionary<string, string> _grpcInfo = new();
+        private readonly Dictionary<string, string> _grpcConnectionString= new();
+        private readonly Dictionary<string, string> _grpcNamespace = new();
         private readonly List<string> _codeFromDBAndSheetRepo = new();
-
+        
         protected readonly Dictionary<string, object> _repositories = new();
 
         public PartialAppService(ICurrentTenant currentTenant,
@@ -223,7 +224,6 @@ namespace DMSpro.OMS.MdmService
                 Type entityType = entity.GetType();
                 PropertyInfo idProperty = entityType.GetProperty("Id");
                 Guid entityId = (Guid)idProperty.GetValue(entity, null);
-                Guid? id = null;
                 foreach (string propertyName in _getIdByCodeFromDBOnly.Keys)
                 {
                     SetIdProperty(propertyName, _getIdByCodeFromDBOnly, CheckTypes.DB_ONLY,
@@ -353,11 +353,11 @@ namespace DMSpro.OMS.MdmService
                 {
                     continue;
                 }
-                string connectionString = _grpcInfo[repoName];
+                string connectionString = _grpcConnectionString[repoName];
+                string namespaceString = _grpcNamespace[repoName];
                 using (GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider.GetValue<string>(connectionString)))
                 {
-                    string typeName = $"{repoName}ProtoAppService.{repoName}ProtoAppServiceClient";
-                    Type protoType = Type.GetType($"DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers.{repoName}ProtoAppService");
+                    Type protoType = Type.GetType($"{namespaceString}.{repoName}ProtoAppService");
                     Type protoClientType = (Type) protoType.GetMember($"{repoName}ProtoAppServiceClient")[0];
                     object client = Activator.CreateInstance(protoClientType, args: channel);
                     MethodInfo method = client.GetType().GetMethod("GetCodeAndIdWithCodeAsync",
@@ -554,9 +554,15 @@ namespace DMSpro.OMS.MdmService
                     if (gRPCConnectionString != null)
                     {
                         string connectionString = gRPCConnectionString.ToString().Trim();
-                        _getIdFromGRPC.Add(col.ColumnName, protoName);
-                        _grpcInfo.Add(protoName, connectionString);
-                        _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                        var gRPCNamespace = sheetTable.Cells[i, 8].Value;
+                        if (gRPCNamespace != null)
+                        {
+                            string namespaceString = gRPCNamespace.ToString().Trim();
+                            _getIdFromGRPC.Add(col.ColumnName, protoName);
+                            _grpcConnectionString.Add(protoName, connectionString);
+                            _grpcNamespace.Add(protoName, namespaceString);
+                            _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                        }
                     }
                     else
                     {

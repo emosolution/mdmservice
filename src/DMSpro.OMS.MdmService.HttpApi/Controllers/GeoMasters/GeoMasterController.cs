@@ -6,6 +6,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.Controllers.Partial;
 
 namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
 {

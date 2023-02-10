@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;

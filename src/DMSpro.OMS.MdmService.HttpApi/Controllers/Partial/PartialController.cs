@@ -6,8 +6,9 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using DMSpro.OMS.MdmService.Partial;
 
-namespace DMSpro.OMS.MdmService.Controllers
+namespace DMSpro.OMS.MdmService.Controllers.Partial
 {
     public class PartialController<TAppService> : AbpController, IPartialAppService
         where TAppService : class, IPartialAppService

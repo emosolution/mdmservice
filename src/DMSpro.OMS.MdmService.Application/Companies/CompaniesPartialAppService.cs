@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-using Volo.Abp.Uow;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
