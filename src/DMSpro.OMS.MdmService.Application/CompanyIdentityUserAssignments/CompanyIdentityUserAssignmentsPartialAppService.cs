@@ -16,7 +16,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 	{
 		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
 		{
-			var items = await _companyIdentityUserAssignmentRepository.GetQueryableAsync();
+			var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
 			var base_dataloadoption = new DataSourceLoadOptionsBase();
 			DataLoadParser.Parse(base_dataloadoption,inputDev);
 			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);

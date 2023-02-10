@@ -8,7 +8,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 	{
 		Task<Guid?> GetIdByCodeAsync(string code);
 
-		Task<IQueryable<CompanyIdentityUserAssignmentWithNavigationProperties>> GetQueryAbleForNavigationPropertiesAsync(Guid userId);
+		Task<IQueryable<CompanyIdentityUserAssignmentWithNavigationProperties>> GetQueryAbleForNavigationPropertiesAsync(Guid? userId);
 		
 	}
 }
