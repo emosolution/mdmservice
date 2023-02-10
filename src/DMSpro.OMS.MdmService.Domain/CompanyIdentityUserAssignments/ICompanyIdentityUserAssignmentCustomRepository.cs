@@ -7,6 +7,6 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
     public partial interface ICompanyIdentityUserAssignmentRepository
     {
         Task<IQueryable<CompanyIdentityUserAssignmentWithNavigationProperties>> 
-            GetQueryAbleForNavigationPropertiesAsync(Guid userId);
+            GetQueryAbleForNavigationPropertiesAsync(Guid? userId);
     }
 }
