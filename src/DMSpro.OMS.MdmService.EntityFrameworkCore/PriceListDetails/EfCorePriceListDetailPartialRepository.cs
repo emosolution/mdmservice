@@ -10,5 +10,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         {
             throw new NotImplementedException();
         }
+        
+        public virtual async Task<IQueryable<PriceListDetailWithNavigationProperties>> GetQueryAbleForNavigationPropertiesAsync()
+        {
+            return await GetQueryForNavigationPropertiesAsync();
+        }
     }
 }

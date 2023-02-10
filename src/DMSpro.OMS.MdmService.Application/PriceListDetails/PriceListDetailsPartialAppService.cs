@@ -16,7 +16,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 	{
 		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
 		{
-			var items = await _priceListDetailRepository.GetQueryableAsync();
+			var items = await _priceListDetailRepository.GetQueryAbleForNavigationPropertiesAsync();
 			var base_dataloadoption = new DataSourceLoadOptionsBase();
 			DataLoadParser.Parse(base_dataloadoption,inputDev);
 			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
