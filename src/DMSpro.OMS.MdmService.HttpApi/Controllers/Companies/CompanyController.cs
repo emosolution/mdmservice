@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
-
+using Volo.Abp.AspNetCore.Mvc;
 namespace DMSpro.OMS.MdmService.Controllers.Companies
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("Company")]
     [Route("api/mdm-service/companies")]
-    public partial class CompanyController : PartialController<ICompaniesAppService>, ICompaniesAppService
+    public partial class CompanyController : AbpController, ICompaniesAppService
     {
         private readonly ICompaniesAppService _companiesAppService;
 
-        public CompanyController(ICompaniesAppService appService) : base(appService)
+        public CompanyController(ICompaniesAppService appService)
         {
             _companiesAppService = appService;
         }

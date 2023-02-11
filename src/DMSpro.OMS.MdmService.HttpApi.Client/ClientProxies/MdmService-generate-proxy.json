@@ -44413,63 +44413,6 @@
           "type": "DMSpro.OMS.MdmService.Controllers.GeoMasters.GeoMasterController",
           "interfaces": [
             {
-              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
-              "name": "IPartialAppService",
-              "methods": [
-                {
-                  "name": "GetListDevextremesAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "inputDev",
-                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
-                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
-                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-                  }
-                },
-                {
-                  "name": "InsertFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                },
-                {
-                  "name": "UpdateFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                }
-              ]
-            },
-            {
               "type": "DMSpro.OMS.MdmService.GeoMasters.IGeoMastersAppService",
               "name": "IGeoMastersAppService",
               "methods": [
@@ -44625,6 +44568,63 @@
                     "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
                   }
                 },
+                {
+                  "name": "GetListDevextremesAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "inputDev",
+                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
+                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "InsertFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "UpdateFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
+              "name": "IPartialAppService",
+              "methods": [
                 {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
@@ -68725,63 +68725,6 @@
           "type": "DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments.CompanyIdentityUserAssignmentController",
           "interfaces": [
             {
-              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
-              "name": "IPartialAppService",
-              "methods": [
-                {
-                  "name": "GetListDevextremesAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "inputDev",
-                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
-                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
-                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-                  }
-                },
-                {
-                  "name": "InsertFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                },
-                {
-                  "name": "UpdateFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                }
-              ]
-            },
-            {
               "type": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService",
               "name": "ICompanyIdentityUserAssignmentsAppService",
               "methods": [
@@ -68954,6 +68897,63 @@
                     "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
                   }
                 },
+                {
+                  "name": "GetListDevextremesAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "inputDev",
+                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
+                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "InsertFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "UpdateFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
+              "name": "IPartialAppService",
+              "methods": [
                 {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
@@ -69460,295 +69460,6 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
             },
-            "GetListCompanyByCurrentUserAsyncByInputDev": {
-              "uniqueName": "GetListCompanyByCurrentUserAsyncByInputDev",
-              "name": "GetListCompanyByCurrentUserAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/company-identity-user-assignments/GetListCompanyByCurrentUser",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "inputDev",
-                  "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
-                  "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                  "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "PaginateViaPrimaryKey",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "StringToLower",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "DefaultSort",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "PrimaryKey",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "ExpandLinqSumType",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "RemoteGrouping",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "RemoteSelect",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "PreSelect",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Select",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "GroupSummary",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "TotalSummary",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Filter",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Group",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Sort",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Take",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "Skip",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "IsSummaryQuery",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "IsCountQuery",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "RequireGroupCount",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "RequireTotalCount",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "SortByPrimaryKey",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                },
-                {
-                  "nameOnMethod": "inputDev",
-                  "name": "AllowAsyncOverSync",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "inputDev"
-                }
-              ],
-              "returnValue": {
-                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
-                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
-            },
             "GetListDevextremesAsyncByInputDev": {
               "uniqueName": "GetListDevextremesAsyncByInputDev",
               "name": "GetListDevextremesAsync",
@@ -70111,6 +69822,295 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Partial.IPartialAppService"
+            },
+            "GetListCompanyByCurrentUserAsyncByInputDev": {
+              "uniqueName": "GetListCompanyByCurrentUserAsyncByInputDev",
+              "name": "GetListCompanyByCurrentUserAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/company-identity-user-assignments/GetListCompanyByCurrentUser",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "inputDev",
+                  "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
+                  "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                  "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "PaginateViaPrimaryKey",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "StringToLower",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "DefaultSort",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "PrimaryKey",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "ExpandLinqSumType",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "RemoteGrouping",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "RemoteSelect",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "PreSelect",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Select",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "GroupSummary",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "TotalSummary",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Filter",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Group",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Sort",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Take",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "Skip",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "IsSummaryQuery",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "IsCountQuery",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "RequireGroupCount",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "RequireTotalCount",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "SortByPrimaryKey",
+                  "jsonName": null,
+                  "type": "System.Boolean?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                },
+                {
+                  "nameOnMethod": "inputDev",
+                  "name": "AllowAsyncOverSync",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "inputDev"
+                }
+              ],
+              "returnValue": {
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
             }
           }
         },
@@ -70122,63 +70122,6 @@
           "apiVersion": null,
           "type": "DMSpro.OMS.MdmService.Controllers.Companies.CompanyController",
           "interfaces": [
-            {
-              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
-              "name": "IPartialAppService",
-              "methods": [
-                {
-                  "name": "GetListDevextremesAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "inputDev",
-                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
-                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
-                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-                  }
-                },
-                {
-                  "name": "InsertFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                },
-                {
-                  "name": "UpdateFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
-                      "type": "Microsoft.AspNetCore.Http.IFormFile",
-                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                }
-              ]
-            },
             {
               "type": "DMSpro.OMS.MdmService.Companies.ICompaniesAppService",
               "name": "ICompaniesAppService",
@@ -70352,6 +70295,63 @@
                     "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
                   }
                 },
+                {
+                  "name": "GetListDevextremesAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "inputDev",
+                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
+                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "InsertFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "UpdateFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features",
+                      "type": "Microsoft.AspNetCore.Http.IFormFile",
+                      "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "DMSpro.OMS.MdmService.Partial.IPartialAppService",
+              "name": "IPartialAppService",
+              "methods": [
                 {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
