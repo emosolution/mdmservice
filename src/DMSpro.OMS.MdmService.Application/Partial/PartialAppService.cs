@@ -25,7 +25,7 @@ using Grpc.Core;
 
 namespace DMSpro.OMS.MdmService.Partial
 {
-    public class PartialAppService<T, TDto, TRepository> : ApplicationService, IPartialAppService
+    public class PartialAppService<T, TDto, TRepository> : ApplicationService
         where T : class, IEntity, new()
         where TDto : class
         where TRepository : class, IRepository<T>
@@ -41,7 +41,8 @@ namespace DMSpro.OMS.MdmService.Partial
             typeof(decimal),
         };
 
-        private Dictionary<string, Type> _entityProperties = new();
+        private Dictionary<string, Type> _entityPropertyTypes = new();
+        private Dictionary<string, PropertyInfo> _entityPropertyInfos = new();
         private readonly Dictionary<string, string> _getIdByCodeFromDBAndSheet = new();
         private readonly Dictionary<string, string> _getIdByCodeFromDBOnly = new();
         private readonly Dictionary<string, string> _getIdFromGRPC = new();
@@ -49,11 +50,14 @@ namespace DMSpro.OMS.MdmService.Partial
         private readonly Dictionary<string, List<string>> _codeToGetFromDB = new();
         private readonly Dictionary<string, List<string>> _codeToGetFromGRPC = new();
         private readonly Dictionary<Guid, Dictionary<string, string>> _entityCodeValue = new();
-        private readonly Dictionary<string, bool> _codePropertyAllowNull = new();
-        private readonly Dictionary<string, string> _grpcConnectionString= new();
+        private readonly Dictionary<string, string> _grpcConnectionString = new();
         private readonly Dictionary<string, string> _grpcNamespace = new();
         private readonly List<string> _codeFromDBAndSheetRepo = new();
-        
+        private readonly Dictionary<string, bool> _structureAllowNull = new();
+        private readonly Dictionary<string, Type> _structureType = new();
+        private readonly List<string> _structurePropertyName = new();
+        private readonly List<Guid> _guidForUpdate = new();
+
         protected readonly Dictionary<string, object> _repositories = new();
 
         public PartialAppService(ICurrentTenant currentTenant,
@@ -71,16 +75,86 @@ namespace DMSpro.OMS.MdmService.Partial
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            results.data = ObjectMapper.Map<IEnumerable<T>, IEnumerable<TDto>>(results.data.Cast<T>());
+            if (inputDev.Group == null)
+            {
+                results.data = ObjectMapper.Map<IEnumerable<T>, IEnumerable<TDto>>(results.data.Cast<T>());
+            }
             return results;
         }
 
-        public Task<int> UpdateFromExcelAsync(IFormFile file)
+        public async Task<int> UpdateFromExcelAsync(IFormFile file)
         {
-            return null;
+            DataTable data = await GetDataTableFromFile(file, OperationMode.UPDATE);
+            _entityPropertyTypes = GetEntityProperties();
+            List<T> databaseEntities = await CheckIdForUpdate();
+            List<T> entities = await CreateEntityList(data, OperationMode.UPDATE);
+            Dictionary<Guid, T> entitiyDictionary = new();
+            foreach (T entity in entities)
+            {
+                Guid id = (Guid)_entityPropertyInfos["Id"].GetValue(entity);
+                entitiyDictionary.Add(id, entity);
+            }
+            await UpdateDatabaseEntities(databaseEntities, entitiyDictionary, data);
+            return databaseEntities.Count;
         }
 
         public async Task<int> InsertFromExcelAsync(IFormFile file)
+        {
+            DataTable data = await GetDataTableFromFile(file, OperationMode.INSERT);
+            _entityPropertyTypes = GetEntityProperties();
+            List<T> entities = await CreateEntityList(data, OperationMode.INSERT);
+            await _repository.InsertManyAsync(entities);
+            return entities.Count;
+        }
+
+        private async Task<int> UpdateDatabaseEntities(List<T> databaseEntities,
+            Dictionary<Guid, T> entitiyDictionary, DataTable data)
+        {
+            foreach (T entity in databaseEntities)
+            {
+                Guid id = (Guid)_entityPropertyInfos["Id"].GetValue(entity);
+                foreach (DataColumn col in data.Columns)
+                {
+                    string propertyName = col.ColumnName;
+                    if (propertyName == "Id")
+                    {
+                        continue;
+                    }
+                    var property = _entityPropertyInfos[propertyName];
+                    var newValue = property.GetValue(entitiyDictionary[id]);
+                    property.SetValue(entity, newValue);
+                }
+            }
+            Type repoType = _repository.GetType();
+            MethodInfo method = repoType.GetMethod("UpdateManyAsync");
+            object resultTask = method.Invoke(_repository, new object[] { databaseEntities, Type.Missing, Type.Missing });
+            await (Task)resultTask;
+            return databaseEntities.Count;
+        }
+
+        private async Task<List<T>> CheckIdForUpdate()
+        {
+            Type repoType = _repository.GetType();
+            MethodInfo method = repoType.GetMethod("GetByIdAsync");
+            if (method == null)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:577", code: "1");
+            }
+
+            object resultTask = method.Invoke(_repository, new object[] { _guidForUpdate });
+            if (resultTask is Task<List<T>> task)
+            {
+                List<T> result = await task;
+                if (result.Count != _guidForUpdate.Count)
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:578", code: "0");
+                }
+                return result;
+            }
+            throw new BusinessException(message: "Error:ImportHandler:582", code: "1");
+        }
+
+        private async Task<DataTable> GetDataTableFromFile(IFormFile file, OperationMode operationMode)
         {
             if (file == null || file.Length <= 0) //file empty
             {
@@ -94,10 +168,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 throw new BusinessException(message: "Error:ImportHandler:551", code: "0");
             }
 
-
-            List<T> entities = new();
-            _entityProperties = GetEntityProperties();
-
+            DataTable result = null;
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
@@ -116,42 +187,52 @@ namespace DMSpro.OMS.MdmService.Partial
                     int tableCount = worksheets.Count / 2;
                     for (int i = 0; i < tableCount; i++)
                     {
-                        var sheetTable = worksheets[i * 2];
+                        var sheetStructure = worksheets[i * 2];
                         var sheetData = worksheets[i * 2 + 1];
 
-                        var data = ReadExcelToDatatable(sheetTable, sheetData);
-
-                        entities = await CreateEntityList(data);
+                        result = ReadExcelToDatatable(sheetStructure, sheetData, operationMode);
                     }
                 }
             }
-
-            await _repository.InsertManyAsync(entities);
-
-            return entities.Count;
+            if (result == null)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:571", code: "0");
+            }
+            return result;
         }
 
-        private async Task<List<T>> CreateEntityList(DataTable data)
+        private async Task<List<T>> CreateEntityList(DataTable data, OperationMode operationMode)
         {
             List<T> result = new();
-
             foreach (DataRow row in data.AsEnumerable())
             {
                 T entity = new();
-                Guid id = GuidGenerator.Create();
+                Guid id;
+                if (operationMode == OperationMode.INSERT)
+                {
+                    id = GuidGenerator.Create();
+                }
+                else if (operationMode == OperationMode.UPDATE)
+                {
+                    id = (Guid)row["Id"];
+                }
+                else
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:581", code: "1");
+                }
                 foreach (DataColumn col in data.Columns)
                 {
                     string propertyName = col.ColumnName;
-                    if (!_entityProperties.ContainsKey(propertyName))
+                    if (!_entityPropertyTypes.ContainsKey(propertyName))
                     {
                         var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
                         throw new BusinessException(message: "Error:ImportHandler:553",
                             code: "0", details: detailString);
                     }
-                    Type type = _entityProperties[propertyName];
                     var value = row[propertyName];
-                    var property = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+                    Type type = _entityPropertyTypes[propertyName];
+                    var property = _entityPropertyInfos[propertyName];
                     if (type == typeof(string))
                     {
                         string valueString = value == null || value == DBNull.Value ? "" : value.ToString();
@@ -181,9 +262,9 @@ namespace DMSpro.OMS.MdmService.Partial
                 SetId(entity, row, id);
                 result.Add(entity);
             }
-            if (_entityProperties.ContainsKey("Code"))
+            if (_structurePropertyName.Contains("Code"))
             {
-                await CheckForCodeUniqueness();
+                await CheckCodeForUniqueness(operationMode);
             }
 
             Dictionary<string, Dictionary<string, Guid>> idAndCodeFromDB = await FindIdByCodeFromDB();
@@ -194,7 +275,49 @@ namespace DMSpro.OMS.MdmService.Partial
 
         }
 
-        private async Task CheckForCodeUniqueness()
+        private async Task CheckCodeForUniqueness(OperationMode operationMode)
+        {
+            if (_entityCodeAndIdFromSheet.Count < 1)
+            {
+                return;
+            }
+            if (operationMode == OperationMode.INSERT)
+            {
+                await CheckInsertCodeUniqueness();
+            }
+            else if (operationMode == OperationMode.UPDATE)
+            {
+                await CheckUpdateCodeUniqueness();
+            }
+            else
+            {
+                throw new BusinessException(message: "Error:ImportHandler:581", code: "1");
+            }
+        }
+
+        private async Task CheckUpdateCodeUniqueness()
+        {
+            List<string> codes = _entityCodeAndIdFromSheet.Keys.ToList();
+            List<Guid> ids = _entityCodeAndIdFromSheet.Values.ToList();
+            Type repoType = _repository.GetType();
+            MethodInfo method = repoType.GetMethod("CheckUniqueCodeForUpdate");
+            if (method == null)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:583", code: "1");
+            }
+
+            object resultTask = method.Invoke(_repository, new object[] { codes, ids });
+            if (resultTask is Task<bool> task)
+            {
+                bool noDuplicateCodeInDb = await task;
+                if (!noDuplicateCodeInDb)
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:568", code: "0");
+                }
+            }
+        }
+
+        private async Task CheckInsertCodeUniqueness()
         {
             List<string> codes = _entityCodeAndIdFromSheet.Keys.ToList();
             Type repoType = _repository.GetType();
@@ -255,7 +378,7 @@ namespace DMSpro.OMS.MdmService.Partial
             string repoName = repoDictionary[propertyName];
             PropertyInfo property = entityType.GetProperty(propertyName);
             string code = GetCodeForProperty(entityId, property);
-            if (code == null && _codePropertyAllowNull[propertyName])
+            if (code == null && _structureAllowNull[propertyName])
             {
                 property.SetValue(entity, null);
                 return;
@@ -272,7 +395,7 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 id = GetIdByCodeFromSheet(code);
             }
-            if (id == null && !_codePropertyAllowNull[propertyName])
+            if (id == null && !_structureAllowNull[propertyName])
             {
                 var detailDict = new Dictionary<string, string> { ["code"] = code };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
@@ -358,7 +481,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 using (GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider.GetValue<string>(connectionString)))
                 {
                     Type protoType = Type.GetType($"{namespaceString}.{repoName}ProtoAppService");
-                    Type protoClientType = (Type) protoType.GetMember($"{repoName}ProtoAppServiceClient")[0];
+                    Type protoClientType = (Type)protoType.GetMember($"{repoName}ProtoAppServiceClient")[0];
                     object client = Activator.CreateInstance(protoClientType, args: channel);
                     MethodInfo method = client.GetType().GetMethod("GetCodeAndIdWithCodeAsync",
                         BindingFlags.Instance | BindingFlags.Public,
@@ -440,7 +563,7 @@ namespace DMSpro.OMS.MdmService.Partial
         {
             var property = typeof(T).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
             property.SetValue(entity, id);
-            if (!_entityProperties.ContainsKey("Code"))
+            if (!_entityPropertyTypes.ContainsKey("Code"))
             {
                 return;
             }
@@ -518,114 +641,225 @@ namespace DMSpro.OMS.MdmService.Partial
             codes.Add(value.ToString());
         }
 
-        private DataTable ReadExcelToDatatable(ExcelWorksheet sheetTable, ExcelWorksheet sheetData)
+        private DataTable ReadExcelToDatatable(ExcelWorksheet sheetStructure,
+            ExcelWorksheet sheetData, OperationMode operationMode)
         {
-            DataTable dt = new();
-            int colCount = sheetTable.Dimension.End.Column;
-            int rowCount = sheetTable.Dimension.End.Row;
+            GetStructureInfo(sheetStructure);
 
+            int colCount = sheetData.Dimension.End.Column;
+            int rowCount = sheetData.Dimension.End.Row;
+
+            if (rowCount < 2 || colCount < 2)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:572", code: "0");
+            }
+            DataTable dt = new();
+            List<string> approvedColumns = new();
+            List<string> checkedColumn = new();
+            Dictionary<string, string> columnLetters = new();
+            int approvedNum = 0;
+            for (int i = 1; i <= colCount; i++)
+            {
+                var cell = sheetData.Cells[1, i];
+                string propertyName = sheetData.Cells[1, i].Value.ToString();
+                string columnLetter = cell.EntireColumn.Range.Address.Split(":")[0];
+                if (propertyName.CompareTo("Id") == 0 && operationMode == OperationMode.UPDATE)
+                {
+                    DataColumn col = new();
+                    col.AllowDBNull = false;
+                    col.ColumnName = propertyName;
+                    col.DataType = typeof(Guid);
+                    dt.Columns.Add(col);
+                    approvedColumns.Add(propertyName);
+                    columnLetters.Add(columnLetter, propertyName);
+                }
+                else if (_structurePropertyName.Contains(propertyName))
+                {
+                    approvedNum++;
+                    DataColumn col = new();
+                    col.AllowDBNull = _structureAllowNull[propertyName];
+                    col.ColumnName = propertyName;
+                    col.DataType = _structureType[propertyName];
+                    switch (col.DataType.ToString())
+                    {
+                        case "System.String":
+                            col.DefaultValue = string.Empty;
+                            break;
+                        case "System.Int32":
+                            col.DefaultValue = 0;
+                            break;
+                        case "System.Decimal":
+                            col.DefaultValue = 0;
+                            break;
+                        case "System.DateTime":
+                            col.DefaultValue = DateTime.Now;
+                            break;
+                        case "System.Boolean":
+                            col.DefaultValue = true;
+                            break;
+                    }
+                    dt.Columns.Add(col);
+                    approvedColumns.Add(propertyName);
+                    columnLetters.Add(columnLetter, propertyName);
+                }
+                if (checkedColumn.Contains(propertyName))
+                {
+                    throw new BusinessException(message: "Error:ImportHandler:574", code: "0");
+                }
+                checkedColumn.Add(propertyName);
+            }
+            if (operationMode == OperationMode.INSERT && approvedNum != _structurePropertyName.Count)
+            {
+                throw new BusinessException(message: "Error:ImportHandler:573", code: "0");
+            }
+            else if (operationMode == OperationMode.UPDATE && !approvedColumns.Contains("Id"))
+            {
+                throw new BusinessException(message: "Error:ImportHandler:575", code: "0");
+            }
+
+            PopulateDataTableFromSheetData(sheetData, dt, rowCount, colCount,
+                columnLetters, approvedColumns);
+
+            return dt;
+        }
+
+        private void PopulateDataTableFromSheetData(ExcelWorksheet sheetData, DataTable dt,
+            int rowCount, int colCount,
+            Dictionary<string, string> columnLetters,
+            List<string> approvedColumns)
+        {
             for (int i = 2; i <= rowCount; i++)
             {
-                var col = new DataColumn();
-                col.ColumnName = sheetTable.Cells[i, 1].Value.ToString().Trim();
+                var newRow = dt.NewRow();
+                var sheetRow = sheetData.Cells[i, 1, i, colCount];
+                foreach (var cell in sheetRow)
+                {
+                    string columnLetter = cell.EntireColumn.Range.Address.Split(":")[0];
+                    if (!columnLetters.ContainsKey(columnLetter))
+                    {
+                        continue;
+                    }
+                    string propertyName = columnLetters[columnLetter];
+                    if (!approvedColumns.Contains(propertyName))
+                    {
+                        continue;
+                    }
+                    newRow[propertyName] = cell.Value;
+                    if (propertyName.CompareTo("Id") == 0)
+                    {
+                        Guid id = ParseGuidForUpdate(cell, i);
+                        if (_guidForUpdate.Contains(id))
+                        {
+                            var detailDict = new Dictionary<string, string> { ["row"] = i.ToString() };
+                            string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                            throw new BusinessException(message: "Error:ImportHandler:579", code: "0", details: detailString);
+                        }
+                        _guidForUpdate.Add(id);
 
-                var allowNull = bool.Parse(sheetTable.Cells[i, 3].Value.ToString().Trim());
-                col.AllowDBNull = allowNull;
+                    }
+                }
+                dt.Rows.Add(newRow);
+            }
+        }
 
-                var getIdByCodeFromDBAndSheetValue = sheetTable.Cells[i, 4].Value;
+        private Guid ParseGuidForUpdate(ExcelRangeBase cell, int row)
+        {
+            if (cell.Value == null || cell.Value == DBNull.Value)
+            {
+                var detailDict = new Dictionary<string, string> { ["row"] = row.ToString() };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: "Error:ImportHandler:580", code: "0", details: detailString);
+            }
+            try
+            {
+                Guid id = Guid.Parse(cell.Value.ToString());
+                return id;
+            }
+            catch (Exception)
+            {
+                var detailDict = new Dictionary<string, string> { ["row"] = row.ToString() };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new BusinessException(message: "Error:ImportHandler:576", code: "0", details: detailString);
+            }
+        }
+
+        private void GetStructureInfo(ExcelWorksheet sheetStructure)
+        {
+            int rowCount = sheetStructure.Dimension.End.Row;
+            for (int i = 2; i <= rowCount; i++)
+            {
+                string propertyName = sheetStructure.Cells[i, 1].Value.ToString().Trim();
+
+                var allowNull = bool.Parse(sheetStructure.Cells[i, 3].Value.ToString().Trim());
+                _structureAllowNull.Add(propertyName, allowNull);
+
+                var getIdByCodeFromDBAndSheetValue = sheetStructure.Cells[i, 4].Value;
                 if (getIdByCodeFromDBAndSheetValue != null)
                 {
-                    _getIdByCodeFromDBAndSheet.Add(col.ColumnName, getIdByCodeFromDBAndSheetValue.ToString().Trim());
-                    _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                    _getIdByCodeFromDBAndSheet.Add(propertyName, getIdByCodeFromDBAndSheetValue.ToString().Trim());
                 }
 
-                var getIdByCodeFromDBOnlyValue = sheetTable.Cells[i, 5].Value;
+                var getIdByCodeFromDBOnlyValue = sheetStructure.Cells[i, 5].Value;
                 if (getIdByCodeFromDBOnlyValue != null)
                 {
-                    _getIdByCodeFromDBOnly.Add(col.ColumnName, getIdByCodeFromDBOnlyValue.ToString().Trim());
-                    _codePropertyAllowNull.Add(col.ColumnName, allowNull);
+                    _getIdByCodeFromDBOnly.Add(propertyName, getIdByCodeFromDBOnlyValue.ToString().Trim());
                 }
 
-                var getIdFromGRPCValue = sheetTable.Cells[i, 6].Value;
+                var getIdFromGRPCValue = sheetStructure.Cells[i, 6].Value;
                 if (getIdFromGRPCValue != null)
                 {
                     string protoName = getIdFromGRPCValue.ToString().Trim();
-                    var gRPCConnectionString = sheetTable.Cells[i, 7].Value;
+                    var gRPCConnectionString = sheetStructure.Cells[i, 7].Value;
                     if (gRPCConnectionString != null)
                     {
                         string connectionString = gRPCConnectionString.ToString().Trim();
-                        var gRPCNamespace = sheetTable.Cells[i, 8].Value;
+                        var gRPCNamespace = sheetStructure.Cells[i, 8].Value;
                         if (gRPCNamespace != null)
                         {
                             string namespaceString = gRPCNamespace.ToString().Trim();
-                            _getIdFromGRPC.Add(col.ColumnName, protoName);
+                            _getIdFromGRPC.Add(propertyName, protoName);
                             _grpcConnectionString.Add(protoName, connectionString);
                             _grpcNamespace.Add(protoName, namespaceString);
-                            _codePropertyAllowNull.Add(col.ColumnName, allowNull);
                         }
                     }
                     else
                     {
-                        var detailDict = new Dictionary<string, string> { ["columnName"] = col.ColumnName };
+                        var detailDict = new Dictionary<string, string> { ["columnName"] = propertyName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
                         throw new BusinessException(message: "Error:ImportHandler:563",
                             code: "1", details: detailString);
                     }
                 }
 
-                switch (sheetTable.Cells[i, 2].Value.ToString().Trim())
+                switch (sheetStructure.Cells[i, 2].Value.ToString().Trim())
                 {
                     case "string":
-                        col.DataType = typeof(string);
-                        col.DefaultValue = string.Empty;
+                        _structureType.Add(propertyName, typeof(string));
                         break;
                     case "int":
-                        col.DataType = typeof(int);
-                        col.DefaultValue = 0;
+                        _structureType.Add(propertyName, typeof(int));
                         break;
                     case "decimal":
-                        col.DataType = typeof(decimal);
-                        col.DefaultValue = 0;
+                        _structureType.Add(propertyName, typeof(decimal));
                         break;
                     case "date":
                     case "datetime":
-                        col.DataType = typeof(DateTime);
-                        col.DefaultValue = DateTime.Now;
+                        _structureType.Add(propertyName, typeof(DateTime));
                         break;
                     case "bit":
                     case "bool":
-                        col.DataType = typeof(bool);
-                        col.DefaultValue = true;
+                        _structureType.Add(propertyName, typeof(bool));
                         break;
-                    case "guid": col.DataType = typeof(Guid); break;
+                    case "guid":
+                        _structureType.Add(propertyName, typeof(Guid));
+                        break;
                 }
 
-                dt.Columns.Add(col);
+                _structurePropertyName.Add(propertyName);
             }
-
-
-            colCount = sheetData.Dimension.End.Column;
-            rowCount = sheetData.Dimension.End.Row;
-
-            //start adding the contents of the excel file to the companies
-            for (int i = 2; i <= rowCount; i++)
-            {
-                var row = sheetData.Cells[i, 1, i, colCount];
-                int count = row.Columns;
-                var newRow = dt.NewRow();
-
-                //loop all cells in the row
-                foreach (var cell in row)
-                {
-                    newRow[cell.Start.Column - 1] = cell.Value;
-                }
-                dt.Rows.Add(newRow);
-            }
-
-            return dt;
         }
 
-        private static Dictionary<string, Type> GetEntityProperties()
+        private Dictionary<string, Type> GetEntityProperties()
         {
             Dictionary<string, Type> result = new();
 
@@ -654,6 +888,7 @@ namespace DMSpro.OMS.MdmService.Partial
                         code: "1", details: detailString);
                 }
                 result.Add(prop.Name, type);
+                _entityPropertyInfos.Add(prop.Name, prop);
             }
             return result;
         }
@@ -663,6 +898,12 @@ namespace DMSpro.OMS.MdmService.Partial
             DB_ONLY,
             DB_AND_SHEET,
             GRPC,
+        }
+
+        private enum OperationMode
+        {
+            INSERT,
+            UPDATE,
         }
     }
 }
