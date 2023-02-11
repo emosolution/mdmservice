@@ -5,10 +5,14 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Partial;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-    public partial interface ICompanyIdentityUserAssignmentsAppService : IApplicationService, IPartialAppService
+    public partial interface ICompanyIdentityUserAssignmentsAppService : IApplicationService
     {
         Task<PagedResultDto<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCompanyIdentityUserAssignmentsInput input);
 
@@ -27,5 +31,9 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(CompanyIdentityUserAssignmentExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        Task<int> InsertFromExcelAsync(IFormFile file);
+        Task<int> UpdateFromExcelAsync(IFormFile file);
     }
 }

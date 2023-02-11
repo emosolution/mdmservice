@@ -5,10 +5,14 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Partial;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public partial interface IGeoMastersAppService : IApplicationService, IPartialAppService
+    public partial interface IGeoMastersAppService : IApplicationService
     {
         Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input);
         
@@ -27,5 +31,9 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(GeoMasterExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        Task<int> InsertFromExcelAsync(IFormFile file);
+        Task<int> UpdateFromExcelAsync(IFormFile file);
     }
 }

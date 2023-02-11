@@ -6,9 +6,13 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public partial interface ICompaniesAppService : IApplicationService, IPartialAppService
+    public partial interface ICompaniesAppService : IApplicationService
     {
         Task<PagedResultDto<CompanyWithNavigationPropertiesDto>> GetListAsync(GetCompaniesInput input);
 
@@ -29,5 +33,10 @@ namespace DMSpro.OMS.MdmService.Companies
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(CompanyExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
+
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        Task<int> InsertFromExcelAsync(IFormFile file);
+        Task<int> UpdateFromExcelAsync(IFormFile file);
+
     }
 }
