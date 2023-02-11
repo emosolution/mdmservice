@@ -1,7 +1,7 @@
 using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.Controllers.Partial;
 using DMSpro.OMS.MdmService.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -14,13 +14,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
     [Area("mdmService")]
     [ControllerName("Company")]
     [Route("api/mdm-service/companies")]
-    public partial class CompanyController : PartialController<ICompaniesAppService>, ICompaniesAppService
+    public partial class CompanyController : AbpController, ICompaniesAppService
     {
         private readonly ICompaniesAppService _companiesAppService;
 
-        public CompanyController(ICompaniesAppService appService) : base(appService)
+        public CompanyController(ICompaniesAppService companiesAppService)
         {
-            _companiesAppService = appService;
+            _companiesAppService = companiesAppService;
         }
 
         [HttpGet]

@@ -3,6 +3,8 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Volo.Abp;
+using System;
 
 namespace DMSpro.OMS.MdmService.Controllers.MCPDetails
 {
@@ -18,16 +20,38 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPDetails
 
 		[HttpPost]
 		[Route("update-from-excel")]
-		public Task<int> UpdateFromExcelAsync(IFormFile file)
+		public async Task<int> UpdateFromExcelAsync(IFormFile file)
 		{
-			return _mCPDetailsAppService.UpdateFromExcelAsync(file);
+			try
+            {
+                return await _mCPDetailsAppService.UpdateFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
 		}
 
 		[HttpPost]
 		[Route("insert-from-excel")]
-		public Task<int> InsertFromExcelAsync(IFormFile file)
+		public async Task<int> InsertFromExcelAsync(IFormFile file)
         {
-            return _mCPDetailsAppService.InsertFromExcelAsync(file);
+            try
+            {
+                return await _mCPDetailsAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 	}
 }

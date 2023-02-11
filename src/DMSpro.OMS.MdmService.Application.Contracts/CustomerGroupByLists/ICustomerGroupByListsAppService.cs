@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
-    public partial interface ICustomerGroupByListsAppService : IApplicationService, IPartialAppService
+    public partial interface ICustomerGroupByListsAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerGroupByListWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByListsInput input);
 

@@ -3,6 +3,8 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Volo.Abp;
+using System;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 {
@@ -18,16 +20,38 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 
 		[HttpPost]
 		[Route("update-from-excel")]
-		public Task<int> UpdateFromExcelAsync(IFormFile file)
+		public async Task<int> UpdateFromExcelAsync(IFormFile file)
 		{
-			return _itemAttachmentsAppService.UpdateFromExcelAsync(file);
+			try
+            {
+                return await _itemAttachmentsAppService.UpdateFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
 		}
 
 		[HttpPost]
 		[Route("insert-from-excel")]
-		public Task<int> InsertFromExcelAsync(IFormFile file)
+		public async Task<int> InsertFromExcelAsync(IFormFile file)
         {
-            return _itemAttachmentsAppService.InsertFromExcelAsync(file);
+            try
+            {
+                return await _itemAttachmentsAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 	}
 }

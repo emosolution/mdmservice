@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public partial interface ICompaniesAppService : IApplicationService, IPartialAppService
+    public partial interface ICompaniesAppService : IApplicationService
     {
         Task<PagedResultDto<CompanyWithNavigationPropertiesDto>> GetListAsync(GetCompaniesInput input);
 

@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
-    public partial interface IEmployeeImagesAppService : IApplicationService, IPartialAppService
+    public partial interface IEmployeeImagesAppService : IApplicationService
     {
         Task<PagedResultDto<EmployeeImageWithNavigationPropertiesDto>> GetListAsync(GetEmployeeImagesInput input);
 

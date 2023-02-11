@@ -1,5 +1,4 @@
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -8,7 +7,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Items
 {
-    public partial interface IItemsAppService : IApplicationService, IPartialAppService
+    public partial interface IItemsAppService : IApplicationService
     {
         Task<PagedResultDto<ItemWithNavigationPropertiesDto>> GetListAsync(GetItemsInput input);
 

@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
-    public partial interface ICustomerInZonesAppService : IApplicationService, IPartialAppService
+    public partial interface ICustomerInZonesAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerInZoneWithNavigationPropertiesDto>> GetListAsync(GetCustomerInZonesInput input);
 

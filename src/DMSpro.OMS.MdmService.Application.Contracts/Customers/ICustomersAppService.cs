@@ -4,12 +4,11 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.Customers
 
 {
-    public partial interface ICustomersAppService : IApplicationService, IPartialAppService
+    public partial interface ICustomersAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerWithNavigationPropertiesDto>> GetListAsync(GetCustomersInput input);
 

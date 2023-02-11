@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public partial interface ISystemDatasAppService : IApplicationService, IPartialAppService
+    public partial interface ISystemDatasAppService : IApplicationService
     {
         Task<PagedResultDto<SystemDataDto>> GetListAsync(GetSystemDatasInput input);
 
