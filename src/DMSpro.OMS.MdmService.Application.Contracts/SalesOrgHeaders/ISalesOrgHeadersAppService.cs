@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public partial interface ISalesOrgHeadersAppService : IApplicationService, IPartialAppService
+    public partial interface ISalesOrgHeadersAppService : IApplicationService
     {
         Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input);
 

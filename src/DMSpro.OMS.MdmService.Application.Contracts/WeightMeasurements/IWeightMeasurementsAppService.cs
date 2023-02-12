@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-    public partial interface IWeightMeasurementsAppService : IApplicationService, IPartialAppService
+    public partial interface IWeightMeasurementsAppService : IApplicationService
     {
         Task<PagedResultDto<WeightMeasurementDto>> GetListAsync(GetWeightMeasurementsInput input);
 

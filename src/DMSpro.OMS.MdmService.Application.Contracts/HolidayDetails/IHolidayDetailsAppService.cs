@@ -4,11 +4,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-    public partial interface IHolidayDetailsAppService : IApplicationService, IPartialAppService
+    public partial interface IHolidayDetailsAppService : IApplicationService
     {
         Task<PagedResultDto<HolidayDetailWithNavigationPropertiesDto>> GetListAsync(GetHolidayDetailsInput input);
 

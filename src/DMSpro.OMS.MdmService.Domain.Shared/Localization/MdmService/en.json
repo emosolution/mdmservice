@@ -1014,10 +1014,23 @@
     "Error:ImportHandler:564": "GRPC service {repoName} does not have the required methods",
     "Error:ImportHandler:565": "Not all Code can be found from gRPC",
     "Error:ImportHandler:566": "There is no Id value can be found from gRPC service for code {code}",
-    "Error:ImportHandler:567": "Cannot found method to check uniqueness",
+    "Error:ImportHandler:567": "Cannot found method to check uniqueness for inserting",
     "Error:ImportHandler:568": "At least one of the code already exists in database",
     "Error:ImportHandler:569": "Code {code} appears more than once in sheet data",
-    "Error:ImportHandler:570": "Code {code} appears more than once in database"
+    "Error:ImportHandler:570": "Code {code} appears more than once in database",
+    "Error:ImportHandler:571": "Fail to create data from uploaded file",
+    "Error:ImportHandler:572": "There is not enough data to import/update",
+    "Error:ImportHandler:573": "Data does not contain enough columns to import",
+    "Error:ImportHandler:574": "A column name cannot appear more than once in data sheet",
+    "Error:ImportHandler:575": "There must be an Id column when doing updating",
+    "Error:ImportHandler:576": "Fail to parse an Id (row {row}) for updating",
+    "Error:ImportHandler:577": "Cannot found method to check Ids for updating",
+    "Error:ImportHandler:578": "At one of the given Id does not exist in database",
+    "Error:ImportHandler:579": "Duplicate Ids found on sheet data at row {row}",
+    "Error:ImportHandler:580": "Id for updating cannot be null (row {row})",
+    "Error:ImportHandler:581": "Unsupported operation mode",
+    "Error:ImportHandler:582": "Cannot get entities by ids for updating",
+    "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating"
   }
 }
 

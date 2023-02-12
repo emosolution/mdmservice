@@ -1,7 +1,7 @@
 using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.Controllers.Partial;
 using DMSpro.OMS.MdmService.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -16,56 +16,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
     [Area("mdmService")]
     [ControllerName("Company")]
     [Route("api/mdm-service/companies")]
-    public partial class CompanyController : ICompaniesAppService
+    public partial class CompanyController : AbpController, ICompaniesAppService
     {
         private readonly ICompaniesAppService _companiesAppService;
 
-        public CompanyController(ICompaniesAppService appService)
+        public CompanyController(ICompaniesAppService companiesAppService)
         {
-            _companiesAppService = appService;
-        }
-
-        [HttpGet]
-        [Route("GetListDevextremes")]
-        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            return _companiesAppService.GetListDevextremesAsync(inputDev);
-        }
-
-        [HttpPost]
-        [Route("update-from-excel")]
-        public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
-        {
-            try
-            {
-                return await _companiesAppService.UpdateFromExcelAsync(file);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message);
-            }
-        }
-
-        [HttpPost]
-        [Route("insert-from-excel")]
-        public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-        {
-            try
-            {
-                return await _companiesAppService.InsertFromExcelAsync(file);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message);
-            }
+            _companiesAppService = companiesAppService;
         }
 
 

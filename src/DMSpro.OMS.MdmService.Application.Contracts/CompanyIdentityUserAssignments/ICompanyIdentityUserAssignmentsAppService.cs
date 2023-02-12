@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
-    public partial interface ICompanyIdentityUserAssignmentsAppService : IApplicationService, IPartialAppService
+    public partial interface ICompanyIdentityUserAssignmentsAppService : IApplicationService
     {
         Task<PagedResultDto<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCompanyIdentityUserAssignmentsInput input);
 

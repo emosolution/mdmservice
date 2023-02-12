@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
-    public partial interface IUOMGroupDetailsAppService : IApplicationService, IPartialAppService
+    public partial interface IUOMGroupDetailsAppService : IApplicationService
     {
         Task<PagedResultDto<UOMGroupDetailWithNavigationPropertiesDto>> GetListAsync(GetUOMGroupDetailsInput input);
 
