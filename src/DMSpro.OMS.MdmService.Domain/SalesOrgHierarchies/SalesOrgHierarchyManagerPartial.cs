@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
              GuidGenerator.Create(),
              salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, active
              );
-            await ValidateOrganizationUnitAsync(salesOrgHierarchy);
+            await ValidateOrganizationUnitAsync(salesOrgHierarchy,salesOrgHeaderId);
             if(parentId is null){
                 salesOrgHierarchy.Level = 0;    
             }else{
@@ -85,10 +85,10 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
 
         //Validation
-        protected virtual async Task ValidateOrganizationUnitAsync(SalesOrgHierarchy organizationUnit)
+        protected virtual async Task ValidateOrganizationUnitAsync(SalesOrgHierarchy organizationUnit, Guid saleOrgId)
         {
             var siblings = (await FindChildrenAsync(organizationUnit.ParentId))
-                .Where(ou => ou.Id != organizationUnit.Id)
+                .Where(ou => ou.Id != organizationUnit.Id).Where(ou => ou.SalesOrgHeaderId == saleOrgId)
                 .ToList();
 
             if (siblings.Any(ou => ou.Name == organizationUnit.Name))
@@ -119,7 +119,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             organizationUnit.ParentId = parentId;
 
 
-            await ValidateOrganizationUnitAsync(organizationUnit);
+            await ValidateOrganizationUnitAsync(organizationUnit,organizationUnit.SalesOrgHeaderId);
 
             //Update Children Codes
             foreach (var child in children)
@@ -174,7 +174,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             salesOrgHierarchy.IsSellingZone = isSellingZone;
             salesOrgHierarchy.HierarchyCode = hierarchyCode;
             salesOrgHierarchy.Active = active;
-            await ValidateOrganizationUnitAsync(salesOrgHierarchy);
+            await ValidateOrganizationUnitAsync(salesOrgHierarchy,salesOrgHeaderId);
             salesOrgHierarchy.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _salesOrgHierarchyRepository.UpdateAsync(salesOrgHierarchy);
         }
