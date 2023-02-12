@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 			var base_dataloadoption = new DataSourceLoadOptionsBase();
 			DataLoadParser.Parse(base_dataloadoption,inputDev);
 			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<PriceListDetail>, IEnumerable<PriceListDetailDto>>(results.data.Cast<PriceListDetail>());
+			results.data = ObjectMapper.Map<IEnumerable<PriceListDetailWithNavigationProperties>, IEnumerable<PriceListDetailWithNavigationPropertiesDto>>(results.data.Cast<PriceListDetailWithNavigationProperties>());
 			return results;
 		}
 
