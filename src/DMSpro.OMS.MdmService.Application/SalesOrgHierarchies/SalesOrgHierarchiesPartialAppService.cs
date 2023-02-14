@@ -1,48 +1,38 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Permissions;
+using DMSpro.OMS.MdmService.SalesOrgHeaders;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-	public partial class SalesOrgHierarchiesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _salesOrgHierarchyRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<SalesOrgHierarchy>, IEnumerable<SalesOrgHierarchyDto>>(results.data.Cast<SalesOrgHierarchy>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.SalesOrgHierarchies.Default)]
+    public partial class SalesOrgHierarchiesAppService : PartialAppService<SalesOrgHierarchy, SalesOrgHierarchyDto, ISalesOrgHierarchyRepository>,
+		ISalesOrgHierarchiesAppService
+    {
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+        private readonly SalesOrgHierarchyManager _salesOrgHierarchyManager;
+        private readonly IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _salesOrgHierarchyRepository.GetQueryableAsync(); // to be remove
+        public SalesOrgHierarchiesAppService(ICurrentTenant currentTenant,
+            ISalesOrgHierarchyRepository repository,
+            SalesOrgHierarchyManager manager,
+            IConfiguration settingProvider,
+            ISalesOrgHeaderRepository salesOrgHeaderRepository,
+            IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _salesOrgHierarchyRepository = repository;
+            _salesOrgHierarchyManager = manager;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
 
-			return 0;
-		}
-	}
+            _salesOrgHeaderRepository = salesOrgHeaderRepository;
+            _repositories.Add("ISalesOrgHeaderRepository", _salesOrgHeaderRepository);
+            _repositories.Add("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository);
+        }
+    }
 }

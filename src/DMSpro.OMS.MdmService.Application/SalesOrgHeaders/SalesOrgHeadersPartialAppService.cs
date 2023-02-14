@@ -1,48 +1,32 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-	public partial class SalesOrgHeadersAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+	[Authorize(MdmServicePermissions.SalesOrgHeaders.Default)]
+	public partial class SalesOrgHeadersAppService : PartialAppService<SalesOrgHeader, SalesOrgHeaderDto, ISalesOrgHeaderRepository>
+		, ISalesOrgHeadersAppService
 		{
-			var items = await _salesOrgHeaderRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<SalesOrgHeader>, IEnumerable<SalesOrgHeaderDto>>(results.data.Cast<SalesOrgHeader>());
-			return results;
-		}
+		private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
+		private readonly SalesOrgHeaderManager _salesOrgHeaderManager;
+		private readonly IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+		public SalesOrgHeadersAppService(ICurrentTenant currentTenant,
+			ISalesOrgHeaderRepository repository,
+			SalesOrgHeaderManager manager,
+			IConfiguration settingProvider,
+			IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _salesOrgHeaderRepository = repository;
+            _salesOrgHeaderManager = manager;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _salesOrgHeaderRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+			_repositories.Add("ISalesOrgHeaderRepository", _salesOrgHeaderRepository);
+        }
+    }
 }

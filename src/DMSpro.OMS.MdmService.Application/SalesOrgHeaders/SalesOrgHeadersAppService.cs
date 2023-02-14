@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -17,19 +15,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
 
     [Authorize(MdmServicePermissions.SalesOrgHeaders.Default)]
-    public partial class SalesOrgHeadersAppService : ApplicationService, ISalesOrgHeadersAppService
+    public partial class SalesOrgHeadersAppService
     {
-        private readonly IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
-        private readonly SalesOrgHeaderManager _salesOrgHeaderManager;
-
-        public SalesOrgHeadersAppService(ISalesOrgHeaderRepository salesOrgHeaderRepository, SalesOrgHeaderManager salesOrgHeaderManager, IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _salesOrgHeaderRepository = salesOrgHeaderRepository;
-            _salesOrgHeaderManager = salesOrgHeaderManager;
-        }
-
         public virtual async Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input)
         {
             var totalCount = await _salesOrgHeaderRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Active);
