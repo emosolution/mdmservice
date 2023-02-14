@@ -9,13 +9,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -23,22 +20,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 {
 
     [Authorize(MdmServicePermissions.CompanyInZones.Default)]
-    public partial class CompanyInZonesAppService : ApplicationService, ICompanyInZonesAppService
+    public partial class CompanyInZonesAppService 
     {
-        private readonly IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICompanyInZoneRepository _companyInZoneRepository;
-        private readonly CompanyInZoneManager _companyInZoneManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<Company, Guid> _companyRepository;
-
-        public CompanyInZonesAppService(ICompanyInZoneRepository companyInZoneRepository, CompanyInZoneManager companyInZoneManager, IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<Company, Guid> companyRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _companyInZoneRepository = companyInZoneRepository;
-            _companyInZoneManager = companyInZoneManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _companyRepository = companyRepository;
-        }
-
         public virtual async Task<PagedResultDto<CompanyInZoneWithNavigationPropertiesDto>> GetListAsync(GetCompanyInZonesInput input)
         {
             var totalCount = await _companyInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsBase, input.SalesOrgHierarchyId, input.CompanyId);
