@@ -9,13 +9,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -23,22 +20,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
 
     [Authorize(MdmServicePermissions.SalesOrgEmpAssignments.Default)]
-    public partial class SalesOrgEmpAssignmentsAppService : ApplicationService, ISalesOrgEmpAssignmentsAppService
+    public partial class SalesOrgEmpAssignmentsAppService
     {
-        private readonly IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
-        private readonly SalesOrgEmpAssignmentManager _salesOrgEmpAssignmentManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<EmployeeProfile, Guid> _employeeProfileRepository;
-
-        public SalesOrgEmpAssignmentsAppService(ISalesOrgEmpAssignmentRepository salesOrgEmpAssignmentRepository, SalesOrgEmpAssignmentManager salesOrgEmpAssignmentManager, IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<EmployeeProfile, Guid> employeeProfileRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _salesOrgEmpAssignmentRepository = salesOrgEmpAssignmentRepository;
-            _salesOrgEmpAssignmentManager = salesOrgEmpAssignmentManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _employeeProfileRepository = employeeProfileRepository;
-        }
-
         public virtual async Task<PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgEmpAssignmentsInput input)
         {
             var totalCount = await _salesOrgEmpAssignmentRepository.GetCountAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.EmployeeProfileId);

@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-	public partial class SalesOrgEmpAssignmentsAppService
+	[Authorize(MdmServicePermissions.SalesOrgEmpAssignments.Default)]
+	public partial class SalesOrgEmpAssignmentsAppService : PartialAppService<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto, ISalesOrgEmpAssignmentRepository>,
+		ISalesOrgEmpAssignmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _salesOrgEmpAssignmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<SalesOrgEmpAssignment>, IEnumerable<SalesOrgEmpAssignmentDto>>(results.data.Cast<SalesOrgEmpAssignment>());
-			return results;
-		}
+		private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
+		private readonly IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly SalesOrgEmpAssignmentManager _salesOrgEmpAssignmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+		private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public SalesOrgEmpAssignmentsAppService(ICurrentTenant currentTenant,
+			ISalesOrgEmpAssignmentRepository repository,
+			SalesOrgEmpAssignmentManager salesOrgEmpAssignmentManager,
+			IConfiguration settingProvider,
+			ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+			IEmployeeProfileRepository employeeProfileRepository,
+			IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _salesOrgEmpAssignmentRepository.GetQueryableAsync(); // to be remove
+			_salesOrgEmpAssignmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_salesOrgEmpAssignmentManager = salesOrgEmpAssignmentManager;
 
-			return 0;
-		}
-	}
+			_salesOrgHierarchyRepository= salesOrgHierarchyRepository;
+			_employeeProfileRepository = employeeProfileRepository;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgEmpAssignmentRepository", _salesOrgEmpAssignmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
+            _repositories.AddIfNotContains(
+                    new KeyValuePair<string, object>("IEmployeeProfileRepository", _employeeProfileRepository));
+        }
+    }
 }
