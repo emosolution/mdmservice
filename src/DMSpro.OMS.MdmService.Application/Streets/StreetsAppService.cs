@@ -1,20 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.Streets;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +16,8 @@ namespace DMSpro.OMS.MdmService.Streets
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.Streets.Default)]
-    public partial class StreetsAppService : ApplicationService, IStreetsAppService
+    public partial class StreetsAppService
     {
-        private readonly IDistributedCache<StreetExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IStreetRepository _streetRepository;
-        private readonly StreetManager _streetManager;
-
-        public StreetsAppService(IStreetRepository streetRepository, StreetManager streetManager, IDistributedCache<StreetExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _streetRepository = streetRepository;
-            _streetManager = streetManager;
-        }
-
         public virtual async Task<PagedResultDto<StreetDto>> GetListAsync(GetStreetsInput input)
         {
             var totalCount = await _streetRepository.GetCountAsync(input.FilterText, input.Name);
