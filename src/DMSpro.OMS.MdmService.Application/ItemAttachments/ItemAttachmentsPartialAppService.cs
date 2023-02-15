@@ -1,48 +1,43 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-	public partial class ItemAttachmentsAppService
+	[Authorize(MdmServicePermissions.Items.Default)]
+	public partial class ItemAttachmentsAppService : PartialAppService<ItemAttachment, ItemAttachmentDto, IItemAttachmentRepository>,
+		IItemAttachmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _itemAttachmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<ItemAttachment>, IEnumerable<ItemAttachmentDto>>(results.data.Cast<ItemAttachment>());
-			return results;
-		}
+		private readonly IItemAttachmentRepository _itemAttachmentRepository;
+		private readonly IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly ItemAttachmentManager _itemAttachmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly IItemRepository _itemRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public ItemAttachmentsAppService(ICurrentTenant currentTenant,
+			IItemAttachmentRepository repository,
+			ItemAttachmentManager itemAttachmentManager,
+			IConfiguration settingProvider,
+			IItemRepository itemRepository,
+			IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _itemAttachmentRepository.GetQueryableAsync(); // to be remove
+			_itemAttachmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_itemAttachmentManager = itemAttachmentManager;
+			
+			_itemRepository = itemRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemAttachmentRepository", _itemAttachmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemRepository", _itemRepository));
+        }
+    }
 }
