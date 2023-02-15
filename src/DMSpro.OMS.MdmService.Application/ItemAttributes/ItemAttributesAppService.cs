@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -17,19 +15,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 {
 
     [Authorize(MdmServicePermissions.ItemAttributes.Default)]
-    public partial class ItemAttributesAppService : ApplicationService, IItemAttributesAppService
+    public partial class ItemAttributesAppService
     {
-        private readonly IDistributedCache<ItemAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemAttributeRepository _itemAttributeRepository;
-        private readonly ItemAttributeManager _itemAttributeManager;
-
-        public ItemAttributesAppService(IItemAttributeRepository itemAttributeRepository, ItemAttributeManager itemAttributeManager, IDistributedCache<ItemAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemAttributeRepository = itemAttributeRepository;
-            _itemAttributeManager = itemAttributeManager;
-        }
-
         public virtual async Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input)
         {
             var totalCount = await _itemAttributeRepository.GetCountAsync(input.FilterText, input.AttrNoMin, input.AttrNoMax, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active, input.IsSellingCategory);
