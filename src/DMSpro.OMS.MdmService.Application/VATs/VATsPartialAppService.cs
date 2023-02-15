@@ -1,50 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.VATs
 {
-	public partial class VATsAppService
+	[Authorize(MdmServicePermissions.VATs.Default)]
+	public partial class VATsAppService : PartialAppService<VAT, VATDto, IVATRepository>,
+		IVATsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+		private readonly IVATRepository _vATRepository;
+		private readonly IDistributedCache<VATExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly VATManager _vATManager;
+
+		public VATsAppService(ICurrentTenant currentTenant,
+			IVATRepository repository,
+			VATManager vATManager,
+			IConfiguration settingProvider,
+			IDistributedCache<VATExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			var items = await _vATRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<VAT>, IEnumerable<VATDto>>(results.data.Cast<VAT>());
-			return results;
+			_vATRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_vATManager = vATManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IVATRepository", _vATRepository));
 		}
-
-
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _vATRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-
-	}
+    }
 }

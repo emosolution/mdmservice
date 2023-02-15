@@ -1,20 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.VATs;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +16,8 @@ namespace DMSpro.OMS.MdmService.VATs
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.VATs.Default)]
-    public partial class VATsAppService : ApplicationService, IVATsAppService
+    public partial class VATsAppService 
     {
-        private readonly IDistributedCache<VATExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IVATRepository _vATRepository;
-        private readonly VATManager _vATManager;
-
-        public VATsAppService(IVATRepository vATRepository, VATManager vATManager, IDistributedCache<VATExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _vATRepository = vATRepository;
-            _vATManager = vATManager;
-        }
-
         public virtual async Task<PagedResultDto<VATDto>> GetListAsync(GetVATsInput input)
         {
             var totalCount = await _vATRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.RateMin, input.RateMax);
