@@ -27014,6 +27014,31 @@
                   }
                 },
                 {
+                  "name": "SetEndDate",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "endDate",
+                      "typeAsString": "System.DateTime, System.Private.CoreLib",
+                      "type": "System.DateTime",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -27805,6 +27830,63 @@
               "returnValue": {
                 "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
                 "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
+            },
+            "SetEndDateByIdAndEndDate": {
+              "uniqueName": "SetEndDateByIdAndEndDate",
+              "name": "SetEndDate",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/m-cPHeaders/end-date",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "endDate",
+                  "typeAsString": "System.DateTime, System.Private.CoreLib",
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "endDate",
+                  "name": "endDate",
+                  "jsonName": null,
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"

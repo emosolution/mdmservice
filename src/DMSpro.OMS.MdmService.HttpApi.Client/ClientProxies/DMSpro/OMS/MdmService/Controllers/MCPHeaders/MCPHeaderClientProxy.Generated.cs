@@ -106,6 +106,15 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
+    public virtual async Task SetEndDate(Guid id, DateTime endDate)
+    {
+        await RequestAsync(nameof(SetEndDate), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(DateTime), endDate }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

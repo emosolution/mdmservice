@@ -8,6 +8,8 @@ using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.MCPDetails;
+using DMSpro.OMS.MdmService.VisitPlans;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
@@ -21,6 +23,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IItemGroupRepository _itemGroupRepository;
+        private readonly IMCPDetailRepository _mCPDetailRepository;
+        private readonly IVisitPlanRepository _visitPlanRepository;
 
         public MCPHeadersAppService(ICurrentTenant currentTenant,
             IMCPHeaderRepository repository,
@@ -28,6 +32,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
             ICompanyRepository companyRepository,
             IItemGroupRepository itemGroupRepository,
+            IMCPDetailRepository mCPDetailRepository,
+            IVisitPlanRepository visitPlanRepository,
         IConfiguration settingProvider,
             IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
@@ -43,6 +49,9 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             _repositories.Add("ICompanyRepository", _companyRepository);
             _repositories.Add("IItemGroupRepository", _itemGroupRepository);
             _repositories.Add("IMCPHeaderRepository", _mCPHeaderRepository);
+
+            _mCPDetailRepository = mCPDetailRepository;
+            _visitPlanRepository = visitPlanRepository;
         }
     }
 }

@@ -1030,7 +1030,8 @@
     "Error:ImportHandler:580": "Id for updating cannot be null (row {row})",
     "Error:ImportHandler:581": "Unsupported operation mode",
     "Error:ImportHandler:582": "Cannot get entities by ids for updating",
-    "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating"
+    "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating",
+    "Error:MCPHeader:550": "New end date must be at least from tomorrow onward"
   }
 }
 
