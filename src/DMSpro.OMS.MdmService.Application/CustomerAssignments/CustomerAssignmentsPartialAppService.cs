@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
-	public partial class CustomerAssignmentsAppService
+	[Authorize(MdmServicePermissions.CustomerAssignments.Default)]
+	public partial class CustomerAssignmentsAppService : PartialAppService<CustomerAssignment, CustomerAssignmentDto, ICustomerAssignmentRepository>,
+		ICustomerAssignmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _customerAssignmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CustomerAssignment>, IEnumerable<CustomerAssignmentDto>>(results.data.Cast<CustomerAssignment>());
-			return results;
-		}
+		private readonly ICustomerAssignmentRepository _customerAssignmentRepository;
+		private readonly IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly CustomerAssignmentManager _customerAssignmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly ICustomerRepository _customerRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public CustomerAssignmentsAppService(ICurrentTenant currentTenant,
+			ICustomerAssignmentRepository repository,
+			CustomerAssignmentManager customerAssignmentManager,
+			IConfiguration settingProvider,
+			ICompanyRepository companyRepository,
+			ICustomerRepository customerRepository,
+			IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _customerAssignmentRepository.GetQueryableAsync(); // to be remove
+			_customerAssignmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_customerAssignmentManager = customerAssignmentManager;
+			
+			_companyRepository = companyRepository;
+			_customerRepository = customerRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerAssignmentRepository", _customerAssignmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
+            _repositories.AddIfNotContains(
+                    new KeyValuePair<string, object>("ICustomerRepository", _customerRepository));
+        }
+    }
 }

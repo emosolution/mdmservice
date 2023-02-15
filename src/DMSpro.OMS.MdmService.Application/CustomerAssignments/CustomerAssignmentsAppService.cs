@@ -8,13 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
@@ -23,25 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
 
     [Authorize(MdmServicePermissions.CustomerAssignments.Default)]
-    public partial class CustomerAssignmentsAppService : ApplicationService, ICustomerAssignmentsAppService
+    public partial class CustomerAssignmentsAppService
     {
-        private readonly IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerAssignmentRepository _customerAssignmentRepository;
-        private readonly CustomerAssignmentManager _customerAssignmentManager;
-        private readonly IRepository<Company, Guid> _companyRepository;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-
-        public CustomerAssignmentsAppService(ICustomerAssignmentRepository customerAssignmentRepository, CustomerAssignmentManager customerAssignmentManager, 
-            IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
-            IRepository<Customer, Guid> customerRepository,
-            IRepository<Company, Guid> companyRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerAssignmentRepository = customerAssignmentRepository;
-            _customerAssignmentManager = customerAssignmentManager; _companyRepository = companyRepository;
-            _customerRepository = customerRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerAssignmentWithNavigationPropertiesDto>> GetListAsync(GetCustomerAssignmentsInput input)
         {
             var totalCount = await _customerAssignmentRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.CompanyId, input.CustomerId);
