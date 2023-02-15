@@ -18,6 +18,13 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
 			return _companyInZonesAppService.GetListDevextremesAsync(inputDev);
 		}
 
+        [HttpGet]
+		[Route("GetListDevextremes")]
+		public Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev)
+		{
+			return _companyInZonesAppService.GetListDevextremesWithNavigationAsync(inputDev);
+		}
+
 		[HttpPost]
 		[Route("update-from-excel")]
 		public async Task<int> UpdateFromExcelAsync(IFormFile file)

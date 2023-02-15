@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 	{
 		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
+		Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev);
 		Task<int>UpdateFromExcelAsync(IFormFile file);
 
 		Task<int> InsertFromExcelAsync(IFormFile file);

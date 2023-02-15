@@ -107,6 +107,14 @@ public partial class CompanyInZoneClientProxy : ClientProxyBase<ICompanyInZonesA
         });
     }
 
+    public virtual async Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesWithNavigationAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
+    }
+
     public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
     {
         return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue
