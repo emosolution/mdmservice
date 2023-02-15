@@ -7,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-    public class MCPDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class MCPDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
