@@ -23,22 +23,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
 
     [Authorize(MdmServicePermissions.EmployeeInZones.Default)]
-    public partial class EmployeeInZonesAppService : ApplicationService, IEmployeeInZonesAppService
+    public partial class EmployeeInZonesAppService 
     {
-        private readonly IDistributedCache<EmployeeInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IEmployeeInZoneRepository _employeeInZoneRepository;
-        private readonly EmployeeInZoneManager _employeeInZoneManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<EmployeeProfile, Guid> _employeeProfileRepository;
-
-        public EmployeeInZonesAppService(IEmployeeInZoneRepository employeeInZoneRepository, EmployeeInZoneManager employeeInZoneManager, IDistributedCache<EmployeeInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<EmployeeProfile, Guid> employeeProfileRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _employeeInZoneRepository = employeeInZoneRepository;
-            _employeeInZoneManager = employeeInZoneManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _employeeProfileRepository = employeeProfileRepository;
-        }
-
         public virtual async Task<PagedResultDto<EmployeeInZoneWithNavigationPropertiesDto>> GetListAsync(GetEmployeeInZonesInput input)
         {
             var totalCount = await _employeeInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDate, input.SalesOrgHierarchyId, input.EmployeeId);
