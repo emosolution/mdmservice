@@ -14,41 +14,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public partial class CustomersAppService : ApplicationService, ICustomersAppService
+    public partial class CustomersAppService 
     {
-        private readonly IDistributedCache<CustomerExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly CustomerManager _customerManager;
-        private readonly IRepository<SystemData, Guid> _systemDataRepository;
-        private readonly IRepository<Company, Guid> _companyRepository;
-        private readonly IRepository<PriceList, Guid> _priceListRepository;
-        private readonly IRepository<GeoMaster, Guid> _geoMasterRepository;
-        private readonly IRepository<CusAttributeValue, Guid> _cusAttributeValueRepository;
-
-        public CustomersAppService(ICustomerRepository customerRepository, CustomerManager customerManager, IDistributedCache<CustomerExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SystemData, Guid> systemDataRepository, IRepository<Company, Guid> companyRepository, IRepository<PriceList, Guid> priceListRepository, IRepository<GeoMaster, Guid> geoMasterRepository, IRepository<CusAttributeValue, Guid> cusAttributeValueRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerRepository = customerRepository;
-            _customerManager = customerManager; _systemDataRepository = systemDataRepository;
-            _companyRepository = companyRepository;
-            _priceListRepository = priceListRepository;
-            _geoMasterRepository = geoMasterRepository;
-            _cusAttributeValueRepository = cusAttributeValueRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerWithNavigationPropertiesDto>> GetListAsync(GetCustomersInput input)
         {
             var totalCount = await _customerRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Phone1, input.Phone2, input.erpCode, input.License, input.TaxCode, input.vatName, input.vatAddress, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.CreditLimitMin, input.CreditLimitMax, input.IsCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.SFACustomerCode, input.LastOrderDateMin, input.LastOrderDateMax, input.PaymentTermId, input.LinkedCompanyId, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.Attribute0Id, input.Attribute1Id, input.Attribute2Id, input.Attribute3Id, input.Attribute4Id, input.Attribute5Id, input.Attribute6Id, input.Attribute7Id, input.Attribute8Id, input.Attribute9Id, input.Attribute10Id, input.Attribute11Id, input.Attribute12Id, input.Attribute13Id, input.Attribute14Id, input.Attribute15Id, input.Attribute16Id, input.Attribute17Id, input.Attribute18Id, input.Attribute19Id, input.PaymentId);
