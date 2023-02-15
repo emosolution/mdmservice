@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public partial class EmployeeAttachmentsAppService : ApplicationService, IEmployeeAttachmentsAppService
+    public partial class EmployeeAttachmentsAppService
     {
-        private readonly IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
-        private readonly EmployeeAttachmentManager _employeeAttachmentManager;
-        private readonly IRepository<EmployeeProfile, Guid> _employeeProfileRepository;
-
-        public EmployeeAttachmentsAppService(IEmployeeAttachmentRepository employeeAttachmentRepository, EmployeeAttachmentManager employeeAttachmentManager, IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<EmployeeProfile, Guid> employeeProfileRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _employeeAttachmentRepository = employeeAttachmentRepository;
-            _employeeAttachmentManager = employeeAttachmentManager; _employeeProfileRepository = employeeProfileRepository;
-        }
-
         public virtual async Task<PagedResultDto<EmployeeAttachmentWithNavigationPropertiesDto>> GetListAsync(GetEmployeeAttachmentsInput input)
         {
             var totalCount = await _employeeAttachmentRepository.GetCountAsync(input.FilterText, input.url, input.Description, input.Active, input.EmployeeProfileId);
