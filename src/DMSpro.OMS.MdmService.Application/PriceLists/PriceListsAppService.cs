@@ -7,31 +7,18 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
 
     [Authorize(MdmServicePermissions.PriceLists.Default)]
-    public partial class PriceListsAppService : ApplicationService, IPriceListsAppService
+    public partial class PriceListsAppService 
     {
-        private readonly IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IPriceListRepository _priceListRepository;
-        private readonly PriceListManager _priceListManager;
-
-        public PriceListsAppService(IPriceListRepository priceListRepository, PriceListManager priceListManager, IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _priceListRepository = priceListRepository;
-            _priceListManager = priceListManager;
-        }
-
         public virtual async Task<PagedResultDto<PriceListWithNavigationPropertiesDto>> GetListAsync(GetPriceListsInput input)
         {
             var totalCount = await _priceListRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Active, input.ArithmeticOperation, input.ArithmeticFactorMin, input.ArithmeticFactorMax, input.ArithmeticFactorType, input.IsFirstPriceList, input.BasePriceListId);

@@ -11,5 +11,9 @@ namespace DMSpro.OMS.MdmService.PriceLists
 		Task<Dictionary<string, Guid>> GetListIdByCodeAsync(List<string> codes);
 
 		Task<int> GetCountByCodeAsync(List<string> codes);
+
+		Task<bool> CheckUniqueCodeForUpdate(List<string> codes, List<Guid> ids);
+
+		Task<List<PriceList>> GetByIdAsync(List<Guid> ids);
 	}
 }
