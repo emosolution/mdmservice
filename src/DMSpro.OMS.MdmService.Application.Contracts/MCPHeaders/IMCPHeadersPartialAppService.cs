@@ -7,10 +7,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 {
 	public partial interface IMCPHeadersAppService
 	{
-		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
-		Task<int>UpdateFromExcelAsync(IFormFile file);
+        Task<int> UpdateFromExcelAsync(IFormFile file);
 
-		Task<int> InsertFromExcelAsync(IFormFile file);
-	}
+        Task<int> InsertFromExcelAsync(IFormFile file);
+    }
 }

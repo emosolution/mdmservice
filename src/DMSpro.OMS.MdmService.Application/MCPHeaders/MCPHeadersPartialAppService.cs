@@ -1,48 +1,43 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using DMSpro.OMS.MdmService.Partial;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.ItemGroups;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-	public partial class MCPHeadersAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _mCPHeaderRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<MCPHeader>, IEnumerable<MCPHeaderDto>>(results.data.Cast<MCPHeader>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.MCPHeaders.Default)]
+    public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderDto, IMCPHeaderRepository>, IMCPHeadersAppService
+    {
+        private readonly IMCPHeaderRepository _mCPHeaderRepository;
+        private readonly IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        private readonly MCPHeaderManager _mCPHeaderManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly IItemGroupRepository _itemGroupRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _mCPHeaderRepository.GetQueryableAsync(); // to be remove
+        public MCPHeadersAppService(ICurrentTenant currentTenant,
+            IMCPHeaderRepository repository,
+            MCPHeaderManager companyManager,
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+            ICompanyRepository companyRepository,
+            IItemGroupRepository itemGroupRepository,
+        IConfiguration settingProvider,
+            IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _mCPHeaderRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _mCPHeaderManager = companyManager;
 
-			return 0;
-		}
+            _salesOrgHierarchyRepository= salesOrgHierarchyRepository;
+            _companyRepository= companyRepository;
+            _itemGroupRepository= itemGroupRepository;
+        }
 	}
 }

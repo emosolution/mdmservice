@@ -10,13 +10,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -24,24 +21,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 {
 
     [Authorize(MdmServicePermissions.MCPHeaders.Default)]
-    public partial class MCPHeadersAppService : ApplicationService, IMCPHeadersAppService
+    public partial class MCPHeadersAppService
     {
-        private readonly IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IMCPHeaderRepository _mCPHeaderRepository;
-        private readonly MCPHeaderManager _mCPHeaderManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<Company, Guid> _companyRepository;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-
-        public MCPHeadersAppService(IMCPHeaderRepository mCPHeaderRepository, MCPHeaderManager mCPHeaderManager, IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<Company, Guid> companyRepository, IRepository<ItemGroup, Guid> itemGroupRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _mCPHeaderRepository = mCPHeaderRepository;
-            _mCPHeaderManager = mCPHeaderManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _companyRepository = companyRepository;
-            _itemGroupRepository = itemGroupRepository;
-        }
-
         public virtual async Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input)
         {
             var totalCount = await _mCPHeaderRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.CompanyId, input.ItemGroupId);

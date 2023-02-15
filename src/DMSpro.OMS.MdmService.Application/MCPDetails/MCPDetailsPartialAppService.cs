@@ -1,48 +1,39 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.Caching;
+using Volo.Abp.MultiTenancy;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.MCPHeaders;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-	public partial class MCPDetailsAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _mCPDetailRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<MCPDetail>, IEnumerable<MCPDetailDto>>(results.data.Cast<MCPDetail>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.MCPDetails.Default)]
+    public partial class MCPDetailsAppService : PartialAppService<MCPDetail, MCPDetailDto, IMCPDetailRepository>, IMCPDetailsAppService
+    {
+        private readonly IMCPDetailRepository _mCPDetailRepository;
+        private readonly IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        private readonly MCPDetailManager _mCPDetailManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IMCPHeaderRepository _mCPHeaderRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _mCPDetailRepository.GetQueryableAsync(); // to be remove
+        public MCPDetailsAppService(ICurrentTenant currentTenant,
+            IMCPDetailRepository repository,
+            MCPDetailManager companyManager,
+            IConfiguration settingProvider,
+            ICustomerRepository customerRepository,
+            IMCPHeaderRepository mCPHeaderRepository,
+            IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _mCPDetailRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _mCPDetailManager = companyManager;
 
-			return 0;
-		}
+            _customerRepository = customerRepository;
+            _mCPHeaderRepository = mCPHeaderRepository;
+        }
 	}
 }
