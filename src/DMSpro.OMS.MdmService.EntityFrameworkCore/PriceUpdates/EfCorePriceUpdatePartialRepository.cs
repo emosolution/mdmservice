@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
+using Microsoft.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
@@ -36,9 +37,23 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         }
 		
 		public virtual async Task<int> GetCountByCodeAsync(List<string> codes)
+		{
+		var items = (await GetDbSetAsync()).Where(x => codes.Contains(x.Code));
+		return items.Count();
+		}
+
+		public virtual async Task<bool> CheckUniqueCodeForUpdate(List<string> codes, 
+			List<Guid> ids)
+		{
+			var items = await (await GetDbSetAsync()).
+			Where(x => codes.Contains(x.Code) && !ids.Contains(x.Id)).ToListAsync();
+			return items.Count() <= 0 ? true : false;
+		}
+
+		public virtual async Task<List<PriceUpdate>> GetByIdAsync(List<Guid> ids)
         {
-            var items = (await GetDbSetAsync()).Where(x => codes.Contains(x.Code));
-            return items.Count();
+            var items = (await GetDbSetAsync()).Where(x => ids.Contains(x.Id));
+            return await items.ToListAsync();
         }
     }
 }

@@ -8,13 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,20 +19,8 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
 {
 
     [Authorize(MdmServicePermissions.PriceUpdates.Default)]
-    public partial class PriceUpdatesAppService : ApplicationService, IPriceUpdatesAppService
-    {
-        private readonly IDistributedCache<PriceUpdateExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IPriceUpdateRepository _priceUpdateRepository;
-        private readonly PriceUpdateManager _priceUpdateManager;
-        private readonly IRepository<PriceList, Guid> _priceListRepository;
-
-        public PriceUpdatesAppService(IPriceUpdateRepository priceUpdateRepository, PriceUpdateManager priceUpdateManager, IDistributedCache<PriceUpdateExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _priceUpdateRepository = priceUpdateRepository;
-            _priceUpdateManager = priceUpdateManager; _priceListRepository = priceListRepository;
-        }
-
+    public partial class PriceUpdatesAppService
+    { 
         public virtual async Task<PagedResultDto<PriceUpdateWithNavigationPropertiesDto>> GetListAsync(GetPriceUpdatesInput input)
         {
             var totalCount = await _priceUpdateRepository.GetCountAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax, input.PriceListId);
