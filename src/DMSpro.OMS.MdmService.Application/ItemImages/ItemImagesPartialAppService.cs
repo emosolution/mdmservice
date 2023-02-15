@@ -1,48 +1,43 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
-	public partial class ItemImagesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _itemImageRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<ItemImage>, IEnumerable<ItemImageDto>>(results.data.Cast<ItemImage>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.Items.Default)]
+    public partial class ItemImagesAppService : PartialAppService<ItemImage, ItemImageDto, IItemImageRepository>,
+        IItemImagesAppService
+    {
+        private readonly IItemImageRepository _itemImageRepository;
+        private readonly IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly ItemImageManager _itemImageManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+        private readonly IItemRepository _itemRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _itemImageRepository.GetQueryableAsync(); // to be remove
+        public ItemImagesAppService(ICurrentTenant currentTenant,
+            IItemImageRepository repository,
+            ItemImageManager itemImageManager,
+            IConfiguration settingProvider,
+            IItemRepository itemRepository,
+            IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _itemImageRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _itemImageManager = itemImageManager;
 
-			return 0;
-		}
-	}
+            _itemRepository = itemRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemImageRepository", _itemImageRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemRepository", _itemRepository));
+        }
+    }
 }
