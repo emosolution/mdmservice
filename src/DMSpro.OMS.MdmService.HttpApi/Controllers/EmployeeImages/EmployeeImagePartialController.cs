@@ -1,10 +1,10 @@
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp;
 using System;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 {
@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
 		[HttpPost]
 		[Route("update-from-excel")]
-		public async Task<int> UpdateFromExcelAsync(IFormFile file)
+		public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
 		{
 			try
             {
@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
 		[HttpPost]
 		[Route("insert-from-excel")]
-		public async Task<int> InsertFromExcelAsync(IFormFile file)
+		public async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
         {
             try
             {

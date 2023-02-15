@@ -34,6 +34,9 @@ namespace DMSpro.OMS.MdmService.MCPDetails
 
             _customerRepository = customerRepository;
             _mCPHeaderRepository = mCPHeaderRepository;
+            _repositories.Add("ICustomerRepository", _customerRepository);
+            _repositories.Add("IMCPHeaderRepository", _mCPHeaderRepository);
+            _repositories.Add("IMCPDetailRepository", _mCPDetailRepository);
         }
-	}
+    }
 }

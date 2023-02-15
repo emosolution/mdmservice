@@ -7,6 +7,7 @@ using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
@@ -35,9 +36,13 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _mCPHeaderManager = companyManager;
 
-            _salesOrgHierarchyRepository= salesOrgHierarchyRepository;
-            _companyRepository= companyRepository;
-            _itemGroupRepository= itemGroupRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+            _companyRepository = companyRepository;
+            _itemGroupRepository = itemGroupRepository;
+            _repositories.Add("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository);
+            _repositories.Add("ICompanyRepository", _companyRepository);
+            _repositories.Add("IItemGroupRepository", _itemGroupRepository);
+            _repositories.Add("IMCPHeaderRepository", _mCPHeaderRepository);
         }
-	}
+    }
 }

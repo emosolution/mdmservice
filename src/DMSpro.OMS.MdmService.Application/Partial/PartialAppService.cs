@@ -22,6 +22,8 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
 using Grpc.Core;
+using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.Localization;
 
 namespace DMSpro.OMS.MdmService.Partial
 {
@@ -67,6 +69,8 @@ namespace DMSpro.OMS.MdmService.Partial
             _repository = repository;
             _settingProvider = settingProvider;
             _currentTenant = currentTenant;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -82,9 +86,9 @@ namespace DMSpro.OMS.MdmService.Partial
             return results;
         }
 
-        public async Task<int> UpdateFromExcelAsync(IFormFile file)
+        public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
         {
-            DataTable data = await GetDataTableFromFile(file, OperationMode.UPDATE);
+            DataTable data = GetDataTableFromFile(file, OperationMode.UPDATE);
             _entityPropertyTypes = GetEntityProperties();
             List<T> databaseEntities = await CheckIdForUpdate();
             List<T> entities = await CreateEntityList(data, OperationMode.UPDATE);
@@ -98,9 +102,9 @@ namespace DMSpro.OMS.MdmService.Partial
             return databaseEntities.Count;
         }
 
-        public async Task<int> InsertFromExcelAsync(IFormFile file)
+        public async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
         {
-            DataTable data = await GetDataTableFromFile(file, OperationMode.INSERT);
+            DataTable data = GetDataTableFromFile(file, OperationMode.INSERT);
             _entityPropertyTypes = GetEntityProperties();
             List<T> entities = await CreateEntityList(data, OperationMode.INSERT);
             await _repository.InsertManyAsync(entities);
@@ -138,7 +142,7 @@ namespace DMSpro.OMS.MdmService.Partial
             MethodInfo method = repoType.GetMethod("GetByIdAsync");
             if (method == null)
             {
-                throw new BusinessException(message: "Error:ImportHandler:577", code: "1");
+                throw new BusinessException(message: L["Error:ImportHandler:577"], code: "1");
             }
 
             object resultTask = method.Invoke(_repository, new object[] { _guidForUpdate });
@@ -147,56 +151,52 @@ namespace DMSpro.OMS.MdmService.Partial
                 List<T> result = await task;
                 if (result.Count != _guidForUpdate.Count)
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:578", code: "0");
+                    throw new BusinessException(message: L["Error:ImportHandler:578"], code: "0");
                 }
                 return result;
             }
-            throw new BusinessException(message: "Error:ImportHandler:582", code: "1");
+            throw new BusinessException(message: L["Error:ImportHandler:582"], code: "1");
         }
 
-        private async Task<DataTable> GetDataTableFromFile(IFormFile file, OperationMode operationMode)
+        private DataTable GetDataTableFromFile(IRemoteStreamContent file, OperationMode operationMode)
         {
-            if (file == null || file.Length <= 0) //file empty
+            if (file == null || file.ContentLength <= 0) //file empty
             {
-                throw new BusinessException(message: "Error:ImportHandler:550", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:550"], code: "0");
             }
 
             if (!(Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase)
                 || Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
             //not support file extention
             {
-                throw new BusinessException(message: "Error:ImportHandler:551", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:551"], code: "0");
             }
 
             DataTable result = null;
-            using (var stream = new MemoryStream())
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var package = new ExcelPackage(file.GetStream()))
             {
-                await file.CopyToAsync(stream);
+                var worksheets = package.Workbook.Worksheets;
 
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-                using (var package = new ExcelPackage(stream))
+                if (worksheets.Count % 2 != 0)
                 {
-                    var worksheets = package.Workbook.Worksheets;
+                    throw new BusinessException(message: L["Error:ImportHandler:552"], code: "0");
+                }
 
-                    if (worksheets.Count % 2 != 0)
-                    {
-                        throw new BusinessException(message: "Error:ImportHandler:552", code: "0");
-                    }
+                int tableCount = worksheets.Count / 2;
+                for (int i = 0; i < tableCount; i++)
+                {
+                    var sheetStructure = worksheets[i * 2];
+                    var sheetData = worksheets[i * 2 + 1];
 
-                    int tableCount = worksheets.Count / 2;
-                    for (int i = 0; i < tableCount; i++)
-                    {
-                        var sheetStructure = worksheets[i * 2];
-                        var sheetData = worksheets[i * 2 + 1];
-
-                        result = ReadExcelToDatatable(sheetStructure, sheetData, operationMode);
-                    }
+                    result = ReadExcelToDatatable(sheetStructure, sheetData, operationMode);
                 }
             }
             if (result == null)
             {
-                throw new BusinessException(message: "Error:ImportHandler:571", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:571"], code: "0");
             }
             return result;
         }
@@ -218,7 +218,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 }
                 else
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:581", code: "1");
+                    throw new BusinessException(message: L["Error:ImportHandler:581"], code: "1");
                 }
                 foreach (DataColumn col in data.Columns)
                 {
@@ -227,7 +227,7 @@ namespace DMSpro.OMS.MdmService.Partial
                     {
                         var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:553",
+                        throw new BusinessException(message: L["Error:ImportHandler:553"],
                             code: "0", details: detailString);
                     }
                     var value = row[propertyName];
@@ -291,7 +291,7 @@ namespace DMSpro.OMS.MdmService.Partial
             }
             else
             {
-                throw new BusinessException(message: "Error:ImportHandler:581", code: "1");
+                throw new BusinessException(message: L["Error:ImportHandler:581"], code: "1");
             }
         }
 
@@ -303,7 +303,7 @@ namespace DMSpro.OMS.MdmService.Partial
             MethodInfo method = repoType.GetMethod("CheckUniqueCodeForUpdate");
             if (method == null)
             {
-                throw new BusinessException(message: "Error:ImportHandler:583", code: "1");
+                throw new BusinessException(message: L["Error:ImportHandler:583"], code: "1");
             }
 
             object resultTask = method.Invoke(_repository, new object[] { codes, ids });
@@ -312,7 +312,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 bool noDuplicateCodeInDb = await task;
                 if (!noDuplicateCodeInDb)
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:568", code: "0");
+                    throw new BusinessException(message: L["Error:ImportHandler:568"], code: "0");
                 }
             }
         }
@@ -324,7 +324,7 @@ namespace DMSpro.OMS.MdmService.Partial
             MethodInfo method = repoType.GetMethod("GetCountByCodeAsync");
             if (method == null)
             {
-                throw new BusinessException(message: "Error:ImportHandler:567", code: "1");
+                throw new BusinessException(message: L["Error:ImportHandler:567"], code: "1");
             }
 
             object resultTask = method.Invoke(_repository, new object[] { codes });
@@ -333,7 +333,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 int idCount = await task;
                 if (idCount > 0)
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:568", code: "0");
+                    throw new BusinessException(message: L["Error:ImportHandler:568"], code: "0");
                 }
             }
         }
@@ -437,14 +437,14 @@ namespace DMSpro.OMS.MdmService.Partial
         {
             if (!_entityCodeValue.Keys.Contains(entityId))
             {
-                throw new BusinessException(message: "Error:ImportHandler:556", code: "1");
+                throw new BusinessException(message: L["Error:ImportHandler:556"], code: "1");
             }
             Dictionary<string, string> codePropertyAndValue = _entityCodeValue[entityId];
             if (!codePropertyAndValue.ContainsKey(property.Name))
             {
                 var detailDict = new Dictionary<string, string> { ["propertyName"] = property.Name };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:557",
+                throw new BusinessException(message: L["Error:ImportHandler:557"],
                     code: "1", details: detailString);
             }
             return codePropertyAndValue[property.Name];
@@ -490,7 +490,7 @@ namespace DMSpro.OMS.MdmService.Partial
                     {
                         var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:564",
+                        throw new BusinessException(message: L["Error:ImportHandler:564"],
                             code: "1", details: detailString);
                     }
 
@@ -504,7 +504,7 @@ namespace DMSpro.OMS.MdmService.Partial
                         List<CodeAndId> items = response.CodeAndIds.ToList();
                         if (items.Count != codes.Count)
                         {
-                            throw new BusinessException(message: "Error:ImportHandler:565", code: "1");
+                            throw new BusinessException(message: L["Error:ImportHandler:565"], code: "1");
                         }
                         Dictionary<string, Guid> foundCodeAndIds = new();
                         foreach (CodeAndId item in items)
@@ -534,7 +534,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 {
                     var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportHandler:558",
+                    throw new BusinessException(message: L["Error:ImportHandler:558"],
                         code: "1", details: detailString);
                 }
                 object repo = _repositories[repoName];
@@ -544,7 +544,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 {
                     var detailDict = new Dictionary<string, string> { ["repoName"] = repoName };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportHandler:559",
+                    throw new BusinessException(message: L["Error:ImportHandler:559"],
                         code: "1", details: detailString);
                 }
 
@@ -552,7 +552,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 Dictionary<string, Guid> idAndCode = await task;
                 if (!_codeFromDBAndSheetRepo.Contains(repoName) && idAndCode.Count != codes.Count)
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:560", code: "1");
+                    throw new BusinessException(message: L["Error:ImportHandler:560"], code: "1");
                 }
                 result.Add(repoName, idAndCode);
             }
@@ -572,7 +572,7 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 var detailDict = new Dictionary<string, string> { ["code"] = code };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:569", code: "0", details: detailString);
+                throw new BusinessException(message: L["Error:ImportHandler:569"], code: "0", details: detailString);
             }
             _entityCodeAndIdFromSheet.Add(code, id);
         }
@@ -626,7 +626,7 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 var detailDict = new Dictionary<string, string> { ["propertyName"] = propertyName };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:561",
+                throw new BusinessException(message: L["Error:ImportHandler:561"],
                     code: "1", details: detailString);
             }
             if (!codeList.ContainsKey(repoName))
@@ -651,7 +651,7 @@ namespace DMSpro.OMS.MdmService.Partial
 
             if (rowCount < 2 || colCount < 2)
             {
-                throw new BusinessException(message: "Error:ImportHandler:572", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:572"], code: "0");
             }
             DataTable dt = new();
             List<string> approvedColumns = new();
@@ -704,17 +704,17 @@ namespace DMSpro.OMS.MdmService.Partial
                 }
                 if (checkedColumn.Contains(propertyName))
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:574", code: "0");
+                    throw new BusinessException(message: L["Error:ImportHandler:574"], code: "0");
                 }
                 checkedColumn.Add(propertyName);
             }
             if (operationMode == OperationMode.INSERT && approvedNum != _structurePropertyName.Count)
             {
-                throw new BusinessException(message: "Error:ImportHandler:573", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:573"], code: "0");
             }
             else if (operationMode == OperationMode.UPDATE && !approvedColumns.Contains("Id"))
             {
-                throw new BusinessException(message: "Error:ImportHandler:575", code: "0");
+                throw new BusinessException(message: L["Error:ImportHandler:575"], code: "0");
             }
 
             PopulateDataTableFromSheetData(sheetData, dt, rowCount, colCount,
@@ -752,7 +752,7 @@ namespace DMSpro.OMS.MdmService.Partial
                         {
                             var detailDict = new Dictionary<string, string> { ["row"] = i.ToString() };
                             string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                            throw new BusinessException(message: "Error:ImportHandler:579", code: "0", details: detailString);
+                            throw new BusinessException(message: L["Error:ImportHandler:579"], code: "0", details: detailString);
                         }
                         _guidForUpdate.Add(id);
 
@@ -768,7 +768,7 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 var detailDict = new Dictionary<string, string> { ["row"] = row.ToString() };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:580", code: "0", details: detailString);
+                throw new BusinessException(message: L["Error:ImportHandler:580"], code: "0", details: detailString);
             }
             try
             {
@@ -779,7 +779,7 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 var detailDict = new Dictionary<string, string> { ["row"] = row.ToString() };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:ImportHandler:576", code: "0", details: detailString);
+                throw new BusinessException(message: L["Error:ImportHandler:576"], code: "0", details: detailString);
             }
         }
 
@@ -826,7 +826,7 @@ namespace DMSpro.OMS.MdmService.Partial
                     {
                         var detailDict = new Dictionary<string, string> { ["columnName"] = propertyName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: "Error:ImportHandler:563",
+                        throw new BusinessException(message: L["Error:ImportHandler:563"],
                             code: "1", details: detailString);
                     }
                 }
@@ -884,7 +884,7 @@ namespace DMSpro.OMS.MdmService.Partial
                         ["typeName"] = type.Name,
                     };
                     string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: "Error:ImportHandler:562",
+                    throw new BusinessException(message: L["Error:ImportHandler:562"],
                         code: "1", details: detailString);
                 }
                 result.Add(prop.Name, type);
