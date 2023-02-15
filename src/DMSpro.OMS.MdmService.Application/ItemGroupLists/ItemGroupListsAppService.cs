@@ -11,37 +11,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
 
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public partial class ItemGroupListsAppService : ApplicationService, IItemGroupListsAppService
+    public partial class ItemGroupListsAppService
     {
-        private readonly IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemGroupListRepository _itemGroupListRepository;
-        private readonly ItemGroupListManager _itemGroupListManager;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-        private readonly IRepository<Item, Guid> _itemRepository;
-        private readonly IRepository<UOM, Guid> _uOMRepository;
-
-        public ItemGroupListsAppService(IItemGroupListRepository itemGroupListRepository, ItemGroupListManager itemGroupListManager, IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemGroup, Guid> itemGroupRepository, IRepository<Item, Guid> itemRepository, IRepository<UOM, Guid> uOMRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemGroupListRepository = itemGroupListRepository;
-            _itemGroupListManager = itemGroupListManager; _itemGroupRepository = itemGroupRepository;
-            _itemRepository = itemRepository;
-            _uOMRepository = uOMRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemGroupListWithNavigationPropertiesDto>> GetListAsync(GetItemGroupListsInput input)
         {
             var totalCount = await _itemGroupListRepository.GetCountAsync(input.FilterText, input.RateMin, input.RateMax, input.PriceMin, input.PriceMax, input.ItemGroupId, input.ItemId, input.UomId);
