@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
 
     [Authorize(MdmServicePermissions.CusAttributeValues.Default)]
-    public partial class CusAttributeValuesAppService : ApplicationService, ICusAttributeValuesAppService
+    public partial class CusAttributeValuesAppService 
     {
-        private readonly IDistributedCache<CusAttributeValueExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICusAttributeValueRepository _cusAttributeValueRepository;
-        private readonly CusAttributeValueManager _cusAttributeValueManager;
-        private readonly IRepository<CustomerAttribute, Guid> _customerAttributeRepository;
-
-        public CusAttributeValuesAppService(ICusAttributeValueRepository cusAttributeValueRepository, CusAttributeValueManager cusAttributeValueManager, IDistributedCache<CusAttributeValueExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerAttribute, Guid> customerAttributeRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _cusAttributeValueRepository = cusAttributeValueRepository;
-            _cusAttributeValueManager = cusAttributeValueManager; _customerAttributeRepository = customerAttributeRepository;
-        }
-
         public virtual async Task<PagedResultDto<CusAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetCusAttributeValuesInput input)
         {
             var totalCount = await _cusAttributeValueRepository.GetCountAsync(input.FilterText, input.AttrValName, input.CustomerAttributeId, input.ParentCusAttributeValueId);
