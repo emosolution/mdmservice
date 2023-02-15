@@ -1,48 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-	public partial class WeightMeasurementsAppService
+	[Authorize(MdmServicePermissions.WeightMeasurements.Default)]
+	public partial class WeightMeasurementsAppService : PartialAppService<WeightMeasurement, WeightMeasurementDto, IWeightMeasurementRepository>,
+		IWeightMeasurementsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _weightMeasurementRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<WeightMeasurement>, IEnumerable<WeightMeasurementDto>>(results.data.Cast<WeightMeasurement>());
-			return results;
-		}
+		private readonly IWeightMeasurementRepository _weightMeasurementRepository;
+		private readonly IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly WeightMeasurementManager _weightMeasurementManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
+		public WeightMeasurementsAppService(ICurrentTenant currentTenant,
+			IWeightMeasurementRepository repository,
+			WeightMeasurementManager weightMeasurementManager,
+			IConfiguration settingProvider,
+			IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			return null;
+			_weightMeasurementRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_weightMeasurementManager = weightMeasurementManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IWeightMeasurementRepository", _weightMeasurementRepository));
 		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _weightMeasurementRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+    }
 }
