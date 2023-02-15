@@ -1,20 +1,13 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.Holidays;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +15,8 @@ namespace DMSpro.OMS.MdmService.Holidays
 {
 
     [Authorize(MdmServicePermissions.Holidays.Default)]
-    public partial class HolidaysAppService : ApplicationService, IHolidaysAppService
+    public partial class HolidaysAppService
     {
-        private readonly IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IHolidayRepository _holidayRepository;
-        private readonly HolidayManager _holidayManager;
-
-        public HolidaysAppService(IHolidayRepository holidayRepository, HolidayManager holidayManager, IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _holidayRepository = holidayRepository;
-            _holidayManager = holidayManager;
-        }
-
         public virtual async Task<PagedResultDto<HolidayDto>> GetListAsync(GetHolidaysInput input)
         {
             var totalCount = await _holidayRepository.GetCountAsync(input.FilterText, input.YearMin, input.YearMax, input.Description);

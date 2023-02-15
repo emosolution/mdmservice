@@ -1,48 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.Holidays
 {
-	public partial class HolidaysAppService
+	[Authorize(MdmServicePermissions.Holidays.Default)]
+	public partial class HolidaysAppService : PartialAppService<Holiday, HolidayDto, IHolidayRepository>,
+		IHolidaysAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _holidayRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<Holiday>, IEnumerable<HolidayDto>>(results.data.Cast<Holiday>());
-			return results;
-		}
+		private readonly IHolidayRepository _holidayRepository;
+		private readonly IDistributedCache<HolidayExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly HolidayManager _holidayManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
+		public HolidaysAppService(ICurrentTenant currentTenant,
+			IHolidayRepository repository,
+			HolidayManager holidayManager,
+			IConfiguration settingProvider,
+			IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			return null;
+			_holidayRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_holidayManager = holidayManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IHolidayRepository", _holidayRepository));
 		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _holidayRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+    }
 }
