@@ -1,20 +1,13 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.SystemConfigs;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +15,8 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
 {
 
     [Authorize(MdmServicePermissions.SystemConfig.Default)]
-    public partial class SystemConfigsAppService : ApplicationService, ISystemConfigsAppService
+    public partial class SystemConfigsAppService
     {
-        private readonly IDistributedCache<SystemConfigExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ISystemConfigRepository _systemConfigRepository;
-        private readonly SystemConfigManager _systemConfigManager;
-
-        public SystemConfigsAppService(ISystemConfigRepository systemConfigRepository, SystemConfigManager systemConfigManager, IDistributedCache<SystemConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _systemConfigRepository = systemConfigRepository;
-            _systemConfigManager = systemConfigManager;
-        }
-
         public virtual async Task<PagedResultDto<SystemConfigDto>> GetListAsync(GetSystemConfigsInput input)
         {
             var totalCount = await _systemConfigRepository.GetCountAsync(input.FilterText, input.Code, input.Description, input.Value, input.DefaultValue, input.EditableByTenant, input.ControlType, input.DataSource);
