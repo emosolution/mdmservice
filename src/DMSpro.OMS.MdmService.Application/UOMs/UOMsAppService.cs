@@ -1,17 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -19,19 +16,8 @@ namespace DMSpro.OMS.MdmService.UOMs
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.UOMs.Default)]
-    public partial class UOMsAppService : ApplicationService, IUOMsAppService
+    public partial class UOMsAppService 
     {
-        private readonly IDistributedCache<UOMExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IUOMRepository _uOMRepository;
-        private readonly UOMManager _uOMManager;
-
-        public UOMsAppService(IUOMRepository uOMRepository, UOMManager uOMManager, IDistributedCache<UOMExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _uOMRepository = uOMRepository;
-            _uOMManager = uOMManager;
-        }
-
         public virtual async Task<PagedResultDto<UOMDto>> GetListAsync(GetUOMsInput input)
         {
             var totalCount = await _uOMRepository.GetCountAsync(input.FilterText, input.Code, input.Name);
