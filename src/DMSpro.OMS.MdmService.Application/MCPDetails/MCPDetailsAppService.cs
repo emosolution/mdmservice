@@ -19,7 +19,7 @@ using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
 
-    [Authorize(MdmServicePermissions.MCPDetails.Default)]
+    [Authorize(MdmServicePermissions.MCPs.Default)]
     public partial class MCPDetailsAppService
     {
         public virtual async Task<PagedResultDto<MCPDetailWithNavigationPropertiesDto>> GetListAsync(GetMCPDetailsInput input)
@@ -77,13 +77,13 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             };
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Delete)]
+        [Authorize(MdmServicePermissions.MCPs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _mCPDetailRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Create)]
+        [Authorize(MdmServicePermissions.MCPs.Create)]
         public virtual async Task<MCPDetailDto> CreateAsync(MCPDetailCreateDto input)
         {
             if (input.CustomerId == default)
@@ -102,7 +102,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             return ObjectMapper.Map<MCPDetail, MCPDetailDto>(mcpDetail);
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Edit)]
+        [Authorize(MdmServicePermissions.MCPs.Edit)]
         public virtual async Task<MCPDetailDto> UpdateAsync(Guid id, MCPDetailUpdateDto input)
         {
             if (input.CustomerId == default)

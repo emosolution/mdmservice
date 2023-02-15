@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
-	[Authorize(MdmServicePermissions.MCPDetails.Default)]
+	[Authorize(MdmServicePermissions.MCPs.Default)]
 	public partial class MCPDetailsAppService : PartialAppService<MCPDetail, MCPDetailDto, IMCPDetailRepository>,
 		IMCPDetailsAppService
 	{

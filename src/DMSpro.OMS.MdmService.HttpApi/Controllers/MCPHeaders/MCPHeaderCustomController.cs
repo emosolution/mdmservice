@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DMSpro.OMS.MdmService.MCPHeaders;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -23,6 +24,13 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
             {
                 throw new UserFriendlyException(message: e.Message);
             }
+        }
+
+        [HttpPost]
+        [Route("create-mcp")]
+        public Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
+        {
+            return _mCPHeadersAppService.CreateMCP(mcpCreateDto);
         }
     }
 }

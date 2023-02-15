@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.VisitPlans;
-using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Companies;
@@ -14,7 +13,7 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    [Authorize(MdmServicePermissions.MCPHeaders.Default)]
+    [Authorize(MdmServicePermissions.MCPs.Default)]
     public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderDto, IMCPHeaderRepository>,
         IMCPHeadersAppService
     {
@@ -63,6 +62,6 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 new KeyValuePair<string, object>("IItemGroupRepository", _itemGroupRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
-        }
+        } 
     }
 }

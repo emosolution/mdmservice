@@ -20,7 +20,7 @@ using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
 
-    [Authorize(MdmServicePermissions.MCPHeaders.Default)]
+    [Authorize(MdmServicePermissions.MCPs.Default)]
     public partial class MCPHeadersAppService
     {
         public virtual async Task<PagedResultDto<MCPHeaderWithNavigationPropertiesDto>> GetListAsync(GetMCPHeadersInput input)
@@ -94,13 +94,13 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             };
         }
 
-        [Authorize(MdmServicePermissions.MCPHeaders.Delete)]
+        [Authorize(MdmServicePermissions.MCPs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _mCPHeaderRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.MCPHeaders.Create)]
+        [Authorize(MdmServicePermissions.MCPs.Create)]
         public virtual async Task<MCPHeaderDto> CreateAsync(MCPHeaderCreateDto input)
         {
             if (input.RouteId == default)
@@ -119,7 +119,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             return ObjectMapper.Map<MCPHeader, MCPHeaderDto>(mCPHeader);
         }
 
-        [Authorize(MdmServicePermissions.MCPHeaders.Edit)]
+        [Authorize(MdmServicePermissions.MCPs.Edit)]
         public virtual async Task<MCPHeaderDto> UpdateAsync(Guid id, MCPHeaderUpdateDto input)
         {
             if (input.RouteId == default)

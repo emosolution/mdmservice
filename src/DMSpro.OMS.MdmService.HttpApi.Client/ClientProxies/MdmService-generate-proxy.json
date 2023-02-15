@@ -27039,6 +27039,23 @@
                   }
                 },
                 {
+                  "name": "CreateMCP",
+                  "parametersOnMethod": [
+                    {
+                      "name": "mcpCreateDto",
+                      "typeAsString": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -27887,6 +27904,43 @@
               "returnValue": {
                 "type": "System.Void",
                 "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
+            },
+            "CreateMCPByMcpCreateDto": {
+              "uniqueName": "CreateMCPByMcpCreateDto",
+              "name": "CreateMCP",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/m-cPHeaders/create-mcp",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "mcpCreateDto",
+                  "typeAsString": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "mcpCreateDto",
+                  "name": "mcpCreateDto",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto",
+                "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
