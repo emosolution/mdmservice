@@ -11,37 +11,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
 
     [Authorize(MdmServicePermissions.PriceListDetails.Default)]
-    public partial class PriceListDetailsAppService : ApplicationService, IPriceListDetailsAppService
+    public partial class PriceListDetailsAppService
     {
-        private readonly IDistributedCache<PriceListDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IPriceListDetailRepository _priceListDetailRepository;
-        private readonly PriceListDetailManager _priceListDetailManager;
-        private readonly IRepository<PriceList, Guid> _priceListRepository;
-        private readonly IRepository<UOM, Guid> _uOMRepository;
-        private readonly IRepository<Item, Guid> _itemRepository;
-
-        public PriceListDetailsAppService(IPriceListDetailRepository priceListDetailRepository, PriceListDetailManager priceListDetailManager, IDistributedCache<PriceListDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository, IRepository<UOM, Guid> uOMRepository, IRepository<Item, Guid> itemRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _priceListDetailRepository = priceListDetailRepository;
-            _priceListDetailManager = priceListDetailManager; _priceListRepository = priceListRepository;
-            _uOMRepository = uOMRepository;
-            _itemRepository = itemRepository;
-        }
-
         public virtual async Task<PagedResultDto<PriceListDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceListDetailsInput input)
         {
             var totalCount = await _priceListDetailRepository.GetCountAsync(input.FilterText, input.PriceMin, input.PriceMax, input.BasedOnPriceMin, input.BasedOnPriceMax, input.Description, input.PriceListId, input.UOMId, input.ItemId);
