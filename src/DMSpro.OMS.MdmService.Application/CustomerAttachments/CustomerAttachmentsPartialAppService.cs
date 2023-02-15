@@ -1,48 +1,43 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
-	public partial class CustomerAttachmentsAppService
+	[Authorize(MdmServicePermissions.Customers.Default)]
+	public partial class CustomerAttachmentsAppService : PartialAppService<CustomerAttachment, CustomerAttachmentDto, ICustomerAttachmentRepository>,
+		ICustomerAttachmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _customerAttachmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CustomerAttachment>, IEnumerable<CustomerAttachmentDto>>(results.data.Cast<CustomerAttachment>());
-			return results;
-		}
+		private readonly ICustomerAttachmentRepository _customerAttachmentRepository;
+		private readonly IDistributedCache<CustomerAttachmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly CustomerAttachmentManager _customerAttachmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly ICustomerRepository _customerRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public CustomerAttachmentsAppService(ICurrentTenant currentTenant,
+			ICustomerAttachmentRepository repository,
+			CustomerAttachmentManager customerAttachmentManager,
+			IConfiguration settingProvider,
+			ICustomerRepository customerRepository,
+			IDistributedCache<CustomerAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _customerAttachmentRepository.GetQueryableAsync(); // to be remove
+			_customerAttachmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_customerAttachmentManager = customerAttachmentManager;
+			
+			_customerRepository = customerRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerAttachmentRepository", _customerAttachmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerRepository", _customerRepository));
+        }
+    }
 }
