@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 {
     public class VisitPlansScheduledAppService : ApplicationService, IVisitPlansScheduledAppService
     {
-        private readonly IVisitPlanCustomRepository _visitPlanCustomRepository;
+        private readonly IVisitPlanInternalRepository _visitPlanInternalRepository;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<Customer, Guid> _customerRepository;
         private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
@@ -34,7 +34,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         private readonly IMCPHeaderCustomRepository _mCPHeaderCustomRepository;
         private readonly IHolidayDetailCustomRepository _holidayDetailCustomRepository;
 
-        public VisitPlansScheduledAppService(IVisitPlanCustomRepository visitPlanCustomRepository,
+        public VisitPlansScheduledAppService(IVisitPlanInternalRepository visitPlanInternalRepository,
             IGuidGenerator guidGenerator,
             IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository,
             IRepository<Company, Guid> companyRepository,
@@ -48,7 +48,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         )
         {
             _visitPlanRepository = visitPlanRepository;
-            _visitPlanCustomRepository = visitPlanCustomRepository;
+            _visitPlanInternalRepository = visitPlanInternalRepository;
             _guidGenerator = guidGenerator;
             _customerRepository = customerRepository;
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
@@ -363,7 +363,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         private async Task DeleteExistingVisitPlans(DateTime DateStart, DateTime DateEnd, List<Guid> mcpDetailIds)
         {
-            await _visitPlanCustomRepository.DeleteExistingVisitPlansAsync(DateStart, DateEnd, mcpDetailIds);
+            await _visitPlanInternalRepository.DeleteExistingVisitPlansAsync(DateStart, DateEnd, mcpDetailIds);
         }
 
         private async Task<List<DateTime>> GetHolidayDates(DateTime dateStart, DateTime dateEnd)

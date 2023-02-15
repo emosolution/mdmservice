@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
-    public interface IVisitPlanCustomRepository : IRepository<VisitPlan, Guid>
+    public interface IVisitPlanInternalRepository : IRepository<VisitPlan, Guid>
     {
         Task DeleteExistingVisitPlansAsync(
             DateTime DateStart, DateTime DateEnd, List<Guid> mcpDetailIds,
