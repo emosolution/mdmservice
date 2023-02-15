@@ -10,35 +10,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
 
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public partial class ItemGroupAttributesAppService : ApplicationService, IItemGroupAttributesAppService
+    public partial class ItemGroupAttributesAppService
     {
-        private readonly IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
-        private readonly ItemGroupAttributeManager _itemGroupAttributeManager;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-        private readonly IRepository<ItemAttributeValue, Guid> _itemAttributeValueRepository;
-
-        public ItemGroupAttributesAppService(IItemGroupAttributeRepository itemGroupAttributeRepository, ItemGroupAttributeManager itemGroupAttributeManager, IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemGroup, Guid> itemGroupRepository, IRepository<ItemAttributeValue, Guid> itemAttributeValueRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemGroupAttributeRepository = itemGroupAttributeRepository;
-            _itemGroupAttributeManager = itemGroupAttributeManager; _itemGroupRepository = itemGroupRepository;
-            _itemAttributeValueRepository = itemAttributeValueRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemGroupAttributeWithNavigationPropertiesDto>> GetListAsync(GetItemGroupAttributesInput input)
         {
             var totalCount = await _itemGroupAttributeRepository.GetCountAsync(input.FilterText, input.dummy, input.ItemGroupId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Attr5Id);
