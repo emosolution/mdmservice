@@ -3,14 +3,11 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -18,19 +15,8 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
 
     [Authorize(MdmServicePermissions.CustomerAttributes.Default)]
-    public partial class CustomerAttributesAppService : ApplicationService, ICustomerAttributesAppService
+    public partial class CustomerAttributesAppService 
     {
-        private readonly IDistributedCache<CustomerAttributeExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerAttributeRepository _customerAttributeRepository;
-        private readonly CustomerAttributeManager _customerAttributeManager;
-
-        public CustomerAttributesAppService(ICustomerAttributeRepository customerAttributeRepository, CustomerAttributeManager customerAttributeManager, IDistributedCache<CustomerAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerAttributeRepository = customerAttributeRepository;
-            _customerAttributeManager = customerAttributeManager;
-        }
-
         public virtual async Task<PagedResultDto<CustomerAttributeDto>> GetListAsync(GetCustomerAttributesInput input)
         {
             var totalCount = await _customerAttributeRepository.GetCountAsync(input.FilterText, input.AttrNoMin, input.AttrNoMax, input.AttrName, input.HierarchyLevelMin, input.HierarchyLevelMax, input.Active);
