@@ -1,48 +1,43 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.ItemAttributes;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
-	public partial class ItemAttributeValuesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _itemAttributeValueRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<ItemAttributeValue>, IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.ItemAttributeValues.Default)]
+    public partial class ItemAttributeValuesAppService : PartialAppService<ItemAttributeValue, ItemAttributeValueDto, IItemAttributeValueRepository>,
+        IItemAttributeValuesAppService
+    {
+        private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
+        private readonly IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly ItemAttributeValueManager _itemAttributeValueManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+        private readonly IItemAttributeRepository _itemAttributeRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _itemAttributeValueRepository.GetQueryableAsync(); // to be remove
+        public ItemAttributeValuesAppService(ICurrentTenant currentTenant,
+            IItemAttributeValueRepository repository,
+            ItemAttributeValueManager itemAttributeValueManager,
+            IConfiguration settingProvider,
+            IItemAttributeRepository itemAttributeRepository,
+            IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _itemAttributeValueRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _itemAttributeValueManager = itemAttributeValueManager;
 
-			return 0;
-		}
-	}
+            _itemAttributeRepository = itemAttributeRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemAttributeValueRepository", _itemAttributeValueRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemAttributeRepository", _itemAttributeRepository));
+        }
+    }
 }
