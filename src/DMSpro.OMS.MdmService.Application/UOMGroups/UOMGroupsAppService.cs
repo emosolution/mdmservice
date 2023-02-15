@@ -1,17 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -19,19 +16,8 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.UOMGroups.Default)]
-    public partial class UOMGroupsAppService : ApplicationService, IUOMGroupsAppService
+    public partial class UOMGroupsAppService 
     {
-        private readonly IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IUOMGroupRepository _uOMGroupRepository;
-        private readonly UOMGroupManager _uOMGroupManager;
-
-        public UOMGroupsAppService(IUOMGroupRepository uOMGroupRepository, UOMGroupManager uOMGroupManager, IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _uOMGroupRepository = uOMGroupRepository;
-            _uOMGroupManager = uOMGroupManager;
-        }
-
         public virtual async Task<PagedResultDto<UOMGroupDto>> GetListAsync(GetUOMGroupsInput input)
         {
             var totalCount = await _uOMGroupRepository.GetCountAsync(input.FilterText, input.Code, input.Name);
