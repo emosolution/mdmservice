@@ -11,37 +11,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
 
     [Authorize(MdmServicePermissions.Vendors.Default)]
-    public partial class VendorsAppService : ApplicationService, IVendorsAppService
+    public partial class VendorsAppService
     {
-        private readonly IDistributedCache<VendorExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IVendorRepository _vendorRepository;
-        private readonly VendorManager _vendorManager;
-        private readonly IRepository<PriceList, Guid> _priceListRepository;
-        private readonly IRepository<GeoMaster, Guid> _geoMasterRepository;
-        private readonly IRepository<Company, Guid> _companyRepository;
-
-        public VendorsAppService(IVendorRepository vendorRepository, VendorManager vendorManager, IDistributedCache<VendorExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository, IRepository<GeoMaster, Guid> geoMasterRepository, IRepository<Company, Guid> companyRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _vendorRepository = vendorRepository;
-            _vendorManager = vendorManager; _priceListRepository = priceListRepository;
-            _geoMasterRepository = geoMasterRepository;
-            _companyRepository = companyRepository;
-        }
-
         public virtual async Task<PagedResultDto<VendorWithNavigationPropertiesDto>> GetListAsync(GetVendorsInput input)
         {
             var totalCount = await _vendorRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId);
