@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.WorkingPositions;
+using DMSpro.OMS.MdmService.SystemDatas;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-	public partial class EmployeeProfilesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _employeeProfileRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<EmployeeProfile>, IEnumerable<EmployeeProfileDto>>(results.data.Cast<EmployeeProfile>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
+    public partial class EmployeeProfilesAppService : PartialAppService<EmployeeProfile, EmployeeProfileDto, IEmployeeProfileRepository>,
+        IEmployeeProfilesAppService
+    {
+        private readonly IEmployeeProfileRepository _employeeProfileRepository;
+        private readonly IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly EmployeeProfileManager _employeeProfileManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+        private readonly IWorkingPositionRepository _workingPositionRepository;
+        private readonly ISystemDataRepository _systemDataRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
-		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _employeeProfileRepository.GetQueryableAsync(); // to be remove
+        public EmployeeProfilesAppService(ICurrentTenant currentTenant,
+            IEmployeeProfileRepository repository,
+            EmployeeProfileManager employeeProfileManager,
+            IConfiguration settingProvider,
+            IWorkingPositionRepository workingPositionRepository,
+            ISystemDataRepository systemDataRepository,
+            IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _employeeProfileRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _employeeProfileManager = employeeProfileManager;
 
-			return 0;
-		}
-	}
+            _workingPositionRepository = workingPositionRepository;
+            _systemDataRepository = systemDataRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IEmployeeProfileRepository", _employeeProfileRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IWorkingPositionRepository", _workingPositionRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
+        }
+    }
 }
