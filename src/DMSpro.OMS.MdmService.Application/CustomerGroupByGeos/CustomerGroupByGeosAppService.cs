@@ -9,13 +9,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -23,22 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
 
     [Authorize(MdmServicePermissions.CustomerGroupByGeos.Default)]
-    public partial class CustomerGroupByGeosAppService : ApplicationService, ICustomerGroupByGeosAppService
+    public partial class CustomerGroupByGeosAppService
     {
-        private readonly IDistributedCache<CustomerGroupByGeoExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerGroupByGeoRepository _customerGroupByGeoRepository;
-        private readonly CustomerGroupByGeoManager _customerGroupByGeoManager;
-        private readonly IRepository<CustomerGroup, Guid> _customerGroupRepository;
-        private readonly IRepository<GeoMaster, Guid> _geoMasterRepository;
-
-        public CustomerGroupByGeosAppService(ICustomerGroupByGeoRepository customerGroupByGeoRepository, CustomerGroupByGeoManager customerGroupByGeoManager, IDistributedCache<CustomerGroupByGeoExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerGroup, Guid> customerGroupRepository, IRepository<GeoMaster, Guid> geoMasterRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerGroupByGeoRepository = customerGroupByGeoRepository;
-            _customerGroupByGeoManager = customerGroupByGeoManager; _customerGroupRepository = customerGroupRepository;
-            _geoMasterRepository = geoMasterRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerGroupByGeoWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByGeosInput input)
         {
             var totalCount = await _customerGroupByGeoRepository.GetCountAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.CustomerGroupId, input.GeoMasterId);
