@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.UOMGroups;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
-	public partial class UOMGroupDetailsAppService
+	[Authorize(MdmServicePermissions.UOMGroupDetails.Default)]
+	public partial class UOMGroupDetailsAppService : PartialAppService<UOMGroupDetail, UOMGroupDetailDto, IUOMGroupDetailRepository>,
+		IUOMGroupDetailsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _uOMGroupDetailRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<UOMGroupDetail>, IEnumerable<UOMGroupDetailDto>>(results.data.Cast<UOMGroupDetail>());
-			return results;
-		}
+		private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
+		private readonly IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly UOMGroupDetailManager _uOMGroupDetailManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly IUOMRepository _uOMRepository;
+		private readonly IUOMGroupRepository _uOMGroupRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public UOMGroupDetailsAppService(ICurrentTenant currentTenant,
+			IUOMGroupDetailRepository repository,
+			UOMGroupDetailManager uOMGroupDetailManager,
+			IConfiguration settingProvider,
+			IUOMRepository uOMRepository,
+			IUOMGroupRepository uOMGroupRepository,
+			IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _uOMGroupDetailRepository.GetQueryableAsync(); // to be remove
+			_uOMGroupDetailRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_uOMGroupDetailManager = uOMGroupDetailManager;
+			
+			_uOMRepository = uOMRepository;
+			_uOMGroupRepository= uOMGroupRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IUOMGroupDetailRepository", _uOMGroupDetailRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IUOMRepository", _uOMRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IUOMGroupRepository", _uOMGroupRepository));
+        }
+    }
 }
