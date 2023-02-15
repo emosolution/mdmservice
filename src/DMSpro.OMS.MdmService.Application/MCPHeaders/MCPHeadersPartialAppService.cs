@@ -1,57 +1,68 @@
-using DMSpro.OMS.MdmService.Partial;
 using Volo.Abp.Caching;
-using Volo.Abp.MultiTenancy;
-using Microsoft.Extensions.Configuration;
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
-using DMSpro.OMS.MdmService.Customers;
-using DMSpro.OMS.MdmService.MCPDetails;
+using Volo.Abp.MultiTenancy;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.VisitPlans;
+using DMSpro.OMS.MdmService.SalesOrgHeaders;
+using DMSpro.OMS.MdmService.MCPDetails;
+using DMSpro.OMS.MdmService.ItemGroups;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
     [Authorize(MdmServicePermissions.MCPHeaders.Default)]
-    public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderDto, IMCPHeaderRepository>, IMCPHeadersAppService
+    public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderDto, IMCPHeaderRepository>,
+        IMCPHeadersAppService
     {
         private readonly IMCPHeaderRepository _mCPHeaderRepository;
-        private readonly IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        private readonly IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
         private readonly MCPHeaderManager _mCPHeaderManager;
 
-        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
-        private readonly ICompanyRepository _companyRepository;
-        private readonly IItemGroupRepository _itemGroupRepository;
-        private readonly IMCPDetailRepository _mCPDetailRepository;
         private readonly IVisitPlanRepository _visitPlanRepository;
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+        private readonly IMCPDetailRepository _mCPDetailRepository;
+        private readonly IItemGroupRepository _itemGroupRepository;
+        private readonly ICompanyRepository _companyRepository;
 
         public MCPHeadersAppService(ICurrentTenant currentTenant,
             IMCPHeaderRepository repository,
-            MCPHeaderManager companyManager,
-            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
-            ICompanyRepository companyRepository,
-            IItemGroupRepository itemGroupRepository,
-            IMCPDetailRepository mCPDetailRepository,
+            MCPHeaderManager mCPHeaderManager,
+            IConfiguration settingProvider,
             IVisitPlanRepository visitPlanRepository,
-        IConfiguration settingProvider,
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+            IMCPDetailRepository mCPDetailRepository,
+            IItemGroupRepository itemGroupRepository,
+            ICompanyRepository companyRepository,
             IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
             _mCPHeaderRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
-            _mCPHeaderManager = companyManager;
+            _mCPHeaderManager = mCPHeaderManager;
 
-            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _companyRepository = companyRepository;
-            _itemGroupRepository = itemGroupRepository;
-            _repositories.Add("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository);
-            _repositories.Add("ICompanyRepository", _companyRepository);
-            _repositories.Add("IItemGroupRepository", _itemGroupRepository);
-            _repositories.Add("IMCPHeaderRepository", _mCPHeaderRepository);
-
-            _mCPDetailRepository = mCPDetailRepository;
             _visitPlanRepository = visitPlanRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+            _mCPDetailRepository = mCPDetailRepository;
+            _itemGroupRepository = itemGroupRepository;
+            _companyRepository = companyRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IMCPHeaderRepository", _mCPHeaderRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IVisitPlanRepository", _visitPlanRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IMCPDetailRepository", _mCPDetailRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemGroupRepository", _itemGroupRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
         }
     }
 }
