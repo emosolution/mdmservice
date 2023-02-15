@@ -65889,7 +65889,7 @@
               "uniqueName": "GetListDevextremesWithNavigationAsyncByInputDev",
               "name": "GetListDevextremesWithNavigationAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/company-in-zones/GetListDevextremes",
+              "url": "api/mdm-service/company-in-zones/GetListDevextremeWithNavigation",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {

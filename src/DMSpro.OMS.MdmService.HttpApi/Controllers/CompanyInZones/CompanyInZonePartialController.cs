@@ -19,7 +19,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
 		}
 
         [HttpGet]
-		[Route("GetListDevextremes")]
+		[Route("GetListDevextremeWithNavigation")]
 		public Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev)
 		{
 			return _companyInZonesAppService.GetListDevextremesWithNavigationAsync(inputDev);
