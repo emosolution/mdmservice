@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
-	public partial interface ICompanyInZonePartialRepository
+	public partial interface ICompanyInZoneRepository
 	{
 		Task<List<CompanyInZone>> GetByIdAsync(List<Guid> ids);
     }
