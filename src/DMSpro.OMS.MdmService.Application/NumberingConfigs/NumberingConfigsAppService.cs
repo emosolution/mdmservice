@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,22 +19,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
 
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
-    public partial class NumberingConfigsAppService : ApplicationService, INumberingConfigsAppService
+    public partial class NumberingConfigsAppService
     {
-        private readonly IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly INumberingConfigRepository _numberingConfigRepository;
-        private readonly NumberingConfigManager _numberingConfigManager;
-        private readonly IRepository<Company, Guid> _companyRepository;
-        private readonly IRepository<SystemData, Guid> _systemDataRepository;
-
-        public NumberingConfigsAppService(INumberingConfigRepository numberingConfigRepository, NumberingConfigManager numberingConfigManager, IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Company, Guid> companyRepository, IRepository<SystemData, Guid> systemDataRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _numberingConfigRepository = numberingConfigRepository;
-            _numberingConfigManager = numberingConfigManager; _companyRepository = companyRepository;
-            _systemDataRepository = systemDataRepository;
-        }
-
         public virtual async Task<PagedResultDto<NumberingConfigWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigsInput input)
         {
             var totalCount = await _numberingConfigRepository.GetCountAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.CompanyId, input.SystemDataId);

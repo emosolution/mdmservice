@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Volo.Abp;
-using System.IO;
-using System;
-using Volo.Abp.Content;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.SystemDatas;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-	public partial class NumberingConfigsAppService
+	[Authorize(MdmServicePermissions.NumberingConfigs.Default)]
+	public partial class NumberingConfigsAppService : PartialAppService<NumberingConfig, NumberingConfigDto, INumberingConfigRepository>,
+		INumberingConfigsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _numberingConfigRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<NumberingConfig>, IEnumerable<NumberingConfigDto>>(results.data.Cast<NumberingConfig>());
-			return results;
-		}
+		private readonly INumberingConfigRepository _numberingConfigRepository;
+		private readonly IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly NumberingConfigManager _numberingConfigManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			return null;
-		}
+		private readonly ISystemDataRepository _systemDataRepository;
+		private readonly ICompanyRepository _companyRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+		public NumberingConfigsAppService(ICurrentTenant currentTenant,
+			INumberingConfigRepository repository,
+			NumberingConfigManager numberingConfigManager,
+			IConfiguration settingProvider,
+			ISystemDataRepository systemDataRepository,
+			ICompanyRepository companyRepository,
+			IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.ContentLength <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _numberingConfigRepository.GetQueryableAsync(); // to be remove
+			_numberingConfigRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_numberingConfigManager = numberingConfigManager;
+			
+			_systemDataRepository= systemDataRepository;
+			_companyRepository= companyRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("INumberingConfigRepository", _numberingConfigRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
+            _repositories.AddIfNotContains(
+                    new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
+        }
+    }
 }
