@@ -16,7 +16,24 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
+            results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, 
+                IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(
+                results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
+            return results;
+        }
+
+        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            if (inputDev.Group == null)
+            {
+                results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, 
+                    IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(
+                    results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
+            }
             return results;
         }
     }

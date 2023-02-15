@@ -38,6 +38,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
 
             _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyInZoneRepository", _companyInZoneRepository));
+            _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
