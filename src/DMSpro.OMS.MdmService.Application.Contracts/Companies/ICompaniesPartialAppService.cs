@@ -5,14 +5,14 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public partial interface ICompaniesAppService
-    {
-        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
+	public partial interface ICompaniesAppService
+	{
+		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
-        Task<int> UpdateFromExcelAsync(IRemoteStreamContent file);
+		Task<int> UpdateFromExcelAsync(IRemoteStreamContent file);
 
-        Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
+		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
 
-        Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
-    }
+		Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
+	}
 }

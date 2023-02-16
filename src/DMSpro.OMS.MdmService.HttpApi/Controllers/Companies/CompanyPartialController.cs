@@ -52,8 +52,8 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
                 throw new UserFriendlyException(message: e.Message);
             }
         }
-
-        [HttpGet]
+		
+		[HttpGet]
         [Route("get-excel-template")]
         public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
         {
@@ -70,5 +70,5 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
                 throw new UserFriendlyException(message: e.Message);
             }
         }
-    }
+	}
 }

@@ -113,4 +113,9 @@ public partial class EmployeeAttachmentClientProxy : ClientProxyBase<IEmployeeAt
             { typeof(IRemoteStreamContent), file }
         });
     }
+
+    public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GenerateExcelTemplatesAsync));
+    }
 }
