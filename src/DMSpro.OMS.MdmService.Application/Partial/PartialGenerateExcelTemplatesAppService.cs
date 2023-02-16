@@ -118,6 +118,22 @@ namespace DMSpro.OMS.MdmService.Partial
                         break;
 
                     default:
+                        if (isNullable)
+                        {
+                            if (Nullable.GetUnderlyingType(property.PropertyType).IsEnum)
+                            {
+                                propertyDataType.Add(propertyName, "int");
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (property.PropertyType.IsEnum)
+                            {
+                                propertyDataType.Add(propertyName, "int");
+                                break;
+                            }
+                        }
                         var detailDict = new Dictionary<string, string> { ["propertyType"] = propertyTypeName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
                         throw new BusinessException(message: L["Error:ImportHandler:585"], code: "1", details: detailString);
