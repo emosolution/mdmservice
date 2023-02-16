@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace DMSpro.OMS.MdmService.MCPDetails
+namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
-	public partial class MCPDetail
+	public partial class CustomerAssignment
 	{
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
