@@ -106,18 +106,22 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual void SetEndDate(Guid id, DateTime endDate)
+    public virtual async Task SetEndDate(Guid id, DateTime endDate)
     {
-        //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
-        throw new System.NotImplementedException(); 
+        await RequestAsync(nameof(SetEndDate), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(DateTime), endDate }
+        });
     }
 
-    public virtual MCPDto CreateMCP(MCPCreateDto mcpCreateDto)
+    public virtual async Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
     {
-        //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
-        throw new System.NotImplementedException(); 
+         return await RequestAsync<MCPDto>(nameof(CreateMCP), new ClientProxyRequestTypeValue
+        {
+            { typeof(MCPCreateDto), mcpCreateDto }
+        });
     }
-
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
