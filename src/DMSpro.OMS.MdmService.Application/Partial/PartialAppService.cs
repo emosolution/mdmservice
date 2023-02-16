@@ -26,7 +26,7 @@ using DMSpro.OMS.MdmService.Localization;
 
 namespace DMSpro.OMS.MdmService.Partial
 {
-    public class PartialAppService<T, TDto, TRepository> : ApplicationService
+    public partial class PartialAppService<T, TDto, TRepository> : ApplicationService
         where T : class, IEntity, new()
         where TDto : class
         where TRepository : class, IRepository<T>
@@ -894,9 +894,9 @@ namespace DMSpro.OMS.MdmService.Partial
 
         private enum CheckTypes
         {
-            DB_ONLY,
-            DB_AND_SHEET,
-            GRPC,
+            DB_AND_SHEET = 0,
+            DB_ONLY = 1,
+            GRPC = 2,
         }
 
         private enum OperationMode
