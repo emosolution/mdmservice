@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CompanyId", (1, "ICompanyRepository", "", "") },
+                { "SystemDataId", (1, "ISystemDataRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

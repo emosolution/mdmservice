@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "ItemId", (1, "IItemRepository", "", "") },
 			};
 		}
 
@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
         {
             return new()
             {
-                "Code",
+                "Url",
             };
         }
     }

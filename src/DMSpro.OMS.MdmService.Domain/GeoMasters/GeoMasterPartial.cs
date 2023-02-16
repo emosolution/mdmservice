@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "ParentId", (0, "IGeoMasterRepository", "", "") },
 			};
 		}
 
@@ -18,6 +18,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
             return new()
             {
                 "Code",
+				"Name",
             };
         }
     }

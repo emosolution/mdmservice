@@ -9,8 +9,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "RouteId", (1, "ISalesOrgHierarchyRepository", "", "") },
+                { "CompanyId", (1, "ICompanyRepository", "", "") },
+                { "ItemGroupId", (1, "IItemGroupRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()

@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CustomerGroupId", (1, "ICustomerGroupRepository", "", "") },
+                { "CusAttributeValueId", (1, "ICusAttributeValueRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

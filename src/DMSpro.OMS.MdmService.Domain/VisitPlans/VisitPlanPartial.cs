@@ -9,16 +9,17 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "MCPDetailId", (1, "IMCPDetailRepository", "", "") },
+                { "CustomerId", (1, "ICustomerRepository", "", "") },
+                { "RouteId", (1, "ISalesOrgHierarchyRepository", "", "") },
+                { "CompanyId", (1, "ICompanyRepository", "", "") },
+                { "ItemGroupId", (1, "IItemGroupRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

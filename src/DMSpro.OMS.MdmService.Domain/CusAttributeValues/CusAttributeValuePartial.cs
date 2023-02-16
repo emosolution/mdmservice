@@ -9,15 +9,16 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CustomerAttributeId", (1, "ICustomerAttributeRepository", "", "") },
+                { "ParentCusAttributeValueId", (0, "ICusAttributeValueRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
             return new()
             {
-                "Code",
+                "AttrValName",
             };
         }
     }

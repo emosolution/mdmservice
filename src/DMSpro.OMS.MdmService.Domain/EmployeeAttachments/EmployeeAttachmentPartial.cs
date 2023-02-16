@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "EmployeeProfileId", (1, "IEmployeeProfileRepository", "", "") },
 			};
 		}
 
@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         {
             return new()
             {
-                "Code",
+                "url",
             };
         }
     }

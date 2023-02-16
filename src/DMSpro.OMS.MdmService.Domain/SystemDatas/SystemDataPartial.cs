@@ -7,10 +7,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
+			return new();
 		}
 
 		public List<string> GetNotNullProperty()
@@ -18,6 +15,8 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             return new()
             {
                 "Code",
+                "ValueCode",
+                "ValueName",
             };
         }
     }

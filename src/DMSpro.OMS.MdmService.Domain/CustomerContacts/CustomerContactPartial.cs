@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "CustomerId", (1, "ICustomerRepository", "", "") },
 			};
 		}
 

@@ -7,17 +7,14 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
+			return new();
 		}
 
 		public List<string> GetNotNullProperty()
         {
             return new()
             {
-                "Code",
+                "AttrName",
             };
         }
     }

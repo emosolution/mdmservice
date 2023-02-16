@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.RouteAssignments
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "RouteId", (1, "ISalesOrgHierarchyRepository", "", "") },
+                { "EmployeeId", (1, "IEmployeeProfileRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

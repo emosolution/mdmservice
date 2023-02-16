@@ -9,8 +9,9 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CustomerGroupId", (1, "ICustomerGroupRepository", "", "") },
+                { "CustomerId", (1, "ICustomerRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()

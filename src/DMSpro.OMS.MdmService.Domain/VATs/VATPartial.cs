@@ -7,10 +7,7 @@ namespace DMSpro.OMS.MdmService.VATs
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
+			return new();
 		}
 
 		public List<string> GetNotNullProperty()
@@ -18,6 +15,7 @@ namespace DMSpro.OMS.MdmService.VATs
             return new()
             {
                 "Code",
+				"Name",
             };
         }
     }

@@ -7,10 +7,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
+			return new();
 		}
 
 		public List<string> GetNotNullProperty()

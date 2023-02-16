@@ -9,16 +9,13 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "HolidayId", (1, "IHolidayRepository", "", "") },
 			};
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

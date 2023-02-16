@@ -2,23 +2,22 @@ using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-	public partial class ItemGroupList
-	{
-		public Dictionary<string, (int, string, string, string)>
-			GetExcelTemplateInfo()
-		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
-		}
-
-		public List<string> GetNotNullProperty()
+    public partial class ItemGroupList
+    {
+        public Dictionary<string, (int, string, string, string)>
+            GetExcelTemplateInfo()
         {
             return new()
             {
-                "Code",
+                { "ItemGroupId", (1, "IItemGroupRepository", "", "") },
+                { "ItemId", (1, "IItemRepository", "", "") },
+                { "Uom", (1, "IUOMRepository", "", "") },
             };
+        }
+
+        public List<string> GetNotNullProperty()
+        {
+            return new();
         }
     }
 }

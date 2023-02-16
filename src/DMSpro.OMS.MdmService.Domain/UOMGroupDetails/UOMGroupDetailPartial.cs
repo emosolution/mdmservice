@@ -9,16 +9,15 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "UOMGroupId", (1, "IUOMGroupRepository", "", "") },
+                { "AltUOMId", (1, "IUOMRepository", "", "") },
+                { "BaseUOMId", (1, "IUOMRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

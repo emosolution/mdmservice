@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "PriceListId", (1, "IPriceListRepository", "", "") },
 			};
 		}
 

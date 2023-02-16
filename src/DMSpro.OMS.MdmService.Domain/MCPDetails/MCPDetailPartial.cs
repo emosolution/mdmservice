@@ -9,8 +9,9 @@ namespace DMSpro.OMS.MdmService.MCPDetails
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CustomerId", (1, "ICustomerRepository", "", "") },
+                { "MCPHeaderId", (1, "IMCPHeaderRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()

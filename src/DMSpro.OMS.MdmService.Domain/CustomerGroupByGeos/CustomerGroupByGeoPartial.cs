@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "CustomerGroupId", (1, "ICustomerGroupRepository", "", "") },
+                { "GeoMasterId", (1, "IGeoMasterRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

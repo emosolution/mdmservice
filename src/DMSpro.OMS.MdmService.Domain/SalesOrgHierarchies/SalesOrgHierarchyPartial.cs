@@ -9,8 +9,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "ParentId", (0, "ISalesOrgHierarchyRepository", "", "") },
+                { "SalesOrgHeaderId", (1, "ISalesOrgHeaderRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
@@ -18,6 +19,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             return new()
             {
                 "Code",
+                "HierarchyCode",
             };
         }
     }

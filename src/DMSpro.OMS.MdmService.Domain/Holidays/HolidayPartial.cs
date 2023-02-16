@@ -7,17 +7,14 @@ namespace DMSpro.OMS.MdmService.Holidays
 		public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
-			return new()
-			{
-				{ "", (0, "IRepository", "", "") },
-			};
+			return new();
 		}
 
 		public List<string> GetNotNullProperty()
         {
             return new()
             {
-                "Code",
+                "Description",
             };
         }
     }

@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
+				{ "CustomerId", (0, "ICustomerRepository", "", "") },
 			};
 		}
 
@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         {
             return new()
             {
-                "Code",
+                "url",
             };
         }
     }

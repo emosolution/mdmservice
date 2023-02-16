@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "PriceListId", (1, "IPriceListRepository", "", "") },
+                { "CustomerGroupId", (1, "ICustomerGroupRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

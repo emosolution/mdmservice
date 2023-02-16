@@ -9,16 +9,14 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "SalesOrgHierarchyId", (1, "ISalesOrgHierarchyRepository", "", "") },
+                { "CompanyId", (1, "ICompanyRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

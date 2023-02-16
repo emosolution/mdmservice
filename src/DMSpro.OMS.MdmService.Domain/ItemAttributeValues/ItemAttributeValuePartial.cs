@@ -9,15 +9,16 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "ParentId", (0, "IItemAttributeValueRepository", "", "") },
+                { "ItemAttributeId", (1, "IItemAttributeRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
         {
             return new()
             {
-                "Code",
+                "AttrValName",
             };
         }
     }

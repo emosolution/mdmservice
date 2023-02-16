@@ -9,8 +9,10 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 		{
 			return new()
 			{
-				{ "", (0, "IRepository", "", "") },
-			};
+				{ "IdentityUserId", (2, "IdentityUsers", "GrpcRemotes:IdentiyServiceUrl", "DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers") },
+                { "WorkingPositionId", (1, "IWorkingPositionRepository", "", "") },
+                { "EmployeeTypeId", (1, "ISystemDataRepository", "", "") },
+            };
 		}
 
 		public List<string> GetNotNullProperty()
@@ -18,6 +20,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             return new()
             {
                 "Code",
+                "FirstName",
             };
         }
     }
