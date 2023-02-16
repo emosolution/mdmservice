@@ -14,7 +14,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Routes
 {
-    public class Route : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class Route : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    public class ItemGroup : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class ItemGroup : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

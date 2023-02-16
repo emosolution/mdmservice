@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    public class CusAttributeValue : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CusAttributeValue : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

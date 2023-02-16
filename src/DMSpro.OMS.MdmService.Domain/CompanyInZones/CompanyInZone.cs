@@ -13,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
-    public class CompanyInZone : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CompanyInZone : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

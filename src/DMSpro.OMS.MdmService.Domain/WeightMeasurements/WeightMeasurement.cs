@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
-    public class WeightMeasurement : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class WeightMeasurement : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

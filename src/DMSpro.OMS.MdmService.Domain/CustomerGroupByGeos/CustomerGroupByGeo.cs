@@ -13,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
-    public class CustomerGroupByGeo : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerGroupByGeo : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

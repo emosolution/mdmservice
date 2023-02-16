@@ -7,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-    public class CustomerContact : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerContact : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

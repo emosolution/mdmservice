@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Currencies
 {
-    public class Currency : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class Currency : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

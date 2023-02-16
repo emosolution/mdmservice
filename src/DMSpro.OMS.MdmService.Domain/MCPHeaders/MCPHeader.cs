@@ -7,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
-    public class MCPHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class MCPHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

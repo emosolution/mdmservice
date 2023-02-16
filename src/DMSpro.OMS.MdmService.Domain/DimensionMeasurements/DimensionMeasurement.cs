@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
-    public class DimensionMeasurement : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class DimensionMeasurement : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
