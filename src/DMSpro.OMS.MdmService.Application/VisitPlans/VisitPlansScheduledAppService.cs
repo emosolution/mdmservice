@@ -6,7 +6,6 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.MCPHeaders;
 using Volo.Abp;
-using Microsoft.Extensions.Logging;
 using DMSpro.OMS.MdmService.Customers;
 using System.Globalization;
 using Volo.Abp.Guids;
@@ -15,8 +14,7 @@ using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.CompanyInZones;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
+using DMSpro.OMS.MdmService.Localization;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
@@ -58,6 +56,8 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             _mcpDetailCustomRepository = mcpDetailCustomRepository;
             _mCPHeaderCustomRepository = mCPHeaderCustomRepository;
             _holidayDetailCustomRepository = holidayDetailCustomRepository;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
         public async Task SheduledGenerationAsync()
@@ -74,8 +74,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         {
             DateTime reference = DateTime.Now;
             MCPHeader mcpHeader = await GetMCPHeaderData(input.MCPHeaderId);
-            CompanyInZone companyInZone = await CheckCompanyInZone(mcpHeader.RouteId, mcpHeader.CompanyId);
             SalesOrgHierarchy route = await CheckRoute(mcpHeader.RouteId);
+            SalesOrgHierarchy sellingZone = await CheckSellingZone(route);
+            CompanyInZone companyInZone = await CheckCompanyInZone(sellingZone.Id, mcpHeader.CompanyId);
             Tuple<DateTime, DateTime?> companyData = await GetCompanyData(mcpHeader.CompanyId);
             Tuple<DateTime, DateTime> processedInputDates = ProcessInputDates(reference, input.DateStart, input.DateEnd);
             DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeader.EffectiveDate, companyData.Item1, companyInZone.EffectiveDate.Date).Date;
@@ -121,13 +122,13 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             DateTime? CustomerDateEnd = customer.EndDate;
             if (CustomerDateEnd != null && CustomerDateEnd < CustomerDateStart)
             {
-                throw new BusinessException("707", "Bad Customer Data", "Customer end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:559"], code: "0");
             }
             DateTime MCPDetailDateStart = mcpDetail.EffectiveDate.Date;
             DateTime? MCPDetailDateEnd = mcpDetail.EndDate;
             if (MCPDetailDateEnd != null && MCPDetailDateEnd < MCPDetailDateStart)
             {
-                throw new BusinessException("708", "Bad MCPDetail Data", "MCPDetail end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:560"], code: "0");
             }
             DateTime dateStart = GetMaxDateFromList(inputDateStart, CustomerDateStart, MCPDetailDateStart);
             DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, CustomerDateEnd, MCPDetailDateEnd)).Date;
@@ -307,7 +308,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             MCPHeader mcpHeader = await _mcpHeaderRepository.GetAsync(mcpHeaderId);
             if (mcpHeader.EndDate != null && mcpHeader.EndDate < mcpHeader.EffectiveDate)
             {
-                throw new BusinessException("700", "Bad MCP Header Data", "MCPHeader end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:556"], code: "0");
             }
             return mcpHeader;
         }
@@ -317,31 +318,45 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             SalesOrgHierarchy route = await _salesOrgHierarchyRepository.GetAsync(routeId);
             if (!route.IsRoute)
             {
-                throw new BusinessException("701", "Bad MCP Header Data", "RouteId does not represent a route", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:557"], code: "1");
             }
             if (!route.Active)
             {
-                throw new BusinessException("702", "Bad MCP Header Data", "Route is no longer active", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:557"], code: "0");
             }
             return route;
         }
 
-        private async Task<CompanyInZone> CheckCompanyInZone(Guid routeId, Guid companyId)
+        private async Task<SalesOrgHierarchy> CheckSellingZone(SalesOrgHierarchy route)
+        {
+            SalesOrgHierarchy sellingZone = await _salesOrgHierarchyRepository.GetAsync(x => x.Id == route.ParentId);
+            if (!sellingZone.IsSellingZone)
+            {
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:550"], code: "1");
+            }
+            if (!sellingZone.Active)
+            {
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:551"], code: "1");
+            }
+            return sellingZone;
+        }
+
+        private async Task<CompanyInZone> CheckCompanyInZone(Guid sellingZoneId, Guid companyId)
         {
             IQueryable<CompanyInZone> queryable = await _companyInZoneRepository.GetQueryableAsync();
             var query = from companyInZone in queryable
-                        where companyInZone.SalesOrgHierarchyId == routeId &&
+                        where companyInZone.SalesOrgHierarchyId == sellingZoneId &&
                             companyInZone.CompanyId == companyId &&
                             companyInZone.IsBase == true 
                         select companyInZone;
             var companyInZones = query.ToList();
             if (companyInZones.Count < 1)
             {
-                throw new BusinessException("703", "Bad MCP Header Data", "Company is not a base in the route", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:552"], code: "1");
             }
             if (companyInZones.Count > 1)
             {
-                throw new BusinessException("704", "Bad MCP Header Data", "Multiple route with the same company assigned and based", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:553"], code: "1");
             }
             CompanyInZone result = companyInZones.First();
             return result;
@@ -352,11 +367,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             Company company = await _companyRepository.GetAsync(companyId);
             if (!company.Active)
             {
-                throw new BusinessException("705", "Bad MCP Header Data", "Company is not active", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:554"], code: "0");
             }
             if (company.EndDate != null && company.EndDate < company.EffectiveDate.Date)
             {
-                throw new BusinessException("706", "Bad Customer Data", "Company end date cannot be smaller or equal to effective date", null, LogLevel.Critical);
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:555"], code:"0");
             }
             return new Tuple<DateTime, DateTime?>(company.EffectiveDate.Date, company.EndDate);
         }

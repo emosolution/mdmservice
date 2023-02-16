@@ -1030,7 +1030,18 @@
     "Error:ImportHandler:581": "Unsupported operation mode",
     "Error:ImportHandler:582": "Cannot get entities by ids for updating",
     "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating",
-    "Error:MCPHeader:550": "New end date must be at least from tomorrow onward"
+    "Error:MCPHeader:550": "New end date must be at least from tomorrow onward",
+    "Error:VisitPlanGeneration:550": "Route parent is not a selling zone",
+    "Error:VisitPlanGeneration:551": "Selling zone is not active",
+    "Error:VisitPlanGeneration:552": "Company is not a base in the route",
+    "Error:VisitPlanGeneration:553": "Multiple route with the same company assigned and based",
+    "Error:VisitPlanGeneration:554": "Company is not active",
+    "Error:VisitPlanGeneration:555": "Company end date cannot be smaller or equal to effective date",
+    "Error:VisitPlanGeneration:556": "MCPHeader end date cannot be smaller or equal to effective date",
+    "Error:VisitPlanGeneration:557": "RouteId does not represent a route",
+    "Error:VisitPlanGeneration:558": "Route is no longer active",
+    "Error:VisitPlanGeneration:559": "Customer end date cannot be smaller or equal to effective date",
+    "Error:VisitPlanGeneration:560": "MCPDetail end date cannot be smaller or equal to effective date"
   }
 }
 
