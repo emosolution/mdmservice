@@ -10,6 +10,8 @@ namespace DMSpro.OMS.MdmService.Companies
     {
         Task<Company> GetHOCompanyOfTenant(Guid? tenantId);
         Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId);
+
+        
     }
 }
     

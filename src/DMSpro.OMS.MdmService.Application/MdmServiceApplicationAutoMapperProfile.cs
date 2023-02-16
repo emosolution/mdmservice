@@ -71,6 +71,12 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Company, CompanyDto>();
         CreateMap<Company, CompanyExcelDto>();
         CreateMap<Company, CompanyWithTenantDto>();
+        CreateMap<CompanyWithDetails, CompanyWithDetailsDto>()
+        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Company.Name))
+        .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Company.Code))
+        .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Company.Street))
+        .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
+        .ForMember(dest => dest.ParentCode, opt => opt.MapFrom(src => src.Company1.Code));
 
         CreateMap<GeoMaster, GeoMasterDto>();
         CreateMap<GeoMaster, GeoMasterExcelDto>();

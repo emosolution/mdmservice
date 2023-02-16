@@ -106,6 +106,14 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
         });
     }
 
+    public virtual async Task<LoadResult> GetListDevextremesWithDetailsAsync(DataLoadOptionDevextreme inputDev)
+    {
+        return await RequestAsync<LoadResult>(nameof(GetListDevextremesWithDetailsAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(DataLoadOptionDevextreme), inputDev }
+        });
+    }
+
     public virtual async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
     {
         return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue

@@ -17,6 +17,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
 			return _companiesAppService.GetListDevextremesAsync(inputDev);
 		}
 
+        [HttpGet]
+		[Route("GetListDevextremesWithDetails")]
+		public Task<LoadResult> GetListDevextremesWithDetailsAsync(DataLoadOptionDevextreme inputDev)
+		{
+			return _companiesAppService.GetListDevextremesWithDetailsAsync(inputDev);
+		}
+
 		[HttpPost]
 		[Route("update-from-excel")]
 		public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)

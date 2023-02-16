@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using System.Linq;
 namespace DMSpro.OMS.MdmService.Companies
 {
 	public partial interface ICompanyRepository
@@ -16,6 +16,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         Task<List<Company>> GetByIdAsync(List<Guid> ids);
 
+		Task<IQueryable<CompanyWithDetails>> GetQueryWithDetailsAsync();
 
     }
 }
