@@ -8,13 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Customers;
 
@@ -22,23 +19,8 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public partial class CustomerContactsAppService : ApplicationService, ICustomerContactsAppService
+    public partial class CustomerContactsAppService 
     {
-        private readonly IDistributedCache<CustomerContactExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerContactRepository _customerContactRepository;
-        private readonly CustomerContactManager _customerContactManager;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-
-        public CustomerContactsAppService(ICustomerContactRepository customerContactRepository, CustomerContactManager customerContactManager,
-            IRepository<Customer, Guid> customerRepository,
-            IDistributedCache<CustomerContactExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerContactRepository = customerContactRepository;
-            _customerContactManager = customerContactManager; 
-            _customerRepository = customerRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerContactWithNavigationPropertiesDto>> GetListAsync(GetCustomerContactsInput input)
         {
             var totalCount = await _customerContactRepository.GetCountAsync(input.FilterText, input.Title, input.FirstName, input.LastName, input.Gender, input.DateOfBirthMin, input.DateOfBirthMax, input.Phone, input.Email, input.Address, input.IdentityNumber, input.BankName, input.BankAccName, input.BankAccNumber, input.CustomerId);

@@ -1,20 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.Currencies;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +16,8 @@ namespace DMSpro.OMS.MdmService.Currencies
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.Currencies.Default)]
-    public partial class CurrenciesAppService : ApplicationService, ICurrenciesAppService
+    public partial class CurrenciesAppService 
     {
-        private readonly IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICurrencyRepository _currencyRepository;
-        private readonly CurrencyManager _currencyManager;
-
-        public CurrenciesAppService(ICurrencyRepository currencyRepository, CurrencyManager currencyManager, IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _currencyRepository = currencyRepository;
-            _currencyManager = currencyManager;
-        }
-
         public virtual async Task<PagedResultDto<CurrencyDto>> GetListAsync(GetCurrenciesInput input)
         {
             var totalCount = await _currencyRepository.GetCountAsync(input.FilterText, input.Code, input.Name);

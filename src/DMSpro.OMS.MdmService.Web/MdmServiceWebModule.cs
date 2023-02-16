@@ -90,8 +90,8 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/Holidays/Index", MdmServicePermissions.Holidays.Default);
             options.Conventions.AuthorizePage("/HolidayDetails/Index", MdmServicePermissions.HolidayDetails.Default);
             options.Conventions.AuthorizePage("/Routes/Index", MdmServicePermissions.Routes.Default);
-            options.Conventions.AuthorizePage("/MCPHeaders/Index", MdmServicePermissions.MCPHeaders.Default);
-            options.Conventions.AuthorizePage("/MCPDetails/Index", MdmServicePermissions.MCPDetails.Default);
+            options.Conventions.AuthorizePage("/MCPHeaders/Index", MdmServicePermissions.MCPs.Default);
+            options.Conventions.AuthorizePage("/MCPDetails/Index", MdmServicePermissions.MCPs.Default);
             options.Conventions.AuthorizePage("/VisitPlans/Index", MdmServicePermissions.VisitPlans.Default);
             options.Conventions.AuthorizePage("/RouteAssignments/Index", MdmServicePermissions.RouteAssignments.Default);
             options.Conventions.AuthorizePage("/EmployeeProfiles/Index", MdmServicePermissions.EmployeeProfiles.Default);

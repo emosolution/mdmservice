@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -17,19 +15,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
 {
 
     [Authorize(MdmServicePermissions.CustomerGroups.Default)]
-    public partial class CustomerGroupsAppService : ApplicationService, ICustomerGroupsAppService
+    public partial class CustomerGroupsAppService
     {
-        private readonly IDistributedCache<CustomerGroupExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerGroupRepository _customerGroupRepository;
-        private readonly CustomerGroupManager _customerGroupManager;
-
-        public CustomerGroupsAppService(ICustomerGroupRepository customerGroupRepository, CustomerGroupManager customerGroupManager, IDistributedCache<CustomerGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerGroupRepository = customerGroupRepository;
-            _customerGroupManager = customerGroupManager;
-        }
-
         public virtual async Task<PagedResultDto<CustomerGroupDto>> GetListAsync(GetCustomerGroupsInput input)
         {
             var totalCount = await _customerGroupRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.GroupBy, input.Status);

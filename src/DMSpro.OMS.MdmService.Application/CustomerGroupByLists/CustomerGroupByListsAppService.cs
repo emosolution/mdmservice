@@ -8,13 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
@@ -23,25 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
 
     [Authorize(MdmServicePermissions.CustomerGroupByLists.Default)]
-    public partial class CustomerGroupByListsAppService : ApplicationService, ICustomerGroupByListsAppService
+    public partial class CustomerGroupByListsAppService 
     {
-        private readonly IDistributedCache<CustomerGroupByListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerGroupByListRepository _customerGroupByListRepository;
-        private readonly CustomerGroupByListManager _customerGroupByListManager;
-        private readonly IRepository<CustomerGroup, Guid> _customerGroupRepository;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-
-        public CustomerGroupByListsAppService(ICustomerGroupByListRepository customerGroupByListRepository, CustomerGroupByListManager customerGroupByListManager,
-            IRepository<Customer, Guid> customerRepository,
-            IDistributedCache<CustomerGroupByListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerGroup, Guid> customerGroupRepository
-            )
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerGroupByListRepository = customerGroupByListRepository;
-            _customerGroupByListManager = customerGroupByListManager; _customerGroupRepository = customerGroupRepository;
-            _customerRepository = customerRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerGroupByListWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByListsInput input)
         {
             var totalCount = await _customerGroupByListRepository.GetCountAsync(input.FilterText, input.Active, input.CustomerGroupId, input.CustomerId);

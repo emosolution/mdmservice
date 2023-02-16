@@ -636,8 +636,7 @@ public class MdmServiceMenuContributor : IMenuContributor
             .RequirePermissions(false, MdmServicePermissions.Holidays.Default,
                 MdmServicePermissions.HolidayDetails.Default,
                 MdmServicePermissions.Routes.Default,
-                MdmServicePermissions.MCPHeaders.Default,
-                MdmServicePermissions.MCPDetails.Default,
+                MdmServicePermissions.MCPs.Default,
                 MdmServicePermissions.VisitPlans.Default,
                 MdmServicePermissions.RouteAssignments.Default)
             .RequireFeatures(false, MdmFeatures.Holidays, MdmFeatures.Routes,
@@ -681,7 +680,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:MCPHeaders"],
                 "/Mdm/MCPHeaders",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.MCPHeaders.Default
+                requiredPermissionName: MdmServicePermissions.MCPs.Default
             ).RequireFeatures(MdmFeatures.MCPs)
         );
 
@@ -691,7 +690,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:MCPDetails"],
                 "/Mdm/MCPDetails",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.MCPDetails.Default
+                requiredPermissionName: MdmServicePermissions.MCPs.Default
             ).RequireFeatures(MdmFeatures.MCPs)
         );
 

@@ -9,13 +9,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -23,22 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
 
     [Authorize(MdmServicePermissions.CustomerGroupByAtts.Default)]
-    public partial class CustomerGroupByAttsAppService : ApplicationService, ICustomerGroupByAttsAppService
+    public partial class CustomerGroupByAttsAppService 
     {
-        private readonly IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerGroupByAttRepository _customerGroupByAttRepository;
-        private readonly CustomerGroupByAttManager _customerGroupByAttManager;
-        private readonly IRepository<CustomerGroup, Guid> _customerGroupRepository;
-        private readonly IRepository<CusAttributeValue, Guid> _cusAttributeValueRepository;
-
-        public CustomerGroupByAttsAppService(ICustomerGroupByAttRepository customerGroupByAttRepository, CustomerGroupByAttManager customerGroupByAttManager, IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerGroup, Guid> customerGroupRepository, IRepository<CusAttributeValue, Guid> cusAttributeValueRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerGroupByAttRepository = customerGroupByAttRepository;
-            _customerGroupByAttManager = customerGroupByAttManager; _customerGroupRepository = customerGroupRepository;
-            _cusAttributeValueRepository = cusAttributeValueRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerGroupByAttWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByAttsInput input)
         {
             var totalCount = await _customerGroupByAttRepository.GetCountAsync(input.FilterText, input.ValueCode, input.ValueName, input.CustomerGroupId, input.CusAttributeValueId);

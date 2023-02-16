@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.PriceLists;
+using DMSpro.OMS.MdmService.CustomerGroups;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
-	public partial class PricelistAssignmentsAppService
+	[Authorize(MdmServicePermissions.PriceListAssignments.Default)]
+	public partial class PricelistAssignmentsAppService : PartialAppService<PricelistAssignment, PricelistAssignmentDto, IPricelistAssignmentRepository>,
+		IPricelistAssignmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _pricelistAssignmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<PricelistAssignment>, IEnumerable<PricelistAssignmentDto>>(results.data.Cast<PricelistAssignment>());
-			return results;
-		}
+		private readonly IPricelistAssignmentRepository _pricelistAssignmentRepository;
+		private readonly IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly PricelistAssignmentManager _pricelistAssignmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+		private readonly IPriceListRepository _priceListRepository;
+		private readonly ICustomerGroupRepository _customerGroupRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+		public PricelistAssignmentsAppService(ICurrentTenant currentTenant,
+			IPricelistAssignmentRepository repository,
+			PricelistAssignmentManager pricelistAssignmentManager,
+			IConfiguration settingProvider,
+			IPriceListRepository priceListRepository,
+			ICustomerGroupRepository customerGroupRepository,
+			IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _pricelistAssignmentRepository.GetQueryableAsync(); // to be remove
+			_pricelistAssignmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_pricelistAssignmentManager = pricelistAssignmentManager;
+			
+			_priceListRepository = priceListRepository;
+			_customerGroupRepository = customerGroupRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IPricelistAssignmentRepository", _pricelistAssignmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
+            _repositories.AddIfNotContains(
+                    new KeyValuePair<string, object>("ICustomerGroupRepository", _customerGroupRepository));
+        }
+    }
 }

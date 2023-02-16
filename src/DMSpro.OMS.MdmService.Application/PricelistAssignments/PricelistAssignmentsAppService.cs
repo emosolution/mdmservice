@@ -10,35 +10,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
 
     [Authorize(MdmServicePermissions.PriceListAssignments.Default)]
-    public partial class PricelistAssignmentsAppService : ApplicationService, IPricelistAssignmentsAppService
+    public partial class PricelistAssignmentsAppService
     {
-        private readonly IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IPricelistAssignmentRepository _pricelistAssignmentRepository;
-        private readonly PricelistAssignmentManager _pricelistAssignmentManager;
-        private readonly IRepository<PriceList, Guid> _priceListRepository;
-        private readonly IRepository<CustomerGroup, Guid> _customerGroupRepository;
-
-        public PricelistAssignmentsAppService(IPricelistAssignmentRepository pricelistAssignmentRepository, PricelistAssignmentManager pricelistAssignmentManager, IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<PriceList, Guid> priceListRepository, IRepository<CustomerGroup, Guid> customerGroupRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _pricelistAssignmentRepository = pricelistAssignmentRepository;
-            _pricelistAssignmentManager = pricelistAssignmentManager; _priceListRepository = priceListRepository;
-            _customerGroupRepository = customerGroupRepository;
-        }
-
         public virtual async Task<PagedResultDto<PricelistAssignmentWithNavigationPropertiesDto>> GetListAsync(GetPricelistAssignmentsInput input)
         {
             var totalCount = await _pricelistAssignmentRepository.GetCountAsync(input.FilterText, input.Description, input.PriceListId, input.CustomerGroupId);

@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -18,19 +16,8 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public partial class ItemGroupsAppService : ApplicationService, IItemGroupsAppService
+    public partial class ItemGroupsAppService
     {
-        private readonly IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemGroupRepository _itemGroupRepository;
-        private readonly ItemGroupManager _itemGroupManager;
-
-        public ItemGroupsAppService(IItemGroupRepository itemGroupRepository, ItemGroupManager itemGroupManager, IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemGroupRepository = itemGroupRepository;
-            _itemGroupManager = itemGroupManager;
-        }
-
         public virtual async Task<PagedResultDto<ItemGroupDto>> GetListAsync(GetItemGroupsInput input)
         {
             var totalCount = await _itemGroupRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Description, input.Type, input.Status);

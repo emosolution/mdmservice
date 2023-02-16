@@ -1,48 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.Currencies
 {
-	public partial class CurrenciesAppService
+	[Authorize(MdmServicePermissions.Currencies.Default)]
+	public partial class CurrenciesAppService : PartialAppService<Currency, CurrencyDto, ICurrencyRepository>,
+		ICurrenciesAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _currencyRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<Currency>, IEnumerable<CurrencyDto>>(results.data.Cast<Currency>());
-			return results;
-		}
+		private readonly ICurrencyRepository _currencyRepository;
+		private readonly IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly CurrencyManager _currencyManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
+		public CurrenciesAppService(ICurrentTenant currentTenant,
+			ICurrencyRepository repository,
+			CurrencyManager currencyManager,
+			IConfiguration settingProvider,
+			IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			return null;
+			_currencyRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_currencyManager = currencyManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICurrencyRepository", _currencyRepository));
 		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _currencyRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+    }
 }

@@ -11,5 +11,9 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 		Task<Dictionary<string, Guid>> GetListIdByCodeAsync(List<string> codes);
 
 		Task<int> GetCountByCodeAsync(List<string> codes);
+
+		Task<bool> CheckUniqueCodeForUpdate(List<string> codes, List<Guid> ids);
+
+		Task<List<DimensionMeasurement>> GetByIdAsync(List<Guid> ids);
 	}
 }

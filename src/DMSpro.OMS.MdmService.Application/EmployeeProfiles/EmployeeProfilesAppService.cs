@@ -9,35 +9,18 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public partial class EmployeeProfilesAppService : ApplicationService, IEmployeeProfilesAppService
+    public partial class EmployeeProfilesAppService 
     {
-        private readonly IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IEmployeeProfileRepository _employeeProfileRepository;
-        private readonly EmployeeProfileManager _employeeProfileManager;
-        private readonly IRepository<WorkingPosition, Guid> _workingPositionRepository;
-        private readonly IRepository<SystemData, Guid> _systemDataRepository;
-
-        public EmployeeProfilesAppService(IEmployeeProfileRepository employeeProfileRepository, EmployeeProfileManager employeeProfileManager, IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<WorkingPosition, Guid> workingPositionRepository, IRepository<SystemData, Guid> systemDataRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _employeeProfileRepository = employeeProfileRepository;
-            _employeeProfileManager = employeeProfileManager; _workingPositionRepository = workingPositionRepository;
-            _systemDataRepository = systemDataRepository;
-        }
-
         public virtual async Task<PagedResultDto<EmployeeProfileWithNavigationPropertiesDto>> GetListAsync(GetEmployeeProfilesInput input)
         {
             var totalCount = await _employeeProfileRepository.GetCountAsync(input.FilterText, input.Code, input.ERPCode, input.FirstName, input.LastName, input.DateOfBirthMin, input.DateOfBirthMax, input.IdCardNumber, input.Email, input.Phone, input.Address, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IdentityUserId, input.WorkingPositionId, input.EmployeeTypeId);

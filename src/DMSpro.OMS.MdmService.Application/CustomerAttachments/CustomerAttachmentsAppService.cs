@@ -7,13 +7,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
@@ -22,23 +19,8 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public partial class CustomerAttachmentsAppService : ApplicationService, ICustomerAttachmentsAppService
+    public partial class CustomerAttachmentsAppService 
     {
-        private readonly IDistributedCache<CustomerAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerAttachmentRepository _customerAttachmentRepository;
-        private readonly CustomerAttachmentManager _customerAttachmentManager;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-
-        public CustomerAttachmentsAppService(ICustomerAttachmentRepository customerAttachmentRepository, CustomerAttachmentManager customerAttachmentManager,
-            IRepository<Customer, Guid> customerRepository,
-            IDistributedCache<CustomerAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerAttachmentRepository = customerAttachmentRepository;
-            _customerAttachmentManager = customerAttachmentManager; 
-            _customerRepository = customerRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerAttachmentWithNavigationPropertiesDto>> GetListAsync(GetCustomerAttachmentsInput input)
         {
             var totalCount = await _customerAttachmentRepository.GetCountAsync(input.FilterText, input.url, input.Description, input.Active, input.CustomerId);

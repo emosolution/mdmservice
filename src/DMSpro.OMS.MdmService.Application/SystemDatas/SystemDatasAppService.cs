@@ -17,19 +17,8 @@ namespace DMSpro.OMS.MdmService.SystemDatas
 {
 
     [Authorize(MdmServicePermissions.SystemData.Default)]
-    public partial class SystemDatasAppService : ApplicationService, ISystemDatasAppService
+    public partial class SystemDatasAppService
     {
-        private readonly IDistributedCache<SystemDataExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ISystemDataRepository _systemDataRepository;
-        private readonly SystemDataManager _systemDataManager;
-
-        public SystemDatasAppService(ISystemDataRepository systemDataRepository, SystemDataManager systemDataManager, IDistributedCache<SystemDataExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _systemDataRepository = systemDataRepository;
-            _systemDataManager = systemDataManager;
-        }
-
         public virtual async Task<PagedResultDto<SystemDataDto>> GetListAsync(GetSystemDatasInput input)
         {
             var totalCount = await _systemDataRepository.GetCountAsync(input.FilterText, input.Code, input.ValueCode, input.ValueName);

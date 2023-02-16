@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
 
     [Authorize(MdmServicePermissions.Items.Default)]
-    public partial class ItemImagesAppService : ApplicationService, IItemImagesAppService
+    public partial class ItemImagesAppService
     {
-        private readonly IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemImageRepository _itemImageRepository;
-        private readonly ItemImageManager _itemImageManager;
-        private readonly IRepository<Item, Guid> _itemRepository;
-
-        public ItemImagesAppService(IItemImageRepository itemImageRepository, ItemImageManager itemImageManager, IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Item, Guid> itemRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemImageRepository = itemImageRepository;
-            _itemImageManager = itemImageManager; _itemRepository = itemRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemImageWithNavigationPropertiesDto>> GetListAsync(GetItemImagesInput input)
         {
             var totalCount = await _itemImageRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId);

@@ -5,36 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
-
-
-
-
 
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.SalesChannels.Default)]
-    public partial class SalesChannelsAppService : ApplicationService, ISalesChannelsAppService
+    public partial class SalesChannelsAppService
     {
-        private readonly IDistributedCache<SalesChannelExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ISalesChannelRepository _salesChannelRepository;
-        private readonly SalesChannelManager _salesChannelManager;
-
-        public SalesChannelsAppService(ISalesChannelRepository salesChannelRepository, SalesChannelManager salesChannelManager, IDistributedCache<SalesChannelExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _salesChannelRepository = salesChannelRepository;
-            _salesChannelManager = salesChannelManager;
-        }
-
         public virtual async Task<PagedResultDto<SalesChannelDto>> GetListAsync(GetSalesChannelsInput input)
         {
             var totalCount = await _salesChannelRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Description, input.Active);

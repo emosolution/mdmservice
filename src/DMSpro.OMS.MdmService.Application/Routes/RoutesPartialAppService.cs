@@ -1,48 +1,55 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.SystemDatas;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.ItemGroups;
 
 namespace DMSpro.OMS.MdmService.Routes
 {
-	public partial class RoutesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _routeRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<Route>, IEnumerable<RouteDto>>(results.data.Cast<Route>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.Routes.Default)]
+    public partial class RoutesAppService : PartialAppService<Route, RouteDto, IRouteRepository>,
+        IRoutesAppService
+    {
+        private readonly IRouteRepository _routeRepository;
+        private readonly IDistributedCache<RouteExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly RouteManager _routeManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ISystemDataRepository _systemDataRepository;
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+        private readonly IItemGroupRepository _itemGroupRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _routeRepository.GetQueryableAsync(); // to be remove
+        public RoutesAppService(ICurrentTenant currentTenant,
+            IRouteRepository repository,
+            RouteManager routeManager,
+            IConfiguration settingProvider,
+            ISystemDataRepository systemDataRepository,
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+            IItemGroupRepository itemGroupRepository,
+            IDistributedCache<RouteExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _routeRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _routeManager = routeManager;
 
-			return 0;
-		}
-	}
+            _systemDataRepository = systemDataRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+            _itemGroupRepository = itemGroupRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IRouteRepository", _routeRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemGroupRepository", _itemGroupRepository));
+        }
+    }
 }

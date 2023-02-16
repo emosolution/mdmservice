@@ -1,48 +1,43 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
-	public partial class EmployeeAttachmentsAppService
+	[Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
+	public partial class EmployeeAttachmentsAppService : PartialAppService<EmployeeAttachment, EmployeeAttachmentDto, IEmployeeAttachmentRepository>,
+		IEmployeeAttachmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _employeeAttachmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<EmployeeAttachment>, IEnumerable<EmployeeAttachmentDto>>(results.data.Cast<EmployeeAttachment>());
-			return results;
-		}
+		private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
+		private readonly IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly EmployeeAttachmentManager _employeeAttachmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+		private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+		public EmployeeAttachmentsAppService(ICurrentTenant currentTenant,
+			IEmployeeAttachmentRepository repository,
+			EmployeeAttachmentManager employeeAttachmentManager,
+			IConfiguration settingProvider,
+			IEmployeeProfileRepository employeeProfileRepository,
+			IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _employeeAttachmentRepository.GetQueryableAsync(); // to be remove
+			_employeeAttachmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_employeeAttachmentManager = employeeAttachmentManager;
+			
+			_employeeProfileRepository = employeeProfileRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IEmployeeAttachmentRepository", _employeeAttachmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IEmployeeProfileRepository", _employeeProfileRepository));
+        }
+    }
 }

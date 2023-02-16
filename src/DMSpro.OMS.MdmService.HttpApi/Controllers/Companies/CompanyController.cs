@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
 namespace DMSpro.OMS.MdmService.Controllers.Companies
 {
     [RemoteService(Name = "MdmService")]

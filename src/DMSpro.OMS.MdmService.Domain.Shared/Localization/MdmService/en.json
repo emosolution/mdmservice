@@ -921,7 +921,7 @@
     "EntityFieldValue:MDMService:Route:OutRoute:True": "Yes",
     "EntityFieldValue:MDMService:Route:OutRoute:False": "No",
     "Feature:MDMService:MCP": "Enable MCP management",
-    "Permission:MdmService:MCPHeader": "MCP Header Management",
+    "Permission:MdmService:MCPs": "MCP Management",
     "Menu:MdmService:MCPHeaders": "MCP Headers",
     "Page.Title.MCPHeaders": "MCP Headers",
     "Button.New.MCPHeader": "New MCP Header",
@@ -934,7 +934,6 @@
     "EntityFieldName:MDMService:MCPHeader:Name": "Name",
     "EntityFieldName:MDMService:MCPHeader:EffectiveDate": "Effective Date",
     "EntityFieldName:MDMService:MCPHeader:EndDate": "End Date",
-    "Permission:MdmService:MCPDetail": "MCP Detail Management",
     "Menu:MdmService:MCPDetails": "MCP Details",
     "Page.Title.MCPDetails": "MCP Details",
     "Button.New.MCPDetail": "New MCP Detail",
@@ -1030,7 +1029,8 @@
     "Error:ImportHandler:580": "Id for updating cannot be null (row {row})",
     "Error:ImportHandler:581": "Unsupported operation mode",
     "Error:ImportHandler:582": "Cannot get entities by ids for updating",
-    "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating"
+    "Error:ImportHandler:583": "Cannot found method to check uniqueness for updating",
+    "Error:MCPHeader:550": "New end date must be at least from tomorrow onward"
   }
 }
 

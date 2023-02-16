@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
 
     [Authorize(MdmServicePermissions.Items.Default)]
-    public partial class ItemAttachmentsAppService : ApplicationService, IItemAttachmentsAppService
+    public partial class ItemAttachmentsAppService 
     {
-        private readonly IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemAttachmentRepository _itemAttachmentRepository;
-        private readonly ItemAttachmentManager _itemAttachmentManager;
-        private readonly IRepository<Item, Guid> _itemRepository;
-
-        public ItemAttachmentsAppService(IItemAttachmentRepository itemAttachmentRepository, ItemAttachmentManager itemAttachmentManager, IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Item, Guid> itemRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemAttachmentRepository = itemAttachmentRepository;
-            _itemAttachmentManager = itemAttachmentManager; _itemRepository = itemRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input)
         {
             var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.ItemId);

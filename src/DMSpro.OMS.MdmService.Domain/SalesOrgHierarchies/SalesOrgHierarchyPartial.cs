@@ -1,22 +1,11 @@
-﻿using DMSpro.OMS.MdmService.SalesOrgHeaders;
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
-
-using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public partial class SalesOrgHierarchy: FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SalesOrgHierarchy
     {
-        
-
         public static string CreateCode(params int[] numbers)
         {
             if (numbers.IsNullOrEmpty())

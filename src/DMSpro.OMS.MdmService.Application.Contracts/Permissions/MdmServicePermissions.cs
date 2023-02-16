@@ -360,17 +360,9 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
-    public static class MCPHeaders
+    public static class MCPs
     {
-        public const string Default = GroupName + ".MCPHeaders";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class MCPDetails
-    {
-        public const string Default = GroupName + ".MCPDetails";
+        public const string Default = GroupName + ".MCPs";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";

@@ -1,48 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributes
 {
-	public partial class CustomerAttributesAppService
+	[Authorize(MdmServicePermissions.CustomerAttributes.Default)]
+	public partial class CustomerAttributesAppService : PartialAppService<CustomerAttribute, CustomerAttributeDto, ICustomerAttributeRepository>,
+		ICustomerAttributesAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _customerAttributeRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CustomerAttribute>, IEnumerable<CustomerAttributeDto>>(results.data.Cast<CustomerAttribute>());
-			return results;
-		}
+		private readonly ICustomerAttributeRepository _customerAttributeRepository;
+		private readonly IDistributedCache<CustomerAttributeExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly CustomerAttributeManager _customerAttributeManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
+		public CustomerAttributesAppService(ICurrentTenant currentTenant,
+			ICustomerAttributeRepository repository,
+			CustomerAttributeManager customerAttributeManager,
+			IConfiguration settingProvider,
+			IDistributedCache<CustomerAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			return null;
+			_customerAttributeRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_customerAttributeManager = customerAttributeManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerAttributeRepository", _customerAttributeRepository));
 		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _customerAttributeRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+    }
 }

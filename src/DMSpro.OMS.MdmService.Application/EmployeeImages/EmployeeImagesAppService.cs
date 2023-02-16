@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public partial class EmployeeImagesAppService : ApplicationService, IEmployeeImagesAppService
+    public partial class EmployeeImagesAppService
     {
-        private readonly IDistributedCache<EmployeeImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IEmployeeImageRepository _employeeImageRepository;
-        private readonly EmployeeImageManager _employeeImageManager;
-        private readonly IRepository<EmployeeProfile, Guid> _employeeProfileRepository;
-
-        public EmployeeImagesAppService(IEmployeeImageRepository employeeImageRepository, EmployeeImageManager employeeImageManager, IDistributedCache<EmployeeImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<EmployeeProfile, Guid> employeeProfileRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _employeeImageRepository = employeeImageRepository;
-            _employeeImageManager = employeeImageManager; _employeeProfileRepository = employeeProfileRepository;
-        }
-
         public virtual async Task<PagedResultDto<EmployeeImageWithNavigationPropertiesDto>> GetListAsync(GetEmployeeImagesInput input)
         {
             var totalCount = await _employeeImageRepository.GetCountAsync(input.FilterText, input.Description, input.url, input.Active, input.IsAvatar, input.EmployeeProfileId);

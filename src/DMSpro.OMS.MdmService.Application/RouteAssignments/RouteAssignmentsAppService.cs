@@ -9,13 +9,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -23,22 +20,8 @@ namespace DMSpro.OMS.MdmService.RouteAssignments
 {
 
     [Authorize(MdmServicePermissions.RouteAssignments.Default)]
-    public partial class RouteAssignmentsAppService : ApplicationService, IRouteAssignmentsAppService
+    public partial class RouteAssignmentsAppService 
     {
-        private readonly IDistributedCache<RouteAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IRouteAssignmentRepository _routeAssignmentRepository;
-        private readonly RouteAssignmentManager _routeAssignmentManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<EmployeeProfile, Guid> _employeeProfileRepository;
-
-        public RouteAssignmentsAppService(IRouteAssignmentRepository routeAssignmentRepository, RouteAssignmentManager routeAssignmentManager, IDistributedCache<RouteAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<EmployeeProfile, Guid> employeeProfileRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _routeAssignmentRepository = routeAssignmentRepository;
-            _routeAssignmentManager = routeAssignmentManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _employeeProfileRepository = employeeProfileRepository;
-        }
-
         public virtual async Task<PagedResultDto<RouteAssignmentWithNavigationPropertiesDto>> GetListAsync(GetRouteAssignmentsInput input)
         {
             var totalCount = await _routeAssignmentRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.RouteId, input.EmployeeId);

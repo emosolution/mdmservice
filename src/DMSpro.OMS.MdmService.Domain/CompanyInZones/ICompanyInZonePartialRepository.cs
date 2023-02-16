@@ -8,5 +8,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 {
     public partial interface ICompanyInZoneRepository{
         Task<IQueryable<CompanyInZoneWithNavigationProperties>> GetQueryableWithNavigationPropertiesAsync();
+		Task<List<CompanyInZone>> GetByIdAsync(List<Guid> ids);
     }
 }

@@ -1,20 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.WeightMeasurements;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +16,8 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.WeightMeasurements.Default)]
-    public partial class WeightMeasurementsAppService : ApplicationService, IWeightMeasurementsAppService
+    public partial class WeightMeasurementsAppService 
     {
-        private readonly IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IWeightMeasurementRepository _weightMeasurementRepository;
-        private readonly WeightMeasurementManager _weightMeasurementManager;
-
-        public WeightMeasurementsAppService(IWeightMeasurementRepository weightMeasurementRepository, WeightMeasurementManager weightMeasurementManager, IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _weightMeasurementRepository = weightMeasurementRepository;
-            _weightMeasurementManager = weightMeasurementManager;
-        }
-
         public virtual async Task<PagedResultDto<WeightMeasurementDto>> GetListAsync(GetWeightMeasurementsInput input)
         {
             var totalCount = await _weightMeasurementRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ValueMin, input.ValueMax);

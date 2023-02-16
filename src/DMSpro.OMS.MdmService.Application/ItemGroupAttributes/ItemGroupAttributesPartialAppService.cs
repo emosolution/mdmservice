@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.ItemGroups;
+using DMSpro.OMS.MdmService.ItemAttributeValues;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
-	public partial class ItemGroupAttributesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _itemGroupAttributeRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<ItemGroupAttribute>, IEnumerable<ItemGroupAttributeDto>>(results.data.Cast<ItemGroupAttribute>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.ItemGroups.Default)]
+    public partial class ItemGroupAttributesAppService : PartialAppService<ItemGroupAttribute, ItemGroupAttributeDto, IItemGroupAttributeRepository>,
+        IItemGroupAttributesAppService
+    {
+        private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
+        private readonly IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly ItemGroupAttributeManager _itemGroupAttributeManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly IItemGroupRepository _itemGroupRepository;
+        private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _itemGroupAttributeRepository.GetQueryableAsync(); // to be remove
+        public ItemGroupAttributesAppService(ICurrentTenant currentTenant,
+            IItemGroupAttributeRepository repository,
+            ItemGroupAttributeManager itemGroupAttributeManager,
+            IConfiguration settingProvider,
+            IItemGroupRepository itemGroupRepository,
+            IItemAttributeValueRepository itemAttributeValueRepository,
+            IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _itemGroupAttributeRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _itemGroupAttributeManager = itemGroupAttributeManager;
 
-			return 0;
-		}
-	}
+            _itemGroupRepository = itemGroupRepository;
+            _itemAttributeValueRepository = itemAttributeValueRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemGroupAttributeRepository", _itemGroupAttributeRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemGroupRepository", _itemGroupRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IItemAttributeValueRepository", _itemAttributeValueRepository));
+        }
+    }
 }

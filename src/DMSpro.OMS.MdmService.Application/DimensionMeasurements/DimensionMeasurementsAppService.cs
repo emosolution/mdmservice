@@ -1,20 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.DimensionMeasurements;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -22,19 +16,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
     [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.DimensionMeasurements.Default)]
-    public partial class DimensionMeasurementsAppService : ApplicationService, IDimensionMeasurementsAppService
+    public partial class DimensionMeasurementsAppService 
     {
-        private readonly IDistributedCache<DimensionMeasurementExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IDimensionMeasurementRepository _dimensionMeasurementRepository;
-        private readonly DimensionMeasurementManager _dimensionMeasurementManager;
-
-        public DimensionMeasurementsAppService(IDimensionMeasurementRepository dimensionMeasurementRepository, DimensionMeasurementManager dimensionMeasurementManager, IDistributedCache<DimensionMeasurementExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _dimensionMeasurementRepository = dimensionMeasurementRepository;
-            _dimensionMeasurementManager = dimensionMeasurementManager;
-        }
-
         public virtual async Task<PagedResultDto<DimensionMeasurementDto>> GetListAsync(GetDimensionMeasurementsInput input)
         {
             var totalCount = await _dimensionMeasurementRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ValueMin, input.ValueMax);

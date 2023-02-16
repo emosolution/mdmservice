@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -17,19 +15,8 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
 {
 
     [Authorize(MdmServicePermissions.WorkingPositions.Default)]
-    public partial class WorkingPositionsAppService : ApplicationService, IWorkingPositionsAppService
+    public partial class WorkingPositionsAppService 
     {
-        private readonly IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IWorkingPositionRepository _workingPositionRepository;
-        private readonly WorkingPositionManager _workingPositionManager;
-
-        public WorkingPositionsAppService(IWorkingPositionRepository workingPositionRepository, WorkingPositionManager workingPositionManager, IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _workingPositionRepository = workingPositionRepository;
-            _workingPositionManager = workingPositionManager;
-        }
-
         public virtual async Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input)
         {
             var totalCount = await _workingPositionRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.Description, input.Active);

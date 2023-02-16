@@ -10,13 +10,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -24,24 +21,8 @@ namespace DMSpro.OMS.MdmService.Routes
 {
 
     [Authorize(MdmServicePermissions.Routes.Default)]
-    public partial class RoutesAppService : ApplicationService, IRoutesAppService
+    public partial class RoutesAppService 
     {
-        private readonly IDistributedCache<RouteExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IRouteRepository _routeRepository;
-        private readonly RouteManager _routeManager;
-        private readonly IRepository<SystemData, Guid> _systemDataRepository;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-
-        public RoutesAppService(IRouteRepository routeRepository, RouteManager routeManager, IDistributedCache<RouteExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SystemData, Guid> systemDataRepository, IRepository<ItemGroup, Guid> itemGroupRepository, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _routeRepository = routeRepository;
-            _routeManager = routeManager; _systemDataRepository = systemDataRepository;
-            _itemGroupRepository = itemGroupRepository;
-            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-        }
-
         public virtual async Task<PagedResultDto<RouteWithNavigationPropertiesDto>> GetListAsync(GetRoutesInput input)
         {
             var totalCount = await _routeRepository.GetCountAsync(input.FilterText, input.CheckIn, input.CheckOut, input.GPSLock, input.OutRoute, input.RouteTypeId, input.ItemGroupId, input.SalesOrgHierarchyId);

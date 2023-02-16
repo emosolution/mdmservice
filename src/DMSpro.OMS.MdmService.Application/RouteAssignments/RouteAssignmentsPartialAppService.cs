@@ -1,48 +1,50 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using System.Runtime.CompilerServices;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 
 namespace DMSpro.OMS.MdmService.RouteAssignments
 {
-	public partial class RouteAssignmentsAppService
+	[Authorize(MdmServicePermissions.RouteAssignments.Default)]
+	public partial class RouteAssignmentsAppService : PartialAppService<RouteAssignment, RouteAssignmentDto, IRouteAssignmentRepository>,
+		IRouteAssignmentsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _routeAssignmentRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<RouteAssignment>, IEnumerable<RouteAssignmentDto>>(results.data.Cast<RouteAssignment>());
-			return results;
-		}
+		private readonly IRouteAssignmentRepository _routeAssignmentRepository;
+		private readonly IDistributedCache<RouteAssignmentExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly RouteAssignmentManager _routeAssignmentManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+		private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+		public RouteAssignmentsAppService(ICurrentTenant currentTenant,
+			IRouteAssignmentRepository repository,
+			RouteAssignmentManager routeAssignmentManager,
+			IConfiguration settingProvider,
+			ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+			IEmployeeProfileRepository employeeProfileRepository,
+			IDistributedCache<RouteAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _routeAssignmentRepository.GetQueryableAsync(); // to be remove
+			_routeAssignmentRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_routeAssignmentManager = routeAssignmentManager;
+			
+			_salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+			_employeeProfileRepository = employeeProfileRepository;
 
-			return 0;
-		}
-	}
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IRouteAssignmentRepository", _routeAssignmentRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IEmployeeProfileRepository", _employeeProfileRepository));
+        }
+    }
 }

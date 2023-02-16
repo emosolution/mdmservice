@@ -12,11 +12,11 @@ namespace DMSpro.OMS.MdmService.Companies
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
     public partial class CompaniesAppService : PartialAppService<Company, CompanyDto, ICompanyRepository>, ICompaniesAppService
     {
-        private readonly IGeoMasterRepository _geoMasterRepository;
-
         private readonly ICompanyRepository _companyRepository;
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly CompanyManager _companyManager;
+
+        private readonly IGeoMasterRepository _geoMasterRepository;
 
         public CompaniesAppService(ICurrentTenant currentTenant,
             IGeoMasterRepository geoMasterRepository,
@@ -29,6 +29,7 @@ namespace DMSpro.OMS.MdmService.Companies
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyManager = companyManager;
+            
             _geoMasterRepository = geoMasterRepository;
 
             _repositories.AddIfNotContains(

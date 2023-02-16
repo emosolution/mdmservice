@@ -3,7 +3,6 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -107,6 +106,18 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
+    public virtual void SetEndDate(Guid id, DateTime endDate)
+    {
+        //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
+        throw new System.NotImplementedException(); 
+    }
+
+    public virtual MCPDto CreateMCP(MCPCreateDto mcpCreateDto)
+    {
+        //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
+        throw new System.NotImplementedException(); 
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
@@ -115,19 +126,19 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         });
     }
 
-    public virtual async Task<int> UpdateFromExcelAsync(IFormFile file)
+    public virtual async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
     {
         return await RequestAsync<int>(nameof(UpdateFromExcelAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(IFormFile), file }
+            { typeof(IRemoteStreamContent), file }
         });
     }
 
-    public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
+    public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
     {
         return await RequestAsync<int>(nameof(InsertFromExcelAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(IFormFile), file }
+            { typeof(IRemoteStreamContent), file }
         });
     }
 }

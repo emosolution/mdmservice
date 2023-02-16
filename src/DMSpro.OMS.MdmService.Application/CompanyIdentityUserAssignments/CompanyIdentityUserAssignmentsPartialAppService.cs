@@ -33,23 +33,13 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             _companyIdentityUserAssignmentRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyIdentityUserAssignmentManager = companyIdentityUserAssignmentManager;
+            
             _companyRepository = companyRepository;
-
+            
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyIdentityUserAssignmentRepository", _companyIdentityUserAssignmentRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
-        }
-
-        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        {
-            var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
-            var base_dataloadoption = new DataSourceLoadOptionsBase();
-            DataLoadParser.Parse(base_dataloadoption, inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            if (inputDev.Group == null)
-            {
-                results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
-            }
-            return results;
-        }
+        } 
 	}
 }

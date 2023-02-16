@@ -221,15 +221,10 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         routePermission.AddChild(MdmServicePermissions.Routes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Routes);
         routePermission.AddChild(MdmServicePermissions.Routes.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Routes);
 
-        var mcpHeaderPermission = myGroup.AddPermission(MdmServicePermissions.MCPHeaders.Default, L("Permission:MdmService:MCPHeader")).RequireFeatures(MdmFeatures.MCPs);
-        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPHeaders.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.MCPs);
-        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPHeaders.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.MCPs);
-        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPHeaders.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.MCPs);
-
-        var mcpDetailPermission = myGroup.AddPermission(MdmServicePermissions.MCPDetails.Default, L("Permission:MdmService:MCPDetail")).RequireFeatures(MdmFeatures.MCPs);
-        mcpDetailPermission.AddChild(MdmServicePermissions.MCPDetails.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.MCPs);
-        mcpDetailPermission.AddChild(MdmServicePermissions.MCPDetails.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.MCPs);
-        mcpDetailPermission.AddChild(MdmServicePermissions.MCPDetails.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.MCPs);
+        var mcpHeaderPermission = myGroup.AddPermission(MdmServicePermissions.MCPs.Default, L("Permission:MdmService:MCPs")).RequireFeatures(MdmFeatures.MCPs);
+        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPs.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.MCPs);
+        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPs.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.MCPs);
+        mcpHeaderPermission.AddChild(MdmServicePermissions.MCPs.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.MCPs);
 
         var visitPlanPermission = myGroup.AddPermission(MdmServicePermissions.VisitPlans.Default, L("Permission:MdmService:VisitPlan")).RequireFeatures(MdmFeatures.VisitPlans);
         visitPlanPermission.AddChild(MdmServicePermissions.VisitPlans.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.VisitPlans);

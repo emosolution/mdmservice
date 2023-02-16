@@ -10,38 +10,17 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DevExtreme.AspNet.Data;
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
 
     [Authorize(MdmServicePermissions.UOMGroupDetails.Default)]
-    public partial class UOMGroupDetailsAppService : ApplicationService, IUOMGroupDetailsAppService
+    public partial class UOMGroupDetailsAppService
     {
-        private readonly IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
-        private readonly UOMGroupDetailManager _uOMGroupDetailManager;
-        private readonly IRepository<UOMGroup, Guid> _uOMGroupRepository;
-        private readonly IRepository<UOM, Guid> _uOMRepository;
-
-        public UOMGroupDetailsAppService(IUOMGroupDetailRepository uOMGroupDetailRepository, UOMGroupDetailManager uOMGroupDetailManager, IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<UOMGroup, Guid> uOMGroupRepository, IRepository<UOM, Guid> uOMRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _uOMGroupDetailRepository = uOMGroupDetailRepository;
-            _uOMGroupDetailManager = uOMGroupDetailManager; _uOMGroupRepository = uOMGroupRepository;
-            _uOMRepository = uOMRepository;
-        }
-
         public virtual async Task<PagedResultDto<UOMGroupDetailWithNavigationPropertiesDto>> GetListAsync(GetUOMGroupDetailsInput input)
         {
             var totalCount = await _uOMGroupDetailRepository.GetCountAsync(input.FilterText, input.AltQtyMin, input.AltQtyMax, input.BaseQtyMin, input.BaseQtyMax, input.Active, input.UOMGroupId, input.AltUOMId, input.BaseUOMId);

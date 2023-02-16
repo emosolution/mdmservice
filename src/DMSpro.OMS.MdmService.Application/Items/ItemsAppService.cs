@@ -13,41 +13,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.Items
 {
 
     [Authorize(MdmServicePermissions.Items.Default)]
-    public partial class ItemsAppService : ApplicationService, IItemsAppService
+    public partial class ItemsAppService
     {
-        private readonly IDistributedCache<ItemExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemRepository _itemRepository;
-        private readonly ItemManager _itemManager;
-        private readonly IRepository<SystemData, Guid> _systemDataRepository;
-        private readonly IRepository<VAT, Guid> _vATRepository;
-        private readonly IRepository<UOMGroup, Guid> _uOMGroupRepository;
-        private readonly IRepository<UOMGroupDetail, Guid> _uOMGroupDetailRepository;
-        private readonly IRepository<ItemAttributeValue, Guid> _itemAttributeValueRepository;
-
-        public ItemsAppService(IItemRepository itemRepository, ItemManager itemManager, IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SystemData, Guid> systemDataRepository, IRepository<VAT, Guid> vATRepository, IRepository<UOMGroup, Guid> uOMGroupRepository, IRepository<UOMGroupDetail, Guid> uOMGroupDetailRepository, IRepository<ItemAttributeValue, Guid> itemAttributeValueRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemRepository = itemRepository;
-            _itemManager = itemManager; _systemDataRepository = systemDataRepository;
-            _vATRepository = vATRepository;
-            _uOMGroupRepository = uOMGroupRepository;
-            _uOMGroupDetailRepository = uOMGroupDetailRepository;
-            _itemAttributeValueRepository = itemAttributeValueRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemWithNavigationPropertiesDto>> GetListAsync(GetItemsInput input)
         {
             var totalCount = await _itemRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.ERPCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePriceMin, input.BasePriceMax, input.Active, input.ManageItemBy, input.ExpiredType, input.ExpiredValueMin, input.ExpiredValueMax, input.IssueMethod, input.CanUpdate, input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id);

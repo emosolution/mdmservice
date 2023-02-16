@@ -23,20 +23,8 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
 {
 
     [Authorize(MdmServicePermissions.HolidayDetails.Default)]
-    public partial class HolidayDetailsAppService : ApplicationService, IHolidayDetailsAppService
+    public partial class HolidayDetailsAppService 
     {
-        private readonly IDistributedCache<HolidayDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IHolidayDetailRepository _holidayDetailRepository;
-        private readonly HolidayDetailManager _holidayDetailManager;
-        private readonly IRepository<Holiday, Guid> _holidayRepository;
-
-        public HolidayDetailsAppService(IHolidayDetailRepository holidayDetailRepository, HolidayDetailManager holidayDetailManager, IDistributedCache<HolidayDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Holiday, Guid> holidayRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _holidayDetailRepository = holidayDetailRepository;
-            _holidayDetailManager = holidayDetailManager; _holidayRepository = holidayRepository;
-        }
-
         public virtual async Task<PagedResultDto<HolidayDetailWithNavigationPropertiesDto>> GetListAsync(GetHolidayDetailsInput input)
         {
             var totalCount = await _holidayDetailRepository.GetCountAsync(input.FilterText, input.StartDateMin, input.StartDateMax, input.EndDateMin, input.EndDateMax, input.Description, input.HolidayId);

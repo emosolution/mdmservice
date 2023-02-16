@@ -1,48 +1,49 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.CustomerGroups;
+using DMSpro.OMS.MdmService.CusAttributeValues;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
-	public partial class CustomerGroupByAttsAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _customerGroupByAttRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CustomerGroupByAtt>, IEnumerable<CustomerGroupByAttDto>>(results.data.Cast<CustomerGroupByAtt>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.CustomerGroupByAtts.Default)]
+    public partial class CustomerGroupByAttsAppService : PartialAppService<CustomerGroupByAtt, CustomerGroupByAttDto, ICustomerGroupByAttRepository>,
+        ICustomerGroupByAttsAppService
+    {
+        private readonly ICustomerGroupByAttRepository _customerGroupByAttRepository;
+        private readonly IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly CustomerGroupByAttManager _customerGroupByAttManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ICustomerGroupRepository _customerGroupRepository;
+        private readonly ICusAttributeValueRepository _cusAttributeValueRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _customerGroupByAttRepository.GetQueryableAsync(); // to be remove
+        public CustomerGroupByAttsAppService(ICurrentTenant currentTenant,
+            ICustomerGroupByAttRepository repository,
+            CustomerGroupByAttManager customerGroupByAttManager,
+            IConfiguration settingProvider,
+            ICustomerGroupRepository customerGroupRepository,
+            ICusAttributeValueRepository cusAttributeValueRepository,
+            IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _customerGroupByAttRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _customerGroupByAttManager = customerGroupByAttManager;
 
-			return 0;
-		}
-	}
+            _customerGroupRepository = customerGroupRepository;
+            _cusAttributeValueRepository = cusAttributeValueRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerGroupByAttRepository", _customerGroupByAttRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerGroupRepository", customerGroupRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICusAttributeValueRepository", cusAttributeValueRepository));
+        }
+    }
 }

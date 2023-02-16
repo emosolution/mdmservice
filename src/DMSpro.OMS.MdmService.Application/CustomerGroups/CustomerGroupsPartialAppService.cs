@@ -1,48 +1,35 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
 
 namespace DMSpro.OMS.MdmService.CustomerGroups
 {
-	public partial class CustomerGroupsAppService
+	[Authorize(MdmServicePermissions.CustomerGroups.Default)]
+	public partial class CustomerGroupsAppService : PartialAppService<CustomerGroup, CustomerGroupDto, ICustomerGroupRepository>,
+		ICustomerGroupsAppService
 	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _customerGroupRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CustomerGroup>, IEnumerable<CustomerGroupDto>>(results.data.Cast<CustomerGroup>());
-			return results;
-		}
+		private readonly ICustomerGroupRepository _customerGroupRepository;
+		private readonly IDistributedCache<CustomerGroupExcelDownloadTokenCacheItem, string>
+			_excelDownloadTokenCache;
+		private readonly CustomerGroupManager _customerGroupManager;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
+		public CustomerGroupsAppService(ICurrentTenant currentTenant,
+			ICustomerGroupRepository repository,
+			CustomerGroupManager customerGroupManager,
+			IConfiguration settingProvider,
+			IDistributedCache<CustomerGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			: base(currentTenant, repository, settingProvider)
 		{
-			return null;
+			_customerGroupRepository = repository;
+			_excelDownloadTokenCache = excelDownloadTokenCache;
+			_customerGroupManager = customerGroupManager;
+			
+			_repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICustomerGroupRepository", _customerGroupRepository));
 		}
-
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _customerGroupRepository.GetQueryableAsync(); // to be remove
-
-			return 0;
-		}
-	}
+    }
 }

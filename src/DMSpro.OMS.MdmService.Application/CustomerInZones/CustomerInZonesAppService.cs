@@ -8,13 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.Customers;
@@ -23,25 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 {
 
     [Authorize(MdmServicePermissions.CustomerInZones.Default)]
-    public partial class CustomerInZonesAppService : ApplicationService, ICustomerInZonesAppService
+    public partial class CustomerInZonesAppService 
     {
-        private readonly IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerInZoneRepository _customerInZoneRepository;
-        private readonly CustomerInZoneManager _customerInZoneManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-        
-        public CustomerInZonesAppService(ICustomerInZoneRepository customerInZoneRepository, CustomerInZoneManager customerInZoneManager,
-            IRepository<Customer, Guid> customerRepository,
-            IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository
-            )
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerInZoneRepository = customerInZoneRepository;
-            _customerInZoneManager = customerInZoneManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _customerRepository = customerRepository;
-        }
-
         public virtual async Task<PagedResultDto<CustomerInZoneWithNavigationPropertiesDto>> GetListAsync(GetCustomerInZonesInput input)
         {
             var totalCount = await _customerInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.CustomerId);

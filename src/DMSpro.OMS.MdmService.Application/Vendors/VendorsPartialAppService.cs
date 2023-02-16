@@ -1,52 +1,56 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
-
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.PriceLists;
+using System.Runtime.CompilerServices;
+using DMSpro.OMS.MdmService.GeoMasters;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-	public partial class VendorsAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _vendorRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<Vendor>, IEnumerable<VendorDto>>(results.data.Cast<Vendor>());
-			return results;
-		}
+    [Authorize(MdmServicePermissions.Vendors.Default)]
+    public partial class VendorsAppService : PartialAppService<Vendor, VendorDto, IVendorRepository>,
+        IVendorsAppService
+    {
+        private readonly IVendorRepository _vendorRepository;
+        private readonly IDistributedCache<VendorExcelDownloadTokenCacheItem, string>
+            _excelDownloadTokenCache;
+        private readonly VendorManager _vendorManager;
 
+        private readonly IPriceListRepository _priceListRepository;
+        private readonly IGeoMasterRepository _geoMasterRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        public VendorsAppService(ICurrentTenant currentTenant,
+            IVendorRepository repository,
+            VendorManager vendorManager,
+            IConfiguration settingProvider,
+            IPriceListRepository priceListRepository,
+            IGeoMasterRepository geoMasterRepository,
+            ICompanyRepository companyRepository,
+            IDistributedCache<VendorExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _vendorRepository = repository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
+            _vendorManager = vendorManager;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _vendorRepository.GetQueryableAsync(); // to be remove
+            _priceListRepository = priceListRepository;
+            _geoMasterRepository = geoMasterRepository;
+            _companyRepository = companyRepository;
 
-			return 0;
-		}
-
-	}
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IVendorRepository", _vendorRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("IGeoMasterRepository", _geoMasterRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
+        }
+    }
 }

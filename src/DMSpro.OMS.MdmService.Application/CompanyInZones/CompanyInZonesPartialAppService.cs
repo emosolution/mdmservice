@@ -1,57 +1,50 @@
-using System.Linq;
+using Volo.Abp.Caching;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DMSpro.OMS.Shared.Lib.Parser;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp;
-using System.IO;
-using System;
+using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
-	public partial class CompanyInZonesAppService
-	{
-		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _companyInZoneRepository.GetQueryableAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CompanyInZone>, IEnumerable<CompanyInZoneDto>>(results.data.Cast<CompanyInZone>());
-			return results;
-		}
-		public virtual async Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev)
-		{
-			var items = await _companyInZoneRepository.GetQueryableWithNavigationPropertiesAsync();
-			var base_dataloadoption = new DataSourceLoadOptionsBase();
-			DataLoadParser.Parse(base_dataloadoption,inputDev);
-			LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-			results.data = ObjectMapper.Map<IEnumerable<CompanyInZone>, IEnumerable<CompanyInZoneDto>>(results.data.Cast<CompanyInZone>());
-			return results;
-		}
+	[Authorize(MdmServicePermissions.CompanyInZones.Default)]
+    public partial class CompanyInZonesAppService : PartialAppService<CompanyInZone, CompanyInZoneDto, ICompanyInZoneRepository>, 
+        ICompanyInZonesAppService
+    {
+        private readonly ICompanyInZoneRepository _companyInZoneRepository;
+        private readonly CompanyInZoneManager _companyInZoneManager;
+        private readonly IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
 
-		public virtual Task<int> UpdateFromExcelAsync(IFormFile file)
-		{
-			return null;
-		}
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
 
-		public virtual async Task<int> InsertFromExcelAsync(IFormFile file)
-		{
-			if (file == null || file.Length <= 0) 
-			{
-				throw new BusinessException(message: L["Error:EmptyFormFile"], code: "0");
-			}
-			if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-			{
-				throw new BusinessException(message: L["Error:ImportFileNotSupported"], code: "0");
-			}
-			// DUMMY LINE OF CODE TO REMOVE ASYNC AWAIT WARNING
-			await _companyInZoneRepository.GetQueryableAsync(); // to be remove
+        public CompanyInZonesAppService(ICurrentTenant currentTenant,
+            ICompanyInZoneRepository repository,
+            CompanyInZoneManager manager,
+            IConfiguration settingProvider,
+            ICompanyRepository companyRepository,
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+            IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            : base(currentTenant, repository, settingProvider)
+        {
+            _companyInZoneRepository = repository;
+            _companyInZoneManager = manager;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
 
-			return 0;
-		}
-	}
+            _companyRepository = companyRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyInZoneRepository", _companyInZoneRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
+            _repositories.AddIfNotContains(
+                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
+        }
+
+		
+    }
 }

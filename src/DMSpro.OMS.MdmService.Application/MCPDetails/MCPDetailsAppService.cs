@@ -9,39 +9,19 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
 
-    [Authorize(MdmServicePermissions.MCPDetails.Default)]
-    public partial class MCPDetailsAppService : ApplicationService, IMCPDetailsAppService
+    [Authorize(MdmServicePermissions.MCPs.Default)]
+    public partial class MCPDetailsAppService
     {
-        private readonly IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IMCPDetailRepository _mCPDetailRepository;
-        private readonly MCPDetailManager _mCPDetailManager;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-        private readonly IRepository<MCPHeader, Guid> _mCPHeaderRepository;
-
-        public MCPDetailsAppService(IMCPDetailRepository mCPDetailRepository, MCPDetailManager mCPDetailManager, IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, 
-            IRepository<Customer, Guid> customerRepository, 
-            IRepository<MCPHeader, Guid> mCPHeaderRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _mCPDetailRepository = mCPDetailRepository;
-            _mCPDetailManager = mCPDetailManager; 
-            _customerRepository = customerRepository;
-            _mCPHeaderRepository = mCPHeaderRepository;
-        }
-
         public virtual async Task<PagedResultDto<MCPDetailWithNavigationPropertiesDto>> GetListAsync(GetMCPDetailsInput input)
         {
             var totalCount = await _mCPDetailRepository.GetCountAsync(input.FilterText, input.Code, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.DistanceMin, input.DistanceMax, input.VisitOrderMin, input.VisitOrderMax, input.Monday, input.Tuesday, input.Wednesday, input.Thursday, input.Friday, input.Saturday, input.Sunday, input.Week1, input.Week2, input.Week3, input.Week4, input.CustomerId, input.MCPHeaderId);
@@ -67,18 +47,18 @@ namespace DMSpro.OMS.MdmService.MCPDetails
 
         public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
         {
-           var query = (await _customerRepository.GetQueryableAsync())
-               .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                   x => x.Code != null &&
-                        x.Code.Contains(input.Filter));
+            var query = (await _customerRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
 
-           var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Customer>();
-           var totalCount = query.Count();
-           return new PagedResultDto<LookupDto<Guid>>
-           {
-               TotalCount = totalCount,
-               Items = ObjectMapper.Map<List<Customer>, List<LookupDto<Guid>>>(lookupData)
-           };
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Customer>();
+            var totalCount = query.Count();
+            return new PagedResultDto<LookupDto<Guid>>
+            {
+                TotalCount = totalCount,
+                Items = ObjectMapper.Map<List<Customer>, List<LookupDto<Guid>>>(lookupData)
+            };
         }
 
         public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetMCPHeaderLookupAsync(LookupRequestDto input)
@@ -97,13 +77,13 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             };
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Delete)]
+        [Authorize(MdmServicePermissions.MCPs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _mCPDetailRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Create)]
+        [Authorize(MdmServicePermissions.MCPs.Create)]
         public virtual async Task<MCPDetailDto> CreateAsync(MCPDetailCreateDto input)
         {
             if (input.CustomerId == default)
@@ -122,7 +102,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             return ObjectMapper.Map<MCPDetail, MCPDetailDto>(mcpDetail);
         }
 
-        [Authorize(MdmServicePermissions.MCPDetails.Edit)]
+        [Authorize(MdmServicePermissions.MCPs.Edit)]
         public virtual async Task<MCPDetailDto> UpdateAsync(Guid id, MCPDetailUpdateDto input)
         {
             if (input.CustomerId == default)

@@ -9,33 +9,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
 
     [Authorize(MdmServicePermissions.ItemAttributeValues.Default)]
-    public partial class ItemAttributeValuesAppService : ApplicationService, IItemAttributeValuesAppService
+    public partial class ItemAttributeValuesAppService 
     {
-        private readonly IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
-        private readonly ItemAttributeValueManager _itemAttributeValueManager;
-        private readonly IRepository<ItemAttribute, Guid> _itemAttributeRepository;
-
-        public ItemAttributeValuesAppService(IItemAttributeValueRepository itemAttributeValueRepository, ItemAttributeValueManager itemAttributeValueManager, IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<ItemAttribute, Guid> itemAttributeRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemAttributeValueRepository = itemAttributeValueRepository;
-            _itemAttributeValueManager = itemAttributeValueManager; _itemAttributeRepository = itemAttributeRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetItemAttributeValuesInput input)
         {
             var totalCount = await _itemAttributeValueRepository.GetCountAsync(input.FilterText, input.AttrValName, input.ItemAttributeId, input.ParentId);
