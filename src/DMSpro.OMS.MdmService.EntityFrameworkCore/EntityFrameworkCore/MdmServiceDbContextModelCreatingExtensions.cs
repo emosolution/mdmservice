@@ -100,7 +100,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ERPCode).HasColumnName(nameof(GeoMaster.ERPCode));
         b.Property(x => x.Name).HasColumnName(nameof(GeoMaster.Name)).IsRequired().HasMaxLength(GeoMasterConsts.NameMaxLength);
         b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(c => c.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<DimensionMeasurement>(b =>

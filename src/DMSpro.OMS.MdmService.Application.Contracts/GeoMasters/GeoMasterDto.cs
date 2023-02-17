@@ -1,6 +1,7 @@
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
+using DMSpro.OMS.MdmService.GeoMasters;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
@@ -13,5 +14,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         public Guid? ParentId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
+
+        public virtual GeoMasterDto Parent{get;set;}
     }
 }
