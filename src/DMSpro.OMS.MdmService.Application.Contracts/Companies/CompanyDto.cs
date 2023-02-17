@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
-
+using DMSpro.OMS.MdmService.GeoMasters;
 namespace DMSpro.OMS.MdmService.Companies
 {
     public class CompanyDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
@@ -32,5 +32,11 @@ namespace DMSpro.OMS.MdmService.Companies
         public Guid? GeoLevel4Id { get; set; }
 
         public string ConcurrencyStamp { get; set; }
+
+        public CompanyDto Parent { get; set; }
+        public  GeoMasterDto GeoLevel0 { get; set; }
+        public GeoMasterDto GeoLevel1 { get; set; }
+        public GeoMasterDto GeoLevel2 { get; set; }
+        public GeoMasterDto GeoLevel3 { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
@@ -28,6 +29,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         public virtual int Level { get; set; }
         public Guid? ParentId { get; set; }
 
+        //public virtual Company company{get;set;}
         public GeoMaster()
         {
 

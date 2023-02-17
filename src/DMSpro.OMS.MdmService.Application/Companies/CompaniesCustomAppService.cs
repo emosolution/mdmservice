@@ -25,8 +25,9 @@ namespace DMSpro.OMS.MdmService.Companies
     { 
         public virtual async Task<LoadResult> GetListDevextremesWithDetailsAsync(DataLoadOptionDevextreme inputDev)
         {
-            var items = await _companyRepository.GetQueryWithDetailsAsync();
+            var items = await _companyRepository.WithDetailsAsync();
             Console.WriteLine("==========");
+            //items.In
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
@@ -36,6 +37,11 @@ namespace DMSpro.OMS.MdmService.Companies
             // {
             //     results.data = ObjectMapper.Map<IEnumerable<CompanyWithDetails>, IEnumerable<CompanyWithDetailsDto>>(results.data.Cast<CompanyWithDetails>());
             // }
+
+            if (inputDev.Group == null)
+            {
+                results.data = ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(results.data.Cast<Company>());
+            }
             return results;
         }
     }

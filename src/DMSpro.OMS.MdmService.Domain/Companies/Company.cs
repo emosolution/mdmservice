@@ -10,6 +10,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -66,13 +67,25 @@ namespace DMSpro.OMS.MdmService.Companies
 
         [CanBeNull]
         public virtual string ContactPhone { get; set; }
+        
         public Guid? ParentId { get; set; }
         public Guid? GeoLevel0Id { get; set; }
         public Guid? GeoLevel1Id { get; set; }
         public Guid? GeoLevel2Id { get; set; }
         public Guid? GeoLevel3Id { get; set; }
         public Guid? GeoLevel4Id { get; set; }
-
+        [ForeignKey(nameof(ParentId))]
+        public virtual Company Parent { get; set; }
+        [ForeignKey(nameof(GeoLevel0Id))]
+        public virtual GeoMaster GeoLevel0 {get;set;}
+        [ForeignKey(nameof(GeoLevel1Id))]
+        public virtual GeoMaster GeoLevel1 {get;set;}
+        [ForeignKey(nameof(GeoLevel2Id))]
+        public virtual GeoMaster GeoLevel2 {get;set;}
+        [ForeignKey(nameof(GeoLevel3Id))]
+        public virtual GeoMaster GeoLevel3 {get;set;}
+        [ForeignKey(nameof(GeoLevel4Id))]
+        public virtual GeoMaster GeoLevel4 {get;set;}
         public Company()
         {
 

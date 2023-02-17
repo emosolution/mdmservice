@@ -71,30 +71,30 @@ namespace DMSpro.OMS.MdmService.Companies
                    join geoMaster4 in (await GetDbContextAsync()).GeoMasters on company.GeoLevel4Id equals geoMaster4.Id into geoMasters4
                    from geoMaster4 in geoMasters4.DefaultIfEmpty()
 
-                //    select new CompanyWithDetails {
-                //     com = company,
-                //     parentCode = company1.Code,
-                //     parentName = company1.Name,
-                //     geoLevel0Name = geoMaster.Name,
-                //     geoLevel1Name = geoMaster1.Name,
-                //     geoLevel2Name = geoMaster2.Name,
-                //     geoLevel3Name = geoMaster3.Name,
-                //     geoLevel4Name = geoMaster4.Name
-                //    };
-                // select new CompanyWithDetails{
-                //     Name = company.Name,
-                //     Code = company.Code,
-                //     Street = company.Street,
-                //     Address = company.Address,
-                //     ParentCode = company1.Code,
-                //     ParentName = company1.Name,
-                //     GeoLevel0Name = geoMaster.Name,
-                //     GeoLevel1Name = geoMaster1.Name,
-                //     GeoLevel2Name = geoMaster2.Name,
-                //     GeoLevel3Name = geoMaster3.Name,
-                //     GeoLevel4Name =geoMaster4.Name
-                // };
-                select new CompanyWithDetails
+                       //    select new CompanyWithDetails {
+                       //     com = company,
+                       //     parentCode = company1.Code,
+                       //     parentName = company1.Name,
+                       //     geoLevel0Name = geoMaster.Name,
+                       //     geoLevel1Name = geoMaster1.Name,
+                       //     geoLevel2Name = geoMaster2.Name,
+                       //     geoLevel3Name = geoMaster3.Name,
+                       //     geoLevel4Name = geoMaster4.Name
+                       //    };
+                       // select new CompanyWithDetails{
+                       //     Name = company.Name,
+                       //     Code = company.Code,
+                       //     Street = company.Street,
+                       //     Address = company.Address,
+                       //     ParentCode = company1.Code,
+                       //     ParentName = company1.Name,
+                       //     GeoLevel0Name = geoMaster.Name,
+                       //     GeoLevel1Name = geoMaster1.Name,
+                       //     GeoLevel2Name = geoMaster2.Name,
+                       //     GeoLevel3Name = geoMaster3.Name,
+                       //     GeoLevel4Name =geoMaster4.Name
+                       // };
+                   select new CompanyWithDetails
                    {
                        Company = company,
                        Company1 = company1,
@@ -104,8 +104,8 @@ namespace DMSpro.OMS.MdmService.Companies
                        GeoMaster3 = geoMaster3,
                        GeoMaster4 = geoMaster4
                    };
-                
-                   
+
+
         }
     }
 }

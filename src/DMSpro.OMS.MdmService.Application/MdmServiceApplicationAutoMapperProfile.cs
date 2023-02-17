@@ -71,13 +71,54 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Company, CompanyDto>();
         CreateMap<Company, CompanyExcelDto>();
         CreateMap<Company, CompanyWithTenantDto>();
-        CreateMap<CompanyWithDetails, CompanyWithDetailsDto>()
-        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Company.Name))
-        .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Company.Code))
-        .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Company.Street))
-        .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
-        .ForMember(dest => dest.ParentCode, opt => opt.MapFrom(src => src.Company1.Code));
+        // CreateMap<CompanyWithDetails, CompanyWithDetailsDto>()
+        // .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Company.Name))
+        // .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Company.Code))
+        // .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Company.Street))
+        // .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
+        // .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Company.Phone))
+        // .ForMember(dest => dest.License, opt => opt.MapFrom(src => src.Company.License))
+        // .ForMember(dest => dest.TaxCode, opt => opt.MapFrom(src => src.Company.TaxCode))
+        // .ForMember(dest => dest.VATName, opt => opt.MapFrom(src => src.Company.VATName))
+        // .ForMember(dest => dest.VATAddress, opt => opt.MapFrom(src => src.Company.VATAddress))
+        // .ForMember(dest => dest.ERPCode, opt => opt.MapFrom(src => src.Company.ERPCode))
+        // .ForMember(dest => dest.EffectiveDate, opt => opt.MapFrom(src => src.Company.EffectiveDate))
+        // .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.Company.EndDate))
+        // .ForMember(dest => dest.IsHO, opt => opt.MapFrom(src => src.Company.IsHO))
+        // .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Company.Latitude))
+        // .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Company.Longitude))
+        // .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
+        // .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
+        // .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
+        // .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Company.Address))
 
+        // .ForMember(dest => dest.ParentCode, opt => opt.MapFrom(src => src.Company1.Code));
+        // Phone
+        // License
+        // TaxCode
+        // VATName
+        // VATAddress
+        // ERPCode
+        // Active
+        // EffectiveDate
+        // EndDate
+        // IsHO
+        // Latitude
+        // Longitude
+        // ContactName
+        // ContactPhone
+        // ParentId
+        // GeoLevel0Id
+        // GeoLevel1Id
+        // GeoLevel2Id
+        // GeoLevel3Id
+        // GeoLevel4Id
+        // ParentName
+        // GeoLevel0Name
+        // GeoLevel1Name
+        // GeoLevel2Name
+        // GeoLevel3Name
+        // GeoLevel4Name
         CreateMap<GeoMaster, GeoMasterDto>();
         CreateMap<GeoMaster, GeoMasterExcelDto>();
 
