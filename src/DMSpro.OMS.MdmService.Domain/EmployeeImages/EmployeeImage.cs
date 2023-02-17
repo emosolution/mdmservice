@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
-    public class EmployeeImage : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class EmployeeImage : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

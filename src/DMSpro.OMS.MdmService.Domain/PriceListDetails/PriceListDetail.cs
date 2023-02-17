@@ -14,7 +14,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
-    public class PriceListDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class PriceListDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

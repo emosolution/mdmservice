@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Streets
 {
-    public class Street : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class Street : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

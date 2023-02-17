@@ -97,4 +97,9 @@ public partial class DimensionMeasurementClientProxy : ClientProxyBase<IDimensio
             { typeof(IRemoteStreamContent), file }
         });
     }
+
+    public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GenerateExcelTemplatesAsync));
+    }
 }

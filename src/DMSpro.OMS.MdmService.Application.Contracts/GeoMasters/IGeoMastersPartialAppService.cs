@@ -9,8 +9,10 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 	{
 		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
-		Task<int>UpdateFromExcelAsync(IRemoteStreamContent file);
+		Task<int> UpdateFromExcelAsync(IRemoteStreamContent file);
 
 		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
+
+		Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
 	}
 }

@@ -7,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-    public class SalesOrgHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SalesOrgHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

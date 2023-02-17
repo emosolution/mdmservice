@@ -4,7 +4,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
-    public class CustomerInZone : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerInZone : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

@@ -121,4 +121,9 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
             { typeof(IRemoteStreamContent), file }
         });
     }
+
+    public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GenerateExcelTemplatesAsync));
+    }
 }

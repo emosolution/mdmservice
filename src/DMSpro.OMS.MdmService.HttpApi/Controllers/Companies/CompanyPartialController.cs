@@ -52,5 +52,23 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
                 throw new UserFriendlyException(message: e.Message);
             }
         }
+		
+		[HttpGet]
+        [Route("get-excel-template")]
+        public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+        {
+            try
+            {
+                return await _companiesAppService.GenerateExcelTemplatesAsync();
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
 	}
 }

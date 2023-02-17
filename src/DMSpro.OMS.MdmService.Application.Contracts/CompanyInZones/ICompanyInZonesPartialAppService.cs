@@ -11,5 +11,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 		Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev);
 		Task<int>UpdateFromExcelAsync(IRemoteStreamContent file);
 		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
+
+		Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
 	}
 }

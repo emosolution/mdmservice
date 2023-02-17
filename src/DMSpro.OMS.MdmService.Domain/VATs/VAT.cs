@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.VATs
 {
-    public class VAT : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class VAT : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

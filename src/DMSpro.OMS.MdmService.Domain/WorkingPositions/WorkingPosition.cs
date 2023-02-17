@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
-    public class WorkingPosition : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class WorkingPosition : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

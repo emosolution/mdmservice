@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.GeoMasters;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -13,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class Company : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class Company : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

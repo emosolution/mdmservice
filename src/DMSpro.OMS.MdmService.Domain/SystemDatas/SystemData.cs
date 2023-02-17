@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public class SystemData : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SystemData : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

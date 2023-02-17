@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
-    public class ItemAttribute : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class ItemAttribute : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

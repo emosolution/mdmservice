@@ -10,7 +10,6 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
 {
 	public partial class EmployeeProfileController
 	{
-
 		[HttpGet]
 		[Route("GetListDevextremes")]
 		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -43,6 +42,24 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
             try
             {
                 return await _employeeProfilesAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+		
+		[HttpGet]
+        [Route("get-excel-template")]
+        public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+        {
+            try
+            {
+                return await _employeeProfilesAppService.GenerateExcelTemplatesAsync();
             }
             catch (BusinessException bex)
             {

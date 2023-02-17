@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-    public class HolidayDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class HolidayDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

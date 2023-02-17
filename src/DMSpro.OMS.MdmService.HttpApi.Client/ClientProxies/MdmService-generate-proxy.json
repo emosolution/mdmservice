@@ -184,6 +184,14 @@
                     "type": "System.Int32",
                     "typeSimple": "number"
                   }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+                  }
                 }
               ]
             }
@@ -952,6 +960,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.WorkingPositions.IWorkingPositionsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/working-positions/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.WorkingPositions.IWorkingPositionsAppService"
             }
           }
         },
@@ -1134,6 +1157,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -1903,6 +1934,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.WeightMeasurements.IWeightMeasurementsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/weight-measurements/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.WeightMeasurements.IWeightMeasurementsAppService"
             }
           }
         },
@@ -2204,6 +2250,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -3688,6 +3742,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.VisitPlans.IVisitPlansAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/visit-plans/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VisitPlans.IVisitPlansAppService"
             }
           }
         },
@@ -3938,6 +4007,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -5359,6 +5436,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Vendors.IVendorsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/vendors/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Vendors.IVendorsAppService"
             }
           }
         },
@@ -5541,6 +5633,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -6310,6 +6410,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/v-aTs/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.VATs.IVATsAppService"
             }
           }
         },
@@ -6492,6 +6607,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -7213,6 +7336,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.UOMs.IUOMsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/u-oMs/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.UOMs.IUOMsAppService"
             }
           }
         },
@@ -7395,6 +7533,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -8116,6 +8262,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.UOMGroups.IUOMGroupsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/u-oMGroups/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.UOMGroups.IUOMGroupsAppService"
             }
           }
         },
@@ -8366,6 +8527,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -9679,6 +9848,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.UOMGroupDetails.IUOMGroupDetailsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/u-oMGroup-details/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.UOMGroupDetails.IUOMGroupDetailsAppService"
             }
           }
         },
@@ -9861,6 +10045,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -10606,6 +10798,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/system-datas/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasAppService"
             }
           }
         },
@@ -10788,6 +10995,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -11629,6 +11844,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SystemConfigs.ISystemConfigsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/system-configs/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemConfigs.ISystemConfigsAppService"
             }
           }
         },
@@ -11811,6 +12041,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -12508,6 +12746,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Streets.IStreetsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/streets/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Streets.IStreetsAppService"
             }
           }
         },
@@ -12741,6 +12994,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -13813,6 +14074,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/sales-org-hierarchies/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
             }
           }
         },
@@ -13995,6 +14271,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -14740,6 +15024,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHeaders.ISalesOrgHeadersAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/sales-org-headers/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHeaders.ISalesOrgHeadersAppService"
             }
           }
         },
@@ -14973,6 +15272,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -15973,6 +16280,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgEmpAssignments.ISalesOrgEmpAssignmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/sales-org-emp-assignments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgEmpAssignments.ISalesOrgEmpAssignmentsAppService"
             }
           }
         },
@@ -16155,6 +16477,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -16924,6 +17254,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesChannels.ISalesChannelsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/sales-channels/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesChannels.ISalesChannelsAppService"
             }
           }
         },
@@ -17174,6 +17519,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -18235,6 +18588,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Routes.IRoutesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/routes/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Routes.IRoutesAppService"
             }
           }
         },
@@ -18468,6 +18836,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -19444,6 +19820,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.RouteAssignments.IRouteAssignmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/route-assignments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.RouteAssignments.IRouteAssignmentsAppService"
             }
           }
         },
@@ -19660,6 +20051,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -20623,6 +21022,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PriceUpdates.IPriceUpdatesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/price-updates/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.PriceUpdates.IPriceUpdatesAppService"
             }
           }
         },
@@ -20856,6 +21270,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -21880,6 +22302,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PriceUpdateDetails.IPriceUpdateDetailsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/price-update-details/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.PriceUpdateDetails.IPriceUpdateDetailsAppService"
             }
           }
         },
@@ -22096,6 +22533,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -23083,6 +23528,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PriceLists.IPriceListsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/price-lists/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.PriceLists.IPriceListsAppService"
             }
           }
         },
@@ -23333,6 +23793,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -24418,6 +24886,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PriceListDetails.IPriceListDetailsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/price-list-details/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.PriceListDetails.IPriceListDetailsAppService"
             }
           }
         },
@@ -24651,6 +25134,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -25555,6 +26046,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PricelistAssignments.IPricelistAssignmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/pricelist-assignments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.PricelistAssignments.IPricelistAssignmentsAppService"
             }
           }
         },
@@ -25788,6 +26294,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -26812,6 +27326,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/numbering-configs/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsAppService"
             }
           }
         },
@@ -27104,6 +27633,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -28307,6 +28844,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/m-cPHeaders/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
             }
           }
         },
@@ -28540,6 +29092,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -29900,6 +30460,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPDetails.IMCPDetailsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/m-cPDetails/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.MCPDetails.IMCPDetailsAppService"
             }
           }
         },
@@ -30184,6 +30759,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -32231,6 +32814,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/items/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             }
           }
         },
@@ -32447,6 +33045,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -33362,6 +33968,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemImages.IItemImagesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-images/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemImages.IItemImagesAppService"
             }
           }
         },
@@ -33544,6 +34165,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -34337,6 +34966,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemGroups.IItemGroupsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-groups/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemGroups.IItemGroupsAppService"
             }
           }
         },
@@ -34587,6 +35231,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -35648,6 +36300,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemGroupLists.IItemGroupListsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-group-lists/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemGroupLists.IItemGroupListsAppService"
             }
           }
         },
@@ -35881,6 +36548,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -37241,6 +37916,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemGroupAttributes.IItemGroupAttributesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-group-attributes/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemGroupAttributes.IItemGroupAttributesAppService"
             }
           }
         },
@@ -37474,6 +38164,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -38378,6 +39076,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributeValues.IItemAttributeValuesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-attribute-values/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributeValues.IItemAttributeValuesAppService"
             }
           }
         },
@@ -38560,6 +39273,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -39401,6 +40122,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-attributes/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
             }
           }
         },
@@ -39617,6 +40353,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -40484,6 +41228,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttachments.IItemAttachmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/item-attachments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttachments.IItemAttachmentsAppService"
             }
           }
         },
@@ -40666,6 +41425,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -41411,6 +42178,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Holidays.IHolidaysAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/holidays/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Holidays.IHolidaysAppService"
             }
           }
         },
@@ -41627,6 +42409,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -42542,6 +43332,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.HolidayDetails.IHolidayDetailsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/holiday-details/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.HolidayDetails.IHolidayDetailsAppService"
             }
           }
         },
@@ -42758,6 +43563,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -43673,6 +44486,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.GeoMasters.IGeoMastersAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/geo-masters/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.GeoMasters.IGeoMastersAppService"
             }
           }
         },
@@ -43906,6 +44734,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -45170,6 +46006,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeProfiles.IEmployeeProfilesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-profiles/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeProfiles.IEmployeeProfilesAppService"
             }
           }
         },
@@ -45403,6 +46254,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -46355,6 +47214,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeInZones.IEmployeeInZonesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-in-zones/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeInZones.IEmployeeInZonesAppService"
             }
           }
         },
@@ -46571,6 +47445,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -47462,6 +48344,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-images/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             }
           }
         },
@@ -47678,6 +48575,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -48545,6 +49450,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-attachments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
             }
           }
         },
@@ -48727,6 +49647,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -49496,6 +50424,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.DimensionMeasurements.IDimensionMeasurementsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/dimension-measurements/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.DimensionMeasurements.IDimensionMeasurementsAppService"
             }
           }
         },
@@ -49797,6 +50740,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -52169,6 +53120,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Customers.ICustomersAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customers/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Customers.ICustomersAppService"
             }
           }
         },
@@ -52419,6 +53385,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -53684,6 +54658,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerInZones.ICustomerInZonesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-in-zones/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerInZones.ICustomerInZonesAppService"
             }
           }
         },
@@ -53866,6 +54855,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -54707,6 +55704,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-groups/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
             }
           }
         },
@@ -54940,6 +55952,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -55844,6 +56864,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByLists.ICustomerGroupByListsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-group-by-lists/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByLists.ICustomerGroupByListsAppService"
             }
           }
         },
@@ -56077,6 +57112,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -57029,6 +58072,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByGeos.ICustomerGroupByGeosAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-group-by-geos/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByGeos.ICustomerGroupByGeosAppService"
             }
           }
         },
@@ -57262,6 +58320,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -58190,6 +59256,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByAtts.ICustomerGroupByAttsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-group-by-atts/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroupByAtts.ICustomerGroupByAttsAppService"
             }
           }
         },
@@ -58406,6 +59487,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -59513,6 +60602,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerContacts.ICustomerContactsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-contacts/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerContacts.ICustomerContactsAppService"
             }
           }
         },
@@ -59695,6 +60799,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -60512,6 +61624,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerAttributes.ICustomerAttributesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-attributes/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerAttributes.ICustomerAttributesAppService"
             }
           }
         },
@@ -60728,6 +61855,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -61595,6 +62730,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerAttachments.ICustomerAttachmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-attachments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerAttachments.ICustomerAttachmentsAppService"
             }
           }
         },
@@ -61828,6 +62978,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -62804,6 +63962,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerAssignments.ICustomerAssignmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/customer-assignments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CustomerAssignments.ICustomerAssignmentsAppService"
             }
           }
         },
@@ -63037,6 +64210,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -63941,6 +65122,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CusAttributeValues.ICusAttributeValuesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/cus-attribute-values/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CusAttributeValues.ICusAttributeValuesAppService"
             }
           }
         },
@@ -64123,6 +65319,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -64844,6 +66048,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Currencies.ICurrenciesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/currencies/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Currencies.ICurrenciesAppService"
             }
           }
         },
@@ -65094,6 +66313,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -66383,6 +67610,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CompanyInZones.ICompanyInZonesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/company-in-zones/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CompanyInZones.ICompanyInZonesAppService"
             }
           }
         },
@@ -66616,6 +67858,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -67724,6 +68974,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/company-identity-user-assignments/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
             }
           }
         },
@@ -67957,6 +69222,14 @@
                   "returnValue": {
                     "type": "System.Int32",
                     "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]
@@ -69410,6 +70683,21 @@
               "returnValue": {
                 "type": "System.Int32",
                 "typeSimple": "number"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Companies.ICompaniesAppService"
+            },
+            "GenerateExcelTemplatesAsync": {
+              "uniqueName": "GenerateExcelTemplatesAsync",
+              "name": "GenerateExcelTemplatesAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/companies/get-excel-template",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Companies.ICompaniesAppService"

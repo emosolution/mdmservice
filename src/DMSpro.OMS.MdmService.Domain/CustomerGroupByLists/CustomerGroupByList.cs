@@ -6,7 +6,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
-    public class CustomerGroupByList : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerGroupByList : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

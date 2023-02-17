@@ -12,5 +12,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 		Task<int>UpdateFromExcelAsync(IRemoteStreamContent file);
 
 		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
+
+		Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
 	}
 }

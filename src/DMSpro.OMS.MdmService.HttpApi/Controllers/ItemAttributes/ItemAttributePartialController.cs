@@ -10,7 +10,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
 {
 	public partial class ItemAttributeController
 	{
-
 		[HttpGet]
 		[Route("GetListDevextremes")]
 		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
@@ -43,6 +42,24 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
             try
             {
                 return await _itemAttributesAppService.InsertFromExcelAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+		
+		[HttpGet]
+        [Route("get-excel-template")]
+        public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
+        {
+            try
+            {
+                return await _itemAttributesAppService.GenerateExcelTemplatesAsync();
             }
             catch (BusinessException bex)
             {

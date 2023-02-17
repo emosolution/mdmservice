@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
-    public class ItemAttachment : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class ItemAttachment : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

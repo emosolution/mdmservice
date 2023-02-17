@@ -13,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-    public class SalesOrgEmpAssignment : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SalesOrgEmpAssignment : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

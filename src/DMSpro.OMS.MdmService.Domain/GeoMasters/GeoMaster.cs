@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
-    public class GeoMaster : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class GeoMaster : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

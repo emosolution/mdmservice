@@ -13,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
-    public class PriceUpdateDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class PriceUpdateDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

@@ -11,7 +11,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.SalesChannels
 {
-    public class SalesChannel : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class SalesChannel : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
