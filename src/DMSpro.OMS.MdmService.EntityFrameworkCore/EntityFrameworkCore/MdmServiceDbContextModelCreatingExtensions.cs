@@ -747,7 +747,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName));
         b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone));
         
-        // b.HasOne<Company>(c => c.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(c => c.ParentCompany).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<GeoMaster>(c => c.GeoLevel0).WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<GeoMaster>(c => c.GeoLevel1).WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<GeoMaster>(c => c.GeoLevel2).WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);

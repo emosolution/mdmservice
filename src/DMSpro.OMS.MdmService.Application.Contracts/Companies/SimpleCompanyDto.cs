@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities;
 using DMSpro.OMS.MdmService.GeoMasters;
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class CompanyDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class SimpleCompanyDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -33,11 +33,6 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public string ConcurrencyStamp { get; set; }
 
-        public SimpleCompanyDto ParentCompany { get; set; }
-        public GeoMasterDto GeoLevel0 { get; set; }
-        public GeoMasterDto GeoLevel1 { get; set; }
-        public GeoMasterDto GeoLevel2 { get; set; }
-        public GeoMasterDto GeoLevel3 { get; set; }
-        public GeoMasterDto GeoLevel4 { get; set; }
+        
     }
 }

@@ -28,7 +28,8 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 
         public virtual int Level { get; set; }
         public Guid? ParentId { get; set; }
-        
+        // public string ParentName{get;set;}
+        // public GeoMaster Parent { get; set; }
         //public virtual Company company{get;set;}
         public GeoMaster()
         {

@@ -75,7 +75,7 @@ namespace DMSpro.OMS.MdmService.Companies
         public Guid? GeoLevel3Id { get; set; }
         public Guid? GeoLevel4Id { get; set; }
         [ForeignKey(nameof(ParentId))]
-        public virtual Company Parent { get; set; }
+        public virtual Company ParentCompany { get; set; }
         [ForeignKey(nameof(GeoLevel0Id))]
         public virtual GeoMaster GeoLevel0 {get;set;}
         [ForeignKey(nameof(GeoLevel1Id))]

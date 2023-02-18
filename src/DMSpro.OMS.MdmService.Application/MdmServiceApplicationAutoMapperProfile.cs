@@ -69,6 +69,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         * into multiple profile classes for a better organization. */
 
         CreateMap<Company, CompanyDto>();
+        CreateMap<Company, SimpleCompanyDto>();
+        CreateMap<CompanyDto, SimpleCompanyDto>();
         CreateMap<Company, CompanyExcelDto>();
         CreateMap<Company, CompanyWithTenantDto>();
         // CreateMap<CompanyWithDetails, CompanyWithDetailsDto>()
@@ -121,7 +123,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         // GeoLevel4Name
         CreateMap<GeoMaster, GeoMasterDto>();
         CreateMap<GeoMaster, GeoMasterExcelDto>();
-
+        CreateMap<GeoMaster, GeoMasterSimpleDto>();
         CreateMap<Street, StreetDto>();
         CreateMap<Street, StreetExcelDto>();
 
