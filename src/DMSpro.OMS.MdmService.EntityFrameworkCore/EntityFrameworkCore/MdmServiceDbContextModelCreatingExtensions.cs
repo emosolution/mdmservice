@@ -100,7 +100,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ERPCode).HasColumnName(nameof(GeoMaster.ERPCode));
         b.Property(x => x.Name).HasColumnName(nameof(GeoMaster.Name)).IsRequired().HasMaxLength(GeoMasterConsts.NameMaxLength);
         b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<DimensionMeasurement>(b =>
@@ -746,12 +746,12 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Longitude).HasColumnName(nameof(Company.Longitude));
         b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName));
         b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone));
-        b.HasOne<Company>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoLevel0).WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoLevel1).WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoLevel2).WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoLevel3).WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoLevel4).WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<VisitPlan>(b =>
     {

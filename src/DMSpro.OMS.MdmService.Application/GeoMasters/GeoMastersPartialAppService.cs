@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Partial;
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
 	[Authorize(MdmServicePermissions.GeoMasters.Default)]
-	public partial class GeoMastersAppService : PartialAppService<GeoMaster, GeoMasterDto, IGeoMasterRepository>,
+	public partial class GeoMastersAppService : PartialAppService<GeoMaster, GeoMasterWithDetailsDto, IGeoMasterRepository>,
 		IGeoMastersAppService
 	{
 		private readonly IGeoMasterRepository _geoMasterRepository;

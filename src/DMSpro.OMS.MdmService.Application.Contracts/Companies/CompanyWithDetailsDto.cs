@@ -1,12 +1,12 @@
-using System;
+﻿using System;
+using DMSpro.OMS.MdmService.GeoMasters;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
-
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class CompanyDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
-    {
-        public string Code { get; set; }
+	public class CompanyWithDetailsDto:  FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+	{
+		public string Code { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Address { get; set; }
@@ -33,5 +33,16 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public string ConcurrencyStamp { get; set; }
 
-    }
+		public CompanyDto Parent { get; set; }
+		public GeoMasterDto GeoLevel0 { get; set; }
+        public GeoMasterDto GeoLevel1 { get; set; }
+        public GeoMasterDto GeoLevel2 { get; set; }
+        public GeoMasterDto GeoLevel3 { get; set; }
+        public GeoMasterDto GeoLevel4 { get; set; }
+
+        public CompanyWithDetailsDto()
+		{
+		}
+	}
 }
+

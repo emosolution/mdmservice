@@ -58,6 +58,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.Modularity;
+using Volo.Abp.EntityFrameworkCore.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 
@@ -202,6 +204,17 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 {
                     b.MigrationsHistoryTable("__MdmService_Migrations");
                 });
+            });
+        });
+        Configure<AbpEntityOptions>(options =>
+        {
+            options.Entity<GeoMaster>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent);
+            });
+            options.Entity<Company>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.GeoLevel0).Include(o => o.GeoLevel1).Include(o => o.GeoLevel2).Include(o => o.GeoLevel3).Include(o => o.GeoLevel4).Include(o => o.Parent);
             });
         });
     }

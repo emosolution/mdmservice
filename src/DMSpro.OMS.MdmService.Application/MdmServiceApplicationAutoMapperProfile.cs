@@ -71,9 +71,11 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Company, CompanyDto>();
         CreateMap<Company, CompanyExcelDto>();
         CreateMap<Company, CompanyWithTenantDto>();
+        CreateMap<Company, CompanyWithDetailsDto>();
 
         CreateMap<GeoMaster, GeoMasterDto>();
         CreateMap<GeoMaster, GeoMasterExcelDto>();
+        CreateMap<GeoMaster, GeoMasterWithDetailsDto>();
 
         CreateMap<Street, StreetDto>();
         CreateMap<Street, StreetExcelDto>();
