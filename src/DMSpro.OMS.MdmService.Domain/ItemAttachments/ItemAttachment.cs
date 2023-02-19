@@ -1,9 +1,4 @@
-using DMSpro.OMS.MdmService.Items;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -23,6 +18,8 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         public virtual string Url { get; set; }
 
         public virtual bool Active { get; set; }
+
+        public virtual Guid FileId { get; set; }
         public Guid ItemId { get; set; }
 
         public ItemAttachment()
@@ -30,7 +27,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         }
 
-        public ItemAttachment(Guid id, Guid itemId, string description, string url, bool active)
+        public ItemAttachment(Guid id, Guid itemId, string description, string url, bool active, Guid fileId)
         {
 
             Id = id;
@@ -40,6 +37,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             Description = description;
             Url = url;
             Active = active;
+            FileId = fileId;
             ItemId = itemId;
         }
 

@@ -12,6 +12,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         public string Description { get; set; }
         public string Url { get; set; }
         public bool? Active { get; set; }
+        public Guid? FileId { get; set; }
         public Guid? ItemId { get; set; }
 
         public ItemAttachmentExcelDownloadDto()

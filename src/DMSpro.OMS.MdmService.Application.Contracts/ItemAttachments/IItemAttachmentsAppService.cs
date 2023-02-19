@@ -26,7 +26,5 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttachmentExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
-
-        
     }
 }

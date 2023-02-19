@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         }
 
         public async Task<ItemAttachment> CreateAsync(
-        Guid itemId, string description, string url, bool active)
+        Guid itemId, string description, string url, bool active, Guid fileId)
         {
             Check.NotNull(itemId, nameof(itemId));
             Check.Length(description, nameof(description), ItemAttachmentConsts.DescriptionMaxLength);
@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
             var itemAttachment = new ItemAttachment(
              GuidGenerator.Create(),
-             itemId, description, url, active
+             itemId, description, url, active, fileId
              );
 
             return await _itemAttachmentRepository.InsertAsync(itemAttachment);
@@ -37,7 +37,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         public async Task<ItemAttachment> UpdateAsync(
             Guid id,
-            Guid itemId, string description, string url, bool active, [CanBeNull] string concurrencyStamp = null
+            Guid itemId, string description, string url, bool active, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(itemId, nameof(itemId));
@@ -45,15 +45,13 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             Check.NotNullOrWhiteSpace(url, nameof(url));
             Check.Length(url, nameof(url), ItemAttachmentConsts.UrlMaxLength, ItemAttachmentConsts.UrlMinLength);
 
-            var queryable = await _itemAttachmentRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var itemAttachment = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var itemAttachment = await _itemAttachmentRepository.GetAsync(id);
 
             itemAttachment.ItemId = itemId;
             itemAttachment.Description = description;
             itemAttachment.Url = url;
             itemAttachment.Active = active;
+            itemAttachment.FileId = fileId;
 
             itemAttachment.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _itemAttachmentRepository.UpdateAsync(itemAttachment);

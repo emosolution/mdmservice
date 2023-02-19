@@ -1045,7 +1045,7 @@
     "Error:VisitPlanGeneration:557": "RouteId does not represent a route",
     "Error:VisitPlanGeneration:558": "Route is no longer active",
     "Error:VisitPlanGeneration:559": "Customer end date cannot be smaller or equal to effective date",
-    "Error:VisitPlanGeneration:560": "MCPDetail end date cannot be smaller or equal to effective date"
+    "Error:VisitPlanGeneration:560": "MCPDetail end date cannot be smaller or equal to effective date",
+    "Error:FileManagement:550": "Unexpected error when getting directory {name}"
   }
 }
-

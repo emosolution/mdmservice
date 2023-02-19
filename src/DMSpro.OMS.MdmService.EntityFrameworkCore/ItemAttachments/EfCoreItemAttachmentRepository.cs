@@ -36,6 +36,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             string description = null,
             string url = null,
             bool? active = null,
+            Guid? fileId = null,
             Guid? itemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -43,7 +44,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, url, active, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, fileId, itemId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemAttachmentConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -67,6 +68,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             string description = null,
             string url = null,
             bool? active = null,
+            Guid? fileId = null,
             Guid? itemId = null)
         {
             return query
@@ -74,6 +76,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.ItemAttachment.Description.Contains(description))
                     .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.ItemAttachment.Url.Contains(url))
                     .WhereIf(active.HasValue, e => e.ItemAttachment.Active == active)
+                    .WhereIf(fileId.HasValue, e => e.ItemAttachment.FileId == fileId)
                     .WhereIf(itemId != null && itemId != Guid.Empty, e => e.Item != null && e.Item.Id == itemId);
         }
 
@@ -82,12 +85,13 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             string description = null,
             string url = null,
             bool? active = null,
+            Guid? fileId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, url, active);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, url, active, fileId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemAttachmentConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -97,11 +101,12 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             string description = null,
             string url = null,
             bool? active = null,
+            Guid? fileId = null,
             Guid? itemId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, url, active, itemId);
+            query = ApplyFilter(query, filterText, description, url, active, fileId, itemId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -110,13 +115,15 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             string filterText,
             string description = null,
             string url = null,
-            bool? active = null)
+            bool? active = null,
+            Guid? fileId = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.Url.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description))
                     .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.Url.Contains(url))
-                    .WhereIf(active.HasValue, e => e.Active == active);
+                    .WhereIf(active.HasValue, e => e.Active == active)
+                    .WhereIf(fileId.HasValue, e => e.FileId == fileId);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         [StringLength(ItemAttachmentConsts.UrlMaxLength, MinimumLength = ItemAttachmentConsts.UrlMinLength)]
         public string Url { get; set; }
         public bool Active { get; set; } = true;
+        public Guid FileId { get; set; }
         public Guid ItemId { get; set; }
     }
 }

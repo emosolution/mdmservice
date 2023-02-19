@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
@@ -23,8 +22,8 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
     {
         public virtual async Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input)
         {
-            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.ItemId);
-            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId, input.ItemId);
+            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>
             {
@@ -66,37 +65,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             await _itemAttachmentRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.Items.Create)]
-        public virtual async Task<ItemAttachmentDto> CreateAsync(ItemAttachmentCreateDto input)
-        {
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-
-            var itemAttachment = await _itemAttachmentManager.CreateAsync(
-            input.ItemId, input.Description, input.Url, input.Active
-            );
-
-            return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);
-        }
-
-        [Authorize(MdmServicePermissions.Items.Edit)]
-        public virtual async Task<ItemAttachmentDto> UpdateAsync(Guid id, ItemAttachmentUpdateDto input)
-        {
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-
-            var itemAttachment = await _itemAttachmentManager.UpdateAsync(
-            id,
-            input.ItemId, input.Description, input.Url, input.Active, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttachmentExcelDownloadDto input)
         {
@@ -106,10 +74,20 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemAttachmentRepository.GetListAsync(input.FilterText, input.Description, input.Url, input.Active);
+            var itemAttachments = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId);
+            var items = itemAttachments.Select(item => new
+            {
+                Description = item.ItemAttachment.Description,
+                Url = item.ItemAttachment.Url,
+                Active = item.ItemAttachment.Active,
+                FileId = item.ItemAttachment.FileId,
+
+                ItemCode = item.Item?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemAttachment>, List<ItemAttachmentExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "ItemAttachments.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
