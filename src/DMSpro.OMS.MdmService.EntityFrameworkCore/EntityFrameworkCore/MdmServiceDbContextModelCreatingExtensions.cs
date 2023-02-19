@@ -335,8 +335,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(CusAttributeValue.TenantId));
         b.Property(x => x.AttrValName).HasColumnName(nameof(CusAttributeValue.AttrValName)).IsRequired().HasMaxLength(CusAttributeValueConsts.AttrValNameMaxLength);
-        b.HasOne<CustomerAttribute>().WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.ParentCusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttribute>(x => x.CustomerAttribute).WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CusAttributeValue>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentCusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<CustomerInZone>(b =>

@@ -220,6 +220,10 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SalesOrgHierarchy).Include(o => o.Company);
             });
+            options.Entity<CusAttributeValue>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.CustomerAttribute);
+            });
         });
     }
 }

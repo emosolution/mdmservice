@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.CustomerAttributes;
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
     [Authorize(MdmServicePermissions.CusAttributeValues.Default)]
-    public partial class CusAttributeValuesAppService : PartialAppService<CusAttributeValue, CusAttributeValueDto, ICusAttributeValueRepository>,
+    public partial class CusAttributeValuesAppService : PartialAppService<CusAttributeValue, CusAttributeValueWithDetailsDto, ICusAttributeValueRepository>,
         ICusAttributeValuesAppService
     {
         private readonly ICusAttributeValueRepository _cusAttributeValueRepository;

@@ -20,7 +20,8 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
         public virtual string AttrValName { get; set; }
         public Guid CustomerAttributeId { get; set; }
         public Guid? ParentCusAttributeValueId { get; set; }
-
+        public virtual CusAttributeValue Parent { get; set; }
+        public virtual CustomerAttribute CustomerAttribute { get; set; }
         public CusAttributeValue()
         {
 
