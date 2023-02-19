@@ -377,7 +377,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.url).HasColumnName(nameof(CustomerAttachment.url)).IsRequired();
         b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description));
         b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<CustomerAssignment>(b =>

@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Customers;
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
 	[Authorize(MdmServicePermissions.Customers.Default)]
-	public partial class CustomerAttachmentsAppService : PartialAppService<CustomerAttachment, CustomerAttachmentDto, ICustomerAttachmentRepository>,
+	public partial class CustomerAttachmentsAppService : PartialAppService<CustomerAttachment, CustomerAttachmentWithDetailsDto, ICustomerAttachmentRepository>,
 		ICustomerAttachmentsAppService
 	{
 		private readonly ICustomerAttachmentRepository _customerAttachmentRepository;

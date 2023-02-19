@@ -4,6 +4,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
@@ -20,6 +21,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         public virtual bool Active { get; set; }
         public Guid CustomerId { get; set; }
 
+        public virtual Customer Customer { get; set; }
         public CustomerAttachment()
         {
 
