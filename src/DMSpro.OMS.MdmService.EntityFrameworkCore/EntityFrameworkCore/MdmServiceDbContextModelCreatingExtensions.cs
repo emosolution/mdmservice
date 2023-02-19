@@ -553,8 +553,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(CompanyInZone.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(CompanyInZone.EndDate));
         b.Property(x => x.IsBase).HasColumnName(nameof(CompanyInZone.IsBase));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x=> x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<ItemGroup>(b =>

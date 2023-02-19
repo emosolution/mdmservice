@@ -25,7 +25,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CompanyId { get; set; }
 
-        public Company company { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
         public CompanyInZone()
         {
 

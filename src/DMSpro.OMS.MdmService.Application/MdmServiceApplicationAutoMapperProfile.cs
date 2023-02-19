@@ -127,6 +127,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CompanyInZone, CompanyInZoneDto>();
         CreateMap<CompanyInZone, CompanyInZoneExcelDto>();
+        CreateMap<CompanyInZone, CompanyInZoneWithDetailsDto>();
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();

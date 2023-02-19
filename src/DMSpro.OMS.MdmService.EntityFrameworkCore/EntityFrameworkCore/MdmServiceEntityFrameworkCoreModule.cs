@@ -216,6 +216,10 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.GeoLevel0).Include(o => o.GeoLevel1).Include(o => o.GeoLevel2).Include(o => o.GeoLevel3).Include(o => o.GeoLevel4).Include(o => o.Parent);
             });
+            options.Entity<CompanyInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SalesOrgHierarchy).Include(o => o.Company);
+            });
         });
     }
 }
