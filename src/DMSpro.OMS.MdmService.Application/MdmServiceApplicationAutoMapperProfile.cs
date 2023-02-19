@@ -151,6 +151,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerGroupByGeo, CustomerGroupByGeoExcelDto>();
 
         CreateMap<CustomerAssignment, CustomerAssignmentDto>();
+        CreateMap<CustomerAssignment, CustomerAssignmentWithDetailsDto>();
         CreateMap<CustomerAssignment, CustomerAssignmentExcelDto>();
 
         CreateMap<Holiday, HolidayDto>();

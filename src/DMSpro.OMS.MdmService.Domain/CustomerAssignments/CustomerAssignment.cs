@@ -1,4 +1,6 @@
 using System;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.Customers;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -13,6 +15,9 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
         public virtual DateTime? EndDate { get; set; }
         public Guid CompanyId { get; set; }
         public Guid CustomerId { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual Customer Customer { get; set; }
+
 
         public CustomerAssignment()
         {

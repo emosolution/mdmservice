@@ -387,8 +387,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAssignment.TenantId));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerAssignment.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(CustomerAssignment.EndDate));
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<CustomerGroupByGeo>(b =>
