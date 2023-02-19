@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.Partial
     {
         protected readonly IRepository<T> _repository;
         protected readonly ICurrentTenant _currentTenant;
-        private readonly IConfiguration _settingProvider;
+        protected readonly IConfiguration _settingProvider;
 
         private static readonly List<Type> _knownNumberTypes = new()
         {
