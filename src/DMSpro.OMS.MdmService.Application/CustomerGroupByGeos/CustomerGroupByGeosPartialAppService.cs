@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
 	[Authorize(MdmServicePermissions.CustomerGroupByGeos.Default)]
-	public partial class CustomerGroupByGeosAppService : PartialAppService<CustomerGroupByGeo, CustomerGroupByGeoDto, ICustomerGroupByGeoRepository>,
+	public partial class CustomerGroupByGeosAppService : PartialAppService<CustomerGroupByGeo, CustomerGroupByGeoWithDetailsDto, ICustomerGroupByGeoRepository>,
 		ICustomerGroupByGeosAppService
 	{
 		private readonly ICustomerGroupByGeoRepository _customerGroupByGeoRepository;

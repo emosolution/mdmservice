@@ -398,8 +398,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByGeo.TenantId));
         b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupByGeo.Active));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroupByGeo.EffectiveDate));
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMasterId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster).WithMany().IsRequired().HasForeignKey(x => x.GeoMasterId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerGroupByList>(b =>
     {
