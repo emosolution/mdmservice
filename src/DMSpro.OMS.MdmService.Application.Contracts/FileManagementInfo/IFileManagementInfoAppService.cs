@@ -6,6 +6,5 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
     {
         Guid ItemAttachmentDirectoryId { get; }
         Guid ItemImageDirectoryId { get; }
-        Guid TenantDirectoryId { get; }
     }
 }

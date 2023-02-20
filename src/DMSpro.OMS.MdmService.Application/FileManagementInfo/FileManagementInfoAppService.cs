@@ -18,7 +18,6 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
 
         public Guid ItemAttachmentDirectoryId { get; }
         public Guid ItemImageDirectoryId { get; }
-        public Guid TenantDirectoryId { get; }
 
         public FileManagementInfoAppService(ICurrentTenant currentTenant,
             IConfiguration settingProvider)
@@ -30,34 +29,19 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
             {
                 string tenantIdString = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
                 var directoryClient = new DirectoriesProtoAppServiceClient(channel);
-                TenantDirectoryId = GetTenantDirectoryId(directoryClient, tenantIdString);
-                ItemAttachmentDirectoryId = GetItemAttachmentDirectoryId(directoryClient,
-                    TenantDirectoryId, tenantIdString);
-                ItemImageDirectoryId = GetItemImageDirectoryId(directoryClient,
-                    TenantDirectoryId, tenantIdString);
+                ItemAttachmentDirectoryId = GetItemAttachmentDirectoryId(directoryClient, tenantIdString);
+                ItemImageDirectoryId = GetItemImageDirectoryId(directoryClient, tenantIdString);
             }
         }
 
-        private static Guid GetItemImageDirectoryId(DirectoriesProtoAppServiceClient client,
-            Guid tenantDirectoryId, string tenantIdString)
+        private static Guid GetItemImageDirectoryId(DirectoriesProtoAppServiceClient client, string tenantIdString)
         {
-            return GetDirectoryId(client, tenantDirectoryId, tenantIdString, "ItemImages");
+            return GetDirectoryId(client, null, tenantIdString, "ItemImages");
         }
 
-        private static Guid GetItemAttachmentDirectoryId(DirectoriesProtoAppServiceClient client,
-            Guid tenantDirectoryId, string tenantIdString)
+        private static Guid GetItemAttachmentDirectoryId(DirectoriesProtoAppServiceClient client, string tenantIdString)
         {
-            return GetDirectoryId(client, tenantDirectoryId, tenantIdString, "ItemAttachments");
-        }
-
-        private Guid GetTenantDirectoryId(DirectoriesProtoAppServiceClient client, string tenantIdString)
-        {
-            string tenantDirectoryName = "Host";
-            if (_currentTenant.Id != null)
-            {
-                tenantDirectoryName = _currentTenant.Name;
-            }
-            return GetDirectoryId(client, null, tenantIdString, tenantDirectoryName);
+            return GetDirectoryId(client, null, tenantIdString, "ItemAttachments");
         }
 
         private static Guid GetDirectoryId(DirectoriesProtoAppServiceClient client, Guid? parentDirectoryId,
