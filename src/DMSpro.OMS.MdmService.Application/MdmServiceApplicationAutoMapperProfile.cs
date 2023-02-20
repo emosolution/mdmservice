@@ -263,6 +263,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CusAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
 
         CreateMap<Customer, CustomerDto>();
+        CreateMap<Customer, CustomerWithDetailsDto>();
         CreateMap<Customer, CustomerExcelDto>();
         CreateMap<CustomerWithNavigationProperties, CustomerWithNavigationPropertiesDto>();
         CreateMap<Customer, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

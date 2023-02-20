@@ -14,7 +14,7 @@ using DMSpro.OMS.MdmService.Companies;
 namespace DMSpro.OMS.MdmService.Customers
 {
 	[Authorize(MdmServicePermissions.Customers.Default)]
-	public partial class CustomersAppService : PartialAppService<Customer, CustomerDto, ICustomerRepository>,
+	public partial class CustomersAppService : PartialAppService<Customer, CustomerWithDetailsDto, ICustomerRepository>,
 		ICustomersAppService
 	{
 		private readonly ICustomerRepository _customerRepository;
