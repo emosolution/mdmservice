@@ -142,6 +142,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerGroup, CustomerGroupExcelDto>();
 
         CreateMap<CustomerGroupByAtt, CustomerGroupByAttDto>();
+        CreateMap<CustomerGroupByAtt, CustomerGroupByAttsWithDetailsDto>();
         CreateMap<CustomerGroupByAtt, CustomerGroupByAttExcelDto>();
 
         CreateMap<CustomerGroupByList, CustomerGroupByListDto>();

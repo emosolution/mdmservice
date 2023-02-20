@@ -417,8 +417,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
         b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode));
         b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName));
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerGroup>(b =>
     {

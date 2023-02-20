@@ -240,6 +240,14 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer);
             });
 
+            options.Entity<CustomerGroupByAtt>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.CusAttributeValue);
+            });
+
+
+
+
         });
     }
 }

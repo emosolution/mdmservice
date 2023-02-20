@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.CusAttributeValues;
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
     [Authorize(MdmServicePermissions.CustomerGroupByAtts.Default)]
-    public partial class CustomerGroupByAttsAppService : PartialAppService<CustomerGroupByAtt, CustomerGroupByAttDto, ICustomerGroupByAttRepository>,
+    public partial class CustomerGroupByAttsAppService : PartialAppService<CustomerGroupByAtt, CustomerGroupByAttsWithDetailsDto, ICustomerGroupByAttRepository>,
         ICustomerGroupByAttsAppService
     {
         private readonly ICustomerGroupByAttRepository _customerGroupByAttRepository;
