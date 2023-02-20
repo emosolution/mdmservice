@@ -130,6 +130,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CompanyInZone, CompanyInZoneWithDetailsDto>();
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
+        CreateMap<CustomerInZone, CustomerInZoneWithDetailsDto>();
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
 
         CreateMap<EmployeeInZone, EmployeeInZoneDto>();
@@ -146,6 +147,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerGroupByAtt, CustomerGroupByAttExcelDto>();
 
         CreateMap<CustomerGroupByList, CustomerGroupByListDto>();
+        CreateMap<CustomerGroupByList, CustomerGroupByListWithDetailsDto>();
         CreateMap<CustomerGroupByList, CustomerGroupByListExcelDto>();
 
         CreateMap<CustomerGroupByGeo, CustomerGroupByGeoDto>();

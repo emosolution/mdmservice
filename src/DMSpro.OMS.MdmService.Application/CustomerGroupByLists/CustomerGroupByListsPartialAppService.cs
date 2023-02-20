@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
 	[Authorize(MdmServicePermissions.CustomerGroupByLists.Default)]
-	public partial class CustomerGroupByListsAppService : PartialAppService<CustomerGroupByList, CustomerGroupByListDto, ICustomerGroupByListRepository>,
+	public partial class CustomerGroupByListsAppService : PartialAppService<CustomerGroupByList, CustomerGroupByListWithDetailsDto, ICustomerGroupByListRepository>,
 		ICustomerGroupByListsAppService
 	{
 		private readonly ICustomerGroupByListRepository _customerGroupByListRepository;

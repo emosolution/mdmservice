@@ -346,8 +346,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(CustomerInZone.TenantId));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerInZone.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(CustomerInZone.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<CustomerContact>(b =>
@@ -407,8 +407,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByList.TenantId));
         b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupByList.Active));
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerGroupByAtt>(b =>
     {

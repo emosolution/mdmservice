@@ -250,6 +250,16 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.GeoMaster);
             });
 
+            options.Entity<CustomerGroupByList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer).Include(o => o.CustomerGroup);
+            });
+
+            options.Entity<CustomerInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer).Include(o => o.SalesOrgHierarchy);
+            });
+
 
 
 

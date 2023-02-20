@@ -13,7 +13,7 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
     [Authorize(MdmServicePermissions.CustomerInZones.Default)]
-    public partial class CustomerInZonesAppService : PartialAppService<CustomerInZone, CustomerInZoneDto, ICustomerInZoneRepository>,
+    public partial class CustomerInZonesAppService : PartialAppService<CustomerInZone, CustomerInZoneWithDetailsDto, ICustomerInZoneRepository>,
         ICustomerInZonesAppService
     {
         private readonly ICustomerInZoneRepository _customerInZoneRepository;
