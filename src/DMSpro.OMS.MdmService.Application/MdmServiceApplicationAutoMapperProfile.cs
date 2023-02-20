@@ -268,6 +268,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CustomerContact, CustomerContactDto>();
         CreateMap<CustomerContact, CustomerContactExcelDto>();
+        CreateMap<CustomerContact, CustomerContactWithDetailsDto>();
         CreateMap<CustomerContactWithNavigationProperties, CustomerContactWithNavigationPropertiesDto>();
 
         CreateMap<CustomerAttachment, CustomerAttachmentDto>();

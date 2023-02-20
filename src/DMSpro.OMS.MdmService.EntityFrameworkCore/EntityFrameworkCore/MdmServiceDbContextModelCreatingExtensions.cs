@@ -367,7 +367,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.BankName).HasColumnName(nameof(CustomerContact.BankName));
         b.Property(x => x.BankAccName).HasColumnName(nameof(CustomerContact.BankAccName));
         b.Property(x => x.BankAccNumber).HasColumnName(nameof(CustomerContact.BankAccNumber));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerAttachment>(b =>
     {
