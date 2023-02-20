@@ -285,6 +285,11 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o=> o.WorkingPosition);
             });
 
+            options.Entity<HolidayDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Holiday);
+            });
+
 
         });
     }

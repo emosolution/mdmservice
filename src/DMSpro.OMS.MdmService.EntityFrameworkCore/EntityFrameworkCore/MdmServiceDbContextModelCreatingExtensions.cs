@@ -448,7 +448,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.StartDate).HasColumnName(nameof(HolidayDetail.StartDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(HolidayDetail.EndDate));
         b.Property(x => x.Description).HasColumnName(nameof(HolidayDetail.Description));
-        b.HasOne<Holiday>().WithMany().IsRequired().HasForeignKey(x => x.HolidayId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Holiday>(x => x.Holiday).WithMany().IsRequired().HasForeignKey(x => x.HolidayId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<Route>(b =>

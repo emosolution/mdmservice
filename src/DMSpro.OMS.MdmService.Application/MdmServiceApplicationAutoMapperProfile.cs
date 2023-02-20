@@ -163,6 +163,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Holiday, HolidayExcelDto>();
 
         CreateMap<HolidayDetail, HolidayDetailDto>();
+        CreateMap<HolidayDetail, HolidayDetailWithDetailsDto>();
         CreateMap<HolidayDetail, HolidayDetailExcelDto>();
 
         CreateMap<Route, RouteDto>();

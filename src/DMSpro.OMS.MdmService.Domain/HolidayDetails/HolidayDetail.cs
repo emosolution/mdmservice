@@ -23,7 +23,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         [CanBeNull]
         public virtual string Description { get; set; }
         public Guid HolidayId { get; set; }
-
+        public virtual Holiday Holiday { get; set; }
         public HolidayDetail()
         {
 
