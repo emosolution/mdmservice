@@ -290,6 +290,20 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Holiday);
             });
 
+            options.Entity<ItemAttachment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Item);
+            });
+
+            options.Entity<ItemAttributeValue>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.ItemAttribute);
+            });
+
+            options.Entity<ItemGroupList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o=> o.Item);
+            });
 
         });
     }

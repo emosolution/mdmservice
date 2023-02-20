@@ -575,8 +575,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttributeValue.TenantId));
         b.Property(x => x.AttrValName).HasColumnName(nameof(ItemAttributeValue.AttrValName)).IsRequired().HasMaxLength(ItemAttributeValueConsts.AttrValNameMaxLength);
-        b.HasOne<ItemAttribute>().WithMany().IsRequired().HasForeignKey(x => x.ItemAttributeId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemAttribute>(x => x.ItemAttribute).WithMany().IsRequired().HasForeignKey(x => x.ItemAttributeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemAttributeValue>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<ItemAttribute>(b =>
     {
@@ -696,7 +696,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description)).HasMaxLength(ItemAttachmentConsts.DescriptionMaxLength);
         b.Property(x => x.Url).HasColumnName(nameof(ItemAttachment.Url)).IsRequired().HasMaxLength(ItemAttachmentConsts.UrlMaxLength);
         b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
-        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<ItemGroupList>(b =>
     {
@@ -705,9 +705,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroupList.TenantId));
         b.Property(x => x.Rate).HasColumnName(nameof(ItemGroupList.Rate));
         b.Property(x => x.Price).HasColumnName(nameof(ItemGroupList.Price));
-        b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>(x =>x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOM>(x =>x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<MCPHeader>(b =>
     {

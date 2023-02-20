@@ -331,6 +331,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemAttribute, ItemAttributeExcelDto>();
 
         CreateMap<ItemAttributeValue, ItemAttributeValueDto>();
+        CreateMap<ItemAttributeValue, ItemAttributeValueWithDetailsDto>();
         CreateMap<ItemAttributeValue, ItemAttributeValueExcelDto>();
         CreateMap<ItemAttributeValueWithNavigationProperties, ItemAttributeValueWithNavigationPropertiesDto>();
         CreateMap<ItemAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
@@ -356,10 +357,12 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemImageWithNavigationProperties, ItemImageWithNavigationPropertiesDto>();
 
         CreateMap<ItemAttachment, ItemAttachmentDto>();
+        CreateMap<ItemAttachment, ItemAttachmentWithDetailsDto>();
         CreateMap<ItemAttachment, ItemAttachmentExcelDto>();
         CreateMap<ItemAttachmentWithNavigationProperties, ItemAttachmentWithNavigationPropertiesDto>();
 
         CreateMap<ItemGroupList, ItemGroupListDto>();
+        CreateMap<ItemGroupList, ItemGroupListWithDetailsDto>();
         CreateMap<ItemGroupList, ItemGroupListExcelDto>();
         CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
 
