@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.WorkingPositions;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-	public class EmployeeProfileWithDetailsDto
+	public class EmployeeProfileWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public string Code { get; set; }
         public string ERPCode { get; set; }

@@ -638,12 +638,12 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ExpiredValue).HasColumnName(nameof(Item.ExpiredValue));
         b.Property(x => x.IssueMethod).HasColumnName(nameof(Item.IssueMethod));
         b.Property(x => x.CanUpdate).HasColumnName(nameof(Item.CanUpdate));
-        b.HasOne<SystemData>().WithMany().IsRequired().HasForeignKey(x => x.ItemTypeId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<VAT>().WithMany().IsRequired().HasForeignKey(x => x.VatId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOMGroup>().WithMany().IsRequired().HasForeignKey(x => x.UomGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOMGroupDetail>().WithMany().IsRequired().HasForeignKey(x => x.InventoryUOMId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOMGroupDetail>().WithMany().IsRequired().HasForeignKey(x => x.PurUOMId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOMGroupDetail>().WithMany().IsRequired().HasForeignKey(x => x.SalesUOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SystemData>(x => x.ItemType).WithMany().IsRequired().HasForeignKey(x => x.ItemTypeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<VAT>(x => x.VAT).WithMany().IsRequired().HasForeignKey(x => x.VatId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOMGroup>(x => x.UOMGroup).WithMany().IsRequired().HasForeignKey(x => x.UomGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOMGroupDetail>(x => x.InventoryUOM).WithMany().IsRequired().HasForeignKey(x => x.InventoryUOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOMGroupDetail>(x => x.PurUOM).WithMany().IsRequired().HasForeignKey(x => x.PurUOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOMGroupDetail>(x => x.SalesUOM).WithMany().IsRequired().HasForeignKey(x => x.SalesUOMId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
@@ -686,7 +686,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Url).HasColumnName(nameof(ItemImage.Url)).IsRequired().HasMaxLength(ItemImageConsts.UrlMaxLength);
         b.Property(x => x.Active).HasColumnName(nameof(ItemImage.Active));
         b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
-        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<ItemAttachment>(b =>
     {

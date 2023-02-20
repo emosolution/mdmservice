@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.CusAttributeValues;
 using DMSpro.OMS.MdmService.CustomerGroups;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
-	public class CustomerGroupByAttsWithDetailsDto
+	public class CustomerGroupByAttsWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public string ValueCode { get; set; }
         public string ValueName { get; set; }

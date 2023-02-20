@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
-	public class CustomerInZoneWithDetailsDto
+	public class CustomerInZoneWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public DateTime? EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }

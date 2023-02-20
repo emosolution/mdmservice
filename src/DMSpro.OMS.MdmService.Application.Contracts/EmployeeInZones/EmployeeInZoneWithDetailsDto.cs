@@ -1,9 +1,10 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
-	public class EmployeeInZoneWithDetailsDto
+	public class EmployeeInZoneWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public DateTime EffectiveDate { get; set; }
         public Guid? EndDate { get; set; }

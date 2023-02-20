@@ -1,9 +1,10 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.Holidays;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-	public class HolidayDetailWithDetailsDto
+	public class HolidayDetailWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

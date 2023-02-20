@@ -15,7 +15,7 @@ using DMSpro.OMS.MdmService.ItemAttributeValues;
 namespace DMSpro.OMS.MdmService.Items
 {
     [Authorize(MdmServicePermissions.Items.Default)]
-    public partial class ItemsAppService : PartialAppService<Item, ItemDto, IItemRepository>,
+    public partial class ItemsAppService : PartialAppService<Item, ItemWithDetailsDto, IItemRepository>,
         IItemsAppService
     {
         private readonly IItemRepository _itemRepository;

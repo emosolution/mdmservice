@@ -2,10 +2,11 @@
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
-	public class ItemGroupListWithDetailsDto
+	public class ItemGroupListWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public int Rate { get; set; }
         public decimal Price { get; set; }

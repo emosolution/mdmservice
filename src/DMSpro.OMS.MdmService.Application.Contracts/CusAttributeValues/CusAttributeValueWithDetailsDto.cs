@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-	public class CusAttributeValueWithDetailsDto
+	public class CusAttributeValueWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public string AttrValName { get; set; }
         public Guid CustomerAttributeId { get; set; }

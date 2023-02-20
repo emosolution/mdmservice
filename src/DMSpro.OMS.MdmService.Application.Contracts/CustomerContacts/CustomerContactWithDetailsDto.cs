@@ -1,9 +1,10 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.Customers;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
-	public class CustomerContactWithDetailsDto
+	public class CustomerContactWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         
         public Title? Title { get; set; }

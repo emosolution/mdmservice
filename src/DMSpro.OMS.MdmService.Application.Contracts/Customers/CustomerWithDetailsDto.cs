@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.GeoMasters;
 using DMSpro.OMS.MdmService.PriceLists;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.Customers
 {
-	public class CustomerWithDetailsDto
+	public class CustomerWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public string Code { get; set; }
         public string Name { get; set; }

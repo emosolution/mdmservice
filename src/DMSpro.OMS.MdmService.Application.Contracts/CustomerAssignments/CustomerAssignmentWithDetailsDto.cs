@@ -1,10 +1,11 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.Customers;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
-	public class CustomerAssignmentWithDetailsDto
+	public class CustomerAssignmentWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }

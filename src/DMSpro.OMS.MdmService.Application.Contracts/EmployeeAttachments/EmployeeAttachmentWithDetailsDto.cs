@@ -1,9 +1,10 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
-	public class EmployeeAttachmentWithDetailsDto
+	public class EmployeeAttachmentWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
         public string url { get; set; }
         public string Description { get; set; }
