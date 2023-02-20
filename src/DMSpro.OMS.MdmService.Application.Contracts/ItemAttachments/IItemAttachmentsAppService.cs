@@ -1,5 +1,6 @@
 using DMSpro.OMS.MdmService.Shared;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -16,8 +17,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<ItemAttachmentDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
-
-        Task DeleteAsync(Guid id);
 
         Task<ItemAttachmentDto> CreateAsync(ItemAttachmentCreateDto input);
 

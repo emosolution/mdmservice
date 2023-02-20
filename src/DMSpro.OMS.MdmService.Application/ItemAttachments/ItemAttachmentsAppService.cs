@@ -59,12 +59,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             };
         }
 
-        [Authorize(MdmServicePermissions.Items.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _itemAttachmentRepository.DeleteAsync(id);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttachmentExcelDownloadDto input)
         {

@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using DMSpro.OMS.MdmService.ItemAttachments;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -27,6 +28,12 @@ public class MdmServiceHttpApiModule : AbpModule
             options.Resources
                 .Get<MdmServiceResource>()
                 .AddBaseTypes(typeof(AbpUiResource));
+        });
+
+        Configure<AbpAspNetCoreMvcOptions>(options =>
+        {
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentUpdateDto));
         });
     }
 }
