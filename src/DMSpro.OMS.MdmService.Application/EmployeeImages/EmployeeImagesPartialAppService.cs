@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.EmployeeProfiles;
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
 	[Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-	public partial class EmployeeImagesAppService : PartialAppService<EmployeeImage, EmployeeImageDto, IEmployeeImageRepository>,
+	public partial class EmployeeImagesAppService : PartialAppService<EmployeeImage, EmployeeImageWithDetailsDto, IEmployeeImageRepository>,
 		IEmployeeImagesAppService
 	{
 		private readonly IEmployeeImageRepository _employeeImageRepository;

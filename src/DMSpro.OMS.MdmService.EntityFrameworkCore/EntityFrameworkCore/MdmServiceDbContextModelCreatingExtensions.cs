@@ -198,8 +198,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(EmployeeProfile.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(EmployeeProfile.EndDate));
         b.Property(x => x.IdentityUserId).HasColumnName(nameof(EmployeeProfile.IdentityUserId));
-        b.HasOne<WorkingPosition>().WithMany().HasForeignKey(x => x.WorkingPositionId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.EmployeeTypeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<WorkingPosition>(x => x.WorkingPosition).WithMany().HasForeignKey(x => x.WorkingPositionId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SystemData>(x => x.EmployeeType).WithMany().HasForeignKey(x => x.EmployeeTypeId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<PriceList>(b =>
@@ -259,7 +259,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.url).HasColumnName(nameof(EmployeeImage.url)).IsRequired();
         b.Property(x => x.Active).HasColumnName(nameof(EmployeeImage.Active));
         b.Property(x => x.IsAvatar).HasColumnName(nameof(EmployeeImage.IsAvatar));
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<EmployeeAttachment>(b =>
     {
@@ -269,7 +269,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.url).HasColumnName(nameof(EmployeeAttachment.url)).IsRequired();
         b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description));
         b.Property(x => x.Active).HasColumnName(nameof(EmployeeAttachment.Active));
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<SalesOrgHeader>(b =>
     {
@@ -315,8 +315,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeInZone.TenantId));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(EmployeeInZone.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(EmployeeInZone.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerAttribute>(b =>
     {

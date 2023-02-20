@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.EmployeeProfiles;
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
 	[Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-	public partial class EmployeeAttachmentsAppService : PartialAppService<EmployeeAttachment, EmployeeAttachmentDto, IEmployeeAttachmentRepository>,
+	public partial class EmployeeAttachmentsAppService : PartialAppService<EmployeeAttachment, EmployeeAttachmentWithDetailsDto, IEmployeeAttachmentRepository>,
 		IEmployeeAttachmentsAppService
 	{
 		private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;

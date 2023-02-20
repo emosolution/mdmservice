@@ -134,6 +134,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
 
         CreateMap<EmployeeInZone, EmployeeInZoneDto>();
+        CreateMap<EmployeeInZone, EmployeeInZoneWithDetailsDto>();
         CreateMap<EmployeeInZone, EmployeeInZoneExcelDto>();
 
         CreateMap<CustomerAttribute, CustomerAttributeDto>();
@@ -201,6 +202,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<EmployeeProfile, EmployeeProfileDto>();
+        CreateMap<EmployeeProfile, EmployeeProfileWithDetailsDto>();
         CreateMap<EmployeeProfile, EmployeeProfileExcelDto>();
         CreateMap<EmployeeProfileWithNavigationProperties, EmployeeProfileWithNavigationPropertiesDto>();
         CreateMap<WorkingPosition, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -228,11 +230,13 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<EmployeeImage, EmployeeImageDto>();
+        CreateMap<EmployeeImage, EmployeeImageWithDetailsDto>();
         CreateMap<EmployeeImage, EmployeeImageExcelDto>();
         CreateMap<EmployeeImageWithNavigationProperties, EmployeeImageWithNavigationPropertiesDto>();
         CreateMap<EmployeeProfile, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<EmployeeAttachment, EmployeeAttachmentDto>();
+        CreateMap<EmployeeAttachment, EmployeeAttachmentWithDetailsDto>();
         CreateMap<EmployeeAttachment, EmployeeAttachmentExcelDto>();
         CreateMap<EmployeeAttachmentWithNavigationProperties, EmployeeAttachmentWithNavigationPropertiesDto>();
 

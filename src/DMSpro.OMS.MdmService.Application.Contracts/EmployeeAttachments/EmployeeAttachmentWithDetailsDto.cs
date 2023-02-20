@@ -1,0 +1,21 @@
+﻿using System;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
+
+namespace DMSpro.OMS.MdmService.EmployeeAttachments
+{
+	public class EmployeeAttachmentWithDetailsDto
+	{
+        public string url { get; set; }
+        public string Description { get; set; }
+        public bool Active { get; set; }
+        public Guid EmployeeProfileId { get; set; }
+
+        public string ConcurrencyStamp { get; set; }
+        public EmployeeProfileDto EmployeeProfile { get; set; }
+
+        public EmployeeAttachmentWithDetailsDto()
+		{
+		}
+	}
+}
+

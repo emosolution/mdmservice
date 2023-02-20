@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         public virtual bool IsAvatar { get; set; }
         public Guid EmployeeProfileId { get; set; }
-
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
         public EmployeeImage()
         {
 

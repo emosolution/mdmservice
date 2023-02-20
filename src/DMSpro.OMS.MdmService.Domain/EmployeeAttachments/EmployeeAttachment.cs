@@ -25,6 +25,8 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         public virtual bool Active { get; set; }
         public Guid EmployeeProfileId { get; set; }
 
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
+
         public EmployeeAttachment()
         {
 

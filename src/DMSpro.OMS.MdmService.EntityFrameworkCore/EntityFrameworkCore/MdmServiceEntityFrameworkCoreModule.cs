@@ -265,7 +265,25 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.GeoMaster0).Include(o => o.GeoMaster1).Include(o => o.GeoMaster2).Include(o => o.GeoMaster3).Include(o => o.GeoMaster4).Include(o => o.PriceList);
             });
 
+            options.Entity<EmployeeAttachment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
+            });
 
+            options.Entity<EmployeeInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+            });
+
+            options.Entity<EmployeeImage>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
+            });
+
+            options.Entity<EmployeeProfile>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o=> o.WorkingPosition);
+            });
 
 
         });
