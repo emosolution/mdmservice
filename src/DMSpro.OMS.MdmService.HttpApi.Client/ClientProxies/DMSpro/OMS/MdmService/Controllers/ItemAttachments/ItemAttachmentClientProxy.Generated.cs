@@ -118,4 +118,12 @@ public partial class ItemAttachmentClientProxy : ClientProxyBase<IItemAttachment
     {
         return await RequestAsync<IRemoteStreamContent>(nameof(GenerateExcelTemplatesAsync));
     }
+
+    public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GetFile), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id}
+        });
+    }
 }

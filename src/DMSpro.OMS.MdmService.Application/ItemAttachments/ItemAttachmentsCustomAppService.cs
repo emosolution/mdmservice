@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text.Json;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
@@ -48,7 +49,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 Content = content,
             };
             var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
-            var response = client.UploadFile(request);
+            var response = await client.UploadFileAsync(request);
             OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
 
             string url = "N/A";
@@ -86,7 +87,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             };
             deleteRequest.FileIds.Add(record.FileId.ToString());
             var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
-            client.DeleteFiles(deleteRequest);
+            await client.DeleteFilesAsync(deleteRequest);
 
             var stream = new MemoryStream();
             await input.File.GetStream().CopyToAsync(stream);
@@ -99,7 +100,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 ContentType = contentType,
                 Content = content,
             };
-            var uploadResponse = client.UploadFile(uploadRequest);
+            var uploadResponse = await client.UploadFileAsync(uploadRequest);
             OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
 
             string url = "N/A";
@@ -122,9 +123,26 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             request.FileIds.Add(fileIds);
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
             var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
-            client.DeleteFiles(request);
+            await client.DeleteFilesAsync(request);
 
             await _itemAttachmentRepository.DeleteManyAsync(records.ToList());
+        }
+
+        [Authorize(MdmServicePermissions.Items.Default)]
+        public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
+        {
+            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            GetFileRequest request = new()
+            {
+                TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
+                Id = id.ToString(),
+            };
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+            var response = await client.GetFileAsync(request);
+            MemoryStream memoryStream = new MemoryStream(response.Content.ToByteArray());
+            IRemoteStreamContent remoteStreamContent = new RemoteStreamContent(stream: memoryStream, 
+                fileName: response.File.FileName, contentType: response.File.ContentType);
+            return remoteStreamContent;
         }
     }
 }

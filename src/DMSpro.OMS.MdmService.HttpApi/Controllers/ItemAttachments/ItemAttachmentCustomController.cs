@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 {
@@ -14,6 +13,13 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
         public virtual Task DeleteManyAsync(List<Guid> ids)
         {
             return _itemAttachmentsAppService.DeleteManyAsync(ids);
+        }
+
+        [HttpGet]
+        [Route("get-file")]
+        public virtual Task<IRemoteStreamContent> GetFile(Guid id)
+        {
+            return _itemAttachmentsAppService.GetFile(id);
         }
     }
 }
