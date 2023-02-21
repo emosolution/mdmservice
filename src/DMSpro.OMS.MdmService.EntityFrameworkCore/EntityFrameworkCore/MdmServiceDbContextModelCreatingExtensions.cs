@@ -289,8 +289,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.IsBase).HasColumnName(nameof(SalesOrgEmpAssignment.IsBase));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(SalesOrgEmpAssignment.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(SalesOrgEmpAssignment.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<SalesOrgHierarchy>(b =>
@@ -305,8 +305,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.IsSellingZone).HasColumnName(nameof(SalesOrgHierarchy.IsSellingZone));
         b.Property(x => x.HierarchyCode).HasColumnName(nameof(SalesOrgHierarchy.HierarchyCode)).IsRequired();
         b.Property(x => x.Active).HasColumnName(nameof(SalesOrgHierarchy.Active));
-        b.HasOne<SalesOrgHeader>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<SalesOrgHierarchy>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<EmployeeInZone>(b =>
     {

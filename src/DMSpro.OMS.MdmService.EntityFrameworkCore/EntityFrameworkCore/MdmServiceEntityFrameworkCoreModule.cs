@@ -357,6 +357,16 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceList);
             });
 
+            options.Entity<SalesOrgEmpAssignment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+            });
+
+            options.Entity<SalesOrgHierarchy>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.SalesOrgHeader);
+            });
+
 
         });
     }

@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.Routes
         public Guid RouteTypeId { get; set; }
         public Guid ItemGroupId { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
-
+        
         public Route()
         {
 
