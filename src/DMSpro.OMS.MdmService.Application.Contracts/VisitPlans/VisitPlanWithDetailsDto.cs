@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         public MCPDetailDto MCPDetail { get; set; }
         public CustomerDto Customer { get; set; }
-        public SalesOrgHierarchyDto SalesOrgHierarchy { get; set; }
+        public SalesOrgHierarchyDto Route { get; set; }
         public ItemGroupDto ItemGroup { get; set; }
 
         public VisitPlanWithDetailsDto()

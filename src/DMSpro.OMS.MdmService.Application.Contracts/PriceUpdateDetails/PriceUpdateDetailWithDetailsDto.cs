@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using Volo.Abp.Application.Dtos;
@@ -15,7 +16,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
         public Guid PriceListDetailId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
-        public PriceUpdateDto PriceUdate { get; set; }
+        public PriceUpdateDto PriceUpdate { get; set; }
         public PriceListDetailDto PriceListDetail { get; set; }
         public PriceUpdateDetailWithDetailsDto()
 		{
