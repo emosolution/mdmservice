@@ -52,9 +52,8 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             var response = await client.UploadFileAsync(request);
             OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
 
-            string url = "N/A";
             var itemAttachment = await _itemAttachmentManager.CreateAsync(input.ItemId, 
-                input.Description, url, input.Active, Guid.Parse(file.Id));
+                input.Description, input.Active, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);
         }
@@ -103,9 +102,8 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             var uploadResponse = await client.UploadFileAsync(uploadRequest);
             OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
 
-            string url = "N/A";
             var itemAttachment = await _itemAttachmentManager.UpdateAsync(
-                id, input.ItemId, input.Description, url, input.Active, Guid.Parse(file.Id), 
+                id, input.ItemId, input.Description, input.Active, Guid.Parse(file.Id), 
                 input.ConcurrencyStamp);
 
             return ObjectMapper.Map<ItemAttachment, ItemAttachmentDto>(itemAttachment);

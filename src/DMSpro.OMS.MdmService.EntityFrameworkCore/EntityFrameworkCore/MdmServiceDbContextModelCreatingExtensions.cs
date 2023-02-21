@@ -845,13 +845,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
     });
+
         builder.Entity<ItemAttachment>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttachments", MdmServiceDbProperties.DbSchema);
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttachment.TenantId));
         b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description)).HasMaxLength(ItemAttachmentConsts.DescriptionMaxLength);
-        b.Property(x => x.Url).HasColumnName(nameof(ItemAttachment.Url)).IsRequired().HasMaxLength(ItemAttachmentConsts.UrlMaxLength);
         b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
         b.Property(x => x.FileId).HasColumnName(nameof(ItemAttachment.FileId));
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);

@@ -7,7 +7,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
     public class ItemAttachmentDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
         public string Description { get; set; }
-        public string Url { get; set; }
         public bool Active { get; set; }
         public Guid FileId { get; set; }
         public Guid ItemId { get; set; }

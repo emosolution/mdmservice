@@ -22,8 +22,8 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
     {
         public virtual async Task<PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>> GetListAsync(GetItemAttachmentsInput input)
         {
-            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId, input.ItemId);
-            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.FileId, input.ItemId);
+            var items = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.FileId, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemAttachmentWithNavigationPropertiesDto>
             {
@@ -68,11 +68,10 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var itemAttachments = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.FileId);
+            var itemAttachments = await _itemAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.FileId);
             var items = itemAttachments.Select(item => new
             {
                 Description = item.ItemAttachment.Description,
-                Url = item.ItemAttachment.Url,
                 Active = item.ItemAttachment.Active,
                 FileId = item.ItemAttachment.FileId,
 

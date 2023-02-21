@@ -40427,18 +40427,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Url",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "Active",
                   "jsonName": null,
                   "type": "System.Boolean?",
@@ -40874,18 +40862,6 @@
                 {
                   "nameOnMethod": "input",
                   "name": "Description",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Url",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",

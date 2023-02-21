@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,16 +17,14 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         }
 
         public async Task<ItemAttachment> CreateAsync(
-        Guid itemId, string description, string url, bool active, Guid fileId)
+        Guid itemId, string description, bool active, Guid fileId)
         {
             Check.NotNull(itemId, nameof(itemId));
             Check.Length(description, nameof(description), ItemAttachmentConsts.DescriptionMaxLength);
-            Check.NotNullOrWhiteSpace(url, nameof(url));
-            Check.Length(url, nameof(url), ItemAttachmentConsts.UrlMaxLength, ItemAttachmentConsts.UrlMinLength);
 
             var itemAttachment = new ItemAttachment(
              GuidGenerator.Create(),
-             itemId, description, url, active, fileId
+             itemId, description, active, fileId
              );
 
             return await _itemAttachmentRepository.InsertAsync(itemAttachment);
@@ -37,19 +32,16 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         public async Task<ItemAttachment> UpdateAsync(
             Guid id,
-            Guid itemId, string description, string url, bool active, Guid fileId, [CanBeNull] string concurrencyStamp = null
+            Guid itemId, string description, bool active, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(itemId, nameof(itemId));
             Check.Length(description, nameof(description), ItemAttachmentConsts.DescriptionMaxLength);
-            Check.NotNullOrWhiteSpace(url, nameof(url));
-            Check.Length(url, nameof(url), ItemAttachmentConsts.UrlMaxLength, ItemAttachmentConsts.UrlMinLength);
 
             var itemAttachment = await _itemAttachmentRepository.GetAsync(id);
 
             itemAttachment.ItemId = itemId;
             itemAttachment.Description = description;
-            itemAttachment.Url = url;
             itemAttachment.Active = active;
             itemAttachment.FileId = fileId;
 

@@ -16,7 +16,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<List<ItemAttachmentWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             Guid? fileId = null,
             Guid? itemId = null,
@@ -29,7 +28,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<List<ItemAttachment>> GetListAsync(
                     string filterText = null,
                     string description = null,
-                    string url = null,
                     bool? active = null,
                     Guid? fileId = null,
                     string sorting = null,
@@ -41,7 +39,6 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             Guid? fileId = null,
             Guid? itemId = null,
