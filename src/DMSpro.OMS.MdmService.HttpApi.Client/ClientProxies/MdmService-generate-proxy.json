@@ -27585,6 +27585,31 @@
                   }
                 },
                 {
+                  "name": "UpdateMCP",
+                  "parametersOnMethod": [
+                    {
+                      "name": "headerId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "mCPUpdateDto",
+                      "typeAsString": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -28468,6 +28493,63 @@
                   "jsonName": null,
                   "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
                   "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto",
+                "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
+            },
+            "UpdateMCPByHeaderIdAndMcpUpdateDto": {
+              "uniqueName": "UpdateMCPByHeaderIdAndMcpUpdateDto",
+              "name": "UpdateMCP",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/m-cPHeaders/update-mcp/{headerId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "headerId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "mcpUpdateDto",
+                  "typeAsString": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "headerId",
+                  "name": "headerId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "mcpUpdateDto",
+                  "name": "mcpUpdateDto",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

@@ -8,5 +8,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         Task SetEndDate(Guid id, DateTime endDate);
 
         Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto);
+
+        Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mCPUpdateDto);
     }
 }

@@ -117,11 +117,21 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
 
     public virtual async Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
     {
-         return await RequestAsync<MCPDto>(nameof(CreateMCP), new ClientProxyRequestTypeValue
+        return await RequestAsync<MCPDto>(nameof(CreateMCP), new ClientProxyRequestTypeValue
         {
             { typeof(MCPCreateDto), mcpCreateDto }
         });
     }
+
+    public virtual async Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mcpUpdateDto)
+    {
+        return await RequestAsync<MCPDto>(nameof(UpdateMCP), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), headerId },
+            { typeof(MCPUpdateDto), mcpUpdateDto }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
