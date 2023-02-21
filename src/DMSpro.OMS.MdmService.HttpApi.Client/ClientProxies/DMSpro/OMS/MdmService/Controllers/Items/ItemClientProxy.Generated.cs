@@ -122,7 +122,7 @@ public partial class ItemClientProxy : ClientProxyBase<IItemsAppService>, IItems
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual ItemProfileDto GetItemProfile(Guid id)
+    public virtual async Task<ItemProfileDto> GetItemProfile(Guid id)
     {
         return await RequestAsync<ItemProfileDto>(nameof(GetItemProfile), new ClientProxyRequestTypeValue
         {
