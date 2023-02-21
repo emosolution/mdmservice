@@ -60,43 +60,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             };
         }
 
-        [Authorize(MdmServicePermissions.Customers.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _customerAttachmentRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.Customers.Create)]
-        public virtual async Task<CustomerAttachmentDto> CreateAsync(CustomerAttachmentCreateDto input)
-        {
-            if (input.CustomerId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
-            }
-
-            var customerAttachment = await _customerAttachmentManager.CreateAsync(
-            input.CustomerId, input.Description, input.Active, input.FileId
-            );
-
-            return ObjectMapper.Map<CustomerAttachment, CustomerAttachmentDto>(customerAttachment);
-        }
-
-        [Authorize(MdmServicePermissions.Customers.Edit)]
-        public virtual async Task<CustomerAttachmentDto> UpdateAsync(Guid id, CustomerAttachmentUpdateDto input)
-        {
-            if (input.CustomerId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
-            }
-
-            var customerAttachment = await _customerAttachmentManager.UpdateAsync(
-            id,
-            input.CustomerId, input.Description, input.Active, input.FileId, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<CustomerAttachment, CustomerAttachmentDto>(customerAttachment);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerAttachmentExcelDownloadDto input)
         {

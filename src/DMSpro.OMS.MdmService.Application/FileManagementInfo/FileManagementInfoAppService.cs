@@ -18,6 +18,9 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
 
         public Guid ItemAttachmentDirectoryId { get; }
         public Guid ItemImageDirectoryId { get; }
+        public Guid CustomerAttachmentDirectoryId { get; }
+        public Guid EmployeeAttachmentDirectoryId { get; }
+        public Guid EmployeeImageDirectoryId { get; }
 
         public List<string> AcceptedAttachmentContentTypes { get; } = new()
         {
@@ -71,18 +74,11 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
             string tenantIdString = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
             var directoryClient = new DirectoriesProtoAppServiceClient(channel);
-            ItemAttachmentDirectoryId = GetItemAttachmentDirectoryId(directoryClient, tenantIdString);
-            ItemImageDirectoryId = GetItemImageDirectoryId(directoryClient, tenantIdString);
-        }
-
-        private static Guid GetItemImageDirectoryId(DirectoriesProtoAppServiceClient client, string tenantIdString)
-        {
-            return GetDirectoryId(client, null, tenantIdString, "ItemImages");
-        }
-
-        private static Guid GetItemAttachmentDirectoryId(DirectoriesProtoAppServiceClient client, string tenantIdString)
-        {
-            return GetDirectoryId(client, null, tenantIdString, "ItemAttachments");
+            ItemAttachmentDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "ItemAttachments");
+            ItemImageDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "ItemImages");
+            CustomerAttachmentDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "CustomerAttachments");
+            EmployeeAttachmentDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "EmployeeAttachments");
+            EmployeeImageDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "EmployeeImages");
         }
 
         private static Guid GetDirectoryId(DirectoriesProtoAppServiceClient client, Guid? parentDirectoryId,

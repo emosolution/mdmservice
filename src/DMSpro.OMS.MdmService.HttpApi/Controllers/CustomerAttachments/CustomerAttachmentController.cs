@@ -63,13 +63,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
             return _customerAttachmentsAppService.UpdateAsync(id, input);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
-        {
-            return _customerAttachmentsAppService.DeleteAsync(id);
-        }
-
         [HttpGet]
         [Route("as-excel-file")]
         public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerAttachmentExcelDownloadDto input)

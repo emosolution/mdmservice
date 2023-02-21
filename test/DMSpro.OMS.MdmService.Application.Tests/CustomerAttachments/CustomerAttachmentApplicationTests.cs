@@ -4,6 +4,7 @@ using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
@@ -50,7 +51,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             {
                 Description = "de5f1169357f4fb4a565820bc7f99ef0636c79d",
                 Active = true,
-                FileId = Guid.Parse("f4a98615-7776-43f4-8bfb-021b8c18a60e"),
+                //FileId = Guid.Parse("f4a98615-7776-43f4-8bfb-021b8c18a60e"),
                 CustomerId = Guid.Parse("ce6d421c-4cde-493f-b12f-e6fa307128be")
             };
 
@@ -74,7 +75,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             {
                 Description = "561da1fac16a40fba71a01ada10c91a93e386ef",
                 Active = true,
-                FileId = Guid.Parse("727b8d93-998a-48cd-93c7-4b30266e0deb"),
+                //FileId = Guid.Parse("727b8d93-998a-48cd-93c7-4b30266e0deb"),
                 CustomerId = Guid.Parse("ce6d421c-4cde-493f-b12f-e6fa307128be")
             };
 
@@ -94,7 +95,11 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         public async Task DeleteAsync()
         {
             // Act
-            await _customerAttachmentsAppService.DeleteAsync(Guid.Parse("733bb553-ca74-4747-9468-9793cb07d1bd"));
+            List<Guid> ids = new()
+            {
+                Guid.Parse("733bb553-ca74-4747-9468-9793cb07d1bd"),
+            };
+            await _customerAttachmentsAppService.DeleteManyAsync(ids);
 
             // Assert
             var result = await _customerAttachmentRepository.FindAsync(c => c.Id == Guid.Parse("733bb553-ca74-4747-9468-9793cb07d1bd"));

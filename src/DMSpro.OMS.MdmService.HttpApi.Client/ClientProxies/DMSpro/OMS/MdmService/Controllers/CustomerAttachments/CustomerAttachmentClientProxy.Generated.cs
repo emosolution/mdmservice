@@ -69,14 +69,6 @@ public partial class CustomerAttachmentClientProxy : ClientProxyBase<ICustomerAt
         });
     }
 
-    public virtual async Task DeleteAsync(Guid id)
-    {
-        await RequestAsync(nameof(DeleteAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(Guid), id }
-        });
-    }
-
     public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerAttachmentExcelDownloadDto input)
     {
         return await RequestAsync<IRemoteStreamContent>(nameof(GetListAsExcelFileAsync), new ClientProxyRequestTypeValue
@@ -88,6 +80,22 @@ public partial class CustomerAttachmentClientProxy : ClientProxyBase<ICustomerAt
     public virtual async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
     {
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
+    }
+
+    public virtual async Task DeleteManyAsync(List<Guid> ids)
+    {
+        await RequestAsync(nameof(DeleteManyAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(List<Guid>), ids }
+        });
+    }
+
+    public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GetFile), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id}
+        });
     }
 
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
