@@ -60,43 +60,6 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             };
         }
 
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _employeeAttachmentRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeAttachmentDto> CreateAsync(EmployeeAttachmentCreateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeAttachment = await _employeeAttachmentManager.CreateAsync(
-            input.EmployeeProfileId, input.Description, input.Active, input.FileId
-            );
-
-            return ObjectMapper.Map<EmployeeAttachment, EmployeeAttachmentDto>(employeeAttachment);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, EmployeeAttachmentUpdateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeAttachment = await _employeeAttachmentManager.UpdateAsync(
-            id,
-            input.EmployeeProfileId, input.Description, input.Active, input.FileId, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<EmployeeAttachment, EmployeeAttachmentDto>(employeeAttachment);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeAttachmentExcelDownloadDto input)
         {
