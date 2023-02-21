@@ -20,14 +20,13 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         }
 
         public async Task<EmployeeImage> CreateAsync(
-        Guid employeeProfileId, string description, string url, bool active, bool isAvatar)
+        Guid employeeProfileId, string description, bool active, bool isAvatar, Guid fileId)
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
             var employeeImage = new EmployeeImage(
              GuidGenerator.Create(),
-             employeeProfileId, description, url, active, isAvatar
+             employeeProfileId, description, active, isAvatar, fileId
              );
 
             return await _employeeImageRepository.InsertAsync(employeeImage);
@@ -35,22 +34,18 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         public async Task<EmployeeImage> UpdateAsync(
             Guid id,
-            Guid employeeProfileId, string description, string url, bool active, bool isAvatar, [CanBeNull] string concurrencyStamp = null
+            Guid employeeProfileId, string description, bool active, bool isAvatar, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
-            var queryable = await _employeeImageRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var employeeImage = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var employeeImage = await _employeeImageRepository.GetAsync(id);
 
             employeeImage.EmployeeProfileId = employeeProfileId;
             employeeImage.Description = description;
-            employeeImage.url = url;
             employeeImage.Active = active;
             employeeImage.IsAvatar = isAvatar;
+            employeeImage.FileId = fileId;
 
             employeeImage.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _employeeImageRepository.UpdateAsync(employeeImage);

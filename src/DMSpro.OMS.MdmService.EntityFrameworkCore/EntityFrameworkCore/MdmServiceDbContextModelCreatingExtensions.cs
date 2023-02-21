@@ -250,17 +250,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<EmployeeImage>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeImages", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeImage.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(EmployeeImage.Description));
-        b.Property(x => x.url).HasColumnName(nameof(EmployeeImage.url)).IsRequired();
-        b.Property(x => x.Active).HasColumnName(nameof(EmployeeImage.Active));
-        b.Property(x => x.IsAvatar).HasColumnName(nameof(EmployeeImage.IsAvatar));
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
-    });
 
         builder.Entity<SalesOrgHeader>(b =>
     {
@@ -855,6 +844,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description));
         b.Property(x => x.Active).HasColumnName(nameof(EmployeeAttachment.Active));
         b.Property(x => x.FileId).HasColumnName(nameof(EmployeeAttachment.FileId));
+        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<EmployeeImage>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeImages", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeImage.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(EmployeeImage.Description));
+        b.Property(x => x.Active).HasColumnName(nameof(EmployeeImage.Active));
+        b.Property(x => x.IsAvatar).HasColumnName(nameof(EmployeeImage.IsAvatar));
+        b.Property(x => x.FileId).HasColumnName(nameof(EmployeeImage.FileId));
         b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
     }

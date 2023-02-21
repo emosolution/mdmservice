@@ -16,9 +16,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         Task<List<EmployeeImageWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -29,9 +29,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         Task<List<EmployeeImage>> GetListAsync(
                     string filterText = null,
                     string description = null,
-                    string url = null,
                     bool? active = null,
                     bool? isAvatar = null,
+                    Guid? fileId = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -41,9 +41,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             CancellationToken cancellationToken = default);
     }
