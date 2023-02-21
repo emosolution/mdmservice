@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
 	[Authorize(MdmServicePermissions.PriceListAssignments.Default)]
-	public partial class PricelistAssignmentsAppService : PartialAppService<PricelistAssignment, PricelistAssignmentDto, IPricelistAssignmentRepository>,
+	public partial class PricelistAssignmentsAppService : PartialAppService<PricelistAssignment, PricelistAssignmentWithDetailsDto, IPricelistAssignmentRepository>,
 		IPricelistAssignmentsAppService
 	{
 		private readonly IPricelistAssignmentRepository _pricelistAssignmentRepository;

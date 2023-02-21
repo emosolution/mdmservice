@@ -105,12 +105,15 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroup, ItemGroupExcelDto>();
 
         CreateMap<PriceListDetail, PriceListDetailDto>();
+        CreateMap<PriceListDetail, PriceListDetailWithDetailsDto>();
         CreateMap<PriceListDetail, PriceListDetailExcelDto>();
 
         CreateMap<PriceUpdate, PriceUpdateDto>();
+        CreateMap<PriceUpdate, PriceUpdateWithDetailsDto>();
         CreateMap<PriceUpdate, PriceUpdateExcelDto>();
 
         CreateMap<PricelistAssignment, PricelistAssignmentDto>();
+        CreateMap<PricelistAssignment, PricelistAssignmentWithDetailsDto>();
         CreateMap<PricelistAssignment, PricelistAssignmentExcelDto>();
 
         CreateMap<SystemData, SystemDataDto>();
@@ -214,6 +217,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.ValueCode));
 
         CreateMap<PriceList, PriceListDto>();
+        CreateMap<PriceList, PriceListWithDetailsDto>();
         CreateMap<PriceList, PriceListExcelDto>();
 
         CreateMap<PriceListWithNavigationProperties, PriceListWithNavigationPropertiesDto>();
@@ -225,6 +229,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<PriceUpdateWithNavigationProperties, PriceUpdateWithNavigationPropertiesDto>();
 
         CreateMap<PriceUpdateDetail, PriceUpdateDetailDto>();
+        CreateMap<PriceUpdateDetail, PriceUpdateDetailWithDetailsDto>();
         CreateMap<PriceUpdateDetail, PriceUpdateDetailExcelDto>();
         CreateMap<PriceUpdateDetailWithNavigationProperties, PriceUpdateDetailWithNavigationPropertiesDto>();
         CreateMap<PriceUpdate, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

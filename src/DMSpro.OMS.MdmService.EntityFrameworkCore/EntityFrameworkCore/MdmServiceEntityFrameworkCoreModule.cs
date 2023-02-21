@@ -330,6 +330,33 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o=> o.Company);
             });
 
+            options.Entity<PricelistAssignment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.PriceList);
+            });
+
+            options.Entity<PriceListDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOM).Include(o => o.Item).Include(o => o.PriceList);
+            });
+
+            options.Entity<PriceList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.BasePriceList);
+            });
+
+
+            options.Entity<PriceUpdateDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o=> o.PriceUpdate);
+            });
+
+
+            options.Entity<PriceUpdate>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceList);
+            });
+
 
         });
     }

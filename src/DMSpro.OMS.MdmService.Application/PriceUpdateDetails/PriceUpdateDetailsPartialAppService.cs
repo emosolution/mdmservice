@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
     [Authorize(MdmServicePermissions.PriceUpdateDetails.Default)]
-    public partial class PriceUpdateDetailsAppService : PartialAppService<PriceUpdateDetail, PriceUpdateDetailDto, IPriceUpdateDetailRepository>,
+    public partial class PriceUpdateDetailsAppService : PartialAppService<PriceUpdateDetail, PriceUpdateDetailWithDetailsDto, IPriceUpdateDetailRepository>,
         IPriceUpdateDetailsAppService
     {
         private readonly IPriceUpdateDetailRepository _priceUpdateDetailRepository;

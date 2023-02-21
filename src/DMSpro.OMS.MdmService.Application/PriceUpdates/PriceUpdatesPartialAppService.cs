@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.PriceLists;
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
     [Authorize(MdmServicePermissions.PriceUpdates.Default)]
-    public partial class PriceUpdatesAppService : PartialAppService<PriceUpdate, PriceUpdateDto, IPriceUpdateRepository>,
+    public partial class PriceUpdatesAppService : PartialAppService<PriceUpdate, PriceUpdateWithDetailsDto, IPriceUpdateRepository>,
         IPriceUpdatesAppService
     {
         private readonly IPriceUpdateRepository _priceUpdateRepository;

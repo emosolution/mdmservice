@@ -27,6 +27,9 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         public Guid PriceListId { get; set; }
         public Guid UOMId { get; set; }
         public Guid ItemId { get; set; }
+        public virtual PriceList PriceList { get; set; }
+        public virtual UOM UOM { get; set; }
+        public virtual Item Item { get; set; }
 
         public PriceListDetail()
         {

@@ -214,7 +214,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.ArithmeticFactor).HasColumnName(nameof(PriceList.ArithmeticFactor));
         b.Property(x => x.ArithmeticFactorType).HasColumnName(nameof(PriceList.ArithmeticFactorType));
         b.Property(x => x.IsFirstPriceList).HasColumnName(nameof(PriceList.IsFirstPriceList));
-        b.HasOne<PriceList>().WithMany().HasForeignKey(x => x.BasePriceListId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceList>(x => x.BasePriceList).WithMany().HasForeignKey(x => x.BasePriceListId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<PriceUpdate>(b =>
@@ -227,7 +227,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(PriceUpdate.EffectiveDate));
         b.Property(x => x.Status).HasColumnName(nameof(PriceUpdate.Status));
         b.Property(x => x.UpdateStatusDate).HasColumnName(nameof(PriceUpdate.UpdateStatusDate));
-        b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<PriceUpdateDetail>(b =>
@@ -238,8 +238,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.PriceBeforeUpdate).HasColumnName(nameof(PriceUpdateDetail.PriceBeforeUpdate));
         b.Property(x => x.NewPrice).HasColumnName(nameof(PriceUpdateDetail.NewPrice));
         b.Property(x => x.UpdatedDate).HasColumnName(nameof(PriceUpdateDetail.UpdatedDate));
-        b.HasOne<PriceUpdate>().WithMany().IsRequired().HasForeignKey(x => x.PriceUpdateId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<PriceListDetail>().WithMany().IsRequired().HasForeignKey(x => x.PriceListDetailId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceUpdate>(x => x.PriceUpdate).WithMany().IsRequired().HasForeignKey(x => x.PriceUpdateId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceListDetail>(x => x.PriceListDetail).WithMany().IsRequired().HasForeignKey(x => x.PriceListDetailId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<PricelistAssignment>(b =>
     {
@@ -247,8 +247,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.ConfigureByConvention();
         b.Property(x => x.TenantId).HasColumnName(nameof(PricelistAssignment.TenantId));
         b.Property(x => x.Description).HasColumnName(nameof(PricelistAssignment.Description));
-        b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<EmployeeImage>(b =>
     {
@@ -673,9 +673,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Price).HasColumnName(nameof(PriceListDetail.Price));
         b.Property(x => x.BasedOnPrice).HasColumnName(nameof(PriceListDetail.BasedOnPrice));
         b.Property(x => x.Description).HasColumnName(nameof(PriceListDetail.Description)).IsRequired();
-        b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOM>(x => x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<ItemImage>(b =>
     {
