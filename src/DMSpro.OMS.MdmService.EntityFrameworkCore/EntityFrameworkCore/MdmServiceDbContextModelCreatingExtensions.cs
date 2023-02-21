@@ -486,8 +486,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Week2).HasColumnName(nameof(MCPDetail.Week2));
         b.Property(x => x.Week3).HasColumnName(nameof(MCPDetail.Week3));
         b.Property(x => x.Week4).HasColumnName(nameof(MCPDetail.Week4));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<MCPHeader>().WithMany().IsRequired().HasForeignKey(x => x.MCPHeaderId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<MCPHeader>(x => x.MCPHeader).WithMany().IsRequired().HasForeignKey(x => x.MCPHeaderId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<RouteAssignment>(b =>
@@ -519,8 +519,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfig.Prefix));
         b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfig.Suffix));
         b.Property(x => x.Length).HasColumnName(nameof(NumberingConfig.Length));
-        b.HasOne<Company>().WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<SystemConfig>(b =>
@@ -718,9 +718,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Name).HasColumnName(nameof(MCPHeader.Name));
         b.Property(x => x.EffectiveDate).HasColumnName(nameof(MCPHeader.EffectiveDate));
         b.Property(x => x.EndDate).HasColumnName(nameof(MCPHeader.EndDate));
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemGroup>().WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<Company>(b =>

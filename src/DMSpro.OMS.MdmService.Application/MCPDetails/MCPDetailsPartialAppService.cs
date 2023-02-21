@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.Customers;
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
 	[Authorize(MdmServicePermissions.MCPs.Default)]
-	public partial class MCPDetailsAppService : PartialAppService<MCPDetail, MCPDetailDto, IMCPDetailRepository>,
+	public partial class MCPDetailsAppService : PartialAppService<MCPDetail, MCPDetailWithDetailsDto, IMCPDetailRepository>,
 		IMCPDetailsAppService
 	{
 		private readonly IMCPDetailRepository _mCPDetailRepository;

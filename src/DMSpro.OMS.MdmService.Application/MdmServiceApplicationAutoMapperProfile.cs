@@ -117,6 +117,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SystemData, SystemDataExcelDto>();
 
         CreateMap<NumberingConfig, NumberingConfigDto>();
+        CreateMap<NumberingConfig, NumberingConfigWithDetailsDto>();
         CreateMap<NumberingConfig, NumberingConfigExcelDto>();
 
         CreateMap<WorkingPosition, WorkingPositionDto>();
@@ -171,8 +172,10 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<MCPHeader, MCPHeaderDto>();
         CreateMap<MCPHeader, MCPHeaderExcelDto>();
+        CreateMap<MCPHeader, MCPHeaderWithDetailsDto>();
 
         CreateMap<MCPDetail, MCPDetailDto>();
+        CreateMap<MCPDetail, MCPDetailWithDetailsDto>();
         CreateMap<MCPDetail, MCPDetailExcelDto>();
 
         CreateMap<VisitPlan, VisitPlanDto>();

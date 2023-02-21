@@ -4,6 +4,8 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.MCPHeaders;
 
 namespace DMSpro.OMS.MdmService.MCPDetails
 {
@@ -45,6 +47,9 @@ namespace DMSpro.OMS.MdmService.MCPDetails
         public virtual bool Week4 { get; set; }
         public Guid CustomerId { get; set; }
         public Guid MCPHeaderId { get; set; }
+
+        public virtual Customer Customer { get; set; }
+        public virtual MCPHeader MCPHeader { get; set; }
 
         public MCPDetail()
         {
