@@ -10,6 +10,10 @@ using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
+using System.Threading.Tasks;
+using System;
+using DMSpro.OMS.MdmService.ItemAttachments;
+using DMSpro.OMS.MdmService.ItemImages;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -22,6 +26,11 @@ namespace DMSpro.OMS.MdmService.Items
             _excelDownloadTokenCache;
         private readonly ItemManager _itemManager;
 
+        private readonly IItemAttachmentRepository _itemAttachmentRepository;
+        private readonly IItemImageRepository _itemImageRepository;
+        //private readonly IItemAttachmentsAppService _itemAttachmentsAppService;
+        //private readonly IItemImagesAppService _itemImagesAppService;
+
         private readonly IVATRepository _vATRepository;
         private readonly IUOMGroupRepository _uOMGroupRepository;
         private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
@@ -31,6 +40,10 @@ namespace DMSpro.OMS.MdmService.Items
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
             ItemManager itemManager,
+            IItemAttachmentRepository itemAttachmentRepository,
+            IItemImageRepository itemImageRepository,
+            //IItemAttachmentsAppService itemAttachmentsAppService,
+            //IItemImagesAppService itemImagesAppService,
             IConfiguration settingProvider,
             IVATRepository vATRepository,
             IUOMGroupRepository uOMGroupRepository,
@@ -43,6 +56,11 @@ namespace DMSpro.OMS.MdmService.Items
             _itemRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemManager = itemManager;
+
+            _itemAttachmentRepository = itemAttachmentRepository;
+            _itemImageRepository = itemImageRepository;
+            //_itemAttachmentsAppService = itemAttachmentsAppService;
+            //_itemImagesAppService = itemImagesAppService;
 
             _vATRepository = vATRepository;
             _systemDataRepository = systemDataRepository;

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.WorkingPositions;
 using DMSpro.OMS.MdmService.SystemDatas;
+using DMSpro.OMS.MdmService.EmployeeAttachments;
+using DMSpro.OMS.MdmService.EmployeeImages;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
@@ -18,6 +20,9 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         private readonly IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
         private readonly EmployeeProfileManager _employeeProfileManager;
+        private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
+        private readonly IEmployeeImageRepository _employeeImageRepository;
+
 
         private readonly IWorkingPositionRepository _workingPositionRepository;
         private readonly ISystemDataRepository _systemDataRepository;
@@ -25,6 +30,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public EmployeeProfilesAppService(ICurrentTenant currentTenant,
             IEmployeeProfileRepository repository,
             EmployeeProfileManager employeeProfileManager,
+            IEmployeeAttachmentRepository employeeAttachmentRepository,
+            IEmployeeImageRepository employeeImageRepository,
             IConfiguration settingProvider,
             IWorkingPositionRepository workingPositionRepository,
             ISystemDataRepository systemDataRepository,
@@ -34,6 +41,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             _employeeProfileRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _employeeProfileManager = employeeProfileManager;
+            _employeeAttachmentRepository = employeeAttachmentRepository;
+            _employeeImageRepository = employeeImageRepository;
 
             _workingPositionRepository = workingPositionRepository;
             _systemDataRepository = systemDataRepository;

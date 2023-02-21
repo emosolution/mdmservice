@@ -10,6 +10,7 @@ using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.GeoMasters;
 using DMSpro.OMS.MdmService.CusAttributeValues;
 using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.CustomerAttachments;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
@@ -21,6 +22,7 @@ namespace DMSpro.OMS.MdmService.Customers
 		private readonly IDistributedCache<CustomerExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly CustomerManager _customerManager;
+		private readonly ICustomerAttachmentRepository _customerAttachmentRepository;
 
 		private readonly ISystemDataRepository _systemDataRepository;
 		private readonly IPriceListRepository _priceListRepository;
@@ -31,6 +33,7 @@ namespace DMSpro.OMS.MdmService.Customers
 		public CustomersAppService(ICurrentTenant currentTenant,
 			ICustomerRepository repository,
 			CustomerManager customerManager,
+			ICustomerAttachmentRepository customerAttachmentRepository,
 			IConfiguration settingProvider,
 			ISystemDataRepository systemDataRepository,
 			IPriceListRepository priceListRepository,
@@ -43,6 +46,7 @@ namespace DMSpro.OMS.MdmService.Customers
 			_customerRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_customerManager = customerManager;
+			_customerAttachmentRepository = customerAttachmentRepository;
 			
 			_systemDataRepository= systemDataRepository;
 			_priceListRepository = priceListRepository;
