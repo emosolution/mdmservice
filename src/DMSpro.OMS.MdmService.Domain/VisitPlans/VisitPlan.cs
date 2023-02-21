@@ -39,6 +39,12 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public Guid CompanyId { get; set; }
         public Guid? ItemGroupId { get; set; }
 
+        public virtual MCPDetail MCPDetail { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual SalesOrgHierarchy Route { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual ItemGroup ItemGroup { get; set; }
+
         public VisitPlan()
         {
 

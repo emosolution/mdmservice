@@ -15,7 +15,7 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
     [Authorize(MdmServicePermissions.VisitPlans.Default)]
-    public partial class VisitPlansAppService : PartialAppService<VisitPlan, VisitPlanDto, IVisitPlanRepository>,
+    public partial class VisitPlansAppService : PartialAppService<VisitPlan, VisitPlanWithDetailsDto, IVisitPlanRepository>,
         IVisitPlansAppService
     {
         private readonly IVisitPlanRepository _visitPlanRepository;

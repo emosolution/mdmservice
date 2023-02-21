@@ -164,9 +164,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.AltQty).HasColumnName(nameof(UOMGroupDetail.AltQty));
         b.Property(x => x.BaseQty).HasColumnName(nameof(UOMGroupDetail.BaseQty));
         b.Property(x => x.Active).HasColumnName(nameof(UOMGroupDetail.Active));
-        b.HasOne<UOMGroup>().WithMany().IsRequired().HasForeignKey(x => x.UOMGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.AltUOMId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.BaseUOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOMGroup>(x => x.UOMGroup).WithMany().IsRequired().HasForeignKey(x => x.UOMGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOM>(x => x.AltUOM).WithMany().IsRequired().HasForeignKey(x => x.AltUOMId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<UOM>(x => x.BaseUOM).WithMany().IsRequired().HasForeignKey(x => x.BaseUOMId).OnDelete(DeleteBehavior.NoAction);
     });
 
         builder.Entity<WorkingPosition>(b =>
@@ -765,11 +765,11 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Week).HasColumnName(nameof(VisitPlan.Week));
         b.Property(x => x.Month).HasColumnName(nameof(VisitPlan.Month));
         b.Property(x => x.Year).HasColumnName(nameof(VisitPlan.Year));
-        b.HasOne<MCPDetail>().WithMany().IsRequired().HasForeignKey(x => x.MCPDetailId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemGroup>().WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<MCPDetail>(x => x.MCPDetail).WithMany().IsRequired().HasForeignKey(x => x.MCPDetailId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.Route).WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<Vendor>(b =>
     {
@@ -790,13 +790,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Address).HasColumnName(nameof(Vendor.Address));
         b.Property(x => x.Latitude).HasColumnName(nameof(Vendor.Latitude));
         b.Property(x => x.Longitude).HasColumnName(nameof(Vendor.Longitude));
-        b.HasOne<PriceList>().WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x=> x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<Customer>(b =>
     {

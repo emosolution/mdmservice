@@ -99,6 +99,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<UOMGroup, UOMGroupExcelDto>();
 
         CreateMap<UOMGroupDetail, UOMGroupDetailDto>();
+        CreateMap<UOMGroupDetail, UOMGroupDetailWithDetailsDto>();
         CreateMap<UOMGroupDetail, UOMGroupDetailExcelDto>();
 
         CreateMap<ItemGroup, ItemGroupDto>();
@@ -183,6 +184,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<MCPDetail, MCPDetailExcelDto>();
 
         CreateMap<VisitPlan, VisitPlanDto>();
+        CreateMap<VisitPlan, VisitPlanWithDetailsDto>();
         CreateMap<VisitPlan, VisitPlanExcelDto>();
 
         CreateMap<RouteAssignment, RouteAssignmentDto>();
@@ -297,6 +299,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerAttachmentWithNavigationProperties, CustomerAttachmentWithNavigationPropertiesDto>();
 
         CreateMap<Vendor, VendorDto>();
+        CreateMap<Vendor, VendorWithDetailsDto>();
         CreateMap<Vendor, VendorExcelDto>();
 
         CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
