@@ -4,6 +4,7 @@ using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
@@ -51,7 +52,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 Description = "c4c6c9e6820e4",
                 Active = true,
                 IsAvatar = true,
-                FileId = Guid.Parse("dca4b8d3-7fd3-4949-b562-f75e5b55c4bd"),
+                //FileId = Guid.Parse("dca4b8d3-7fd3-4949-b562-f75e5b55c4bd"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
@@ -77,7 +78,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 Description = "b488272ec3f44bfb967abaf785310dd063a30300ab12445fa6be8af",
                 Active = true,
                 IsAvatar = true,
-                FileId = Guid.Parse("5bb764d7-ce5e-4561-964f-cc0dea2b3bcf"),
+                //FileId = Guid.Parse("5bb764d7-ce5e-4561-964f-cc0dea2b3bcf"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
@@ -98,7 +99,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         public async Task DeleteAsync()
         {
             // Act
-            await _employeeImagesAppService.DeleteAsync(Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"));
+            await _employeeImagesAppService.DeleteManyAsync(new List<Guid> { Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12") });
 
             // Assert
             var result = await _employeeImageRepository.FindAsync(c => c.Id == Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"));

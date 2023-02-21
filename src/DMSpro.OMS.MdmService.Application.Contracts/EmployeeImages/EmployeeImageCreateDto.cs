@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
@@ -9,7 +9,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         public string Description { get; set; }
         public bool Active { get; set; } = true;
         public bool IsAvatar { get; set; } = false;
-        public Guid FileId { get; set; }
+        [Required]
+        public IRemoteStreamContent File { get; set; }
+        [Required]
         public Guid EmployeeProfileId { get; set; }
     }
 }

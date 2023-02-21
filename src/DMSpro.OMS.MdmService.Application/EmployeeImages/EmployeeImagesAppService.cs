@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
@@ -58,43 +57,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 TotalCount = totalCount,
                 Items = ObjectMapper.Map<List<EmployeeProfile>, List<LookupDto<Guid>>>(lookupData)
             };
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _employeeImageRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeImage = await _employeeImageManager.CreateAsync(
-            input.EmployeeProfileId, input.Description, input.Active, input.IsAvatar, input.FileId
-            );
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(employeeImage);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeImage = await _employeeImageManager.UpdateAsync(
-            id,
-            input.EmployeeProfileId, input.Description, input.Active, input.IsAvatar, input.FileId, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(employeeImage);
         }
 
         [AllowAnonymous]

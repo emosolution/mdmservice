@@ -17,8 +17,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         Task<PagedResultDto<LookupDto<Guid>>> GetEmployeeProfileLookupAsync(LookupRequestDto input);
 
-        Task DeleteAsync(Guid id);
-
         Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input);
 
         Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input);
