@@ -8,11 +8,9 @@ namespace DMSpro.OMS.MdmService.ItemImages
     {
         [StringLength(ItemImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        [Required]
-        [StringLength(ItemImageConsts.UrlMaxLength, MinimumLength = ItemImageConsts.UrlMinLength)]
-        public string Url { get; set; }
         public bool Active { get; set; } = true;
         public int DisplayOrder { get; set; } = 0;
+        public Guid FileId { get; set; }
         public Guid ItemId { get; set; }
     }
 }

@@ -677,17 +677,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<UOM>().WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<ItemImage>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemImages", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemImage.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(ItemImage.Description)).HasMaxLength(ItemImageConsts.DescriptionMaxLength);
-        b.Property(x => x.Url).HasColumnName(nameof(ItemImage.Url)).IsRequired().HasMaxLength(ItemImageConsts.UrlMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(ItemImage.Active));
-        b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
-        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-    });
 
         builder.Entity<ItemGroupList>(b =>
     {
@@ -854,6 +843,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description)).HasMaxLength(ItemAttachmentConsts.DescriptionMaxLength);
         b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
         b.Property(x => x.FileId).HasColumnName(nameof(ItemAttachment.FileId));
+        b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<ItemImage>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemImages", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(ItemImage.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(ItemImage.Description)).HasMaxLength(ItemImageConsts.DescriptionMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(ItemImage.Active));
+        b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
+        b.Property(x => x.FileId).HasColumnName(nameof(ItemImage.FileId));
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
     });
     }

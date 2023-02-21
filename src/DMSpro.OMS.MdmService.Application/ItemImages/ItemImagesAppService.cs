@@ -23,8 +23,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
     {
         public virtual async Task<PagedResultDto<ItemImageWithNavigationPropertiesDto>> GetListAsync(GetItemImagesInput input)
         {
-            var totalCount = await _itemImageRepository.GetCountAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId);
-            var items = await _itemImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _itemImageRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.FileId, input.ItemId);
+            var items = await _itemImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.FileId, input.ItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<ItemImageWithNavigationPropertiesDto>
             {
@@ -75,7 +75,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
             }
 
             var itemImage = await _itemImageManager.CreateAsync(
-            input.ItemId, input.Description, input.Url, input.Active, input.DisplayOrder
+            input.ItemId, input.Description, input.Active, input.DisplayOrder, input.FileId
             );
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
@@ -91,7 +91,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
 
             var itemImage = await _itemImageManager.UpdateAsync(
             id,
-            input.ItemId, input.Description, input.Url, input.Active, input.DisplayOrder, input.ConcurrencyStamp
+            input.ItemId, input.Description, input.Active, input.DisplayOrder, input.FileId, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
@@ -106,10 +106,20 @@ namespace DMSpro.OMS.MdmService.ItemImages
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _itemImageRepository.GetListAsync(input.FilterText, input.Description, input.Url, input.Active, input.DisplayOrderMin, input.DisplayOrderMax);
+            var itemImages = await _itemImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.DisplayOrderMin, input.DisplayOrderMax, input.FileId);
+            var items = itemImages.Select(item => new
+            {
+                Description = item.ItemImage.Description,
+                Active = item.ItemImage.Active,
+                DisplayOrder = item.ItemImage.DisplayOrder,
+                FileId = item.ItemImage.FileId,
+
+                ItemCode = item.Item?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<ItemImage>, List<ItemImageExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "ItemImages.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
