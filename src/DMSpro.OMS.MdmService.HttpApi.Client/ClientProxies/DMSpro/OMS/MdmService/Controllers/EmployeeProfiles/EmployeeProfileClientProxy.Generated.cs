@@ -98,6 +98,14 @@ public partial class EmployeeProfileClientProxy : ClientProxyBase<IEmployeeProfi
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
+    public virtual EmployeeProfileFullDto GetEmployeeProfile(Guid id)
+    {
+        return await RequestAsync<EmployeeProfileFullDto>(nameof(GetEmployeeProfile), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
