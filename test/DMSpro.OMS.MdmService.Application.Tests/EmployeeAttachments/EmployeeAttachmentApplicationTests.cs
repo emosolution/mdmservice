@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.EmployeeAttachment.Id == Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61")).ShouldBe(true);
-            result.Items.Any(x => x.EmployeeAttachment.Id == Guid.Parse("d96a176e-8c9c-4e13-835e-278d09fd5edc")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeAttachment.Id == Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeAttachment.Id == Guid.Parse("16c313cf-ceb0-4326-88df-c18e28dd19c3")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _employeeAttachmentsAppService.GetAsync(Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"));
+            var result = await _employeeAttachmentsAppService.GetAsync(Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"));
+            result.Id.ShouldBe(Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"));
         }
 
         [Fact]
@@ -48,9 +48,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             // Arrange
             var input = new EmployeeAttachmentCreateDto
             {
-                url = "5216d164951c4c74a5d5a17df610cd7acc17da6b17f2462b87a2ac",
-                Description = "29df2d7037e74fa6a49ca23fc03f18aad3d37a8739cf4e49a3d57e3d1a47378435c2b",
+                Description = "156c65",
                 Active = true,
+                FileId = Guid.Parse("922d6552-ec5e-4cb1-9d80-a5b755408e20"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
@@ -61,9 +61,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             var result = await _employeeAttachmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.url.ShouldBe("5216d164951c4c74a5d5a17df610cd7acc17da6b17f2462b87a2ac");
-            result.Description.ShouldBe("29df2d7037e74fa6a49ca23fc03f18aad3d37a8739cf4e49a3d57e3d1a47378435c2b");
+            result.Description.ShouldBe("156c65");
             result.Active.ShouldBe(true);
+            result.FileId.ShouldBe(Guid.Parse("922d6552-ec5e-4cb1-9d80-a5b755408e20"));
         }
 
         [Fact]
@@ -72,32 +72,32 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             // Arrange
             var input = new EmployeeAttachmentUpdateDto()
             {
-                url = "3c17a21369c94889bf0023c8b52266355005d099fee74aa7a972d47ef582ba0f742f2c947cc8444780603ca566",
-                Description = "30ba4db520914d36a973706057b13b1b5312020ac1",
+                Description = "7eba38f5a1364abdb2f70b9c08be366",
                 Active = true,
+                FileId = Guid.Parse("d1fa3251-03ce-4dbb-b918-145dc502d89a"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
             // Act
-            var serviceResult = await _employeeAttachmentsAppService.UpdateAsync(Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"), input);
+            var serviceResult = await _employeeAttachmentsAppService.UpdateAsync(Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"), input);
 
             // Assert
             var result = await _employeeAttachmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.url.ShouldBe("3c17a21369c94889bf0023c8b52266355005d099fee74aa7a972d47ef582ba0f742f2c947cc8444780603ca566");
-            result.Description.ShouldBe("30ba4db520914d36a973706057b13b1b5312020ac1");
+            result.Description.ShouldBe("7eba38f5a1364abdb2f70b9c08be366");
             result.Active.ShouldBe(true);
+            result.FileId.ShouldBe(Guid.Parse("d1fa3251-03ce-4dbb-b918-145dc502d89a"));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _employeeAttachmentsAppService.DeleteAsync(Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"));
+            await _employeeAttachmentsAppService.DeleteAsync(Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"));
 
             // Assert
-            var result = await _employeeAttachmentRepository.FindAsync(c => c.Id == Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"));
+            var result = await _employeeAttachmentRepository.FindAsync(c => c.Id == Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"));
 
             result.ShouldBeNull();
         }

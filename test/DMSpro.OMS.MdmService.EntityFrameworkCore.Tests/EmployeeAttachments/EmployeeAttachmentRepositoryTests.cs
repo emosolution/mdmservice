@@ -25,15 +25,15 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             {
                 // Act
                 var result = await _employeeAttachmentRepository.GetListAsync(
-                    url: "206cf36bd3e04993ba656893752a6ef089d4872b2a40402dad9eca74",
-                    description: "6f9435",
-                    active: true
+                    description: "26e777a795bf400aaf17eba2ee40fe6e71d42ca04db94b408b3f",
+                    active: true,
+                    fileId: Guid.Parse("8d715ab0-e548-472b-9fba-da58d5114160")
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"));
+                result.First().Id.ShouldBe(Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"));
             });
         }
 
@@ -45,9 +45,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             {
                 // Act
                 var result = await _employeeAttachmentRepository.GetCountAsync(
-                    url: "1f90d0ccdcbe4569af2338336044715984974",
-                    description: "523351348e834e219b17",
-                    active: true
+                    description: "4efa62fe5eb94042a5ae95bf11aff2f31f43d664c8d547e9b8b8aa8dcd4cc7b9fe3",
+                    active: true,
+                    fileId: Guid.Parse("68e3715d-52ee-492b-8804-4e38b7cc2f36")
                 );
 
                 // Assert

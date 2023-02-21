@@ -261,16 +261,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.IsAvatar).HasColumnName(nameof(EmployeeImage.IsAvatar));
         b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<EmployeeAttachment>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeAttachments", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeAttachment.TenantId));
-        b.Property(x => x.url).HasColumnName(nameof(EmployeeAttachment.url)).IsRequired();
-        b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description));
-        b.Property(x => x.Active).HasColumnName(nameof(EmployeeAttachment.Active));
-        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
-    });
+
         builder.Entity<SalesOrgHeader>(b =>
     {
         b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SalesOrgHeaders", MdmServiceDbProperties.DbSchema);
@@ -855,6 +846,16 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
         b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
         b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<EmployeeAttachment>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeAttachments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeAttachment.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description));
+        b.Property(x => x.Active).HasColumnName(nameof(EmployeeAttachment.Active));
+        b.Property(x => x.FileId).HasColumnName(nameof(EmployeeAttachment.FileId));
+        b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }
