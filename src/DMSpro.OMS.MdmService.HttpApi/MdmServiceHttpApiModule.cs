@@ -5,6 +5,10 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using DMSpro.OMS.MdmService.ItemAttachments;
+using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.CustomerAttachments;
+using DMSpro.OMS.MdmService.EmployeeAttachments;
+using DMSpro.OMS.MdmService.EmployeeImages;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -34,6 +38,14 @@ public class MdmServiceHttpApiModule : AbpModule
         {
             options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentCreateDto));
             options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentUpdateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageUpdateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentUpdateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentUpdateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageUpdateDto));
         });
     }
 }
