@@ -60,43 +60,6 @@ namespace DMSpro.OMS.MdmService.ItemImages
             };
         }
 
-        [Authorize(MdmServicePermissions.Items.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _itemImageRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.Items.Create)]
-        public virtual async Task<ItemImageDto> CreateAsync(ItemImageCreateDto input)
-        {
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-
-            var itemImage = await _itemImageManager.CreateAsync(
-            input.ItemId, input.Description, input.Active, input.DisplayOrder, input.FileId
-            );
-
-            return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
-        }
-
-        [Authorize(MdmServicePermissions.Items.Edit)]
-        public virtual async Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input)
-        {
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-
-            var itemImage = await _itemImageManager.UpdateAsync(
-            id,
-            input.ItemId, input.Description, input.Active, input.DisplayOrder, input.FileId, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemImageExcelDownloadDto input)
         {

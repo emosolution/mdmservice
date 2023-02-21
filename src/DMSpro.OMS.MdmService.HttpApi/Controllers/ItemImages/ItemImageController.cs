@@ -63,13 +63,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemImages
             return _itemImagesAppService.UpdateAsync(id, input);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
-        {
-            return _itemImagesAppService.DeleteAsync(id);
-        }
-
         [HttpGet]
         [Route("as-excel-file")]
         public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemImageExcelDownloadDto input)
