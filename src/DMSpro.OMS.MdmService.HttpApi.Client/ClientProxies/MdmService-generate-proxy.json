@@ -62038,18 +62038,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "url",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "Description",
                   "jsonName": null,
                   "type": "System.String",
@@ -62066,6 +62054,18 @@
                   "jsonName": null,
                   "type": "System.Boolean?",
                   "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FileId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -62206,7 +62206,7 @@
               "uniqueName": "GetCustomerLookupAsyncByInput",
               "name": "GetCustomerLookupAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/customer-attachments/customer-profile-lookup",
+              "url": "api/mdm-service/customer-attachments/customer-lookup",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -62437,18 +62437,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "url",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "Description",
                   "jsonName": null,
                   "type": "System.String",
@@ -62465,6 +62453,18 @@
                   "jsonName": null,
                   "type": "System.Boolean?",
                   "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FileId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

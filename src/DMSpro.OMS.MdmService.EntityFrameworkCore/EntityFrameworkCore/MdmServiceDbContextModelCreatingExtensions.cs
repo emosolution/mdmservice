@@ -369,16 +369,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.BankAccNumber).HasColumnName(nameof(CustomerContact.BankAccNumber));
         b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<CustomerAttachment>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
-        b.Property(x => x.url).HasColumnName(nameof(CustomerAttachment.url)).IsRequired();
-        b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description));
-        b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-    });
 
         builder.Entity<CustomerAssignment>(b =>
     {
@@ -855,6 +845,16 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.DisplayOrder).HasColumnName(nameof(ItemImage.DisplayOrder));
         b.Property(x => x.FileId).HasColumnName(nameof(ItemImage.FileId));
         b.HasOne<Item>().WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CustomerAttachment>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description));
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
+        b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
+        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

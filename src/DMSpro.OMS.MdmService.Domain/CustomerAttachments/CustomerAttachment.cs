@@ -11,13 +11,12 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
     {
         public virtual Guid? TenantId { get; set; }
 
-        [NotNull]
-        public virtual string url { get; set; }
-
         [CanBeNull]
         public virtual string Description { get; set; }
 
         public virtual bool Active { get; set; }
+
+        public virtual Guid FileId { get; set; }
         public Guid CustomerId { get; set; }
 
         public CustomerAttachment()
@@ -25,14 +24,13 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 
         }
 
-        public CustomerAttachment(Guid id, Guid customerId, string url, string description, bool active)
+        public CustomerAttachment(Guid id, Guid customerId, string description, bool active, Guid fileId)
         {
 
             Id = id;
-            Check.NotNull(url, nameof(url));
-            this.url = url;
             Description = description;
             Active = active;
+            FileId = fileId;
             CustomerId = customerId;
         }
 
