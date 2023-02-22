@@ -5,7 +5,6 @@ using DMSpro.OMS.Shared.Protos.MdmService.Customers;
 using DMSpro.OMS.MdmService.Helpers;
 using DMSpro.OMS.MdmService.CustomerAssignments;
 using System.Collections.Generic;
-using Volo.Abp.Domain.Repositories;
 using System.Linq;
 using Volo.Abp.MultiTenancy;
 
