@@ -729,6 +729,10 @@ namespace DMSpro.OMS.MdmService.Partial
         {
             for (int i = 2; i <= rowCount; i++)
             {
+                if (IsRowEmpty(sheetData, i, colCount))
+                {
+                    continue;
+                }
                 var newRow = dt.NewRow();
                 var sheetRow = sheetData.Cells[i, 1, i, colCount];
                 foreach (var cell in sheetRow)
@@ -759,6 +763,12 @@ namespace DMSpro.OMS.MdmService.Partial
                 }
                 dt.Rows.Add(newRow);
             }
+        }
+
+        private bool IsRowEmpty(ExcelWorksheet worksheet, int row, int columnEnd) 
+        {
+            var cellRange = worksheet.Cells[row, 1, row, columnEnd];
+            return cellRange.All(c => c.Value == null);
         }
 
         private Guid ParseGuidForUpdate(ExcelRangeBase cell, int row)
