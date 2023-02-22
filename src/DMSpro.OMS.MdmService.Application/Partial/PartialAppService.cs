@@ -765,7 +765,7 @@ namespace DMSpro.OMS.MdmService.Partial
             }
         }
 
-        private bool IsRowEmpty(ExcelWorksheet worksheet, int row, int columnEnd) 
+        private static bool IsRowEmpty(ExcelWorksheet worksheet, int row, int columnEnd) 
         {
             var cellRange = worksheet.Cells[row, 1, row, columnEnd];
             return cellRange.All(c => c.Value == null);
