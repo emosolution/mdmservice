@@ -882,9 +882,14 @@ namespace DMSpro.OMS.MdmService.Partial
                 typeof(ExtraPropertyDictionary),
             };
             knownTypes.AddRange(_knownNumberTypes);
+            string _ignore_type = "DMSpro.OMS.MdmService";
             foreach (PropertyInfo prop in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                if (type.ToString().Contains(_ignore_type))
+                {
+                    continue;
+                }
                 if (!knownTypes.Contains(type))
                 {
                     var detailDict = new Dictionary<string, string>

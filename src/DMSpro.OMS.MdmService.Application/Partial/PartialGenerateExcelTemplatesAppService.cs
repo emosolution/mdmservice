@@ -124,7 +124,7 @@ namespace DMSpro.OMS.MdmService.Partial
                         propertyDataType.Add(propertyName, "decimal");
                         break;
                     case "System.DateTime":
-                        propertyDataType.Add(propertyName, "DateTime");
+                        propertyDataType.Add(propertyName, "datetime");
                         break;
                     case "System.Boolean":
                         propertyDataType.Add(propertyName, "bit");
