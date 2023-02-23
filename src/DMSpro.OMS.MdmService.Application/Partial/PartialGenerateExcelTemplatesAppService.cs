@@ -30,6 +30,7 @@ namespace DMSpro.OMS.MdmService.Partial
             "CreationTime",
             "CreatorId",
             "ConcurrencyStamp",
+            "ExtraProperties"
         };
 
         private static readonly List<string> _structureSheetHeader = new()
@@ -77,10 +78,13 @@ namespace DMSpro.OMS.MdmService.Partial
             object instance = Activator.CreateInstance(type);
             List<string> notNullString = GetNotNullString(instance, type);
             Dictionary<string, (int, string, string, string)> entityCheckInfo = GetEntityCheckInfo(instance, type);
+            string _ignore_type = "DMSpro.OMS.MdmService";
             foreach (PropertyInfo property in properties)
             {
                 string propertyName = property.Name;
-                if (_ignoredProperty.Contains(propertyName))
+                string propertyType = property.PropertyType.ToString();
+              
+                if (propertyType.Contains(_ignore_type) || _ignoredProperty.Contains(propertyName))
                 {
                     continue;
                 }
@@ -103,7 +107,7 @@ namespace DMSpro.OMS.MdmService.Partial
                     }
                 }
                 isPropertyNullable.Add(propertyName, isNullable);
-                if (_ignorePropertyType.Contains(propertyTypeName))
+                if (propertyType.Contains(_ignore_type) || _ignoredProperty.Contains(propertyName))
                 {
                     continue;
                 }
