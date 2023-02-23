@@ -20,14 +20,13 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         }
 
         public async Task<EmployeeAttachment> CreateAsync(
-        Guid employeeProfileId, string url, string description, bool active)
+        Guid employeeProfileId, string description, bool active, Guid fileId)
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
             var employeeAttachment = new EmployeeAttachment(
              GuidGenerator.Create(),
-             employeeProfileId, url, description, active
+             employeeProfileId, description, active, fileId
              );
 
             return await _employeeAttachmentRepository.InsertAsync(employeeAttachment);
@@ -35,21 +34,17 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         public async Task<EmployeeAttachment> UpdateAsync(
             Guid id,
-            Guid employeeProfileId, string url, string description, bool active, [CanBeNull] string concurrencyStamp = null
+            Guid employeeProfileId, string description, bool active, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
-            var queryable = await _employeeAttachmentRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var employeeAttachment = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var employeeAttachment = await _employeeAttachmentRepository.GetAsync(id);
 
             employeeAttachment.EmployeeProfileId = employeeProfileId;
-            employeeAttachment.url = url;
             employeeAttachment.Description = description;
             employeeAttachment.Active = active;
+            employeeAttachment.FileId = fileId;
 
             employeeAttachment.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _employeeAttachmentRepository.UpdateAsync(employeeAttachment);

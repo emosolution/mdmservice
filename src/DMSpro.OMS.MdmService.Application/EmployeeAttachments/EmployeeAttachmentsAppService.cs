@@ -23,8 +23,8 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
     {
         public virtual async Task<PagedResultDto<EmployeeAttachmentWithNavigationPropertiesDto>> GetListAsync(GetEmployeeAttachmentsInput input)
         {
-            var totalCount = await _employeeAttachmentRepository.GetCountAsync(input.FilterText, input.url, input.Description, input.Active, input.EmployeeProfileId);
-            var items = await _employeeAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.url, input.Description, input.Active, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _employeeAttachmentRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.FileId, input.EmployeeProfileId);
+            var items = await _employeeAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.FileId, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<EmployeeAttachmentWithNavigationPropertiesDto>
             {
@@ -60,43 +60,6 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             };
         }
 
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _employeeAttachmentRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeAttachmentDto> CreateAsync(EmployeeAttachmentCreateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeAttachment = await _employeeAttachmentManager.CreateAsync(
-            input.EmployeeProfileId, input.url, input.Description, input.Active
-            );
-
-            return ObjectMapper.Map<EmployeeAttachment, EmployeeAttachmentDto>(employeeAttachment);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, EmployeeAttachmentUpdateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeAttachment = await _employeeAttachmentManager.UpdateAsync(
-            id,
-            input.EmployeeProfileId, input.url, input.Description, input.Active, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<EmployeeAttachment, EmployeeAttachmentDto>(employeeAttachment);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeAttachmentExcelDownloadDto input)
         {
@@ -106,10 +69,19 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _employeeAttachmentRepository.GetListAsync(input.FilterText, input.url, input.Description, input.Active);
+            var employeeAttachments = await _employeeAttachmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.FileId);
+            var items = employeeAttachments.Select(item => new
+            {
+                Description = item.EmployeeAttachment.Description,
+                Active = item.EmployeeAttachment.Active,
+                FileId = item.EmployeeAttachment.FileId,
+
+                EmployeeProfileCode = item.EmployeeProfile?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<EmployeeAttachment>, List<EmployeeAttachmentExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "EmployeeAttachments.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

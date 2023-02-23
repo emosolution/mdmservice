@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Partial;
 namespace DMSpro.OMS.MdmService.PriceLists
 {
 	[Authorize(MdmServicePermissions.PriceLists.Default)]
-	public partial class PriceListsAppService : PartialAppService<PriceList, PriceListDto, IPriceListRepository>,
+	public partial class PriceListsAppService : PartialAppService<PriceList, PriceListWithDetailsDto, IPriceListRepository>,
 		IPriceListsAppService
 	{
 		private readonly IPriceListRepository _priceListRepository;

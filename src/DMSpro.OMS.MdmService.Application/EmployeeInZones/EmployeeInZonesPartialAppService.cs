@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
     [Authorize(MdmServicePermissions.EmployeeInZones.Default)]
-    public partial class EmployeeInZonesAppService : PartialAppService<EmployeeInZone, EmployeeInZoneDto, IEmployeeInZoneRepository>,
+    public partial class EmployeeInZonesAppService : PartialAppService<EmployeeInZone, EmployeeInZoneWithDetailsDto, IEmployeeInZoneRepository>,
         IEmployeeInZonesAppService
     {
         private readonly IEmployeeInZoneRepository _employeeInZoneRepository;

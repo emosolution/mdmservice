@@ -4,6 +4,7 @@ using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
@@ -27,19 +28,19 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.EmployeeImage.Id == Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b")).ShouldBe(true);
-            result.Items.Any(x => x.EmployeeImage.Id == Guid.Parse("d117d5ff-356c-4418-beeb-529d98ce0e36")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeImage.Id == Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeImage.Id == Guid.Parse("2b8951d4-26ce-444d-8457-8f584b4344ee")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _employeeImagesAppService.GetAsync(Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b"));
+            var result = await _employeeImagesAppService.GetAsync(Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b"));
+            result.Id.ShouldBe(Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"));
         }
 
         [Fact]
@@ -48,10 +49,10 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             // Arrange
             var input = new EmployeeImageCreateDto
             {
-                Description = "6a5a25dc0aa542aea2d4dfb4e7e57a8cdb3e2ea6675247e498b26496a79402459ca1b46861244b11954a58b1c5",
-                url = "7f9bce1dbfa746ffb14bc6e2946b5a75f87a2a9e",
+                Description = "c4c6c9e6820e4",
                 Active = true,
                 IsAvatar = true,
+                //FileId = Guid.Parse("dca4b8d3-7fd3-4949-b562-f75e5b55c4bd"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
@@ -62,10 +63,10 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             var result = await _employeeImageRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("6a5a25dc0aa542aea2d4dfb4e7e57a8cdb3e2ea6675247e498b26496a79402459ca1b46861244b11954a58b1c5");
-            result.url.ShouldBe("7f9bce1dbfa746ffb14bc6e2946b5a75f87a2a9e");
+            result.Description.ShouldBe("c4c6c9e6820e4");
             result.Active.ShouldBe(true);
             result.IsAvatar.ShouldBe(true);
+            result.FileId.ShouldBe(Guid.Parse("dca4b8d3-7fd3-4949-b562-f75e5b55c4bd"));
         }
 
         [Fact]
@@ -74,34 +75,34 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             // Arrange
             var input = new EmployeeImageUpdateDto()
             {
-                Description = "2e3d56a47c0744e881a152a79d5fc9d88b4ed293d1f74803aeae28cf6774ef487857214807ee4",
-                url = "d3221097ea7a4601aa27a322b105e782bd0e07eea1fb4f158f00fcc48813a8793780f",
+                Description = "b488272ec3f44bfb967abaf785310dd063a30300ab12445fa6be8af",
                 Active = true,
                 IsAvatar = true,
+                //FileId = Guid.Parse("5bb764d7-ce5e-4561-964f-cc0dea2b3bcf"),
                 EmployeeProfileId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
             // Act
-            var serviceResult = await _employeeImagesAppService.UpdateAsync(Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b"), input);
+            var serviceResult = await _employeeImagesAppService.UpdateAsync(Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"), input);
 
             // Assert
             var result = await _employeeImageRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("2e3d56a47c0744e881a152a79d5fc9d88b4ed293d1f74803aeae28cf6774ef487857214807ee4");
-            result.url.ShouldBe("d3221097ea7a4601aa27a322b105e782bd0e07eea1fb4f158f00fcc48813a8793780f");
+            result.Description.ShouldBe("b488272ec3f44bfb967abaf785310dd063a30300ab12445fa6be8af");
             result.Active.ShouldBe(true);
             result.IsAvatar.ShouldBe(true);
+            result.FileId.ShouldBe(Guid.Parse("5bb764d7-ce5e-4561-964f-cc0dea2b3bcf"));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _employeeImagesAppService.DeleteAsync(Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b"));
+            await _employeeImagesAppService.DeleteManyAsync(new List<Guid> { Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12") });
 
             // Assert
-            var result = await _employeeImageRepository.FindAsync(c => c.Id == Guid.Parse("8edf5e2e-2a59-410d-962c-2275a580468b"));
+            var result = await _employeeImageRepository.FindAsync(c => c.Id == Guid.Parse("cc8b6322-3ee7-4a46-bd95-7ba6da256a12"));
 
             result.ShouldBeNull();
         }

@@ -25,6 +25,9 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
         public Guid CustomerGroupId { get; set; }
         public Guid CusAttributeValueId { get; set; }
 
+        public virtual CustomerGroup CustomerGroup { get; set; }
+        public virtual CusAttributeValue CusAttributeValue { get; set; }
+
         public CustomerGroupByAtt()
         {
 

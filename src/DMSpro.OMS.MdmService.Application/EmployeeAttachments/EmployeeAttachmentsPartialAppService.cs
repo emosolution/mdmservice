@@ -6,23 +6,26 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
+using DMSpro.OMS.MdmService.FileManagementInfo;
 
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
 	[Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-	public partial class EmployeeAttachmentsAppService : PartialAppService<EmployeeAttachment, EmployeeAttachmentDto, IEmployeeAttachmentRepository>,
+	public partial class EmployeeAttachmentsAppService : PartialAppService<EmployeeAttachment, EmployeeAttachmentWithDetailsDto, IEmployeeAttachmentRepository>,
 		IEmployeeAttachmentsAppService
 	{
 		private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
 		private readonly IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly EmployeeAttachmentManager _employeeAttachmentManager;
+        private readonly IFileManagementInfoAppService _fileManagementInfoAppService;
 
-		private readonly IEmployeeProfileRepository _employeeProfileRepository;
+        private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
 		public EmployeeAttachmentsAppService(ICurrentTenant currentTenant,
 			IEmployeeAttachmentRepository repository,
 			EmployeeAttachmentManager employeeAttachmentManager,
+			IFileManagementInfoAppService fileManagementInfoAppService,
 			IConfiguration settingProvider,
 			IEmployeeProfileRepository employeeProfileRepository,
 			IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
@@ -31,6 +34,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 			_employeeAttachmentRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_employeeAttachmentManager = employeeAttachmentManager;
+			_fileManagementInfoAppService = fileManagementInfoAppService;
 			
 			_employeeProfileRepository = employeeProfileRepository;
 

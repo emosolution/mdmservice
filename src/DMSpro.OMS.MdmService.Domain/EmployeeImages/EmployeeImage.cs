@@ -19,28 +19,26 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        [NotNull]
-        public virtual string url { get; set; }
-
         public virtual bool Active { get; set; }
 
         public virtual bool IsAvatar { get; set; }
-        public Guid EmployeeProfileId { get; set; }
 
+        public virtual Guid FileId { get; set; }
+        public Guid EmployeeProfileId { get; set; }
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
         public EmployeeImage()
         {
 
         }
 
-        public EmployeeImage(Guid id, Guid employeeProfileId, string description, string url, bool active, bool isAvatar)
+        public EmployeeImage(Guid id, Guid employeeProfileId, string description, bool active, bool isAvatar, Guid fileId)
         {
 
             Id = id;
-            Check.NotNull(url, nameof(url));
             Description = description;
-            this.url = url;
             Active = active;
             IsAvatar = isAvatar;
+            FileId = fileId;
             EmployeeProfileId = employeeProfileId;
         }
 

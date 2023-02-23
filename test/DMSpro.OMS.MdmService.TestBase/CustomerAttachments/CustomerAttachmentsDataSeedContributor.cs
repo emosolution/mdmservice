@@ -15,9 +15,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly CustomersDataSeedContributor _customersDataSeedContributor;
 
-        public CustomerAttachmentsDataSeedContributor(ICustomerAttachmentRepository customerAttachmentRepository, 
-            CustomersDataSeedContributor customersDataSeedContributor,
-            IUnitOfWorkManager unitOfWorkManager)
+        public CustomerAttachmentsDataSeedContributor(ICustomerAttachmentRepository customerAttachmentRepository, IUnitOfWorkManager unitOfWorkManager, CustomersDataSeedContributor customersDataSeedContributor)
         {
             _customerAttachmentRepository = customerAttachmentRepository;
             _unitOfWorkManager = unitOfWorkManager;
@@ -35,20 +33,20 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 
             await _customerAttachmentRepository.InsertAsync(new CustomerAttachment
             (
-                id: Guid.Parse("8db6de0b-2715-41b7-85b1-4157f3778be4"),
-                url: "4b8ea87c9d204e29a98e9c10c",
-                description: "96fad43a6e6742c2ae70b2a267437064513233aeb8ad4eaab1e760fd7b5e543380940",
+                id: Guid.Parse("733bb553-ca74-4747-9468-9793cb07d1bd"),
+                description: "9d11035",
                 active: true,
-                customerId: Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                fileId: Guid.Parse("d66c8ccb-7637-469b-84c7-140847a4783a"),
+                customerId: Guid.Parse("ce6d421c-4cde-493f-b12f-e6fa307128be")
             ));
 
             await _customerAttachmentRepository.InsertAsync(new CustomerAttachment
             (
-                id: Guid.Parse("f65f3c2d-f9b1-4814-a236-b7989fc07ced"),
-                url: "9b1cb478e430434eb06d671136142c26b4a4ded20e384f47a9e7a249886e457f9356a9b3fdd240b3a89bf03",
-                description: "afe6c7616781466aad9a8bb977240f0b01e64c5ecd70412497687c5351fe752043543b285b9b42",
+                id: Guid.Parse("3ed21074-9c0e-46b3-83ce-c05e55dc6fd6"),
+                description: "7299a06334fa",
                 active: true,
-                customerId: Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                fileId: Guid.Parse("9addaadf-bd64-4374-a804-8f39fced702e"),
+                customerId: Guid.Parse("ce6d421c-4cde-493f-b12f-e6fa307128be")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

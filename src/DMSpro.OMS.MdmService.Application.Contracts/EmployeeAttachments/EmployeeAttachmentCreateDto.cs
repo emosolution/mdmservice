@@ -1,15 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
     public class EmployeeAttachmentCreateDto
     {
-        [Required]
-        public string url { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; } = true;
+        [Required]
+        public IRemoteStreamContent File { get; set; }
+        [Required]
         public Guid EmployeeProfileId { get; set; }
     }
 }

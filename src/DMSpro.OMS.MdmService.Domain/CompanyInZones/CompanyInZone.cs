@@ -1,15 +1,10 @@
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.Companies;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
 
 using Volo.Abp;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
@@ -25,7 +20,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CompanyId { get; set; }
 
-        public Company company { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
         public CompanyInZone()
         {
 

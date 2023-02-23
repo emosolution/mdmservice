@@ -26,6 +26,9 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
         public Guid AltUOMId { get; set; }
         public Guid BaseUOMId { get; set; }
 
+        public virtual UOMGroup UOMGroup { get; set; }
+        public virtual UOM AltUOM { get; set; }
+        public virtual UOM BaseUOM { get; set; }
         public UOMGroupDetail()
         {
 

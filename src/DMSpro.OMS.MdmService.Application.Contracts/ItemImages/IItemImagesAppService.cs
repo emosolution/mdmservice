@@ -17,8 +17,6 @@ namespace DMSpro.OMS.MdmService.ItemImages
 
         Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
 
-        Task DeleteAsync(Guid id);
-
         Task<ItemImageDto> CreateAsync(ItemImageCreateDto input);
 
         Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input);

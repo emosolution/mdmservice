@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Partial;
 namespace DMSpro.OMS.MdmService.Companies
 {
     [Authorize(MdmServicePermissions.CompanyMasters.Default)]
-    public partial class CompaniesAppService : PartialAppService<Company, CompanyDto, ICompanyRepository>, ICompaniesAppService
+    public partial class CompaniesAppService : PartialAppService<Company, CompanyWithDetailsDto, ICompanyRepository>, ICompaniesAppService
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;

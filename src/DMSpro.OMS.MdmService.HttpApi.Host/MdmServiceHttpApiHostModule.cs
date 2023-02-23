@@ -20,6 +20,7 @@ using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.VATs;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.UOMs;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -71,6 +72,9 @@ public class MdmServiceHttpApiHostModule : AbpModule
         });
         
         context.Services.AddGrpc().AddJsonTranscoding();
+
+        // DISABLE ALL AUTHORIZATIONS 
+        // context.Services.AddAlwaysAllowAuthorization();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -108,13 +112,12 @@ public class MdmServiceHttpApiHostModule : AbpModule
         {
             endpoints.MapMetrics();
             endpoints.MapGrpcService<CompaniesGRPCAppService>();
-            endpoints.MapGrpcService<VendorsGRPCAppService>();
-
             endpoints.MapGrpcService<CustomersGRPCAppService>();
-            endpoints.MapGrpcService<SalesOrgHierarchiesGRPCAppService>();
-            endpoints.MapGrpcService<VATsGRPCAppService>();
             endpoints.MapGrpcService<ItemsGRPCAppService>();
-
+            endpoints.MapGrpcService<SalesOrgHierarchiesGRPCAppService>();
+            endpoints.MapGrpcService<UOMsGRPCAppService>();
+            endpoints.MapGrpcService<VATsGRPCAppService>();
+            endpoints.MapGrpcService<VendorsGRPCAppService>();
         });
     }
 

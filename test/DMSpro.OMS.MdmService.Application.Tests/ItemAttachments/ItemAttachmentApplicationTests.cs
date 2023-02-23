@@ -4,6 +4,7 @@ using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemAttachments
 {
@@ -27,19 +28,19 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.ItemAttachment.Id == Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72")).ShouldBe(true);
-            result.Items.Any(x => x.ItemAttachment.Id == Guid.Parse("cf6c4f27-336d-4daa-af74-ec751e244a7b")).ShouldBe(true);
+            result.Items.Any(x => x.ItemAttachment.Id == Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a")).ShouldBe(true);
+            result.Items.Any(x => x.ItemAttachment.Id == Guid.Parse("0af5b120-f029-44a4-b0b5-bb4fad5baf6b")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemAttachmentsAppService.GetAsync(Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72"));
+            var result = await _itemAttachmentsAppService.GetAsync(Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72"));
+            result.Id.ShouldBe(Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a"));
         }
 
         [Fact]
@@ -48,9 +49,9 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             // Arrange
             var input = new ItemAttachmentCreateDto
             {
-                Description = "3e279843a9cf4517b67fa1806e93ea4680e940bc096b4aa8b08c8d12ab46dfefed73115235b94627b97e551c58fb9e3b64624d6daa264319914dfd99977cf0864dc518f0dfb14f9f98d96f6140f0ddd9c04e1728a40c4090811da729a7f4b82b922cda16dbd7411a8d47bb587e0339137aa0d312fe43474094c0677727e6c5b176725e5b2c4c46b98b2f88d21d298bf9b4c1cd88626e44ae832d927eac89327fcac8757c49644fc38dd1774ecc7c939d19bc4d596437418f90ad996ae1b0d180c71ef1ac932045fb92c6e85261c1b6e5924a59dfc4504cb7b7817396b891e930f81cc352e17e41a69ef9bdc4ba1526ca047f9bb574d641e48b3b",
-                Url = "81639765c98b4f9e830a902c61f84b02d5a93aa84fa54cd29132ea35f60e6d00c97671c256354136a674ad4c10484c94d34b4c4a6e714be292c99e9f84f940233cbed6143f934cf48177ecc061fc518b44f53ad449864c9d979671a5011aade75513644eac314cd795f71b9a49afb82c3050462cadcb4e2c9a25c37857bd376d03e0c1deefe24efaaf63bb7041aae1c485247c59a4fd4ebe938d3c02aa441422c444033a88304dea89d97362e72e2a5fa68aad26c5814ec6b9a1693e8144789347b5d1ee65e748de95b46754baddb99825aaf67911a44f05811324c6bdaa95a925023f71aa4049d3b9461701d80536dacd3e077de3474ab0a09c",
+                Description = "abfeb0769efa4feb88a9ed1d9ed9bbd026a486a4423f4ac2914f9584cfcf70492586f27840a2403b85ec6419a3b3c2b22328383a3fbd4e68811faaf79fe4b6d6cf5353a9685b4f3f90a6dcad20f71c28e2c1398aa15f4d95b7ab951c3f5047fa85a5977a695f482280883dbe455b6bf674052aedd9c84555bf6db1b05741352307a461fb5ee2471fb8da7bb10e38a392e8633794417f4ce38bae3c2654bcc9fb944cdaa03ffb4b00b7a8a4e6f420da9ba5eff3793de24811886834b6f255dfe516bd26bd8a334f07bc98826400f9510f573b501d00df489bb585ea412c21b38f7e3b158640c940acaea6655646e23c6ce7acda3d86b34218ae9a",
                 Active = true,
+                //FileId = Guid.Parse("db9f57ef-8196-46b0-8185-66fcb25d4525"),
                 ItemId = Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             };
 
@@ -61,9 +62,9 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             var result = await _itemAttachmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("3e279843a9cf4517b67fa1806e93ea4680e940bc096b4aa8b08c8d12ab46dfefed73115235b94627b97e551c58fb9e3b64624d6daa264319914dfd99977cf0864dc518f0dfb14f9f98d96f6140f0ddd9c04e1728a40c4090811da729a7f4b82b922cda16dbd7411a8d47bb587e0339137aa0d312fe43474094c0677727e6c5b176725e5b2c4c46b98b2f88d21d298bf9b4c1cd88626e44ae832d927eac89327fcac8757c49644fc38dd1774ecc7c939d19bc4d596437418f90ad996ae1b0d180c71ef1ac932045fb92c6e85261c1b6e5924a59dfc4504cb7b7817396b891e930f81cc352e17e41a69ef9bdc4ba1526ca047f9bb574d641e48b3b");
-            result.Url.ShouldBe("81639765c98b4f9e830a902c61f84b02d5a93aa84fa54cd29132ea35f60e6d00c97671c256354136a674ad4c10484c94d34b4c4a6e714be292c99e9f84f940233cbed6143f934cf48177ecc061fc518b44f53ad449864c9d979671a5011aade75513644eac314cd795f71b9a49afb82c3050462cadcb4e2c9a25c37857bd376d03e0c1deefe24efaaf63bb7041aae1c485247c59a4fd4ebe938d3c02aa441422c444033a88304dea89d97362e72e2a5fa68aad26c5814ec6b9a1693e8144789347b5d1ee65e748de95b46754baddb99825aaf67911a44f05811324c6bdaa95a925023f71aa4049d3b9461701d80536dacd3e077de3474ab0a09c");
+            result.Description.ShouldBe("abfeb0769efa4feb88a9ed1d9ed9bbd026a486a4423f4ac2914f9584cfcf70492586f27840a2403b85ec6419a3b3c2b22328383a3fbd4e68811faaf79fe4b6d6cf5353a9685b4f3f90a6dcad20f71c28e2c1398aa15f4d95b7ab951c3f5047fa85a5977a695f482280883dbe455b6bf674052aedd9c84555bf6db1b05741352307a461fb5ee2471fb8da7bb10e38a392e8633794417f4ce38bae3c2654bcc9fb944cdaa03ffb4b00b7a8a4e6f420da9ba5eff3793de24811886834b6f255dfe516bd26bd8a334f07bc98826400f9510f573b501d00df489bb585ea412c21b38f7e3b158640c940acaea6655646e23c6ce7acda3d86b34218ae9a");
             result.Active.ShouldBe(true);
+            //result.FileId.ShouldBe(Guid.Parse("db9f57ef-8196-46b0-8185-66fcb25d4525"));
         }
 
         [Fact]
@@ -72,32 +73,36 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             // Arrange
             var input = new ItemAttachmentUpdateDto()
             {
-                Description = "02eaea5c104e49db92d864bf838c9a938d1c26c8eb3f4cc98e9388c7a0fb2e5c692bcca8973f4001907a6899e04e909a54b1b90657d74ebcabf35a3557a9be5326f78f28e68d452ab3e66ca00e3e6b57e9882fa12f1b4cd8a7d625578490f9b7e658fc78ce7d4895a074a2b243ea12239be41290187445bba0026cd6f2be2cc88112762fb1a049ea94c6963bb81f45d1b07d878ffd474a21923b6de0cc3ce3fc71d09b03837b4767b2a47fcf716c1a2abe252afdef4f453e8fc7702f391ebd6cd31b2af0e3344eb1a095802c1286740c63834333753e41038bb67b2922b66a841c7b4880752c4b4aa72ec77f9847cc76f347c8497389470fa47e",
-                Url = "cd2d3867cda44db8bcee443364dce85aadcec131cb5740be8484a6cc8af5d71e08513e88c8d247858ef8e09e490af57d5a8863564fb549519793175f4692001ee9ee864f702d4eabaea7c9f0ec434204e653061f45bd4b4e9f839f50a2845b1e3eb8c963864a4c149ee73dbbbaa781819cfd7b72b8e348689401ca6d31890da62b61557949734b77860348ca09c6b2c6899f4ff5c59744d3a8864c0ae69b36c4e21f6e07f6d04227a1d7299476cda8c3fc5d1e6903e54178915acb84293299a007ce0cd72b284be1a8f0d0d3641872fcb5fca9851eed4a64b0c741c369066cd5fe6bda73b89946c8b6126abe65c1e4647e9329cf90ae40178a01",
+                Description = "4619441313a84a43afb92b91b13c741f1f22da3cb9a943368cd601a60720c44e22e9963be01544e5906c1acdd816285c78e3b3c089224df28e7a19732ff8cca78a65a1f73f6e46ada56a03dbcf7a4ff9d8ce62c5e7ea4c7db07469254597c8c84408353df8ad44c0ac57e90fb3409cf765ea3584372f451a89611cbb5de3c44b00ffd0360f3b4ea4b5fc733322a1725b654865251d7b4645ab77f8e12298c6f9d7405142bd844e1fb1af85c4062ee972bc822b4a3d6746e4b7d110ca4fbc7175ebce277e862b4dd7855548cf5737e745ba56e64e4e6a4cb88cd86babdb7eb5c135965b1b07724edc800eb03303a2823ebe507d9d7cd34db99420",
                 Active = true,
+                //FileId = Guid.Parse("40f7a17a-dc2b-43ae-813e-af1eb0c34c2f"),
                 ItemId = Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
             };
 
             // Act
-            var serviceResult = await _itemAttachmentsAppService.UpdateAsync(Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72"), input);
+            var serviceResult = await _itemAttachmentsAppService.UpdateAsync(Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a"), input);
 
             // Assert
             var result = await _itemAttachmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("02eaea5c104e49db92d864bf838c9a938d1c26c8eb3f4cc98e9388c7a0fb2e5c692bcca8973f4001907a6899e04e909a54b1b90657d74ebcabf35a3557a9be5326f78f28e68d452ab3e66ca00e3e6b57e9882fa12f1b4cd8a7d625578490f9b7e658fc78ce7d4895a074a2b243ea12239be41290187445bba0026cd6f2be2cc88112762fb1a049ea94c6963bb81f45d1b07d878ffd474a21923b6de0cc3ce3fc71d09b03837b4767b2a47fcf716c1a2abe252afdef4f453e8fc7702f391ebd6cd31b2af0e3344eb1a095802c1286740c63834333753e41038bb67b2922b66a841c7b4880752c4b4aa72ec77f9847cc76f347c8497389470fa47e");
-            result.Url.ShouldBe("cd2d3867cda44db8bcee443364dce85aadcec131cb5740be8484a6cc8af5d71e08513e88c8d247858ef8e09e490af57d5a8863564fb549519793175f4692001ee9ee864f702d4eabaea7c9f0ec434204e653061f45bd4b4e9f839f50a2845b1e3eb8c963864a4c149ee73dbbbaa781819cfd7b72b8e348689401ca6d31890da62b61557949734b77860348ca09c6b2c6899f4ff5c59744d3a8864c0ae69b36c4e21f6e07f6d04227a1d7299476cda8c3fc5d1e6903e54178915acb84293299a007ce0cd72b284be1a8f0d0d3641872fcb5fca9851eed4a64b0c741c369066cd5fe6bda73b89946c8b6126abe65c1e4647e9329cf90ae40178a01");
+            result.Description.ShouldBe("4619441313a84a43afb92b91b13c741f1f22da3cb9a943368cd601a60720c44e22e9963be01544e5906c1acdd816285c78e3b3c089224df28e7a19732ff8cca78a65a1f73f6e46ada56a03dbcf7a4ff9d8ce62c5e7ea4c7db07469254597c8c84408353df8ad44c0ac57e90fb3409cf765ea3584372f451a89611cbb5de3c44b00ffd0360f3b4ea4b5fc733322a1725b654865251d7b4645ab77f8e12298c6f9d7405142bd844e1fb1af85c4062ee972bc822b4a3d6746e4b7d110ca4fbc7175ebce277e862b4dd7855548cf5737e745ba56e64e4e6a4cb88cd86babdb7eb5c135965b1b07724edc800eb03303a2823ebe507d9d7cd34db99420");
             result.Active.ShouldBe(true);
+            //result.FileId.ShouldBe(Guid.Parse("40f7a17a-dc2b-43ae-813e-af1eb0c34c2f"));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemAttachmentsAppService.DeleteAsync(Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72"));
+            List<Guid> ids = new()
+            {
+                {Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a") }
+            };
+            await _itemAttachmentsAppService.DeleteManyAsync(ids);
 
             // Assert
-            var result = await _itemAttachmentRepository.FindAsync(c => c.Id == Guid.Parse("085e25a9-91ba-48b8-9d01-2d28a6f69d72"));
+            var result = await _itemAttachmentRepository.FindAsync(c => c.Id == Guid.Parse("6ca6e468-ab4f-43c5-b376-dd94d92b830a"));
 
             result.ShouldBeNull();
         }

@@ -19,30 +19,27 @@ namespace DMSpro.OMS.MdmService.ItemImages
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        [NotNull]
-        public virtual string Url { get; set; }
-
         public virtual bool Active { get; set; }
 
         public virtual int DisplayOrder { get; set; }
-        public Guid ItemId { get; set; }
 
+        public virtual Guid FileId { get; set; }
+        public Guid ItemId { get; set; }
+        public Item Item { get; set; }
         public ItemImage()
         {
 
         }
 
-        public ItemImage(Guid id, Guid itemId, string description, string url, bool active, int displayOrder)
+        public ItemImage(Guid id, Guid itemId, string description, bool active, int displayOrder, Guid fileId)
         {
 
             Id = id;
             Check.Length(description, nameof(description), ItemImageConsts.DescriptionMaxLength, 0);
-            Check.NotNull(url, nameof(url));
-            Check.Length(url, nameof(url), ItemImageConsts.UrlMaxLength, ItemImageConsts.UrlMinLength);
             Description = description;
-            Url = url;
             Active = active;
             DisplayOrder = displayOrder;
+            FileId = fileId;
             ItemId = itemId;
         }
 

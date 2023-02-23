@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Customers;
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public partial class CustomerContactsAppService : PartialAppService<CustomerContact, CustomerContactDto, ICustomerContactRepository>,
+    public partial class CustomerContactsAppService : PartialAppService<CustomerContact, CustomerContactWithDetailsDto, ICustomerContactRepository>,
         ICustomerContactsAppService
     {
         private readonly ICustomerContactRepository _customerContactRepository;

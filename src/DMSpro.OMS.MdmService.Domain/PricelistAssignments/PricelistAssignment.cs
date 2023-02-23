@@ -22,6 +22,9 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         public Guid PriceListId { get; set; }
         public Guid CustomerGroupId { get; set; }
 
+        public virtual PriceList PriceList { get; set; }
+        public virtual CustomerGroup CustomerGroup { get; set; }
+
         public PricelistAssignment()
         {
 

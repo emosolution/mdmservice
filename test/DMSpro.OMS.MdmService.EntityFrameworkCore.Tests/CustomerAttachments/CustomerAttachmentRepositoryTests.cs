@@ -25,15 +25,15 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             {
                 // Act
                 var result = await _customerAttachmentRepository.GetListAsync(
-                    url: "4b8ea87c9d204e29a98e9c10c",
-                    description: "96fad43a6e6742c2ae70b2a267437064513233aeb8ad4eaab1e760fd7b5e543380940",
-                    active: true
+                    description: "9d11035",
+                    active: true,
+                    fileId: Guid.Parse("d66c8ccb-7637-469b-84c7-140847a4783a")
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("8db6de0b-2715-41b7-85b1-4157f3778be4"));
+                result.First().Id.ShouldBe(Guid.Parse("733bb553-ca74-4747-9468-9793cb07d1bd"));
             });
         }
 
@@ -45,9 +45,9 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             {
                 // Act
                 var result = await _customerAttachmentRepository.GetCountAsync(
-                    url: "9b1cb478e430434eb06d671136142c26b4a4ded20e384f47a9e7a249886e457f9356a9b3fdd240b3a89bf03",
-                    description: "afe6c7616781466aad9a8bb977240f0b01e64c5ecd70412497687c5351fe752043543b285b9b42",
-                    active: true
+                    description: "7299a06334fa",
+                    active: true,
+                    fileId: Guid.Parse("9addaadf-bd64-4374-a804-8f39fced702e")
                 );
 
                 // Assert

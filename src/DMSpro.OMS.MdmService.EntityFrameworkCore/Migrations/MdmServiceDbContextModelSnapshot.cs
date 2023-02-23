@@ -579,6 +579,10 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FileId");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -596,11 +600,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
-
-                    b.Property<string>("url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("url");
 
                     b.HasKey("Id");
 
@@ -1565,6 +1564,10 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FileId");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -1582,11 +1585,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
-
-                    b.Property<string>("url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("url");
 
                     b.HasKey("Id");
 
@@ -1637,6 +1635,10 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FileId");
+
                     b.Property<bool>("IsAvatar")
                         .HasColumnType("bit")
                         .HasColumnName("IsAvatar");
@@ -1658,11 +1660,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
-
-                    b.Property<string>("url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("url");
 
                     b.HasKey("Id");
 
@@ -2116,6 +2113,10 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FileId");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -2136,12 +2137,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Url");
 
                     b.HasKey("Id");
 
@@ -2661,6 +2656,10 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FileId");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -2681,12 +2680,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Url");
 
                     b.HasKey("Id");
 

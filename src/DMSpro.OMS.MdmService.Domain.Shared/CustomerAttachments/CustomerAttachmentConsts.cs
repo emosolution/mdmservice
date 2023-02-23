@@ -2,7 +2,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
     public static class CustomerAttachmentConsts
     {
-        private const string DefaultSorting = "{0}url asc";
+        private const string DefaultSorting = "{0}Description asc";
 
         public static string GetDefaultSorting(bool withEntityName)
         {

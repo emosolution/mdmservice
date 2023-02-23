@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.UOMGroups;
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
 	[Authorize(MdmServicePermissions.UOMGroupDetails.Default)]
-	public partial class UOMGroupDetailsAppService : PartialAppService<UOMGroupDetail, UOMGroupDetailDto, IUOMGroupDetailRepository>,
+	public partial class UOMGroupDetailsAppService : PartialAppService<UOMGroupDetail, UOMGroupDetailWithDetailsDto, IUOMGroupDetailRepository>,
 		IUOMGroupDetailsAppService
 	{
 		private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;

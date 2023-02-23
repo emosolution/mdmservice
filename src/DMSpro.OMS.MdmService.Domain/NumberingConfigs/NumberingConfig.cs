@@ -29,6 +29,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public Guid? CompanyId { get; set; }
         public Guid? SystemDataId { get; set; }
 
+        public virtual Company Company { get; set; }
+        public virtual SystemData SystemData { get; set; }
         public NumberingConfig()
         {
 

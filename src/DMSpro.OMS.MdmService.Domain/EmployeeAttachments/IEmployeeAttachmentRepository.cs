@@ -15,9 +15,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         Task<List<EmployeeAttachmentWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
-            string url = null,
             string description = null,
             bool? active = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -27,9 +27,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         Task<List<EmployeeAttachment>> GetListAsync(
                     string filterText = null,
-                    string url = null,
                     string description = null,
                     bool? active = null,
+                    Guid? fileId = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -38,9 +38,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         Task<long> GetCountAsync(
             string filterText = null,
-            string url = null,
             string description = null,
             bool? active = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             CancellationToken cancellationToken = default);
     }

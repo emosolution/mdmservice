@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
@@ -9,11 +9,9 @@ namespace DMSpro.OMS.MdmService.ItemImages
     {
         [StringLength(ItemImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        [Required]
-        [StringLength(ItemImageConsts.UrlMaxLength, MinimumLength = ItemImageConsts.UrlMinLength)]
-        public string Url { get; set; }
         public bool Active { get; set; }
         public int DisplayOrder { get; set; }
+        public IRemoteStreamContent File { get; set; }
         public Guid ItemId { get; set; }
 
         public string ConcurrencyStamp { get; set; }

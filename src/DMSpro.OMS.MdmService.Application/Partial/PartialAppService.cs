@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.Partial
     {
         protected readonly IRepository<T> _repository;
         protected readonly ICurrentTenant _currentTenant;
-        private readonly IConfiguration _settingProvider;
+        protected readonly IConfiguration _settingProvider;
 
         private static readonly List<Type> _knownNumberTypes = new()
         {
@@ -74,7 +74,7 @@ namespace DMSpro.OMS.MdmService.Partial
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
-            var items = await _repository.GetQueryableAsync();
+            var items = await _repository.WithDetailsAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
@@ -729,6 +729,10 @@ namespace DMSpro.OMS.MdmService.Partial
         {
             for (int i = 2; i <= rowCount; i++)
             {
+                if (IsRowEmpty(sheetData, i, colCount))
+                {
+                    continue;
+                }
                 var newRow = dt.NewRow();
                 var sheetRow = sheetData.Cells[i, 1, i, colCount];
                 foreach (var cell in sheetRow)
@@ -759,6 +763,12 @@ namespace DMSpro.OMS.MdmService.Partial
                 }
                 dt.Rows.Add(newRow);
             }
+        }
+
+        private static bool IsRowEmpty(ExcelWorksheet worksheet, int row, int columnEnd) 
+        {
+            var cellRange = worksheet.Cells[row, 1, row, columnEnd];
+            return cellRange.All(c => c.Value == null);
         }
 
         private Guid ParseGuidForUpdate(ExcelRangeBase cell, int row)

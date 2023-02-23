@@ -32,7 +32,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         public virtual bool IsFirstPriceList { get; set; }
         public Guid? BasePriceListId { get; set; }
-
+        public virtual PriceList BasePriceList { get; set; }
         public PriceList()
         {
 

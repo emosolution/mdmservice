@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Holidays;
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
 	[Authorize(MdmServicePermissions.HolidayDetails.Default)]
-	public partial class HolidayDetailsAppService : PartialAppService<HolidayDetail, HolidayDetailDto, IHolidayDetailRepository>,
+	public partial class HolidayDetailsAppService : PartialAppService<HolidayDetail, HolidayDetailWithDetailsDto, IHolidayDetailRepository>,
 		IHolidayDetailsAppService
 	{
 		private readonly IHolidayDetailRepository _holidayDetailRepository;

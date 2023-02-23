@@ -25,6 +25,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeProfileId { get; set; }
 
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
         public SalesOrgEmpAssignment()
         {
 

@@ -13,7 +13,7 @@ using DMSpro.OMS.MdmService.Companies;
 namespace DMSpro.OMS.MdmService.Vendors
 {
     [Authorize(MdmServicePermissions.Vendors.Default)]
-    public partial class VendorsAppService : PartialAppService<Vendor, VendorDto, IVendorRepository>,
+    public partial class VendorsAppService : PartialAppService<Vendor, VendorWithDetailsDto, IVendorRepository>,
         IVendorsAppService
     {
         private readonly IVendorRepository _vendorRepository;

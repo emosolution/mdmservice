@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.ItemAttributes;
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
     [Authorize(MdmServicePermissions.ItemAttributeValues.Default)]
-    public partial class ItemAttributeValuesAppService : PartialAppService<ItemAttributeValue, ItemAttributeValueDto, IItemAttributeValueRepository>,
+    public partial class ItemAttributeValuesAppService : PartialAppService<ItemAttributeValue, ItemAttributeValueWithDetailsDto, IItemAttributeValueRepository>,
         IItemAttributeValuesAppService
     {
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;

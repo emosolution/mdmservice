@@ -33,19 +33,19 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
             await _employeeAttachmentRepository.InsertAsync(new EmployeeAttachment
             (
-                id: Guid.Parse("5b7a3183-f7e9-4c78-b345-63ad7f123f61"),
-                url: "206cf36bd3e04993ba656893752a6ef089d4872b2a40402dad9eca74",
-                description: "6f9435",
+                id: Guid.Parse("ecc88372-b838-46e7-acb9-35460da0b2ee"),
+                description: "26e777a795bf400aaf17eba2ee40fe6e71d42ca04db94b408b3f",
                 active: true,
+                fileId: Guid.Parse("8d715ab0-e548-472b-9fba-da58d5114160"),
                 employeeProfileId: Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             ));
 
             await _employeeAttachmentRepository.InsertAsync(new EmployeeAttachment
             (
-                id: Guid.Parse("d96a176e-8c9c-4e13-835e-278d09fd5edc"),
-                url: "1f90d0ccdcbe4569af2338336044715984974",
-                description: "523351348e834e219b17",
+                id: Guid.Parse("16c313cf-ceb0-4326-88df-c18e28dd19c3"),
+                description: "4efa62fe5eb94042a5ae95bf11aff2f31f43d664c8d547e9b8b8aa8dcd4cc7b9fe3",
                 active: true,
+                fileId: Guid.Parse("68e3715d-52ee-492b-8804-4e38b7cc2f36"),
                 employeeProfileId: Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             ));
 

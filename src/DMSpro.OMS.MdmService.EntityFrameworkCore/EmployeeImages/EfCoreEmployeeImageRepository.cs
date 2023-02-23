@@ -34,9 +34,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         public async Task<List<EmployeeImageWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, url, active, isAvatar, employeeProfileId);
+            query = ApplyFilter(query, filterText, description, active, isAvatar, fileId, employeeProfileId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? EmployeeImageConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -66,32 +66,32 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             IQueryable<EmployeeImageWithNavigationProperties> query,
             string filterText,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null)
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.EmployeeImage.Description.Contains(filterText) || e.EmployeeImage.url.Contains(filterText))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.EmployeeImage.Description.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.EmployeeImage.Description.Contains(description))
-                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.EmployeeImage.url.Contains(url))
                     .WhereIf(active.HasValue, e => e.EmployeeImage.Active == active)
                     .WhereIf(isAvatar.HasValue, e => e.EmployeeImage.IsAvatar == isAvatar)
+                    .WhereIf(fileId.HasValue, e => e.EmployeeImage.FileId == fileId)
                     .WhereIf(employeeProfileId != null && employeeProfileId != Guid.Empty, e => e.EmployeeProfile != null && e.EmployeeProfile.Id == employeeProfileId);
         }
 
         public async Task<List<EmployeeImage>> GetListAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, url, active, isAvatar);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, description, active, isAvatar, fileId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? EmployeeImageConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -99,14 +99,14 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         public async Task<long> GetCountAsync(
             string filterText = null,
             string description = null,
-            string url = null,
             bool? active = null,
             bool? isAvatar = null,
+            Guid? fileId = null,
             Guid? employeeProfileId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, url, active, isAvatar, employeeProfileId);
+            query = ApplyFilter(query, filterText, description, active, isAvatar, fileId, employeeProfileId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -114,16 +114,16 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             IQueryable<EmployeeImage> query,
             string filterText,
             string description = null,
-            string url = null,
             bool? active = null,
-            bool? isAvatar = null)
+            bool? isAvatar = null,
+            Guid? fileId = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText) || e.url.Contains(filterText))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Description.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description))
-                    .WhereIf(!string.IsNullOrWhiteSpace(url), e => e.url.Contains(url))
                     .WhereIf(active.HasValue, e => e.Active == active)
-                    .WhereIf(isAvatar.HasValue, e => e.IsAvatar == isAvatar);
+                    .WhereIf(isAvatar.HasValue, e => e.IsAvatar == isAvatar)
+                    .WhereIf(fileId.HasValue, e => e.FileId == fileId);
         }
     }
 }

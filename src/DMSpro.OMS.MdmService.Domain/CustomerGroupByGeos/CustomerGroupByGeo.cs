@@ -10,6 +10,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
@@ -22,6 +23,9 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
         public virtual DateTime? EffectiveDate { get; set; }
         public Guid CustomerGroupId { get; set; }
         public Guid GeoMasterId { get; set; }
+
+        public virtual CustomerGroup CustomerGroup { get; set; }
+        public virtual GeoMaster GeoMaster { get; set; }
 
         public CustomerGroupByGeo()
         {

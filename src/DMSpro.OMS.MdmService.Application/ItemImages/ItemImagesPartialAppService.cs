@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.FileManagementInfo;
 
 namespace DMSpro.OMS.MdmService.ItemImages
 {
@@ -17,12 +18,14 @@ namespace DMSpro.OMS.MdmService.ItemImages
         private readonly IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
         private readonly ItemImageManager _itemImageManager;
+        private readonly IFileManagementInfoAppService _fileManagementInfoAppService;
 
         private readonly IItemRepository _itemRepository;
 
         public ItemImagesAppService(ICurrentTenant currentTenant,
             IItemImageRepository repository,
             ItemImageManager itemImageManager,
+            IFileManagementInfoAppService fileManagementInfoAppService,
             IConfiguration settingProvider,
             IItemRepository itemRepository,
             IDistributedCache<ItemImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
@@ -31,6 +34,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
             _itemImageRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemImageManager = itemImageManager;
+            _fileManagementInfoAppService = fileManagementInfoAppService;
 
             _itemRepository = itemRepository;
 

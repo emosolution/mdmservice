@@ -61,17 +61,16 @@ public class VendorsGRPCAppService : VendorsProtoAppService.VendorsProtoAppServi
             TenantId = request.TenantId,
             VendorId = request.VendorId,
         };
-        var response = new VendorResponse();
         VendorResponse vendorResponse = await GetVendor(vendorRequest, context);
         if (vendorResponse.Vendor == null)
         {
-            return response;
+            return new VendorResponse(); ;
         }
         if (vendorResponse.Vendor.CompanyId.CompareTo(request.CompanyId) != 0)
         {
-            return response;
+            return new VendorResponse(); ;
         }
-        return response;
+        return vendorResponse;
     }
 
 }

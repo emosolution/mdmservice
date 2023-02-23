@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
@@ -19,12 +18,12 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 {
 
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-    public partial class EmployeeImagesAppService
+    public partial class EmployeeImagesAppService 
     {
         public virtual async Task<PagedResultDto<EmployeeImageWithNavigationPropertiesDto>> GetListAsync(GetEmployeeImagesInput input)
         {
-            var totalCount = await _employeeImageRepository.GetCountAsync(input.FilterText, input.Description, input.url, input.Active, input.IsAvatar, input.EmployeeProfileId);
-            var items = await _employeeImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.url, input.Active, input.IsAvatar, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _employeeImageRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.FileId, input.EmployeeProfileId);
+            var items = await _employeeImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.FileId, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<EmployeeImageWithNavigationPropertiesDto>
             {
@@ -60,43 +59,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             };
         }
 
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
-        {
-            await _employeeImageRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeImage = await _employeeImageManager.CreateAsync(
-            input.EmployeeProfileId, input.Description, input.url, input.Active, input.IsAvatar
-            );
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(employeeImage);
-        }
-
-        [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
-        {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }
-
-            var employeeImage = await _employeeImageManager.UpdateAsync(
-            id,
-            input.EmployeeProfileId, input.Description, input.url, input.Active, input.IsAvatar, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(employeeImage);
-        }
-
         [AllowAnonymous]
         public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeImageExcelDownloadDto input)
         {
@@ -106,10 +68,20 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _employeeImageRepository.GetListAsync(input.FilterText, input.Description, input.url, input.Active, input.IsAvatar);
+            var employeeImages = await _employeeImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.FileId);
+            var items = employeeImages.Select(item => new
+            {
+                Description = item.EmployeeImage.Description,
+                Active = item.EmployeeImage.Active,
+                IsAvatar = item.EmployeeImage.IsAvatar,
+                FileId = item.EmployeeImage.FileId,
+
+                EmployeeProfileCode = item.EmployeeProfile?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<EmployeeImage>, List<EmployeeImageExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "EmployeeImages.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

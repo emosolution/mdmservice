@@ -32,5 +32,6 @@ namespace DMSpro.OMS.MdmService.Companies
         public Guid? GeoLevel4Id { get; set; }
 
         public string ConcurrencyStamp { get; set; }
+
     }
 }

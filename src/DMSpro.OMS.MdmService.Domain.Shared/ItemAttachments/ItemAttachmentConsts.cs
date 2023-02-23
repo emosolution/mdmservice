@@ -10,7 +10,5 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         }
 
         public const int DescriptionMaxLength = 500;
-        public const int UrlMinLength = 1;
-        public const int UrlMaxLength = 500;
     }
 }

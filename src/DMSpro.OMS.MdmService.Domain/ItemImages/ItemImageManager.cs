@@ -20,16 +20,14 @@ namespace DMSpro.OMS.MdmService.ItemImages
         }
 
         public async Task<ItemImage> CreateAsync(
-        Guid itemId, string description, string url, bool active, int displayOrder)
+        Guid itemId, string description, bool active, int displayOrder, Guid fileId)
         {
             Check.NotNull(itemId, nameof(itemId));
             Check.Length(description, nameof(description), ItemImageConsts.DescriptionMaxLength);
-            Check.NotNullOrWhiteSpace(url, nameof(url));
-            Check.Length(url, nameof(url), ItemImageConsts.UrlMaxLength, ItemImageConsts.UrlMinLength);
 
             var itemImage = new ItemImage(
              GuidGenerator.Create(),
-             itemId, description, url, active, displayOrder
+             itemId, description, active, displayOrder, fileId
              );
 
             return await _itemImageRepository.InsertAsync(itemImage);
@@ -37,24 +35,19 @@ namespace DMSpro.OMS.MdmService.ItemImages
 
         public async Task<ItemImage> UpdateAsync(
             Guid id,
-            Guid itemId, string description, string url, bool active, int displayOrder, [CanBeNull] string concurrencyStamp = null
+            Guid itemId, string description, bool active, int displayOrder, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(itemId, nameof(itemId));
             Check.Length(description, nameof(description), ItemImageConsts.DescriptionMaxLength);
-            Check.NotNullOrWhiteSpace(url, nameof(url));
-            Check.Length(url, nameof(url), ItemImageConsts.UrlMaxLength, ItemImageConsts.UrlMinLength);
 
-            var queryable = await _itemImageRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var itemImage = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var itemImage = await _itemImageRepository.GetAsync(id);
 
             itemImage.ItemId = itemId;
             itemImage.Description = description;
-            itemImage.Url = url;
             itemImage.Active = active;
             itemImage.DisplayOrder = displayOrder;
+            itemImage.FileId = fileId;
 
             itemImage.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _itemImageRepository.UpdateAsync(itemImage);

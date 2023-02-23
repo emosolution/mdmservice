@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
         {
             return _customerAttachmentsAppService.GetListAsync(input);
         }
-        
+
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<CustomerAttachmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
         }
 
         [HttpGet]
-        [Route("customer-profile-lookup")]
+        [Route("customer-lookup")]
         public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
         {
             return _customerAttachmentsAppService.GetCustomerLookupAsync(input);
@@ -61,13 +61,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
         public virtual Task<CustomerAttachmentDto> UpdateAsync(Guid id, CustomerAttachmentUpdateDto input)
         {
             return _customerAttachmentsAppService.UpdateAsync(id, input);
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
-        {
-            return _customerAttachmentsAppService.DeleteAsync(id);
         }
 
         [HttpGet]

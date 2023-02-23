@@ -19,27 +19,24 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        [NotNull]
-        public virtual string Url { get; set; }
-
         public virtual bool Active { get; set; }
-        public Guid ItemId { get; set; }
 
+        public virtual Guid FileId { get; set; }
+        public Guid ItemId { get; set; }
+        public virtual Item Item { get; set; }
         public ItemAttachment()
         {
 
         }
 
-        public ItemAttachment(Guid id, Guid itemId, string description, string url, bool active)
+        public ItemAttachment(Guid id, Guid itemId, string description, bool active, Guid fileId)
         {
 
             Id = id;
             Check.Length(description, nameof(description), ItemAttachmentConsts.DescriptionMaxLength, 0);
-            Check.NotNull(url, nameof(url));
-            Check.Length(url, nameof(url), ItemAttachmentConsts.UrlMaxLength, ItemAttachmentConsts.UrlMinLength);
             Description = description;
-            Url = url;
             Active = active;
+            FileId = fileId;
             ItemId = itemId;
         }
 

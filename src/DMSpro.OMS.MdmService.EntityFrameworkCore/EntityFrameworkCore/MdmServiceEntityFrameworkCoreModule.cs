@@ -58,6 +58,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.Modularity;
+using Volo.Abp.EntityFrameworkCore.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 
@@ -203,6 +205,184 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                     b.MigrationsHistoryTable("__MdmService_Migrations");
                 });
             });
+        });
+        Configure<AbpEntityOptions>(options =>
+        {
+            options.Entity<GeoMaster>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent);
+            });
+            options.Entity<Company>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.GeoLevel0).Include(o => o.GeoLevel1).Include(o => o.GeoLevel2).Include(o => o.GeoLevel3).Include(o => o.GeoLevel4).Include(o => o.Parent);
+            });
+            options.Entity<CompanyInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SalesOrgHierarchy).Include(o => o.Company);
+            });
+            options.Entity<CusAttributeValue>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.CustomerAttribute);
+            });
+
+            options.Entity<CustomerAssignment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.Customer );
+            });
+
+            options.Entity<CustomerAttachment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer);
+            });
+
+            options.Entity<CustomerContact>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer);
+            });
+
+            options.Entity<CustomerGroupByAtt>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.CusAttributeValue);
+            });
+
+            options.Entity<CustomerGroupByGeo>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.GeoMaster);
+            });
+
+            options.Entity<CustomerGroupByList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer).Include(o => o.CustomerGroup);
+            });
+
+            options.Entity<CustomerInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer).Include(o => o.SalesOrgHierarchy);
+            });
+
+            options.Entity<Customer>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.GeoMaster0).Include(o => o.GeoMaster1).Include(o => o.GeoMaster2).Include(o => o.GeoMaster3).Include(o => o.GeoMaster4).Include(o => o.PriceList);
+            });
+
+            options.Entity<EmployeeAttachment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
+            });
+
+            options.Entity<EmployeeInZone>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+            });
+
+            options.Entity<EmployeeImage>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
+            });
+
+            options.Entity<EmployeeProfile>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o=> o.WorkingPosition);
+            });
+
+            options.Entity<HolidayDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Holiday);
+            });
+
+            options.Entity<ItemAttachment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Item);
+            });
+
+            options.Entity<ItemAttributeValue>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.ItemAttribute);
+            });
+
+            options.Entity<ItemGroupList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o=> o.Item);
+            });
+
+            options.Entity<ItemImage>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Item);
+            });
+
+            options.Entity<Item>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemType).Include(o => o.VAT).Include(o => o.UOMGroup).Include(o => o.InventoryUOM).Include(o => o.PurUOM).Include(o => o.SalesUOM);
+            });
+
+            options.Entity<MCPHeader>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o=> o.ItemGroup);
+            });
+
+            options.Entity<MCPDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o=>o.Customer);
+            });
+
+            options.Entity<NumberingConfig>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o=> o.Company);
+            });
+
+            options.Entity<PricelistAssignment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.PriceList);
+            });
+
+            options.Entity<PriceListDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOM).Include(o => o.Item).Include(o => o.PriceList);
+            });
+
+            options.Entity<PriceList>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.BasePriceList);
+            });
+
+
+            options.Entity<PriceUpdateDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o=> o.PriceUpdate);
+            });
+
+
+            options.Entity<PriceUpdate>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceList);
+            });
+
+            options.Entity<SalesOrgEmpAssignment>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+            });
+
+            options.Entity<SalesOrgHierarchy>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.SalesOrgHeader);
+            });
+
+            options.Entity<UOMGroupDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o=> o.BaseUOM).Include(o=> o.AltUOM);
+            });
+
+            options.Entity<Vendor>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceList).Include(o => o.Company).Include(o => o.GeoMaster0).Include(o => o.GeoMaster1).Include(o => o.GeoMaster2).Include(o => o.GeoMaster3).Include(o => o.GeoMaster4);
+            });
+
+            options.Entity<VisitPlan>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Company).Include(o => o.Customer).Include(o => o.MCPDetail).Include(o=> o.Route);
+            });
+
+
         });
     }
 }

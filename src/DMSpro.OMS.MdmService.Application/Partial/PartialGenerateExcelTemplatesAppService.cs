@@ -44,6 +44,11 @@ namespace DMSpro.OMS.MdmService.Partial
             "GrpcNamespace",
         };
 
+        private static readonly List<string> _ignorePropertyType = new()
+        {
+            "DMSpro.OMS.MdmService.Companies.Company",
+        };
+
         public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
         {
             Type type = typeof(T);
@@ -98,6 +103,10 @@ namespace DMSpro.OMS.MdmService.Partial
                     }
                 }
                 isPropertyNullable.Add(propertyName, isNullable);
+                if (_ignorePropertyType.Contains(propertyTypeName))
+                {
+                    continue;
+                }
                 switch (propertyTypeName)
                 {
                     case "System.Guid":
@@ -186,6 +195,8 @@ namespace DMSpro.OMS.MdmService.Partial
                     worksheet.Cells[row, 8].Value = entityCheckInfo[propertyName].GRPCNamespace;
                 }
             }
+            //worksheet.Protection.IsProtected = true;
+            //worksheet.Hidden = eWorkSheetHidden.VeryHidden;
         }
 
         private static void CreateDataSheet(ExcelPackage package, List<string> propertyNames)
@@ -195,6 +206,8 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 worksheet.Cells[1, i + 1].Value = propertyNames[i];
             }
+            // Make this worksheet active to ensure sheet Structure is hidden
+            worksheet.Select();
         }
 
         private Dictionary<string, (int, string, string, string)> GetEntityCheckInfo(object instance, Type type)

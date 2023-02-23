@@ -20,14 +20,13 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         }
 
         public async Task<CustomerAttachment> CreateAsync(
-        Guid customerId, string url, string description, bool active)
+        Guid customerId, string description, bool active, Guid fileId)
         {
             Check.NotNull(customerId, nameof(customerId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
             var customerAttachment = new CustomerAttachment(
              GuidGenerator.Create(),
-             customerId, url, description, active
+             customerId, description, active, fileId
              );
 
             return await _customerAttachmentRepository.InsertAsync(customerAttachment);
@@ -35,21 +34,17 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
 
         public async Task<CustomerAttachment> UpdateAsync(
             Guid id,
-            Guid customerId, string url, string description, bool active, [CanBeNull] string concurrencyStamp = null
+            Guid customerId, string description, bool active, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(customerId, nameof(customerId));
-            Check.NotNullOrWhiteSpace(url, nameof(url));
 
-            var queryable = await _customerAttachmentRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerAttachment = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerAttachment = await _customerAttachmentRepository.GetAsync(id);
 
             customerAttachment.CustomerId = customerId;
-            customerAttachment.url = url;
             customerAttachment.Description = description;
             customerAttachment.Active = active;
+            customerAttachment.FileId = fileId;
 
             customerAttachment.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _customerAttachmentRepository.UpdateAsync(customerAttachment);

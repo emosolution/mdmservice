@@ -2,16 +2,16 @@ using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
-using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
 	[Authorize(MdmServicePermissions.CompanyInZones.Default)]
-    public partial class CompanyInZonesAppService : PartialAppService<CompanyInZone, CompanyInZoneDto, ICompanyInZoneRepository>, 
+    public partial class CompanyInZonesAppService : PartialAppService<CompanyInZone, CompanyInZoneWithDetailsDto, ICompanyInZoneRepository>, 
         ICompanyInZonesAppService
     {
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
