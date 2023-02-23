@@ -186,6 +186,8 @@ namespace DMSpro.OMS.MdmService.Partial
                     worksheet.Cells[row, 8].Value = entityCheckInfo[propertyName].GRPCNamespace;
                 }
             }
+            //worksheet.Protection.IsProtected = true;
+            //worksheet.Hidden = eWorkSheetHidden.VeryHidden;
         }
 
         private static void CreateDataSheet(ExcelPackage package, List<string> propertyNames)
@@ -195,6 +197,8 @@ namespace DMSpro.OMS.MdmService.Partial
             {
                 worksheet.Cells[1, i + 1].Value = propertyNames[i];
             }
+            // Make this worksheet active to ensure sheet Structure is hidden
+            worksheet.Select();
         }
 
         private Dictionary<string, (int, string, string, string)> GetEntityCheckInfo(object instance, Type type)
