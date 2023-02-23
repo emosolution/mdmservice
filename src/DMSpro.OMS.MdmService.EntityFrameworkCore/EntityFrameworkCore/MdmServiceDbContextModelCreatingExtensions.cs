@@ -595,7 +595,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Code).HasColumnName(nameof(Item.Code)).IsRequired().HasMaxLength(ItemConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(Item.Name)).IsRequired().HasMaxLength(ItemConsts.NameMaxLength);
             b.Property(x => x.ShortName).HasColumnName(nameof(Item.ShortName)).HasMaxLength(ItemConsts.ShortNameMaxLength);
-            b.Property(x => x.ERPCode).HasColumnName(nameof(Item.ERPCode)).HasMaxLength(ItemConsts.ERPCodeMaxLength);
+            b.Property(x => x.erpCode).HasColumnName(nameof(Item.erpCode)).HasMaxLength(ItemConsts.erpCodeMaxLength);
             b.Property(x => x.Barcode).HasColumnName(nameof(Item.Barcode)).HasMaxLength(ItemConsts.BarcodeMaxLength);
             b.Property(x => x.IsPurchasable).HasColumnName(nameof(Item.IsPurchasable));
             b.Property(x => x.IsSaleable).HasColumnName(nameof(Item.IsSaleable));
@@ -610,9 +610,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SystemData>(x => x.ItemType).WithMany().IsRequired().HasForeignKey(x => x.ItemTypeId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<VAT>(x => x.VAT).WithMany().IsRequired().HasForeignKey(x => x.VatId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<UOMGroup>(x => x.UOMGroup).WithMany().IsRequired().HasForeignKey(x => x.UomGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<UOMGroupDetail>(x => x.InventoryUOM).WithMany().IsRequired().HasForeignKey(x => x.InventoryUOMId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<UOMGroupDetail>(x => x.PurUOM).WithMany().IsRequired().HasForeignKey(x => x.PurUOMId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<UOMGroupDetail>(x => x.SalesUOM).WithMany().IsRequired().HasForeignKey(x => x.SalesUOMId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<UOM>(x => x.InventoryUOM).WithMany().IsRequired().HasForeignKey(x => x.InventoryUOMId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<UOM>(x => x.PurUOM).WithMany().IsRequired().HasForeignKey(x => x.PurUOMId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<UOM>(x => x.SalesUOM).WithMany().IsRequired().HasForeignKey(x => x.SalesUOMId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);

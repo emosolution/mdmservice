@@ -2,9 +2,7 @@ using DMSpro.OMS.MdmService.Companies;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-
-using Volo.Abp;
-using System.ComponentModel.DataAnnotations.Schema;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {

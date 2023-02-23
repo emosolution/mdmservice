@@ -89,9 +89,9 @@ namespace DMSpro.OMS.MdmService.Items
         public virtual SystemData ItemType { get; set; }
         public virtual VAT VAT { get; set; }
         public virtual UOMGroup UOMGroup { get; set; }
-        public virtual UOMGroupDetail InventoryUOM { get; set; }
-        public virtual UOMGroupDetail PurUOM { get; set; }
-        public virtual UOMGroupDetail SalesUOM { get; set; }
+        public virtual UOM InventoryUOM { get; set; }
+        public virtual UOM PurUOM { get; set; }
+        public virtual UOM SalesUOM { get; set; }
         public Item()
         {
 

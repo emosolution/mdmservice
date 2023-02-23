@@ -6,12 +6,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.VATs;
-using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
-using System.Threading.Tasks;
-using System;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 

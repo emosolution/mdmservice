@@ -1,7 +1,7 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.SystemDatas;
-using DMSpro.OMS.MdmService.UOMGroupDetails;
 using DMSpro.OMS.MdmService.UOMGroups;
+using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.VATs;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -12,21 +12,20 @@ namespace DMSpro.OMS.MdmService.Items
         public string Code { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public string ERPCode { get; set; }
+        public string erpCode { get; set; }
         public string Barcode { get; set; }
         public bool IsPurchasable { get; set; }
         public bool IsSaleable { get; set; }
         public bool IsInventoriable { get; set; }
         public decimal BasePrice { get; set; }
         public bool Active { get; set; }
-        
         public ManageBy ManageItemBy { get; set; }
-        
         public ExpiredType? ExpiredType { get; set; }
         public int? ExpiredValue { get; set; }
-        
         public IssueMethod? IssueMethod { get; set; }
         public bool CanUpdate { get; set; }
+        public decimal PurUnitRate { get; set; }
+        public decimal SalesUnitRate { get; set; }
         public Guid ItemTypeId { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
@@ -59,9 +58,9 @@ namespace DMSpro.OMS.MdmService.Items
         public virtual SystemDataDto ItemType { get; set; }
         public virtual VATDto VAT { get; set; }
         public virtual UOMGroupDto UOMGroup { get; set; }
-        public virtual UOMGroupDetailDto InventoryUOM { get; set; }
-        public virtual UOMGroupDetailDto PurUOM { get; set; }
-        public virtual UOMGroupDetailDto SalesUOM { get; set; }
+        public virtual UOMDto InventoryUOM { get; set; }
+        public virtual UOMDto PurUOM { get; set; }
+        public virtual UOMDto SalesUOM { get; set; }
 
         public ItemWithDetailsDto()
 		{
