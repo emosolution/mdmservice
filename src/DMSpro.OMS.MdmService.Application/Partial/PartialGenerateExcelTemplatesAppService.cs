@@ -44,6 +44,11 @@ namespace DMSpro.OMS.MdmService.Partial
             "GrpcNamespace",
         };
 
+        private static readonly List<string> _ignorePropertyType = new()
+        {
+            "DMSpro.OMS.MdmService.Companies.Company",
+        };
+
         public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
         {
             Type type = typeof(T);
@@ -98,6 +103,10 @@ namespace DMSpro.OMS.MdmService.Partial
                     }
                 }
                 isPropertyNullable.Add(propertyName, isNullable);
+                if (_ignorePropertyType.Contains(propertyTypeName))
+                {
+                    continue;
+                }
                 switch (propertyTypeName)
                 {
                     case "System.Guid":
