@@ -1,4 +1,6 @@
 using System;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -14,6 +16,8 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CustomerId { get; set; }
 
+        public virtual Customer Customer { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy {get; set;}
         public CustomerInZone()
         {
 

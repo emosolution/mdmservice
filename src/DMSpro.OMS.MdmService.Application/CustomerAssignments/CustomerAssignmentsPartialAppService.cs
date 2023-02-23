@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.Companies;
 namespace DMSpro.OMS.MdmService.CustomerAssignments
 {
 	[Authorize(MdmServicePermissions.CustomerAssignments.Default)]
-	public partial class CustomerAssignmentsAppService : PartialAppService<CustomerAssignment, CustomerAssignmentDto, ICustomerAssignmentRepository>,
+	public partial class CustomerAssignmentsAppService : PartialAppService<CustomerAssignment, CustomerAssignmentWithDetailsDto, ICustomerAssignmentRepository>,
 		ICustomerAssignmentsAppService
 	{
 		private readonly ICustomerAssignmentRepository _customerAssignmentRepository;

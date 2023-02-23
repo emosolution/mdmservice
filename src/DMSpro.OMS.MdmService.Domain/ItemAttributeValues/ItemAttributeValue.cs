@@ -21,7 +21,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         public virtual string AttrValName { get; set; }
         public Guid ItemAttributeId { get; set; }
         public Guid? ParentId { get; set; }
-
+        public virtual ItemAttribute ItemAttribute { get; set; }
+        public virtual ItemAttributeValue Parent { get; set; }
         public ItemAttributeValue()
         {
 

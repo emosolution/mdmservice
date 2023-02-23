@@ -82,6 +82,12 @@ namespace DMSpro.OMS.MdmService.Items
         public Guid? Attr18Id { get; set; }
         public Guid? Attr19Id { get; set; }
 
+        public virtual SystemData ItemType { get; set; }
+        public virtual VAT VAT { get; set; }
+        public virtual UOMGroup UOMGroup { get; set; }
+        public virtual UOMGroupDetail InventoryUOM { get; set; }
+        public virtual UOMGroupDetail PurUOM { get; set; }
+        public virtual UOMGroupDetail SalesUOM { get; set; }
         public Item()
         {
 

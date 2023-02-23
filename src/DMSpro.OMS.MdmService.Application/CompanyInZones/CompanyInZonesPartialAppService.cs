@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
 	[Authorize(MdmServicePermissions.CompanyInZones.Default)]
-    public partial class CompanyInZonesAppService : PartialAppService<CompanyInZone, CompanyInZoneDto, ICompanyInZoneRepository>, 
+    public partial class CompanyInZonesAppService : PartialAppService<CompanyInZone, CompanyInZoneWithDetailsDto, ICompanyInZoneRepository>, 
         ICompanyInZonesAppService
     {
         private readonly ICompanyInZoneRepository _companyInZoneRepository;

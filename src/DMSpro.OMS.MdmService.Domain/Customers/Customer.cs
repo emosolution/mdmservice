@@ -106,6 +106,13 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? Attribute19Id { get; set; }
         public Guid? PaymentId { get; set; }
 
+        public virtual GeoMaster GeoMaster0 { get; set; }
+        public virtual GeoMaster GeoMaster1 { get; set; }
+        public virtual GeoMaster GeoMaster2 { get; set; }
+        public virtual GeoMaster GeoMaster3 { get; set; }
+        public virtual GeoMaster GeoMaster4 { get; set; }
+        public virtual PriceList PriceList { get; set; }
+        //public virtual Company LinkedCompany { get; set; }
         public Customer()
         {
 

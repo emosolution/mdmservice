@@ -11,7 +11,8 @@ using DMSpro.OMS.MdmService.FileManagementInfo;
 namespace DMSpro.OMS.MdmService.CustomerAttachments
 {
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public partial class CustomerAttachmentsAppService : PartialAppService<CustomerAttachment, CustomerAttachmentDto, ICustomerAttachmentRepository>,
+    public partial class CustomerAttachmentsAppService : PartialAppService<
+    CustomerAttachment, CustomCustomerAttachmentWithDetailsDto, ICustomerAttachmentRepository>,
         ICustomerAttachmentsAppService
     {
         private readonly ICustomerAttachmentRepository _customerAttachmentRepository;

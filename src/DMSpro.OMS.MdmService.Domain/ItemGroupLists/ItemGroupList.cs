@@ -25,6 +25,9 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         public Guid ItemId { get; set; }
         public Guid UomId { get; set; }
 
+        public virtual ItemGroup ItemGroup { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual UOM UOM { get; set; }
         public ItemGroupList()
         {
 

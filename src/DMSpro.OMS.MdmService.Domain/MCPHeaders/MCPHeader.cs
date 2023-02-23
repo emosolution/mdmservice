@@ -4,6 +4,9 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.ItemGroups;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
@@ -23,6 +26,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         public Guid RouteId { get; set; }
         public Guid CompanyId { get; set; }
         public Guid? ItemGroupId { get; set; }
+
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual ItemGroup ItemGroup { get; set; }
 
         public MCPHeader()
         {

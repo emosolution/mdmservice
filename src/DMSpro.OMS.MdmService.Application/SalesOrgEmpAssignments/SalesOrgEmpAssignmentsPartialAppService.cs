@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EmployeeProfiles;
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
 	[Authorize(MdmServicePermissions.SalesOrgEmpAssignments.Default)]
-	public partial class SalesOrgEmpAssignmentsAppService : PartialAppService<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto, ISalesOrgEmpAssignmentRepository>,
+	public partial class SalesOrgEmpAssignmentsAppService : PartialAppService<SalesOrgEmpAssignment, SalesOrgEmpAssignmentWithDetailsDto, ISalesOrgEmpAssignmentRepository>,
 		ISalesOrgEmpAssignmentsAppService
 	{
 		private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;

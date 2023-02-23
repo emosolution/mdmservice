@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
 
         public virtual DateTime? UpdateStatusDate { get; set; }
         public Guid PriceListId { get; set; }
-
+        public virtual PriceList PriceList { get; set; }
         public PriceUpdate()
         {
 

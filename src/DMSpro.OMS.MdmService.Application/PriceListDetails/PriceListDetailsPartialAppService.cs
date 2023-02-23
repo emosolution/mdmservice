@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.Items;
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
 	[Authorize(MdmServicePermissions.PriceListDetails.Default)]
-	public partial class PriceListDetailsAppService : PartialAppService<PriceListDetail, PriceListDetailDto, IPriceListDetailRepository>,
+	public partial class PriceListDetailsAppService : PartialAppService<PriceListDetail, PriceListDetailWithDetailsDto, IPriceListDetailRepository>,
 		IPriceListDetailsAppService
 	{
 		private readonly IPriceListDetailRepository _priceListDetailRepository;

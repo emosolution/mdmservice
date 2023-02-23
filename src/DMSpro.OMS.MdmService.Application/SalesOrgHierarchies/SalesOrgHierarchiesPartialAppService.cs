@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.SalesOrgHeaders;
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
 	[Authorize(MdmServicePermissions.SalesOrgHierarchies.Default)]
-	public partial class SalesOrgHierarchiesAppService : PartialAppService<SalesOrgHierarchy, SalesOrgHierarchyDto, ISalesOrgHierarchyRepository>,
+	public partial class SalesOrgHierarchiesAppService : PartialAppService<SalesOrgHierarchy, SalesOrgHierarchyWithDetailsDto, ISalesOrgHierarchyRepository>,
 		ISalesOrgHierarchiesAppService
 	{
 		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;

@@ -36,6 +36,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         public Guid SalesOrgHeaderId { get; set; }
         public Guid? ParentId { get; set; }
 
+        public virtual SalesOrgHierarchy Parent { get; set;}
+        public virtual SalesOrgHeader SalesOrgHeader { get; set; }
+
         public SalesOrgHierarchy()
         {
 

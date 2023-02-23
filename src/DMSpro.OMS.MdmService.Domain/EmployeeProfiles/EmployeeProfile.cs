@@ -53,6 +53,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public Guid? WorkingPositionId { get; set; }
         public Guid? EmployeeTypeId { get; set; }
 
+        public virtual WorkingPosition WorkingPosition { get; set; }
+        public virtual SystemData EmployeeType { get; set; }
         public EmployeeProfile()
         {
 

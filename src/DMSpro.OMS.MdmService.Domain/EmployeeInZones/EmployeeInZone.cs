@@ -22,7 +22,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
         public virtual Guid? EndDate { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeId { get; set; }
-
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
         public EmployeeInZone()
         {
 

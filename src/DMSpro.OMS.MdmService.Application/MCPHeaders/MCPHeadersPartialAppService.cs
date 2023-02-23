@@ -14,7 +14,7 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
     [Authorize(MdmServicePermissions.MCPs.Default)]
-    public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderDto, IMCPHeaderRepository>,
+    public partial class MCPHeadersAppService : PartialAppService<MCPHeader, MCPHeaderWithDetailsDto, IMCPHeaderRepository>,
         IMCPHeadersAppService
     {
         private readonly IMCPHeaderRepository _mCPHeaderRepository;

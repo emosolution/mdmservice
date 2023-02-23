@@ -23,7 +23,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
 
         public virtual Guid FileId { get; set; }
         public Guid ItemId { get; set; }
-
+        public virtual Item Item { get; set; }
         public ItemAttachment()
         {
 

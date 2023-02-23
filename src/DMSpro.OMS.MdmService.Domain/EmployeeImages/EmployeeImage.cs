@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         public virtual Guid FileId { get; set; }
         public Guid EmployeeProfileId { get; set; }
-
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
         public EmployeeImage()
         {
 

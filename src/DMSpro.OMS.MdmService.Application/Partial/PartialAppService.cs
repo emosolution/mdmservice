@@ -74,7 +74,7 @@ namespace DMSpro.OMS.MdmService.Partial
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
-            var items = await _repository.GetQueryableAsync();
+            var items = await _repository.WithDetailsAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);

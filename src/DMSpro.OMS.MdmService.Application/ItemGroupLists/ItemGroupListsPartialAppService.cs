@@ -12,7 +12,7 @@ using DMSpro.OMS.MdmService.ItemGroups;
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public partial class ItemGroupListsAppService : PartialAppService<ItemGroupList, ItemGroupListDto, IItemGroupListRepository>,
+    public partial class ItemGroupListsAppService : PartialAppService<ItemGroupList, ItemGroupListWithDetailsDto, IItemGroupListRepository>,
         IItemGroupListsAppService
     {
         private readonly IItemGroupListRepository _itemGroupListRepository;
