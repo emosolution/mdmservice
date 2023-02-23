@@ -15,8 +15,8 @@ namespace DMSpro.OMS.MdmService.Items
         public string Name { get; set; }
         [StringLength(ItemConsts.ShortNameMaxLength)]
         public string ShortName { get; set; }
-        [StringLength(ItemConsts.ERPCodeMaxLength)]
-        public string ERPCode { get; set; }
+        [StringLength(ItemConsts.erpCodeMaxLength)]
+        public string erpCode { get; set; }
         [StringLength(ItemConsts.BarcodeMaxLength)]
         public string Barcode { get; set; }
         public bool IsPurchasable { get; set; } = true;
@@ -24,14 +24,13 @@ namespace DMSpro.OMS.MdmService.Items
         public bool IsInventoriable { get; set; } = true;
         public decimal BasePrice { get; set; }
         public bool Active { get; set; } = true;
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public ManageBy ManageItemBy { get; set; } = ((ManageBy[])Enum.GetValues(typeof(ManageBy)))[0];
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public ExpiredType? ExpiredType { get; set; }
         public int? ExpiredValue { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public IssueMethod? IssueMethod { get; set; }
         public bool CanUpdate { get; set; } = true;
+        public decimal PurUnitRate { get; set; }
+        public decimal SalesUnitRate { get; set; }
         public Guid ItemTypeId { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }

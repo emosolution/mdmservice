@@ -1,12 +1,8 @@
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.VATs;
 using DMSpro.OMS.MdmService.UOMGroups;
-using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
-
-using System;
-using Volo.Abp.Application.Dtos;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -17,29 +13,29 @@ namespace DMSpro.OMS.MdmService.Items
         public SystemDataDto SystemData { get; set; }
         public VATDto VAT { get; set; }
         public UOMGroupDto UOMGroup { get; set; }
-        public UOMGroupDetailDto UOMGroupDetail { get; set; }
-        public UOMGroupDetailDto UOMGroupDetail1 { get; set; }
-        public UOMGroupDetailDto UOMGroupDetail2 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue1 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue2 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue3 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue4 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue5 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue6 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue7 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue8 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue9 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue10 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue11 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue12 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue13 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue14 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue15 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue16 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue17 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue18 { get; set; }
-        public ItemAttributeValueDto ItemAttributeValue19 { get; set; }
+        public UOMDto InventoryUnit { get; set; }
+        public UOMDto PurUnit { get; set; }
+        public UOMDto SalesUnit { get; set; }
+        public ItemAttributeValueDto Attr0 { get; set; }
+        public ItemAttributeValueDto Attr1 { get; set; }
+        public ItemAttributeValueDto Attr2 { get; set; }
+        public ItemAttributeValueDto Attr3 { get; set; }
+        public ItemAttributeValueDto Attr4 { get; set; }
+        public ItemAttributeValueDto Attr5 { get; set; }
+        public ItemAttributeValueDto Attr6 { get; set; }
+        public ItemAttributeValueDto Attr7 { get; set; }
+        public ItemAttributeValueDto Attr8 { get; set; }
+        public ItemAttributeValueDto Attr9 { get; set; }
+        public ItemAttributeValueDto Attr10 { get; set; }
+        public ItemAttributeValueDto Attr11 { get; set; }
+        public ItemAttributeValueDto Attr12 { get; set; }
+        public ItemAttributeValueDto Attr13 { get; set; }
+        public ItemAttributeValueDto Attr14 { get; set; }
+        public ItemAttributeValueDto Attr15 { get; set; }
+        public ItemAttributeValueDto Attr16 { get; set; }
+        public ItemAttributeValueDto Attr17 { get; set; }
+        public ItemAttributeValueDto Attr18 { get; set; }
+        public ItemAttributeValueDto Attr19 { get; set; }
 
     }
 }

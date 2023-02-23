@@ -21,7 +21,7 @@ namespace DMSpro.OMS.MdmService.Items
         }
 
         public async Task<Item> CreateAsync(
-        Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string eRPCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
+        Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string erpCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, decimal purUnitRate, decimal salesUnitRate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
         {
             Check.NotNull(itemTypeId, nameof(itemTypeId));
             Check.NotNull(vatId, nameof(vatId));
@@ -34,13 +34,13 @@ namespace DMSpro.OMS.MdmService.Items
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), ItemConsts.NameMaxLength, ItemConsts.NameMinLength);
             Check.Length(shortName, nameof(shortName), ItemConsts.ShortNameMaxLength);
-            Check.Length(eRPCode, nameof(eRPCode), ItemConsts.ERPCodeMaxLength);
+            Check.Length(erpCode, nameof(erpCode), ItemConsts.erpCodeMaxLength);
             Check.Length(barcode, nameof(barcode), ItemConsts.BarcodeMaxLength);
             Check.NotNull(manageItemBy, nameof(manageItemBy));
 
             var item = new Item(
              GuidGenerator.Create(),
-             itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, code, name, shortName, eRPCode, barcode, isPurchasable, isSaleable, isInventoriable, basePrice, active, manageItemBy, canUpdate, expiredType, expiredValue, issueMethod
+             itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, code, name, shortName, erpCode, barcode, isPurchasable, isSaleable, isInventoriable, basePrice, active, manageItemBy, canUpdate, purUnitRate, salesUnitRate, expiredType, expiredValue, issueMethod
              );
 
             return await _itemRepository.InsertAsync(item);
@@ -48,7 +48,7 @@ namespace DMSpro.OMS.MdmService.Items
 
         public async Task<Item> UpdateAsync(
             Guid id,
-            Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string eRPCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null, [CanBeNull] string concurrencyStamp = null
+            Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string erpCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, decimal purUnitRate, decimal salesUnitRate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(itemTypeId, nameof(itemTypeId));
@@ -62,14 +62,11 @@ namespace DMSpro.OMS.MdmService.Items
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), ItemConsts.NameMaxLength, ItemConsts.NameMinLength);
             Check.Length(shortName, nameof(shortName), ItemConsts.ShortNameMaxLength);
-            Check.Length(eRPCode, nameof(eRPCode), ItemConsts.ERPCodeMaxLength);
+            Check.Length(erpCode, nameof(erpCode), ItemConsts.erpCodeMaxLength);
             Check.Length(barcode, nameof(barcode), ItemConsts.BarcodeMaxLength);
             Check.NotNull(manageItemBy, nameof(manageItemBy));
 
-            var queryable = await _itemRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var item = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var item = await _itemRepository.GetAsync(id);
 
             item.ItemTypeId = itemTypeId;
             item.VatId = vatId;
@@ -100,7 +97,7 @@ namespace DMSpro.OMS.MdmService.Items
             item.Code = code;
             item.Name = name;
             item.ShortName = shortName;
-            item.ERPCode = eRPCode;
+            item.erpCode = erpCode;
             item.Barcode = barcode;
             item.IsPurchasable = isPurchasable;
             item.IsSaleable = isSaleable;
@@ -109,6 +106,8 @@ namespace DMSpro.OMS.MdmService.Items
             item.Active = active;
             item.ManageItemBy = manageItemBy;
             item.CanUpdate = canUpdate;
+            item.PurUnitRate = purUnitRate;
+            item.SalesUnitRate = salesUnitRate;
             item.ExpiredType = expiredType;
             item.ExpiredValue = expiredValue;
             item.IssueMethod = issueMethod;

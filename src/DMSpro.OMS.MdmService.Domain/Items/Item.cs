@@ -2,7 +2,7 @@ using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.VATs;
 using DMSpro.OMS.MdmService.UOMGroups;
-using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using System;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.Items
         public virtual string ShortName { get; set; }
 
         [CanBeNull]
-        public virtual string ERPCode { get; set; }
+        public virtual string erpCode { get; set; }
 
         [CanBeNull]
         public virtual string Barcode { get; set; }
@@ -55,6 +55,10 @@ namespace DMSpro.OMS.MdmService.Items
         public virtual IssueMethod? IssueMethod { get; set; }
 
         public virtual bool CanUpdate { get; set; }
+
+        public virtual decimal PurUnitRate { get; set; }
+
+        public virtual decimal SalesUnitRate { get; set; }
         public Guid ItemTypeId { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
@@ -87,7 +91,7 @@ namespace DMSpro.OMS.MdmService.Items
 
         }
 
-        public Item(Guid id, Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string eRPCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
+        public Item(Guid id, Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string erpCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, decimal purUnitRate, decimal salesUnitRate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
         {
 
             Id = id;
@@ -96,12 +100,12 @@ namespace DMSpro.OMS.MdmService.Items
             Check.NotNull(name, nameof(name));
             Check.Length(name, nameof(name), ItemConsts.NameMaxLength, ItemConsts.NameMinLength);
             Check.Length(shortName, nameof(shortName), ItemConsts.ShortNameMaxLength, 0);
-            Check.Length(eRPCode, nameof(eRPCode), ItemConsts.ERPCodeMaxLength, 0);
+            Check.Length(erpCode, nameof(erpCode), ItemConsts.erpCodeMaxLength, 0);
             Check.Length(barcode, nameof(barcode), ItemConsts.BarcodeMaxLength, 0);
             Code = code;
             Name = name;
             ShortName = shortName;
-            ERPCode = eRPCode;
+            this.erpCode = erpCode;
             Barcode = barcode;
             IsPurchasable = isPurchasable;
             IsSaleable = isSaleable;
@@ -110,6 +114,8 @@ namespace DMSpro.OMS.MdmService.Items
             Active = active;
             ManageItemBy = manageItemBy;
             CanUpdate = canUpdate;
+            PurUnitRate = purUnitRate;
+            SalesUnitRate = salesUnitRate;
             ExpiredType = expiredType;
             ExpiredValue = expiredValue;
             IssueMethod = issueMethod;

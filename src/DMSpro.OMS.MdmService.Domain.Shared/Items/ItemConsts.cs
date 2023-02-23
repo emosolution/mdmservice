@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Items
         public const int NameMinLength = 1;
         public const int NameMaxLength = 255;
         public const int ShortNameMaxLength = 255;
-        public const int ERPCodeMaxLength = 20;
+        public const int erpCodeMaxLength = 20;
         public const int BarcodeMaxLength = 50;
     }
 }

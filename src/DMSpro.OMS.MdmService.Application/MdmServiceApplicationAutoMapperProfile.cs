@@ -1,3 +1,4 @@
+using Volo.Abp.AutoMapper;
 using System;
 using AutoMapper;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -347,5 +348,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupListWithNavigationProperties, ItemGroupListWithNavigationPropertiesDto>();
 
         CreateMap<ItemGroup, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+
+        CreateMap<ItemAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
     }
 }

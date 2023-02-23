@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.Items
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Item.Id == Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")).ShouldBe(true);
-            result.Items.Any(x => x.Item.Id == Guid.Parse("97499669-1c9a-41d3-b607-5e14e66c687c")).ShouldBe(true);
+            result.Items.Any(x => x.Item.Id == Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4")).ShouldBe(true);
+            result.Items.Any(x => x.Item.Id == Guid.Parse("ca66e65e-0340-47a1-a505-9351422ca037")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemsAppService.GetAsync(Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"));
+            var result = await _itemsAppService.GetAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"));
+            result.Id.ShouldBe(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
         }
 
         [Fact]
@@ -48,27 +48,29 @@ namespace DMSpro.OMS.MdmService.Items
             // Arrange
             var input = new ItemCreateDto
             {
-                Code = "1657a6c4724a4889a087",
-                Name = "79c0586ba36241ba9668b798058cf2fc2518f479b76a4d69a5f5c87e69326ac52ce30a6f00404d109f9d570e476c7157a0a5aca53680499fb1f4e1bfbb529e64b2be7e634df144689bfded321ef188fe62421b354c65477d85ec838f430b24401bce6612d403457a84ad2c3f550075175bea7f2e7a134b48bc1ebd545a2dc9e",
-                ShortName = "d2ae2651221841d9995851b9efa0b6500cd43d54d10a4440ade4af6b775c5930236b4200081a4c20af233a3d6e4e0fb2ef70ab1b9c4d47ccb1f473a79e275498f5abf96c6fe9444280c1bc2ea184730794b2c8f9eba941079d1619e4e48d0b7807dbd72b727c4516a79ab072ca5b532f9c43513b8221472b96fcfebb529edfc",
-                ERPCode = "9ebb42a5e5f94968a925",
-                Barcode = "8dda0c1eb1724153b394e58c6b52de0fb64761a990884d26a9",
+                Code = "88284ef0d5db4fcea8a1",
+                Name = "59b63471d09a436c9950bd5875c2edb17610916af7b742b7a1e0c300fe7c9b14f9c17203495d4cb2aac3e784b2ad9367bf2691aa6a41403fa887fac5bdb7f4a8381f2c4d12f54c9ba882a1daf572845f8987573159444f258b00338c013525c669a2c49ba1f744cd9259bea1c6d6e6a0758af25df49540dfb8eeb88e44de79f",
+                ShortName = "a766e703ae264927a26f4892b1ebff07cee71c871b864c948b5d8da645f0dd2869d6e24e0e0845acb99f90ba1cead10a3f271dcb394f45908dded5e5d4d94d1b2a9adb2f0c574bc69c5a09929d4c88efe841ffecc7ec449bb2709793fdb9c45f0dba7182374542fca6b42becc3b47bd0ece651e621ef4fbbbcde30183595784",
+                erpCode = "c2ee9921b55c467faf88",
+                Barcode = "f7580b6b59814c62a67b5181ea0b32a11b0db50c4e26451086",
                 IsPurchasable = true,
                 IsSaleable = true,
                 IsInventoriable = true,
-                BasePrice = 1385439330,
+                BasePrice = 1118378735,
                 Active = true,
                 ManageItemBy = default,
                 ExpiredType = default,
-                ExpiredValue = 723655992,
+                ExpiredValue = 261270654,
                 IssueMethod = default,
                 CanUpdate = true,
+                PurUnitRate = 1522992531,
+                SalesUnitRate = 283141640,
                 ItemTypeId = Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
                 VatId = Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 UomGroupId = Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
-                InventoryUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
-                PurUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
-                SalesUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
+                InventoryUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                PurUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                SalesUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
 
             };
 
@@ -79,21 +81,23 @@ namespace DMSpro.OMS.MdmService.Items
             var result = await _itemRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("1657a6c4724a4889a087");
-            result.Name.ShouldBe("79c0586ba36241ba9668b798058cf2fc2518f479b76a4d69a5f5c87e69326ac52ce30a6f00404d109f9d570e476c7157a0a5aca53680499fb1f4e1bfbb529e64b2be7e634df144689bfded321ef188fe62421b354c65477d85ec838f430b24401bce6612d403457a84ad2c3f550075175bea7f2e7a134b48bc1ebd545a2dc9e");
-            result.ShortName.ShouldBe("d2ae2651221841d9995851b9efa0b6500cd43d54d10a4440ade4af6b775c5930236b4200081a4c20af233a3d6e4e0fb2ef70ab1b9c4d47ccb1f473a79e275498f5abf96c6fe9444280c1bc2ea184730794b2c8f9eba941079d1619e4e48d0b7807dbd72b727c4516a79ab072ca5b532f9c43513b8221472b96fcfebb529edfc");
-            result.ERPCode.ShouldBe("9ebb42a5e5f94968a925");
-            result.Barcode.ShouldBe("8dda0c1eb1724153b394e58c6b52de0fb64761a990884d26a9");
+            result.Code.ShouldBe("88284ef0d5db4fcea8a1");
+            result.Name.ShouldBe("59b63471d09a436c9950bd5875c2edb17610916af7b742b7a1e0c300fe7c9b14f9c17203495d4cb2aac3e784b2ad9367bf2691aa6a41403fa887fac5bdb7f4a8381f2c4d12f54c9ba882a1daf572845f8987573159444f258b00338c013525c669a2c49ba1f744cd9259bea1c6d6e6a0758af25df49540dfb8eeb88e44de79f");
+            result.ShortName.ShouldBe("a766e703ae264927a26f4892b1ebff07cee71c871b864c948b5d8da645f0dd2869d6e24e0e0845acb99f90ba1cead10a3f271dcb394f45908dded5e5d4d94d1b2a9adb2f0c574bc69c5a09929d4c88efe841ffecc7ec449bb2709793fdb9c45f0dba7182374542fca6b42becc3b47bd0ece651e621ef4fbbbcde30183595784");
+            result.erpCode.ShouldBe("c2ee9921b55c467faf88");
+            result.Barcode.ShouldBe("f7580b6b59814c62a67b5181ea0b32a11b0db50c4e26451086");
             result.IsPurchasable.ShouldBe(true);
             result.IsSaleable.ShouldBe(true);
             result.IsInventoriable.ShouldBe(true);
-            result.BasePrice.ShouldBe(1385439330);
+            result.BasePrice.ShouldBe(1118378735);
             result.Active.ShouldBe(true);
             result.ManageItemBy.ShouldBe(default);
             result.ExpiredType.ShouldBe(default);
-            result.ExpiredValue.ShouldBe(723655992);
+            result.ExpiredValue.ShouldBe(261270654);
             result.IssueMethod.ShouldBe(default);
             result.CanUpdate.ShouldBe(true);
+            result.PurUnitRate.ShouldBe(1522992531);
+            result.SalesUnitRate.ShouldBe(283141640);
         }
 
         [Fact]
@@ -102,62 +106,66 @@ namespace DMSpro.OMS.MdmService.Items
             // Arrange
             var input = new ItemUpdateDto()
             {
-                Code = "9a3718bfabd74f6e92e1",
-                Name = "491af10f61224e9881f7350cee40413f224f759698744b4f95ca6d606bc3c18cb5a1102f3b564ddabb5fe7073d697a9218446b2ea0154cd0836501fe22c5fea95e2d440f6d2445c3b5b264e00104657667e9945895e3440faf740eec6422bb935477f78ba5d740f2990f5d07c6f8f4c7b2c516cffde44e57ab9596efdfc98c9",
-                ShortName = "d4bc9202d497460e8545221097e7e314d3320ac362cf40348466ba3dee2cb2408b1e0546ec974511810a609608e661e8d02b8d302f4a4a5a91a10ceda2b53d73ace4d7731f394b31960d0f5031c6463f7a734a37154e41419b7336ba4a57ff320f64a5596c964b94984f1a977235e545729fe0d19dd04f4c971afafb1782e32",
-                ERPCode = "8adae6f9429e4c808844",
-                Barcode = "4eb2aecc561b466580c64e9329cd4c63d2656f74f4474ec8a6",
+                Code = "18cea4780bc84f8bb7e7",
+                Name = "a2024d00fc75454f9a1fb1b5bc131d2e5bb4a345631e45cfb7e3958a4e527a90dbb7c59b66b84e9ba7b397ef407f8ed512bfe4fce8fd4610847cccf6a9c51a99d8f52eaca00d42f9a55c2dc2570d8caabccfb593a9cd48c3ad5a6f9978abf150c8c53a1ea2044469966862bb6b23d5f10ab7a6e8cea04abe8f345f2f579f777",
+                ShortName = "516f1544a9d04fdcb33369f261d32777e0c979c641834a37aa435f422dff8a48b917ccc6ac63439b9e3eece2c061eb5d4e61d76fae584fd4a707e539cfa773b2f52b744c155547fab47311376f6e069a1e38f08226034b77a93a44430de4c687c3c00f0354d845fa929ad04976b73dcb1b2eee783f0640169ca68093434d6c2",
+                erpCode = "92f4e2d95b8243c58ff8",
+                Barcode = "2ac4670003e74ed7b935bc3544f2e1b3206fe4e9e51e47769e",
                 IsPurchasable = true,
                 IsSaleable = true,
                 IsInventoriable = true,
-                BasePrice = 2029155575,
+                BasePrice = 78554204,
                 Active = true,
                 ManageItemBy = default,
                 ExpiredType = default,
-                ExpiredValue = 502601942,
+                ExpiredValue = 499406014,
                 IssueMethod = default,
                 CanUpdate = true,
+                PurUnitRate = 613278082,
+                SalesUnitRate = 593255752,
                 ItemTypeId = Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
                 VatId = Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 UomGroupId = Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
-                InventoryUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
-                PurUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
-                SalesUOMId = Guid.Parse("dc465e6a-f105-4761-b8f2-8a6b21e85a62"),
+                InventoryUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                PurUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
+                SalesUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
 
             };
 
             // Act
-            var serviceResult = await _itemsAppService.UpdateAsync(Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"), input);
+            var serviceResult = await _itemsAppService.UpdateAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"), input);
 
             // Assert
             var result = await _itemRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("9a3718bfabd74f6e92e1");
-            result.Name.ShouldBe("491af10f61224e9881f7350cee40413f224f759698744b4f95ca6d606bc3c18cb5a1102f3b564ddabb5fe7073d697a9218446b2ea0154cd0836501fe22c5fea95e2d440f6d2445c3b5b264e00104657667e9945895e3440faf740eec6422bb935477f78ba5d740f2990f5d07c6f8f4c7b2c516cffde44e57ab9596efdfc98c9");
-            result.ShortName.ShouldBe("d4bc9202d497460e8545221097e7e314d3320ac362cf40348466ba3dee2cb2408b1e0546ec974511810a609608e661e8d02b8d302f4a4a5a91a10ceda2b53d73ace4d7731f394b31960d0f5031c6463f7a734a37154e41419b7336ba4a57ff320f64a5596c964b94984f1a977235e545729fe0d19dd04f4c971afafb1782e32");
-            result.ERPCode.ShouldBe("8adae6f9429e4c808844");
-            result.Barcode.ShouldBe("4eb2aecc561b466580c64e9329cd4c63d2656f74f4474ec8a6");
+            result.Code.ShouldBe("18cea4780bc84f8bb7e7");
+            result.Name.ShouldBe("a2024d00fc75454f9a1fb1b5bc131d2e5bb4a345631e45cfb7e3958a4e527a90dbb7c59b66b84e9ba7b397ef407f8ed512bfe4fce8fd4610847cccf6a9c51a99d8f52eaca00d42f9a55c2dc2570d8caabccfb593a9cd48c3ad5a6f9978abf150c8c53a1ea2044469966862bb6b23d5f10ab7a6e8cea04abe8f345f2f579f777");
+            result.ShortName.ShouldBe("516f1544a9d04fdcb33369f261d32777e0c979c641834a37aa435f422dff8a48b917ccc6ac63439b9e3eece2c061eb5d4e61d76fae584fd4a707e539cfa773b2f52b744c155547fab47311376f6e069a1e38f08226034b77a93a44430de4c687c3c00f0354d845fa929ad04976b73dcb1b2eee783f0640169ca68093434d6c2");
+            result.erpCode.ShouldBe("92f4e2d95b8243c58ff8");
+            result.Barcode.ShouldBe("2ac4670003e74ed7b935bc3544f2e1b3206fe4e9e51e47769e");
             result.IsPurchasable.ShouldBe(true);
             result.IsSaleable.ShouldBe(true);
             result.IsInventoriable.ShouldBe(true);
-            result.BasePrice.ShouldBe(2029155575);
+            result.BasePrice.ShouldBe(78554204);
             result.Active.ShouldBe(true);
             result.ManageItemBy.ShouldBe(default);
             result.ExpiredType.ShouldBe(default);
-            result.ExpiredValue.ShouldBe(502601942);
+            result.ExpiredValue.ShouldBe(499406014);
             result.IssueMethod.ShouldBe(default);
             result.CanUpdate.ShouldBe(true);
+            result.PurUnitRate.ShouldBe(613278082);
+            result.SalesUnitRate.ShouldBe(593255752);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemsAppService.DeleteAsync(Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"));
+            await _itemsAppService.DeleteAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
 
             // Assert
-            var result = await _itemRepository.FindAsync(c => c.Id == Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"));
+            var result = await _itemRepository.FindAsync(c => c.Id == Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
 
             result.ShouldBeNull();
         }

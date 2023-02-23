@@ -65,15 +65,15 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         }
 
         [HttpGet]
-        [Route("u-oMGroup-detail-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetUOMGroupDetailLookupAsync(LookupRequestDto input)
+        [Route("u-oM-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input)
         {
-            return _itemsAppService.GetUOMGroupDetailLookupAsync(input);
+            return _itemsAppService.GetUOMLookupAsync(input);
         }
 
         [HttpGet]
         [Route("item-attribute-value-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetItemAttributeValueLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemAttributeValueLookupAsync(LookupRequestDto input)
         {
             return _itemsAppService.GetItemAttributeValueLookupAsync(input);
         }

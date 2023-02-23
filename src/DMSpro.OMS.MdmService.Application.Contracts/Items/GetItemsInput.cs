@@ -11,7 +11,7 @@ namespace DMSpro.OMS.MdmService.Items
         public string Code { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public string ERPCode { get; set; }
+        public string erpCode { get; set; }
         public string Barcode { get; set; }
         public bool? IsPurchasable { get; set; }
         public bool? IsSaleable { get; set; }
@@ -25,6 +25,10 @@ namespace DMSpro.OMS.MdmService.Items
         public int? ExpiredValueMax { get; set; }
         public IssueMethod? IssueMethod { get; set; }
         public bool? CanUpdate { get; set; }
+        public decimal? PurUnitRateMin { get; set; }
+        public decimal? PurUnitRateMax { get; set; }
+        public decimal? SalesUnitRateMin { get; set; }
+        public decimal? SalesUnitRateMax { get; set; }
         public Guid? ItemTypeId { get; set; }
         public Guid? VatId { get; set; }
         public Guid? UomGroupId { get; set; }

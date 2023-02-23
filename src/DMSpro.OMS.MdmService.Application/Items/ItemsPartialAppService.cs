@@ -25,9 +25,9 @@ namespace DMSpro.OMS.MdmService.Items
 
         private readonly IVATRepository _vATRepository;
         private readonly IUOMGroupRepository _uOMGroupRepository;
-        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
+        private readonly IUOMRepository _uOMRepository;
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -36,8 +36,8 @@ namespace DMSpro.OMS.MdmService.Items
             IVATRepository vATRepository,
             IUOMGroupRepository uOMGroupRepository,
             IItemAttributeValueRepository itemAttributeValueRepository,
+            IUOMRepository uOMRepository,
             ISystemDataRepository systemDataRepository,
-            IUOMGroupDetailRepository uOMGroupDetailRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -48,8 +48,8 @@ namespace DMSpro.OMS.MdmService.Items
             _vATRepository = vATRepository;
             _systemDataRepository = systemDataRepository;
             _itemAttributeValueRepository = itemAttributeValueRepository;
-            _uOMGroupDetailRepository = uOMGroupDetailRepository;
             _uOMGroupRepository = uOMGroupRepository;
+            _uOMRepository = uOMRepository;
 
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemRepository", _itemRepository));
@@ -58,7 +58,7 @@ namespace DMSpro.OMS.MdmService.Items
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IUOMGroupRepository", _uOMGroupRepository));
             _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("IUOMGroupDetailRepository", _uOMGroupDetailRepository));
+                new KeyValuePair<string, object>("IUOMRepository", _uOMRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
             _repositories.AddIfNotContains(

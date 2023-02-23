@@ -31,29 +31,29 @@ namespace DMSpro.OMS.MdmService.Items
                     SystemData = dbContext.SystemDatas.FirstOrDefault(c => c.Id == item.ItemTypeId),
                     VAT = dbContext.VATs.FirstOrDefault(c => c.Id == item.VatId),
                     UOMGroup = dbContext.UOMGroups.FirstOrDefault(c => c.Id == item.UomGroupId),
-                    UOMGroupDetail = dbContext.UOMGroupDetails.FirstOrDefault(c => c.Id == item.InventoryUOMId),
-                    UOMGroupDetail1 = dbContext.UOMGroupDetails.FirstOrDefault(c => c.Id == item.PurUOMId),
-                    UOMGroupDetail2 = dbContext.UOMGroupDetails.FirstOrDefault(c => c.Id == item.SalesUOMId),
-                    ItemAttributeValue = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr0Id),
-                    ItemAttributeValue1 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr1Id),
-                    ItemAttributeValue2 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr2Id),
-                    ItemAttributeValue3 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr3Id),
-                    ItemAttributeValue4 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr4Id),
-                    ItemAttributeValue5 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr5Id),
-                    ItemAttributeValue6 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr6Id),
-                    ItemAttributeValue7 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr7Id),
-                    ItemAttributeValue8 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr8Id),
-                    ItemAttributeValue9 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr9Id),
-                    ItemAttributeValue10 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr10Id),
-                    ItemAttributeValue11 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr11Id),
-                    ItemAttributeValue12 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr12Id),
-                    ItemAttributeValue13 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr13Id),
-                    ItemAttributeValue14 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr14Id),
-                    ItemAttributeValue15 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr15Id),
-                    ItemAttributeValue16 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr16Id),
-                    ItemAttributeValue17 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr17Id),
-                    ItemAttributeValue18 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr18Id),
-                    ItemAttributeValue19 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr19Id)
+                    InventoryUnit = dbContext.UOMs.FirstOrDefault(c => c.Id == item.InventoryUOMId),
+                    PurUnit = dbContext.UOMs.FirstOrDefault(c => c.Id == item.PurUOMId),
+                    SalesUnit = dbContext.UOMs.FirstOrDefault(c => c.Id == item.SalesUOMId),
+                    Attr0 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr0Id),
+                    Attr1 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr1Id),
+                    Attr2 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr2Id),
+                    Attr3 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr3Id),
+                    Attr4 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr4Id),
+                    Attr5 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr5Id),
+                    Attr6 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr6Id),
+                    Attr7 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr7Id),
+                    Attr8 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr8Id),
+                    Attr9 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr9Id),
+                    Attr10 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr10Id),
+                    Attr11 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr11Id),
+                    Attr12 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr12Id),
+                    Attr13 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr13Id),
+                    Attr14 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr14Id),
+                    Attr15 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr15Id),
+                    Attr16 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr16Id),
+                    Attr17 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr17Id),
+                    Attr18 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr18Id),
+                    Attr19 = dbContext.ItemAttributeValues.FirstOrDefault(c => c.Id == item.Attr19Id)
                 }).FirstOrDefault();
         }
 
@@ -62,7 +62,7 @@ namespace DMSpro.OMS.MdmService.Items
             string code = null,
             string name = null,
             string shortName = null,
-            string eRPCode = null,
+            string erpCode = null,
             string barcode = null,
             bool? isPurchasable = null,
             bool? isSaleable = null,
@@ -76,6 +76,10 @@ namespace DMSpro.OMS.MdmService.Items
             int? expiredValueMax = null,
             IssueMethod? issueMethod = null,
             bool? canUpdate = null,
+            decimal? purUnitRateMin = null,
+            decimal? purUnitRateMax = null,
+            decimal? salesUnitRateMin = null,
+            decimal? salesUnitRateMax = null,
             Guid? itemTypeId = null,
             Guid? vatId = null,
             Guid? uomGroupId = null,
@@ -108,7 +112,7 @@ namespace DMSpro.OMS.MdmService.Items
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, shortName, eRPCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate, itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id);
+            query = ApplyFilter(query, filterText, code, name, shortName, erpCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate, purUnitRateMin, purUnitRateMax, salesUnitRateMin, salesUnitRateMax, itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -122,12 +126,12 @@ namespace DMSpro.OMS.MdmService.Items
                    from vAT in vATs.DefaultIfEmpty()
                    join uOMGroup in (await GetDbContextAsync()).UOMGroups on item.UomGroupId equals uOMGroup.Id into uOMGroups
                    from uOMGroup in uOMGroups.DefaultIfEmpty()
-                   join uOMGroupDetail in (await GetDbContextAsync()).UOMGroupDetails on item.InventoryUOMId equals uOMGroupDetail.Id into uOMGroupDetails
-                   from uOMGroupDetail in uOMGroupDetails.DefaultIfEmpty()
-                   join uOMGroupDetail1 in (await GetDbContextAsync()).UOMGroupDetails on item.PurUOMId equals uOMGroupDetail1.Id into uOMGroupDetails1
-                   from uOMGroupDetail1 in uOMGroupDetails1.DefaultIfEmpty()
-                   join uOMGroupDetail2 in (await GetDbContextAsync()).UOMGroupDetails on item.SalesUOMId equals uOMGroupDetail2.Id into uOMGroupDetails2
-                   from uOMGroupDetail2 in uOMGroupDetails2.DefaultIfEmpty()
+                   join uOM in (await GetDbContextAsync()).UOMs on item.InventoryUOMId equals uOM.Id into uOMs
+                   from uOM in uOMs.DefaultIfEmpty()
+                   join uOM1 in (await GetDbContextAsync()).UOMs on item.PurUOMId equals uOM1.Id into uOMs1
+                   from uOM1 in uOMs1.DefaultIfEmpty()
+                   join uOM2 in (await GetDbContextAsync()).UOMs on item.SalesUOMId equals uOM2.Id into uOMs2
+                   from uOM2 in uOMs2.DefaultIfEmpty()
                    join itemAttributeValue in (await GetDbContextAsync()).ItemAttributeValues on item.Attr0Id equals itemAttributeValue.Id into itemAttributeValues
                    from itemAttributeValue in itemAttributeValues.DefaultIfEmpty()
                    join itemAttributeValue1 in (await GetDbContextAsync()).ItemAttributeValues on item.Attr1Id equals itemAttributeValue1.Id into itemAttributeValues1
@@ -175,29 +179,29 @@ namespace DMSpro.OMS.MdmService.Items
                        SystemData = systemData,
                        VAT = vAT,
                        UOMGroup = uOMGroup,
-                       UOMGroupDetail = uOMGroupDetail,
-                       UOMGroupDetail1 = uOMGroupDetail1,
-                       UOMGroupDetail2 = uOMGroupDetail2,
-                       ItemAttributeValue = itemAttributeValue,
-                       ItemAttributeValue1 = itemAttributeValue1,
-                       ItemAttributeValue2 = itemAttributeValue2,
-                       ItemAttributeValue3 = itemAttributeValue3,
-                       ItemAttributeValue4 = itemAttributeValue4,
-                       ItemAttributeValue5 = itemAttributeValue5,
-                       ItemAttributeValue6 = itemAttributeValue6,
-                       ItemAttributeValue7 = itemAttributeValue7,
-                       ItemAttributeValue8 = itemAttributeValue8,
-                       ItemAttributeValue9 = itemAttributeValue9,
-                       ItemAttributeValue10 = itemAttributeValue10,
-                       ItemAttributeValue11 = itemAttributeValue11,
-                       ItemAttributeValue12 = itemAttributeValue12,
-                       ItemAttributeValue13 = itemAttributeValue13,
-                       ItemAttributeValue14 = itemAttributeValue14,
-                       ItemAttributeValue15 = itemAttributeValue15,
-                       ItemAttributeValue16 = itemAttributeValue16,
-                       ItemAttributeValue17 = itemAttributeValue17,
-                       ItemAttributeValue18 = itemAttributeValue18,
-                       ItemAttributeValue19 = itemAttributeValue19
+                       InventoryUnit = uOM,
+                       PurUnit = uOM1,
+                       SalesUnit = uOM2,
+                       Attr0 = itemAttributeValue,
+                       Attr1 = itemAttributeValue1,
+                       Attr2 = itemAttributeValue2,
+                       Attr3 = itemAttributeValue3,
+                       Attr4 = itemAttributeValue4,
+                       Attr5 = itemAttributeValue5,
+                       Attr6 = itemAttributeValue6,
+                       Attr7 = itemAttributeValue7,
+                       Attr8 = itemAttributeValue8,
+                       Attr9 = itemAttributeValue9,
+                       Attr10 = itemAttributeValue10,
+                       Attr11 = itemAttributeValue11,
+                       Attr12 = itemAttributeValue12,
+                       Attr13 = itemAttributeValue13,
+                       Attr14 = itemAttributeValue14,
+                       Attr15 = itemAttributeValue15,
+                       Attr16 = itemAttributeValue16,
+                       Attr17 = itemAttributeValue17,
+                       Attr18 = itemAttributeValue18,
+                       Attr19 = itemAttributeValue19
                    };
         }
 
@@ -207,7 +211,7 @@ namespace DMSpro.OMS.MdmService.Items
             string code = null,
             string name = null,
             string shortName = null,
-            string eRPCode = null,
+            string erpCode = null,
             string barcode = null,
             bool? isPurchasable = null,
             bool? isSaleable = null,
@@ -221,6 +225,10 @@ namespace DMSpro.OMS.MdmService.Items
             int? expiredValueMax = null,
             IssueMethod? issueMethod = null,
             bool? canUpdate = null,
+            decimal? purUnitRateMin = null,
+            decimal? purUnitRateMax = null,
+            decimal? salesUnitRateMin = null,
+            decimal? salesUnitRateMax = null,
             Guid? itemTypeId = null,
             Guid? vatId = null,
             Guid? uomGroupId = null,
@@ -249,11 +257,11 @@ namespace DMSpro.OMS.MdmService.Items
             Guid? attr19Id = null)
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Item.Code.Contains(filterText) || e.Item.Name.Contains(filterText) || e.Item.ShortName.Contains(filterText) || e.Item.ERPCode.Contains(filterText) || e.Item.Barcode.Contains(filterText))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Item.Code.Contains(filterText) || e.Item.Name.Contains(filterText) || e.Item.ShortName.Contains(filterText) || e.Item.erpCode.Contains(filterText) || e.Item.Barcode.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(code), e => e.Item.Code.Contains(code))
                     .WhereIf(!string.IsNullOrWhiteSpace(name), e => e.Item.Name.Contains(name))
                     .WhereIf(!string.IsNullOrWhiteSpace(shortName), e => e.Item.ShortName.Contains(shortName))
-                    .WhereIf(!string.IsNullOrWhiteSpace(eRPCode), e => e.Item.ERPCode.Contains(eRPCode))
+                    .WhereIf(!string.IsNullOrWhiteSpace(erpCode), e => e.Item.erpCode.Contains(erpCode))
                     .WhereIf(!string.IsNullOrWhiteSpace(barcode), e => e.Item.Barcode.Contains(barcode))
                     .WhereIf(isPurchasable.HasValue, e => e.Item.IsPurchasable == isPurchasable)
                     .WhereIf(isSaleable.HasValue, e => e.Item.IsSaleable == isSaleable)
@@ -267,32 +275,36 @@ namespace DMSpro.OMS.MdmService.Items
                     .WhereIf(expiredValueMax.HasValue, e => e.Item.ExpiredValue <= expiredValueMax.Value)
                     .WhereIf(issueMethod.HasValue, e => e.Item.IssueMethod == issueMethod)
                     .WhereIf(canUpdate.HasValue, e => e.Item.CanUpdate == canUpdate)
+                    .WhereIf(purUnitRateMin.HasValue, e => e.Item.PurUnitRate >= purUnitRateMin.Value)
+                    .WhereIf(purUnitRateMax.HasValue, e => e.Item.PurUnitRate <= purUnitRateMax.Value)
+                    .WhereIf(salesUnitRateMin.HasValue, e => e.Item.SalesUnitRate >= salesUnitRateMin.Value)
+                    .WhereIf(salesUnitRateMax.HasValue, e => e.Item.SalesUnitRate <= salesUnitRateMax.Value)
                     .WhereIf(itemTypeId != null && itemTypeId != Guid.Empty, e => e.SystemData != null && e.SystemData.Id == itemTypeId)
                     .WhereIf(vatId != null && vatId != Guid.Empty, e => e.VAT != null && e.VAT.Id == vatId)
                     .WhereIf(uomGroupId != null && uomGroupId != Guid.Empty, e => e.UOMGroup != null && e.UOMGroup.Id == uomGroupId)
-                    .WhereIf(inventoryUOMId != null && inventoryUOMId != Guid.Empty, e => e.UOMGroupDetail != null && e.UOMGroupDetail.Id == inventoryUOMId)
-                    .WhereIf(purUOMId != null && purUOMId != Guid.Empty, e => e.UOMGroupDetail1 != null && e.UOMGroupDetail1.Id == purUOMId)
-                    .WhereIf(salesUOMId != null && salesUOMId != Guid.Empty, e => e.UOMGroupDetail2 != null && e.UOMGroupDetail2.Id == salesUOMId)
-                    .WhereIf(attr0Id != null && attr0Id != Guid.Empty, e => e.ItemAttributeValue != null && e.ItemAttributeValue.Id == attr0Id)
-                    .WhereIf(attr1Id != null && attr1Id != Guid.Empty, e => e.ItemAttributeValue1 != null && e.ItemAttributeValue1.Id == attr1Id)
-                    .WhereIf(attr2Id != null && attr2Id != Guid.Empty, e => e.ItemAttributeValue2 != null && e.ItemAttributeValue2.Id == attr2Id)
-                    .WhereIf(attr3Id != null && attr3Id != Guid.Empty, e => e.ItemAttributeValue3 != null && e.ItemAttributeValue3.Id == attr3Id)
-                    .WhereIf(attr4Id != null && attr4Id != Guid.Empty, e => e.ItemAttributeValue4 != null && e.ItemAttributeValue4.Id == attr4Id)
-                    .WhereIf(attr5Id != null && attr5Id != Guid.Empty, e => e.ItemAttributeValue5 != null && e.ItemAttributeValue5.Id == attr5Id)
-                    .WhereIf(attr6Id != null && attr6Id != Guid.Empty, e => e.ItemAttributeValue6 != null && e.ItemAttributeValue6.Id == attr6Id)
-                    .WhereIf(attr7Id != null && attr7Id != Guid.Empty, e => e.ItemAttributeValue7 != null && e.ItemAttributeValue7.Id == attr7Id)
-                    .WhereIf(attr8Id != null && attr8Id != Guid.Empty, e => e.ItemAttributeValue8 != null && e.ItemAttributeValue8.Id == attr8Id)
-                    .WhereIf(attr9Id != null && attr9Id != Guid.Empty, e => e.ItemAttributeValue9 != null && e.ItemAttributeValue9.Id == attr9Id)
-                    .WhereIf(attr10Id != null && attr10Id != Guid.Empty, e => e.ItemAttributeValue10 != null && e.ItemAttributeValue10.Id == attr10Id)
-                    .WhereIf(attr11Id != null && attr11Id != Guid.Empty, e => e.ItemAttributeValue11 != null && e.ItemAttributeValue11.Id == attr11Id)
-                    .WhereIf(attr12Id != null && attr12Id != Guid.Empty, e => e.ItemAttributeValue12 != null && e.ItemAttributeValue12.Id == attr12Id)
-                    .WhereIf(attr13Id != null && attr13Id != Guid.Empty, e => e.ItemAttributeValue13 != null && e.ItemAttributeValue13.Id == attr13Id)
-                    .WhereIf(attr14Id != null && attr14Id != Guid.Empty, e => e.ItemAttributeValue14 != null && e.ItemAttributeValue14.Id == attr14Id)
-                    .WhereIf(attr15Id != null && attr15Id != Guid.Empty, e => e.ItemAttributeValue15 != null && e.ItemAttributeValue15.Id == attr15Id)
-                    .WhereIf(attr16Id != null && attr16Id != Guid.Empty, e => e.ItemAttributeValue16 != null && e.ItemAttributeValue16.Id == attr16Id)
-                    .WhereIf(attr17Id != null && attr17Id != Guid.Empty, e => e.ItemAttributeValue17 != null && e.ItemAttributeValue17.Id == attr17Id)
-                    .WhereIf(attr18Id != null && attr18Id != Guid.Empty, e => e.ItemAttributeValue18 != null && e.ItemAttributeValue18.Id == attr18Id)
-                    .WhereIf(attr19Id != null && attr19Id != Guid.Empty, e => e.ItemAttributeValue19 != null && e.ItemAttributeValue19.Id == attr19Id);
+                    .WhereIf(inventoryUOMId != null && inventoryUOMId != Guid.Empty, e => e.InventoryUnit != null && e.InventoryUnit.Id == inventoryUOMId)
+                    .WhereIf(purUOMId != null && purUOMId != Guid.Empty, e => e.PurUnit != null && e.PurUnit.Id == purUOMId)
+                    .WhereIf(salesUOMId != null && salesUOMId != Guid.Empty, e => e.SalesUnit != null && e.SalesUnit.Id == salesUOMId)
+                    .WhereIf(attr0Id != null && attr0Id != Guid.Empty, e => e.Attr0 != null && e.Attr0.Id == attr0Id)
+                    .WhereIf(attr1Id != null && attr1Id != Guid.Empty, e => e.Attr1 != null && e.Attr1.Id == attr1Id)
+                    .WhereIf(attr2Id != null && attr2Id != Guid.Empty, e => e.Attr2 != null && e.Attr2.Id == attr2Id)
+                    .WhereIf(attr3Id != null && attr3Id != Guid.Empty, e => e.Attr3 != null && e.Attr3.Id == attr3Id)
+                    .WhereIf(attr4Id != null && attr4Id != Guid.Empty, e => e.Attr4 != null && e.Attr4.Id == attr4Id)
+                    .WhereIf(attr5Id != null && attr5Id != Guid.Empty, e => e.Attr5 != null && e.Attr5.Id == attr5Id)
+                    .WhereIf(attr6Id != null && attr6Id != Guid.Empty, e => e.Attr6 != null && e.Attr6.Id == attr6Id)
+                    .WhereIf(attr7Id != null && attr7Id != Guid.Empty, e => e.Attr7 != null && e.Attr7.Id == attr7Id)
+                    .WhereIf(attr8Id != null && attr8Id != Guid.Empty, e => e.Attr8 != null && e.Attr8.Id == attr8Id)
+                    .WhereIf(attr9Id != null && attr9Id != Guid.Empty, e => e.Attr9 != null && e.Attr9.Id == attr9Id)
+                    .WhereIf(attr10Id != null && attr10Id != Guid.Empty, e => e.Attr10 != null && e.Attr10.Id == attr10Id)
+                    .WhereIf(attr11Id != null && attr11Id != Guid.Empty, e => e.Attr11 != null && e.Attr11.Id == attr11Id)
+                    .WhereIf(attr12Id != null && attr12Id != Guid.Empty, e => e.Attr12 != null && e.Attr12.Id == attr12Id)
+                    .WhereIf(attr13Id != null && attr13Id != Guid.Empty, e => e.Attr13 != null && e.Attr13.Id == attr13Id)
+                    .WhereIf(attr14Id != null && attr14Id != Guid.Empty, e => e.Attr14 != null && e.Attr14.Id == attr14Id)
+                    .WhereIf(attr15Id != null && attr15Id != Guid.Empty, e => e.Attr15 != null && e.Attr15.Id == attr15Id)
+                    .WhereIf(attr16Id != null && attr16Id != Guid.Empty, e => e.Attr16 != null && e.Attr16.Id == attr16Id)
+                    .WhereIf(attr17Id != null && attr17Id != Guid.Empty, e => e.Attr17 != null && e.Attr17.Id == attr17Id)
+                    .WhereIf(attr18Id != null && attr18Id != Guid.Empty, e => e.Attr18 != null && e.Attr18.Id == attr18Id)
+                    .WhereIf(attr19Id != null && attr19Id != Guid.Empty, e => e.Attr19 != null && e.Attr19.Id == attr19Id);
         }
 
         public async Task<List<Item>> GetListAsync(
@@ -300,7 +312,7 @@ namespace DMSpro.OMS.MdmService.Items
             string code = null,
             string name = null,
             string shortName = null,
-            string eRPCode = null,
+            string erpCode = null,
             string barcode = null,
             bool? isPurchasable = null,
             bool? isSaleable = null,
@@ -314,12 +326,16 @@ namespace DMSpro.OMS.MdmService.Items
             int? expiredValueMax = null,
             IssueMethod? issueMethod = null,
             bool? canUpdate = null,
+            decimal? purUnitRateMin = null,
+            decimal? purUnitRateMax = null,
+            decimal? salesUnitRateMin = null,
+            decimal? salesUnitRateMax = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, shortName, eRPCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, shortName, erpCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate, purUnitRateMin, purUnitRateMax, salesUnitRateMin, salesUnitRateMax);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? ItemConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -329,7 +345,7 @@ namespace DMSpro.OMS.MdmService.Items
             string code = null,
             string name = null,
             string shortName = null,
-            string eRPCode = null,
+            string erpCode = null,
             string barcode = null,
             bool? isPurchasable = null,
             bool? isSaleable = null,
@@ -343,6 +359,10 @@ namespace DMSpro.OMS.MdmService.Items
             int? expiredValueMax = null,
             IssueMethod? issueMethod = null,
             bool? canUpdate = null,
+            decimal? purUnitRateMin = null,
+            decimal? purUnitRateMax = null,
+            decimal? salesUnitRateMin = null,
+            decimal? salesUnitRateMax = null,
             Guid? itemTypeId = null,
             Guid? vatId = null,
             Guid? uomGroupId = null,
@@ -372,7 +392,7 @@ namespace DMSpro.OMS.MdmService.Items
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, shortName, eRPCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate, itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id);
+            query = ApplyFilter(query, filterText, code, name, shortName, erpCode, barcode, isPurchasable, isSaleable, isInventoriable, basePriceMin, basePriceMax, active, manageItemBy, expiredType, expiredValueMin, expiredValueMax, issueMethod, canUpdate, purUnitRateMin, purUnitRateMax, salesUnitRateMin, salesUnitRateMax, itemTypeId, vatId, uomGroupId, inventoryUOMId, purUOMId, salesUOMId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -382,7 +402,7 @@ namespace DMSpro.OMS.MdmService.Items
             string code = null,
             string name = null,
             string shortName = null,
-            string eRPCode = null,
+            string erpCode = null,
             string barcode = null,
             bool? isPurchasable = null,
             bool? isSaleable = null,
@@ -395,14 +415,18 @@ namespace DMSpro.OMS.MdmService.Items
             int? expiredValueMin = null,
             int? expiredValueMax = null,
             IssueMethod? issueMethod = null,
-            bool? canUpdate = null)
+            bool? canUpdate = null,
+            decimal? purUnitRateMin = null,
+            decimal? purUnitRateMax = null,
+            decimal? salesUnitRateMin = null,
+            decimal? salesUnitRateMax = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText) || e.Name.Contains(filterText) || e.ShortName.Contains(filterText) || e.ERPCode.Contains(filterText) || e.Barcode.Contains(filterText))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText) || e.Name.Contains(filterText) || e.ShortName.Contains(filterText) || e.erpCode.Contains(filterText) || e.Barcode.Contains(filterText))
                     .WhereIf(!string.IsNullOrWhiteSpace(code), e => e.Code.Contains(code))
                     .WhereIf(!string.IsNullOrWhiteSpace(name), e => e.Name.Contains(name))
                     .WhereIf(!string.IsNullOrWhiteSpace(shortName), e => e.ShortName.Contains(shortName))
-                    .WhereIf(!string.IsNullOrWhiteSpace(eRPCode), e => e.ERPCode.Contains(eRPCode))
+                    .WhereIf(!string.IsNullOrWhiteSpace(erpCode), e => e.erpCode.Contains(erpCode))
                     .WhereIf(!string.IsNullOrWhiteSpace(barcode), e => e.Barcode.Contains(barcode))
                     .WhereIf(isPurchasable.HasValue, e => e.IsPurchasable == isPurchasable)
                     .WhereIf(isSaleable.HasValue, e => e.IsSaleable == isSaleable)
@@ -415,7 +439,11 @@ namespace DMSpro.OMS.MdmService.Items
                     .WhereIf(expiredValueMin.HasValue, e => e.ExpiredValue >= expiredValueMin.Value)
                     .WhereIf(expiredValueMax.HasValue, e => e.ExpiredValue <= expiredValueMax.Value)
                     .WhereIf(issueMethod.HasValue, e => e.IssueMethod == issueMethod)
-                    .WhereIf(canUpdate.HasValue, e => e.CanUpdate == canUpdate);
+                    .WhereIf(canUpdate.HasValue, e => e.CanUpdate == canUpdate)
+                    .WhereIf(purUnitRateMin.HasValue, e => e.PurUnitRate >= purUnitRateMin.Value)
+                    .WhereIf(purUnitRateMax.HasValue, e => e.PurUnitRate <= purUnitRateMax.Value)
+                    .WhereIf(salesUnitRateMin.HasValue, e => e.SalesUnitRate >= salesUnitRateMin.Value)
+                    .WhereIf(salesUnitRateMax.HasValue, e => e.SalesUnitRate <= salesUnitRateMax.Value);
         }
     }
 }
