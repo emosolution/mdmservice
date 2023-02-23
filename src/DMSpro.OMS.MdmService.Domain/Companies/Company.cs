@@ -68,12 +68,12 @@ namespace DMSpro.OMS.MdmService.Companies
         public Guid? GeoLevel3Id { get; set; }
         public Guid? GeoLevel4Id { get; set; }
 
-        public Company Parent { get; set; }
-        public GeoMaster GeoLevel0 { get; set; }
-        public GeoMaster GeoLevel1 { get; set; }
-        public GeoMaster GeoLevel2 { get; set; }
-        public GeoMaster GeoLevel3 { get; set; }
-        public GeoMaster GeoLevel4 { get; set; }
+        public virtual Company Parent { get; set; }
+        public virtual GeoMaster GeoLevel0 { get; set; }
+        public virtual GeoMaster GeoLevel1 { get; set; }
+        public virtual GeoMaster GeoLevel2 { get; set; }
+        public virtual GeoMaster GeoLevel3 { get; set; }
+        public virtual GeoMaster GeoLevel4 { get; set; }
         public Company()
         {
 
