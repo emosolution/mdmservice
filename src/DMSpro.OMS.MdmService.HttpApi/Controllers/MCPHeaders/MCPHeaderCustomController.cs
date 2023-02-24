@@ -32,5 +32,13 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
         {
             return _mCPHeadersAppService.CreateMCP(mcpCreateDto);
         }
+
+        [HttpPut]
+        [Route("update-mcp/{headerId}")]
+        public Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mcpUpdateDto)
+        {
+            return _mCPHeadersAppService.UpdateMCP(headerId, mcpUpdateDto);
+        }
+        
     }
 }
