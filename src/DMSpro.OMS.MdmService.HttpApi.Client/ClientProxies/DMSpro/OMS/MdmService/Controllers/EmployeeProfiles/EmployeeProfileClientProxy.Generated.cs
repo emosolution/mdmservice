@@ -98,9 +98,9 @@ public partial class EmployeeProfileClientProxy : ClientProxyBase<IEmployeeProfi
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual async Task<EmployeeProfileFullDto> GetEmployeeProfile(Guid id)
+    public virtual async Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id)
     {
-        return await RequestAsync<EmployeeProfileFullDto>(nameof(GetEmployeeProfile), new ClientProxyRequestTypeValue
+        return await RequestAsync<EmployeeProfileFullDto>(nameof(GetEmployeeProfileAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

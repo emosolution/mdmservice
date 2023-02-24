@@ -27543,7 +27543,7 @@
                   }
                 },
                 {
-                  "name": "SetEndDate",
+                  "name": "SetEndDateAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -27568,7 +27568,7 @@
                   }
                 },
                 {
-                  "name": "CreateMCP",
+                  "name": "CreateMCPAsync",
                   "parametersOnMethod": [
                     {
                       "name": "mcpCreateDto",
@@ -27585,7 +27585,7 @@
                   }
                 },
                 {
-                  "name": "UpdateMCP",
+                  "name": "UpdateMCPAsync",
                   "parametersOnMethod": [
                     {
                       "name": "headerId",
@@ -27596,7 +27596,7 @@
                       "defaultValue": null
                     },
                     {
-                      "name": "mCPUpdateDto",
+                      "name": "mcpUpdateDto",
                       "typeAsString": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                       "type": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
                       "typeSimple": "DMSpro.OMS.MdmService.MCPHeaders.MCPUpdateDto",
@@ -28413,9 +28413,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
             },
-            "SetEndDateByIdAndEndDate": {
-              "uniqueName": "SetEndDateByIdAndEndDate",
-              "name": "SetEndDate",
+            "SetEndDateAsyncByIdAndEndDate": {
+              "uniqueName": "SetEndDateAsyncByIdAndEndDate",
+              "name": "SetEndDateAsync",
               "httpMethod": "PUT",
               "url": "api/mdm-service/m-cPHeaders/end-date",
               "supportedVersions": [],
@@ -28470,9 +28470,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
             },
-            "CreateMCPByMcpCreateDto": {
-              "uniqueName": "CreateMCPByMcpCreateDto",
-              "name": "CreateMCP",
+            "CreateMCPAsyncByMcpCreateDto": {
+              "uniqueName": "CreateMCPAsyncByMcpCreateDto",
+              "name": "CreateMCPAsync",
               "httpMethod": "POST",
               "url": "api/mdm-service/m-cPHeaders/create-mcp",
               "supportedVersions": [],
@@ -28507,9 +28507,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.MCPHeaders.IMCPHeadersAppService"
             },
-            "UpdateMCPByHeaderIdAndMcpUpdateDto": {
-              "uniqueName": "UpdateMCPByHeaderIdAndMcpUpdateDto",
-              "name": "UpdateMCP",
+            "UpdateMCPAsyncByHeaderIdAndMcpUpdateDto": {
+              "uniqueName": "UpdateMCPAsyncByHeaderIdAndMcpUpdateDto",
+              "name": "UpdateMCPAsync",
               "httpMethod": "PUT",
               "url": "api/mdm-service/m-cPHeaders/update-mcp/{headerId}",
               "supportedVersions": [],
@@ -30793,7 +30793,7 @@
                   }
                 },
                 {
-                  "name": "GetItemProfile",
+                  "name": "GetItemProfileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -32647,9 +32647,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetItemProfileById": {
-              "uniqueName": "GetItemProfileById",
-              "name": "GetItemProfile",
+            "GetItemProfileAsyncById": {
+              "uniqueName": "GetItemProfileAsyncById",
+              "name": "GetItemProfileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/items/item-profile/{id}",
               "supportedVersions": [],
@@ -33229,7 +33229,7 @@
                   }
                 },
                 {
-                  "name": "GetFile",
+                  "name": "GetFileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -33963,9 +33963,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemImages.IItemImagesAppService"
             },
-            "GetFileById": {
-              "uniqueName": "GetFileById",
-              "name": "GetFile",
+            "GetFileAsyncById": {
+              "uniqueName": "GetFileAsyncById",
+              "name": "GetFileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/item-images/get-file",
               "supportedVersions": [],
@@ -40699,7 +40699,7 @@
                   }
                 },
                 {
-                  "name": "GetFile",
+                  "name": "GetFileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -41361,9 +41361,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttachments.IItemAttachmentsAppService"
             },
-            "GetFileById": {
-              "uniqueName": "GetFileById",
-              "name": "GetFile",
+            "GetFileAsyncById": {
+              "uniqueName": "GetFileAsyncById",
+              "name": "GetFileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/item-attachments/get-file",
               "supportedVersions": [],
@@ -45218,7 +45218,7 @@
                   }
                 },
                 {
-                  "name": "GetEmployeeProfile",
+                  "name": "GetEmployeeProfileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -46193,9 +46193,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeProfiles.IEmployeeProfilesAppService"
             },
-            "GetEmployeeProfileById": {
-              "uniqueName": "GetEmployeeProfileById",
-              "name": "GetEmployeeProfile",
+            "GetEmployeeProfileAsyncById": {
+              "uniqueName": "GetEmployeeProfileAsyncById",
+              "name": "GetEmployeeProfileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/employee-profiles/employee-profile/{id}",
               "supportedVersions": [],
@@ -47983,7 +47983,7 @@
                   }
                 },
                 {
-                  "name": "GetFile",
+                  "name": "GetFileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -48693,9 +48693,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "GetFileById": {
-              "uniqueName": "GetFileById",
-              "name": "GetFile",
+            "GetFileAsyncById": {
+              "uniqueName": "GetFileAsyncById",
+              "name": "GetFileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/employee-images/get-file",
               "supportedVersions": [],
@@ -49275,7 +49275,7 @@
                   }
                 },
                 {
-                  "name": "GetFile",
+                  "name": "GetFileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -49937,9 +49937,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
             },
-            "GetFileById": {
-              "uniqueName": "GetFileById",
-              "name": "GetFile",
+            "GetFileAsyncById": {
+              "uniqueName": "GetFileAsyncById",
+              "name": "GetFileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/employee-attachments/get-file",
               "supportedVersions": [],
@@ -51578,7 +51578,7 @@
                   }
                 },
                 {
-                  "name": "GetCustomerProfile",
+                  "name": "GetCustomerProfileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -53661,9 +53661,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Customers.ICustomersAppService"
             },
-            "GetCustomerProfileById": {
-              "uniqueName": "GetCustomerProfileById",
-              "name": "GetCustomerProfile",
+            "GetCustomerProfileAsyncById": {
+              "uniqueName": "GetCustomerProfileAsyncById",
+              "name": "GetCustomerProfileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/customers/customer-profile/{id}",
               "supportedVersions": [],
@@ -62747,7 +62747,7 @@
                   }
                 },
                 {
-                  "name": "GetFile",
+                  "name": "GetFileAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -63409,9 +63409,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerAttachments.ICustomerAttachmentsAppService"
             },
-            "GetFileById": {
-              "uniqueName": "GetFileById",
-              "name": "GetFile",
+            "GetFileAsyncById": {
+              "uniqueName": "GetFileAsyncById",
+              "name": "GetFileAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/customer-attachments/get-file",
               "supportedVersions": [],

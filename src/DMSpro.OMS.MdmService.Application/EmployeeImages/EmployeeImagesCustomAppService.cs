@@ -127,7 +127,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
-        public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
+        public virtual async Task<IRemoteStreamContent> GetFileAsync(Guid id)
         {
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
             GetFileRequest request = new()

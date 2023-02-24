@@ -5,10 +5,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 {
     public partial interface IMCPHeadersAppService
     {
-        Task SetEndDate(Guid id, DateTime endDate);
+        Task SetEndDateAsync(Guid id, DateTime endDate);
 
-        Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto);
+        Task<MCPDto> CreateMCPAsync(MCPCreateDto mcpCreateDto);
 
-        Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mCPUpdateDto);
+        Task<MCPDto> UpdateMCPAsync(Guid headerId, MCPUpdateDto mcpUpdateDto);
     }
 }

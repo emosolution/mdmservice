@@ -90,11 +90,11 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
-    public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
+    public virtual async Task<IRemoteStreamContent> GetFileAsync(Guid id)
     {
-        return await RequestAsync<IRemoteStreamContent>(nameof(GetFile), new ClientProxyRequestTypeValue
+        return await RequestAsync<IRemoteStreamContent>(nameof(GetFileAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(Guid), id}
+            { typeof(Guid), id }
         });
     }
 

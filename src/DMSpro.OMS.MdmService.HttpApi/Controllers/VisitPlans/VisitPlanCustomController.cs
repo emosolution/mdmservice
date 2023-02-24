@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using DMSpro.OMS.MdmService.VisitPlans;
 using System.Collections.Generic;
+using System;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
 {
@@ -9,9 +11,20 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
     {
         [HttpPost]
         [Route("generate-visit-plan-from-mcp")]
-        public Task<List<VisitPlanDto>> GenerateWithPermissionAsync(VisitPlanGenerationInputDto input)
+        public async Task<List<VisitPlanDto>> GenerateWithPermissionAsync(VisitPlanGenerationInputDto input)
         {
-            return _visitPlansAppService.GenerateWithPermissionAsync(input);
+            try
+            {
+                return await _visitPlansAppService.GenerateWithPermissionAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
     }
 }

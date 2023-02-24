@@ -9,6 +9,6 @@ namespace DMSpro.OMS.MdmService.ItemImages
     {
         Task DeleteManyAsync(List<Guid> id);
 
-        Task<IRemoteStreamContent> GetFile(Guid id);
+        Task<IRemoteStreamContent> GetFileAsync(Guid id);
     }
 }

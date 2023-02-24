@@ -9,9 +9,9 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
     {
         [HttpGet]
         [Route("item-profile/{id}")]
-        public async Task<ItemProfileDto> GetItemProfile(Guid id)
+        public async Task<ItemProfileDto> GetItemProfileAsync(Guid id)
         {
-            return await _itemsAppService.GetItemProfile(id);
+            return await _itemsAppService.GetItemProfileAsync(id);
         }
     }
 }

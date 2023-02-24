@@ -12,7 +12,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
     public partial class MCPHeadersAppService
     {
         [Authorize(MdmServicePermissions.MCPs.Edit)]
-        public virtual async Task SetEndDate(Guid id, DateTime endDate)
+        public virtual async Task SetEndDateAsync(Guid id, DateTime endDate)
         {
             DateTime today = DateTime.Now.Date;
             if (endDate.Date <= today)
@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         }
 
         [Authorize(MdmServicePermissions.MCPs.Create)]
-        public virtual async Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
+        public virtual async Task<MCPDto> CreateMCPAsync(MCPCreateDto mcpCreateDto)
         {
             MCPHeaderCreateDto headerCreateDto = mcpCreateDto.MCPHeaderDto;
             MCPHeader header = await _mCPHeaderManager.CreateAsync(
@@ -92,7 +92,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         }
 
         [Authorize(MdmServicePermissions.MCPs.Edit)]
-        public virtual async Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mcpUpdateDto)
+        public virtual async Task<MCPDto> UpdateMCPAsync(Guid headerId, MCPUpdateDto mcpUpdateDto)
         {
             MCPHeaderUpdateDto headerUpdateDto = mcpUpdateDto.MCPHeaderDto;
             MCPHeader header = await _mCPHeaderManager.UpdateAsync(id: headerId,

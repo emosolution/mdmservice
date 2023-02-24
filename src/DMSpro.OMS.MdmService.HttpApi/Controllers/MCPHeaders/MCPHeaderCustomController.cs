@@ -10,11 +10,11 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
     {
         [HttpPut]
         [Route("end-date")]
-        public async Task SetEndDate(Guid id, DateTime endDate)
+        public async Task SetEndDateAsync(Guid id, DateTime endDate)
         {
             try
             {
-                await _mCPHeadersAppService.SetEndDate(id, endDate);
+                await _mCPHeadersAppService.SetEndDateAsync(id, endDate);
             }
             catch (BusinessException bex)
             {
@@ -28,17 +28,40 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
 
         [HttpPost]
         [Route("create-mcp")]
-        public Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
+        public async Task<MCPDto> CreateMCPAsync(MCPCreateDto mcpCreateDto)
         {
-            return _mCPHeadersAppService.CreateMCP(mcpCreateDto);
+            try
+            {
+                return await _mCPHeadersAppService.CreateMCPAsync(mcpCreateDto);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
+
 
         [HttpPut]
         [Route("update-mcp/{headerId}")]
-        public Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mcpUpdateDto)
+        public async Task<MCPDto> UpdateMCPAsync(Guid headerId, MCPUpdateDto mcpUpdateDto)
         {
-            return _mCPHeadersAppService.UpdateMCP(headerId, mcpUpdateDto);
+            try
+            {
+                return await _mCPHeadersAppService.UpdateMCPAsync(headerId, mcpUpdateDto);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
-        
+
     }
 }

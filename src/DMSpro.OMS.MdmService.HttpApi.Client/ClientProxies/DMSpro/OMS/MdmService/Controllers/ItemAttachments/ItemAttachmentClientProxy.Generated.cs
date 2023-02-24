@@ -90,6 +90,14 @@ public partial class ItemAttachmentClientProxy : ClientProxyBase<IItemAttachment
         });
     }
 
+    public virtual async Task<IRemoteStreamContent> GetFileAsync(Guid id)
+    {
+        return await RequestAsync<IRemoteStreamContent>(nameof(GetFileAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
@@ -117,13 +125,5 @@ public partial class ItemAttachmentClientProxy : ClientProxyBase<IItemAttachment
     public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
     {
         return await RequestAsync<IRemoteStreamContent>(nameof(GenerateExcelTemplatesAsync));
-    }
-
-    public virtual async Task<IRemoteStreamContent> GetFile(Guid id)
-    {
-        return await RequestAsync<IRemoteStreamContent>(nameof(GetFile), new ClientProxyRequestTypeValue
-        {
-            { typeof(Guid), id}
-        });
     }
 }

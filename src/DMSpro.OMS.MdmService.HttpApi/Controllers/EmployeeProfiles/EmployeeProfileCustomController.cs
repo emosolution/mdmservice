@@ -9,9 +9,9 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
     {
         [HttpGet]
         [Route("employee-profile/{id}")]
-        public async Task<EmployeeProfileFullDto> GetEmployeeProfile(Guid id)
+        public async Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id)
         {
-            return await _employeeProfilesAppService.GetEmployeeProfile(id);
+            return await _employeeProfilesAppService.GetEmployeeProfileAsync(id);
         }
     }
 }

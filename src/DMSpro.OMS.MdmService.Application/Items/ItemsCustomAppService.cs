@@ -12,7 +12,7 @@ namespace DMSpro.OMS.MdmService.Items
     [Authorize(MdmServicePermissions.Items.Default)]
     public partial class ItemsAppService
     {
-        public async Task<ItemProfileDto> GetItemProfile(Guid id)
+        public async Task<ItemProfileDto> GetItemProfileAsync(Guid id)
         {
             Item item = await _itemRepository.GetAsync(id);
             List<ItemAttachment> attachments = (await _itemAttachmentRepository.GetQueryableAsync()).Where(x => x.ItemId == id).ToList();

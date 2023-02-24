@@ -106,26 +106,26 @@ public partial class MCPHeaderClientProxy : ClientProxyBase<IMCPHeadersAppServic
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual async Task SetEndDate(Guid id, DateTime endDate)
+    public virtual async Task SetEndDateAsync(Guid id, DateTime endDate)
     {
-        await RequestAsync(nameof(SetEndDate), new ClientProxyRequestTypeValue
+        await RequestAsync(nameof(SetEndDateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id },
             { typeof(DateTime), endDate }
         });
     }
 
-    public virtual async Task<MCPDto> CreateMCP(MCPCreateDto mcpCreateDto)
+    public virtual async Task<MCPDto> CreateMCPAsync(MCPCreateDto mcpCreateDto)
     {
-        return await RequestAsync<MCPDto>(nameof(CreateMCP), new ClientProxyRequestTypeValue
+        return await RequestAsync<MCPDto>(nameof(CreateMCPAsync), new ClientProxyRequestTypeValue
         {
             { typeof(MCPCreateDto), mcpCreateDto }
         });
     }
 
-    public virtual async Task<MCPDto> UpdateMCP(Guid headerId, MCPUpdateDto mcpUpdateDto)
+    public virtual async Task<MCPDto> UpdateMCPAsync(Guid headerId, MCPUpdateDto mcpUpdateDto)
     {
-        return await RequestAsync<MCPDto>(nameof(UpdateMCP), new ClientProxyRequestTypeValue
+        return await RequestAsync<MCPDto>(nameof(UpdateMCPAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), headerId },
             { typeof(MCPUpdateDto), mcpUpdateDto }

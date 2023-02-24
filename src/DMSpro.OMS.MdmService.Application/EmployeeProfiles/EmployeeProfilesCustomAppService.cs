@@ -12,7 +12,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
     [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
     public partial class EmployeeProfilesAppService
     {
-        public async Task<EmployeeProfileFullDto> GetEmployeeProfile(Guid id)
+        public async Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id)
         {
             EmployeeProfile employee = await _employeeProfileRepository.GetAsync(id);
             List<EmployeeAttachment> attachments = (await _employeeAttachmentRepository.GetQueryableAsync()).Where(x => x.EmployeeProfileId == id).ToList();

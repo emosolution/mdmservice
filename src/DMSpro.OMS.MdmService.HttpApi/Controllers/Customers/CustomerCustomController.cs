@@ -9,9 +9,9 @@ namespace DMSpro.OMS.MdmService.Controllers.Customers
     {
         [HttpGet]
         [Route("customer-profile/{id}")]
-        public async Task<CustomerProfileDto> GetCustomerProfile(Guid id)
+        public async Task<CustomerProfileDto> GetCustomerProfileAsync(Guid id)
         {
-            return await _customersAppService.GetCustomerProfile(id);
+            return await _customersAppService.GetCustomerProfileAsync(id);
         }
     }
 }

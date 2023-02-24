@@ -11,7 +11,7 @@ namespace DMSpro.OMS.MdmService.Customers
     [Authorize(MdmServicePermissions.Customers.Default)]
     public partial class CustomersAppService
     {
-        public async Task<CustomerProfileDto> GetCustomerProfile(Guid id)
+        public async Task<CustomerProfileDto> GetCustomerProfileAsync(Guid id)
         {
             Customer customer = await _customerRepository.GetAsync(id);
             List<CustomerAttachment> attachments = (await _customerAttachmentRepository.GetQueryableAsync()).Where(x => x.CustomerId == id).ToList();

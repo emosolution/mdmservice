@@ -130,9 +130,9 @@ public partial class CustomerClientProxy : ClientProxyBase<ICustomersAppService>
         return await RequestAsync<DownloadTokenResultDto>(nameof(GetDownloadTokenAsync));
     }
 
-    public virtual async Task<CustomerProfileDto> GetCustomerProfile(Guid id)
+    public virtual async Task<CustomerProfileDto> GetCustomerProfileAsync(Guid id)
     {
-        return await RequestAsync<CustomerProfileDto>(nameof(GetCustomerProfile), new ClientProxyRequestTypeValue
+        return await RequestAsync<CustomerProfileDto>(nameof(GetCustomerProfileAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

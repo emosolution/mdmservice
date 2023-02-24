@@ -17,9 +17,9 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 
         [HttpGet]
         [Route("get-file")]
-        public virtual Task<IRemoteStreamContent> GetFile(Guid id)
+        public virtual Task<IRemoteStreamContent> GetFileAsync(Guid id)
         {
-            return _itemAttachmentsAppService.GetFile(id);
+            return _itemAttachmentsAppService.GetFileAsync(id);
         }
     }
 }
