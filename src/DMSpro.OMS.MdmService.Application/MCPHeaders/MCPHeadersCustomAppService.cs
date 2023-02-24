@@ -46,7 +46,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 code: headerCreateDto.Code,
                 name: headerCreateDto.Name,
                 effectiveDate: headerCreateDto.EffectiveDate,
-                endDate: headerCreateDto.EffectiveDate
+                endDate: headerCreateDto.EndDate
             #endregion
             );
 
