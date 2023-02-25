@@ -6,11 +6,11 @@ namespace DMSpro.OMS.MdmService.Helpers
     {
         public static bool CheckActive(bool active, DateTime effectiveDate, DateTime? endDate)
         {
-            if (effectiveDate > DateTime.Now)
+            if (effectiveDate > DateTime.Now.Date)
             {
                 return false;
             }
-            if (endDate.HasValue && endDate < DateTime.Now)
+            if (endDate.HasValue && endDate >= DateTime.Now.Date)
             {
                 return true;
             }
