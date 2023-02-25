@@ -1,7 +1,8 @@
 ﻿using System;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
 	public class SalesOrgEmpAssignmentWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
