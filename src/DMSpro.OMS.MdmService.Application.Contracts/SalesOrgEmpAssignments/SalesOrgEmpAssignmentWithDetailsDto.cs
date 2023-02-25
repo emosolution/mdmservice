@@ -4,7 +4,8 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 {
-	public class SalesOrgEmpAssignmentWithDetailsDto
+	public class SalesOrgEmpAssignmentWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+
 	{
         public bool IsBase { get; set; }
         public DateTime EffectiveDate { get; set; }
