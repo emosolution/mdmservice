@@ -114,7 +114,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 await SetAllIsAvatarFalse();
             }
             var EmployeeImage = await _employeeImageManager.CreateAsync(input.EmployeeProfileId,
-                input.Description, input.Active, true, Guid.Parse(file.Id));
+                input.Description, input.Active, isAvatarImage, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
         }
@@ -168,7 +168,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             }
             var EmployeeImage = await _employeeImageManager.UpdateAsync(
                 id, input.EmployeeProfileId, input.Description, input.Active,
-                true, Guid.Parse(file.Id), input.ConcurrencyStamp);
+                isAvatarImage, Guid.Parse(file.Id), input.ConcurrencyStamp);
 
             return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
         }
