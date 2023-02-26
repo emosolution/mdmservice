@@ -2,6 +2,7 @@
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.MCPDetails;
+using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -31,6 +32,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public SalesOrgHierarchyDto Route { get; set; }
         public ItemGroupDto ItemGroup { get; set; }
 
+        public CompanyDto Company {get;set;}
         public VisitPlanWithDetailsDto()
 		{
 		}
