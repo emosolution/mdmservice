@@ -48000,6 +48000,48 @@
                   }
                 },
                 {
+                  "name": "CreateAvatarAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+                  }
+                },
+                {
+                  "name": "UpdateAvatarAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -48373,18 +48415,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "IsAvatar",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "File",
                   "jsonName": null,
                   "type": "Volo.Abp.Content.IRemoteStreamContent",
@@ -48467,18 +48497,6 @@
                 {
                   "nameOnMethod": "input",
                   "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsAvatar",
                   "jsonName": null,
                   "type": "System.Boolean",
                   "typeSimple": "boolean",
@@ -48726,6 +48744,184 @@
               "returnValue": {
                 "type": "Volo.Abp.Content.IRemoteStreamContent",
                 "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "CreateAvatarAsyncByInput": {
+              "uniqueName": "CreateAvatarAsyncByInput",
+              "name": "CreateAvatarAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/employee-images/avatar",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "Description",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Active",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "File",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "EmployeeProfileId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "UpdateAvatarAsyncByIdAndInput": {
+              "uniqueName": "UpdateAvatarAsyncByIdAndInput",
+              "name": "UpdateAvatarAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/employee-images/avatar",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Description",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Active",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "File",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "EmployeeProfileId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ConcurrencyStamp",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"

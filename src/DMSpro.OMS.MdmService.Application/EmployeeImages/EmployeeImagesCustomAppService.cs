@@ -20,93 +20,25 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
         public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
         {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
-            if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
-            {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
-            }
-            var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
-            var content = ByteString.CopyFrom(stream.ToArray());
-
-            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
-            UploadFileRequest request = new()
-            {
-                TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
-                DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
-                Name = input.File.FileName,
-                ContentType = contentType,
-                Content = content,
-            };
-            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
-            var response = await client.UploadFileAsync(request);
-            OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
-
-            var EmployeeImage = await _employeeImageManager.CreateAsync(input.EmployeeProfileId,
-                input.Description, input.Active, input.IsAvatar, Guid.Parse(file.Id));
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
+            return await CreateImageAsync(input, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
         public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
         {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
-            if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
-            {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
-            }
+            return await UpdateImageAsync(id, input, false);
+        }
 
-            var record = await _employeeImageRepository.GetAsync(id);
-            string tenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
-            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
-            DeleteFilesRequest deleteRequest = new()
-            {
-                TenantId = tenantId,
-            };
-            deleteRequest.FileIds.Add(record.FileId.ToString());
-            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
-            await client.DeleteFilesAsync(deleteRequest);
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        {
+            return await CreateImageAsync(input, true);
+        }
 
-            var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
-            var content = ByteString.CopyFrom(stream.ToArray());
-            UploadFileRequest uploadRequest = new()
-            {
-                TenantId = tenantId,
-                DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
-                Name = input.File.FileName,
-                ContentType = contentType,
-                Content = content,
-            };
-            var uploadResponse = await client.UploadFileAsync(uploadRequest);
-            OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
-
-            var EmployeeImage = await _employeeImageManager.UpdateAsync(
-                id, input.EmployeeProfileId, input.Description, input.Active, 
-                input.IsAvatar, Guid.Parse(file.Id), input.ConcurrencyStamp);
-
-            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+        {
+            return await UpdateImageAsync(id, input, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
@@ -141,6 +73,114 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             IRemoteStreamContent remoteStreamContent = new RemoteStreamContent(stream: memoryStream,
                 fileName: response.File.FileName, contentType: response.File.ContentType);
             return remoteStreamContent;
+        }
+
+        private async Task<EmployeeImageDto> CreateImageAsync(EmployeeImageCreateDto input, bool isAvatarImage = false)
+        {
+            if (input.EmployeeProfileId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
+            }
+            if (input.File == null)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
+            }
+            string contentType = input.File.ContentType;
+            if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
+            {
+                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+            }
+            var stream = new MemoryStream();
+            await input.File.GetStream().CopyToAsync(stream);
+            var content = ByteString.CopyFrom(stream.ToArray());
+
+            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            UploadFileRequest request = new()
+            {
+                TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
+                DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
+                Name = input.File.FileName,
+                ContentType = contentType,
+                Content = content,
+            };
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+            var response = await client.UploadFileAsync(request);
+            OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
+
+            if (isAvatarImage)
+            {
+                await SetAllIsAvatarFalse();
+            }
+            var EmployeeImage = await _employeeImageManager.CreateAsync(input.EmployeeProfileId,
+                input.Description, input.Active, true, Guid.Parse(file.Id));
+
+            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
+        }
+
+        private async Task<EmployeeImageDto> UpdateImageAsync(Guid id, EmployeeImageUpdateDto input, bool isAvatarImage = false)
+        {
+            if (input.EmployeeProfileId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
+            }
+            if (input.File == null)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
+            }
+            string contentType = input.File.ContentType;
+            if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
+            {
+                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
+                string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+            }
+
+            var record = await _employeeImageRepository.GetAsync(id);
+            string tenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
+            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            DeleteFilesRequest deleteRequest = new()
+            {
+                TenantId = tenantId,
+            };
+            deleteRequest.FileIds.Add(record.FileId.ToString());
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+            await client.DeleteFilesAsync(deleteRequest);
+
+            var stream = new MemoryStream();
+            await input.File.GetStream().CopyToAsync(stream);
+            var content = ByteString.CopyFrom(stream.ToArray());
+            UploadFileRequest uploadRequest = new()
+            {
+                TenantId = tenantId,
+                DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
+                Name = input.File.FileName,
+                ContentType = contentType,
+                Content = content,
+            };
+            var uploadResponse = await client.UploadFileAsync(uploadRequest);
+            OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
+
+            if (isAvatarImage)
+            {
+                await SetAllIsAvatarFalse();
+            }
+            var EmployeeImage = await _employeeImageManager.UpdateAsync(
+                id, input.EmployeeProfileId, input.Description, input.Active,
+                true, Guid.Parse(file.Id), input.ConcurrencyStamp);
+
+            return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
+        }
+
+        private async Task SetAllIsAvatarFalse()
+        {
+            var images = (await _employeeImageRepository.GetQueryableAsync()).ToList();
+            foreach (var image in images)
+            {
+                image.IsAvatar = false;
+            }
+            await _employeeImageRepository.UpdateManyAsync(images);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DMSpro.OMS.MdmService.EmployeeImages;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
@@ -20,6 +22,42 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         public virtual Task<IRemoteStreamContent> GetFileAsync(Guid id)
         {
             return _employeeImagesAppService.GetFileAsync(id);
+        }
+
+        [HttpPost]
+        [Route("avatar")]
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        {
+            try
+            {
+                return await _employeeImagesAppService.CreateAvatarAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("avatar")]
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+        {
+            try
+            {
+                return await _employeeImagesAppService.UpdateAvatarAsync(id, input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
     }
 }
