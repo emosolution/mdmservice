@@ -74,21 +74,41 @@ namespace DMSpro.OMS.MdmService.PriceLists
             var priceList = await _priceListManager.CreateAsync(
             input.BasePriceListId, input.Code, input.Name, input.Active, input.IsFirstPriceList, input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType
             );
+
             var items = await _itemRepository.GetListAsync();
-            //List<PriceListDetail> items = queryable.Where(x => x.PriceListId.Equals(priceList.Id)).ToList();
+            List<PriceListDetail> priceListDetails = new();
             foreach(Item i in items)
             {
                 PriceListDetail priceListDetailObj = new PriceListDetail();
-                //priceListDetailObj.Id = GuidGenerator.Create();
+                priceListDetailObj.Description = "";
                 priceListDetailObj.PriceListId = priceList.Id;
                 priceListDetailObj.ItemId = i.Id;
                 priceListDetailObj.UOMId = i.InventoryUOMId;
-                priceListDetailObj.Price = int.Parse(i.BasePrice.ToString());
+                priceListDetailObj.BasedOnPrice = (int)i.BasePrice;
+                priceListDetailObj.Price = (int)i.BasePrice;
+
+                //switch (priceList.ArithmeticOperation)
+                //{
+                //    case ArithmeticOperator.ADD:
+                //        priceListDetailObj.Price = (int)i.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value : 1);
+                //        break;
+                //    case ArithmeticOperator.SUBTRACT:
+                //        priceListDetailObj.Price = (int)i.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value : 1);
+                //        break;
+                //    default:
+                //        break;
+                //}
+
+
+
+                priceListDetails.Add(priceListDetailObj);
+
                 //priceListDetailObj.
 
-                var priceListDetail = await _priceListDetailRepository.InsertAsync(priceListDetailObj
-                );
+                //var priceListDetail = await _priceListDetailRepository.InsertAsync(priceListDetailObj);
             }
+
+            await _priceListDetailRepository.InsertManyAsync(priceListDetails);
 
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
         }

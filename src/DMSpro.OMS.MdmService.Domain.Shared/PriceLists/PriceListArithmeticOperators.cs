@@ -4,7 +4,7 @@
     {
         ADD = 0,
         SUBTRACT = 1,
-        MULTIPLICATION = 2,
-        DIVISION = 3,
+        //MULTIPLICATION = 2,
+        //DIVISION = 3,
     }
 }
