@@ -9,7 +9,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
     {
         public string Description { get; set; }
         public bool Active { get; set; }
-        public bool IsAvatar { get; set; }
+        //public bool IsAvatar { get; set; }
         [Required]
         public IRemoteStreamContent File { get; set; }
         [Required]

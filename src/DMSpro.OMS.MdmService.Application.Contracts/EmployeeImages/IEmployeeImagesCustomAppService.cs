@@ -10,5 +10,9 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         Task DeleteManyAsync(List<Guid> id);
 
         Task<IRemoteStreamContent> GetFileAsync(Guid id);
+
+        Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input);
+
+        Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input);
     }
 }

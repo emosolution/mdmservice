@@ -98,6 +98,23 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
+    public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+    {
+        return await RequestAsync<EmployeeImageDto>(nameof(CreateAvatarAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(EmployeeImageCreateDto), input }
+        });
+    }
+
+    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+    {
+        return await RequestAsync<EmployeeImageDto>(nameof(UpdateAvatarAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(EmployeeImageUpdateDto), input }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

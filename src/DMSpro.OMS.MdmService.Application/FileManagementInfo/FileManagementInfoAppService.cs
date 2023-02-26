@@ -60,6 +60,7 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
         {
             "image/bmp",
             "image/jpeg",
+            "image/jpg",
             "image/x-png",
             "image/png" ,
             //"image/gif",
