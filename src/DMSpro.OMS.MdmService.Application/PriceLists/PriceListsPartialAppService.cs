@@ -5,6 +5,8 @@ using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -16,18 +18,22 @@ namespace DMSpro.OMS.MdmService.PriceLists
 		private readonly IDistributedCache<PriceListExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly PriceListManager _priceListManager;
-
-		public PriceListsAppService(ICurrentTenant currentTenant,
+        private readonly IPriceListDetailRepository _priceListDetailRepository;
+		private readonly IItemRepository _itemRepository;
+        public PriceListsAppService(ICurrentTenant currentTenant,
 			IPriceListRepository repository,
 			PriceListManager priceListManager,
 			IConfiguration settingProvider,
+			IPriceListDetailRepository priceListDetailRepository,
+			IItemRepository itemRepository,
 			IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider)
 		{
 			_priceListRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_priceListManager = priceListManager;
-			
+			_priceListDetailRepository = priceListDetailRepository;
+			_itemRepository = itemRepository;
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
 		}

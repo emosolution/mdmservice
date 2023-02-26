@@ -12,6 +12,9 @@ using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.Items;
+using Volo.Abp.Guids;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -71,6 +74,21 @@ namespace DMSpro.OMS.MdmService.PriceLists
             var priceList = await _priceListManager.CreateAsync(
             input.BasePriceListId, input.Code, input.Name, input.Active, input.IsFirstPriceList, input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType
             );
+            var items = await _itemRepository.GetListAsync();
+            //List<PriceListDetail> items = queryable.Where(x => x.PriceListId.Equals(priceList.Id)).ToList();
+            foreach(Item i in items)
+            {
+                PriceListDetail priceListDetailObj = new PriceListDetail();
+                //priceListDetailObj.Id = GuidGenerator.Create();
+                priceListDetailObj.PriceListId = priceList.Id;
+                priceListDetailObj.ItemId = i.Id;
+                priceListDetailObj.UOMId = i.InventoryUOMId;
+                priceListDetailObj.Price = int.Parse(i.BasePrice.ToString());
+                //priceListDetailObj.
+
+                var priceListDetail = await _priceListDetailRepository.InsertAsync(priceListDetailObj
+                );
+            }
 
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
         }
