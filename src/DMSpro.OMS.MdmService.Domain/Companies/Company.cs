@@ -18,10 +18,10 @@ namespace DMSpro.OMS.MdmService.Companies
         [NotNull]
         public virtual string Name { get; set; }
 
-        [NotNull]
+        [CanBeNull]
         public virtual string Street { get; set; }
 
-        [NotNull]
+        [CanBeNull]
         public virtual string Address { get; set; }
 
         [CanBeNull]
@@ -87,14 +87,18 @@ namespace DMSpro.OMS.MdmService.Companies
             Check.Length(code, nameof(code), CompanyConsts.CodeMaxLength, CompanyConsts.CodeMinLength);
             Check.NotNull(name, nameof(name));
             Check.Length(name, nameof(name), CompanyConsts.NameMaxLength, CompanyConsts.NameMinLength);
-            Check.NotNull(street, nameof(street));
-            Check.NotNull(address, nameof(address));
-            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength, CompanyConsts.AddressMinLength);
-            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
-            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
+            Check.Length(street, nameof(street), CompanyConsts.StreetMaxLength, 0);
+            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength, 0);
+            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, 0);
+            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, 0);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength, 0);
+            Check.Length(vatName, nameof(vatName), CompanyConsts.VATNameMaxLength, 0);
             Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength, 0);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength, 0);
+            Check.Length(latitude, nameof(latitude), CompanyConsts.LatitudeMaxLength, 0);
+            Check.Length(longitude, nameof(longitude), CompanyConsts.LongitudeMaxLength, 0);
+            Check.Length(contactName, nameof(contactName), CompanyConsts.ContactNameMaxLength, 0);
+            Check.Length(contactPhone, nameof(contactPhone), CompanyConsts.ContactPhoneMaxLength, 0);
             Code = code;
             Name = name;
             Street = street;

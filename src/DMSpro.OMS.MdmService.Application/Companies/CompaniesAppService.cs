@@ -113,27 +113,33 @@ namespace DMSpro.OMS.MdmService.Companies
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _companyRepository.GetListAsync(input.FilterText, 
-                input.Code, 
-                input.Name, 
-                input.Street, 
-                input.Address, 
-                input.Phone, 
-                input.License, 
-                input.TaxCode, 
-                input.VATName, 
-                input.VATAddress, 
-                input.ERPCode, 
-                input.Active, 
-                input.EffectiveDateMin, 
-                input.EffectiveDateMax, 
-                input.EndDateMin, 
-                input.EndDateMax, 
-                input.IsHO, 
-                input.Latitude, 
-                input.Longitude, 
-                input.ContactName, 
-                input.ContactPhone);
+            var companies = await _companyRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone);
+            var items = companies.Select(item => new
+            {
+                item.Company.Code,
+                item.Company.Name,
+                item.Company.Street,
+                item.Company.Address,
+                item.Company.Phone,
+                item.Company.License,
+                item.Company.TaxCode,
+                item.Company.VATName,
+                item.Company.VATAddress,
+                item.Company.ERPCode,
+                item.Company.Active,
+                item.Company.EffectiveDate,
+                item.Company.EndDate,
+                item.Company.IsHO,
+                item.Company.Latitude,
+                item.Company.Longitude,
+                item.Company.ContactName,
+                item.Company.ContactPhone,
+                GeoMasterCode = item.GeoMaster?.Code,
+                GeoMasterCode1 = item.GeoMaster1?.Code,
+                GeoMasterCode2 = item.GeoMaster2?.Code,
+                GeoMasterCode3 = item.GeoMaster3?.Code,
+                GeoMasterCode4 = item.GeoMaster4?.Code,
+            });
 
             var memoryStream = new MemoryStream();
             await memoryStream.SaveAsAsync(items);

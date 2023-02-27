@@ -20,25 +20,29 @@ namespace DMSpro.OMS.MdmService.Companies
         }
 
         public async Task<Company> CreateAsync(
-        Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null)
+            Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CompanyConsts.CodeMaxLength, CompanyConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), CompanyConsts.NameMaxLength, CompanyConsts.NameMinLength);
-            Check.NotNullOrWhiteSpace(street, nameof(street));
-            Check.NotNullOrWhiteSpace(address, nameof(address));
-            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength, CompanyConsts.AddressMinLength);
-            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
-            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
+            Check.Length(street, nameof(street), CompanyConsts.StreetMaxLength);
+            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength);
+            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength);
+            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength);
+            Check.Length(vatName, nameof(vatName), CompanyConsts.VATNameMaxLength);
             Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
+            Check.Length(latitude, nameof(latitude), CompanyConsts.LatitudeMaxLength);
+            Check.Length(longitude, nameof(longitude), CompanyConsts.LongitudeMaxLength);
+            Check.Length(contactName, nameof(contactName), CompanyConsts.ContactNameMaxLength);
+            Check.Length(contactPhone, nameof(contactPhone), CompanyConsts.ContactPhoneMaxLength);
 
             var company = new Company(
              GuidGenerator.Create(),
-             parentId, geoLevel0Id, geoLevel1Id, geoLevel2Id, geoLevel3Id, geoLevel4Id, code, name, street, address, phone, license, taxCode, vatName, vatAddress, erpCode, active, effectiveDate, isHO, latitude, longitude, contactName, contactPhone, endDate
+                parentId, geoLevel0Id, geoLevel1Id, geoLevel2Id, geoLevel3Id, geoLevel4Id, code, name, street, address, phone, license, taxCode, vatName, vatAddress, erpCode, active, effectiveDate, isHO, latitude, longitude, contactName, contactPhone, endDate
              );
 
             return await _companyRepository.InsertAsync(company);
@@ -53,15 +57,19 @@ namespace DMSpro.OMS.MdmService.Companies
             Check.Length(code, nameof(code), CompanyConsts.CodeMaxLength, CompanyConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), CompanyConsts.NameMaxLength, CompanyConsts.NameMinLength);
-            Check.NotNullOrWhiteSpace(street, nameof(street));
-            Check.NotNullOrWhiteSpace(address, nameof(address));
-            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength, CompanyConsts.AddressMinLength);
-            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
-            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
+            Check.Length(street, nameof(street), CompanyConsts.StreetMaxLength);
+            Check.Length(address, nameof(address), CompanyConsts.AddressMaxLength);
+            Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength);
+            Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength);
+            Check.Length(vatName, nameof(vatName), CompanyConsts.VATNameMaxLength);
             Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
+            Check.Length(latitude, nameof(latitude), CompanyConsts.LatitudeMaxLength);
+            Check.Length(longitude, nameof(longitude), CompanyConsts.LongitudeMaxLength);
+            Check.Length(contactName, nameof(contactName), CompanyConsts.ContactNameMaxLength);
+            Check.Length(contactPhone, nameof(contactPhone), CompanyConsts.ContactPhoneMaxLength);
 
             var company = await _companyRepository.GetAsync(id);
 

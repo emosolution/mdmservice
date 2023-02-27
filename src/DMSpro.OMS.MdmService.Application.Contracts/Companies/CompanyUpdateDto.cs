@@ -13,17 +13,17 @@ namespace DMSpro.OMS.MdmService.Companies
         [Required]
         [StringLength(CompanyConsts.NameMaxLength, MinimumLength = CompanyConsts.NameMinLength)]
         public string Name { get; set; }
-        [Required]
+        [StringLength(CompanyConsts.StreetMaxLength)]
         public string Street { get; set; }
-        [Required]
-        [StringLength(CompanyConsts.AddressMaxLength, MinimumLength = CompanyConsts.AddressMinLength)]
+        [StringLength(CompanyConsts.AddressMaxLength)]
         public string Address { get; set; }
-        [StringLength(CompanyConsts.PhoneMaxLength, MinimumLength = CompanyConsts.PhoneMinLength)]
+        [StringLength(CompanyConsts.PhoneMaxLength)]
         public string Phone { get; set; }
-        [StringLength(CompanyConsts.LicenseMaxLength, MinimumLength = CompanyConsts.LicenseMinLength)]
+        [StringLength(CompanyConsts.LicenseMaxLength)]
         public string License { get; set; }
         [StringLength(CompanyConsts.TaxCodeMaxLength)]
         public string TaxCode { get; set; }
+        [StringLength(CompanyConsts.VATNameMaxLength)]
         public string VATName { get; set; }
         [StringLength(CompanyConsts.VATAddressMaxLength)]
         public string VATAddress { get; set; }
@@ -33,9 +33,13 @@ namespace DMSpro.OMS.MdmService.Companies
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool IsHO { get; set; }
+        [StringLength(CompanyConsts.LatitudeMaxLength)]
         public string Latitude { get; set; }
+        [StringLength(CompanyConsts.LongitudeMaxLength)]
         public string Longitude { get; set; }
+        [StringLength(CompanyConsts.ContactNameMaxLength)]
         public string ContactName { get; set; }
+        [StringLength(CompanyConsts.ContactPhoneMaxLength)]
         public string ContactPhone { get; set; }
         public Guid? ParentId { get; set; }
         public Guid? GeoLevel0Id { get; set; }
