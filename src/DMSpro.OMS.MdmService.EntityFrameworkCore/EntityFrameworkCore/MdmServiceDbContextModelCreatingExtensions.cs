@@ -83,13 +83,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Name).HasColumnName(nameof(Street.Name)).IsRequired().HasMaxLength(StreetConsts.NameMaxLength);
         });
         builder.Entity<Currency>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Currencies", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(Currency.TenantId));
-            b.Property(x => x.Code).HasColumnName(nameof(Currency.Code)).IsRequired().HasMaxLength(CurrencyConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(Currency.Name)).HasMaxLength(CurrencyConsts.NameMaxLength);
-        });
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Currencies", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(Currency.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(Currency.Code)).IsRequired().HasMaxLength(CurrencyConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(Currency.Name)).HasMaxLength(CurrencyConsts.NameMaxLength);
+    });
 
         builder.Entity<GeoMaster>(b =>
         {

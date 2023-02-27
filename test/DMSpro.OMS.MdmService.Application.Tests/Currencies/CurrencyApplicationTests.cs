@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.Currencies
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("f879d4a6-0695-4106-ae96-fadbc0e3fe81")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("9b21e357-66b2-4b0c-a7a5-e01349305c45")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _currenciesAppService.GetAsync(Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"));
+            var result = await _currenciesAppService.GetAsync(Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"));
+            result.Id.ShouldBe(Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"));
         }
 
         [Fact]
@@ -48,8 +48,8 @@ namespace DMSpro.OMS.MdmService.Currencies
             // Arrange
             var input = new CurrencyCreateDto
             {
-                Code = "5440adb5129c4996ba07",
-                Name = "8f67da051be542f2beb92113aa5b253ec214a7a75c8649629f90a276b74b70ef61267af737db48e8b29d38c5c4749f3e1d02"
+                Code = "4e357558650b4e4b9893",
+                Name = "d3c198ca2d564113b77ff06c8546f8709981dd730ba8486c91ad9f9cafd263e0f04b380893c5483c8f60e4782d145e5ba56b"
             };
 
             // Act
@@ -59,8 +59,8 @@ namespace DMSpro.OMS.MdmService.Currencies
             var result = await _currencyRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("5440adb5129c4996ba07");
-            result.Name.ShouldBe("8f67da051be542f2beb92113aa5b253ec214a7a75c8649629f90a276b74b70ef61267af737db48e8b29d38c5c4749f3e1d02");
+            result.Code.ShouldBe("4e357558650b4e4b9893");
+            result.Name.ShouldBe("d3c198ca2d564113b77ff06c8546f8709981dd730ba8486c91ad9f9cafd263e0f04b380893c5483c8f60e4782d145e5ba56b");
         }
 
         [Fact]
@@ -69,29 +69,29 @@ namespace DMSpro.OMS.MdmService.Currencies
             // Arrange
             var input = new CurrencyUpdateDto()
             {
-                Code = "c812d1c33f16417bb026",
-                Name = "50ed94691acc42aea2c91308f1d5e465571af43227fe4bd4b13720af50635190c349845a6e4244a08851696f9ae21f1c83c8"
+                Code = "ff15e707b70c4faab087",
+                Name = "45b7ab11fd5142d7abc028ca4e9ce6c3d01a7eb8aa624fdea75d870554222c31f4dd6de3181e4815954aaf643987db35a35a"
             };
 
             // Act
-            var serviceResult = await _currenciesAppService.UpdateAsync(Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"), input);
+            var serviceResult = await _currenciesAppService.UpdateAsync(Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"), input);
 
             // Assert
             var result = await _currencyRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("c812d1c33f16417bb026");
-            result.Name.ShouldBe("50ed94691acc42aea2c91308f1d5e465571af43227fe4bd4b13720af50635190c349845a6e4244a08851696f9ae21f1c83c8");
+            result.Code.ShouldBe("ff15e707b70c4faab087");
+            result.Name.ShouldBe("45b7ab11fd5142d7abc028ca4e9ce6c3d01a7eb8aa624fdea75d870554222c31f4dd6de3181e4815954aaf643987db35a35a");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _currenciesAppService.DeleteAsync(Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"));
+            await _currenciesAppService.DeleteAsync(Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"));
 
             // Assert
-            var result = await _currencyRepository.FindAsync(c => c.Id == Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"));
+            var result = await _currencyRepository.FindAsync(c => c.Id == Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"));
 
             result.ShouldBeNull();
         }
