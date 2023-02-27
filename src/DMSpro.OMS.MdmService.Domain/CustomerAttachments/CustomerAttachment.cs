@@ -30,6 +30,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         {
 
             Id = id;
+            Check.Length(description, nameof(description), CustomerAttachmentConsts.DescriptionMaxLength, 0);
             Description = description;
             Active = active;
             FileId = fileId;

@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             return string.Format(DefaultSorting, withEntityName ? "CustomerAttachment." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
     }
 }

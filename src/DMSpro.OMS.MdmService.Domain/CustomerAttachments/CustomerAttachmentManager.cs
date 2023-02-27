@@ -23,6 +23,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         Guid customerId, string description, bool active, Guid fileId)
         {
             Check.NotNull(customerId, nameof(customerId));
+            Check.Length(description, nameof(description), CustomerAttachmentConsts.DescriptionMaxLength);
 
             var customerAttachment = new CustomerAttachment(
              GuidGenerator.Create(),
@@ -38,6 +39,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
         )
         {
             Check.NotNull(customerId, nameof(customerId));
+            Check.Length(description, nameof(description), CustomerAttachmentConsts.DescriptionMaxLength);
 
             var customerAttachment = await _customerAttachmentRepository.GetAsync(id);
 

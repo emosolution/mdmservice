@@ -746,62 +746,62 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
-                builder.Entity<Customer>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Customers", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(Customer.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(Customer.Code)).IsRequired().HasMaxLength(CustomerConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(Customer.Name)).HasMaxLength(CustomerConsts.NameMaxLength);
-        b.Property(x => x.Phone1).HasColumnName(nameof(Customer.Phone1)).HasMaxLength(CustomerConsts.Phone1MaxLength);
-        b.Property(x => x.Phone2).HasColumnName(nameof(Customer.Phone2)).HasMaxLength(CustomerConsts.Phone2MaxLength);
-        b.Property(x => x.erpCode).HasColumnName(nameof(Customer.erpCode)).HasMaxLength(CustomerConsts.erpCodeMaxLength);
-        b.Property(x => x.License).HasColumnName(nameof(Customer.License)).HasMaxLength(CustomerConsts.LicenseMaxLength);
-        b.Property(x => x.TaxCode).HasColumnName(nameof(Customer.TaxCode)).HasMaxLength(CustomerConsts.TaxCodeMaxLength);
-        b.Property(x => x.vatName).HasColumnName(nameof(Customer.vatName)).HasMaxLength(CustomerConsts.vatNameMaxLength);
-        b.Property(x => x.vatAddress).HasColumnName(nameof(Customer.vatAddress)).HasMaxLength(CustomerConsts.vatAddressMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(Customer.Active));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(Customer.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(Customer.EndDate));
-        b.Property(x => x.CreditLimit).HasColumnName(nameof(Customer.CreditLimit));
-        b.Property(x => x.IsCompany).HasColumnName(nameof(Customer.IsCompany));
-        b.Property(x => x.WarehouseId).HasColumnName(nameof(Customer.WarehouseId));
-        b.Property(x => x.Street).HasColumnName(nameof(Customer.Street)).HasMaxLength(CustomerConsts.StreetMaxLength);
-        b.Property(x => x.Address).HasColumnName(nameof(Customer.Address)).HasMaxLength(CustomerConsts.AddressMaxLength);
-        b.Property(x => x.Latitude).HasColumnName(nameof(Customer.Latitude)).HasMaxLength(CustomerConsts.LatitudeMaxLength);
-        b.Property(x => x.Longitude).HasColumnName(nameof(Customer.Longitude)).HasMaxLength(CustomerConsts.LongitudeMaxLength);
-        b.Property(x => x.SFACustomerCode).HasColumnName(nameof(Customer.SFACustomerCode)).HasMaxLength(CustomerConsts.SFACustomerCodeMaxLength);
-        b.Property(x => x.LastOrderDate).HasColumnName(nameof(Customer.LastOrderDate));
-        b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.PaymentTermId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>().WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
+        builder.Entity<Customer>(b =>
+{
+b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Customers", MdmServiceDbProperties.DbSchema);
+b.ConfigureByConvention();
+b.Property(x => x.TenantId).HasColumnName(nameof(Customer.TenantId));
+b.Property(x => x.Code).HasColumnName(nameof(Customer.Code)).IsRequired().HasMaxLength(CustomerConsts.CodeMaxLength);
+b.Property(x => x.Name).HasColumnName(nameof(Customer.Name)).HasMaxLength(CustomerConsts.NameMaxLength);
+b.Property(x => x.Phone1).HasColumnName(nameof(Customer.Phone1)).HasMaxLength(CustomerConsts.Phone1MaxLength);
+b.Property(x => x.Phone2).HasColumnName(nameof(Customer.Phone2)).HasMaxLength(CustomerConsts.Phone2MaxLength);
+b.Property(x => x.erpCode).HasColumnName(nameof(Customer.erpCode)).HasMaxLength(CustomerConsts.erpCodeMaxLength);
+b.Property(x => x.License).HasColumnName(nameof(Customer.License)).HasMaxLength(CustomerConsts.LicenseMaxLength);
+b.Property(x => x.TaxCode).HasColumnName(nameof(Customer.TaxCode)).HasMaxLength(CustomerConsts.TaxCodeMaxLength);
+b.Property(x => x.vatName).HasColumnName(nameof(Customer.vatName)).HasMaxLength(CustomerConsts.vatNameMaxLength);
+b.Property(x => x.vatAddress).HasColumnName(nameof(Customer.vatAddress)).HasMaxLength(CustomerConsts.vatAddressMaxLength);
+b.Property(x => x.Active).HasColumnName(nameof(Customer.Active));
+b.Property(x => x.EffectiveDate).HasColumnName(nameof(Customer.EffectiveDate));
+b.Property(x => x.EndDate).HasColumnName(nameof(Customer.EndDate));
+b.Property(x => x.CreditLimit).HasColumnName(nameof(Customer.CreditLimit));
+b.Property(x => x.IsCompany).HasColumnName(nameof(Customer.IsCompany));
+b.Property(x => x.WarehouseId).HasColumnName(nameof(Customer.WarehouseId));
+b.Property(x => x.Street).HasColumnName(nameof(Customer.Street)).HasMaxLength(CustomerConsts.StreetMaxLength);
+b.Property(x => x.Address).HasColumnName(nameof(Customer.Address)).HasMaxLength(CustomerConsts.AddressMaxLength);
+b.Property(x => x.Latitude).HasColumnName(nameof(Customer.Latitude)).HasMaxLength(CustomerConsts.LatitudeMaxLength);
+b.Property(x => x.Longitude).HasColumnName(nameof(Customer.Longitude)).HasMaxLength(CustomerConsts.LongitudeMaxLength);
+b.Property(x => x.SFACustomerCode).HasColumnName(nameof(Customer.SFACustomerCode)).HasMaxLength(CustomerConsts.SFACustomerCodeMaxLength);
+b.Property(x => x.LastOrderDate).HasColumnName(nameof(Customer.LastOrderDate));
+b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.PaymentTermId).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<Company>().WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
 b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute4Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute5Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute6Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute7Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute8Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute9Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute10Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute11Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute12Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute13Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute14Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute15Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute16Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute17Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute18Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
-    });
+b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute0Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute1Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute2Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute3Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute4Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute5Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute6Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute7Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute8Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute9Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute10Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute11Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute12Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute13Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute14Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute15Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute16Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute17Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute18Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
+b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
+});
 
         builder.Entity<ItemAttachment>(b =>
         {
@@ -825,15 +825,15 @@ b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x =>
             b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CustomerAttachment>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
-            b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description));
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
-            b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
-            b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        });
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description)).HasMaxLength(CustomerAttachmentConsts.DescriptionMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
+        b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+    });
         builder.Entity<EmployeeAttachment>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeAttachments", MdmServiceDbProperties.DbSchema);
