@@ -261,16 +261,17 @@ public static class MdmServiceDbContextModelCreatingExtensions
         });
 
         builder.Entity<SalesOrgEmpAssignment>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SalesOrgEmpAssignments", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(SalesOrgEmpAssignment.TenantId));
-            b.Property(x => x.IsBase).HasColumnName(nameof(SalesOrgEmpAssignment.IsBase));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(SalesOrgEmpAssignment.EffectiveDate));
-            b.Property(x => x.EndDate).HasColumnName(nameof(SalesOrgEmpAssignment.EndDate));
-            b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
-        });
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SalesOrgEmpAssignments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(SalesOrgEmpAssignment.TenantId));
+        b.Property(x => x.IsBase).HasColumnName(nameof(SalesOrgEmpAssignment.IsBase));
+        b.Property(x => x.EffectiveDate).HasColumnName(nameof(SalesOrgEmpAssignment.EffectiveDate));
+        b.Property(x => x.EndDate).HasColumnName(nameof(SalesOrgEmpAssignment.EndDate));
+        b.Property(x => x.HierarchyCode).HasColumnName(nameof(SalesOrgEmpAssignment.HierarchyCode)).HasMaxLength(SalesOrgEmpAssignmentConsts.HierarchyCodeMaxLength);
+        b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
+    });
 
         builder.Entity<SalesOrgHierarchy>(b =>
         {
@@ -811,7 +812,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Description).HasColumnName(nameof(ItemAttachment.Description)).HasMaxLength(ItemAttachmentConsts.DescriptionMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(ItemAttachment.Active));
             b.Property(x => x.FileId).HasColumnName(nameof(ItemAttachment.FileId));
-            b.HasOne<Item>(x=> x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<ItemImage>(b =>
         {

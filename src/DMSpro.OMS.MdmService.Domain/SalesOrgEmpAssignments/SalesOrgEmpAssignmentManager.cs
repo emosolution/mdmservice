@@ -20,15 +20,16 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         }
 
         public async Task<SalesOrgEmpAssignment> CreateAsync(
-        Guid salesOrgHierarchyId, Guid employeeProfileId, bool isBase, DateTime effectiveDate, DateTime? endDate = null)
+        Guid salesOrgHierarchyId, Guid employeeProfileId, bool isBase, DateTime effectiveDate, string hierarchyCode, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
+            Check.Length(hierarchyCode, nameof(hierarchyCode), SalesOrgEmpAssignmentConsts.HierarchyCodeMaxLength);
 
             var salesOrgEmpAssignment = new SalesOrgEmpAssignment(
              GuidGenerator.Create(),
-             salesOrgHierarchyId, employeeProfileId, isBase, effectiveDate, endDate
+             salesOrgHierarchyId, employeeProfileId, isBase, effectiveDate, hierarchyCode, endDate
              );
 
             return await _salesOrgEmpAssignmentRepository.InsertAsync(salesOrgEmpAssignment);
@@ -36,22 +37,21 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 
         public async Task<SalesOrgEmpAssignment> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid employeeProfileId, bool isBase, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid employeeProfileId, bool isBase, DateTime effectiveDate, string hierarchyCode, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
+            Check.Length(hierarchyCode, nameof(hierarchyCode), SalesOrgEmpAssignmentConsts.HierarchyCodeMaxLength);
 
-            var queryable = await _salesOrgEmpAssignmentRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var salesOrgEmpAssignment = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var salesOrgEmpAssignment = await _salesOrgEmpAssignmentRepository.GetAsync(id);
 
             salesOrgEmpAssignment.SalesOrgHierarchyId = salesOrgHierarchyId;
             salesOrgEmpAssignment.EmployeeProfileId = employeeProfileId;
             salesOrgEmpAssignment.IsBase = isBase;
             salesOrgEmpAssignment.EffectiveDate = effectiveDate;
+            salesOrgEmpAssignment.HierarchyCode = hierarchyCode;
             salesOrgEmpAssignment.EndDate = endDate;
 
             salesOrgEmpAssignment.SetConcurrencyStampIfNotNull(concurrencyStamp);

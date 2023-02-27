@@ -24,8 +24,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
     {
         public virtual async Task<PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgEmpAssignmentsInput input)
         {
-            var totalCount = await _salesOrgEmpAssignmentRepository.GetCountAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.EmployeeProfileId);
-            var items = await _salesOrgEmpAssignmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _salesOrgEmpAssignmentRepository.GetCountAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.HierarchyCode, input.SalesOrgHierarchyId, input.EmployeeProfileId);
+            var items = await _salesOrgEmpAssignmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.HierarchyCode, input.SalesOrgHierarchyId, input.EmployeeProfileId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>
             {
@@ -89,24 +89,30 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             if (input.SalesOrgHierarchyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
-            }else{
+            }
+            else
+            {
                 var saleOSalesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
-                if(saleOSalesOrgHierarchy == null){
+                if (saleOSalesOrgHierarchy == null)
+                {
                     throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
                 }
             }
             if (input.EmployeeProfileId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
-            }else{
+            }
+            else
+            {
                 var employeeProfile = await _employeeProfileRepository.GetAsync(input.EmployeeProfileId);
-                if(employeeProfile == null){
+                if (employeeProfile == null)
+                {
                     throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
                 }
             }
 
             var salesOrgEmpAssignment = await _salesOrgEmpAssignmentManager.CreateAsync(
-            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, input.EndDate
+            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, input.HierarchyCode, input.EndDate
             );
 
             return ObjectMapper.Map<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto>(salesOrgEmpAssignment);
@@ -126,7 +132,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 
             var salesOrgEmpAssignment = await _salesOrgEmpAssignmentManager.UpdateAsync(
             id,
-            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp
+            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, input.HierarchyCode, input.EndDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto>(salesOrgEmpAssignment);
@@ -141,10 +147,21 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _salesOrgEmpAssignmentRepository.GetListAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax);
+            var salesOrgEmpAssignments = await _salesOrgEmpAssignmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.IsBase, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.HierarchyCode);
+            var items = salesOrgEmpAssignments.Select(item => new
+            {
+                IsBase = item.SalesOrgEmpAssignment.IsBase,
+                EffectiveDate = item.SalesOrgEmpAssignment.EffectiveDate,
+                EndDate = item.SalesOrgEmpAssignment.EndDate,
+                HierarchyCode = item.SalesOrgEmpAssignment.HierarchyCode,
+
+                SalesOrgHierarchyCode = item.SalesOrgHierarchy?.Code,
+                EmployeeProfileCode = item.EmployeeProfile?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<SalesOrgEmpAssignment>, List<SalesOrgEmpAssignmentExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "SalesOrgEmpAssignments.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

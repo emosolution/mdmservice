@@ -12,6 +12,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         public DateTime? EffectiveDateMax { get; set; }
         public DateTime? EndDateMin { get; set; }
         public DateTime? EndDateMax { get; set; }
+        public string HierarchyCode { get; set; }
         public Guid? SalesOrgHierarchyId { get; set; }
         public Guid? EmployeeProfileId { get; set; }
 

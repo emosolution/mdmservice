@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             return string.Format(DefaultSorting, withEntityName ? "SalesOrgEmpAssignment." : string.Empty);
         }
 
+        public const int HierarchyCodeMaxLength = 500;
     }
 }

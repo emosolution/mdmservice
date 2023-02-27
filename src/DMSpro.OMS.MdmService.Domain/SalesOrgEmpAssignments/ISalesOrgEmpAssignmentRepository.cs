@@ -20,6 +20,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             DateTime? effectiveDateMax = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
+            string hierarchyCode = null,
             Guid? salesOrgHierarchyId = null,
             Guid? employeeProfileId = null,
             string sorting = null,
@@ -35,6 +36,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
                     DateTime? effectiveDateMax = null,
                     DateTime? endDateMin = null,
                     DateTime? endDateMax = null,
+                    string hierarchyCode = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -48,6 +50,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             DateTime? effectiveDateMax = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
+            string hierarchyCode = null,
             Guid? salesOrgHierarchyId = null,
             Guid? employeeProfileId = null,
             CancellationToken cancellationToken = default);
