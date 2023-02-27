@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "f18de9a0-2b5e-4088-85f4-42420241ff20",
+      "Id": "d5b582a1-e608-4fe6-9431-3425dd6f4a8a",
       "Name": "Street",
       "Type": "string",
       "EnumType": "",
@@ -71,10 +71,10 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -84,7 +84,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "f6666794-cda7-444c-bd27-4647794fd8f9",
+      "Id": "9e784f18-f013-4ea7-b8e2-db312b2755f2",
       "Name": "Address",
       "Type": "string",
       "EnumType": "",
@@ -93,9 +93,9 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": true,
-      "MinLength": 1,
+      "MinLength": null,
       "MaxLength": 1000,
       "SortOrder": 0,
       "SortType": 0,
@@ -106,7 +106,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "151742f2-137f-4110-bcba-bd3c91a1230b",
+      "Id": "da3399d2-ac4e-4d8a-aea4-ff5b6f1df704",
       "Name": "Phone",
       "Type": "string",
       "EnumType": "",
@@ -117,7 +117,7 @@
       "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 0,
+      "MinLength": null,
       "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
@@ -128,7 +128,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "4dc49f50-558b-4d00-ab4d-e48ce01cb146",
+      "Id": "815e324a-f26e-4a80-8589-46ad5ba0e3ae",
       "Name": "License",
       "Type": "string",
       "EnumType": "",
@@ -139,7 +139,7 @@
       "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 0,
+      "MinLength": null,
       "MaxLength": 100,
       "SortOrder": 0,
       "SortType": 0,
@@ -150,7 +150,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "4d9d2b7d-2f99-44ab-b1de-e4dcce95fed6",
+      "Id": "a2e04a34-0ebe-4a7c-a9b7-aeff4913cc70",
       "Name": "TaxCode",
       "Type": "string",
       "EnumType": "",
@@ -172,7 +172,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "209b8e44-4901-41aa-8da9-6cdde9033572",
+      "Id": "46b062d1-7bfc-4d01-867b-daae674bbb51",
       "Name": "VATName",
       "Type": "string",
       "EnumType": "",
@@ -184,7 +184,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -194,7 +194,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "9fd84f99-55f9-4714-b23d-a5c44c5d4e8c",
+      "Id": "dbb87a34-a363-49a4-a6ea-abf9ebbb77f0",
       "Name": "VATAddress",
       "Type": "string",
       "EnumType": "",
@@ -204,7 +204,7 @@
       "DefaultValue": null,
       "IsNullable": false,
       "IsRequired": false,
-      "IsTextArea": false,
+      "IsTextArea": true,
       "MinLength": null,
       "MaxLength": 500,
       "SortOrder": 0,
@@ -216,7 +216,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "6e8bdfa7-2732-4c06-9ca4-a825ad9d7a3e",
+      "Id": "55a08f4e-0554-48c8-823b-e556f2b26817",
       "Name": "ERPCode",
       "Type": "string",
       "EnumType": "",
@@ -326,7 +326,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "3c7ef744-c819-4f3f-99e7-f5ca08d000bd",
+      "Id": "0d625e8a-1207-46c5-8e3e-4b068465a469",
       "Name": "Latitude",
       "Type": "string",
       "EnumType": "",
@@ -338,7 +338,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -348,7 +348,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "0ee9b47b-3e8b-4301-9144-7b31be97641d",
+      "Id": "adb67b89-4eb5-4eed-9595-091f684d443f",
       "Name": "Longitude",
       "Type": "string",
       "EnumType": "",
@@ -360,7 +360,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -370,7 +370,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "b7855380-b4b0-4d94-9889-45a886b96dc6",
+      "Id": "01185de6-dcd7-474a-8887-ccc22ec580bd",
       "Name": "ContactName",
       "Type": "string",
       "EnumType": "",
@@ -382,7 +382,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -392,7 +392,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "a546f4b7-9bed-4048-9630-5311b6abeb7c",
+      "Id": "928fb996-541d-42dd-88f9-8ed66a8fa6b9",
       "Name": "ContactPhone",
       "Type": "string",
       "EnumType": "",
@@ -404,7 +404,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
