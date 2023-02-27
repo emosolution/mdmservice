@@ -86,13 +86,14 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         [Authorize(MdmServicePermissions.SalesOrgEmpAssignments.Create)]
         public virtual async Task<SalesOrgEmpAssignmentDto> CreateAsync(SalesOrgEmpAssignmentCreateDto input)
         {
+            var saleOSalesOrgHierarchy = new SalesOrgHierarchy();
             if (input.SalesOrgHierarchyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
             }
             else
             {
-                var saleOSalesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
+                 saleOSalesOrgHierarchy = await _salesOrgHierarchyRepository.GetAsync(input.SalesOrgHierarchyId);
                 if (saleOSalesOrgHierarchy == null)
                 {
                     throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHierarchy"]]);
@@ -110,10 +111,12 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
                     throw new UserFriendlyException(L["The {0} field is required.", L["EmployeeProfile"]]);
                 }
             }
-
+            
             var salesOrgEmpAssignment = await _salesOrgEmpAssignmentManager.CreateAsync(
-            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, input.HierarchyCode, input.EndDate
+            input.SalesOrgHierarchyId, input.EmployeeProfileId, input.IsBase, input.EffectiveDate, saleOSalesOrgHierarchy.HierarchyCode, input.EndDate
             );
+
+            
 
             return ObjectMapper.Map<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto>(salesOrgEmpAssignment);
         }
