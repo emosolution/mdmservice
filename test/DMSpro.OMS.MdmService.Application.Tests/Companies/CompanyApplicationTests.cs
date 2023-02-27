@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.Companies
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Company.Id == Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246")).ShouldBe(true);
-            result.Items.Any(x => x.Company.Id == Guid.Parse("6a72cddb-40c4-4405-b648-3ba089a88f75")).ShouldBe(true);
+            result.Items.Any(x => x.Company.Id == Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197")).ShouldBe(true);
+            result.Items.Any(x => x.Company.Id == Guid.Parse("9d7230d0-7215-4dfb-b0e9-b9d2d726b278")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _companiesAppService.GetAsync(Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"));
+            var result = await _companiesAppService.GetAsync(Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"));
+            result.Id.ShouldBe(Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197"));
         }
 
         [Fact]
@@ -48,24 +48,24 @@ namespace DMSpro.OMS.MdmService.Companies
             // Arrange
             var input = new CompanyCreateDto
             {
-                Code = "25916431787f4be8b21c",
-                Name = "a99d34e9d1d94061898c4a0471bd3db776e3af74d4d74d7191c9b62396282c7542dbbd89e74e4be4aa70c4bd615f9a504cca",
-                Street = "8b1c7635039b487fa126caa",
-                Address = "0d0404bbf79940659d300c5ed58b249d2f879a093af24026a2536360737749526b64dd4c2fa449479d349dea6bf4602d96ce0ed243f84474aff2574de4856b58f06de31204254b93a2e60c040ae47fe7e21c5643435b44d1ad68c3018dc990e3a8203ddd972649dda76842d515f40db66a4c3457df7c417fb7fc44c9243a1ce06d21bc9e6588487189ac006ea31f8ace5aebc3eb4beb4fb99a016b43d20a77ac9dad9bfe73884c98b81f6188950e50f08f0e6482f8f64c9cb3ec259bf2d3c5648e34dd5e17244637881fa1aac46fa258e37cc88028a3423b9f36aad722df8b1982a8d52bb8c84839b3f7561fb25b27fa93150b49e52044f58f96e9cc7c2b15df17da3336189f447a94e13256a8d2d44ec3a31ade8c21455bb52c4c7737b7da05513a1e1ff84649f194aa0e97b4ef6a79fc6f59f99b244f54a48bfdb2d077e4f1e03774e6b41e448ebaba701a86e98aff7100763a3d1241759c424980c77d45a83f926e121e5642db9b6d959f8abfe1e66bc3c6d0135246de884dfeb9222a7e67f227685d3b7140e9a5ba0c96100d9eeb10250238472747719868dba4405e9e17e3847c6134a145a489bc311457651ec602d051e14e9846a9b280d1fd0ce3b38eec41d18ba2d846f6bda5a1e6b02a0b793ddb1ac909284279bc55e0852e29bb3072ed2d4b211a410298c275c43dfafbded6bd6b7c",
-                Phone = "d956b1a419124b15aa40",
-                License = "27ffe62b33a4400788667457b63f7f50235d772692ee4b9bbfb863c7fb8934330bc45f46d1a8407a9155b71c53cf2b4b5887",
-                TaxCode = "30017e875aa34b3798b57a395389e1c94d80ac5af1ef42caae5786ec39273ef77305b8354bd548b493f34a9e31232332f806",
-                VATName = "0570a7c2d1b74840b22eee02c484ce76495171f4cbf74caf9476e5a301f439791dff16c8f0b34a",
-                VATAddress = "6a3bdd0be8ba4bc5aaab8dc2ca1a4204b1284fe",
-                ERPCode = "08f9875c8dfe40a489a975f24ca95dd74631cd3a5be64536b4d5cd06235e5f25d32b2ac4e96d4ea19a3ac0a78e871210f761",
+                Code = "ee5e2fdf689443cc9e77",
+                Name = "e45aad00e9824a318f27080f689107b1a3e926b992424ae69cc5fc8c162ab3317377f4b3774140ed966ccf7c28e58c868ad9",
+                Street = "9472743e6d3a4036a565451dd4c615fbeb1fe3d1acab485",
+                Address = "c884de37022240efa569d2db81a5864bc430ff1af9584f6588fa49113ce91880ec18dcdc281b40219683b8fb66dbf95417890a68f4a647e98e2863ea0e6d153388622c9308f44721a171c6661db9a6cdb94f5fa96ea444218a3cdad836c90168952772462fd748cf889c3d217f1b610d449e645881754a3e8f1790ccc83a4e8c2c11db0604f24871bed37464bb1b4b05b2c59540f2084265a91672016feb1770feb46da24ef445d2806babf5adc552c5004553a0682d470ca752bead8ba94968e6180b9b96264ccca68565428d4ba5162adeceebf8f343d09028f6549b9b68fb4bf70afb54464de09430147154a3fdbb1d7972c2401c4a8bbb67890c982f5af2deca19735d2640fab4cbf87d40db613f88cec1e016934dc89d5971a496fe065d26f1a904192e4638ad740063f24b336809eaedee9c304ec18ea366eb3843b298f3cd6cb79f7a4b0e870211d5ea3bfcaddb5dbb3bdb2e414b80028256b99263a487ecd117b28e45b7ba0d332e7dcffe7b392cd30d1e7b4dd0b2ed73004aadbbc679baddbc5a424cf3a610ebfefc582d4799a2b0cb301a42afb1729e4ce3363f432366c844a44f41bbb9d512af2dd317fb1afa6ace174a45d9a485ace62ece5abbae3d5c19be64443fa7082ea7e9f5d58de03abf45676c43c69fa8469e50a38c6cfe600454b7c84b32843fad25f48b780f5b273e28",
+                Phone = "7924034e23204f3a9ec8",
+                License = "aa822d65653e4e75a8d3893e26bb1e60e6ca8ce2db15423db4778c67257c55f3915b9c3ee6d543a58cdaa5580b74b516f573",
+                TaxCode = "d55a22752412440cbac017b6169062b08131e9ab55b44da8816531c4503a92285c8379ca77cb488188e9343a78b53fbba8a5",
+                VATName = "8728dbf7c89d4e74a171d38a3f9f4d4752a636c6321a4630abc6a99931e5e6f8375",
+                VATAddress = "3bbb0e5d2c834302b067a17ec53884c43da01da443b44bfd8b24da087f2226471977c08470f444aead714cec0c8462ba4332c652eaec409fa1f859716cd75efc3bb2f94e86654a56bebf57b318aae19c163c72e6c0cc4c889e383cd9efcb41f297c1e7b840624d42822614d1bda8cbc0fffb02a120de481fb9a0b83be85568d1bf36d607dc8b4a56ad849e6020471200a3556aea36b84fffb0338c7bf49d44679cdd136c77dc46bcba820739db87625cc333533fdcb841b797c14a80855acaf61b67a67a2eb54360b052e6f17600bf3115bdaf7c18654b97a1bfb86cefff3c58ca40f4d17ba7446795b636bd055cd22737cb7fb72f014a6fa588",
+                ERPCode = "7c76e112ee68464fb7333cad2a3fd0fd56178c8ac8004b7f93555ea5844d7451eabd6b975d5d48eabef11ecee022fa4021ab",
                 Active = true,
-                EffectiveDate = new DateTime(2007, 4, 9),
-                EndDate = new DateTime(2020, 2, 8),
+                EffectiveDate = new DateTime(2016, 2, 22),
+                EndDate = new DateTime(2007, 8, 1),
                 IsHO = true,
-                Latitude = "4045def8bd3043998e13804895ce9f2163dee9665a3146",
-                Longitude = "264135d1b021415ba513e",
-                ContactName = "35f8407ce1da4b52a14bff2f8e44e54284655be3edcc4bbd82104948b007d7d6d5b5a902351b4005aab2dbc6ca",
-                ContactPhone = "bb5a08ba2e944b89931f537bbca2f"
+                Latitude = "e79096a3",
+                Longitude = "e3ff718a1c714723b9ea0f99dea82c770c09b7e584c14aaf91ef76eb081e24502058baa8a42248aaa0bcc411a340c3e19",
+                ContactName = "f8b6dec28d5641af",
+                ContactPhone = "c9948f2ef79b4a4eb2bf8928d3ffbce336bd42ee5ce646dda2a3d55a05711eda473e6e9000d342beba1efe"
             };
 
             // Act
@@ -75,24 +75,24 @@ namespace DMSpro.OMS.MdmService.Companies
             var result = await _companyRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("25916431787f4be8b21c");
-            result.Name.ShouldBe("a99d34e9d1d94061898c4a0471bd3db776e3af74d4d74d7191c9b62396282c7542dbbd89e74e4be4aa70c4bd615f9a504cca");
-            result.Street.ShouldBe("8b1c7635039b487fa126caa");
-            result.Address.ShouldBe("0d0404bbf79940659d300c5ed58b249d2f879a093af24026a2536360737749526b64dd4c2fa449479d349dea6bf4602d96ce0ed243f84474aff2574de4856b58f06de31204254b93a2e60c040ae47fe7e21c5643435b44d1ad68c3018dc990e3a8203ddd972649dda76842d515f40db66a4c3457df7c417fb7fc44c9243a1ce06d21bc9e6588487189ac006ea31f8ace5aebc3eb4beb4fb99a016b43d20a77ac9dad9bfe73884c98b81f6188950e50f08f0e6482f8f64c9cb3ec259bf2d3c5648e34dd5e17244637881fa1aac46fa258e37cc88028a3423b9f36aad722df8b1982a8d52bb8c84839b3f7561fb25b27fa93150b49e52044f58f96e9cc7c2b15df17da3336189f447a94e13256a8d2d44ec3a31ade8c21455bb52c4c7737b7da05513a1e1ff84649f194aa0e97b4ef6a79fc6f59f99b244f54a48bfdb2d077e4f1e03774e6b41e448ebaba701a86e98aff7100763a3d1241759c424980c77d45a83f926e121e5642db9b6d959f8abfe1e66bc3c6d0135246de884dfeb9222a7e67f227685d3b7140e9a5ba0c96100d9eeb10250238472747719868dba4405e9e17e3847c6134a145a489bc311457651ec602d051e14e9846a9b280d1fd0ce3b38eec41d18ba2d846f6bda5a1e6b02a0b793ddb1ac909284279bc55e0852e29bb3072ed2d4b211a410298c275c43dfafbded6bd6b7c");
-            result.Phone.ShouldBe("d956b1a419124b15aa40");
-            result.License.ShouldBe("27ffe62b33a4400788667457b63f7f50235d772692ee4b9bbfb863c7fb8934330bc45f46d1a8407a9155b71c53cf2b4b5887");
-            result.TaxCode.ShouldBe("30017e875aa34b3798b57a395389e1c94d80ac5af1ef42caae5786ec39273ef77305b8354bd548b493f34a9e31232332f806");
-            result.VATName.ShouldBe("0570a7c2d1b74840b22eee02c484ce76495171f4cbf74caf9476e5a301f439791dff16c8f0b34a");
-            result.VATAddress.ShouldBe("6a3bdd0be8ba4bc5aaab8dc2ca1a4204b1284fe");
-            result.ERPCode.ShouldBe("08f9875c8dfe40a489a975f24ca95dd74631cd3a5be64536b4d5cd06235e5f25d32b2ac4e96d4ea19a3ac0a78e871210f761");
+            result.Code.ShouldBe("ee5e2fdf689443cc9e77");
+            result.Name.ShouldBe("e45aad00e9824a318f27080f689107b1a3e926b992424ae69cc5fc8c162ab3317377f4b3774140ed966ccf7c28e58c868ad9");
+            result.Street.ShouldBe("9472743e6d3a4036a565451dd4c615fbeb1fe3d1acab485");
+            result.Address.ShouldBe("c884de37022240efa569d2db81a5864bc430ff1af9584f6588fa49113ce91880ec18dcdc281b40219683b8fb66dbf95417890a68f4a647e98e2863ea0e6d153388622c9308f44721a171c6661db9a6cdb94f5fa96ea444218a3cdad836c90168952772462fd748cf889c3d217f1b610d449e645881754a3e8f1790ccc83a4e8c2c11db0604f24871bed37464bb1b4b05b2c59540f2084265a91672016feb1770feb46da24ef445d2806babf5adc552c5004553a0682d470ca752bead8ba94968e6180b9b96264ccca68565428d4ba5162adeceebf8f343d09028f6549b9b68fb4bf70afb54464de09430147154a3fdbb1d7972c2401c4a8bbb67890c982f5af2deca19735d2640fab4cbf87d40db613f88cec1e016934dc89d5971a496fe065d26f1a904192e4638ad740063f24b336809eaedee9c304ec18ea366eb3843b298f3cd6cb79f7a4b0e870211d5ea3bfcaddb5dbb3bdb2e414b80028256b99263a487ecd117b28e45b7ba0d332e7dcffe7b392cd30d1e7b4dd0b2ed73004aadbbc679baddbc5a424cf3a610ebfefc582d4799a2b0cb301a42afb1729e4ce3363f432366c844a44f41bbb9d512af2dd317fb1afa6ace174a45d9a485ace62ece5abbae3d5c19be64443fa7082ea7e9f5d58de03abf45676c43c69fa8469e50a38c6cfe600454b7c84b32843fad25f48b780f5b273e28");
+            result.Phone.ShouldBe("7924034e23204f3a9ec8");
+            result.License.ShouldBe("aa822d65653e4e75a8d3893e26bb1e60e6ca8ce2db15423db4778c67257c55f3915b9c3ee6d543a58cdaa5580b74b516f573");
+            result.TaxCode.ShouldBe("d55a22752412440cbac017b6169062b08131e9ab55b44da8816531c4503a92285c8379ca77cb488188e9343a78b53fbba8a5");
+            result.VATName.ShouldBe("8728dbf7c89d4e74a171d38a3f9f4d4752a636c6321a4630abc6a99931e5e6f8375");
+            result.VATAddress.ShouldBe("3bbb0e5d2c834302b067a17ec53884c43da01da443b44bfd8b24da087f2226471977c08470f444aead714cec0c8462ba4332c652eaec409fa1f859716cd75efc3bb2f94e86654a56bebf57b318aae19c163c72e6c0cc4c889e383cd9efcb41f297c1e7b840624d42822614d1bda8cbc0fffb02a120de481fb9a0b83be85568d1bf36d607dc8b4a56ad849e6020471200a3556aea36b84fffb0338c7bf49d44679cdd136c77dc46bcba820739db87625cc333533fdcb841b797c14a80855acaf61b67a67a2eb54360b052e6f17600bf3115bdaf7c18654b97a1bfb86cefff3c58ca40f4d17ba7446795b636bd055cd22737cb7fb72f014a6fa588");
+            result.ERPCode.ShouldBe("7c76e112ee68464fb7333cad2a3fd0fd56178c8ac8004b7f93555ea5844d7451eabd6b975d5d48eabef11ecee022fa4021ab");
             result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2007, 4, 9));
-            result.EndDate.ShouldBe(new DateTime(2020, 2, 8));
+            result.EffectiveDate.ShouldBe(new DateTime(2016, 2, 22));
+            result.EndDate.ShouldBe(new DateTime(2007, 8, 1));
             result.IsHO.ShouldBe(true);
-            result.Latitude.ShouldBe("4045def8bd3043998e13804895ce9f2163dee9665a3146");
-            result.Longitude.ShouldBe("264135d1b021415ba513e");
-            result.ContactName.ShouldBe("35f8407ce1da4b52a14bff2f8e44e54284655be3edcc4bbd82104948b007d7d6d5b5a902351b4005aab2dbc6ca");
-            result.ContactPhone.ShouldBe("bb5a08ba2e944b89931f537bbca2f");
+            result.Latitude.ShouldBe("e79096a3");
+            result.Longitude.ShouldBe("e3ff718a1c714723b9ea0f99dea82c770c09b7e584c14aaf91ef76eb081e24502058baa8a42248aaa0bcc411a340c3e19");
+            result.ContactName.ShouldBe("f8b6dec28d5641af");
+            result.ContactPhone.ShouldBe("c9948f2ef79b4a4eb2bf8928d3ffbce336bd42ee5ce646dda2a3d55a05711eda473e6e9000d342beba1efe");
         }
 
         [Fact]
@@ -101,61 +101,61 @@ namespace DMSpro.OMS.MdmService.Companies
             // Arrange
             var input = new CompanyUpdateDto()
             {
-                Code = "e7ff4e3d6b074787abf0",
-                Name = "f28799bda91246c0baf260f2b4a402a3f1475796b51148049f659fcae43e8fed0428515ac9d84861bd12176bfc4bdf506a4a",
-                Street = "5a83039ceb",
-                Address = "ee1139b0c69043c88562191f9c7d116645a85fc68d16413794e716ccee424b243dcf4e878454480fa27cc2d83a184f39a2712eb2e3864b2f9ffc4f82916b2be4ae83c87f364942829e649d57d09a4fe4b0325c0f32964114be80fe1e8a6faf724e49b020c1a14c808d2b27883a999187368124cd69d9426284e1271df769141880410fad688c4feab33800a4a48e037b2b20f7b72d0b4a7c90cea654cc3ea0c7f3c43c081a6f4525bff8d324e6adad144c428389b8f24a2da1a516eb41e4a9b14ee444432eea4859868abd0ae4445b18f44a1fd6e9fc449ebac3eb10f54d9e6542b80cd6253441b898cac99fb7174d04feff8269ee334432b204d2ec376a03e94e38609a03fa46c2b8eac78db708365c295b1f5bc78d4096a4e7fe2f257ad627a26ea016b2b2465799a17e5b118fcce6241b752867124525bf9e846ac2b7eeef7cc69d1494ef4931ad1f708074b1c4c69e917cae7b094b5c9a66fbab79f8e52193d14eaece3e4088a4a463b3b2e5e145d59ed13d19cb47fbaaa692979a63a090e6b31e13750747469c7b18a2d60b686b418899c4326c4aa0a6b686253d1d48ebec1cf04f3e674c35a8fd62f00a7820f6af2762c6226d46b1b35a604a9846387fe92a1d04341b4db0a0edb50a7e311fdb7d95062dd082447e9df56e68d5f9e1f634c47f41a6a1463abb7ed4f39cfb7d7ff8476a20",
-                Phone = "bf8aebc0cbac461b82f8",
-                License = "a8db97b1733c46658067dfdbd9de4588eddb0f781a98440e91eeb9e5a82950625226f795950b4fa4a07588e8665f98a30add",
-                TaxCode = "cf0928b4c9b3484991228e5cf3e282760b0be7b45ae44488aec35561c9a98009c211ad9068104705b28622c7527d28fd2abc",
-                VATName = "c88a4a4bab484bebbfc5ac84afa32c4c9b38135e38e84005b3d18f4d88e5c5dca1e",
-                VATAddress = "428f734cee3546669378392f4fbbbb60e4a9d198cd2240a2843c974d07",
-                ERPCode = "1e39fdf3352b4212aac54c81530c5b15383b5cb77d224a11b9f89d08d0a8bbb52310bd7a18044f818165d873520488ef3934",
+                Code = "bb205d4794534272b380",
+                Name = "bd206268df604ec2a83184343713b983fc603807cc134a45826ed216c9ac6d812e80c959da804cb2b2d195f882a4bcc6fbfd",
+                Street = "64f31cf43d114af8bd2f585b54910a05",
+                Address = "b028941ef3384c1fbfd80a8768e736be5faa60bbf2be414b922a3b739c19356fbf56016e62b047feb414a44b617b0703f33d1955297f40faad7e53c7cb18f366d15640e08a044c9c9a74f381120924facd202f5088f248cd91bd734bac16a03ee5b88d8a0808424292f9de5d55f35b351334ab2b17ac4f47aa3e4c150cb353732e54f2eaba7c4f20b886c3e5aca4bd5ee7ff3e8bc6c243bc8fb7862ff2f9da6ca63a1be0fbbf4bb78c84edea74f4b7e5147037f8ad8c4437a49f488a6ffd974c5fff83b98cda4d4abc77adb3ba4124181ab7e52fe8164ce0b5f0fe0a7583a42db77ddf1c256e4ed88d0e569504d1012b6245b57b6ce14b85b0996cc7b6cdf9633bdb24875f734937839132c8b4e3690d26dd7b68478e4bdcb1ab785fe63a85cee2bf0fccf17b4a168d4201adf87bb2616861b0a0e5d94ec0aa3feb0f30482fb7a47c4991b8f54bd88dcd5818ee32b6e10b870f407e3c47b8a87c9d25878240bec1ad74b1d3c44d08a155eff283bd89a88b173be668d0479b9b063d0133c018661b76558d072e43898857b4460c7ebf08d6e808fbb7af4bfdbf1a783323e80555855e08bcdb264de1ac2fdff1697b28ab0e245725c0714a97865cf610d51d6d578f87848781b64afc997cd87466ef52fdd9142877dda94e6b8ac91b3cc160ab97d0c62205d0b04e088977e51f2f69f9030d0267a9",
+                Phone = "4fb40cb48f6a490e8fee",
+                License = "624add8200a8407fbeeaa24c11768b862db9803444ce49998408be31e1faf12992c4f0c857ac4dbf944f5b7729765568d85b",
+                TaxCode = "e53f523fefca4a26a94f0496a8a5f551e8692c4ffa554f629fffd560c86e350259db9a2d203c41d09a89f6ce409a2cebae7d",
+                VATName = "889eeae71228429481b8e93b2e394b692dacc7884d51494294536ed73956e504a4",
+                VATAddress = "7ab1a3f1863b4ff99b3c4b8cdf46a0f7e14d9df6ba2d4eb08271a200e416a355b2ff9d487fc74aa1839fa7e502d5c2c6496f5694518b48edb2f32e6be3b431bf8396bf4c26484e62b75e600f36defdd0c46a0ed7a4b14d1cae8aeac883a8b17b33042d118d5747f4bce9b93d8bf1d787cdda36bb46704f54b4695c14fe0261d1c1967ff63e1e4b4cbc6fd1669dde405dbacdc8e1d92649aea342b0e8927c65600d5f81e0b39d4723958b2a9c3e38b52147827830e38e421dad6379225f80e25e21c47fda415341c990ce1046e8ca72722d69fd61c653483ca722063a82062a270df1039d4cfa4c2f83a0239c49c8d0660d88c205fb104c3ba07d",
+                ERPCode = "c66ad237c4c14e1d9da8548c8d3230f9ab42095f90644f32a97655e55fac6247a1de8a5bccba4b2bb0eb83a14b8311d839be",
                 Active = true,
-                EffectiveDate = new DateTime(2021, 3, 18),
-                EndDate = new DateTime(2006, 4, 24),
+                EffectiveDate = new DateTime(2008, 8, 12),
+                EndDate = new DateTime(2003, 6, 8),
                 IsHO = true,
-                Latitude = "a1e0fcc9003e42d1a298c9fa35b4d3482fa20716a3a94e70915450aade0a47cfcff3306495c34f84a1af",
-                Longitude = "4a8517f9c8ad458cbf5",
-                ContactName = "fbc5d246d1524f9c827b6",
-                ContactPhone = "743a5418ce46446fa852fa50a48e94caef9c655da4254cfdba0c4c2c2d23d985df1d076c85264e47bf294"
+                Latitude = "fb5a5c29952644ed904a7fb4",
+                Longitude = "c956b1a9370e44029f39082055a0048f82b79e23309e4d75b15d1c576ac87cd",
+                ContactName = "3b730f1d79934bb89",
+                ContactPhone = "560cddf31e0b4ab788446b3b738e546ae31b7d2e2ff841e0b3e4710feff0470621f5ba70956c4fc8aba89f81a1ed8"
             };
 
             // Act
-            var serviceResult = await _companiesAppService.UpdateAsync(Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"), input);
+            var serviceResult = await _companiesAppService.UpdateAsync(Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197"), input);
 
             // Assert
             var result = await _companyRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("e7ff4e3d6b074787abf0");
-            result.Name.ShouldBe("f28799bda91246c0baf260f2b4a402a3f1475796b51148049f659fcae43e8fed0428515ac9d84861bd12176bfc4bdf506a4a");
-            result.Street.ShouldBe("5a83039ceb");
-            result.Address.ShouldBe("ee1139b0c69043c88562191f9c7d116645a85fc68d16413794e716ccee424b243dcf4e878454480fa27cc2d83a184f39a2712eb2e3864b2f9ffc4f82916b2be4ae83c87f364942829e649d57d09a4fe4b0325c0f32964114be80fe1e8a6faf724e49b020c1a14c808d2b27883a999187368124cd69d9426284e1271df769141880410fad688c4feab33800a4a48e037b2b20f7b72d0b4a7c90cea654cc3ea0c7f3c43c081a6f4525bff8d324e6adad144c428389b8f24a2da1a516eb41e4a9b14ee444432eea4859868abd0ae4445b18f44a1fd6e9fc449ebac3eb10f54d9e6542b80cd6253441b898cac99fb7174d04feff8269ee334432b204d2ec376a03e94e38609a03fa46c2b8eac78db708365c295b1f5bc78d4096a4e7fe2f257ad627a26ea016b2b2465799a17e5b118fcce6241b752867124525bf9e846ac2b7eeef7cc69d1494ef4931ad1f708074b1c4c69e917cae7b094b5c9a66fbab79f8e52193d14eaece3e4088a4a463b3b2e5e145d59ed13d19cb47fbaaa692979a63a090e6b31e13750747469c7b18a2d60b686b418899c4326c4aa0a6b686253d1d48ebec1cf04f3e674c35a8fd62f00a7820f6af2762c6226d46b1b35a604a9846387fe92a1d04341b4db0a0edb50a7e311fdb7d95062dd082447e9df56e68d5f9e1f634c47f41a6a1463abb7ed4f39cfb7d7ff8476a20");
-            result.Phone.ShouldBe("bf8aebc0cbac461b82f8");
-            result.License.ShouldBe("a8db97b1733c46658067dfdbd9de4588eddb0f781a98440e91eeb9e5a82950625226f795950b4fa4a07588e8665f98a30add");
-            result.TaxCode.ShouldBe("cf0928b4c9b3484991228e5cf3e282760b0be7b45ae44488aec35561c9a98009c211ad9068104705b28622c7527d28fd2abc");
-            result.VATName.ShouldBe("c88a4a4bab484bebbfc5ac84afa32c4c9b38135e38e84005b3d18f4d88e5c5dca1e");
-            result.VATAddress.ShouldBe("428f734cee3546669378392f4fbbbb60e4a9d198cd2240a2843c974d07");
-            result.ERPCode.ShouldBe("1e39fdf3352b4212aac54c81530c5b15383b5cb77d224a11b9f89d08d0a8bbb52310bd7a18044f818165d873520488ef3934");
+            result.Code.ShouldBe("bb205d4794534272b380");
+            result.Name.ShouldBe("bd206268df604ec2a83184343713b983fc603807cc134a45826ed216c9ac6d812e80c959da804cb2b2d195f882a4bcc6fbfd");
+            result.Street.ShouldBe("64f31cf43d114af8bd2f585b54910a05");
+            result.Address.ShouldBe("b028941ef3384c1fbfd80a8768e736be5faa60bbf2be414b922a3b739c19356fbf56016e62b047feb414a44b617b0703f33d1955297f40faad7e53c7cb18f366d15640e08a044c9c9a74f381120924facd202f5088f248cd91bd734bac16a03ee5b88d8a0808424292f9de5d55f35b351334ab2b17ac4f47aa3e4c150cb353732e54f2eaba7c4f20b886c3e5aca4bd5ee7ff3e8bc6c243bc8fb7862ff2f9da6ca63a1be0fbbf4bb78c84edea74f4b7e5147037f8ad8c4437a49f488a6ffd974c5fff83b98cda4d4abc77adb3ba4124181ab7e52fe8164ce0b5f0fe0a7583a42db77ddf1c256e4ed88d0e569504d1012b6245b57b6ce14b85b0996cc7b6cdf9633bdb24875f734937839132c8b4e3690d26dd7b68478e4bdcb1ab785fe63a85cee2bf0fccf17b4a168d4201adf87bb2616861b0a0e5d94ec0aa3feb0f30482fb7a47c4991b8f54bd88dcd5818ee32b6e10b870f407e3c47b8a87c9d25878240bec1ad74b1d3c44d08a155eff283bd89a88b173be668d0479b9b063d0133c018661b76558d072e43898857b4460c7ebf08d6e808fbb7af4bfdbf1a783323e80555855e08bcdb264de1ac2fdff1697b28ab0e245725c0714a97865cf610d51d6d578f87848781b64afc997cd87466ef52fdd9142877dda94e6b8ac91b3cc160ab97d0c62205d0b04e088977e51f2f69f9030d0267a9");
+            result.Phone.ShouldBe("4fb40cb48f6a490e8fee");
+            result.License.ShouldBe("624add8200a8407fbeeaa24c11768b862db9803444ce49998408be31e1faf12992c4f0c857ac4dbf944f5b7729765568d85b");
+            result.TaxCode.ShouldBe("e53f523fefca4a26a94f0496a8a5f551e8692c4ffa554f629fffd560c86e350259db9a2d203c41d09a89f6ce409a2cebae7d");
+            result.VATName.ShouldBe("889eeae71228429481b8e93b2e394b692dacc7884d51494294536ed73956e504a4");
+            result.VATAddress.ShouldBe("7ab1a3f1863b4ff99b3c4b8cdf46a0f7e14d9df6ba2d4eb08271a200e416a355b2ff9d487fc74aa1839fa7e502d5c2c6496f5694518b48edb2f32e6be3b431bf8396bf4c26484e62b75e600f36defdd0c46a0ed7a4b14d1cae8aeac883a8b17b33042d118d5747f4bce9b93d8bf1d787cdda36bb46704f54b4695c14fe0261d1c1967ff63e1e4b4cbc6fd1669dde405dbacdc8e1d92649aea342b0e8927c65600d5f81e0b39d4723958b2a9c3e38b52147827830e38e421dad6379225f80e25e21c47fda415341c990ce1046e8ca72722d69fd61c653483ca722063a82062a270df1039d4cfa4c2f83a0239c49c8d0660d88c205fb104c3ba07d");
+            result.ERPCode.ShouldBe("c66ad237c4c14e1d9da8548c8d3230f9ab42095f90644f32a97655e55fac6247a1de8a5bccba4b2bb0eb83a14b8311d839be");
             result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2021, 3, 18));
-            result.EndDate.ShouldBe(new DateTime(2006, 4, 24));
+            result.EffectiveDate.ShouldBe(new DateTime(2008, 8, 12));
+            result.EndDate.ShouldBe(new DateTime(2003, 6, 8));
             result.IsHO.ShouldBe(true);
-            result.Latitude.ShouldBe("a1e0fcc9003e42d1a298c9fa35b4d3482fa20716a3a94e70915450aade0a47cfcff3306495c34f84a1af");
-            result.Longitude.ShouldBe("4a8517f9c8ad458cbf5");
-            result.ContactName.ShouldBe("fbc5d246d1524f9c827b6");
-            result.ContactPhone.ShouldBe("743a5418ce46446fa852fa50a48e94caef9c655da4254cfdba0c4c2c2d23d985df1d076c85264e47bf294");
+            result.Latitude.ShouldBe("fb5a5c29952644ed904a7fb4");
+            result.Longitude.ShouldBe("c956b1a9370e44029f39082055a0048f82b79e23309e4d75b15d1c576ac87cd");
+            result.ContactName.ShouldBe("3b730f1d79934bb89");
+            result.ContactPhone.ShouldBe("560cddf31e0b4ab788446b3b738e546ae31b7d2e2ff841e0b3e4710feff0470621f5ba70956c4fc8aba89f81a1ed8");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _companiesAppService.DeleteAsync(Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"));
+            await _companiesAppService.DeleteAsync(Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197"));
 
             // Assert
-            var result = await _companyRepository.FindAsync(c => c.Id == Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"));
+            var result = await _companyRepository.FindAsync(c => c.Id == Guid.Parse("d45111bf-4879-49ce-9cc6-313f51f8b197"));
 
             result.ShouldBeNull();
         }

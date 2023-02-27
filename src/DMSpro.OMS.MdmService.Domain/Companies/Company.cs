@@ -93,6 +93,7 @@ namespace DMSpro.OMS.MdmService.Companies
             Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
             Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength, 0);
+            Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength, 0);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength, 0);
             Code = code;
             Name = name;

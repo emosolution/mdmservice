@@ -22,7 +22,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
             _companiesAppService = companiesAppService;
         }
 
-
         [HttpGet]
         public Task<PagedResultDto<CompanyWithNavigationPropertiesDto>> GetListAsync(GetCompaniesInput input)
         {
@@ -45,14 +44,14 @@ namespace DMSpro.OMS.MdmService.Controllers.Companies
 
         [HttpGet]
         [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
         {
             return _companiesAppService.GetCompanyLookupAsync(input);
         }
 
         [HttpGet]
         [Route("geo-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             return _companiesAppService.GetGeoMasterLookupAsync(input);
         }

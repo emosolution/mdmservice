@@ -25,6 +25,7 @@ namespace DMSpro.OMS.MdmService.Companies
         [StringLength(CompanyConsts.TaxCodeMaxLength)]
         public string TaxCode { get; set; }
         public string VATName { get; set; }
+        [StringLength(CompanyConsts.VATAddressMaxLength)]
         public string VATAddress { get; set; }
         [StringLength(CompanyConsts.ERPCodeMaxLength)]
         public string ERPCode { get; set; }

@@ -44,17 +44,17 @@ public partial class CompanyClientProxy : ClientProxyBase<ICompaniesAppService>,
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetGeoMasterLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetGeoMasterLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });

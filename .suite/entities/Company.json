@@ -194,7 +194,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "dab6d308-9589-495c-9c5b-936bcc9bffe6",
+      "Id": "9fd84f99-55f9-4714-b23d-a5c44c5d4e8c",
       "Name": "VATAddress",
       "Type": "string",
       "EnumType": "",
@@ -206,7 +206,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

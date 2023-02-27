@@ -32,6 +32,7 @@ namespace DMSpro.OMS.MdmService.Companies
             Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
             Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength);
+            Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
@@ -58,13 +59,11 @@ namespace DMSpro.OMS.MdmService.Companies
             Check.Length(phone, nameof(phone), CompanyConsts.PhoneMaxLength, CompanyConsts.PhoneMinLength);
             Check.Length(license, nameof(license), CompanyConsts.LicenseMaxLength, CompanyConsts.LicenseMinLength);
             Check.Length(taxCode, nameof(taxCode), CompanyConsts.TaxCodeMaxLength);
+            Check.Length(vatAddress, nameof(vatAddress), CompanyConsts.VATAddressMaxLength);
             Check.Length(erpCode, nameof(erpCode), CompanyConsts.ERPCodeMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var queryable = await _companyRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var company = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var company = await _companyRepository.GetAsync(id);
 
             company.ParentId = parentId;
             company.GeoLevel0Id = geoLevel0Id;

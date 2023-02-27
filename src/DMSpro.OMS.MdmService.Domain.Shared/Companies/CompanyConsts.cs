@@ -20,6 +20,7 @@ namespace DMSpro.OMS.MdmService.Companies
         public const int LicenseMinLength = 0;
         public const int LicenseMaxLength = 100;
         public const int TaxCodeMaxLength = 100;
+        public const int VATAddressMaxLength = 500;
         public const int ERPCodeMaxLength = 100;
     }
 }
