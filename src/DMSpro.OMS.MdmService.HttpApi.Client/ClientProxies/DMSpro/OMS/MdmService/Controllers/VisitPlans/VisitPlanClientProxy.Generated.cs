@@ -130,6 +130,15 @@ public partial class VisitPlanClientProxy : ClientProxyBase<IVisitPlansAppServic
         });
     }
 
+    public virtual async Task<List<VisitPlanDto>> UpdateMultipleAsync(List<Guid> ids, DateTime newDate)
+    {
+        return await RequestAsync<List<VisitPlanDto>>(nameof(UpdateMultipleAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(List<Guid>), ids },
+            { typeof(DateTime), newDate }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

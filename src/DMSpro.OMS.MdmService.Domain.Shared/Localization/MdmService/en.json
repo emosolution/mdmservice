@@ -1047,6 +1047,10 @@
     "Error:VisitPlanGeneration:559": "Customer end date cannot be smaller or equal to effective date",
     "Error:VisitPlanGeneration:560": "MCPDetail end date cannot be smaller or equal to effective date",
     "Error:FileManagement:550": "Unexpected error when getting directory {name}",
-    "Error:FileManagement:551": "File format {contentType} is not supported"
+    "Error:FileManagement:551": "File format {contentType} is not supported",
+    "Error:VisitPlansAppService:550": "Can only update visit plans for tomorrow onwards",
+    "Error:VisitPlansAppService:551": "At least one visit plan does not exist in database",
+    "Error:VisitPlansAppService:552": "At least one visit plan is for today or before"
+    
   }
 }

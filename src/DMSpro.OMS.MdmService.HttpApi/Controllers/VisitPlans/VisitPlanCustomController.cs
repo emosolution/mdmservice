@@ -26,5 +26,23 @@ namespace DMSpro.OMS.MdmService.Controllers.VisitPlans
                 throw new UserFriendlyException(message: e.Message);
             }
         }
+
+        [HttpPut]
+        [Route("multiple")]
+        public async Task<List<VisitPlanDto>> UpdateMultipleAsync(List<Guid> ids, DateTime newDate)
+        {
+            try
+            {
+                return await _visitPlansAppService.UpdateMultipleAsync(ids, newDate);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
     }
 }
