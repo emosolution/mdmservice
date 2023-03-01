@@ -27,8 +27,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
     {
         public virtual async Task<PagedResultDto<EmployeeInZoneWithNavigationPropertiesDto>> GetListAsync(GetEmployeeInZonesInput input)
         {
-            var totalCount = await _employeeInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDate, input.SalesOrgHierarchyId, input.EmployeeId);
-            var items = await _employeeInZoneRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDate, input.SalesOrgHierarchyId, input.EmployeeId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _employeeInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.EmployeeId);
+            var items = await _employeeInZoneRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.SalesOrgHierarchyId, input.EmployeeId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<EmployeeInZoneWithNavigationPropertiesDto>
             {
@@ -134,10 +134,19 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _employeeInZoneRepository.GetListAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDate);
+            var employeeInZones = await _employeeInZoneRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax);
+            var items = employeeInZones.Select(item => new
+            {
+                EffectiveDate = item.EmployeeInZone.EffectiveDate,
+                EndDate = item.EmployeeInZone.EndDate,
+
+                SalesOrgHierarchyCode = item.SalesOrgHierarchy?.Code,
+                EmployeeProfileCode = item.EmployeeProfile?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<EmployeeInZone>, List<EmployeeInZoneExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "EmployeeInZones.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

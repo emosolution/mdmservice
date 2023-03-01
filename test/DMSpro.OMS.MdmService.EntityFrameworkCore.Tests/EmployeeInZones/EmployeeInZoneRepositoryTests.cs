@@ -25,13 +25,13 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             {
                 // Act
                 var result = await _employeeInZoneRepository.GetListAsync(
-                    endDate: Guid.Parse("6c47627f-7496-401a-90db-59b89dd7019e")
+
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"));
+                result.First().Id.ShouldBe(Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"));
             });
         }
 
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             {
                 // Act
                 var result = await _employeeInZoneRepository.GetCountAsync(
-                    endDate: Guid.Parse("be0d0193-1f6e-4489-adbd-76dcb8d14f93")
+
                 );
 
                 // Assert

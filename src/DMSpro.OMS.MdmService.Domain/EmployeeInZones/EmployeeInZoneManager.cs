@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
         }
 
         public async Task<EmployeeInZone> CreateAsync(
-        Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, Guid? endDate = null)
+            Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(employeeId, nameof(employeeId));
@@ -36,17 +36,14 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 
         public async Task<EmployeeInZone> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, Guid? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(employeeId, nameof(employeeId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var queryable = await _employeeInZoneRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var employeeInZone = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var employeeInZone = await _employeeInZoneRepository.GetAsync(id);
 
             employeeInZone.SalesOrgHierarchyId = salesOrgHierarchyId;
             employeeInZone.EmployeeId = employeeId;

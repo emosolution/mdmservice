@@ -11,7 +11,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 
         public DateTime? EffectiveDateMin { get; set; }
         public DateTime? EffectiveDateMax { get; set; }
-        public Guid? EndDate { get; set; }
+        public DateTime? EndDateMin { get; set; }
+        public DateTime? EndDateMax { get; set; }
         public Guid? SalesOrgHierarchyId { get; set; }
         public Guid? EmployeeId { get; set; }
 

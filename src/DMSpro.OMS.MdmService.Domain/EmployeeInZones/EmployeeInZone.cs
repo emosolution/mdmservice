@@ -1,15 +1,8 @@
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
-
-using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.EmployeeInZones
 {
@@ -19,7 +12,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 
         public virtual DateTime EffectiveDate { get; set; }
 
-        public virtual Guid? EndDate { get; set; }
+        public virtual DateTime? EndDate { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeId { get; set; }
         public virtual EmployeeProfile EmployeeProfile { get; set; }
@@ -29,7 +22,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 
         }
 
-        public EmployeeInZone(Guid id, Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, Guid? endDate = null)
+        public EmployeeInZone(Guid id, Guid salesOrgHierarchyId, Guid employeeId, DateTime effectiveDate, DateTime? endDate = null)
         {
 
             Id = id;

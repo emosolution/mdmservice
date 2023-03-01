@@ -40,9 +40,9 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "7516778a-4fed-4d66-b53e-b73f5e52956d",
+      "Id": "ff1a2c8c-bf72-4430-a0fb-76e9e7ab19bf",
       "Name": "EndDate",
-      "Type": "Guid",
+      "Type": "DateTime",
       "EnumType": "",
       "EnumNamespace": "",
       "EnumAngularImport": "shared/enums",

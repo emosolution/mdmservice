@@ -36,7 +36,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             string filterText = null,
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
-            Guid? endDate = null,
+            DateTime? endDateMin = null,
+            DateTime? endDateMax = null,
             Guid? salesOrgHierarchyId = null,
             Guid? employeeId = null,
             string sorting = null,
@@ -45,7 +46,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, effectiveDateMin, effectiveDateMax, endDate, salesOrgHierarchyId, employeeId);
+            query = ApplyFilter(query, filterText, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, salesOrgHierarchyId, employeeId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? EmployeeInZoneConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -71,7 +72,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             string filterText,
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
-            Guid? endDate = null,
+            DateTime? endDateMin = null,
+            DateTime? endDateMax = null,
             Guid? salesOrgHierarchyId = null,
             Guid? employeeId = null)
         {
@@ -79,7 +81,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
                     .WhereIf(effectiveDateMin.HasValue, e => e.EmployeeInZone.EffectiveDate >= effectiveDateMin.Value)
                     .WhereIf(effectiveDateMax.HasValue, e => e.EmployeeInZone.EffectiveDate <= effectiveDateMax.Value)
-                    .WhereIf(endDate.HasValue, e => e.EmployeeInZone.EndDate == endDate)
+                    .WhereIf(endDateMin.HasValue, e => e.EmployeeInZone.EndDate >= endDateMin.Value)
+                    .WhereIf(endDateMax.HasValue, e => e.EmployeeInZone.EndDate <= endDateMax.Value)
                     .WhereIf(salesOrgHierarchyId != null && salesOrgHierarchyId != Guid.Empty, e => e.SalesOrgHierarchy != null && e.SalesOrgHierarchy.Id == salesOrgHierarchyId)
                     .WhereIf(employeeId != null && employeeId != Guid.Empty, e => e.EmployeeProfile != null && e.EmployeeProfile.Id == employeeId);
         }
@@ -88,13 +91,14 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             string filterText = null,
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
-            Guid? endDate = null,
+            DateTime? endDateMin = null,
+            DateTime? endDateMax = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, effectiveDateMin, effectiveDateMax, endDate);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? EmployeeInZoneConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -103,13 +107,14 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             string filterText = null,
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
-            Guid? endDate = null,
+            DateTime? endDateMin = null,
+            DateTime? endDateMax = null,
             Guid? salesOrgHierarchyId = null,
             Guid? employeeId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, effectiveDateMin, effectiveDateMax, endDate, salesOrgHierarchyId, employeeId);
+            query = ApplyFilter(query, filterText, effectiveDateMin, effectiveDateMax, endDateMin, endDateMax, salesOrgHierarchyId, employeeId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -118,13 +123,15 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             string filterText,
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
-            Guid? endDate = null)
+            DateTime? endDateMin = null,
+            DateTime? endDateMax = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
                     .WhereIf(effectiveDateMin.HasValue, e => e.EffectiveDate >= effectiveDateMin.Value)
                     .WhereIf(effectiveDateMax.HasValue, e => e.EffectiveDate <= effectiveDateMax.Value)
-                    .WhereIf(endDate.HasValue, e => e.EndDate == endDate);
+                    .WhereIf(endDateMin.HasValue, e => e.EndDate >= endDateMin.Value)
+                    .WhereIf(endDateMax.HasValue, e => e.EndDate <= endDateMax.Value);
         }
     }
 }

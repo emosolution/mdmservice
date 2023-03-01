@@ -8,7 +8,7 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
     public class EmployeeInZoneUpdateDto : IHasConcurrencyStamp
     {
         public DateTime EffectiveDate { get; set; }
-        public Guid? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeId { get; set; }
 

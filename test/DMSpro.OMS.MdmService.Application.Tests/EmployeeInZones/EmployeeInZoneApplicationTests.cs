@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.EmployeeInZone.Id == Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8")).ShouldBe(true);
-            result.Items.Any(x => x.EmployeeInZone.Id == Guid.Parse("7c756745-3011-407e-b0c8-bcc8093cb4fc")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeInZone.Id == Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4")).ShouldBe(true);
+            result.Items.Any(x => x.EmployeeInZone.Id == Guid.Parse("0c446f99-9591-42d1-ae7a-2016ab9db854")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _employeeInZonesAppService.GetAsync(Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"));
+            var result = await _employeeInZonesAppService.GetAsync(Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"));
+            result.Id.ShouldBe(Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"));
         }
 
         [Fact]
@@ -48,8 +48,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             // Arrange
             var input = new EmployeeInZoneCreateDto
             {
-                EffectiveDate = new DateTime(2008, 7, 25),
-                EndDate = Guid.Parse("db81d370-72c9-444e-b742-d01b1df63f14"),
+                EffectiveDate = new DateTime(2022, 7, 7),
+                EndDate = new DateTime(2006, 9, 12),
                 SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
                 EmployeeId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
@@ -61,8 +61,8 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             var result = await _employeeInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2008, 7, 25));
-            result.EndDate.ShouldBe(Guid.Parse("db81d370-72c9-444e-b742-d01b1df63f14"));
+            result.EffectiveDate.ShouldBe(new DateTime(2022, 7, 7));
+            result.EndDate.ShouldBe(new DateTime(2006, 9, 12));
         }
 
         [Fact]
@@ -71,31 +71,31 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
             // Arrange
             var input = new EmployeeInZoneUpdateDto()
             {
-                EffectiveDate = new DateTime(2017, 10, 27),
-                EndDate = Guid.Parse("a1444ce0-82c4-4a27-9113-3b92fac901cb"),
+                EffectiveDate = new DateTime(2014, 6, 3),
+                EndDate = new DateTime(2019, 4, 23),
                 SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
                 EmployeeId = Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             };
 
             // Act
-            var serviceResult = await _employeeInZonesAppService.UpdateAsync(Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"), input);
+            var serviceResult = await _employeeInZonesAppService.UpdateAsync(Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"), input);
 
             // Assert
             var result = await _employeeInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2017, 10, 27));
-            result.EndDate.ShouldBe(Guid.Parse("a1444ce0-82c4-4a27-9113-3b92fac901cb"));
+            result.EffectiveDate.ShouldBe(new DateTime(2014, 6, 3));
+            result.EndDate.ShouldBe(new DateTime(2019, 4, 23));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _employeeInZonesAppService.DeleteAsync(Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"));
+            await _employeeInZonesAppService.DeleteAsync(Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"));
 
             // Assert
-            var result = await _employeeInZoneRepository.FindAsync(c => c.Id == Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"));
+            var result = await _employeeInZoneRepository.FindAsync(c => c.Id == Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"));
 
             result.ShouldBeNull();
         }

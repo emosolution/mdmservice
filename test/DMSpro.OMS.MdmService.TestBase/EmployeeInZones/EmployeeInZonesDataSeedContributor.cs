@@ -37,18 +37,18 @@ namespace DMSpro.OMS.MdmService.EmployeeInZones
 
             await _employeeInZoneRepository.InsertAsync(new EmployeeInZone
             (
-                id: Guid.Parse("be95496e-4382-4f20-ab36-cc18be96ebe8"),
-                effectiveDate: new DateTime(2001, 9, 6),
-                endDate: Guid.Parse("6c47627f-7496-401a-90db-59b89dd7019e"),
+                id: Guid.Parse("5ad99832-9ebd-4aa5-87bd-230e7e14caf4"),
+                effectiveDate: new DateTime(2003, 3, 14),
+                endDate: new DateTime(2003, 8, 6),
                 salesOrgHierarchyId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
                 employeeId: Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             ));
 
             await _employeeInZoneRepository.InsertAsync(new EmployeeInZone
             (
-                id: Guid.Parse("7c756745-3011-407e-b0c8-bcc8093cb4fc"),
-                effectiveDate: new DateTime(2003, 8, 2),
-                endDate: Guid.Parse("be0d0193-1f6e-4489-adbd-76dcb8d14f93"),
+                id: Guid.Parse("0c446f99-9591-42d1-ae7a-2016ab9db854"),
+                effectiveDate: new DateTime(2011, 1, 26),
+                endDate: new DateTime(2001, 10, 19),
                 salesOrgHierarchyId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
                 employeeId: Guid.Parse("b582d913-b271-48f8-ae8b-93fc32c81072")
             ));
