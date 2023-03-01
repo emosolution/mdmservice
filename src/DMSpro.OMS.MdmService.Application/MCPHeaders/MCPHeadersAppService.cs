@@ -78,7 +78,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
         {
             var query = (await _itemGroupRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -87,10 +87,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<ItemGroup>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<ItemGroup>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<ItemGroup>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -148,10 +148,22 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _mCPHeaderRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax);
+            var mCPHeaders = await _mCPHeaderRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax);
+            var items = mCPHeaders.Select(item => new
+            {
+                Code = item.MCPHeader.Code,
+                Name = item.MCPHeader.Name,
+                EffectiveDate = item.MCPHeader.EffectiveDate,
+                EndDate = item.MCPHeader.EndDate,
+
+                SalesOrgHierarchyCode = item.SalesOrgHierarchy?.Code,
+                CompanyCode = item.Company?.Code,
+                ItemGroupCode = item.ItemGroup?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<MCPHeader>, List<MCPHeaderExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "MCPHeaders.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

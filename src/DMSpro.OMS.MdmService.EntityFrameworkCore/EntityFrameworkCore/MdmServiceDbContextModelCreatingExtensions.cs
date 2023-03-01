@@ -525,7 +525,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<ItemGroup>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroups", MdmServiceDbProperties.DbSchema);
@@ -663,7 +663,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(MCPHeader.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(MCPHeader.Code)).IsRequired().HasMaxLength(MCPHeaderConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(MCPHeader.Name));
+            b.Property(x => x.Name).HasColumnName(nameof(MCPHeader.Name)).HasMaxLength(MCPHeaderConsts.NameMaxLength);
             b.Property(x => x.EffectiveDate).HasColumnName(nameof(MCPHeader.EffectiveDate));
             b.Property(x => x.EndDate).HasColumnName(nameof(MCPHeader.EndDate));
             b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);

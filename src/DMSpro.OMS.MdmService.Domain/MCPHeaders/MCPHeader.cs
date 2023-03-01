@@ -42,6 +42,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), MCPHeaderConsts.CodeMaxLength, MCPHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), MCPHeaderConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
             EffectiveDate = effectiveDate;

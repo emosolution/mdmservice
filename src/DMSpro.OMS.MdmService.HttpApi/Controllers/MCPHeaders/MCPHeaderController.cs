@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
         {
             return _mCPHeadersAppService.GetListAsync(input);
         }
-        
+
         [HttpGet]
         [Route("with-navigation-properties/{id}")]
         public Task<MCPHeaderWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
@@ -59,7 +59,7 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
 
         [HttpGet]
         [Route("item-group-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetItemGroupLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemGroupLookupAsync(LookupRequestDto input)
         {
             return _mCPHeadersAppService.GetItemGroupLookupAsync(input);
         }
@@ -97,6 +97,5 @@ namespace DMSpro.OMS.MdmService.Controllers.MCPHeaders
         {
             return _mCPHeadersAppService.GetDownloadTokenAsync();
         }
-
     }
 }
