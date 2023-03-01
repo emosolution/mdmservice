@@ -8,10 +8,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
 
-
-
-
-
 namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupByAtts
 {
     [RemoteService(Name = "MdmService")]

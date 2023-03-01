@@ -24,6 +24,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.NotNull(cusAttributeValueId, nameof(cusAttributeValueId));
+            Check.Length(valueCode, nameof(valueCode), CustomerGroupByAttConsts.ValueCodeMaxLength);
+            Check.Length(valueName, nameof(valueName), CustomerGroupByAttConsts.ValueNameMaxLength);
 
             var customerGroupByAtt = new CustomerGroupByAtt(
              GuidGenerator.Create(),
@@ -40,11 +42,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.NotNull(cusAttributeValueId, nameof(cusAttributeValueId));
+            Check.Length(valueCode, nameof(valueCode), CustomerGroupByAttConsts.ValueCodeMaxLength);
+            Check.Length(valueName, nameof(valueName), CustomerGroupByAttConsts.ValueNameMaxLength);
 
-            var queryable = await _customerGroupByAttRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerGroupByAtt = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerGroupByAtt = await _customerGroupByAttRepository.GetAsync(id);
 
             customerGroupByAtt.CustomerGroupId = customerGroupId;
             customerGroupByAtt.CusAttributeValueId = cusAttributeValueId;

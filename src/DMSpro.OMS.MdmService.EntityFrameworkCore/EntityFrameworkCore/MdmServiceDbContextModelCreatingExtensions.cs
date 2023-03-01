@@ -380,27 +380,27 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CustomerGroupByAtt>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
-            b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode));
-            b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName));
-            b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
-        });
-                builder.Entity<CustomerGroup>(b =>
     {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
         b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
-        b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
-        b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
+        b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
+        b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
+        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
     });
+        builder.Entity<CustomerGroup>(b =>
+{
+b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
+b.ConfigureByConvention();
+b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
+b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
+b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
+b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
+b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
+b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
+b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
+});
         builder.Entity<Holiday>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
@@ -855,5 +855,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.FileId).HasColumnName(nameof(EmployeeImage.FileId));
             b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
         });
+        builder.Entity<CustomerGroupByAtt>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
+        b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
+        b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
+        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CusAttributeValue>().WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
+    });
     }
 }

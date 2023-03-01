@@ -9,5 +9,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
             return string.Format(DefaultSorting, withEntityName ? "CustomerGroupByAtt." : string.Empty);
         }
 
+        public const int ValueCodeMaxLength = 20;
+        public const int ValueNameMaxLength = 255;
     }
 }

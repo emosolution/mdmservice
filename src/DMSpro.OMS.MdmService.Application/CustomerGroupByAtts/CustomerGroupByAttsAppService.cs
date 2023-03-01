@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
         {
             return ObjectMapper.Map<CustomerGroupByAttWithNavigationProperties, CustomerGroupByAttWithNavigationPropertiesDto>
                 (await _customerGroupByAttRepository.GetWithNavigationPropertiesAsync(id));
-
+                
         }
 
         public virtual async Task<CustomerGroupByAttDto> GetAsync(Guid id)
@@ -132,10 +132,19 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _customerGroupByAttRepository.GetListAsync(input.FilterText, input.ValueCode, input.ValueName);
+            var customerGroupByAtts = await _customerGroupByAttRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.ValueCode, input.ValueName);
+            var items = customerGroupByAtts.Select(item => new
+            {
+                ValueCode = item.CustomerGroupByAtt.ValueCode,
+                ValueName = item.CustomerGroupByAtt.ValueName,
+
+                CustomerGroupCode = item.CustomerGroup?.Code,
+                CusAttributeValueAttrValName = item.CusAttributeValue?.AttrValName,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<CustomerGroupByAtt>, List<CustomerGroupByAttExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "CustomerGroupByAtts.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
