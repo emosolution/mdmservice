@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             return string.Format(DefaultSorting, withEntityName ? "EmployeeAttachment." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
     }
 }

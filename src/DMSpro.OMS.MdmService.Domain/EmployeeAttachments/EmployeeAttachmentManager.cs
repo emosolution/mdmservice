@@ -23,6 +23,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         Guid employeeProfileId, string description, bool active, Guid fileId)
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
+            Check.Length(description, nameof(description), EmployeeAttachmentConsts.DescriptionMaxLength);
 
             var employeeAttachment = new EmployeeAttachment(
              GuidGenerator.Create(),
@@ -38,6 +39,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         )
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
+            Check.Length(description, nameof(description), EmployeeAttachmentConsts.DescriptionMaxLength);
 
             var employeeAttachment = await _employeeAttachmentRepository.GetAsync(id);
 

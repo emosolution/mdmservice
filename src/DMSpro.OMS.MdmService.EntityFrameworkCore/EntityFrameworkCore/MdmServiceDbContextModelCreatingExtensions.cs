@@ -102,7 +102,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
             b.HasOne<GeoMaster>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<DimensionMeasurement>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "DimensionMeasurements", MdmServiceDbProperties.DbSchema);
@@ -839,7 +839,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeAttachments", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeAttachment.TenantId));
-            b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description));
+            b.Property(x => x.Description).HasColumnName(nameof(EmployeeAttachment.Description)).HasMaxLength(EmployeeAttachmentConsts.DescriptionMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(EmployeeAttachment.Active));
             b.Property(x => x.FileId).HasColumnName(nameof(EmployeeAttachment.FileId));
             b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);

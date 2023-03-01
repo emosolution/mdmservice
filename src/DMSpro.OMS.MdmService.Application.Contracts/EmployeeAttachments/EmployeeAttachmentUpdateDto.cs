@@ -7,6 +7,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
     public class EmployeeAttachmentUpdateDto : IHasConcurrencyStamp
     {
+        [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; }
         [Required]

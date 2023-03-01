@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         {
 
         }
-        
+
         public async Task<EmployeeAttachmentWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();

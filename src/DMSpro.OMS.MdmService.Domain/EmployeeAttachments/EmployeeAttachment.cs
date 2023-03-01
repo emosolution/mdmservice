@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         public Guid EmployeeProfileId { get; set; }
 
         public virtual EmployeeProfile EmployeeProfile { get; set; }
-
+        
         public EmployeeAttachment()
         {
 
@@ -35,6 +35,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         {
 
             Id = id;
+            Check.Length(description, nameof(description), EmployeeAttachmentConsts.DescriptionMaxLength, 0);
             Description = description;
             Active = active;
             FileId = fileId;

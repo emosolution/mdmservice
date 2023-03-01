@@ -6,6 +6,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
     public class EmployeeAttachmentCreateDto
     {
+        [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; } = true;
         [Required]
