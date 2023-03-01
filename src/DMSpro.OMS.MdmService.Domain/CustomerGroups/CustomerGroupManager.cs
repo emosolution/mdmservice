@@ -24,6 +24,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CustomerGroupConsts.CodeMaxLength, CustomerGroupConsts.CodeMinLength);
+            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength);
             Check.NotNull(groupBy, nameof(groupBy));
             Check.NotNull(status, nameof(status));
 
@@ -42,13 +43,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CustomerGroupConsts.CodeMaxLength, CustomerGroupConsts.CodeMinLength);
+            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength);
             Check.NotNull(groupBy, nameof(groupBy));
             Check.NotNull(status, nameof(status));
 
-            var queryable = await _customerGroupRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerGroup = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerGroup = await _customerGroupRepository.GetAsync(id);
 
             customerGroup.Code = code;
             customerGroup.Name = name;

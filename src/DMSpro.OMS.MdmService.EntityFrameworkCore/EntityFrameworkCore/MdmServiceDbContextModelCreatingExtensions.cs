@@ -389,18 +389,18 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
         });
-        builder.Entity<CustomerGroup>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
-            b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name));
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
-            b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
-            b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
-        });
+                builder.Entity<CustomerGroup>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
+        b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
+        b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
+        b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
+    });
         builder.Entity<Holiday>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);

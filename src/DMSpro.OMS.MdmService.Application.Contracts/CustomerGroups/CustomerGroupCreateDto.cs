@@ -9,12 +9,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         [Required]
         [StringLength(CustomerGroupConsts.CodeMaxLength, MinimumLength = CustomerGroupConsts.CodeMinLength)]
         public string Code { get; set; }
+        [StringLength(CustomerGroupConsts.NameMaxLength)]
         public string Name { get; set; }
         public bool Active { get; set; }
         public DateTime? EffectiveDate { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Type GroupBy { get; set; } = ((Type[])Enum.GetValues(typeof(Type)))[0];
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Status Status { get; set; } = ((Status[])Enum.GetValues(typeof(Status)))[0];
     }
 }
