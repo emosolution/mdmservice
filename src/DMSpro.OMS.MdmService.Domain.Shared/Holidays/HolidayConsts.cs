@@ -11,5 +11,7 @@ namespace DMSpro.OMS.MdmService.Holidays
 
         public const int YearMinLength = 2023;
         public const int YearMaxLength = 2099;
+        public const int DescriptionMinLength = 1;
+        public const int DescriptionMaxLength = 500;
     }
 }

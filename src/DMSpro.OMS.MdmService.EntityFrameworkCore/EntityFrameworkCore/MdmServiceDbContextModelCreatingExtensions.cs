@@ -102,7 +102,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
             b.HasOne<GeoMaster>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<DimensionMeasurement>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "DimensionMeasurements", MdmServiceDbProperties.DbSchema);
@@ -402,13 +402,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
         });
         builder.Entity<Holiday>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(Holiday.TenantId));
-            b.Property(x => x.Year).HasColumnName(nameof(Holiday.Year)).IsRequired().HasMaxLength(HolidayConsts.YearMaxLength);
-            b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).IsRequired();
-        });
+            {
+                b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.TenantId).HasColumnName(nameof(Holiday.TenantId));
+                b.Property(x => x.Year).HasColumnName(nameof(Holiday.Year)).IsRequired().HasMaxLength(HolidayConsts.YearMaxLength);
+                b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).IsRequired().HasMaxLength(HolidayConsts.DescriptionMaxLength);
+            });
         builder.Entity<HolidayDetail>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "HolidayDetails", MdmServiceDbProperties.DbSchema);

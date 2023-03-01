@@ -40,6 +40,7 @@ namespace DMSpro.OMS.MdmService.Holidays
             }
 
             Check.NotNull(description, nameof(description));
+            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
             Year = year;
             Description = description;
         }
