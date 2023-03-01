@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             return string.Format(DefaultSorting, withEntityName ? "HolidayDetail." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
     }
 }

@@ -25,6 +25,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             Check.NotNull(holidayId, nameof(holidayId));
             Check.NotNull(startDate, nameof(startDate));
             Check.NotNull(endDate, nameof(endDate));
+            Check.Length(description, nameof(description), HolidayDetailConsts.DescriptionMaxLength);
 
             var holidayDetail = new HolidayDetail(
              GuidGenerator.Create(),
@@ -42,11 +43,9 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             Check.NotNull(holidayId, nameof(holidayId));
             Check.NotNull(startDate, nameof(startDate));
             Check.NotNull(endDate, nameof(endDate));
+            Check.Length(description, nameof(description), HolidayDetailConsts.DescriptionMaxLength);
 
-            var queryable = await _holidayDetailRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var holidayDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var holidayDetail = await _holidayDetailRepository.GetAsync(id);
 
             holidayDetail.HolidayId = holidayId;
             holidayDetail.StartDate = startDate;

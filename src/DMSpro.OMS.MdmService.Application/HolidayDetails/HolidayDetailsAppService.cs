@@ -8,14 +8,10 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.HolidayDetails;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 
@@ -110,10 +106,19 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _holidayDetailRepository.GetListAsync(input.FilterText, input.StartDateMin, input.StartDateMax, input.EndDateMin, input.EndDateMax, input.Description);
+            var holidayDetails = await _holidayDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartDateMin, input.StartDateMax, input.EndDateMin, input.EndDateMax, input.Description);
+            var items = holidayDetails.Select(item => new
+            {
+                StartDate = item.HolidayDetail.StartDate,
+                EndDate = item.HolidayDetail.EndDate,
+                Description = item.HolidayDetail.Description,
+
+                HolidayDescription = item.Holiday?.Description,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<HolidayDetail>, List<HolidayDetailExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "HolidayDetails.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

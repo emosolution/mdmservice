@@ -33,6 +33,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         {
 
             Id = id;
+            Check.Length(description, nameof(description), HolidayDetailConsts.DescriptionMaxLength, 0);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
