@@ -18,7 +18,7 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "020784cd-5060-4cde-a48a-5c69fd03f99f",
+      "Id": "147156c2-85bb-4689-94a9-da637e72e943",
       "Name": "Description",
       "Type": "string",
       "EnumType": "",
@@ -30,7 +30,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

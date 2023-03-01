@@ -849,7 +849,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeImages", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeImage.TenantId));
-            b.Property(x => x.Description).HasColumnName(nameof(EmployeeImage.Description));
+            b.Property(x => x.Description).HasColumnName(nameof(EmployeeImage.Description)).HasMaxLength(EmployeeImageConsts.DescriptionMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(EmployeeImage.Active));
             b.Property(x => x.IsAvatar).HasColumnName(nameof(EmployeeImage.IsAvatar));
             b.Property(x => x.FileId).HasColumnName(nameof(EmployeeImage.FileId));

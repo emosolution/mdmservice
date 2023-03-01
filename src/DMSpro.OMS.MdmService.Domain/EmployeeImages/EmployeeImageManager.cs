@@ -23,6 +23,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         Guid employeeProfileId, string description, bool active, bool isAvatar, Guid fileId)
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
+            Check.Length(description, nameof(description), EmployeeImageConsts.DescriptionMaxLength);
 
             var employeeImage = new EmployeeImage(
              GuidGenerator.Create(),
@@ -38,6 +39,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         )
         {
             Check.NotNull(employeeProfileId, nameof(employeeProfileId));
+            Check.Length(description, nameof(description), EmployeeImageConsts.DescriptionMaxLength);
 
             var employeeImage = await _employeeImageRepository.GetAsync(id);
 
