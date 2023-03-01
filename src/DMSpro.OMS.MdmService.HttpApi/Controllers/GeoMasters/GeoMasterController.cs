@@ -18,13 +18,10 @@ namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
     {
         private readonly IGeoMastersAppService _geoMastersAppService;
 
-        public GeoMasterController(IGeoMastersAppService geoMastersAppService) 
+        public GeoMasterController(IGeoMastersAppService geoMastersAppService)
         {
             _geoMastersAppService = geoMastersAppService;
         }
-
-
-        
 
         [HttpGet]
         public Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input)
@@ -48,7 +45,7 @@ namespace DMSpro.OMS.MdmService.Controllers.GeoMasters
 
         [HttpGet]
         [Route("geo-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             return _geoMastersAppService.GetGeoMasterLookupAsync(input);
         }

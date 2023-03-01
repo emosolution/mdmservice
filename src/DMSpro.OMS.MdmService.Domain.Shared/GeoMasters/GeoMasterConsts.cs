@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
             return string.Format(DefaultSorting, withEntityName ? "GeoMaster." : string.Empty);
         }
 
+        public const int ERPCodeMaxLength = 20;
         public const int NameMinLength = 1;
         public const int NameMaxLength = 100;
     }

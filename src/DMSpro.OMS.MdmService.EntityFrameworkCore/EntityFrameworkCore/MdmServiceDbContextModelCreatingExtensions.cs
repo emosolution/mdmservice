@@ -97,12 +97,12 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(GeoMaster.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(GeoMaster.Code)).IsRequired();
-            b.Property(x => x.ERPCode).HasColumnName(nameof(GeoMaster.ERPCode));
+            b.Property(x => x.ERPCode).HasColumnName(nameof(GeoMaster.ERPCode)).HasMaxLength(GeoMasterConsts.ERPCodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(GeoMaster.Name)).IsRequired().HasMaxLength(GeoMasterConsts.NameMaxLength);
             b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
             b.HasOne<GeoMaster>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-
+        
         builder.Entity<DimensionMeasurement>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "DimensionMeasurements", MdmServiceDbProperties.DbSchema);

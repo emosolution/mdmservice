@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
             return ObjectMapper.Map<GeoMaster, GeoMasterDto>(await _geoMasterRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             var query = (await _geoMasterRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -54,10 +54,10 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<GeoMaster>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -99,10 +99,20 @@ namespace DMSpro.OMS.MdmService.GeoMasters
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _geoMasterRepository.GetListAsync(input.FilterText, input.Code, input.ERPCode, input.Name, input.LevelMin, input.LevelMax);
+            var geoMasters = await _geoMasterRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.ERPCode, input.Name, input.LevelMin, input.LevelMax);
+            var items = geoMasters.Select(item => new
+            {
+                Code = item.GeoMaster.Code,
+                ERPCode = item.GeoMaster.ERPCode,
+                Name = item.GeoMaster.Name,
+                Level = item.GeoMaster.Level,
+
+                GeoMasterCode = item.GeoMaster?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<GeoMaster>, List<GeoMasterExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "GeoMasters.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
