@@ -41,7 +41,8 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
             Check.NotNull(name, nameof(name));
-            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength, ItemGroupConsts.DescriptionMinLength);
+            Check.Length(name, nameof(name), ItemGroupConsts.NameMaxLength, 0);
+            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength, 0);
             Code = code;
             Name = name;
             Description = description;

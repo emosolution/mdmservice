@@ -26,7 +26,8 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
-            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength, ItemGroupConsts.DescriptionMinLength);
+            Check.Length(name, nameof(name), ItemGroupConsts.NameMaxLength);
+            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength);
             Check.NotNull(type, nameof(type));
             Check.NotNull(status, nameof(status));
 
@@ -46,14 +47,12 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
-            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength, ItemGroupConsts.DescriptionMinLength);
+            Check.Length(name, nameof(name), ItemGroupConsts.NameMaxLength);
+            Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength);
             Check.NotNull(type, nameof(type));
             Check.NotNull(status, nameof(status));
 
-            var queryable = await _itemGroupRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var itemGroup = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var itemGroup = await _itemGroupRepository.GetAsync(id);
 
             itemGroup.Code = code;
             itemGroup.Name = name;

@@ -11,12 +11,11 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         [StringLength(ItemGroupConsts.CodeMaxLength, MinimumLength = ItemGroupConsts.CodeMinLength)]
         public string Code { get; set; }
         [Required]
+        [StringLength(ItemGroupConsts.NameMaxLength)]
         public string Name { get; set; }
-        [StringLength(ItemGroupConsts.DescriptionMaxLength, MinimumLength = ItemGroupConsts.DescriptionMinLength)]
+        [StringLength(ItemGroupConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public GroupType Type { get; set; } = ((GroupType[])Enum.GetValues(typeof(GroupType)))[0];
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public GroupStatus Status { get; set; } = ((GroupStatus[])Enum.GetValues(typeof(GroupStatus)))[0];
     }
 }

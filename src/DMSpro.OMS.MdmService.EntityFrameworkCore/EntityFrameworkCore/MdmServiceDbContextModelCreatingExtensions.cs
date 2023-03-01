@@ -525,14 +525,14 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
-
+        
         builder.Entity<ItemGroup>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroups", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroup.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(ItemGroup.Code)).IsRequired().HasMaxLength(ItemGroupConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(ItemGroup.Name)).IsRequired();
+            b.Property(x => x.Name).HasColumnName(nameof(ItemGroup.Name)).IsRequired().HasMaxLength(ItemGroupConsts.NameMaxLength);
             b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
             b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
             b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));

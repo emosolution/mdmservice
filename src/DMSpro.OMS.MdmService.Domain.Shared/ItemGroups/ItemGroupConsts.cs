@@ -11,7 +11,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         public const int CodeMinLength = 1;
         public const int CodeMaxLength = 50;
-        public const int DescriptionMinLength = 0;
-        public const int DescriptionMaxLength = 255;
+        public const int NameMaxLength = 255;
+        public const int DescriptionMaxLength = 500;
     }
 }

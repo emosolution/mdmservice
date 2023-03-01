@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "5ff9a86b-15a0-4e9b-bf7f-67768d116041",
+      "Id": "66bc73a6-8896-449e-a413-3625026e6702",
       "Name": "Name",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": true,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "75ec46c9-4743-4bdd-8810-820914781c2d",
+      "Id": "d186e739-8840-4fcd-a90d-60d56de8b52f",
       "Name": "Description",
       "Type": "string",
       "EnumType": "",
@@ -73,8 +73,8 @@
       "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 0,
-      "MaxLength": 255,
+      "MinLength": null,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
