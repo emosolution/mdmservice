@@ -22,6 +22,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public async Task<NumberingConfig> CreateAsync(
         Guid? companyId, Guid? systemDataId, int startNumber, string prefix, string suffix, int length)
         {
+            Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
+            Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength);
 
             var numberingConfig = new NumberingConfig(
              GuidGenerator.Create(),
@@ -36,11 +38,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             Guid? companyId, Guid? systemDataId, int startNumber, string prefix, string suffix, int length, [CanBeNull] string concurrencyStamp = null
         )
         {
+            Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
+            Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength);
 
-            var queryable = await _numberingConfigRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var numberingConfig = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var numberingConfig = await _numberingConfigRepository.GetAsync(id);
 
             numberingConfig.CompanyId = companyId;
             numberingConfig.SystemDataId = systemDataId;

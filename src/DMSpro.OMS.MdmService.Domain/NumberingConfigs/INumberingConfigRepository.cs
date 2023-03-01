@@ -9,9 +9,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
     public partial interface INumberingConfigRepository : IRepository<NumberingConfig, Guid>
     {
         Task<NumberingConfigWithNavigationProperties> GetWithNavigationPropertiesAsync(
-    Guid id,
-    CancellationToken cancellationToken = default
-);
+        Guid id,
+        CancellationToken cancellationToken = default);
 
         Task<List<NumberingConfigWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,

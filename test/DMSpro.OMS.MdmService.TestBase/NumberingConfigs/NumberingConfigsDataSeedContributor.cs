@@ -37,22 +37,22 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             await _numberingConfigRepository.InsertAsync(new NumberingConfig
             (
-                id: Guid.Parse("92d02adb-9081-4fbb-9c12-9da8c78d2b99"),
-                startNumber: 487928377,
-                prefix: "1b5c519893704503a0cc48f9967a20dfa681d0b9c",
-                suffix: "8e219193e12d4828822202f61229e8e57ae95c59e93342ef98c90893e3d3975f2509ee8e1e854e92",
-                length: 769435237,
+                id: Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"),
+                startNumber: 1154307787,
+                prefix: "ae90690e5d1c49ecbebf",
+                suffix: "d191f000a5fa4e1e92f9",
+                length: 395090466,
                 companyId: null,
                 systemDataId: null
             ));
 
             await _numberingConfigRepository.InsertAsync(new NumberingConfig
             (
-                id: Guid.Parse("e4cff639-7b5a-4b93-9419-ac80032fdbcd"),
-                startNumber: 1984986498,
-                prefix: "18fdec2d7b23403e8913f8f9af7c164597fc0ed8e43c4383b2ba028f4",
-                suffix: "81edc3cfd4ff4e8da68126914391c39f30041051520343258791d",
-                length: 240440849,
+                id: Guid.Parse("c5560f29-7b0d-4263-82dc-fa7c1f48f2c4"),
+                startNumber: 1290067790,
+                prefix: "fe06d03b9e8b4e28ae66",
+                suffix: "dbe25d5eb7a84995b7ff",
+                length: 102658667,
                 companyId: null,
                 systemDataId: null
             ));

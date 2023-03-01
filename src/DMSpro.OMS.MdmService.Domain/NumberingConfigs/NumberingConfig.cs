@@ -40,6 +40,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         {
 
             Id = id;
+            Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength, 0);
+            Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength, 0);
             StartNumber = startNumber;
             Prefix = prefix;
             Suffix = suffix;
