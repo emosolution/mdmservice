@@ -11,27 +11,29 @@ namespace DMSpro.OMS.MdmService.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<DateTime>(
+            migrationBuilder.DropColumn(
+                name: "EndDate",
+                table: "EmployeeInZones");
+
+            migrationBuilder.AddColumn<DateTime>(
                 name: "EndDate",
                 table: "EmployeeInZones",
-                type: "datetime2",
-                nullable: true,
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier",
-                oldNullable: true);
+                type: "datetime",
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.DropColumn(
+                name: "EndDate",
+                table: "EmployeeInZones");
+
+            migrationBuilder.AddColumn<Guid>(
                 name: "EndDate",
                 table: "EmployeeInZones",
                 type: "uniqueidentifier",
-                nullable: true,
-                oldClrType: typeof(DateTime),
-                oldType: "datetime2",
-                oldNullable: true);
+                nullable: true);
         }
     }
 }

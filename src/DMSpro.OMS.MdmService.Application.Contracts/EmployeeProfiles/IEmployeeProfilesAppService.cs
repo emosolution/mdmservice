@@ -15,9 +15,9 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 
         Task<EmployeeProfileDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetWorkingPositionLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetWorkingPositionLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

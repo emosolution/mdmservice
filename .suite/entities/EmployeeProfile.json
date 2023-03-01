@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "48f05fca-2ad5-4f26-8dc7-85dc2fb0b63b",
+      "Id": "b04b818a-7d6d-40ae-96b4-75c9378c4462",
       "Name": "ERPCode",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "53cfe758-b863-43fb-bf59-ec216ced69c8",
+      "Id": "7b9ff7ee-bdfa-4b55-b6b8-76d7f4317dde",
       "Name": "FirstName",
       "Type": "string",
       "EnumType": "",
@@ -84,7 +84,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "6bbf7bf8-2591-4eba-9433-7b4c247fd335",
+      "Id": "d0938e9f-eb7a-45a7-80ed-3b5c33dd4c63",
       "Name": "LastName",
       "Type": "string",
       "EnumType": "",
@@ -96,7 +96,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -128,7 +128,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "0a5fd71c-26d8-4d5d-afdb-01ea45081df3",
+      "Id": "efcb2e90-a4c7-42b3-afa8-4cf752c18a43",
       "Name": "IdCardNumber",
       "Type": "string",
       "EnumType": "",
@@ -140,7 +140,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -150,7 +150,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "ab118fe3-0dd5-4cbd-9f01-6a609078aa0f",
+      "Id": "1f733969-5c38-43db-9650-a3f53a0bbb81",
       "Name": "Email",
       "Type": "string",
       "EnumType": "",
@@ -162,17 +162,17 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
-      "EmailValidation": false,
+      "EmailValidation": true,
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
     },
     {
-      "Id": "d468b02f-07a5-4d62-9dd4-619d911ea072",
+      "Id": "8413f095-8e46-4eff-9fa7-1050cda16f20",
       "Name": "Phone",
       "Type": "string",
       "EnumType": "",
@@ -184,7 +184,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -194,7 +194,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "bb7b6cc0-7114-4756-a38b-fe7553787784",
+      "Id": "b075bedd-0f9e-4458-b55c-c02d722b6e0c",
       "Name": "Address",
       "Type": "string",
       "EnumType": "",
@@ -206,7 +206,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -216,14 +216,14 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "fa8f09ed-76c2-49d3-85ea-7f6e915b930f",
+      "Id": "b936c1dc-dcf6-431d-a697-b372755a0235",
       "Name": "Active",
       "Type": "bool",
       "EnumType": "",
       "EnumNamespace": "",
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
-      "DefaultValue": "false",
+      "DefaultValue": "true",
       "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
@@ -238,7 +238,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "70efeba6-4cc9-4bc3-bd20-cee9f74e63bb",
+      "Id": "50d52be9-c44b-40f3-89a1-31ef35875fc8",
       "Name": "EffectiveDate",
       "Type": "DateTime",
       "EnumType": "",
@@ -260,7 +260,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "343c5000-8112-4ace-8b77-6fdd765fda14",
+      "Id": "d34e2241-3521-458a-b32b-2b09109e4d7e",
       "Name": "EndDate",
       "Type": "DateTime",
       "EnumType": "",

@@ -45,14 +45,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
 
         [HttpGet]
         [Route("working-position-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetWorkingPositionLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetWorkingPositionLookupAsync(LookupRequestDto input)
         {
             return _employeeProfilesAppService.GetWorkingPositionLookupAsync(input);
         }
 
         [HttpGet]
         [Route("system-data-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
         {
             return _employeeProfilesAppService.GetSystemDataLookupAsync(input);
         }
