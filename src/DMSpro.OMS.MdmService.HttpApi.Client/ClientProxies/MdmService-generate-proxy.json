@@ -60956,7 +60956,7 @@
               "uniqueName": "GetCustomerLookupAsyncByInput",
               "name": "GetCustomerLookupAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/customer-contacts/customer-profile-lookup",
+              "url": "api/mdm-service/customer-contacts/customer-lookup",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {

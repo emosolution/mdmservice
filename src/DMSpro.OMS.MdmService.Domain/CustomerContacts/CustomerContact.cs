@@ -2,9 +2,8 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
-
-using Volo.Abp;
 using DMSpro.OMS.MdmService.Customers;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {
@@ -57,6 +56,15 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
         {
 
             Id = id;
+            Check.Length(firstName, nameof(firstName), CustomerContactConsts.FirstNameMaxLength, 0);
+            Check.Length(lastName, nameof(lastName), CustomerContactConsts.LastNameMaxLength, 0);
+            Check.Length(phone, nameof(phone), CustomerContactConsts.PhoneMaxLength, 0);
+            Check.Length(email, nameof(email), CustomerContactConsts.EmailMaxLength, 0);
+            Check.Length(address, nameof(address), CustomerContactConsts.AddressMaxLength, 0);
+            Check.Length(identityNumber, nameof(identityNumber), CustomerContactConsts.IdentityNumberMaxLength, 0);
+            Check.Length(bankName, nameof(bankName), CustomerContactConsts.BankNameMaxLength, 0);
+            Check.Length(bankAccName, nameof(bankAccName), CustomerContactConsts.BankAccNameMaxLength, 0);
+            Check.Length(bankAccNumber, nameof(bankAccNumber), CustomerContactConsts.BankAccNumberMaxLength, 0);
             FirstName = firstName;
             LastName = lastName;
             Gender = gender;

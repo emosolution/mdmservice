@@ -6,11 +6,9 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 {
     public class CustomerContactDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Title? Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Gender Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Phone { get; set; }

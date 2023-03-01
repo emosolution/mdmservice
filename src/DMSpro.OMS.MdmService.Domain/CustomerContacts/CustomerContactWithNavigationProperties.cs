@@ -1,5 +1,3 @@
-//using DMSpro.OMS.MdmService.Customers;
-
 using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
