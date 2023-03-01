@@ -102,15 +102,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Level).HasColumnName(nameof(GeoMaster.Level));
             b.HasOne<GeoMaster>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-
+        
         builder.Entity<DimensionMeasurement>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "DimensionMeasurements", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(DimensionMeasurement.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(DimensionMeasurement.Code)).IsRequired().HasMaxLength(DimensionMeasurementConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(DimensionMeasurement.Name)).IsRequired().HasMaxLength(DimensionMeasurementConsts.NameMaxLength);
-            b.Property(x => x.Value).HasColumnName(nameof(DimensionMeasurement.Value)).IsRequired();
+            b.Property(x => x.Name).HasColumnName(nameof(DimensionMeasurement.Name)).HasMaxLength(DimensionMeasurementConsts.NameMaxLength);
+            b.Property(x => x.Value).HasColumnName(nameof(DimensionMeasurement.Value));
         });
         builder.Entity<WeightMeasurement>(b =>
         {

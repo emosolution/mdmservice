@@ -25,14 +25,14 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             {
                 // Act
                 var result = await _dimensionMeasurementRepository.GetListAsync(
-                    code: "6d781fdd16474697a99a",
-                    name: "80d8ca9c9c804119aca74a70556b79155e93085e4434413b92"
+                    code: "82df60d9aab747d2ac77",
+                    name: "c12281cf94f3461a9b6978068139c4aad54bc18cbce14a2683"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"));
+                result.First().Id.ShouldBe(Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"));
             });
         }
 
@@ -44,8 +44,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             {
                 // Act
                 var result = await _dimensionMeasurementRepository.GetCountAsync(
-                    code: "92c6345a6f2e4d53808c",
-                    name: "b4c6523644be4b0983b0e3ceaad30d9f537a96f38103422589"
+                    code: "337cc6bfcbf842b6aeda",
+                    name: "8ee2a7e7f29e4de48fad4451a1a63ef8ded22eb2ac8e43888c"
                 );
 
                 // Assert
