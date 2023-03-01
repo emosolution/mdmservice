@@ -83,13 +83,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Name).HasColumnName(nameof(Street.Name)).IsRequired().HasMaxLength(StreetConsts.NameMaxLength);
         });
         builder.Entity<Currency>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Currencies", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(Currency.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(Currency.Code)).IsRequired().HasMaxLength(CurrencyConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(Currency.Name)).HasMaxLength(CurrencyConsts.NameMaxLength);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Currencies", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(Currency.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(Currency.Code)).IsRequired().HasMaxLength(CurrencyConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(Currency.Name)).HasMaxLength(CurrencyConsts.NameMaxLength);
+        });
 
         builder.Entity<GeoMaster>(b =>
         {
@@ -330,24 +330,24 @@ public static class MdmServiceDbContextModelCreatingExtensions
         });
 
         builder.Entity<CustomerContact>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerContacts", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerContact.TenantId));
-        b.Property(x => x.Title).HasColumnName(nameof(CustomerContact.Title));
-        b.Property(x => x.FirstName).HasColumnName(nameof(CustomerContact.FirstName)).HasMaxLength(CustomerContactConsts.FirstNameMaxLength);
-        b.Property(x => x.LastName).HasColumnName(nameof(CustomerContact.LastName)).HasMaxLength(CustomerContactConsts.LastNameMaxLength);
-        b.Property(x => x.Gender).HasColumnName(nameof(CustomerContact.Gender));
-        b.Property(x => x.DateOfBirth).HasColumnName(nameof(CustomerContact.DateOfBirth));
-        b.Property(x => x.Phone).HasColumnName(nameof(CustomerContact.Phone)).HasMaxLength(CustomerContactConsts.PhoneMaxLength);
-        b.Property(x => x.Email).HasColumnName(nameof(CustomerContact.Email)).HasMaxLength(CustomerContactConsts.EmailMaxLength);
-        b.Property(x => x.Address).HasColumnName(nameof(CustomerContact.Address)).HasMaxLength(CustomerContactConsts.AddressMaxLength);
-        b.Property(x => x.IdentityNumber).HasColumnName(nameof(CustomerContact.IdentityNumber)).HasMaxLength(CustomerContactConsts.IdentityNumberMaxLength);
-        b.Property(x => x.BankName).HasColumnName(nameof(CustomerContact.BankName)).HasMaxLength(CustomerContactConsts.BankNameMaxLength);
-        b.Property(x => x.BankAccName).HasColumnName(nameof(CustomerContact.BankAccName)).HasMaxLength(CustomerContactConsts.BankAccNameMaxLength);
-        b.Property(x => x.BankAccNumber).HasColumnName(nameof(CustomerContact.BankAccNumber)).HasMaxLength(CustomerContactConsts.BankAccNumberMaxLength);
-        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerContacts", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerContact.TenantId));
+            b.Property(x => x.Title).HasColumnName(nameof(CustomerContact.Title));
+            b.Property(x => x.FirstName).HasColumnName(nameof(CustomerContact.FirstName)).HasMaxLength(CustomerContactConsts.FirstNameMaxLength);
+            b.Property(x => x.LastName).HasColumnName(nameof(CustomerContact.LastName)).HasMaxLength(CustomerContactConsts.LastNameMaxLength);
+            b.Property(x => x.Gender).HasColumnName(nameof(CustomerContact.Gender));
+            b.Property(x => x.DateOfBirth).HasColumnName(nameof(CustomerContact.DateOfBirth));
+            b.Property(x => x.Phone).HasColumnName(nameof(CustomerContact.Phone)).HasMaxLength(CustomerContactConsts.PhoneMaxLength);
+            b.Property(x => x.Email).HasColumnName(nameof(CustomerContact.Email)).HasMaxLength(CustomerContactConsts.EmailMaxLength);
+            b.Property(x => x.Address).HasColumnName(nameof(CustomerContact.Address)).HasMaxLength(CustomerContactConsts.AddressMaxLength);
+            b.Property(x => x.IdentityNumber).HasColumnName(nameof(CustomerContact.IdentityNumber)).HasMaxLength(CustomerContactConsts.IdentityNumberMaxLength);
+            b.Property(x => x.BankName).HasColumnName(nameof(CustomerContact.BankName)).HasMaxLength(CustomerContactConsts.BankNameMaxLength);
+            b.Property(x => x.BankAccName).HasColumnName(nameof(CustomerContact.BankAccName)).HasMaxLength(CustomerContactConsts.BankAccNameMaxLength);
+            b.Property(x => x.BankAccNumber).HasColumnName(nameof(CustomerContact.BankAccNumber)).HasMaxLength(CustomerContactConsts.BankAccNumberMaxLength);
+            b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        });
 
         builder.Entity<CustomerAssignment>(b =>
         {
@@ -380,27 +380,27 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CustomerGroupByAtt>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
-        b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
-        b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
-        b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
+            b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
+            b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
+            b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
-    });
+        });
         builder.Entity<CustomerGroup>(b =>
-{
-b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
-b.ConfigureByConvention();
-b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
-b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
-b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
-b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
-b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
-b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
-b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
-});
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
+            b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
+            b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
+            b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
+        });
         builder.Entity<Holiday>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
@@ -672,35 +672,35 @@ b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
         });
 
         builder.Entity<Company>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Companies", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(Company.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(Company.Code)).IsRequired().HasMaxLength(CompanyConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(Company.Name)).IsRequired().HasMaxLength(CompanyConsts.NameMaxLength);
-        b.Property(x => x.Street).HasColumnName(nameof(Company.Street)).HasMaxLength(CompanyConsts.StreetMaxLength);
-        b.Property(x => x.Address).HasColumnName(nameof(Company.Address)).HasMaxLength(CompanyConsts.AddressMaxLength);
-        b.Property(x => x.Phone).HasColumnName(nameof(Company.Phone)).HasMaxLength(CompanyConsts.PhoneMaxLength);
-        b.Property(x => x.License).HasColumnName(nameof(Company.License)).HasMaxLength(CompanyConsts.LicenseMaxLength);
-        b.Property(x => x.TaxCode).HasColumnName(nameof(Company.TaxCode)).HasMaxLength(CompanyConsts.TaxCodeMaxLength);
-        b.Property(x => x.VATName).HasColumnName(nameof(Company.VATName)).HasMaxLength(CompanyConsts.VATNameMaxLength);
-        b.Property(x => x.VATAddress).HasColumnName(nameof(Company.VATAddress)).HasMaxLength(CompanyConsts.VATAddressMaxLength);
-        b.Property(x => x.ERPCode).HasColumnName(nameof(Company.ERPCode)).HasMaxLength(CompanyConsts.ERPCodeMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(Company.Active));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(Company.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(Company.EndDate));
-        b.Property(x => x.IsHO).HasColumnName(nameof(Company.IsHO));
-        b.Property(x => x.Latitude).HasColumnName(nameof(Company.Latitude)).HasMaxLength(CompanyConsts.LatitudeMaxLength);
-        b.Property(x => x.Longitude).HasColumnName(nameof(Company.Longitude)).HasMaxLength(CompanyConsts.LongitudeMaxLength);
-        b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName)).HasMaxLength(CompanyConsts.ContactNameMaxLength);
-        b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone)).HasMaxLength(CompanyConsts.ContactPhoneMaxLength);
-        b.HasOne<Company>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>(x => x.GeoLevel0).WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>(x => x.GeoLevel1).WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>(x => x.GeoLevel2).WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>(x => x.GeoLevel3).WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>(x => x.GeoLevel4).WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Companies", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(Company.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(Company.Code)).IsRequired().HasMaxLength(CompanyConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(Company.Name)).IsRequired().HasMaxLength(CompanyConsts.NameMaxLength);
+            b.Property(x => x.Street).HasColumnName(nameof(Company.Street)).HasMaxLength(CompanyConsts.StreetMaxLength);
+            b.Property(x => x.Address).HasColumnName(nameof(Company.Address)).HasMaxLength(CompanyConsts.AddressMaxLength);
+            b.Property(x => x.Phone).HasColumnName(nameof(Company.Phone)).HasMaxLength(CompanyConsts.PhoneMaxLength);
+            b.Property(x => x.License).HasColumnName(nameof(Company.License)).HasMaxLength(CompanyConsts.LicenseMaxLength);
+            b.Property(x => x.TaxCode).HasColumnName(nameof(Company.TaxCode)).HasMaxLength(CompanyConsts.TaxCodeMaxLength);
+            b.Property(x => x.VATName).HasColumnName(nameof(Company.VATName)).HasMaxLength(CompanyConsts.VATNameMaxLength);
+            b.Property(x => x.VATAddress).HasColumnName(nameof(Company.VATAddress)).HasMaxLength(CompanyConsts.VATAddressMaxLength);
+            b.Property(x => x.ERPCode).HasColumnName(nameof(Company.ERPCode)).HasMaxLength(CompanyConsts.ERPCodeMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(Company.Active));
+            b.Property(x => x.EffectiveDate).HasColumnName(nameof(Company.EffectiveDate));
+            b.Property(x => x.EndDate).HasColumnName(nameof(Company.EndDate));
+            b.Property(x => x.IsHO).HasColumnName(nameof(Company.IsHO));
+            b.Property(x => x.Latitude).HasColumnName(nameof(Company.Latitude)).HasMaxLength(CompanyConsts.LatitudeMaxLength);
+            b.Property(x => x.Longitude).HasColumnName(nameof(Company.Longitude)).HasMaxLength(CompanyConsts.LongitudeMaxLength);
+            b.Property(x => x.ContactName).HasColumnName(nameof(Company.ContactName)).HasMaxLength(CompanyConsts.ContactNameMaxLength);
+            b.Property(x => x.ContactPhone).HasColumnName(nameof(Company.ContactPhone)).HasMaxLength(CompanyConsts.ContactPhoneMaxLength);
+            b.HasOne<Company>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoLevel0).WithMany().HasForeignKey(x => x.GeoLevel0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoLevel1).WithMany().HasForeignKey(x => x.GeoLevel1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoLevel2).WithMany().HasForeignKey(x => x.GeoLevel2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoLevel3).WithMany().HasForeignKey(x => x.GeoLevel3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoLevel4).WithMany().HasForeignKey(x => x.GeoLevel4Id).OnDelete(DeleteBehavior.NoAction);
+        });
         builder.Entity<VisitPlan>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "VisitPlans", MdmServiceDbProperties.DbSchema);
@@ -747,61 +747,61 @@ b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<Customer>(b =>
-{
-    b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Customers", MdmServiceDbProperties.DbSchema);
-    b.ConfigureByConvention();
-    b.Property(x => x.TenantId).HasColumnName(nameof(Customer.TenantId));
-    b.Property(x => x.Code).HasColumnName(nameof(Customer.Code)).IsRequired().HasMaxLength(CustomerConsts.CodeMaxLength);
-    b.Property(x => x.Name).HasColumnName(nameof(Customer.Name)).HasMaxLength(CustomerConsts.NameMaxLength);
-    b.Property(x => x.Phone1).HasColumnName(nameof(Customer.Phone1)).HasMaxLength(CustomerConsts.Phone1MaxLength);
-    b.Property(x => x.Phone2).HasColumnName(nameof(Customer.Phone2)).HasMaxLength(CustomerConsts.Phone2MaxLength);
-    b.Property(x => x.erpCode).HasColumnName(nameof(Customer.erpCode)).HasMaxLength(CustomerConsts.erpCodeMaxLength);
-    b.Property(x => x.License).HasColumnName(nameof(Customer.License)).HasMaxLength(CustomerConsts.LicenseMaxLength);
-    b.Property(x => x.TaxCode).HasColumnName(nameof(Customer.TaxCode)).HasMaxLength(CustomerConsts.TaxCodeMaxLength);
-    b.Property(x => x.vatName).HasColumnName(nameof(Customer.vatName)).HasMaxLength(CustomerConsts.vatNameMaxLength);
-    b.Property(x => x.vatAddress).HasColumnName(nameof(Customer.vatAddress)).HasMaxLength(CustomerConsts.vatAddressMaxLength);
-    b.Property(x => x.Active).HasColumnName(nameof(Customer.Active));
-    b.Property(x => x.EffectiveDate).HasColumnName(nameof(Customer.EffectiveDate));
-    b.Property(x => x.EndDate).HasColumnName(nameof(Customer.EndDate));
-    b.Property(x => x.CreditLimit).HasColumnName(nameof(Customer.CreditLimit));
-    b.Property(x => x.IsCompany).HasColumnName(nameof(Customer.IsCompany));
-    b.Property(x => x.WarehouseId).HasColumnName(nameof(Customer.WarehouseId));
-    b.Property(x => x.Street).HasColumnName(nameof(Customer.Street)).HasMaxLength(CustomerConsts.StreetMaxLength);
-    b.Property(x => x.Address).HasColumnName(nameof(Customer.Address)).HasMaxLength(CustomerConsts.AddressMaxLength);
-    b.Property(x => x.Latitude).HasColumnName(nameof(Customer.Latitude)).HasMaxLength(CustomerConsts.LatitudeMaxLength);
-    b.Property(x => x.Longitude).HasColumnName(nameof(Customer.Longitude)).HasMaxLength(CustomerConsts.LongitudeMaxLength);
-    b.Property(x => x.SFACustomerCode).HasColumnName(nameof(Customer.SFACustomerCode)).HasMaxLength(CustomerConsts.SFACustomerCodeMaxLength);
-    b.Property(x => x.LastOrderDate).HasColumnName(nameof(Customer.LastOrderDate));
-    b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.PaymentTermId).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<Company>().WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute0Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute1Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute2Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute3Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute4Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute5Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute6Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute7Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute8Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute9Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute10Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute11Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute12Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute13Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute14Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute15Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute16Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute17Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute18Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
-    b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
-});
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Customers", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(Customer.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(Customer.Code)).IsRequired().HasMaxLength(CustomerConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(Customer.Name)).HasMaxLength(CustomerConsts.NameMaxLength);
+            b.Property(x => x.Phone1).HasColumnName(nameof(Customer.Phone1)).HasMaxLength(CustomerConsts.Phone1MaxLength);
+            b.Property(x => x.Phone2).HasColumnName(nameof(Customer.Phone2)).HasMaxLength(CustomerConsts.Phone2MaxLength);
+            b.Property(x => x.erpCode).HasColumnName(nameof(Customer.erpCode)).HasMaxLength(CustomerConsts.erpCodeMaxLength);
+            b.Property(x => x.License).HasColumnName(nameof(Customer.License)).HasMaxLength(CustomerConsts.LicenseMaxLength);
+            b.Property(x => x.TaxCode).HasColumnName(nameof(Customer.TaxCode)).HasMaxLength(CustomerConsts.TaxCodeMaxLength);
+            b.Property(x => x.vatName).HasColumnName(nameof(Customer.vatName)).HasMaxLength(CustomerConsts.vatNameMaxLength);
+            b.Property(x => x.vatAddress).HasColumnName(nameof(Customer.vatAddress)).HasMaxLength(CustomerConsts.vatAddressMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(Customer.Active));
+            b.Property(x => x.EffectiveDate).HasColumnName(nameof(Customer.EffectiveDate));
+            b.Property(x => x.EndDate).HasColumnName(nameof(Customer.EndDate));
+            b.Property(x => x.CreditLimit).HasColumnName(nameof(Customer.CreditLimit));
+            b.Property(x => x.IsCompany).HasColumnName(nameof(Customer.IsCompany));
+            b.Property(x => x.WarehouseId).HasColumnName(nameof(Customer.WarehouseId));
+            b.Property(x => x.Street).HasColumnName(nameof(Customer.Street)).HasMaxLength(CustomerConsts.StreetMaxLength);
+            b.Property(x => x.Address).HasColumnName(nameof(Customer.Address)).HasMaxLength(CustomerConsts.AddressMaxLength);
+            b.Property(x => x.Latitude).HasColumnName(nameof(Customer.Latitude)).HasMaxLength(CustomerConsts.LatitudeMaxLength);
+            b.Property(x => x.Longitude).HasColumnName(nameof(Customer.Longitude)).HasMaxLength(CustomerConsts.LongitudeMaxLength);
+            b.Property(x => x.SFACustomerCode).HasColumnName(nameof(Customer.SFACustomerCode)).HasMaxLength(CustomerConsts.SFACustomerCodeMaxLength);
+            b.Property(x => x.LastOrderDate).HasColumnName(nameof(Customer.LastOrderDate));
+            b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.PaymentTermId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Company>().WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute4Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute5Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute6Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute7Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute8Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute9Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute10Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute11Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute12Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute13Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute14Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute15Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute16Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute17Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute18Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<CusAttributeValue>().WithMany().HasForeignKey(x => x.Attribute19Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Customer>().WithMany().HasForeignKey(x => x.PaymentId).OnDelete(DeleteBehavior.NoAction);
+        });
 
         builder.Entity<ItemAttachment>(b =>
         {
@@ -825,15 +825,15 @@ b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
             b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CustomerAttachment>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description)).HasMaxLength(CustomerAttachmentConsts.DescriptionMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
-        b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
-        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttachments", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttachment.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(CustomerAttachment.Description)).HasMaxLength(CustomerAttachmentConsts.DescriptionMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(CustomerAttachment.Active));
+            b.Property(x => x.FileId).HasColumnName(nameof(CustomerAttachment.FileId));
+            b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        });
         builder.Entity<EmployeeAttachment>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeAttachments", MdmServiceDbProperties.DbSchema);
@@ -855,15 +855,5 @@ b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
             b.Property(x => x.FileId).HasColumnName(nameof(EmployeeImage.FileId));
             b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
         });
-        builder.Entity<CustomerGroupByAtt>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
-        b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
-        b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CusAttributeValue>().WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
-    });
     }
 }
