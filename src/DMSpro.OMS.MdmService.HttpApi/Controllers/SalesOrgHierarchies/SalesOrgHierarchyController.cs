@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHierarchies
 
         [HttpGet]
         [Route("sales-org-hierarchy-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
         {
             return _salesOrgHierarchiesAppService.GetSalesOrgHierarchyLookupAsync(input);
         }

@@ -21,7 +21,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
     [Authorize(MdmServicePermissions.SalesOrgHierarchies.Default)]
     public partial class SalesOrgHierarchiesAppService
     {
-       public virtual async Task<PagedResultDto<SalesOrgHierarchyWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgHierarchiesInput input)
+        public virtual async Task<PagedResultDto<SalesOrgHierarchyWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgHierarchiesInput input)
         {
             var totalCount = await _salesOrgHierarchyRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.LevelMin, input.LevelMax, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active, input.SalesOrgHeaderId, input.ParentId);
             var items = await _salesOrgHierarchyRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.LevelMin, input.LevelMax, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active, input.SalesOrgHeaderId, input.ParentId, input.Sorting, input.MaxResultCount, input.SkipCount);
@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             return ObjectMapper.Map<SalesOrgHierarchyWithNavigationProperties, SalesOrgHierarchyWithNavigationPropertiesDto>
                 (await _salesOrgHierarchyRepository.GetWithNavigationPropertiesAsync(id));
         }
-       
+
         public virtual async Task<SalesOrgHierarchyDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(await _salesOrgHierarchyRepository.GetAsync(id));
@@ -60,7 +60,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
         {
             var query = (await _salesOrgHierarchyRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -69,17 +69,17 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<SalesOrgHierarchy>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<SalesOrgHierarchy>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<SalesOrgHierarchy>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            await _salesOrgHierarchyManager.DeleteAsync(id);
+            await _salesOrgHierarchyRepository.DeleteAsync(id);
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Create)]
@@ -122,10 +122,24 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _salesOrgHierarchyRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.LevelMin, input.LevelMax, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active);
+            var salesOrgHierarchies = await _salesOrgHierarchyRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.LevelMin, input.LevelMax, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active);
+            var items = salesOrgHierarchies.Select(item => new
+            {
+                Code = item.SalesOrgHierarchy.Code,
+                Name = item.SalesOrgHierarchy.Name,
+                Level = item.SalesOrgHierarchy.Level,
+                IsRoute = item.SalesOrgHierarchy.IsRoute,
+                IsSellingZone = item.SalesOrgHierarchy.IsSellingZone,
+                HierarchyCode = item.SalesOrgHierarchy.HierarchyCode,
+                Active = item.SalesOrgHierarchy.Active,
+
+                SalesOrgHeaderCode = item.SalesOrgHeader?.Code,
+                SalesOrgHierarchyCode = item.SalesOrgHierarchy?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<SalesOrgHierarchy>, List<SalesOrgHierarchyExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "SalesOrgHierarchies.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

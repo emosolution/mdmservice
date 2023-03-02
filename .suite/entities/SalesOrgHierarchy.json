@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "c9958c71-1d50-4ec8-83d4-5fa31bab4dd7",
+      "Id": "030f7f90-d4f1-4c6a-9694-128c1eb2326f",
       "Name": "Name",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -128,7 +128,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "8e62348f-4d6e-4367-9cdc-2bc79864f361",
+      "Id": "a3fbe5c1-6e15-4be3-ad14-2e941ff310c6",
       "Name": "HierarchyCode",
       "Type": "string",
       "EnumType": "",
@@ -139,8 +139,8 @@
       "IsNullable": false,
       "IsRequired": true,
       "IsTextArea": false,
-      "MinLength": null,
-      "MaxLength": null,
+      "MinLength": 0,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

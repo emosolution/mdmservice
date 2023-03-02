@@ -274,11 +274,11 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(SalesOrgHierarchy.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(SalesOrgHierarchy.Code)).IsRequired().HasMaxLength(SalesOrgHierarchyConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(SalesOrgHierarchy.Name));
+            b.Property(x => x.Name).HasColumnName(nameof(SalesOrgHierarchy.Name)).HasMaxLength(SalesOrgHierarchyConsts.NameMaxLength);
             b.Property(x => x.Level).HasColumnName(nameof(SalesOrgHierarchy.Level)).HasMaxLength(SalesOrgHierarchyConsts.LevelMaxLength);
             b.Property(x => x.IsRoute).HasColumnName(nameof(SalesOrgHierarchy.IsRoute));
             b.Property(x => x.IsSellingZone).HasColumnName(nameof(SalesOrgHierarchy.IsSellingZone));
-            b.Property(x => x.HierarchyCode).HasColumnName(nameof(SalesOrgHierarchy.HierarchyCode)).IsRequired();
+            b.Property(x => x.HierarchyCode).HasColumnName(nameof(SalesOrgHierarchy.HierarchyCode)).IsRequired().HasMaxLength(SalesOrgHierarchyConsts.HierarchyCodeMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(SalesOrgHierarchy.Active));
             b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);

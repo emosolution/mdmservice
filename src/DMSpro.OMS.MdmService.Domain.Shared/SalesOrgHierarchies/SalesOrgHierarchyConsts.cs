@@ -11,9 +11,12 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
         public const int CodeMinLength = 1;
         public const int CodeMaxLength = 20;
+        public const int NameMaxLength = 255;
         public const int LevelMinLength = 0;
         public const int LevelMaxLength = 9;
-
+        public const int HierarchyCodeMinLength = 0;
+        public const int HierarchyCodeMaxLength = 500;
+        
         /// <summary>
         /// Maximum length of the DisplayName property.
         /// </summary>

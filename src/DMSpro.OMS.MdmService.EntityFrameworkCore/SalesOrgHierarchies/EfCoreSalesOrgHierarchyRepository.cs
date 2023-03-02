@@ -18,7 +18,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         {
 
         }
-        
 
         public async Task<SalesOrgHierarchyWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default)
         {
@@ -162,8 +161,5 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                     .WhereIf(!string.IsNullOrWhiteSpace(hierarchyCode), e => e.HierarchyCode.Contains(hierarchyCode))
                     .WhereIf(active.HasValue, e => e.Active == active);
         }
-
-        
-
     }
 }

@@ -4,18 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
-using Volo.Abp.Threading;
 using Volo.Abp.Uow;
-using System.Threading;
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
     public partial class SalesOrgHierarchyManager : DomainService
     {
-
-
         public async Task<SalesOrgHierarchy> CreateAsync(
         Guid salesOrgHeaderId, Guid? parentId, string code, string name, int level, bool isRoute, bool isSellingZone, string hierarchyCode, bool active)
         {
