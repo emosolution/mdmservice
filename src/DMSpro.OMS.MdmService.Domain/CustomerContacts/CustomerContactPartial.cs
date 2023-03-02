@@ -15,10 +15,7 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

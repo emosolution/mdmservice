@@ -16,10 +16,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Code",
-            };
+			return new();
         }
     }
 }

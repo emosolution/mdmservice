@@ -48,7 +48,6 @@ namespace DMSpro.OMS.MdmService.Customers
             return new()
             {
                 "Code",
-                "SFACustomerCode",
             };
         }
     }

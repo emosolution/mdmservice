@@ -15,10 +15,7 @@ namespace DMSpro.OMS.MdmService.ItemImages
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "Url",
-            };
+			return new();
         }
     }
 }

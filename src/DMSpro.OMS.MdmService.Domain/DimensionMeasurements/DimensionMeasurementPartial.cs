@@ -15,7 +15,6 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             return new()
             {
                 "Code",
-				"Name",
             };
         }
     }
