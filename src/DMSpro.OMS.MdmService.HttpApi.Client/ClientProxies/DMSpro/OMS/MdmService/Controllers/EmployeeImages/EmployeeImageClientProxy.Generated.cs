@@ -106,11 +106,10 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
-    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(UpdateAvatarAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(Guid), id },
             { typeof(EmployeeImageUpdateDto), input }
         });
     }

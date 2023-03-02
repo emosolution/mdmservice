@@ -36,9 +36,11 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
         {
-            return await UpdateImageAsync(id, input, true);
+            var employee = await _employeeProfileRepository.GetAsync(input.EmployeeProfileId);
+            var image = await _employeeImageRepository.GetAsync(x => x.EmployeeProfileId == employee.Id && x.IsAvatar == true);
+            return await UpdateImageAsync(image.Id, input, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]

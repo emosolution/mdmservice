@@ -44,11 +44,11 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPut]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
         {
             try
             {
-                return await _employeeImagesAppService.UpdateAvatarAsync(id, input);
+                return await _employeeImagesAppService.UpdateAvatarAsync(input);
             }
             catch (BusinessException bex)
             {
