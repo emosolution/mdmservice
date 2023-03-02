@@ -13,6 +13,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input);
 
-        Task<EmployeeImageDto> UpdateAvatarAsync(Guid id, EmployeeImageUpdateDto input);
+        Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input);
     }
 }

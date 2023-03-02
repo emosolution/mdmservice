@@ -48126,14 +48126,6 @@
                   "name": "UpdateAvatarAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
                       "name": "input",
                       "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                       "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
@@ -48927,21 +48919,13 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "UpdateAvatarAsyncByIdAndInput": {
-              "uniqueName": "UpdateAvatarAsyncByIdAndInput",
+            "UpdateAvatarAsyncByInput": {
+              "uniqueName": "UpdateAvatarAsyncByInput",
               "name": "UpdateAvatarAsync",
               "httpMethod": "PUT",
               "url": "api/mdm-service/employee-images/avatar",
               "supportedVersions": [],
               "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
                 {
                   "name": "input",
                   "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
@@ -48952,18 +48936,6 @@
                 }
               ],
               "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
                 {
                   "nameOnMethod": "input",
                   "name": "Description",

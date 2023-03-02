@@ -7,7 +7,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
     public class EmployeeImageCreateDto
     {
         public string Description { get; set; }
-        public bool Active { get; set; } = true;
+        public bool Active { get; set; }
         //public bool IsAvatar { get; set; } = false;
         [Required]
         public IRemoteStreamContent File { get; set; }
