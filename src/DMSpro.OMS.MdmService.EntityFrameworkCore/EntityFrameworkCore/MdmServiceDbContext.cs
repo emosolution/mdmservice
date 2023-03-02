@@ -5,7 +5,6 @@ using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttributes;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.SystemConfigs;
@@ -23,7 +22,6 @@ using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -88,7 +86,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<VisitPlan> VisitPlans { get; set; }
     public DbSet<MCPDetail> MCPDetails { get; set; }
     public DbSet<MCPHeader> MCPHeaders { get; set; }
-    public DbSet<Route> Routes { get; set; }
     public DbSet<HolidayDetail> HolidayDetails { get; set; }
     public DbSet<Holiday> Holidays { get; set; }
     public DbSet<CustomerAssignment> CustomerAssignments { get; set; }

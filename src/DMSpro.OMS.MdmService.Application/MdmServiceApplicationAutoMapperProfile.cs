@@ -26,7 +26,6 @@ using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -172,9 +171,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<HolidayDetail, HolidayDetailWithDetailsDto>();
         CreateMap<HolidayDetail, HolidayDetailExcelDto>();
 
-        CreateMap<Route, RouteDto>();
-        CreateMap<Route, RouteExcelDto>();
-
         CreateMap<MCPHeader, MCPHeaderDto>();
         CreateMap<MCPHeader, MCPHeaderExcelDto>();
         CreateMap<MCPHeader, MCPHeaderWithDetailsDto>();
@@ -313,8 +309,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<HolidayDetailWithNavigationProperties, HolidayDetailWithNavigationPropertiesDto>();
         CreateMap<Holiday, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
-
-        CreateMap<RouteWithNavigationProperties, RouteWithNavigationPropertiesDto>();
 
         CreateMap<MCPHeaderWithNavigationProperties, MCPHeaderWithNavigationPropertiesDto>();
 

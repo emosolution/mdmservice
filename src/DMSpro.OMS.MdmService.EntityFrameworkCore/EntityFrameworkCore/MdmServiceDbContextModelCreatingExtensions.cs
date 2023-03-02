@@ -22,7 +22,6 @@ using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -416,20 +415,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.EndDate).HasColumnName(nameof(HolidayDetail.EndDate));
             b.Property(x => x.Description).HasColumnName(nameof(HolidayDetail.Description)).HasMaxLength(HolidayDetailConsts.DescriptionMaxLength);
             b.HasOne<Holiday>(x => x.Holiday).WithMany().IsRequired().HasForeignKey(x => x.HolidayId).OnDelete(DeleteBehavior.NoAction);
-        });
-
-        builder.Entity<Route>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Routes", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(Route.TenantId));
-            b.Property(x => x.CheckIn).HasColumnName(nameof(Route.CheckIn));
-            b.Property(x => x.CheckOut).HasColumnName(nameof(Route.CheckOut));
-            b.Property(x => x.GPSLock).HasColumnName(nameof(Route.GPSLock));
-            b.Property(x => x.OutRoute).HasColumnName(nameof(Route.OutRoute));
-            b.HasOne<SystemData>().WithMany().IsRequired().HasForeignKey(x => x.RouteTypeId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
         });
 
         builder.Entity<MCPDetail>(b =>

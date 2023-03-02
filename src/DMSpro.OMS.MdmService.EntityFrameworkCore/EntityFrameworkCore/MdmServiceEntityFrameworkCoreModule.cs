@@ -22,7 +22,6 @@ using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -138,8 +137,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Holiday, Holidays.EfCoreHolidayRepository>();
 
             options.AddRepository<HolidayDetail, HolidayDetails.EfCoreHolidayDetailRepository>();
-
-            options.AddRepository<Route, Routes.EfCoreRouteRepository>();
 
             options.AddRepository<MCPHeader, MCPHeaders.EfCoreMCPHeaderRepository>();
 
