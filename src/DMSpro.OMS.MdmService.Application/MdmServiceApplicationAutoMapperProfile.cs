@@ -23,7 +23,6 @@ using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.SalesChannels;
-using DMSpro.OMS.MdmService.RouteAssignments;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
@@ -188,9 +187,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<VisitPlan, VisitPlanWithDetailsDto>();
         CreateMap<VisitPlan, VisitPlanExcelDto>();
 
-        CreateMap<RouteAssignment, RouteAssignmentDto>();
-        CreateMap<RouteAssignment, RouteAssignmentExcelDto>();
-
         CreateMap<GeoMasterWithNavigationProperties, GeoMasterWithNavigationPropertiesDto>();
         CreateMap<GeoMaster, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
@@ -328,8 +324,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>();
         CreateMap<MCPDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<RouteAssignmentWithNavigationProperties, RouteAssignmentWithNavigationPropertiesDto>();
 
         CreateMap<NumberingConfigWithNavigationProperties, NumberingConfigWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

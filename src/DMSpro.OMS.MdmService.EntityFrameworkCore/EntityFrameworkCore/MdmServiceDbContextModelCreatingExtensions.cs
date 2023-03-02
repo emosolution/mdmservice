@@ -19,7 +19,6 @@ using DMSpro.OMS.MdmService.EmployeeImages;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.SalesChannels;
-using DMSpro.OMS.MdmService.RouteAssignments;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
@@ -458,16 +457,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<MCPHeader>(x => x.MCPHeader).WithMany().IsRequired().HasForeignKey(x => x.MCPHeaderId).OnDelete(DeleteBehavior.NoAction);
         });
 
-        builder.Entity<RouteAssignment>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "RouteAssignments", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(RouteAssignment.TenantId));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(RouteAssignment.EffectiveDate));
-            b.Property(x => x.EndDate).HasColumnName(nameof(RouteAssignment.EndDate));
-            b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<EmployeeProfile>().WithMany().IsRequired().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.NoAction);
-        });
         builder.Entity<SystemData>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SystemDatas", MdmServiceDbProperties.DbSchema);
