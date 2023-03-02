@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -61,6 +62,7 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 [ConnectionStringName(MdmServiceDbProperties.ConnectionStringName)]
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
+    public DbSet<CustomerImage> CustomerImages { get; set; }
     public DbSet<ItemGroupList> ItemGroupLists { get; set; }
     public DbSet<ItemAttachment> ItemAttachments { get; set; }
     public DbSet<ItemImage> ItemImages { get; set; }

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
 using System;
 using AutoMapper;
@@ -368,5 +369,9 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
 
         CreateMap<WorkingPosition, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+
+        CreateMap<CustomerImage, CustomerImageDto>();
+        CreateMap<CustomerImage, CustomerImageExcelDto>();
+        CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
     }
 }

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
@@ -185,6 +186,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
+            options.AddRepository<CustomerImage, CustomerImages.EfCoreCustomerImageRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
@@ -218,7 +221,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<CustomerAssignment>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.Customer );
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.Customer);
             });
 
             options.Entity<CustomerAttachment>(orderOptions =>
@@ -268,7 +271,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<EmployeeProfile>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o=> o.WorkingPosition);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o => o.WorkingPosition);
             });
 
             options.Entity<HolidayDetail>(orderOptions =>
@@ -288,7 +291,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<ItemGroupList>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o=> o.Item);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o => o.Item);
             });
 
             options.Entity<ItemImage>(orderOptions =>
@@ -303,17 +306,17 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<MCPHeader>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o=> o.ItemGroup);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.ItemGroup);
             });
 
             options.Entity<MCPDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o=>o.Customer);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o => o.Customer);
             });
 
             options.Entity<NumberingConfig>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o=> o.Company);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o => o.Company);
             });
 
             options.Entity<PricelistAssignment>(orderOptions =>
@@ -331,12 +334,10 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.BasePriceList);
             });
 
-
             options.Entity<PriceUpdateDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o=> o.PriceUpdate);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o => o.PriceUpdate);
             });
-
 
             options.Entity<PriceUpdate>(orderOptions =>
             {
@@ -345,7 +346,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<SalesOrgEmpAssignment>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o => o.SalesOrgHierarchy);
             });
 
             options.Entity<SalesOrgHierarchy>(orderOptions =>
@@ -355,7 +356,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<UOMGroupDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o=> o.BaseUOM).Include(o=> o.AltUOM);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o => o.BaseUOM).Include(o => o.AltUOM);
             });
 
             options.Entity<Vendor>(orderOptions =>
@@ -365,9 +366,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<VisitPlan>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Company).Include(o => o.Customer).Include(o => o.MCPDetail).Include(o=> o.Route);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Company).Include(o => o.Customer).Include(o => o.MCPDetail).Include(o => o.Route);
             });
-
 
         });
     }
