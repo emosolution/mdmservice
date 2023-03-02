@@ -172,11 +172,10 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(WorkingPosition.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(WorkingPosition.Code)).IsRequired().HasMaxLength(WorkingPositionConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(WorkingPosition.Name)).IsRequired();
-            b.Property(x => x.Description).HasColumnName(nameof(WorkingPosition.Description));
+            b.Property(x => x.Name).HasColumnName(nameof(WorkingPosition.Name)).HasMaxLength(WorkingPositionConsts.NameMaxLength);
+            b.Property(x => x.Description).HasColumnName(nameof(WorkingPosition.Description)).HasMaxLength(WorkingPositionConsts.DescriptionMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(WorkingPosition.Active));
         });
-
         builder.Entity<EmployeeProfile>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeProfiles", MdmServiceDbProperties.DbSchema);
