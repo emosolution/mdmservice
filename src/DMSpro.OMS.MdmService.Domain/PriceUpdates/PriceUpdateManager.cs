@@ -25,6 +25,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceUpdateConsts.CodeMaxLength, PriceUpdateConsts.CodeMinLength);
+            Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
             Check.NotNull(status, nameof(status));
 
@@ -44,13 +45,11 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceUpdateConsts.CodeMaxLength, PriceUpdateConsts.CodeMinLength);
+            Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
             Check.NotNull(status, nameof(status));
 
-            var queryable = await _priceUpdateRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var priceUpdate = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var priceUpdate = await _priceUpdateRepository.GetAsync(id);
 
             priceUpdate.PriceListId = priceListId;
             priceUpdate.Code = code;

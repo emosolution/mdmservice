@@ -106,10 +106,21 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _priceUpdateRepository.GetListAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax);
+            var priceUpdates = await _priceUpdateRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax);
+            var items = priceUpdates.Select(item => new
+            {
+                Code = item.PriceUpdate.Code,
+                Description = item.PriceUpdate.Description,
+                EffectiveDate = item.PriceUpdate.EffectiveDate,
+                Status = item.PriceUpdate.Status,
+                UpdateStatusDate = item.PriceUpdate.UpdateStatusDate,
+
+                PriceListCode = item.PriceList?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<PriceUpdate>, List<PriceUpdateExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "PriceUpdates.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

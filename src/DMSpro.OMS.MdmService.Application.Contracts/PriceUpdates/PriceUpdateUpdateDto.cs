@@ -10,9 +10,9 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         [Required]
         [StringLength(PriceUpdateConsts.CodeMaxLength, MinimumLength = PriceUpdateConsts.CodeMinLength)]
         public string Code { get; set; }
+        [StringLength(PriceUpdateConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public DateTime EffectiveDate { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public PriceUpdateStatus Status { get; set; }
         public DateTime? UpdateStatusDate { get; set; }
         public Guid PriceListId { get; set; }
