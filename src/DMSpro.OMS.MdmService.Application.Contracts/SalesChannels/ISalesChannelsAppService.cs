@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.SalesChannels
     public partial interface ISalesChannelsAppService : IApplicationService
     {
         Task<PagedResultDto<SalesChannelDto>> GetListAsync(GetSalesChannelsInput input);
-        
+
         Task<SalesChannelDto> GetAsync(Guid id);
 
         Task DeleteAsync(Guid id);

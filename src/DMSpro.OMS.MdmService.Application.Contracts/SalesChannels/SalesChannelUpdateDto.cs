@@ -13,6 +13,7 @@ namespace DMSpro.OMS.MdmService.SalesChannels
         [Required]
         [StringLength(SalesChannelConsts.NameMaxLength, MinimumLength = SalesChannelConsts.NameMinLength)]
         public string Name { get; set; }
+        [StringLength(SalesChannelConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; }
 

@@ -134,7 +134,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.TenantId).HasColumnName(nameof(SalesChannel.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(SalesChannel.Code)).IsRequired().HasMaxLength(SalesChannelConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(SalesChannel.Name)).IsRequired().HasMaxLength(SalesChannelConsts.NameMaxLength);
-            b.Property(x => x.Description).HasColumnName(nameof(SalesChannel.Description));
+            b.Property(x => x.Description).HasColumnName(nameof(SalesChannel.Description)).HasMaxLength(SalesChannelConsts.DescriptionMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(SalesChannel.Active));
         });
         builder.Entity<UOM>(b =>
@@ -283,7 +283,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<CustomerAttribute>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributes", MdmServiceDbProperties.DbSchema);

@@ -1,3 +1,4 @@
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;

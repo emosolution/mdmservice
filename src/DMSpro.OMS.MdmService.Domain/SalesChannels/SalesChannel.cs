@@ -39,6 +39,7 @@ namespace DMSpro.OMS.MdmService.SalesChannels
             Check.Length(code, nameof(code), SalesChannelConsts.CodeMaxLength, SalesChannelConsts.CodeMinLength);
             Check.NotNull(name, nameof(name));
             Check.Length(name, nameof(name), SalesChannelConsts.NameMaxLength, SalesChannelConsts.NameMinLength);
+            Check.Length(description, nameof(description), SalesChannelConsts.DescriptionMaxLength, 0);
             Code = code;
             Name = name;
             Description = description;

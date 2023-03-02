@@ -1,3 +1,4 @@
+using Volo.Abp.AutoMapper;
 using System;
 using AutoMapper;
 using DMSpro.OMS.MdmService.ItemGroupLists;
