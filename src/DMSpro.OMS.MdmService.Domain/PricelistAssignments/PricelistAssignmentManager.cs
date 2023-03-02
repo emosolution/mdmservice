@@ -24,6 +24,7 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNull(customerGroupId, nameof(customerGroupId));
+            Check.Length(description, nameof(description), PricelistAssignmentConsts.DescriptionMaxLength);
 
             var pricelistAssignment = new PricelistAssignment(
              GuidGenerator.Create(),
@@ -40,11 +41,9 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNull(customerGroupId, nameof(customerGroupId));
+            Check.Length(description, nameof(description), PricelistAssignmentConsts.DescriptionMaxLength);
 
-            var queryable = await _pricelistAssignmentRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var pricelistAssignment = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var pricelistAssignment = await _pricelistAssignmentRepository.GetAsync(id);
 
             pricelistAssignment.PriceListId = priceListId;
             pricelistAssignment.CustomerGroupId = customerGroupId;

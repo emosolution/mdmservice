@@ -131,10 +131,18 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _pricelistAssignmentRepository.GetListAsync(input.FilterText, input.Description);
+            var pricelistAssignments = await _pricelistAssignmentRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description);
+            var items = pricelistAssignments.Select(item => new
+            {
+                Description = item.PricelistAssignment.Description,
+
+                PriceListCode = item.PriceList?.Code,
+                CustomerGroupCode = item.CustomerGroup?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<PricelistAssignment>, List<PricelistAssignmentExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "PricelistAssignments.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
