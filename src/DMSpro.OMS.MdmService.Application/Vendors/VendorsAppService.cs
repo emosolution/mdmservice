@@ -148,9 +148,7 @@ namespace DMSpro.OMS.MdmService.Vendors
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var vendors = await _vendorRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.ShortName, 
-                input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, 
-                input.EndDateMax, input.Street, input.Address, input.Latitude, input.Longitude);
+            var vendors = await _vendorRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.Street, input.Address, input.Latitude, input.Longitude);
             var items = vendors.Select(item => new
             {
                 item.Vendor.Code,

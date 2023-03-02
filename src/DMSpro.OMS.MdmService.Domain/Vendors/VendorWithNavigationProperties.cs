@@ -19,8 +19,5 @@ namespace DMSpro.OMS.MdmService.Vendors
         public GeoMaster GeoMaster4 { get; set; }
         public Company Company { get; set; }
         public Company Company1 { get; set; }
-        
-
-        
     }
 }

@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             string shortName = null,
             string phone1 = null,
             string phone2 = null,
-            string eRPCode = null,
+            string erpCode = null,
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
@@ -67,7 +67,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, shortName, phone1, phone2, eRPCode, active, endDateMin, endDateMax, street, address, latitude, longitude, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, companyId, linkedCompanyId);
+            query = ApplyFilter(query, filterText, code, name, shortName, phone1, phone2, erpCode, active, endDateMin, endDateMax, street, address, latitude, longitude, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, companyId, linkedCompanyId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? VendorConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -114,7 +114,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             string shortName = null,
             string phone1 = null,
             string phone2 = null,
-            string eRPCode = null,
+            string erpCode = null,
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
@@ -138,7 +138,7 @@ namespace DMSpro.OMS.MdmService.Vendors
                     .WhereIf(!string.IsNullOrWhiteSpace(shortName), e => e.Vendor.ShortName.Contains(shortName))
                     .WhereIf(!string.IsNullOrWhiteSpace(phone1), e => e.Vendor.Phone1.Contains(phone1))
                     .WhereIf(!string.IsNullOrWhiteSpace(phone2), e => e.Vendor.Phone2.Contains(phone2))
-                    .WhereIf(!string.IsNullOrWhiteSpace(eRPCode), e => e.Vendor.ERPCode.Contains(eRPCode))
+                    .WhereIf(!string.IsNullOrWhiteSpace(erpCode), e => e.Vendor.ERPCode.Contains(erpCode))
                     .WhereIf(active.HasValue, e => e.Vendor.Active == active)
                     .WhereIf(endDateMin.HasValue, e => e.Vendor.EndDate >= endDateMin.Value)
                     .WhereIf(endDateMax.HasValue, e => e.Vendor.EndDate <= endDateMax.Value)
@@ -163,7 +163,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             string shortName = null,
             string phone1 = null,
             string phone2 = null,
-            string eRPCode = null,
+            string erpCode = null,
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
@@ -176,7 +176,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, shortName, phone1, phone2, eRPCode, active, endDateMin, endDateMax, street, address, latitude, longitude);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, shortName, phone1, phone2, erpCode, active, endDateMin, endDateMax, street, address, latitude, longitude);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? VendorConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -188,7 +188,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             string shortName = null,
             string phone1 = null,
             string phone2 = null,
-            string eRPCode = null,
+            string erpCode = null,
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
@@ -207,7 +207,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, code, name, shortName, phone1, phone2, eRPCode, active, endDateMin, endDateMax, street, address, latitude, longitude, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, companyId, linkedCompanyId);
+            query = ApplyFilter(query, filterText, code, name, shortName, phone1, phone2, erpCode, active, endDateMin, endDateMax, street, address, latitude, longitude, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, companyId, linkedCompanyId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -219,7 +219,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             string shortName = null,
             string phone1 = null,
             string phone2 = null,
-            string eRPCode = null,
+            string erpCode = null,
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
@@ -235,7 +235,7 @@ namespace DMSpro.OMS.MdmService.Vendors
                     .WhereIf(!string.IsNullOrWhiteSpace(shortName), e => e.ShortName.Contains(shortName))
                     .WhereIf(!string.IsNullOrWhiteSpace(phone1), e => e.Phone1.Contains(phone1))
                     .WhereIf(!string.IsNullOrWhiteSpace(phone2), e => e.Phone2.Contains(phone2))
-                    .WhereIf(!string.IsNullOrWhiteSpace(eRPCode), e => e.ERPCode.Contains(eRPCode))
+                    .WhereIf(!string.IsNullOrWhiteSpace(erpCode), e => e.ERPCode.Contains(erpCode))
                     .WhereIf(active.HasValue, e => e.Active == active)
                     .WhereIf(endDateMin.HasValue, e => e.EndDate >= endDateMin.Value)
                     .WhereIf(endDateMax.HasValue, e => e.EndDate <= endDateMax.Value)

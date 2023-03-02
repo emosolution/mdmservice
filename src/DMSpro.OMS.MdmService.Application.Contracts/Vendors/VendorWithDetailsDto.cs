@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
-	public class VendorWithDetailsDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class VendorWithDetailsDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -28,6 +28,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         public Guid? GeoMaster3Id { get; set; }
         public Guid? GeoMaster4Id { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid? LinkedCompanyId { get; set; }
 
         public PriceListDto PriceList { get; set; }
         public GeoMasterDto GeoMaster0 { get; set; }
@@ -40,8 +41,8 @@ namespace DMSpro.OMS.MdmService.Vendors
         public string ConcurrencyStamp { get; set; }
 
         public VendorWithDetailsDto()
-		{
-		}
-	}
+        {
+        }
+    }
 }
 

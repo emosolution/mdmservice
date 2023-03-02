@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "a81e94bc-16ec-497f-ab5d-2d664d03c2d1",
+      "Id": "815d22d6-f717-466e-a35e-3702b1cec35f",
       "Name": "ShortName",
       "Type": "string",
       "EnumType": "",
@@ -71,9 +71,9 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 1,
+      "MinLength": null,
       "MaxLength": 200,
       "SortOrder": 0,
       "SortType": 0,
@@ -260,7 +260,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "2b861d8f-ce06-4a00-ac8b-6d70b95c1b36",
+      "Id": "3edb1976-2833-47d6-948b-aebb51e3d85a",
       "Name": "Longitude",
       "Type": "string",
       "EnumType": "",

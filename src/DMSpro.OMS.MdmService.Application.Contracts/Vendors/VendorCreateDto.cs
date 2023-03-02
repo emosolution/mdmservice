@@ -12,8 +12,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         [Required]
         [StringLength(VendorConsts.NameMaxLength, MinimumLength = VendorConsts.NameMinLength)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(VendorConsts.ShortNameMaxLength, MinimumLength = VendorConsts.ShortNameMinLength)]
+        [StringLength(VendorConsts.ShortNameMaxLength)]
         public string ShortName { get; set; }
         [StringLength(VendorConsts.Phone1MaxLength)]
         public string Phone1 { get; set; }

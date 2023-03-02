@@ -28,8 +28,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             Check.Length(code, nameof(code), VendorConsts.CodeMaxLength, VendorConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), VendorConsts.NameMaxLength, VendorConsts.NameMinLength);
-            Check.NotNullOrWhiteSpace(shortName, nameof(shortName));
-            Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength, VendorConsts.ShortNameMinLength);
+            Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength);
             Check.Length(phone1, nameof(phone1), VendorConsts.Phone1MaxLength);
             Check.Length(phone2, nameof(phone2), VendorConsts.Phone2MaxLength);
             Check.Length(erpCode, nameof(erpCode), VendorConsts.ERPCodeMaxLength);
@@ -57,8 +56,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             Check.Length(code, nameof(code), VendorConsts.CodeMaxLength, VendorConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), VendorConsts.NameMaxLength, VendorConsts.NameMinLength);
-            Check.NotNullOrWhiteSpace(shortName, nameof(shortName));
-            Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength, VendorConsts.ShortNameMinLength);
+            Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength);
             Check.Length(phone1, nameof(phone1), VendorConsts.Phone1MaxLength);
             Check.Length(phone2, nameof(phone2), VendorConsts.Phone2MaxLength);
             Check.Length(erpCode, nameof(erpCode), VendorConsts.ERPCodeMaxLength);
