@@ -10,6 +10,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         [Required]
         [StringLength(SalesOrgHeaderConsts.CodeMaxLength, MinimumLength = SalesOrgHeaderConsts.CodeMinLength)]
         public string Code { get; set; }
+        [StringLength(SalesOrgHeaderConsts.NameMaxLength)]
         public string Name { get; set; }
         public bool Active { get; set; }
 

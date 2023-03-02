@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "0faa4174-4fb6-4c29-918a-f400a03efce3",
+      "Id": "c9874af2-d6d4-43aa-94dc-cedf52b941cb",
       "Name": "Name",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
