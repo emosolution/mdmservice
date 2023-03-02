@@ -3853,8 +3853,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid?>>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string?>>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
                   }
                 },
                 {
@@ -4160,30 +4160,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "LinkedCompany",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "WarehouseId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "Street",
                   "jsonName": null,
                   "type": "System.String",
@@ -4305,6 +4281,18 @@
                 {
                   "nameOnMethod": "input",
                   "name": "CompanyId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "LinkedCompanyId",
                   "jsonName": null,
                   "type": "System.Guid?",
                   "typeSimple": "string?",
@@ -4548,8 +4536,8 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid?>>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string?>>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Vendors.IVendorsAppService"
@@ -4897,30 +4885,6 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "LinkedCompany",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "WarehouseId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
                   "name": "Street",
                   "jsonName": null,
                   "type": "System.String",
@@ -5042,6 +5006,18 @@
                 {
                   "nameOnMethod": "input",
                   "name": "CompanyId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "LinkedCompanyId",
                   "jsonName": null,
                   "type": "System.Guid?",
                   "typeSimple": "string?",

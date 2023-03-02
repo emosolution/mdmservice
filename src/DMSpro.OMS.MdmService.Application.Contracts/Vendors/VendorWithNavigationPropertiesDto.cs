@@ -19,6 +19,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         public GeoMasterDto GeoMaster3 { get; set; }
         public GeoMasterDto GeoMaster4 { get; set; }
         public CompanyDto Company { get; set; }
+        public CompanyDto Company1 { get; set; }
 
     }
 }

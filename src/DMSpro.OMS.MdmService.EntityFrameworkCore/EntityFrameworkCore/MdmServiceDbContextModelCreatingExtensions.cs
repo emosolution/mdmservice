@@ -454,7 +454,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Company>(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<SystemConfig>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SystemConfigs", MdmServiceDbProperties.DbSchema);
@@ -468,7 +468,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.ControlType).HasColumnName(nameof(SystemConfig.ControlType));
             b.Property(x => x.DataSource).HasColumnName(nameof(SystemConfig.DataSource)).HasMaxLength(SystemConfigConsts.DataSourceMaxLength);
         });
-        
+
         builder.Entity<CompanyIdentityUserAssignment>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
@@ -690,17 +690,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Code).HasColumnName(nameof(Vendor.Code)).IsRequired().HasMaxLength(VendorConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(Vendor.Name)).IsRequired().HasMaxLength(VendorConsts.NameMaxLength);
             b.Property(x => x.ShortName).HasColumnName(nameof(Vendor.ShortName)).IsRequired().HasMaxLength(VendorConsts.ShortNameMaxLength);
-            b.Property(x => x.Phone1).HasColumnName(nameof(Vendor.Phone1));
-            b.Property(x => x.Phone2).HasColumnName(nameof(Vendor.Phone2));
-            b.Property(x => x.ERPCode).HasColumnName(nameof(Vendor.ERPCode));
+            b.Property(x => x.Phone1).HasColumnName(nameof(Vendor.Phone1)).HasMaxLength(VendorConsts.Phone1MaxLength);
+            b.Property(x => x.Phone2).HasColumnName(nameof(Vendor.Phone2)).HasMaxLength(VendorConsts.Phone2MaxLength);
+            b.Property(x => x.ERPCode).HasColumnName(nameof(Vendor.ERPCode)).HasMaxLength(VendorConsts.ERPCodeMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(Vendor.Active));
             b.Property(x => x.EndDate).HasColumnName(nameof(Vendor.EndDate));
-            b.Property(x => x.LinkedCompany).HasColumnName(nameof(Vendor.LinkedCompany)).HasMaxLength(VendorConsts.LinkedCompanyMaxLength);
-            b.Property(x => x.WarehouseId).HasColumnName(nameof(Vendor.WarehouseId));
-            b.Property(x => x.Street).HasColumnName(nameof(Vendor.Street));
-            b.Property(x => x.Address).HasColumnName(nameof(Vendor.Address));
-            b.Property(x => x.Latitude).HasColumnName(nameof(Vendor.Latitude));
-            b.Property(x => x.Longitude).HasColumnName(nameof(Vendor.Longitude));
+            b.Property(x => x.Street).HasColumnName(nameof(Vendor.Street)).HasMaxLength(VendorConsts.StreetMaxLength);
+            b.Property(x => x.Address).HasColumnName(nameof(Vendor.Address)).HasMaxLength(VendorConsts.AddressMaxLength);
+            b.Property(x => x.Latitude).HasColumnName(nameof(Vendor.Latitude)).HasMaxLength(VendorConsts.LatitudeMaxLength);
+            b.Property(x => x.Longitude).HasColumnName(nameof(Vendor.Longitude)).HasMaxLength(VendorConsts.LongitudeMaxLength);
             b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
@@ -708,6 +706,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Company>(x => x.LinkedCompany).WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<Customer>(b =>
         {

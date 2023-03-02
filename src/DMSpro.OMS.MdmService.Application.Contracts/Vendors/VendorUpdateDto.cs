@@ -16,17 +16,21 @@ namespace DMSpro.OMS.MdmService.Vendors
         [Required]
         [StringLength(VendorConsts.ShortNameMaxLength, MinimumLength = VendorConsts.ShortNameMinLength)]
         public string ShortName { get; set; }
+        [StringLength(VendorConsts.Phone1MaxLength)]
         public string Phone1 { get; set; }
+        [StringLength(VendorConsts.Phone2MaxLength)]
         public string Phone2 { get; set; }
+        [StringLength(VendorConsts.ERPCodeMaxLength)]
         public string ERPCode { get; set; }
         public bool Active { get; set; }
         public DateTime? EndDate { get; set; }
-        [StringLength(VendorConsts.LinkedCompanyMaxLength)]
-        public string LinkedCompany { get; set; }
-        public Guid WarehouseId { get; set; }
+        [StringLength(VendorConsts.StreetMaxLength)]
         public string Street { get; set; }
+        [StringLength(VendorConsts.AddressMaxLength)]
         public string Address { get; set; }
+        [StringLength(VendorConsts.LatitudeMaxLength)]
         public string Latitude { get; set; }
+        [StringLength(VendorConsts.LongitudeMaxLength)]
         public string Longitude { get; set; }
         public Guid PriceListId { get; set; }
         public Guid? GeoMaster0Id { get; set; }
@@ -35,6 +39,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         public Guid? GeoMaster3Id { get; set; }
         public Guid? GeoMaster4Id { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid? LinkedCompanyId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

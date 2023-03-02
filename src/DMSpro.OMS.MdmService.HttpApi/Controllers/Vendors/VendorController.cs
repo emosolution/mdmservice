@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Vendors
 
         [HttpGet]
         [Route("geo-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             return _vendorsAppService.GetGeoMasterLookupAsync(input);
         }

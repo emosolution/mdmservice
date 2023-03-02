@@ -25,8 +25,8 @@ namespace DMSpro.OMS.MdmService.Vendors
     {
         public virtual async Task<PagedResultDto<VendorWithNavigationPropertiesDto>> GetListAsync(GetVendorsInput input)
         {
-            var totalCount = await _vendorRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId);
-            var items = await _vendorRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _vendorRepository.GetCountAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.Street, input.Address, input.Latitude, input.Longitude, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.LinkedCompanyId);
+            var items = await _vendorRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.Street, input.Address, input.Latitude, input.Longitude, input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.LinkedCompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<VendorWithNavigationPropertiesDto>
             {
@@ -62,7 +62,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             var query = (await _geoMasterRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -71,10 +71,10 @@ namespace DMSpro.OMS.MdmService.Vendors
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<GeoMaster>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -113,7 +113,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             }
 
             var vendor = await _vendorManager.CreateAsync(
-            input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.EndDate
+            input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.LinkedCompanyId, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.Street, input.Address, input.Latitude, input.Longitude, input.EndDate
             );
 
             return ObjectMapper.Map<Vendor, VendorDto>(vendor);
@@ -133,7 +133,7 @@ namespace DMSpro.OMS.MdmService.Vendors
 
             var vendor = await _vendorManager.UpdateAsync(
             id,
-            input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude, input.EndDate, input.ConcurrencyStamp
+            input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.LinkedCompanyId, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.Street, input.Address, input.Latitude, input.Longitude, input.EndDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<Vendor, VendorDto>(vendor);
@@ -148,10 +148,37 @@ namespace DMSpro.OMS.MdmService.Vendors
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _vendorRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, input.EndDateMax, input.LinkedCompany, input.WarehouseId, input.Street, input.Address, input.Latitude, input.Longitude);
+            var vendors = await _vendorRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.ShortName, 
+                input.Phone1, input.Phone2, input.ERPCode, input.Active, input.EndDateMin, 
+                input.EndDateMax, input.Street, input.Address, input.Latitude, input.Longitude);
+            var items = vendors.Select(item => new
+            {
+                item.Vendor.Code,
+                item.Vendor.Name,
+                item.Vendor.ShortName,
+                item.Vendor.Phone1,
+                item.Vendor.Phone2,
+                item.Vendor.ERPCode,
+                item.Vendor.Active,
+                item.Vendor.EndDate,
+                item.Vendor.Street,
+                item.Vendor.Address,
+                item.Vendor.Latitude,
+                item.Vendor.Longitude,
+
+                PriceListCode = item.PriceList?.Code,
+                GeoMasterCode = item.GeoMaster?.Code,
+                GeoMasterCode1 = item.GeoMaster1?.Code,
+                GeoMasterCode2 = item.GeoMaster2?.Code,
+                GeoMasterCode3 = item.GeoMaster3?.Code,
+                GeoMasterCode4 = item.GeoMaster4?.Code,
+                CompanyCode = item.Company?.Code,
+                Company1Code = item.Company1?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<Vendor>, List<VendorExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "Vendors.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

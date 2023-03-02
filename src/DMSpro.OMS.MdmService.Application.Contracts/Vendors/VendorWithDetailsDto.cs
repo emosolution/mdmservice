@@ -17,8 +17,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         public string ERPCode { get; set; }
         public bool Active { get; set; }
         public DateTime? EndDate { get; set; }
-        public string LinkedCompany { get; set; }
-        public Guid WarehouseId { get; set; }
         public string Street { get; set; }
         public string Address { get; set; }
         public string Latitude { get; set; }
@@ -38,6 +36,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         public GeoMasterDto GeoMaster3 { get; set; }
         public GeoMasterDto GeoMaster4 { get; set; }
         public CompanyDto Company { get; set; }
+        public CompanyDto LinkedCompany { get; set; }
         public string ConcurrencyStamp { get; set; }
 
         public VendorWithDetailsDto()

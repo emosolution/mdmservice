@@ -24,8 +24,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
-            string linkedCompany = null,
-            Guid? warehouseId = null,
             string street = null,
             string address = null,
             string latitude = null,
@@ -37,6 +35,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             Guid? geoMaster3Id = null,
             Guid? geoMaster4Id = null,
             Guid? companyId = null,
+            Guid? linkedCompanyId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -54,8 +53,6 @@ namespace DMSpro.OMS.MdmService.Vendors
                     bool? active = null,
                     DateTime? endDateMin = null,
                     DateTime? endDateMax = null,
-                    string linkedCompany = null,
-                    Guid? warehouseId = null,
                     string street = null,
                     string address = null,
                     string latitude = null,
@@ -77,8 +74,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             bool? active = null,
             DateTime? endDateMin = null,
             DateTime? endDateMax = null,
-            string linkedCompany = null,
-            Guid? warehouseId = null,
             string street = null,
             string address = null,
             string latitude = null,
@@ -90,6 +85,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             Guid? geoMaster3Id = null,
             Guid? geoMaster4Id = null,
             Guid? companyId = null,
+            Guid? linkedCompanyId = null,
             CancellationToken cancellationToken = default);
     }
 }

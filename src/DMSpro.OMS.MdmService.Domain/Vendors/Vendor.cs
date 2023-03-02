@@ -41,11 +41,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         public virtual DateTime? EndDate { get; set; }
 
         [CanBeNull]
-        public virtual string LinkedCompany { get; set; }
-
-        public virtual Guid WarehouseId { get; set; }
-
-        [CanBeNull]
         public virtual string Street { get; set; }
 
         [CanBeNull]
@@ -63,6 +58,7 @@ namespace DMSpro.OMS.MdmService.Vendors
         public Guid? GeoMaster3Id { get; set; }
         public Guid? GeoMaster4Id { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid? LinkedCompanyId { get; set; }
 
         public virtual PriceList PriceList { get; set; }
         public virtual GeoMaster GeoMaster0 { get; set; }
@@ -71,12 +67,14 @@ namespace DMSpro.OMS.MdmService.Vendors
         public virtual GeoMaster GeoMaster3 { get; set; }
         public virtual GeoMaster GeoMaster4 { get; set; }
         public virtual Company Company { get; set; }
+        public virtual Company LinkedCompany {get; set; }
+
         public Vendor()
         {
 
         }
 
-        public Vendor(Guid id, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid companyId, string code, string name, string shortName, string phone1, string phone2, string erpCode, bool active, string linkedCompany, Guid warehouseId, string street, string address, string latitude, string longitude, DateTime? endDate = null)
+        public Vendor(Guid id, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid companyId, Guid? linkedCompanyId, string code, string name, string shortName, string phone1, string phone2, string erpCode, bool active, string street, string address, string latitude, string longitude, DateTime? endDate = null)
         {
 
             Id = id;
@@ -86,7 +84,13 @@ namespace DMSpro.OMS.MdmService.Vendors
             Check.Length(name, nameof(name), VendorConsts.NameMaxLength, VendorConsts.NameMinLength);
             Check.NotNull(shortName, nameof(shortName));
             Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength, VendorConsts.ShortNameMinLength);
-            Check.Length(linkedCompany, nameof(linkedCompany), VendorConsts.LinkedCompanyMaxLength, 0);
+            Check.Length(phone1, nameof(phone1), VendorConsts.Phone1MaxLength, 0);
+            Check.Length(phone2, nameof(phone2), VendorConsts.Phone2MaxLength, 0);
+            Check.Length(erpCode, nameof(erpCode), VendorConsts.ERPCodeMaxLength, 0);
+            Check.Length(street, nameof(street), VendorConsts.StreetMaxLength, 0);
+            Check.Length(address, nameof(address), VendorConsts.AddressMaxLength, 0);
+            Check.Length(latitude, nameof(latitude), VendorConsts.LatitudeMaxLength, 0);
+            Check.Length(longitude, nameof(longitude), VendorConsts.LongitudeMaxLength, 0);
             Code = code;
             Name = name;
             ShortName = shortName;
@@ -94,8 +98,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             Phone2 = phone2;
             ERPCode = erpCode;
             Active = active;
-            LinkedCompany = linkedCompany;
-            WarehouseId = warehouseId;
             Street = street;
             Address = address;
             Latitude = latitude;
@@ -108,6 +110,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             GeoMaster3Id = geoMaster3Id;
             GeoMaster4Id = geoMaster4Id;
             CompanyId = companyId;
+            LinkedCompanyId = linkedCompanyId;
         }
 
     }

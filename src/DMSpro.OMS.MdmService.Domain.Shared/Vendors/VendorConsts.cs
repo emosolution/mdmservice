@@ -15,6 +15,12 @@ namespace DMSpro.OMS.MdmService.Vendors
         public const int NameMaxLength = 200;
         public const int ShortNameMinLength = 1;
         public const int ShortNameMaxLength = 200;
-        public const int LinkedCompanyMaxLength = 20;
+        public const int Phone1MaxLength = 255;
+        public const int Phone2MaxLength = 255;
+        public const int ERPCodeMaxLength = 255;
+        public const int StreetMaxLength = 255;
+        public const int AddressMaxLength = 500;
+        public const int LatitudeMaxLength = 255;
+        public const int LongitudeMaxLength = 255;
     }
 }

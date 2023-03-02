@@ -52,9 +52,9 @@ public partial class VendorClientProxy : ClientProxyBase<IVendorsAppService>, IV
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetGeoMasterLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetGeoMasterLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });
