@@ -5,14 +5,14 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 {
 	public class GeoMasterWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
-		public string Code { get; set; }
+        public string Code { get; set; }
         public string ERPCode { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
         public Guid? ParentId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
-		public GeoMasterDto Parent{get;set;}
+        public GeoMasterDto Parent{get;set;}
 		public GeoMasterWithDetailsDto()
 		{
 		}

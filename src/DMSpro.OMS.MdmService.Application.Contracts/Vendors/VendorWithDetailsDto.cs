@@ -30,14 +30,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         public Guid CompanyId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
 
-        public PriceListDto PriceList { get; set; }
-        public GeoMasterDto GeoMaster0 { get; set; }
-        public GeoMasterDto GeoMaster1 { get; set; }
-        public GeoMasterDto GeoMaster2 { get; set; }
-        public GeoMasterDto GeoMaster3 { get; set; }
-        public GeoMasterDto GeoMaster4 { get; set; }
-        public CompanyDto Company { get; set; }
-        public CompanyDto LinkedCompany { get; set; }
         public string ConcurrencyStamp { get; set; }
 
         public VendorWithDetailsDto()
