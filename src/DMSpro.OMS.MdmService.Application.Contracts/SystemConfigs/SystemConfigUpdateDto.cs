@@ -21,8 +21,8 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
         [StringLength(SystemConfigConsts.DefaultValueMaxLength, MinimumLength = SystemConfigConsts.DefaultValueMinLength)]
         public string DefaultValue { get; set; }
         public bool EditableByTenant { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public ControlType ControlType { get; set; }
+        [StringLength(SystemConfigConsts.DataSourceMaxLength)]
         public string DataSource { get; set; }
 
         public string ConcurrencyStamp { get; set; }

@@ -454,7 +454,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Company>(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
-
+        
         builder.Entity<SystemConfig>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SystemConfigs", MdmServiceDbProperties.DbSchema);
@@ -466,9 +466,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.DefaultValue).HasColumnName(nameof(SystemConfig.DefaultValue)).IsRequired().HasMaxLength(SystemConfigConsts.DefaultValueMaxLength);
             b.Property(x => x.EditableByTenant).HasColumnName(nameof(SystemConfig.EditableByTenant));
             b.Property(x => x.ControlType).HasColumnName(nameof(SystemConfig.ControlType));
-            b.Property(x => x.DataSource).HasColumnName(nameof(SystemConfig.DataSource));
+            b.Property(x => x.DataSource).HasColumnName(nameof(SystemConfig.DataSource)).HasMaxLength(SystemConfigConsts.DataSourceMaxLength);
         });
-
+        
         builder.Entity<CompanyIdentityUserAssignment>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
