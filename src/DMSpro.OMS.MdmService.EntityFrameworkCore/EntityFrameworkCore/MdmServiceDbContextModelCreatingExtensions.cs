@@ -115,8 +115,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(WeightMeasurement.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(WeightMeasurement.Code)).IsRequired();
-            b.Property(x => x.Name).HasColumnName(nameof(WeightMeasurement.Name)).IsRequired().HasMaxLength(WeightMeasurementConsts.NameMaxLength);
-            b.Property(x => x.Value).HasColumnName(nameof(WeightMeasurement.Value)).IsRequired();
+            b.Property(x => x.Name).HasColumnName(nameof(WeightMeasurement.Name)).HasMaxLength(WeightMeasurementConsts.NameMaxLength);
+            b.Property(x => x.Value).HasColumnName(nameof(WeightMeasurement.Value));
         });
         builder.Entity<VAT>(b =>
         {

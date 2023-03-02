@@ -25,14 +25,14 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
             {
                 // Act
                 var result = await _weightMeasurementRepository.GetListAsync(
-                    code: "c9ad8ccac4564097",
-                    name: "7ef9575d4b4d4d65bc22e9bf5ca83fb3a7f1562581964842be"
+                    code: "cd5c15d8ddf94ce3b45",
+                    name: "9e08a98396fd460b9939e975606c5465cc352d31c63d41968f"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("d5870506-875a-4861-9faf-442ee0bbffc0"));
+                result.First().Id.ShouldBe(Guid.Parse("89509369-e333-4c67-9869-c40b3d1481bb"));
             });
         }
 
@@ -44,8 +44,8 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
             {
                 // Act
                 var result = await _weightMeasurementRepository.GetCountAsync(
-                    code: "2f682a80d2e74edea",
-                    name: "08464d3702d54cd9bfbe8737a129ec9fb557225dc1534b0db2"
+                    code: "7dfb3bb1bf8b4697",
+                    name: "bff152df46684112bd2e3810be181037b640c3c2a9894ce8b1"
                 );
 
                 // Assert

@@ -8,10 +8,8 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
     {
         [Required]
         public string Code { get; set; }
-        [Required]
-        [StringLength(WeightMeasurementConsts.NameMaxLength, MinimumLength = WeightMeasurementConsts.NameMinLength)]
+        [StringLength(WeightMeasurementConsts.NameMaxLength)]
         public string Name { get; set; }
-        [Required]
-        public uint Value { get; set; } = 1;
+        public decimal Value { get; set; }
     }
 }

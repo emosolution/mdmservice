@@ -18,23 +18,22 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
         [NotNull]
         public virtual string Code { get; set; }
 
-        [NotNull]
+        [CanBeNull]
         public virtual string Name { get; set; }
 
-        public virtual uint Value { get; set; }
+        public virtual decimal Value { get; set; }
 
         public WeightMeasurement()
         {
 
         }
 
-        public WeightMeasurement(Guid id, string code, string name, uint value)
+        public WeightMeasurement(Guid id, string code, string name, decimal value)
         {
 
             Id = id;
             Check.NotNull(code, nameof(code));
-            Check.NotNull(name, nameof(name));
-            Check.Length(name, nameof(name), WeightMeasurementConsts.NameMaxLength, WeightMeasurementConsts.NameMinLength);
+            Check.Length(name, nameof(name), WeightMeasurementConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
             Value = value;
