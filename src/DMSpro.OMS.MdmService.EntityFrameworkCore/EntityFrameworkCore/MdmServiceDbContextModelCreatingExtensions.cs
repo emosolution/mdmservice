@@ -107,7 +107,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.TenantId).HasColumnName(nameof(DimensionMeasurement.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(DimensionMeasurement.Code)).IsRequired().HasMaxLength(DimensionMeasurementConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(DimensionMeasurement.Name)).HasMaxLength(DimensionMeasurementConsts.NameMaxLength);
-            b.Property(x => x.Value).HasColumnName(nameof(DimensionMeasurement.Value));
+            b.Property(x => x.Value).HasColumnType("decimal(19,2)").HasColumnName(nameof(DimensionMeasurement.Value));
         });
         builder.Entity<WeightMeasurement>(b =>
         {
@@ -116,7 +116,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.TenantId).HasColumnName(nameof(WeightMeasurement.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(WeightMeasurement.Code)).IsRequired();
             b.Property(x => x.Name).HasColumnName(nameof(WeightMeasurement.Name)).HasMaxLength(WeightMeasurementConsts.NameMaxLength);
-            b.Property(x => x.Value).HasColumnName(nameof(WeightMeasurement.Value));
+            b.Property(x => x.Value).HasColumnType("decimal(19,2)").HasColumnName(nameof(WeightMeasurement.Value));
         });
         builder.Entity<VAT>(b =>
         {
@@ -562,7 +562,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.IsPurchasable).HasColumnName(nameof(Item.IsPurchasable));
             b.Property(x => x.IsSaleable).HasColumnName(nameof(Item.IsSaleable));
             b.Property(x => x.IsInventoriable).HasColumnName(nameof(Item.IsInventoriable));
-            b.Property(x => x.BasePrice).HasColumnName(nameof(Item.BasePrice));
+            b.Property(x => x.BasePrice).HasColumnType("decimal(19,2)").HasColumnName(nameof(Item.BasePrice));
+            b.Property(x => x.PurUnitRate).HasColumnType("decimal(19,2)").HasColumnName(nameof(Item.PurUnitRate));
+            b.Property(x => x.SalesUnitRate).HasColumnType("decimal(19,2)").HasColumnName(nameof(Item.SalesUnitRate));
             b.Property(x => x.Active).HasColumnName(nameof(Item.Active));
             b.Property(x => x.ManageItemBy).HasColumnName(nameof(Item.ManageItemBy));
             b.Property(x => x.ExpiredType).HasColumnName(nameof(Item.ExpiredType));
@@ -601,8 +603,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "PriceListDetails", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(PriceListDetail.TenantId));
-            b.Property(x => x.Price).HasColumnName(nameof(PriceListDetail.Price));
-            b.Property(x => x.BasedOnPrice).HasColumnName(nameof(PriceListDetail.BasedOnPrice));
+            b.Property(x => x.Price).HasColumnType("decimal(19,2)").HasColumnName(nameof(PriceListDetail.Price));
+            b.Property(x => x.BasedOnPrice).HasColumnType("decimal(19,2)").HasColumnName(nameof(PriceListDetail.BasedOnPrice));
             b.Property(x => x.Description).HasColumnName(nameof(PriceListDetail.Description)).IsRequired();
             b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<UOM>(x => x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UOMId).OnDelete(DeleteBehavior.NoAction);
@@ -614,7 +616,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroupList.TenantId));
             b.Property(x => x.Rate).HasColumnName(nameof(ItemGroupList.Rate));
-            b.Property(x => x.Price).HasColumnName(nameof(ItemGroupList.Price));
+            b.Property(x => x.Price).HasColumnType("decimal(19,2)").HasColumnName(nameof(ItemGroupList.Price));
             b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<UOM>(x => x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);

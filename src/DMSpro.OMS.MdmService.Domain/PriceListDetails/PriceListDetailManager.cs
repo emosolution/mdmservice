@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         }
 
         public async Task<PriceListDetail> CreateAsync(
-        Guid priceListId, Guid uOMId, Guid itemId, int price, string description, int? basedOnPrice = null)
+        Guid priceListId, Guid uOMId, Guid itemId, decimal price, string description, decimal? basedOnPrice = null)
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNull(uOMId, nameof(uOMId));
@@ -37,7 +37,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         public async Task<PriceListDetail> UpdateAsync(
             Guid id,
-            Guid priceListId, Guid uOMId, Guid itemId, int price, string description, int? basedOnPrice = null, [CanBeNull] string concurrencyStamp = null
+            Guid priceListId, Guid uOMId, Guid itemId, decimal price, string description, decimal? basedOnPrice = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(priceListId, nameof(priceListId));
@@ -45,10 +45,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             Check.NotNull(itemId, nameof(itemId));
             Check.NotNullOrWhiteSpace(description, nameof(description));
 
-            var queryable = await _priceListDetailRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var priceListDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var priceListDetail = await _priceListDetailRepository.GetAsync(id);
 
             priceListDetail.PriceListId = priceListId;
             priceListDetail.UOMId = uOMId;

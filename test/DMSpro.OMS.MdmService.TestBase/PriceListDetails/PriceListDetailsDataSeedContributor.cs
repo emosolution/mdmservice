@@ -41,24 +41,24 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("0e4184d8-69c6-4e16-90a4-c44f3d08337a"),
-                price: 540001679,
-                basedOnPrice: 990352987,
-                description: "d097712be59d450f937ca72bcb5554df0b277ef715d448448e261b7dd3b077935581e78e954f43c780c494dad85",
-                priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
+                id: Guid.Parse("6613d68d-298d-441e-9716-5eb1f3143ae9"),
+                price: 490698435,
+                basedOnPrice: 1471405567,
+                description: "5bf6f0554756476ca464437e2806735a19e38123",
+                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
                 uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
-                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
+                itemId: Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4")
             ));
 
             await _priceListDetailRepository.InsertAsync(new PriceListDetail
             (
-                id: Guid.Parse("814e2f11-06f4-45cf-9e36-80df209fbc15"),
-                price: 1394487410,
-                basedOnPrice: 947230766,
-                description: "16589b337a17494c88f35913b5daa0d9c89d3d369fdc4ee1b23",
-                priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
+                id: Guid.Parse("7e7e2c2f-264b-49c6-8052-25bcd131f787"),
+                price: 1615523586,
+                basedOnPrice: 742160364,
+                description: "751cb588f908496992e1d99d29f1caabb9eaf3e03b93457ba5efc7aa027e418bff1951f3bf1b4c9693",
+                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
                 uOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
-                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5")
+                itemId: Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

@@ -18,9 +18,9 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "7497b6cd-aeba-46c6-842a-fe67a06882e2",
+      "Id": "1f1c4dd7-8225-480f-a60d-2fa09c48dd03",
       "Name": "Price",
-      "Type": "int",
+      "Type": "decimal",
       "EnumType": "",
       "EnumNamespace": "",
       "EnumAngularImport": "shared/enums",
@@ -40,9 +40,9 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "f550977d-b7bc-4f8b-a8cc-be30e2e8e6c2",
+      "Id": "bb6da609-3404-47a0-8696-10f854c13d80",
       "Name": "BasedOnPrice",
-      "Type": "int",
+      "Type": "decimal",
       "EnumType": "",
       "EnumNamespace": "",
       "EnumAngularImport": "shared/enums",

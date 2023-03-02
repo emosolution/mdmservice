@@ -18,9 +18,9 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
     {
         public virtual Guid? TenantId { get; set; }
 
-        public virtual int Price { get; set; }
+        public virtual decimal Price { get; set; }
 
-        public virtual int? BasedOnPrice { get; set; }
+        public virtual decimal? BasedOnPrice { get; set; }
 
         [NotNull]
         public virtual string Description { get; set; }
@@ -36,7 +36,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         }
 
-        public PriceListDetail(Guid id, Guid priceListId, Guid uOMId, Guid itemId, int price, string description, int? basedOnPrice = null)
+        public PriceListDetail(Guid id, Guid priceListId, Guid uOMId, Guid itemId, decimal price, string description, decimal? basedOnPrice = null)
         {
 
             Id = id;
