@@ -30,7 +30,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -119,8 +118,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CompanyInZone, CompanyInZones.EfCoreCompanyInZoneRepository>();
 
             options.AddRepository<CustomerInZone, CustomerInZones.EfCoreCustomerInZoneRepository>();
-
-            options.AddRepository<EmployeeInZone, EmployeeInZones.EfCoreEmployeeInZoneRepository>();
 
             options.AddRepository<CustomerAttribute, CustomerAttributes.EfCoreCustomerAttributeRepository>();
 
@@ -262,11 +259,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.Entity<EmployeeAttachment>(orderOptions =>
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
-            });
-
-            options.Entity<EmployeeInZone>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
             });
 
             options.Entity<EmployeeImage>(orderOptions =>

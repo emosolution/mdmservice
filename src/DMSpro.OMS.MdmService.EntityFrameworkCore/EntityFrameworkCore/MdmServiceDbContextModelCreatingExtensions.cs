@@ -30,7 +30,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -284,16 +283,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-        builder.Entity<EmployeeInZone>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "EmployeeInZones", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(EmployeeInZone.TenantId));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(EmployeeInZone.EffectiveDate));
-            b.Property(x => x.EndDate).HasColumnName(nameof(EmployeeInZone.EndDate));
-            b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.NoAction);
-        });
+        
         builder.Entity<CustomerAttribute>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributes", MdmServiceDbProperties.DbSchema);

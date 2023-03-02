@@ -30,7 +30,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -94,7 +93,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<CustomerGroupByAtt> CustomerGroupByAtts { get; set; }
     public DbSet<CustomerGroup> CustomerGroups { get; set; }
     public DbSet<CustomerAttribute> CustomerAttributes { get; set; }
-    public DbSet<EmployeeInZone> EmployeeInZones { get; set; }
     public DbSet<CustomerInZone> CustomerInZones { get; set; }
     public DbSet<CompanyInZone> CompanyInZones { get; set; }
     public DbSet<SalesOrgEmpAssignment> SalesOrgEmpAssignments { get; set; }

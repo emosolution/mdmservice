@@ -1,4 +1,3 @@
-using Volo.Abp.AutoMapper;
 using System;
 using AutoMapper;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -34,7 +33,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -137,10 +135,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerInZone, CustomerInZoneDto>();
         CreateMap<CustomerInZone, CustomerInZoneWithDetailsDto>();
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
-
-        CreateMap<EmployeeInZone, EmployeeInZoneDto>();
-        CreateMap<EmployeeInZone, EmployeeInZoneWithDetailsDto>();
-        CreateMap<EmployeeInZone, EmployeeInZoneExcelDto>();
 
         CreateMap<CustomerAttribute, CustomerAttributeDto>();
         CreateMap<CustomerAttribute, CustomerAttributeExcelDto>();
@@ -261,8 +255,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CompanyInZoneWithNavigationProperties, CompanyInZoneWithNavigationPropertiesDto>();
         CreateMap<Company, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<EmployeeInZoneWithNavigationProperties, EmployeeInZoneWithNavigationPropertiesDto>();
 
         CreateMap<CusAttributeValue, CusAttributeValueDto>();
         CreateMap<CusAttributeValue, CusAttributeValueExcelDto>();
