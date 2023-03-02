@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
 
         [HttpGet]
         [Route("price-list-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid?>>> GetPriceListLookupAsync(LookupRequestDto input)
+        public Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
         {
             return _priceListsAppService.GetPriceListLookupAsync(input);
         }

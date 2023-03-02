@@ -44,6 +44,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), PriceListConsts.CodeMaxLength, PriceListConsts.CodeMinLength);
+            Check.Length(name, nameof(name), PriceListConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
             Active = active;

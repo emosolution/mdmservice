@@ -45,7 +45,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             return ObjectMapper.Map<PriceList, PriceListDto>(await _priceListRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetPriceListLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
         {
             var query = (await _priceListRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -54,10 +54,10 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<PriceList>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<PriceList>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<PriceList>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -98,18 +98,13 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 //    default:
                 //        break;
                 //}
-
-
-
                 priceListDetails.Add(priceListDetailObj);
 
                 //priceListDetailObj.
-
                 //var priceListDetail = await _priceListDetailRepository.InsertAsync(priceListDetailObj);
             }
 
             await _priceListDetailRepository.InsertManyAsync(priceListDetails);
-
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
         }
 
@@ -134,10 +129,23 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _priceListRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.Active, input.ArithmeticOperation, input.ArithmeticFactorMin, input.ArithmeticFactorMax, input.ArithmeticFactorType, input.IsFirstPriceList);
+            var priceLists = await _priceListRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.Active, input.ArithmeticOperation, input.ArithmeticFactorMin, input.ArithmeticFactorMax, input.ArithmeticFactorType, input.IsFirstPriceList);
+            var items = priceLists.Select(item => new
+            {
+                Code = item.PriceList.Code,
+                Name = item.PriceList.Name,
+                Active = item.PriceList.Active,
+                ArithmeticOperation = item.PriceList.ArithmeticOperation,
+                ArithmeticFactor = item.PriceList.ArithmeticFactor,
+                ArithmeticFactorType = item.PriceList.ArithmeticFactorType,
+                IsFirstPriceList = item.PriceList.IsFirstPriceList,
+
+                PriceListCode = item.PriceList?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<PriceList>, List<PriceListExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "PriceLists.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

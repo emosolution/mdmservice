@@ -15,7 +15,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         Task<PriceListDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetPriceListLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

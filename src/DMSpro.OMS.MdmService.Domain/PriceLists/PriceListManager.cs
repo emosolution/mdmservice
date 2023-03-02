@@ -25,6 +25,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceListConsts.CodeMaxLength, PriceListConsts.CodeMinLength);
+            Check.Length(name, nameof(name), PriceListConsts.NameMaxLength);
 
             var priceList = new PriceList(
              GuidGenerator.Create(),
@@ -41,11 +42,9 @@ namespace DMSpro.OMS.MdmService.PriceLists
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceListConsts.CodeMaxLength, PriceListConsts.CodeMinLength);
+            Check.Length(name, nameof(name), PriceListConsts.NameMaxLength);
 
-            var queryable = await _priceListRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var priceList = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var priceList = await _priceListRepository.GetAsync(id);
 
             priceList.BasePriceListId = basePriceListId;
             priceList.Code = code;
