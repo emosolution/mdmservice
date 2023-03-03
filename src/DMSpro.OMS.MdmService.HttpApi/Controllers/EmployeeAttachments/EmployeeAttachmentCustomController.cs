@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DMSpro.OMS.MdmService.EmployeeAttachments;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
@@ -10,16 +13,83 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
     {
         [HttpDelete]
         [Route("delete-many")]
-        public virtual Task DeleteManyAsync(List<Guid> ids)
+        public virtual async Task DeleteManyAsync(List<Guid> ids)
         {
-            return _employeeAttachmentsAppService.DeleteManyAsync(ids);
+            try
+            {
+                await _employeeAttachmentsAppService.DeleteManyAsync(ids);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpGet]
         [Route("get-file")]
-        public virtual Task<IRemoteStreamContent> GetFileAsync(Guid id)
+        public virtual async Task<IRemoteStreamContent> GetFileAsync(Guid id)
         {
-            return _employeeAttachmentsAppService.GetFileAsync(id);
+            try
+            {
+                return await _employeeAttachmentsAppService.GetFileAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
+
+
+        [HttpPost]
+        public virtual async Task<EmployeeAttachmentDto> CreateAsync([Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
+        {
+            try
+            {
+                return await _employeeAttachmentsAppService.CreateAsync(employeeId,
+                    description, active, inputFile);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, [Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
+        {
+            try
+            {
+                return await _employeeAttachmentsAppService.UpdateAsync(id, employeeId,
+                    description, active, inputFile);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
     }
 }

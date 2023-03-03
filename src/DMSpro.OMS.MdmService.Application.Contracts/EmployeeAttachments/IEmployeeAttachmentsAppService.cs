@@ -17,10 +17,6 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         Task<PagedResultDto<LookupDto<Guid>>> GetEmployeeProfileLookupAsync(LookupRequestDto input);
 
-        Task<EmployeeAttachmentDto> CreateAsync(EmployeeAttachmentCreateDto input);
-
-        Task<EmployeeAttachmentDto> UpdateAsync(Guid id, EmployeeAttachmentUpdateDto input);
-
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeAttachmentExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
