@@ -1,4 +1,5 @@
 using DMSpro.OMS.MdmService.Shared;
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.Customers;
 using System;
 using System.IO;
@@ -7,39 +8,24 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace DMSpro.OMS.MdmService.CustomerImages
 {
 
     [Authorize(MdmServicePermissions.Customers.Default)]
-    public class CustomerImagesAppService : ApplicationService, ICustomerImagesAppService
-    {
-        private readonly IDistributedCache<CustomerImageExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICustomerImageRepository _customerImageRepository;
-        private readonly CustomerImageManager _customerImageManager;
-        private readonly IRepository<Customer, Guid> _customerRepository;
-
-        public CustomerImagesAppService(ICustomerImageRepository customerImageRepository, CustomerImageManager customerImageManager, IDistributedCache<CustomerImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<Customer, Guid> customerRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _customerImageRepository = customerImageRepository;
-            _customerImageManager = customerImageManager; _customerRepository = customerRepository;
-        }
+    public partial class CustomerImagesAppService
+    { 
 
         public virtual async Task<PagedResultDto<CustomerImageWithNavigationPropertiesDto>> GetListAsync(GetCustomerImagesInput input)
         {
-            var totalCount = await _customerImageRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId, input.CustomerId);
-            var items = await _customerImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId, input.CustomerId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _customerImageRepository.GetCountAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId, input.CustomerId, input.POSMItemId);
+            var items = await _customerImageRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId, input.CustomerId, input.POSMItemId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<CustomerImageWithNavigationPropertiesDto>
             {
@@ -75,41 +61,20 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             };
         }
 
-        [Authorize(MdmServicePermissions.Customers.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            await _customerImageRepository.DeleteAsync(id);
-        }
+            var query = (await _itemRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
 
-        [Authorize(MdmServicePermissions.Customers.Create)]
-        public virtual async Task<CustomerImageDto> CreateAsync(CustomerImageCreateDto input)
-        {
-            if (input.CustomerId == default)
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Item>();
+            var totalCount = query.Count();
+            return new PagedResultDto<LookupDto<Guid>>
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
-            }
-
-            var customerImage = await _customerImageManager.CreateAsync(
-            input.CustomerId, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId
-            );
-
-            return ObjectMapper.Map<CustomerImage, CustomerImageDto>(customerImage);
-        }
-
-        [Authorize(MdmServicePermissions.Customers.Edit)]
-        public virtual async Task<CustomerImageDto> UpdateAsync(Guid id, CustomerImageUpdateDto input)
-        {
-            if (input.CustomerId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
-            }
-
-            var customerImage = await _customerImageManager.UpdateAsync(
-            id,
-            input.CustomerId, input.Description, input.Active, input.IsAvatar, input.IsPOSM, input.FileId, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<CustomerImage, CustomerImageDto>(customerImage);
+                TotalCount = totalCount,
+                Items = ObjectMapper.Map<List<Item>, List<LookupDto<Guid>>>(lookupData)
+            };
         }
 
         [AllowAnonymous]
@@ -131,6 +96,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
                 FileId = item.CustomerImage.FileId,
 
                 CustomerCode = item.Customer?.Code,
+                ItemCode = item.Item?.Code,
 
             });
 

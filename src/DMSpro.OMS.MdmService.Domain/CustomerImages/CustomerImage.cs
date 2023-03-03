@@ -1,4 +1,5 @@
 using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Items;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerImages
 {
-    public class CustomerImage : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerImage : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
@@ -27,13 +28,14 @@ namespace DMSpro.OMS.MdmService.CustomerImages
 
         public virtual Guid FileId { get; set; }
         public Guid CustomerId { get; set; }
+        public Guid? POSMItemId { get; set; }
 
         public CustomerImage()
         {
 
         }
 
-        public CustomerImage(Guid id, Guid customerId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId)
+        public CustomerImage(Guid id, Guid customerId, Guid? pOSMItemId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId)
         {
 
             Id = id;
@@ -44,6 +46,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             IsPOSM = isPOSM;
             FileId = fileId;
             CustomerId = customerId;
+            POSMItemId = pOSMItemId;
         }
 
     }

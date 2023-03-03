@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerImages
 {
-    public class EfCoreCustomerImageRepository : EfCoreRepository<MdmServiceDbContext, CustomerImage, Guid>, ICustomerImageRepository
+    public partial class EfCoreCustomerImageRepository : EfCoreRepository<MdmServiceDbContext, CustomerImage, Guid>, ICustomerImageRepository
     {
         public EfCoreCustomerImageRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)
@@ -27,7 +27,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
                 .Select(customerImage => new CustomerImageWithNavigationProperties
                 {
                     CustomerImage = customerImage,
-                    Customer = dbContext.Customers.FirstOrDefault(c => c.Id == customerImage.CustomerId)
+                    Customer = dbContext.Customers.FirstOrDefault(c => c.Id == customerImage.CustomerId),
+                    Item = dbContext.Items.FirstOrDefault(c => c.Id == customerImage.POSMItemId)
                 }).FirstOrDefault();
         }
 
@@ -39,13 +40,14 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             bool? isPOSM = null,
             Guid? fileId = null,
             Guid? customerId = null,
+            Guid? pOSMItemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, isAvatar, isPOSM, fileId, customerId);
+            query = ApplyFilter(query, filterText, description, active, isAvatar, isPOSM, fileId, customerId, pOSMItemId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CustomerImageConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -55,11 +57,14 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             return from customerImage in (await GetDbSetAsync())
                    join customer in (await GetDbContextAsync()).Customers on customerImage.CustomerId equals customer.Id into customers
                    from customer in customers.DefaultIfEmpty()
+                   join item in (await GetDbContextAsync()).Items on customerImage.POSMItemId equals item.Id into items
+                   from item in items.DefaultIfEmpty()
 
                    select new CustomerImageWithNavigationProperties
                    {
                        CustomerImage = customerImage,
-                       Customer = customer
+                       Customer = customer,
+                       Item = item
                    };
         }
 
@@ -71,7 +76,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             bool? isAvatar = null,
             bool? isPOSM = null,
             Guid? fileId = null,
-            Guid? customerId = null)
+            Guid? customerId = null,
+            Guid? pOSMItemId = null)
         {
             return query
                 .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.CustomerImage.Description.Contains(filterText))
@@ -80,7 +86,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
                     .WhereIf(isAvatar.HasValue, e => e.CustomerImage.IsAvatar == isAvatar)
                     .WhereIf(isPOSM.HasValue, e => e.CustomerImage.IsPOSM == isPOSM)
                     .WhereIf(fileId.HasValue, e => e.CustomerImage.FileId == fileId)
-                    .WhereIf(customerId != null && customerId != Guid.Empty, e => e.Customer != null && e.Customer.Id == customerId);
+                    .WhereIf(customerId != null && customerId != Guid.Empty, e => e.Customer != null && e.Customer.Id == customerId)
+                    .WhereIf(pOSMItemId != null && pOSMItemId != Guid.Empty, e => e.Item != null && e.Item.Id == pOSMItemId);
         }
 
         public async Task<List<CustomerImage>> GetListAsync(
@@ -108,10 +115,11 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             bool? isPOSM = null,
             Guid? fileId = null,
             Guid? customerId = null,
+            Guid? pOSMItemId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, description, active, isAvatar, isPOSM, fileId, customerId);
+            query = ApplyFilter(query, filterText, description, active, isAvatar, isPOSM, fileId, customerId, pOSMItemId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 

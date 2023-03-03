@@ -5,16 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
-using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.Content;
 
-namespace DMSpro.OMS.MdmService.Controllers.CustomerImages
+namespace DMSpro.OMS.MdmService.CustomerImages
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
     [ControllerName("CustomerImage")]
     [Route("api/mdm-service/customer-images")]
-    public class CustomerImageController : AbpController, ICustomerImagesAppService
+    public partial class CustomerImageController : AbpController, ICustomerImagesAppService
     {
         private readonly ICustomerImagesAppService _customerImagesAppService;
 
@@ -50,24 +49,11 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerImages
             return _customerImagesAppService.GetCustomerLookupAsync(input);
         }
 
-        [HttpPost]
-        public virtual Task<CustomerImageDto> CreateAsync(CustomerImageCreateDto input)
+        [HttpGet]
+        [Route("item-lookup")]
+        public Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
-            return _customerImagesAppService.CreateAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<CustomerImageDto> UpdateAsync(Guid id, CustomerImageUpdateDto input)
-        {
-            return _customerImagesAppService.UpdateAsync(id, input);
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
-        {
-            return _customerImagesAppService.DeleteAsync(id);
+            return _customerImagesAppService.GetItemLookupAsync(input);
         }
 
         [HttpGet]

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.Customers;
 using System;
 using System.Threading.Tasks;
@@ -15,11 +16,13 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly CustomersDataSeedContributor _customersDataSeedContributor;
 
-        public CustomerImagesDataSeedContributor(ICustomerImageRepository customerImageRepository, IUnitOfWorkManager unitOfWorkManager, CustomersDataSeedContributor customersDataSeedContributor)
+        private readonly ItemsDataSeedContributor _itemsDataSeedContributor;
+
+        public CustomerImagesDataSeedContributor(ICustomerImageRepository customerImageRepository, IUnitOfWorkManager unitOfWorkManager, CustomersDataSeedContributor customersDataSeedContributor, ItemsDataSeedContributor itemsDataSeedContributor)
         {
             _customerImageRepository = customerImageRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _customersDataSeedContributor = customersDataSeedContributor;
+            _customersDataSeedContributor = customersDataSeedContributor; _itemsDataSeedContributor = itemsDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -30,27 +33,30 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             }
 
             await _customersDataSeedContributor.SeedAsync(context);
+            await _itemsDataSeedContributor.SeedAsync(context);
 
             await _customerImageRepository.InsertAsync(new CustomerImage
             (
-                id: Guid.Parse("9b411435-eb93-46da-ab72-db79d0998a21"),
-                description: "18e90949114547cebaf069bbcddd4fcb9b0f5bd43fe8417ab004552933c4da450a84fb0275424f92b1d5ae0038ab05b97efa5cf800be42b7a66652ec1ed53ba9548f6a71bfc24e4c81b1d47225f2e1fd8999bd7ba117445985b2384d9460041c27d8c626f740444398a1f340f5266935ef60bac6c11745b29cc0d0d2b67ad2245bbdc1a2f0594d2e951059931e6d4a349d8752c619dd4d6b8bc0a1250907112c16fcb65a9eb548a1991d5a8a05215718a7f5bd7793c84dcb88b5dd280444d759ea47503ee4ce4ae78e5862689ccc1c2f1f30e754863f49a19d137052f983570cfbcbff6d0c264e75bd7ffd7b587466962b34e58c68ed48bb9843",
+                id: Guid.Parse("d3f948bb-4a2d-4cf8-9186-042dc2120986"),
+                description: "66985881031043fda8b377e72d8515d86c391bda0c3a41d4aa12a7a3712a179b65b83ce84fba4d27837246c4e31d4d72790f2124eb3a4005bd944357ec1de7d80db357bd99594937be0ef426c8a25dca2f049a4c331944e6a43ed28c775a718c37f8cd3251d44136bb8eafa2a52bd3e21d59d3df121d44528158dcdf05138d15b4ce000f1a984e808c2fbc11206962ad6de935c45f744df7996c07c239082b89573f1eac70404004b5876cc750c3bd4c888f615b3e6445038ee5a7ecf8957ebb67f1b46a0e2348f5a081abe2dc04396b00558e6d1e744ea0b2c9b94d063584b1655674d02fb248b389227fa8427fbac9debc89d5296240c2821d",
                 active: true,
                 isAvatar: true,
                 isPOSM: true,
-                fileId: Guid.Parse("e4b91f1c-6f38-4d18-a867-4ce03f604c93"),
-                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
+                fileId: Guid.Parse("22d2f561-9c76-4888-b8b7-4a634900d6f1"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
+                pOSMItemId: null
             ));
 
             await _customerImageRepository.InsertAsync(new CustomerImage
             (
-                id: Guid.Parse("2027d989-7c9a-4673-8045-05ce24eb7d95"),
-                description: "2f8226390248493fac55a2f7d96c557c82c47b0a033647e5883022fa226c2849b29ee5b36f754276b96f7c690c4fb370b9f32e4c7ba244939f919f97800d150edc41c50fc3d54620a9f697af5e8a2025ea041309a3ec434ab525581560879e3bf867ea91735f4f5ab02c7b44ef8ea5eab82a173a6edd4ef8a93ecabce7a8c3bf8c86c8ad9c2646d9b01f89d6a8f53cca10bc3fa3c87d427e8bd3eab067e9cadd34052745b781494ea1227e62be7d3abcb463d8d7c669491b900d2a6f897948ad3538cc9feb7c4ce8a9b2a2136c77e0b1071c8a0663df4275b687b44488cfe286185db435d3ae443688b8858b5c6c28dbf34208ddd3cb4084b9fb",
+                id: Guid.Parse("61987456-11a2-4d34-a05e-c37785dbd193"),
+                description: "a221d995f7754d8b9ecb50bae6f8e1bb166ce6a2317d4afeac412ec7a7e840b026a36c5366294d808d9e29a8e8d05d8bc0e73cd7ffde490ab5f1ede3340e85cc2adf4a8c4726463a92c9f01654ac2306964b4ce8e59f419c8a1c167f5f5e67f22983707abfc543d890b67dea692b69779434f4d5b3154691abc3b4f0f44a30d3052c9056bb6142e78689c507c220c667fab38c2af2f640af827f074572c64d060c455e77f9b942bc8a5170d6d98e7037e180d5c4a50048f1b692325babeefa299dd9586af6a443e5b1788cd510ae462d0d18b6634c86462e9e6aa984b07161ac99e77942820b4817ac5775f208ef8f3273adc2f89edb4f1b8481",
                 active: true,
                 isAvatar: true,
                 isPOSM: true,
-                fileId: Guid.Parse("4adae6a9-58cd-4f2c-8022-7aad722a4340"),
-                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
+                fileId: Guid.Parse("b439329b-0aa8-4d92-87cf-72ed362b987c"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
+                pOSMItemId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

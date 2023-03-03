@@ -820,17 +820,19 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.FileId).HasColumnName(nameof(EmployeeImage.FileId));
             b.HasOne<EmployeeProfile>(x => x.EmployeeProfile).WithMany().IsRequired().HasForeignKey(x => x.EmployeeProfileId).OnDelete(DeleteBehavior.NoAction);
         });
+
         builder.Entity<CustomerImage>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerImages", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerImage.TenantId));
-            b.Property(x => x.Description).HasColumnName(nameof(CustomerImage.Description)).HasMaxLength(CustomerImageConsts.DescriptionMaxLength);
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerImage.Active));
-            b.Property(x => x.IsAvatar).HasColumnName(nameof(CustomerImage.IsAvatar));
-            b.Property(x => x.IsPOSM).HasColumnName(nameof(CustomerImage.IsPOSM));
-            b.Property(x => x.FileId).HasColumnName(nameof(CustomerImage.FileId));
-            b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        });
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerImages", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerImage.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerImage.Description)).HasMaxLength(CustomerImageConsts.DescriptionMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerImage.Active));
+        b.Property(x => x.IsAvatar).HasColumnName(nameof(CustomerImage.IsAvatar));
+        b.Property(x => x.IsPOSM).HasColumnName(nameof(CustomerImage.IsPOSM));
+        b.Property(x => x.FileId).HasColumnName(nameof(CustomerImage.FileId));
+        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>().WithMany().HasForeignKey(x => x.POSMItemId).OnDelete(DeleteBehavior.NoAction);
+    });
     }
 }

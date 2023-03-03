@@ -12,6 +12,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         public bool IsPOSM { get; set; }
         public Guid FileId { get; set; }
         public Guid CustomerId { get; set; }
+        public Guid? POSMItemId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

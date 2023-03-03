@@ -143,6 +143,21 @@
       "DtoNamespace": "DMSpro.OMS.MdmService.Customers",
       "DtoEntityName": "CustomerDto",
       "Type": "Guid"
+    },
+    {
+      "EntityNameWithDuplicationNumber": "Item",
+      "EntitySetNameWithDuplicationNumber": "Items",
+      "ReferencePropertyName": "POSMItem",
+      "UiPickType": "Dropdown",
+      "IsRequired": false,
+      "Name": "POSMItemId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.Items",
+      "EntityName": "Item",
+      "EntitySetName": "Items",
+      "DtoNamespace": "DMSpro.OMS.MdmService.Items",
+      "DtoEntityName": "ItemDto",
+      "Type": "Guid"
     }
   ],
   "NavigationConnections": [],

@@ -1168,6 +1168,9 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
+                    b.Property<Guid?>("POSMItemId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
@@ -1175,6 +1178,8 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("POSMItemId");
 
                     b.ToTable("CustomerImages", (string)null);
                 });
@@ -5111,6 +5116,11 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("DMSpro.OMS.MdmService.Items.Item", null)
+                        .WithMany()
+                        .HasForeignKey("POSMItemId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.CustomerInZones.CustomerInZone", b =>

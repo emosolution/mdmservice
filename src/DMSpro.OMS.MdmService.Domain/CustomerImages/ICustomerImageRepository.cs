@@ -21,6 +21,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             bool? isPOSM = null,
             Guid? fileId = null,
             Guid? customerId = null,
+            Guid? pOSMItemId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -48,6 +49,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             bool? isPOSM = null,
             Guid? fileId = null,
             Guid? customerId = null,
+            Guid? pOSMItemId = null,
             CancellationToken cancellationToken = default);
     }
 }

@@ -20,14 +20,14 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         }
 
         public async Task<CustomerImage> CreateAsync(
-        Guid customerId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId)
+        Guid customerId, Guid? pOSMItemId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId)
         {
             Check.NotNull(customerId, nameof(customerId));
             Check.Length(description, nameof(description), CustomerImageConsts.DescriptionMaxLength);
 
             var customerImage = new CustomerImage(
              GuidGenerator.Create(),
-             customerId, description, active, isAvatar, isPOSM, fileId
+             customerId, pOSMItemId, description, active, isAvatar, isPOSM, fileId
              );
 
             return await _customerImageRepository.InsertAsync(customerImage);
@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
 
         public async Task<CustomerImage> UpdateAsync(
             Guid id,
-            Guid customerId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId, [CanBeNull] string concurrencyStamp = null
+            Guid customerId, Guid? pOSMItemId, string description, bool active, bool isAvatar, bool isPOSM, Guid fileId, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(customerId, nameof(customerId));
@@ -44,6 +44,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             var customerImage = await _customerImageRepository.GetAsync(id);
 
             customerImage.CustomerId = customerId;
+            customerImage.POSMItemId = pOSMItemId;
             customerImage.Description = description;
             customerImage.Active = active;
             customerImage.IsAvatar = isAvatar;

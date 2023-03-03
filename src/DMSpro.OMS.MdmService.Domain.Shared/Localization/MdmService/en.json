@@ -1050,7 +1050,8 @@
     "Error:FileManagement:551": "File format {contentType} is not supported",
     "Error:VisitPlansAppService:550": "Can only update visit plans for tomorrow onwards",
     "Error:VisitPlansAppService:551": "At least one visit plan does not exist in database",
-    "Error:VisitPlansAppService:552": "At least one visit plan is for today or before"
+    "Error:VisitPlansAppService:552": "At least one visit plan is for today or before",
+    "Error:CustomerImage:550": "Item POSM is required"
     
   }
 }

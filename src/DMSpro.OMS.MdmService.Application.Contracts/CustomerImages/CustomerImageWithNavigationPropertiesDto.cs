@@ -1,4 +1,5 @@
 using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Items;
 
 using System;
 using Volo.Abp.Application.Dtos;
@@ -11,6 +12,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         public CustomerImageDto CustomerImage { get; set; }
 
         public CustomerDto Customer { get; set; }
+        public ItemDto Item { get; set; }
 
     }
 }

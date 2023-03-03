@@ -7,7 +7,7 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.CustomerImages
 {
-    public interface ICustomerImagesAppService : IApplicationService
+    public partial interface ICustomerImagesAppService : IApplicationService
     {
         Task<PagedResultDto<CustomerImageWithNavigationPropertiesDto>> GetListAsync(GetCustomerImagesInput input);
 
@@ -17,11 +17,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
 
         Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input);
 
-        Task DeleteAsync(Guid id);
-
-        Task<CustomerImageDto> CreateAsync(CustomerImageCreateDto input);
-
-        Task<CustomerImageDto> UpdateAsync(Guid id, CustomerImageUpdateDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input);
 
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerImageExcelDownloadDto input);
 
