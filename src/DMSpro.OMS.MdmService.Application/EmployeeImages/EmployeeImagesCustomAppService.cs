@@ -198,5 +198,18 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             };
             return await CreateImageAsync(input, true);
         }
+
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarOnlyFileAsync(IRemoteStreamContent file)
+        {
+            EmployeeImageCreateDto input = new()
+            {
+                Description = "",
+                Active = true,
+                File = file,
+                EmployeeProfileId = (await _employeeProfileRepository.GetListAsync()).ToList().FirstOrDefault().Id,
+            };
+            return await CreateImageAsync(input, true);
+        }
     }
 }

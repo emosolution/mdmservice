@@ -77,5 +77,23 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
                 throw new UserFriendlyException(message: e.Message);
             }
         }
+
+        [HttpPost]
+        [Route("test/avatarfileonly")]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarOnlyFileAsync(IRemoteStreamContent file)
+        {
+            try
+            {
+                return await _employeeImagesAppService.TestCreateAvatarOnlyFileAsync(file);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
     }
 }

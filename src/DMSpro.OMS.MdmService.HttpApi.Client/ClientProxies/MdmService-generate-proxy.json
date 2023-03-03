@@ -47973,6 +47973,23 @@
                   }
                 },
                 {
+                  "name": "TestCreateAvatarOnlyFileAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -48742,6 +48759,43 @@
                   "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 },
+                {
+                  "nameOnMethod": "file",
+                  "name": "file",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "TestCreateAvatarOnlyFileAsyncByFile": {
+              "uniqueName": "TestCreateAvatarOnlyFileAsyncByFile",
+              "name": "TestCreateAvatarOnlyFileAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/employee-images/test/avatarfileonly",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
                 {
                   "nameOnMethod": "file",
                   "name": "file",
