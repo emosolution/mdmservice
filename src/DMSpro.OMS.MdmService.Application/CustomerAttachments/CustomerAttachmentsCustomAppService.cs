@@ -17,17 +17,11 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
     public partial class CustomerAttachmentsAppService
     {
         [Authorize(MdmServicePermissions.Customers.Create)]
-        public virtual async Task<CustomerAttachmentDto> CreateAsync(CustomerAttachmentCreateDto input)
+        public virtual async Task<CustomerAttachmentDto> CreateAsync(Guid customerId,
+            IRemoteStreamContent inputFile,
+            string description, bool active)
         {
-            if (input.CustomerId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -35,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
                 throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
             }
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
 
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
@@ -43,7 +37,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             {
                 TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
                 DirectoryId = _fileManagementInfoAppService.CustomerAttachmentDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
@@ -51,24 +45,18 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             var response = await client.UploadFileAsync(request);
             OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
 
-            var CustomerAttachment = await _customerAttachmentManager.CreateAsync(input.CustomerId,
-                input.Description, input.Active, Guid.Parse(file.Id));
+            var CustomerAttachment = await _customerAttachmentManager.CreateAsync(customerId,
+                description, active, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<CustomerAttachment, CustomerAttachmentDto>(CustomerAttachment);
         }
 
         [Authorize(MdmServicePermissions.Customers.Edit)]
-        public virtual async Task<CustomerAttachmentDto> UpdateAsync(Guid id, CustomerAttachmentUpdateDto input)
+        public virtual async Task<CustomerAttachmentDto> UpdateAsync(Guid id, Guid customerId,
+            IRemoteStreamContent inputFile,
+            string description, bool active)
         {
-            if (input.CustomerId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -79,22 +67,23 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             var record = await _customerAttachmentRepository.GetAsync(id);
             string tenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+
             DeleteFilesRequest deleteRequest = new()
             {
                 TenantId = tenantId,
             };
             deleteRequest.FileIds.Add(record.FileId.ToString());
-            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
             await client.DeleteFilesAsync(deleteRequest);
 
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
             UploadFileRequest uploadRequest = new()
             {
                 TenantId = tenantId,
                 DirectoryId = _fileManagementInfoAppService.CustomerAttachmentDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
@@ -102,8 +91,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
 
             var CustomerAttachment = await _customerAttachmentManager.UpdateAsync(
-                id, input.CustomerId, input.Description, input.Active, Guid.Parse(file.Id),
-                input.ConcurrencyStamp);
+                id, customerId, description, active, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<CustomerAttachment, CustomerAttachmentDto>(CustomerAttachment);
         }

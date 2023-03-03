@@ -50,19 +50,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttachments
             return _customerAttachmentsAppService.GetCustomerLookupAsync(input);
         }
 
-        [HttpPost]
-        public virtual Task<CustomerAttachmentDto> CreateAsync(CustomerAttachmentCreateDto input)
-        {
-            return _customerAttachmentsAppService.CreateAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<CustomerAttachmentDto> UpdateAsync(Guid id, CustomerAttachmentUpdateDto input)
-        {
-            return _customerAttachmentsAppService.UpdateAsync(id, input);
-        }
-
         [HttpGet]
         [Route("as-excel-file")]
         public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerAttachmentExcelDownloadDto input)
