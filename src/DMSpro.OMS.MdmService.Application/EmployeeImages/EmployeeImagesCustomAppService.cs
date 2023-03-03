@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text.Json;
 using Volo.Abp.Content;
+using System.ComponentModel.DataAnnotations;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
 {
@@ -183,6 +184,19 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 image.IsAvatar = false;
             }
             await _employeeImageRepository.UpdateManyAsync(images);
+        }
+
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarAsync(Guid id, IRemoteStreamContent file)
+        {
+            EmployeeImageCreateDto input = new()
+            {
+                Description = "",
+                Active = true,
+                File = file,
+                EmployeeProfileId = id
+            };
+            return await CreateImageAsync(input, true);
         }
     }
 }

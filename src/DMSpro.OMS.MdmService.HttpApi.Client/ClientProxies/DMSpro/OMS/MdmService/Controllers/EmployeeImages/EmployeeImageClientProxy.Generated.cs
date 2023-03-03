@@ -114,6 +114,15 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
+    public virtual async Task<EmployeeImageDto> TestCreateAvatarAsync(Guid id, IRemoteStreamContent file)
+    {
+        return await RequestAsync<EmployeeImageDto>(nameof(TestCreateAvatarAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(IRemoteStreamContent), file }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPost]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync([FromForm] EmployeeImageCreateDto input)
         {
             try
             {
@@ -49,6 +49,24 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
             try
             {
                 return await _employeeImagesAppService.UpdateAvatarAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("test/avatar")]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarAsync(Guid id, IRemoteStreamContent file)
+        {
+            try
+            {
+                return await _employeeImagesAppService.TestCreateAvatarAsync(id, file);
             }
             catch (BusinessException bex)
             {
