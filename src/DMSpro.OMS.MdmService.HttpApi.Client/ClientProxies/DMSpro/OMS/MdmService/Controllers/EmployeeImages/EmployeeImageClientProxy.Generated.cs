@@ -135,6 +135,14 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
+    public virtual async Task<EmployeeImageDto> TestCreateAvatarExtensibleAsync(AvartarCreateDto input)
+    {
+        return await RequestAsync<EmployeeImageDto>(nameof(TestCreateAvatarExtensibleAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(AvartarCreateDto), input }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

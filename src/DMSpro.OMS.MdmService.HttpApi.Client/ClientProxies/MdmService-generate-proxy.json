@@ -48022,6 +48022,23 @@
                   }
                 },
                 {
+                  "name": "TestCreateAvatarExtensibleAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -48882,6 +48899,43 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "FormFile",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "TestCreateAvatarExtensibleAsyncByInput": {
+              "uniqueName": "TestCreateAvatarExtensibleAsyncByInput",
+              "name": "TestCreateAvatarExtensibleAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/employee-images/test/avatarextensible",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.AvartarCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
                   "descriptorName": ""
                 }
               ],

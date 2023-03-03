@@ -95,5 +95,23 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
                 throw new UserFriendlyException(message: e.Message);
             }
         }
+
+        [HttpPost]
+        [Route("test/avatarextensible")]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarExtensibleAsync(AvartarCreateDto input)
+        {
+            try
+            {
+                return await _employeeImagesAppService.TestCreateAvatarExtensibleAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
+        }
     }
 }

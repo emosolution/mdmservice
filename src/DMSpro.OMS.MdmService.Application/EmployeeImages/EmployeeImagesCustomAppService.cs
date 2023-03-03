@@ -208,5 +208,17 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             };
             return await CreateImageAsync(input, file, true);
         }
+
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
+        public virtual async Task<EmployeeImageDto> TestCreateAvatarExtensibleAsync(AvartarCreateDto avatarInput)
+        {
+            EmployeeImageCreateDto input = new()
+            {
+                Description = avatarInput.Description,
+                Active = avatarInput.Active,
+                EmployeeProfileId = avatarInput.EmployeeProfileId,
+            };
+            return await CreateImageAsync(input, avatarInput.File, true);
+        }
     }
 }
