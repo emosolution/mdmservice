@@ -12,9 +12,9 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
         Task<IRemoteStreamContent> GetFileAsync(Guid id);
 
         Task<EmployeeAttachmentDto> CreateAsync(Guid employeeId,
-            string description, bool active, IRemoteStreamContent inputFile);
+            IRemoteStreamContent inputFile, string description, bool active);
 
         Task<EmployeeAttachmentDto> UpdateAsync(Guid id, Guid employeeId,
-            string description, bool active, IRemoteStreamContent inputFile);
+            IRemoteStreamContent inputFile, string description, bool active);
     }
 }

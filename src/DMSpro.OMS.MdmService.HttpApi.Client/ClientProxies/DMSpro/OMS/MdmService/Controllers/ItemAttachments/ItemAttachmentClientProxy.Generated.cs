@@ -52,23 +52,6 @@ public partial class ItemAttachmentClientProxy : ClientProxyBase<IItemAttachment
         });
     }
 
-    public virtual async Task<ItemAttachmentDto> CreateAsync(ItemAttachmentCreateDto input)
-    {
-        return await RequestAsync<ItemAttachmentDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(ItemAttachmentCreateDto), input }
-        });
-    }
-
-    public virtual async Task<ItemAttachmentDto> UpdateAsync(Guid id, ItemAttachmentUpdateDto input)
-    {
-        return await RequestAsync<ItemAttachmentDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(Guid), id },
-            { typeof(ItemAttachmentUpdateDto), input }
-        });
-    }
-
     public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttachmentExcelDownloadDto input)
     {
         return await RequestAsync<IRemoteStreamContent>(nameof(GetListAsExcelFileAsync), new ClientProxyRequestTypeValue
@@ -95,6 +78,29 @@ public partial class ItemAttachmentClientProxy : ClientProxyBase<IItemAttachment
         return await RequestAsync<IRemoteStreamContent>(nameof(GetFileAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
+        });
+    }
+
+    public virtual async Task<ItemAttachmentDto> CreateAsync(Guid itemId, IRemoteStreamContent inputFile, string description, bool active)
+    {
+        return await RequestAsync<ItemAttachmentDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), itemId },
+            { typeof(IRemoteStreamContent), inputFile },
+            { typeof(string), description },
+            { typeof(bool), active }
+        });
+    }
+
+    public virtual async Task<ItemAttachmentDto> UpdateAsync(Guid id, Guid itemId, IRemoteStreamContent inputFile, string description, bool active)
+    {
+        return await RequestAsync<ItemAttachmentDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(Guid), itemId },
+            { typeof(IRemoteStreamContent), inputFile },
+            { typeof(string), description },
+            { typeof(bool), active }
         });
     }
 

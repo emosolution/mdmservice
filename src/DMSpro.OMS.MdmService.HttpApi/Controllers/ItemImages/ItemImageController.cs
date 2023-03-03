@@ -50,19 +50,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemImages
             return _itemImagesAppService.GetItemLookupAsync(input);
         }
 
-        [HttpPost]
-        public virtual Task<ItemImageDto> CreateAsync(ItemImageCreateDto input)
-        {
-            return _itemImagesAppService.CreateAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input)
-        {
-            return _itemImagesAppService.UpdateAsync(id, input);
-        }
-
         [HttpGet]
         [Route("as-excel-file")]
         public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemImageExcelDownloadDto input)

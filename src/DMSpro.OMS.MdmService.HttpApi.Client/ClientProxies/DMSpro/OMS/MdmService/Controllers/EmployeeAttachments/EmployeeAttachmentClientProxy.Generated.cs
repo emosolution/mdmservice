@@ -81,26 +81,26 @@ public partial class EmployeeAttachmentClientProxy : ClientProxyBase<IEmployeeAt
         });
     }
 
-    public virtual async Task<EmployeeAttachmentDto> CreateAsync(Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeAttachmentDto> CreateAsync(Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeAttachmentDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 
-    public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeAttachmentDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id },
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 

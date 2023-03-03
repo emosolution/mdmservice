@@ -50,14 +50,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
 
         [HttpPost]
         public virtual async Task<EmployeeAttachmentDto> CreateAsync([Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
                 return await _employeeAttachmentsAppService.CreateAsync(employeeId,
-                    description, active, inputFile);
+                    inputFile, description, active);
             }
             catch (BusinessException bex)
             {
@@ -72,14 +72,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
         [HttpPut]
         [Route("{id}")]
         public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, [Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
                 return await _employeeAttachmentsAppService.UpdateAsync(id, employeeId,
-                    description, active, inputFile);
+                    inputFile, description, active);
             }
             catch (BusinessException bex)
             {

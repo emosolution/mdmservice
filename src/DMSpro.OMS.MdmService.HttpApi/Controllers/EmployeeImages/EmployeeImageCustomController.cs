@@ -50,13 +50,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPost]
         public virtual async Task<EmployeeImageDto> CreateAsync([Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
-                return await _employeeImagesAppService.CreateAsync(employeeId, description, active, inputFile);
+                return await _employeeImagesAppService.CreateAsync(employeeId, inputFile, 
+                    description, active);
             }
             catch (BusinessException bex)
             {
@@ -71,13 +72,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         [HttpPut]
         [Route("{id}")]
         public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, [Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
-                return await _employeeImagesAppService.UpdateAsync(id, employeeId, description, active, inputFile);
+                return await _employeeImagesAppService.UpdateAsync(id, employeeId, inputFile, 
+                    description, active);
             }
             catch (BusinessException bex)
             {
@@ -92,13 +94,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         [HttpPost]
         [Route("avatar")]
         public virtual async Task<EmployeeImageDto> CreateAvatarAsync([Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
-                return await _employeeImagesAppService.CreateAvatarAsync(employeeId, description, active, inputFile);
+                return await _employeeImagesAppService.CreateAvatarAsync(employeeId, inputFile,
+                    description, active);
             }
             catch (BusinessException bex)
             {
@@ -113,13 +116,14 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         [HttpPut]
         [Route("avatar")]
         public virtual async Task<EmployeeImageDto> UpdateAvatarAsync([Required] Guid employeeId,
+            [Required] IRemoteStreamContent inputFile,
             [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
-            bool active,
-            [Required] IRemoteStreamContent inputFile)
+            bool active = true)
         {
             try
             {
-                return await _employeeImagesAppService.UpdateAvatarAsync(employeeId, description, active, inputFile);
+                return await _employeeImagesAppService.UpdateAvatarAsync(employeeId, inputFile,
+                    description, active);
             }
             catch (BusinessException bex)
             {

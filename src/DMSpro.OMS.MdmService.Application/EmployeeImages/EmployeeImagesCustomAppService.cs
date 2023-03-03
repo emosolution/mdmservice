@@ -18,32 +18,32 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
     public partial class EmployeeImagesAppService
     {
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, 
-            string description, bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId,
+            IRemoteStreamContent inputFile, string description, bool active)
         {
             return await CreateImageAsync(employeeId, description, 
                 active, inputFile, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, 
-            string description, bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId,
+            IRemoteStreamContent inputFile, string description, bool active)
         {
             return await UpdateImageAsync(id, employeeId, description, 
                 active, inputFile, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, 
-            string description, bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId,
+            IRemoteStreamContent inputFile, string description, bool active)
         {
            return await CreateImageAsync(employeeId, description,
                 active, inputFile, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, 
-            string description, bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId,
+            IRemoteStreamContent inputFile, string description, bool active)
         {
             var employee = await _employeeProfileRepository.GetAsync(employeeId);
             var image = await _employeeImageRepository.GetAsync(x => x.EmployeeProfileId == employee.Id && 

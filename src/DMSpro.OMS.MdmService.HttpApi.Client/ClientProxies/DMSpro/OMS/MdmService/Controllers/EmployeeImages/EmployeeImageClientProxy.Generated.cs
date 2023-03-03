@@ -81,48 +81,48 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
-    public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 
-    public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id },
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 
-    public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(CreateAvatarAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 
-    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(UpdateAvatarAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), employeeId },
+            { typeof(IRemoteStreamContent), inputFile },
             { typeof(string), description },
-            { typeof(bool), active },
-            { typeof(IRemoteStreamContent), inputFile }
+            { typeof(bool), active }
         });
     }
 

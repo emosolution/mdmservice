@@ -17,17 +17,11 @@ namespace DMSpro.OMS.MdmService.ItemImages
     public partial class ItemImagesAppService
     {
         [Authorize(MdmServicePermissions.Items.Create)]
-        public virtual async Task<ItemImageDto> CreateAsync(ItemImageCreateDto input)
+        public virtual async Task<ItemImageDto> CreateAsync(Guid itemId,
+            IRemoteStreamContent inputFile,
+            string description, bool active, int displayOrder)
         { 
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -35,40 +29,35 @@ namespace DMSpro.OMS.MdmService.ItemImages
                 throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
             }
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
 
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+
             UploadFileRequest request = new()
             {
                 TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
                 DirectoryId = _fileManagementInfoAppService.ItemImageDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
-            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
             var response = await client.UploadFileAsync(request);
             OMS.Shared.Protos.FileManagementService.Files.File file = response.File;
 
-            var itemImage = await _itemImageManager.CreateAsync(input.ItemId,
-                input.Description, input.Active, input.DisplayOrder, Guid.Parse(file.Id));
+            var itemImage = await _itemImageManager.CreateAsync(itemId,
+                description, active, displayOrder, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
         }
 
         [Authorize(MdmServicePermissions.Items.Edit)]
-        public virtual async Task<ItemImageDto> UpdateAsync(Guid id, ItemImageUpdateDto input)
+        public virtual async Task<ItemImageDto> UpdateAsync(Guid id, Guid itemId,
+            IRemoteStreamContent inputFile,
+            string description, bool active, int displayOrder)
         {
-            if (input.ItemId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -88,13 +77,13 @@ namespace DMSpro.OMS.MdmService.ItemImages
             await client.DeleteFilesAsync(deleteRequest);
 
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
             UploadFileRequest uploadRequest = new()
             {
                 TenantId = tenantId,
                 DirectoryId = _fileManagementInfoAppService.ItemImageDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
@@ -102,8 +91,8 @@ namespace DMSpro.OMS.MdmService.ItemImages
             OMS.Shared.Protos.FileManagementService.Files.File file = uploadResponse.File;
 
             var itemImage = await _itemImageManager.UpdateAsync(
-                id, input.ItemId, input.Description, input.Active, input.DisplayOrder, 
-                Guid.Parse(file.Id), input.ConcurrencyStamp);
+                id, itemId, description, active, displayOrder, 
+                Guid.Parse(file.Id));
 
             return ObjectMapper.Map<ItemImage, ItemImageDto>(itemImage);
         }

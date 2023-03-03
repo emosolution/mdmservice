@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
     {
         [Authorize(MdmServicePermissions.Customers.Create)]
         public virtual async Task<EmployeeAttachmentDto> CreateAsync(Guid employeeId,
-            string description, bool active, IRemoteStreamContent inputFile)
+            IRemoteStreamContent inputFile, string description, bool active)
         {   
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
         [Authorize(MdmServicePermissions.Customers.Edit)]
         public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, Guid employeeId,
-            string description, bool active, IRemoteStreamContent inputFile)
+            IRemoteStreamContent inputFile, string description, bool active)
         {
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))

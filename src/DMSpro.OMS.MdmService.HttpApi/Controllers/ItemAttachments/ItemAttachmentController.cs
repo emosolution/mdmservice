@@ -7,6 +7,8 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.ItemImages;
+using System.ComponentModel.DataAnnotations;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
 {
@@ -48,19 +50,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttachments
         public Task<PagedResultDto<LookupDto<Guid>>> GetItemLookupAsync(LookupRequestDto input)
         {
             return _itemAttachmentsAppService.GetItemLookupAsync(input);
-        }
-
-        [HttpPost]
-        public virtual Task<ItemAttachmentDto> CreateAsync(ItemAttachmentCreateDto input)
-        {
-            return _itemAttachmentsAppService.CreateAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<ItemAttachmentDto> UpdateAsync(Guid id, ItemAttachmentUpdateDto input)
-        {
-            return _itemAttachmentsAppService.UpdateAsync(id, input);
         }
 
         [HttpGet]
