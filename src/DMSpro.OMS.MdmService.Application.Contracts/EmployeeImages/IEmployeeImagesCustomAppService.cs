@@ -11,8 +11,16 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         Task<IRemoteStreamContent> GetFileAsync(Guid id);
 
-        Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input);
+        Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description, 
+            bool active, IRemoteStreamContent inputFile);
 
-        Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input);
+        Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description, 
+            bool active, IRemoteStreamContent inputFile);
+
+        Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile);
+
+        Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description, 
+            bool active, IRemoteStreamContent inputFile);
     }
 }

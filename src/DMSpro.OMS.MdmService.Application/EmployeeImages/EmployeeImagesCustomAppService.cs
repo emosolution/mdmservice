@@ -18,28 +18,60 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
     public partial class EmployeeImagesAppService
     {
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
+            var input = new EmployeeImageCreateDto()
+            {
+                Description = description,
+                Active = active,
+                File = inputFile,
+                EmployeeProfileId = employeeId
+            };
             return await CreateImageAsync(input, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
+            var input = new EmployeeImageUpdateDto()
+            {
+                Description = description,
+                Active = active,
+                File = inputFile,
+                EmployeeProfileId = employeeId,
+            };
             return await UpdateImageAsync(id, input, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
+            var input = new EmployeeImageCreateDto()
+            {
+                Description = description,
+                Active = active,
+                File = inputFile,
+                EmployeeProfileId = employeeId
+            };
             return await CreateImageAsync(input, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
-            var employee = await _employeeProfileRepository.GetAsync(input.EmployeeProfileId);
+            var employee = await _employeeProfileRepository.GetAsync(employeeId);
             var image = await _employeeImageRepository.GetAsync(x => x.EmployeeProfileId == employee.Id && x.IsAvatar == true);
+            var input = new EmployeeImageUpdateDto()
+            {
+                Description = description,
+                Active = active,
+                File = inputFile,
+                EmployeeProfileId = employeeId,
+            };
             return await UpdateImageAsync(image.Id, input, true);
         }
 

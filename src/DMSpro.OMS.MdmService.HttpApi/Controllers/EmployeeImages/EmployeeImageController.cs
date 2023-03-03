@@ -50,19 +50,6 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
             return _employeeImagesAppService.GetEmployeeProfileLookupAsync(input);
         }
 
-        [HttpPost]
-        public virtual Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
-        {
-            return _employeeImagesAppService.CreateAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
-        {
-            return _employeeImagesAppService.UpdateAsync(id, input);
-        }
-
         [HttpGet]
         [Route("as-excel-file")]
         public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeImageExcelDownloadDto input)

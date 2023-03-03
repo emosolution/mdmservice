@@ -10,7 +10,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         [StringLength(EmployeeImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; }
-        //public bool IsAvatar { get; set; }
         [Required]
         public IRemoteStreamContent File { get; set; }
         [Required]

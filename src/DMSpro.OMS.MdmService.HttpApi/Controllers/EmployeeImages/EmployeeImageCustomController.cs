@@ -25,12 +25,28 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         }
 
         [HttpPost]
+        public virtual Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
+        {
+            return _employeeImagesAppService.CreateAsync(employeeId, description, active, inputFile);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public virtual Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
+        {
+            return _employeeImagesAppService.UpdateAsync(id, employeeId, description, active, inputFile);
+        }
+
+        [HttpPost]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
             try
             {
-                return await _employeeImagesAppService.CreateAvatarAsync(input);
+                return await _employeeImagesAppService.CreateAvatarAsync(employeeId, description, active, inputFile);
             }
             catch (BusinessException bex)
             {
@@ -44,11 +60,12 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPut]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description,
+            bool active, IRemoteStreamContent inputFile)
         {
             try
             {
-                return await _employeeImagesAppService.UpdateAvatarAsync(input);
+                return await _employeeImagesAppService.UpdateAvatarAsync(employeeId, description, active, inputFile);
             }
             catch (BusinessException bex)
             {

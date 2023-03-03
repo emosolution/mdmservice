@@ -36,16 +36,16 @@ public class MdmServiceHttpApiModule : AbpModule
 
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentCreateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentUpdateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageCreateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageUpdateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentCreateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentUpdateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentCreateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentUpdateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageCreateDto));
-            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageUpdateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentCreateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemAttachmentUpdateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageCreateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(ItemImageUpdateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentCreateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CustomerAttachmentUpdateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentCreateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeAttachmentUpdateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageCreateDto));
+            // options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeImageUpdateDto));
         });
     }
 }

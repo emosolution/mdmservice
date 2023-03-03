@@ -17,10 +17,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 
         Task<PagedResultDto<LookupDto<Guid>>> GetEmployeeProfileLookupAsync(LookupRequestDto input);
 
-        Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input);
-
-        Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input);
-
         Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeImageExcelDownloadDto input);
 
         Task<DownloadTokenResultDto> GetDownloadTokenAsync();
