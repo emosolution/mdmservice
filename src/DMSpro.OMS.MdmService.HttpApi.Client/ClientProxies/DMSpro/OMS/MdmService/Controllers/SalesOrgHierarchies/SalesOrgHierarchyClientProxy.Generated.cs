@@ -52,9 +52,9 @@ public partial class SalesOrgHierarchyClientProxy : ClientProxyBase<ISalesOrgHie
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
+    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
     {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid?>>>(nameof(GetSalesOrgHierarchyLookupAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetSalesOrgHierarchyLookupAsync), new ClientProxyRequestTypeValue
         {
             { typeof(LookupRequestDto), input }
         });

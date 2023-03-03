@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerContacts
         }
 
         [HttpGet]
-        [Route("customer-profile-lookup")]
+        [Route("customer-lookup")]
         public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
         {
             return _customerContactsAppService.GetCustomerLookupAsync(input);

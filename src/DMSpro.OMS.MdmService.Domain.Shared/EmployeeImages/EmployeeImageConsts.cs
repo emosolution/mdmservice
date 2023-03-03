@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             return string.Format(DefaultSorting, withEntityName ? "EmployeeImage." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
     }
 }

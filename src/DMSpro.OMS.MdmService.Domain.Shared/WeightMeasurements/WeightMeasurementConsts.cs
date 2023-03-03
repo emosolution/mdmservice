@@ -9,7 +9,6 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
             return string.Format(DefaultSorting, withEntityName ? "WeightMeasurement." : string.Empty);
         }
 
-        public const int NameMinLength = 1;
         public const int NameMaxLength = 50;
     }
 }

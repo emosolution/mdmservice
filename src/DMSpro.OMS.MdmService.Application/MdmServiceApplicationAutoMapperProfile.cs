@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
 using System;
 using AutoMapper;
@@ -23,11 +24,9 @@ using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.SalesChannels;
-using DMSpro.OMS.MdmService.RouteAssignments;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -36,7 +35,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -140,10 +138,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerInZone, CustomerInZoneWithDetailsDto>();
         CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
 
-        CreateMap<EmployeeInZone, EmployeeInZoneDto>();
-        CreateMap<EmployeeInZone, EmployeeInZoneWithDetailsDto>();
-        CreateMap<EmployeeInZone, EmployeeInZoneExcelDto>();
-
         CreateMap<CustomerAttribute, CustomerAttributeDto>();
         CreateMap<CustomerAttribute, CustomerAttributeExcelDto>();
 
@@ -173,9 +167,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<HolidayDetail, HolidayDetailWithDetailsDto>();
         CreateMap<HolidayDetail, HolidayDetailExcelDto>();
 
-        CreateMap<Route, RouteDto>();
-        CreateMap<Route, RouteExcelDto>();
-
         CreateMap<MCPHeader, MCPHeaderDto>();
         CreateMap<MCPHeader, MCPHeaderExcelDto>();
         CreateMap<MCPHeader, MCPHeaderWithDetailsDto>();
@@ -187,9 +178,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<VisitPlan, VisitPlanDto>();
         CreateMap<VisitPlan, VisitPlanWithDetailsDto>();
         CreateMap<VisitPlan, VisitPlanExcelDto>();
-
-        CreateMap<RouteAssignment, RouteAssignmentDto>();
-        CreateMap<RouteAssignment, RouteAssignmentExcelDto>();
 
         CreateMap<GeoMasterWithNavigationProperties, GeoMasterWithNavigationPropertiesDto>();
         CreateMap<GeoMaster, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -270,8 +258,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CompanyInZoneWithNavigationProperties, CompanyInZoneWithNavigationPropertiesDto>();
         CreateMap<Company, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<EmployeeInZoneWithNavigationProperties, EmployeeInZoneWithNavigationPropertiesDto>();
-
         CreateMap<CusAttributeValue, CusAttributeValueDto>();
         CreateMap<CusAttributeValue, CusAttributeValueExcelDto>();
         CreateMap<CusAttributeValue, CusAttributeValueWithDetailsDto>();
@@ -318,8 +304,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<HolidayDetailWithNavigationProperties, HolidayDetailWithNavigationPropertiesDto>();
         CreateMap<Holiday, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
 
-        CreateMap<RouteWithNavigationProperties, RouteWithNavigationPropertiesDto>();
-
         CreateMap<MCPHeaderWithNavigationProperties, MCPHeaderWithNavigationPropertiesDto>();
 
         CreateMap<MCPDetailWithNavigationProperties, MCPDetailWithNavigationPropertiesDto>();
@@ -328,8 +312,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>();
         CreateMap<MCPDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-
-        CreateMap<RouteAssignmentWithNavigationProperties, RouteAssignmentWithNavigationPropertiesDto>();
 
         CreateMap<NumberingConfigWithNavigationProperties, NumberingConfigWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -385,5 +367,11 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroup, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<ItemAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
+
+        CreateMap<WorkingPosition, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+
+        CreateMap<CustomerImage, CustomerImageDto>();
+        CreateMap<CustomerImage, CustomerImageExcelDto>();
+        CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
     }
 }

@@ -23,10 +23,10 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public Guid? WorkingPositionId { get; set; }
         public Guid? EmployeeTypeId { get; set; }
 
+        public string ConcurrencyStamp { get; set; }
+
         public WorkingPositionDto WorkingPosition { get; set; }
         public SystemDataDto EmployeeType { get; set; }
-
-        public string ConcurrencyStamp { get; set; }
         public EmployeeProfileWithDetailsDto()
 		{
 		}

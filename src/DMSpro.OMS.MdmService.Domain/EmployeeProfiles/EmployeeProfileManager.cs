@@ -24,8 +24,14 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
+            Check.Length(erpCode, nameof(erpCode), EmployeeProfileConsts.ERPCodeMaxLength);
             Check.NotNullOrWhiteSpace(firstName, nameof(firstName));
             Check.Length(firstName, nameof(firstName), EmployeeProfileConsts.FirstNameMaxLength, EmployeeProfileConsts.FirstNameMinLength);
+            Check.Length(lastName, nameof(lastName), EmployeeProfileConsts.LastNameMaxLength);
+            Check.Length(idCardNumber, nameof(idCardNumber), EmployeeProfileConsts.IdCardNumberMaxLength);
+            Check.Length(email, nameof(email), EmployeeProfileConsts.EmailMaxLength);
+            Check.Length(phone, nameof(phone), EmployeeProfileConsts.PhoneMaxLength);
+            Check.Length(address, nameof(address), EmployeeProfileConsts.AddressMaxLength);
 
             var employeeProfile = new EmployeeProfile(
              GuidGenerator.Create(),
@@ -42,13 +48,16 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
+            Check.Length(erpCode, nameof(erpCode), EmployeeProfileConsts.ERPCodeMaxLength);
             Check.NotNullOrWhiteSpace(firstName, nameof(firstName));
             Check.Length(firstName, nameof(firstName), EmployeeProfileConsts.FirstNameMaxLength, EmployeeProfileConsts.FirstNameMinLength);
+            Check.Length(lastName, nameof(lastName), EmployeeProfileConsts.LastNameMaxLength);
+            Check.Length(idCardNumber, nameof(idCardNumber), EmployeeProfileConsts.IdCardNumberMaxLength);
+            Check.Length(email, nameof(email), EmployeeProfileConsts.EmailMaxLength);
+            Check.Length(phone, nameof(phone), EmployeeProfileConsts.PhoneMaxLength);
+            Check.Length(address, nameof(address), EmployeeProfileConsts.AddressMaxLength);
 
-            var queryable = await _employeeProfileRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var employeeProfile = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var employeeProfile = await _employeeProfileRepository.GetAsync(id);
 
             employeeProfile.WorkingPositionId = workingPositionId;
             employeeProfile.EmployeeTypeId = employeeTypeId;

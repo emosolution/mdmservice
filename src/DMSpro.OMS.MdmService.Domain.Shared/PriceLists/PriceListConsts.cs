@@ -11,5 +11,6 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         public const int CodeMinLength = 1;
         public const int CodeMaxLength = 20;
+        public const int NameMaxLength = 255;
     }
 }

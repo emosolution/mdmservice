@@ -50,6 +50,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), SalesOrgHierarchyConsts.CodeMaxLength, SalesOrgHierarchyConsts.CodeMinLength);
+            Check.Length(name, nameof(name), SalesOrgHierarchyConsts.NameMaxLength, 0);
             if (level < SalesOrgHierarchyConsts.LevelMinLength)
             {
                 throw new ArgumentOutOfRangeException(nameof(level), level, "The value of 'level' cannot be lower than " + SalesOrgHierarchyConsts.LevelMinLength);
@@ -61,6 +62,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             }
 
             Check.NotNull(hierarchyCode, nameof(hierarchyCode));
+            Check.Length(hierarchyCode, nameof(hierarchyCode), SalesOrgHierarchyConsts.HierarchyCodeMaxLength, SalesOrgHierarchyConsts.HierarchyCodeMinLength);
             Code = code;
             Name = name;
             Level = level;
@@ -71,8 +73,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             SalesOrgHeaderId = salesOrgHeaderId;
             ParentId = parentId;
         }
-
-    
 
     }
 }

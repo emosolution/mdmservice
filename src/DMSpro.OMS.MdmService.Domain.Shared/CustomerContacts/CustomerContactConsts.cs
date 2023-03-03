@@ -9,5 +9,14 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
             return string.Format(DefaultSorting, withEntityName ? "CustomerContact." : string.Empty);
         }
 
+        public const int FirstNameMaxLength = 255;
+        public const int LastNameMaxLength = 255;
+        public const int PhoneMaxLength = 255;
+        public const int EmailMaxLength = 255;
+        public const int AddressMaxLength = 500;
+        public const int IdentityNumberMaxLength = 255;
+        public const int BankNameMaxLength = 255;
+        public const int BankAccNameMaxLength = 255;
+        public const int BankAccNumberMaxLength = 255;
     }
 }

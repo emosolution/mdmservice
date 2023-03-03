@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "e8c224ea-8cb6-43c3-a4b9-0bc3a45e314a",
+      "Id": "5c145484-dabf-4bf0-bb01-982a50125e00",
       "Name": "ERPCode",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

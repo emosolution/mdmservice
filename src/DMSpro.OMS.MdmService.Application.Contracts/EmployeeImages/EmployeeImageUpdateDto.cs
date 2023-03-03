@@ -7,6 +7,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
 {
     public class EmployeeImageUpdateDto : IHasConcurrencyStamp
     {
+        [StringLength(EmployeeImageConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; }
         //public bool IsAvatar { get; set; }

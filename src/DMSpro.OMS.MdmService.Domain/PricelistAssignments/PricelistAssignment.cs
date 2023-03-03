@@ -34,6 +34,7 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         {
 
             Id = id;
+            Check.Length(description, nameof(description), PricelistAssignmentConsts.DescriptionMaxLength, 0);
             Description = description;
             PriceListId = priceListId;
             CustomerGroupId = customerGroupId;

@@ -15,7 +15,6 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
             return new()
             {
                 "Code",
-				"Name",
             };
         }
     }

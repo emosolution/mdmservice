@@ -6,11 +6,10 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 {
 	public class CustomerContactWithDetailsDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
-        
+
         public Title? Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
         public Gender Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Phone { get; set; }

@@ -23,8 +23,6 @@ namespace DMSpro.OMS.MdmService.Companies
             {
                 "Code",
                 "Name",
-                "Street",
-                "Address",
             };
         }
     }

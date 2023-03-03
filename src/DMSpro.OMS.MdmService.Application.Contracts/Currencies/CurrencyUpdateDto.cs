@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.Currencies
         [Required]
         [StringLength(CurrencyConsts.CodeMaxLength, MinimumLength = CurrencyConsts.CodeMinLength)]
         public string Code { get; set; }
-        [StringLength(CurrencyConsts.NameMaxLength, MinimumLength = CurrencyConsts.NameMinLength)]
+        [StringLength(CurrencyConsts.NameMaxLength)]
         public string Name { get; set; }
 
         public string ConcurrencyStamp { get; set; }

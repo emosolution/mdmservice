@@ -39,6 +39,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 
             Id = id;
             Check.NotNull(code, nameof(code));
+            Check.Length(erpCode, nameof(erpCode), GeoMasterConsts.ERPCodeMaxLength, 0);
             Check.NotNull(name, nameof(name));
             Check.Length(name, nameof(name), GeoMasterConsts.NameMaxLength, GeoMasterConsts.NameMinLength);
             Code = code;

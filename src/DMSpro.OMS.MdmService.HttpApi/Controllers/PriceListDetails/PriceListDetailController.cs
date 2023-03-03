@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceListDetails
         {
             return _priceListDetailsAppService.GetWithNavigationPropertiesAsync(id);
         }
-                
+
         [HttpGet]
         [Route("{id}")]
         public virtual Task<PriceListDetailDto> GetAsync(Guid id)

@@ -16,7 +16,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         public bool Active { get; set; }
         public Guid SalesOrgHeaderId { get; set; }
         public Guid? ParentId { get; set; }
-        
+
         public string ConcurrencyStamp { get; set; }
 
 

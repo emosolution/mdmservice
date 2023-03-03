@@ -10,11 +10,9 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
         [Required]
         [StringLength(DimensionMeasurementConsts.CodeMaxLength, MinimumLength = DimensionMeasurementConsts.CodeMinLength)]
         public string Code { get; set; }
-        [Required]
-        [StringLength(DimensionMeasurementConsts.NameMaxLength, MinimumLength = DimensionMeasurementConsts.NameMinLength)]
+        [StringLength(DimensionMeasurementConsts.NameMaxLength)]
         public string Name { get; set; }
-        [Required]
-        public uint Value { get; set; }
+        public decimal Value { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

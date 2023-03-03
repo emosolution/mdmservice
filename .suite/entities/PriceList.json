@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "76d5fec1-417e-40cf-80db-7ebb4ab89613",
+      "Id": "da646252-e920-48ff-a292-1323a5c7c732",
       "Name": "Name",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -103,9 +103,7 @@
       "EmailValidation": false,
       "EnumValues": {
         "ADD": 0,
-        "SUBTRACT": 1,
-        "MULTIPLICATION": 2,
-        "DIVISION": 3
+        "SUBTRACT": 1
       },
       "IsSelected": true,
       "OrdinalIndex": 0

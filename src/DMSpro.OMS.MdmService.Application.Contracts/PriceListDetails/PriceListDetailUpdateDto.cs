@@ -7,8 +7,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 {
     public class PriceListDetailUpdateDto : IHasConcurrencyStamp
     {
-        public int Price { get; set; }
-        public int? BasedOnPrice { get; set; }
+        public decimal Price { get; set; }
+        public decimal? BasedOnPrice { get; set; }
         [Required]
         public string Description { get; set; }
         public Guid PriceListId { get; set; }

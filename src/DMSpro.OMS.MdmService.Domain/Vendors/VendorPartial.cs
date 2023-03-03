@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Vendors
@@ -16,16 +17,16 @@ namespace DMSpro.OMS.MdmService.Vendors
                 { "GeoMaster3Id", (1, "IGeoMasterRepository", "", "") },
                 { "GeoMaster4Id", (1, "IGeoMasterRepository", "", "") },
                 { "CompanyId", (1, "ICompanyRepository", "", "") },
+                { "LinkedCompanyId", (1, "ICompanyRepository", "", "") },
             };
 		}
 
-		public List<string> GetNotNullProperty()
+        public List<string> GetNotNullProperty()
         {
             return new()
             {
                 "Code",
 				"Name",
-                "ShortName",
             };
         }
     }

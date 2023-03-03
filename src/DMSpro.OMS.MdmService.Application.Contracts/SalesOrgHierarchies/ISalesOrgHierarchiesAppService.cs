@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
         Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHeaderLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

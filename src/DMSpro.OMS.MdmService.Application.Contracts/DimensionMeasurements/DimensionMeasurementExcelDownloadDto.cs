@@ -11,8 +11,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 
         public string Code { get; set; }
         public string Name { get; set; }
-        public uint? ValueMin { get; set; }
-        public uint? ValueMax { get; set; }
+        public decimal? ValueMin { get; set; }
+        public decimal? ValueMax { get; set; }
 
         public DimensionMeasurementExcelDownloadDto()
         {

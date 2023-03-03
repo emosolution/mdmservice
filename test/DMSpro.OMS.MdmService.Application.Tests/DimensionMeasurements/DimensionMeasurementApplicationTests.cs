@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("0e69697f-172d-4b28-9d6e-4bc4396613fd")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("5223866f-e112-47bd-87a1-6c65b13f8934")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _dimensionMeasurementsAppService.GetAsync(Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"));
+            var result = await _dimensionMeasurementsAppService.GetAsync(Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"));
+            result.Id.ShouldBe(Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"));
         }
 
         [Fact]
@@ -48,9 +48,9 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             // Arrange
             var input = new DimensionMeasurementCreateDto
             {
-                Code = "ff74af4b5a3644d6a32c",
-                Name = "5ebb56351c6a4f7a98d0f948aa0ee5638e5a004a899f4f0ab3",
-                Value = 328549387
+                Code = "db005b23f8de46ee96e5",
+                Name = "2cea9fb67f1640a086eb3dbb80b0b94069dfcf80158b474196",
+                Value = 294517945
             };
 
             // Act
@@ -60,9 +60,9 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             var result = await _dimensionMeasurementRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("ff74af4b5a3644d6a32c");
-            result.Name.ShouldBe("5ebb56351c6a4f7a98d0f948aa0ee5638e5a004a899f4f0ab3");
-            result.Value.ToString().ShouldBe("328549387");
+            result.Code.ShouldBe("db005b23f8de46ee96e5");
+            result.Name.ShouldBe("2cea9fb67f1640a086eb3dbb80b0b94069dfcf80158b474196");
+            result.Value.ShouldBe(294517945);
         }
 
         [Fact]
@@ -71,31 +71,31 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             // Arrange
             var input = new DimensionMeasurementUpdateDto()
             {
-                Code = "cabb52f8a4484589a134",
-                Name = "dced7917c31a415eaff27b0925a549e92656e9c9970940f1a3",
-                Value = 355978429
+                Code = "0d7230d0bd5a4c4497e5",
+                Name = "09624d4af22c41cda35d6f0d08e4f6ee2883ae2ed4f54f22be",
+                Value = 502804888
             };
 
             // Act
-            var serviceResult = await _dimensionMeasurementsAppService.UpdateAsync(Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"), input);
+            var serviceResult = await _dimensionMeasurementsAppService.UpdateAsync(Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"), input);
 
             // Assert
             var result = await _dimensionMeasurementRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("cabb52f8a4484589a134");
-            result.Name.ShouldBe("dced7917c31a415eaff27b0925a549e92656e9c9970940f1a3");
-            result.Value.ToString().ShouldBe("355978429");
+            result.Code.ShouldBe("0d7230d0bd5a4c4497e5");
+            result.Name.ShouldBe("09624d4af22c41cda35d6f0d08e4f6ee2883ae2ed4f54f22be");
+            result.Value.ShouldBe(502804888);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _dimensionMeasurementsAppService.DeleteAsync(Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"));
+            await _dimensionMeasurementsAppService.DeleteAsync(Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"));
 
             // Assert
-            var result = await _dimensionMeasurementRepository.FindAsync(c => c.Id == Guid.Parse("fbf48fa3-c0bc-4fe6-bb35-f3fa6fa3207f"));
+            var result = await _dimensionMeasurementRepository.FindAsync(c => c.Id == Guid.Parse("b8aa42a1-51ea-48a8-8799-20f23ea90cac"));
 
             result.ShouldBeNull();
         }

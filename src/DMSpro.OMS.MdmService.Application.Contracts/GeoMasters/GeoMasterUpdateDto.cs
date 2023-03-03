@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
     {
         [Required]
         public string Code { get; set; }
+        [StringLength(GeoMasterConsts.ERPCodeMaxLength)]
         public string ERPCode { get; set; }
         [Required]
         [StringLength(GeoMasterConsts.NameMaxLength, MinimumLength = GeoMasterConsts.NameMinLength)]

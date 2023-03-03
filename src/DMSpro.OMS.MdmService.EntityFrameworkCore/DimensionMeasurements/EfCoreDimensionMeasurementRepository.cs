@@ -23,8 +23,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             string filterText = null,
             string code = null,
             string name = null,
-            uint? valueMin = null,
-            uint? valueMax = null,
+            decimal? valueMin = null,
+            decimal? valueMax = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -39,8 +39,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             string filterText = null,
             string code = null,
             string name = null,
-            uint? valueMin = null,
-            uint? valueMax = null,
+            decimal? valueMin = null,
+            decimal? valueMax = null,
             CancellationToken cancellationToken = default)
         {
             var query = ApplyFilter((await GetDbSetAsync()), filterText, code, name, valueMin, valueMax);
@@ -52,8 +52,8 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
             string filterText,
             string code = null,
             string name = null,
-            uint? valueMin = null,
-            uint? valueMax = null)
+            decimal? valueMin = null,
+            decimal? valueMax = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText) || e.Name.Contains(filterText))

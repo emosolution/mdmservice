@@ -26,6 +26,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             Check.NotNull(companyId, nameof(companyId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), MCPHeaderConsts.CodeMaxLength, MCPHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), MCPHeaderConsts.NameMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var mCPHeader = new MCPHeader(
@@ -45,12 +46,10 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             Check.NotNull(companyId, nameof(companyId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), MCPHeaderConsts.CodeMaxLength, MCPHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), MCPHeaderConsts.NameMaxLength);
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var queryable = await _mCPHeaderRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var mCPHeader = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var mCPHeader = await _mCPHeaderRepository.GetAsync(id);
 
             mCPHeader.RouteId = routeId;
             mCPHeader.CompanyId = companyId;

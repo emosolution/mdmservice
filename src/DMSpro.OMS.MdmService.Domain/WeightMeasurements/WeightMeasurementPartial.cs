@@ -15,7 +15,6 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
             return new()
             {
                 "Code",
-				"Name",
             };
         }
     }

@@ -7,10 +7,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
     {
         public string FilterText { get; set; }
 
-        public int? PriceMin { get; set; }
-        public int? PriceMax { get; set; }
-        public int? BasedOnPriceMin { get; set; }
-        public int? BasedOnPriceMax { get; set; }
+        public decimal? PriceMin { get; set; }
+        public decimal? PriceMax { get; set; }
+        public decimal? BasedOnPriceMin { get; set; }
+        public decimal? BasedOnPriceMax { get; set; }
         public string Description { get; set; }
         public Guid? PriceListId { get; set; }
         public Guid? UOMId { get; set; }

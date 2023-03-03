@@ -10,6 +10,7 @@ namespace DMSpro.OMS.MdmService.Holidays
         [Range(HolidayConsts.YearMinLength, HolidayConsts.YearMaxLength)]
         public int Year { get; set; }
         [Required]
+        [StringLength(HolidayConsts.DescriptionMaxLength, MinimumLength = HolidayConsts.DescriptionMinLength)]
         public string Description { get; set; }
     }
 }

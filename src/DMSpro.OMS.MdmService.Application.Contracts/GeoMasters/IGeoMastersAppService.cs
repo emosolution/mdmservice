@@ -10,12 +10,12 @@ namespace DMSpro.OMS.MdmService.GeoMasters
     public partial interface IGeoMastersAppService : IApplicationService
     {
         Task<PagedResultDto<GeoMasterWithNavigationPropertiesDto>> GetListAsync(GetGeoMastersInput input);
-        
+
         Task<GeoMasterWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
 
         Task<GeoMasterDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

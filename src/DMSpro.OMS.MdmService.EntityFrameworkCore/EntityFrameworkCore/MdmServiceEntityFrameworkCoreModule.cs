@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
@@ -19,11 +20,9 @@ using DMSpro.OMS.MdmService.EmployeeImages;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.SalesChannels;
-using DMSpro.OMS.MdmService.RouteAssignments;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
-using DMSpro.OMS.MdmService.Routes;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
@@ -32,7 +31,6 @@ using DMSpro.OMS.MdmService.CustomerGroupByLists;
 using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
-using DMSpro.OMS.MdmService.EmployeeInZones;
 using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -122,8 +120,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.AddRepository<CustomerInZone, CustomerInZones.EfCoreCustomerInZoneRepository>();
 
-            options.AddRepository<EmployeeInZone, EmployeeInZones.EfCoreEmployeeInZoneRepository>();
-
             options.AddRepository<CustomerAttribute, CustomerAttributes.EfCoreCustomerAttributeRepository>();
 
             options.AddRepository<CustomerGroup, CustomerGroups.EfCoreCustomerGroupRepository>();
@@ -140,15 +136,11 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.AddRepository<HolidayDetail, HolidayDetails.EfCoreHolidayDetailRepository>();
 
-            options.AddRepository<Route, Routes.EfCoreRouteRepository>();
-
             options.AddRepository<MCPHeader, MCPHeaders.EfCoreMCPHeaderRepository>();
 
             options.AddRepository<MCPDetail, MCPDetails.EfCoreMCPDetailRepository>();
 
             options.AddRepository<VisitPlan, VisitPlans.EfCoreVisitPlanRepository>();
-
-            options.AddRepository<RouteAssignment, RouteAssignments.EfCoreRouteAssignmentRepository>();
 
             options.AddRepository<SalesChannel, SalesChannels.EfCoreSalesChannelRepository>();
 
@@ -194,6 +186,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
+            options.AddRepository<CustomerImage, CustomerImages.EfCoreCustomerImageRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
@@ -227,7 +221,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<CustomerAssignment>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.Customer );
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.Customer);
             });
 
             options.Entity<CustomerAttachment>(orderOptions =>
@@ -270,11 +264,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
             });
 
-            options.Entity<EmployeeInZone>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
-            });
-
             options.Entity<EmployeeImage>(orderOptions =>
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile);
@@ -282,7 +271,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<EmployeeProfile>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o=> o.WorkingPosition);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o => o.WorkingPosition);
             });
 
             options.Entity<HolidayDetail>(orderOptions =>
@@ -302,7 +291,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<ItemGroupList>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o=> o.Item);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o => o.Item);
             });
 
             options.Entity<ItemImage>(orderOptions =>
@@ -317,17 +306,17 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<MCPHeader>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o=> o.ItemGroup);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company).Include(o => o.ItemGroup);
             });
 
             options.Entity<MCPDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o=>o.Customer);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o => o.Customer);
             });
 
             options.Entity<NumberingConfig>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o=> o.Company);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o => o.Company);
             });
 
             options.Entity<PricelistAssignment>(orderOptions =>
@@ -345,12 +334,10 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.BasePriceList);
             });
 
-
             options.Entity<PriceUpdateDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o=> o.PriceUpdate);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.PriceListDetail).Include(o => o.PriceUpdate);
             });
-
 
             options.Entity<PriceUpdate>(orderOptions =>
             {
@@ -359,7 +346,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<SalesOrgEmpAssignment>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o=> o.SalesOrgHierarchy);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeProfile).Include(o => o.SalesOrgHierarchy);
             });
 
             options.Entity<SalesOrgHierarchy>(orderOptions =>
@@ -369,7 +356,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<UOMGroupDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o=> o.BaseUOM).Include(o=> o.AltUOM);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o => o.BaseUOM).Include(o => o.AltUOM);
             });
 
             options.Entity<Vendor>(orderOptions =>
@@ -379,9 +366,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<VisitPlan>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Company).Include(o => o.Customer).Include(o => o.MCPDetail).Include(o=> o.Route);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Company).Include(o => o.Customer).Include(o => o.MCPDetail).Include(o => o.Route);
             });
-
 
         });
     }

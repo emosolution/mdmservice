@@ -15,9 +15,9 @@ namespace DMSpro.OMS.MdmService.Companies
 
         Task<CompanyDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

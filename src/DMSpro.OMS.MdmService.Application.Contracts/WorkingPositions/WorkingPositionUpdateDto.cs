@@ -10,8 +10,9 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         [Required]
         [StringLength(WorkingPositionConsts.CodeMaxLength, MinimumLength = WorkingPositionConsts.CodeMinLength)]
         public string Code { get; set; }
-        [Required]
+        [StringLength(WorkingPositionConsts.NameMaxLength)]
         public string Name { get; set; }
+        [StringLength(WorkingPositionConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public bool Active { get; set; }
 

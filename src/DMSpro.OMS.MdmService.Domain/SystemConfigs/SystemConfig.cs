@@ -52,6 +52,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
             Check.Length(value, nameof(value), SystemConfigConsts.ValueMaxLength, SystemConfigConsts.ValueMinLength);
             Check.NotNull(defaultValue, nameof(defaultValue));
             Check.Length(defaultValue, nameof(defaultValue), SystemConfigConsts.DefaultValueMaxLength, SystemConfigConsts.DefaultValueMinLength);
+            Check.Length(dataSource, nameof(dataSource), SystemConfigConsts.DataSourceMaxLength, 0);
             Code = code;
             Description = description;
             Value = value;

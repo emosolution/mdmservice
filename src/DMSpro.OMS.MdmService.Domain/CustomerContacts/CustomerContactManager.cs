@@ -23,7 +23,16 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
         Guid customerId, string firstName, string lastName, Gender gender, string phone, string email, string address, string identityNumber, string bankName, string bankAccName, string bankAccNumber, Title? title = null, DateTime? dateOfBirth = null)
         {
             Check.NotNull(customerId, nameof(customerId));
+            Check.Length(firstName, nameof(firstName), CustomerContactConsts.FirstNameMaxLength);
+            Check.Length(lastName, nameof(lastName), CustomerContactConsts.LastNameMaxLength);
             Check.NotNull(gender, nameof(gender));
+            Check.Length(phone, nameof(phone), CustomerContactConsts.PhoneMaxLength);
+            Check.Length(email, nameof(email), CustomerContactConsts.EmailMaxLength);
+            Check.Length(address, nameof(address), CustomerContactConsts.AddressMaxLength);
+            Check.Length(identityNumber, nameof(identityNumber), CustomerContactConsts.IdentityNumberMaxLength);
+            Check.Length(bankName, nameof(bankName), CustomerContactConsts.BankNameMaxLength);
+            Check.Length(bankAccName, nameof(bankAccName), CustomerContactConsts.BankAccNameMaxLength);
+            Check.Length(bankAccNumber, nameof(bankAccNumber), CustomerContactConsts.BankAccNumberMaxLength);
 
             var customerContact = new CustomerContact(
              GuidGenerator.Create(),
@@ -39,12 +48,18 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
         )
         {
             Check.NotNull(customerId, nameof(customerId));
+            Check.Length(firstName, nameof(firstName), CustomerContactConsts.FirstNameMaxLength);
+            Check.Length(lastName, nameof(lastName), CustomerContactConsts.LastNameMaxLength);
             Check.NotNull(gender, nameof(gender));
+            Check.Length(phone, nameof(phone), CustomerContactConsts.PhoneMaxLength);
+            Check.Length(email, nameof(email), CustomerContactConsts.EmailMaxLength);
+            Check.Length(address, nameof(address), CustomerContactConsts.AddressMaxLength);
+            Check.Length(identityNumber, nameof(identityNumber), CustomerContactConsts.IdentityNumberMaxLength);
+            Check.Length(bankName, nameof(bankName), CustomerContactConsts.BankNameMaxLength);
+            Check.Length(bankAccName, nameof(bankAccName), CustomerContactConsts.BankAccNameMaxLength);
+            Check.Length(bankAccNumber, nameof(bankAccNumber), CustomerContactConsts.BankAccNumberMaxLength);
 
-            var queryable = await _customerContactRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerContact = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerContact = await _customerContactRepository.GetAsync(id);
 
             customerContact.CustomerId = customerId;
             customerContact.FirstName = firstName;

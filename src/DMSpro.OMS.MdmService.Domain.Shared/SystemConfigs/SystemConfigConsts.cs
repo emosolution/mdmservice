@@ -17,5 +17,6 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
         public const int ValueMaxLength = 255;
         public const int DefaultValueMinLength = 1;
         public const int DefaultValueMaxLength = 255;
+        public const int DataSourceMaxLength = 1000;
     }
 }

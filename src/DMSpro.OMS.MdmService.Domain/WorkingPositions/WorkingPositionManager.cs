@@ -24,7 +24,8 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), WorkingPositionConsts.CodeMaxLength, WorkingPositionConsts.CodeMinLength);
-            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), WorkingPositionConsts.NameMaxLength);
+            Check.Length(description, nameof(description), WorkingPositionConsts.DescriptionMaxLength);
 
             var workingPosition = new WorkingPosition(
              GuidGenerator.Create(),
@@ -41,12 +42,10 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), WorkingPositionConsts.CodeMaxLength, WorkingPositionConsts.CodeMinLength);
-            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), WorkingPositionConsts.NameMaxLength);
+            Check.Length(description, nameof(description), WorkingPositionConsts.DescriptionMaxLength);
 
-            var queryable = await _workingPositionRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var workingPosition = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var workingPosition = await _workingPositionRepository.GetAsync(id);
 
             workingPosition.Code = code;
             workingPosition.Name = name;

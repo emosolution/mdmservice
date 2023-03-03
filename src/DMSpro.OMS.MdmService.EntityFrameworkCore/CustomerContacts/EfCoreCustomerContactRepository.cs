@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using DMSpro.OMS.MdmService.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerContacts
 {

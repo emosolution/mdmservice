@@ -25,13 +25,13 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 // Act
                 var result = await _priceListDetailRepository.GetListAsync(
-                    description: "d097712be59d450f937ca72bcb5554df0b277ef715d448448e261b7dd3b077935581e78e954f43c780c494dad85"
+                    description: "5bf6f0554756476ca464437e2806735a19e38123"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("0e4184d8-69c6-4e16-90a4-c44f3d08337a"));
+                result.First().Id.ShouldBe(Guid.Parse("6613d68d-298d-441e-9716-5eb1f3143ae9"));
             });
         }
 
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 // Act
                 var result = await _priceListDetailRepository.GetCountAsync(
-                    description: "16589b337a17494c88f35913b5daa0d9c89d3d369fdc4ee1b23"
+                    description: "751cb588f908496992e1d99d29f1caabb9eaf3e03b93457ba5efc7aa027e418bff1951f3bf1b4c9693"
                 );
 
                 // Assert

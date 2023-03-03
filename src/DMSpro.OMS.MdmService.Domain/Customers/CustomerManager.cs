@@ -38,8 +38,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Check.Length(address, nameof(address), CustomerConsts.AddressMaxLength);
             Check.Length(latitude, nameof(latitude), CustomerConsts.LatitudeMaxLength);
             Check.Length(longitude, nameof(longitude), CustomerConsts.LongitudeMaxLength);
-            Check.NotNullOrWhiteSpace(sfaCustomerCode, nameof(sfaCustomerCode));
-            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength, CustomerConsts.SFACustomerCodeMinLength);
+            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength);
             Check.NotNull(lastOrderDate, nameof(lastOrderDate));
 
             var customer = new Customer(
@@ -71,8 +70,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Check.Length(address, nameof(address), CustomerConsts.AddressMaxLength);
             Check.Length(latitude, nameof(latitude), CustomerConsts.LatitudeMaxLength);
             Check.Length(longitude, nameof(longitude), CustomerConsts.LongitudeMaxLength);
-            Check.NotNullOrWhiteSpace(sfaCustomerCode, nameof(sfaCustomerCode));
-            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength, CustomerConsts.SFACustomerCodeMinLength);
+            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength);
             Check.NotNull(lastOrderDate, nameof(lastOrderDate));
 
             var customer = await _customerRepository.GetAsync(id);

@@ -9,5 +9,6 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
             return string.Format(DefaultSorting, withEntityName ? "PricelistAssignment." : string.Empty);
         }
 
+        public const int DescriptionMaxLength = 500;
     }
 }

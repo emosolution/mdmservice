@@ -8,7 +8,9 @@ namespace DMSpro.OMS.MdmService.Companies
 {
     public partial interface ICompanyRepository : IRepository<Company, Guid>
     {
-        Task<CompanyWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<CompanyWithNavigationProperties> GetWithNavigationPropertiesAsync(
+            Guid id,
+            CancellationToken cancellationToken = default);
 
         Task<List<CompanyWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,

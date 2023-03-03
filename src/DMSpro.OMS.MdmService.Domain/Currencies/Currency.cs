@@ -1,8 +1,4 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -32,7 +28,7 @@ namespace DMSpro.OMS.MdmService.Currencies
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), CurrencyConsts.CodeMaxLength, CurrencyConsts.CodeMinLength);
-            Check.Length(name, nameof(name), CurrencyConsts.NameMaxLength, CurrencyConsts.NameMinLength);
+            Check.Length(name, nameof(name), CurrencyConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
         }

@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.Companies
             return ObjectMapper.Map<Company, CompanyDto>(await _companyRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
         {
             var query = (await _companyRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -52,14 +52,14 @@ namespace DMSpro.OMS.MdmService.Companies
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Company>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<Company>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<Company>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
         {
             var query = (await _geoMasterRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -68,10 +68,10 @@ namespace DMSpro.OMS.MdmService.Companies
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<GeoMaster>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -113,10 +113,36 @@ namespace DMSpro.OMS.MdmService.Companies
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _companyRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone);
+            var companies = await _companyRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone);
+            var items = companies.Select(item => new
+            {
+                item.Company.Code,
+                item.Company.Name,
+                item.Company.Street,
+                item.Company.Address,
+                item.Company.Phone,
+                item.Company.License,
+                item.Company.TaxCode,
+                item.Company.VATName,
+                item.Company.VATAddress,
+                item.Company.ERPCode,
+                item.Company.Active,
+                item.Company.EffectiveDate,
+                item.Company.EndDate,
+                item.Company.IsHO,
+                item.Company.Latitude,
+                item.Company.Longitude,
+                item.Company.ContactName,
+                item.Company.ContactPhone,
+                GeoMasterCode = item.GeoMaster?.Code,
+                GeoMasterCode1 = item.GeoMaster1?.Code,
+                GeoMasterCode2 = item.GeoMaster2?.Code,
+                GeoMasterCode3 = item.GeoMaster3?.Code,
+                GeoMasterCode4 = item.GeoMaster4?.Code,
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<Company>, List<CompanyExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "Companies.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

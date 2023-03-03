@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "108e14cc-e5fa-4934-8a1d-4f44ef3ef323",
+      "Id": "3201936f-7644-478c-a678-0c0e02e3bde2",
       "Name": "Name",
       "Type": "string",
       "EnumType": "",
@@ -49,10 +49,10 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "7a7ad608-481f-4118-9f05-af7e63935a48",
+      "Id": "34773daf-e85e-486c-9559-1ac173048f9a",
       "Name": "Description",
       "Type": "string",
       "EnumType": "",
@@ -74,7 +74,7 @@
       "IsRequired": false,
       "IsTextArea": true,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 500,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

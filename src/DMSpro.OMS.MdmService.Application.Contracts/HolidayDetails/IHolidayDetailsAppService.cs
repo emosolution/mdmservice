@@ -12,7 +12,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         Task<PagedResultDto<HolidayDetailWithNavigationPropertiesDto>> GetListAsync(GetHolidayDetailsInput input);
 
         Task<HolidayDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id);
-        
+
         Task<HolidayDetailDto> GetAsync(Guid id);
 
         Task<PagedResultDto<LookupDto<Guid>>> GetHolidayLookupAsync(LookupRequestDto input);

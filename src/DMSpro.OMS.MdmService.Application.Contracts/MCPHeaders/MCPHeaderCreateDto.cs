@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
@@ -8,6 +9,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         [Required]
         [StringLength(MCPHeaderConsts.CodeMaxLength, MinimumLength = MCPHeaderConsts.CodeMinLength)]
         public string Code { get; set; }
+        [StringLength(MCPHeaderConsts.NameMaxLength)]
         public string Name { get; set; }
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }

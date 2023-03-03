@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.GeoMasters
 {
@@ -21,6 +19,11 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         public async Task<GeoMaster> CreateAsync(
         Guid? parentId, string code, string erpCode, string name, int level)
         {
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(erpCode, nameof(erpCode), GeoMasterConsts.ERPCodeMaxLength);
+            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), GeoMasterConsts.NameMaxLength, GeoMasterConsts.NameMinLength);
+
             var geoMaster = new GeoMaster(
              GuidGenerator.Create(),
              parentId, code, erpCode, name, level
@@ -34,10 +37,12 @@ namespace DMSpro.OMS.MdmService.GeoMasters
             Guid? parentId, string code, string erpCode, string name, int level, [CanBeNull] string concurrencyStamp = null
         )
         {
-            var queryable = await _geoMasterRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(erpCode, nameof(erpCode), GeoMasterConsts.ERPCodeMaxLength);
+            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), GeoMasterConsts.NameMaxLength, GeoMasterConsts.NameMinLength);
 
-            var geoMaster = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var geoMaster = await _geoMasterRepository.GetAsync(id);
 
             geoMaster.ParentId = parentId;
             geoMaster.Code = code;

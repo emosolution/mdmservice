@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Volo.Abp.Domain.Repositories;
+using Volo.Abp;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -21,6 +19,10 @@ namespace DMSpro.OMS.MdmService.Currencies
         public async Task<Currency> CreateAsync(
         string code, string name)
         {
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(code, nameof(code), CurrencyConsts.CodeMaxLength, CurrencyConsts.CodeMinLength);
+            Check.Length(name, nameof(name), CurrencyConsts.NameMaxLength);
+
             var currency = new Currency(
              GuidGenerator.Create(),
              code, name
@@ -34,10 +36,11 @@ namespace DMSpro.OMS.MdmService.Currencies
             string code, string name, [CanBeNull] string concurrencyStamp = null
         )
         {
-            var queryable = await _currencyRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(code, nameof(code), CurrencyConsts.CodeMaxLength, CurrencyConsts.CodeMinLength);
+            Check.Length(name, nameof(name), CurrencyConsts.NameMaxLength);
 
-            var currency = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var currency = await _currencyRepository.GetAsync(id);
 
             currency.Code = code;
             currency.Name = name;

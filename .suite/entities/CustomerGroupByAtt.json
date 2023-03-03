@@ -18,7 +18,7 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "868b0eea-bb0f-4346-a5e3-2db93e64ddb3",
+      "Id": "51cf25ce-20f3-4973-bd4f-6da212aedb86",
       "Name": "ValueCode",
       "Type": "string",
       "EnumType": "",
@@ -30,7 +30,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "3c0cb540-b385-466c-8111-cc6636aaa75d",
+      "Id": "090d30c0-87e7-47ad-a643-ee0b051908ab",
       "Name": "ValueName",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 255,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

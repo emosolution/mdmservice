@@ -6,7 +6,7 @@ namespace DMSpro.OMS.MdmService.Companies
 {
 	public class CompanyWithDetailsDto:  FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
 	{
-		public string Code { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Address { get; set; }
@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public string ConcurrencyStamp { get; set; }
 
-		public CompanyDto Parent { get; set; }
+        public CompanyDto Parent { get; set; }
 		public GeoMasterDto GeoLevel0 { get; set; }
         public GeoMasterDto GeoLevel1 { get; set; }
         public GeoMasterDto GeoLevel2 { get; set; }

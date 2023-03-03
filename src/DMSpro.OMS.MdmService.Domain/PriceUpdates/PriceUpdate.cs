@@ -40,6 +40,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), PriceUpdateConsts.CodeMaxLength, PriceUpdateConsts.CodeMinLength);
+            Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength, 0);
             Code = code;
             Description = description;
             EffectiveDate = effectiveDate;

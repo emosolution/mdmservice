@@ -23,7 +23,6 @@ namespace DMSpro.OMS.MdmService.Customers
         public const int AddressMaxLength = 500;
         public const int LatitudeMaxLength = 255;
         public const int LongitudeMaxLength = 255;
-        public const int SFACustomerCodeMinLength = 1;
         public const int SFACustomerCodeMaxLength = 20;
     }
 }

@@ -15,9 +15,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         Task<NumberingConfigDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input);
 
-        Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input);
+        Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input);
 
         Task DeleteAsync(Guid id);
 

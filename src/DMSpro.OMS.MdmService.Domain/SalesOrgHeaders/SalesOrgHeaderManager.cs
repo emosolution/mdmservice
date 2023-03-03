@@ -24,6 +24,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), SalesOrgHeaderConsts.CodeMaxLength, SalesOrgHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), SalesOrgHeaderConsts.NameMaxLength);
 
             var salesOrgHeader = new SalesOrgHeader(
              GuidGenerator.Create(),
@@ -40,11 +41,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), SalesOrgHeaderConsts.CodeMaxLength, SalesOrgHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), SalesOrgHeaderConsts.NameMaxLength);
 
-            var queryable = await _salesOrgHeaderRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var salesOrgHeader = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var salesOrgHeader = await _salesOrgHeaderRepository.GetAsync(id);
 
             salesOrgHeader.Code = code;
             salesOrgHeader.Name = name;

@@ -66,8 +66,14 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
+            Check.Length(erpCode, nameof(erpCode), EmployeeProfileConsts.ERPCodeMaxLength, 0);
             Check.NotNull(firstName, nameof(firstName));
             Check.Length(firstName, nameof(firstName), EmployeeProfileConsts.FirstNameMaxLength, EmployeeProfileConsts.FirstNameMinLength);
+            Check.Length(lastName, nameof(lastName), EmployeeProfileConsts.LastNameMaxLength, 0);
+            Check.Length(idCardNumber, nameof(idCardNumber), EmployeeProfileConsts.IdCardNumberMaxLength, 0);
+            Check.Length(email, nameof(email), EmployeeProfileConsts.EmailMaxLength, 0);
+            Check.Length(phone, nameof(phone), EmployeeProfileConsts.PhoneMaxLength, 0);
+            Check.Length(address, nameof(address), EmployeeProfileConsts.AddressMaxLength, 0);
             Code = code;
             ERPCode = erpCode;
             FirstName = firstName;

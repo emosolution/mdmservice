@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "4ae41c1b-648f-426f-bb3f-c22f0bfe4508",
+      "Id": "69a92b45-4057-4945-9eb7-412391448269",
       "Name": "Prefix",
       "Type": "string",
       "EnumType": "",
@@ -52,7 +52,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",
@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "5b16d098-4cea-4f76-86de-cf8037e89fcd",
+      "Id": "67e8194d-5f52-4632-abbf-2cca18f125b9",
       "Name": "Suffix",
       "Type": "string",
       "EnumType": "",
@@ -74,7 +74,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(await _numberingConfigRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetCompanyLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
         {
             var query = (await _companyRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -53,14 +53,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Company>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<Company>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<Company>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid?>>> GetSystemDataLookupAsync(LookupRequestDto input)
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
         {
             var query = (await _systemDataRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
@@ -69,10 +69,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<SystemData>();
             var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid?>>
+            return new PagedResultDto<LookupDto<Guid>>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<SystemData>, List<LookupDto<Guid?>>>(lookupData)
+                Items = ObjectMapper.Map<List<SystemData>, List<LookupDto<Guid>>>(lookupData)
             };
         }
 
@@ -114,10 +114,21 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _numberingConfigRepository.GetListAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax);
+            var numberingConfigs = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax);
+            var items = numberingConfigs.Select(item => new
+            {
+                StartNumber = item.NumberingConfig.StartNumber,
+                Prefix = item.NumberingConfig.Prefix,
+                Suffix = item.NumberingConfig.Suffix,
+                Length = item.NumberingConfig.Length,
+
+                CompanyCode = item.Company?.Code,
+                SystemDataCode = item.SystemData?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<NumberingConfig>, List<NumberingConfigExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "NumberingConfigs.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

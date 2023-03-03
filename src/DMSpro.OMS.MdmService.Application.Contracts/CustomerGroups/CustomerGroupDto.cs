@@ -10,9 +10,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         public string Name { get; set; }
         public bool Active { get; set; }
         public DateTime? EffectiveDate { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Type GroupBy { get; set; }
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
         public Status Status { get; set; }
 
         public string ConcurrencyStamp { get; set; }

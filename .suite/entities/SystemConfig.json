@@ -18,7 +18,7 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "87d9605e-9f56-4bc9-a51c-6b81f3f1bb4a",
+      "Id": "f0fa9825-19e2-4255-90ae-cee1de53afe8",
       "Name": "Code",
       "Type": "string",
       "EnumType": "",
@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "c4b16cc5-69c8-416f-9139-8baef6a09282",
+      "Id": "f37401b3-0d8e-4258-ab6e-3d6361180467",
       "Name": "Description",
       "Type": "string",
       "EnumType": "",
@@ -62,7 +62,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "4cf5f266-8eab-4f58-babf-5098d1ee7b94",
+      "Id": "3ffd2888-2d17-4cec-8d3a-22c9c703569e",
       "Name": "Value",
       "Type": "string",
       "EnumType": "",
@@ -84,7 +84,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "65ccd5e7-b7b2-435b-ac40-c35e7d320307",
+      "Id": "0ad0bdda-6a35-488a-99e6-9d5deb547474",
       "Name": "DefaultValue",
       "Type": "string",
       "EnumType": "",
@@ -156,7 +156,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "f6e6d742-825e-4b1a-b6a0-b19e57b078ea",
+      "Id": "3b3abb04-d95a-4e8b-bf38-493d1397d606",
       "Name": "DataSource",
       "Type": "string",
       "EnumType": "",
@@ -168,7 +168,7 @@
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
-      "MaxLength": null,
+      "MaxLength": 1000,
       "SortOrder": 0,
       "SortType": 0,
       "Regex": "",

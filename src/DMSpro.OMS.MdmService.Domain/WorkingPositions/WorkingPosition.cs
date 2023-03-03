@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         [NotNull]
         public virtual string Code { get; set; }
 
-        [NotNull]
+        [CanBeNull]
         public virtual string Name { get; set; }
 
         [CanBeNull]
@@ -37,7 +37,8 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), WorkingPositionConsts.CodeMaxLength, WorkingPositionConsts.CodeMinLength);
-            Check.NotNull(name, nameof(name));
+            Check.Length(name, nameof(name), WorkingPositionConsts.NameMaxLength, 0);
+            Check.Length(description, nameof(description), WorkingPositionConsts.DescriptionMaxLength, 0);
             Code = code;
             Name = name;
             Description = description;

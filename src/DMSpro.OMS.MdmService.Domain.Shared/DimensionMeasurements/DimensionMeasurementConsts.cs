@@ -11,7 +11,6 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 
         public const int CodeMinLength = 1;
         public const int CodeMaxLength = 20;
-        public const int NameMinLength = 1;
         public const int NameMaxLength = 50;
     }
 }

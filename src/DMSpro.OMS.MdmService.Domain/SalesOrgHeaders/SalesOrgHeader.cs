@@ -30,6 +30,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), SalesOrgHeaderConsts.CodeMaxLength, SalesOrgHeaderConsts.CodeMinLength);
+            Check.Length(name, nameof(name), SalesOrgHeaderConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
             Active = active;

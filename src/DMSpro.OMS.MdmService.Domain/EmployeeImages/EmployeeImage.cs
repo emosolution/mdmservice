@@ -35,6 +35,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         {
 
             Id = id;
+            Check.Length(description, nameof(description), EmployeeImageConsts.DescriptionMaxLength, 0);
             Description = description;
             Active = active;
             IsAvatar = isAvatar;

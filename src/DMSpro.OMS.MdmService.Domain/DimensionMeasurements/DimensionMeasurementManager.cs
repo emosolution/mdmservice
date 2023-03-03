@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.DimensionMeasurements
 {
@@ -19,8 +18,12 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
         }
 
         public async Task<DimensionMeasurement> CreateAsync(
-        string code, string name, uint value)
+        string code, string name, decimal value)
         {
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(code, nameof(code), DimensionMeasurementConsts.CodeMaxLength, DimensionMeasurementConsts.CodeMinLength);
+            Check.Length(name, nameof(name), DimensionMeasurementConsts.NameMaxLength);
+
             var dimensionMeasurement = new DimensionMeasurement(
              GuidGenerator.Create(),
              code, name, value
@@ -31,13 +34,14 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 
         public async Task<DimensionMeasurement> UpdateAsync(
             Guid id,
-            string code, string name, uint value, [CanBeNull] string concurrencyStamp = null
+            string code, string name, decimal value, [CanBeNull] string concurrencyStamp = null
         )
         {
-            var queryable = await _dimensionMeasurementRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+            Check.Length(code, nameof(code), DimensionMeasurementConsts.CodeMaxLength, DimensionMeasurementConsts.CodeMinLength);
+            Check.Length(name, nameof(name), DimensionMeasurementConsts.NameMaxLength);
 
-            var dimensionMeasurement = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var dimensionMeasurement = await _dimensionMeasurementRepository.GetAsync(id);
 
             dimensionMeasurement.Code = code;
             dimensionMeasurement.Name = name;

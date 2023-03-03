@@ -15,10 +15,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         Task<List<PriceListDetailWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
             Guid? uOMId = null,
@@ -31,10 +31,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         Task<List<PriceListDetail>> GetListAsync(
                     string filterText = null,
-                    int? priceMin = null,
-                    int? priceMax = null,
-                    int? basedOnPriceMin = null,
-                    int? basedOnPriceMax = null,
+                    decimal? priceMin = null,
+                    decimal? priceMax = null,
+                    decimal? basedOnPriceMin = null,
+                    decimal? basedOnPriceMax = null,
                     string description = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
@@ -44,10 +44,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         Task<long> GetCountAsync(
             string filterText = null,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
             Guid? uOMId = null,

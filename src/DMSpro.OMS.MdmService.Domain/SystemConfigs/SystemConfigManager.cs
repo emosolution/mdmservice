@@ -32,6 +32,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
             Check.NotNullOrWhiteSpace(defaultValue, nameof(defaultValue));
             Check.Length(defaultValue, nameof(defaultValue), SystemConfigConsts.DefaultValueMaxLength, SystemConfigConsts.DefaultValueMinLength);
             Check.NotNull(controlType, nameof(controlType));
+            Check.Length(dataSource, nameof(dataSource), SystemConfigConsts.DataSourceMaxLength);
 
             var systemConfig = new SystemConfig(
              GuidGenerator.Create(),
@@ -55,11 +56,9 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
             Check.NotNullOrWhiteSpace(defaultValue, nameof(defaultValue));
             Check.Length(defaultValue, nameof(defaultValue), SystemConfigConsts.DefaultValueMaxLength, SystemConfigConsts.DefaultValueMinLength);
             Check.NotNull(controlType, nameof(controlType));
+            Check.Length(dataSource, nameof(dataSource), SystemConfigConsts.DataSourceMaxLength);
 
-            var queryable = await _systemConfigRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var systemConfig = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var systemConfig = await _systemConfigRepository.GetAsync(id);
 
             systemConfig.Code = code;
             systemConfig.Description = description;

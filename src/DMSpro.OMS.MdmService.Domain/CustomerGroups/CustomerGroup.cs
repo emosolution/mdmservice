@@ -40,6 +40,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), CustomerGroupConsts.CodeMaxLength, CustomerGroupConsts.CodeMinLength);
+            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength, 0);
             Code = code;
             Name = name;
             Active = active;

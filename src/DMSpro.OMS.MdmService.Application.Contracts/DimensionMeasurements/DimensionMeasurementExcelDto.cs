@@ -6,6 +6,6 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public uint Value { get; set; }
+        public decimal Value { get; set; }
     }
 }

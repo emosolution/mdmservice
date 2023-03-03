@@ -60,7 +60,5 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             Guid? salesOrgHeaderId = null,
             Guid? parentId = null,
             CancellationToken cancellationToken = default);
-        
-
     }
 }

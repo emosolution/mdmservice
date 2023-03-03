@@ -29,16 +29,16 @@ namespace DMSpro.OMS.MdmService.Currencies
 
             await _currencyRepository.InsertAsync(new Currency
             (
-                id: Guid.Parse("b9db60e3-0dc5-4b87-be00-55e2fbf01676"),
-                code: "0c7175bbe58d42db9133",
-                name: "bc05aa92eadd42a19c098ffd52269cd95716eba9eff7452fa3de16a7719e529d788f4fc4c7034f08934d3495b875f87a8181"
+                id: Guid.Parse("90d6126f-c3e7-45d4-9cae-4898bcb313cd"),
+                code: "f8e59fa359dd41d8984b",
+                name: "ed63c435c5cc44b8880537f259d294a0152a95cac8a64d859c80e6d5bfd9208e0910a330cc954fc88d5bee52fc2cf83db142"
             ));
 
             await _currencyRepository.InsertAsync(new Currency
             (
-                id: Guid.Parse("f879d4a6-0695-4106-ae96-fadbc0e3fe81"),
-                code: "59d29f6da1024153bf34",
-                name: "0ba4c5bb6865482889d580c6fe4c6adc03be00d6b13640689d9c2e42822ab871055670ef8959490b9e5f0821047bd0634d9f"
+                id: Guid.Parse("9b21e357-66b2-4b0c-a7a5-e01349305c45"),
+                code: "42772b749dce4cceaa33",
+                name: "c71b5ce289354dfe907bcaf95e89d909add159bdbb6641d388dd1b98de9d459ad39693b6a89a4fbeb668b64fad9e4bbb4cec"
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

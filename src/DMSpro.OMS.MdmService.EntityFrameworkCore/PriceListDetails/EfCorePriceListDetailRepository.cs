@@ -35,10 +35,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         public async Task<List<PriceListDetailWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
             Guid? uOMId = null,
@@ -76,10 +76,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         protected virtual IQueryable<PriceListDetailWithNavigationProperties> ApplyFilter(
             IQueryable<PriceListDetailWithNavigationProperties> query,
             string filterText,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
             Guid? uOMId = null,
@@ -99,10 +99,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         public async Task<List<PriceListDetail>> GetListAsync(
             string filterText = null,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -116,10 +116,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
 
         public async Task<long> GetCountAsync(
             string filterText = null,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null,
             Guid? priceListId = null,
             Guid? uOMId = null,
@@ -134,10 +134,10 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         protected virtual IQueryable<PriceListDetail> ApplyFilter(
             IQueryable<PriceListDetail> query,
             string filterText,
-            int? priceMin = null,
-            int? priceMax = null,
-            int? basedOnPriceMin = null,
-            int? basedOnPriceMax = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            decimal? basedOnPriceMin = null,
+            decimal? basedOnPriceMax = null,
             string description = null)
         {
             return query

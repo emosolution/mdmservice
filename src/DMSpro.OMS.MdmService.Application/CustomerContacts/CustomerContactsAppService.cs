@@ -46,18 +46,18 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
 
         public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
         {
-           var query = (await _customerRepository.GetQueryableAsync())
-               .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                   x => x.Code != null &&
-                        x.Code.Contains(input.Filter));
+            var query = (await _customerRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
 
-           var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Customer>();
-           var totalCount = query.Count();
-           return new PagedResultDto<LookupDto<Guid>>
-           {
-               TotalCount = totalCount,
-               Items = ObjectMapper.Map<List<Customer>, List<LookupDto<Guid>>>(lookupData)
-           };
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Customer>();
+            var totalCount = query.Count();
+            return new PagedResultDto<LookupDto<Guid>>
+            {
+                TotalCount = totalCount,
+                Items = ObjectMapper.Map<List<Customer>, List<LookupDto<Guid>>>(lookupData)
+            };
         }
 
         [Authorize(MdmServicePermissions.Customers.Delete)]
@@ -106,10 +106,28 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _customerContactRepository.GetListAsync(input.FilterText, input.Title, input.FirstName, input.LastName, input.Gender, input.DateOfBirthMin, input.DateOfBirthMax, input.Phone, input.Email, input.Address, input.IdentityNumber, input.BankName, input.BankAccName, input.BankAccNumber);
+            var customerContacts = await _customerContactRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Title, input.FirstName, input.LastName, input.Gender, input.DateOfBirthMin, input.DateOfBirthMax, input.Phone, input.Email, input.Address, input.IdentityNumber, input.BankName, input.BankAccName, input.BankAccNumber);
+            var items = customerContacts.Select(item => new
+            {
+                Title = item.CustomerContact.Title,
+                FirstName = item.CustomerContact.FirstName,
+                LastName = item.CustomerContact.LastName,
+                Gender = item.CustomerContact.Gender,
+                DateOfBirth = item.CustomerContact.DateOfBirth,
+                Phone = item.CustomerContact.Phone,
+                Email = item.CustomerContact.Email,
+                Address = item.CustomerContact.Address,
+                IdentityNumber = item.CustomerContact.IdentityNumber,
+                BankName = item.CustomerContact.BankName,
+                BankAccName = item.CustomerContact.BankAccName,
+                BankAccNumber = item.CustomerContact.BankAccNumber,
+
+                CustomerCode = item.Customer?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<CustomerContact>, List<CustomerContactExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "CustomerContacts.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

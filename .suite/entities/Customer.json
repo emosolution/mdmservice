@@ -436,7 +436,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "8712dcb2-ab92-4277-9bc0-a8036e61a697",
+      "Id": "9d04a511-e6ac-47ff-8cf2-396aa1a30150",
       "Name": "SFACustomerCode",
       "Type": "string",
       "EnumType": "",
@@ -445,9 +445,9 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 1,
+      "MinLength": null,
       "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,

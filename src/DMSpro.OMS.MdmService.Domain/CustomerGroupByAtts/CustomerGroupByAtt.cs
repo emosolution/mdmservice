@@ -37,6 +37,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
         {
 
             Id = id;
+            Check.Length(valueCode, nameof(valueCode), CustomerGroupByAttConsts.ValueCodeMaxLength, 0);
+            Check.Length(valueName, nameof(valueName), CustomerGroupByAttConsts.ValueNameMaxLength, 0);
             ValueCode = valueCode;
             ValueName = valueName;
             CustomerGroupId = customerGroupId;

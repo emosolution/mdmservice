@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        [StringLength(HolidayDetailConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public Guid HolidayId { get; set; }
 

@@ -11,7 +11,6 @@ namespace DMSpro.OMS.MdmService.Currencies
 
         public const int CodeMinLength = 1;
         public const int CodeMaxLength = 20;
-        public const int NameMinLength = 0;
         public const int NameMaxLength = 100;
     }
 }

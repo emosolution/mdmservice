@@ -24,6 +24,7 @@ namespace DMSpro.OMS.MdmService.Holidays
         {
             Check.Range(year, nameof(year), HolidayConsts.YearMinLength, HolidayConsts.YearMaxLength);
             Check.NotNullOrWhiteSpace(description, nameof(description));
+            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
 
             var holiday = new Holiday(
              GuidGenerator.Create(),
@@ -40,11 +41,9 @@ namespace DMSpro.OMS.MdmService.Holidays
         {
             Check.Range(year, nameof(year), HolidayConsts.YearMinLength, HolidayConsts.YearMaxLength);
             Check.NotNullOrWhiteSpace(description, nameof(description));
+            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
 
-            var queryable = await _holidayRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var holiday = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var holiday = await _holidayRepository.GetAsync(id);
 
             holiday.Year = year;
             holiday.Description = description;

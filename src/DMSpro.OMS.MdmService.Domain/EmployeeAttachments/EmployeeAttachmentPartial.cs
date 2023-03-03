@@ -15,10 +15,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 
 		public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "url",
-            };
+			return new();
         }
     }
 }

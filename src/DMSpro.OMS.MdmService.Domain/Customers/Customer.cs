@@ -72,7 +72,7 @@ namespace DMSpro.OMS.MdmService.Customers
         [CanBeNull]
         public virtual string Longitude { get; set; }
 
-        [NotNull]
+        [CanBeNull]
         public virtual string SFACustomerCode { get; set; }
 
         public virtual DateTime LastOrderDate { get; set; }
@@ -136,8 +136,7 @@ namespace DMSpro.OMS.MdmService.Customers
             Check.Length(address, nameof(address), CustomerConsts.AddressMaxLength, 0);
             Check.Length(latitude, nameof(latitude), CustomerConsts.LatitudeMaxLength, 0);
             Check.Length(longitude, nameof(longitude), CustomerConsts.LongitudeMaxLength, 0);
-            Check.NotNull(sfaCustomerCode, nameof(sfaCustomerCode));
-            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength, CustomerConsts.SFACustomerCodeMinLength);
+            Check.Length(sfaCustomerCode, nameof(sfaCustomerCode), CustomerConsts.SFACustomerCodeMaxLength, 0);
             Code = code;
             Name = name;
             Phone1 = phone1;
