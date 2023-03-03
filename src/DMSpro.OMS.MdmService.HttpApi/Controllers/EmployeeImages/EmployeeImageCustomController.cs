@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPost]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync([FromForm] EmployeeImageCreateDto input)
         {
             try
             {
