@@ -1,7 +1,9 @@
-﻿using DMSpro.OMS.MdmService.EmployeeImages;
+﻿using DMSpro.OMS.MdmService.EmployeeAttachments;
+using DMSpro.OMS.MdmService.EmployeeImages;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Content;
@@ -12,37 +14,87 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
     {
         [HttpDelete]
         [Route("delete-many")]
-        public virtual Task DeleteManyAsync(List<Guid> ids)
+        public virtual async Task DeleteManyAsync(List<Guid> ids)
         {
-            return _employeeImagesAppService.DeleteManyAsync(ids);
+            try
+            {
+                await _employeeImagesAppService.DeleteManyAsync(ids);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpGet]
         [Route("get-file")]
-        public virtual Task<IRemoteStreamContent> GetFileAsync(Guid id)
+        public virtual async Task<IRemoteStreamContent> GetFileAsync(Guid id)
         {
-            return _employeeImagesAppService.GetFileAsync(id);
+            try
+            {
+                return await _employeeImagesAppService.GetFileAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpPost]
-        public virtual Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAsync([Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
         {
-            return _employeeImagesAppService.CreateAsync(employeeId, description, active, inputFile);
+            try
+            {
+                return await _employeeImagesAppService.CreateAsync(employeeId, description, active, inputFile);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, [Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
         {
-            return _employeeImagesAppService.UpdateAsync(id, employeeId, description, active, inputFile);
+            try
+            {
+                return await _employeeImagesAppService.UpdateAsync(id, employeeId, description, active, inputFile);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message);
+            }
         }
 
         [HttpPost]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync([Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
         {
             try
             {
@@ -60,8 +112,10 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPut]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync([Required] Guid employeeId,
+            [StringLength(EmployeeAttachmentConsts.DescriptionMaxLength)] string description,
+            bool active,
+            [Required] IRemoteStreamContent inputFile)
         {
             try
             {

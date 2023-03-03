@@ -18,61 +18,37 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
     public partial class EmployeeImagesAppService
     {
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, 
+            string description, bool active, IRemoteStreamContent inputFile)
         {
-            var input = new EmployeeImageCreateDto()
-            {
-                Description = description,
-                Active = active,
-                File = inputFile,
-                EmployeeProfileId = employeeId
-            };
-            return await CreateImageAsync(input, false);
+            return await CreateImageAsync(employeeId, description, 
+                active, inputFile, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, Guid employeeId, 
+            string description, bool active, IRemoteStreamContent inputFile)
         {
-            var input = new EmployeeImageUpdateDto()
-            {
-                Description = description,
-                Active = active,
-                File = inputFile,
-                EmployeeProfileId = employeeId,
-            };
-            return await UpdateImageAsync(id, input, false);
+            return await UpdateImageAsync(id, employeeId, description, 
+                active, inputFile, false);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Create)]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(Guid employeeId, 
+            string description, bool active, IRemoteStreamContent inputFile)
         {
-            var input = new EmployeeImageCreateDto()
-            {
-                Description = description,
-                Active = active,
-                File = inputFile,
-                EmployeeProfileId = employeeId
-            };
-            return await CreateImageAsync(input, true);
+           return await CreateImageAsync(employeeId, description,
+                active, inputFile, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Edit)]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, string description,
-            bool active, IRemoteStreamContent inputFile)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(Guid employeeId, 
+            string description, bool active, IRemoteStreamContent inputFile)
         {
             var employee = await _employeeProfileRepository.GetAsync(employeeId);
-            var image = await _employeeImageRepository.GetAsync(x => x.EmployeeProfileId == employee.Id && x.IsAvatar == true);
-            var input = new EmployeeImageUpdateDto()
-            {
-                Description = description,
-                Active = active,
-                File = inputFile,
-                EmployeeProfileId = employeeId,
-            };
-            return await UpdateImageAsync(image.Id, input, true);
+            var image = await _employeeImageRepository.GetAsync(x => x.EmployeeProfileId == employee.Id && 
+                x.IsAvatar == true);
+            return await UpdateImageAsync(image.Id, employeeId, description, active, inputFile, true);
         }
 
         [Authorize(MdmServicePermissions.EmployeeProfiles.Delete)]
@@ -109,17 +85,10 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             return remoteStreamContent;
         }
 
-        private async Task<EmployeeImageDto> CreateImageAsync(EmployeeImageCreateDto input, bool isAvatarImage = false)
+        private async Task<EmployeeImageDto> CreateImageAsync(Guid employeeId, string description, 
+            bool active, IRemoteStreamContent inputFile, bool isAvatarImage = false)
         {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -127,7 +96,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
             }
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
 
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
@@ -135,7 +104,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             {
                 TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
                 DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
@@ -147,23 +116,17 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             {
                 await SetAllIsAvatarFalse();
             }
-            var EmployeeImage = await _employeeImageManager.CreateAsync(input.EmployeeProfileId,
-                input.Description, input.Active, isAvatarImage, Guid.Parse(file.Id));
+            var EmployeeImage = await _employeeImageManager.CreateAsync(employeeId,
+                description, active, isAvatarImage, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
         }
 
-        private async Task<EmployeeImageDto> UpdateImageAsync(Guid id, EmployeeImageUpdateDto input, bool isAvatarImage = false)
+        private async Task<EmployeeImageDto> UpdateImageAsync(Guid id, Guid employeeId, 
+            string description, bool active, IRemoteStreamContent inputFile, 
+            bool isAvatarImage = false)
         {
-            if (input.EmployeeProfileId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
-            }
-            if (input.File == null)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["File"]]);
-            }
-            string contentType = input.File.ContentType;
+            string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
                 var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
@@ -174,22 +137,23 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             var record = await _employeeImageRepository.GetAsync(id);
             string tenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString();
             using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+
             DeleteFilesRequest deleteRequest = new()
             {
                 TenantId = tenantId,
             };
             deleteRequest.FileIds.Add(record.FileId.ToString());
-            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
             await client.DeleteFilesAsync(deleteRequest);
 
             var stream = new MemoryStream();
-            await input.File.GetStream().CopyToAsync(stream);
+            await inputFile.GetStream().CopyToAsync(stream);
             var content = ByteString.CopyFrom(stream.ToArray());
             UploadFileRequest uploadRequest = new()
             {
                 TenantId = tenantId,
                 DirectoryId = _fileManagementInfoAppService.EmployeeImageDirectoryId.ToString(),
-                Name = input.File.FileName,
+                Name = inputFile.FileName,
                 ContentType = contentType,
                 Content = content,
             };
@@ -201,8 +165,8 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
                 await SetAllIsAvatarFalse();
             }
             var EmployeeImage = await _employeeImageManager.UpdateAsync(
-                id, input.EmployeeProfileId, input.Description, input.Active,
-                isAvatarImage, Guid.Parse(file.Id), input.ConcurrencyStamp);
+                id, employeeId, description, active,
+                isAvatarImage, Guid.Parse(file.Id));
 
             return ObjectMapper.Map<EmployeeImage, EmployeeImageDto>(EmployeeImage);
         }
