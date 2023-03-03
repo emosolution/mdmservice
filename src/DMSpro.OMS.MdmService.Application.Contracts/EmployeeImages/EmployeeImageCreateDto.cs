@@ -10,8 +10,6 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
         public bool Active { get; set; }
         //public bool IsAvatar { get; set; } = false;
         [Required]
-        public IRemoteStreamContent File { get; set; }
-        [Required]
         public Guid EmployeeProfileId { get; set; }
     }
 }

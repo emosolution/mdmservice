@@ -26,11 +26,11 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPost]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> CreateAvatarAsync([FromForm] EmployeeImageCreateDto input)
+        public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input, IRemoteStreamContent file)
         {
             try
             {
-                return await _employeeImagesAppService.CreateAvatarAsync(input);
+                return await _employeeImagesAppService.CreateAvatarAsync(input, file);
             }
             catch (BusinessException bex)
             {
@@ -44,11 +44,11 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
 
         [HttpPut]
         [Route("avatar")]
-        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
+        public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input, IRemoteStreamContent file)
         {
             try
             {
-                return await _employeeImagesAppService.UpdateAvatarAsync(input);
+                return await _employeeImagesAppService.UpdateAvatarAsync(input, file);
             }
             catch (BusinessException bex)
             {

@@ -47822,6 +47822,14 @@
                       "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -47845,6 +47853,14 @@
                       "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                       "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
                       "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -47923,6 +47939,14 @@
                       "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -47938,6 +47962,14 @@
                       "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                       "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
                       "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -48320,8 +48352,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
+            "CreateAsyncByInputAndFile": {
+              "uniqueName": "CreateAsyncByInputAndFile",
               "name": "CreateAsync",
               "httpMethod": "POST",
               "url": "api/mdm-service/employee-images",
@@ -48332,6 +48364,14 @@
                   "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
                   "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
                   "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -48348,6 +48388,18 @@
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
                   "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "file",
+                  "name": "file",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": ""
                 }
               ],
               "returnValue": {
@@ -48357,8 +48409,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
+            "UpdateAsyncByIdAndInputAndFile": {
+              "uniqueName": "UpdateAsyncByIdAndInputAndFile",
               "name": "UpdateAsync",
               "httpMethod": "PUT",
               "url": "api/mdm-service/employee-images/{id}",
@@ -48377,6 +48429,14 @@
                   "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                   "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
                   "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -48404,6 +48464,18 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "file",
+                  "name": "file",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
                   "descriptorName": ""
                 }
               ],
@@ -48612,8 +48684,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "CreateAvatarAsyncByInput": {
-              "uniqueName": "CreateAvatarAsyncByInput",
+            "CreateAvatarAsyncByInputAndFile": {
+              "uniqueName": "CreateAvatarAsyncByInputAndFile",
               "name": "CreateAvatarAsync",
               "httpMethod": "POST",
               "url": "api/mdm-service/employee-images/avatar",
@@ -48626,36 +48698,32 @@
                   "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
                   "isOptional": false,
                   "defaultValue": null
+                },
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null
                 }
               ],
               "parameters": [
                 {
                   "nameOnMethod": "input",
-                  "name": "Description",
+                  "name": "input",
                   "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
+                  "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageCreateDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
-                  "bindingSourceId": "Form",
-                  "descriptorName": "input"
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
                 },
                 {
-                  "nameOnMethod": "input",
-                  "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Form",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "File",
+                  "nameOnMethod": "file",
+                  "name": "file",
                   "jsonName": null,
                   "type": "Volo.Abp.Content.IRemoteStreamContent",
                   "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
@@ -48663,19 +48731,7 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "FormFile",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "EmployeeProfileId",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Form",
-                  "descriptorName": "input"
+                  "descriptorName": ""
                 }
               ],
               "returnValue": {
@@ -48685,8 +48741,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
             },
-            "UpdateAvatarAsyncByInput": {
-              "uniqueName": "UpdateAvatarAsyncByInput",
+            "UpdateAvatarAsyncByInputAndFile": {
+              "uniqueName": "UpdateAvatarAsyncByInputAndFile",
               "name": "UpdateAvatarAsync",
               "httpMethod": "PUT",
               "url": "api/mdm-service/employee-images/avatar",
@@ -48697,6 +48753,14 @@
                   "typeAsString": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
                   "type": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
                   "typeSimple": "DMSpro.OMS.MdmService.EmployeeImages.EmployeeImageUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -48712,6 +48776,18 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "file",
+                  "name": "file",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
                   "descriptorName": ""
                 }
               ],

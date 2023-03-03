@@ -51,16 +51,16 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
         }
 
         [HttpPost]
-        public virtual Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
+        public virtual Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input, IRemoteStreamContent file)
         {
-            return _employeeImagesAppService.CreateAsync(input);
+            return _employeeImagesAppService.CreateAsync(input, file);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
+        public virtual Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input, IRemoteStreamContent file)
         {
-            return _employeeImagesAppService.UpdateAsync(id, input);
+            return _employeeImagesAppService.UpdateAsync(id, input, file);
         }
 
         [HttpGet]

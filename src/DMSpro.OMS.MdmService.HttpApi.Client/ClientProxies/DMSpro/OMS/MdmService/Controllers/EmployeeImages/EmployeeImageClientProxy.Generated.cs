@@ -52,20 +52,22 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
-    public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input)
+    public virtual async Task<EmployeeImageDto> CreateAsync(EmployeeImageCreateDto input, IRemoteStreamContent file)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(EmployeeImageCreateDto), input }
+            { typeof(EmployeeImageCreateDto), input },
+            { typeof(IRemoteStreamContent), file }
         });
     }
 
-    public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input)
+    public virtual async Task<EmployeeImageDto> UpdateAsync(Guid id, EmployeeImageUpdateDto input, IRemoteStreamContent file)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id },
-            { typeof(EmployeeImageUpdateDto), input }
+            { typeof(EmployeeImageUpdateDto), input },
+            { typeof(IRemoteStreamContent), file }
         });
     }
 
@@ -98,19 +100,21 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
-    public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input)
+    public virtual async Task<EmployeeImageDto> CreateAvatarAsync(EmployeeImageCreateDto input, IRemoteStreamContent file)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(CreateAvatarAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(EmployeeImageCreateDto), input }
+            { typeof(EmployeeImageCreateDto), input },
+            { typeof(IRemoteStreamContent), file }
         });
     }
 
-    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input)
+    public virtual async Task<EmployeeImageDto> UpdateAvatarAsync(EmployeeImageUpdateDto input, IRemoteStreamContent file)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(UpdateAvatarAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(EmployeeImageUpdateDto), input }
+            { typeof(EmployeeImageUpdateDto), input },
+            { typeof(IRemoteStreamContent), file }
         });
     }
 
