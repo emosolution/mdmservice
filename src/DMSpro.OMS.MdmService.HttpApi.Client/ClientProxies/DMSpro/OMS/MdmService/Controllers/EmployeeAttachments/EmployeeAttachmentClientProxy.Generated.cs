@@ -52,23 +52,6 @@ public partial class EmployeeAttachmentClientProxy : ClientProxyBase<IEmployeeAt
         });
     }
 
-    public virtual async Task<EmployeeAttachmentDto> CreateAsync(EmployeeAttachmentCreateDto input)
-    {
-        return await RequestAsync<EmployeeAttachmentDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(EmployeeAttachmentCreateDto), input }
-        });
-    }
-
-    public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, EmployeeAttachmentUpdateDto input)
-    {
-        return await RequestAsync<EmployeeAttachmentDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(Guid), id },
-            { typeof(EmployeeAttachmentUpdateDto), input }
-        });
-    }
-
     public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(EmployeeAttachmentExcelDownloadDto input)
     {
         return await RequestAsync<IRemoteStreamContent>(nameof(GetListAsExcelFileAsync), new ClientProxyRequestTypeValue
@@ -95,6 +78,29 @@ public partial class EmployeeAttachmentClientProxy : ClientProxyBase<IEmployeeAt
         return await RequestAsync<IRemoteStreamContent>(nameof(GetFileAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
+        });
+    }
+
+    public virtual async Task<EmployeeAttachmentDto> CreateAsync(Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    {
+        return await RequestAsync<EmployeeAttachmentDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), employeeId },
+            { typeof(string), description },
+            { typeof(bool), active },
+            { typeof(IRemoteStreamContent), inputFile }
+        });
+    }
+
+    public virtual async Task<EmployeeAttachmentDto> UpdateAsync(Guid id, Guid employeeId, string description, bool active, IRemoteStreamContent inputFile)
+    {
+        return await RequestAsync<EmployeeAttachmentDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id },
+            { typeof(Guid), employeeId },
+            { typeof(string), description },
+            { typeof(bool), active },
+            { typeof(IRemoteStreamContent), inputFile }
         });
     }
 

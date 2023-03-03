@@ -45643,48 +45643,6 @@
                   }
                 },
                 {
-                  "name": "CreateAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
-                  }
-                },
-                {
-                  "name": "UpdateAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "id",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
-                  }
-                },
-                {
                   "name": "GetListAsExcelFileAsync",
                   "parametersOnMethod": [
                     {
@@ -45741,6 +45699,96 @@
                   "returnValue": {
                     "type": "Volo.Abp.Content.IRemoteStreamContent",
                     "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+                  }
+                },
+                {
+                  "name": "CreateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "employeeId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "description",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "active",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "inputFile",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
+                  }
+                },
+                {
+                  "name": "UpdateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "employeeId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "description",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "active",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "inputFile",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
                   }
                 },
                 {
@@ -46062,100 +46110,6 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
             },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
-              "httpMethod": "POST",
-              "url": "api/mdm-service/employee-attachments",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
-                "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
-            },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
-              "name": "UpdateAsync",
-              "httpMethod": "PUT",
-              "url": "api/mdm-service/employee-attachments/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentUpdateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
-                "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
-            },
             "GetListAsExcelFileAsyncByInput": {
               "uniqueName": "GetListAsExcelFileAsyncByInput",
               "name": "GetListAsExcelFileAsync",
@@ -46338,6 +46292,220 @@
               "returnValue": {
                 "type": "Volo.Abp.Content.IRemoteStreamContent",
                 "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
+            },
+            "CreateAsyncByEmployeeIdAndDescriptionAndActiveAndInputFile": {
+              "uniqueName": "CreateAsyncByEmployeeIdAndDescriptionAndActiveAndInputFile",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/employee-attachments",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "employeeId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "description",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "active",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "inputFile",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "employeeId",
+                  "name": "employeeId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "description",
+                  "name": "description",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "active",
+                  "name": "active",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "inputFile",
+                  "name": "inputFile",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
+            },
+            "UpdateAsyncByIdAndEmployeeIdAndDescriptionAndActiveAndInputFile": {
+              "uniqueName": "UpdateAsyncByIdAndEmployeeIdAndDescriptionAndActiveAndInputFile",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/employee-attachments/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "employeeId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "description",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "active",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "inputFile",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "employeeId",
+                  "name": "employeeId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "description",
+                  "name": "description",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "active",
+                  "name": "active",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "inputFile",
+                  "name": "inputFile",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeAttachments.EmployeeAttachmentDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeAttachments.IEmployeeAttachmentsAppService"
