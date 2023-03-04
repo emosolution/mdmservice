@@ -371,6 +371,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<WorkingPosition, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<CustomerImage, CustomerImageDto>();
+        CreateMap<CustomerImage, CustomerImageWithDetailsDto>();
         CreateMap<CustomerImage, CustomerImageExcelDto>();
         CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
     }
