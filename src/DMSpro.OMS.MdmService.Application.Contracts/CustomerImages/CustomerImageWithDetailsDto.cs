@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Items;
+using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
 namespace DMSpro.OMS.MdmService.CustomerImages
@@ -12,6 +14,9 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         public Guid FileId { get; set; }
         public Guid CustomerId { get; set; }
         public Guid? POSMItemId { get; set; }
+
+        public CustomerDto Customer { get; set; }
+        public ItemDto ItemPOSM { get; set; }
 
         public string ConcurrencyStamp { get; set; }
 
