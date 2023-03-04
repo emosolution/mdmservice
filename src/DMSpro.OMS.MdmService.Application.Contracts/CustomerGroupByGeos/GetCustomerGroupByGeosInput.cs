@@ -11,7 +11,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
         public DateTime? EffectiveDateMin { get; set; }
         public DateTime? EffectiveDateMax { get; set; }
         public Guid? CustomerGroupId { get; set; }
-        public Guid? GeoMasterId { get; set; }
+        public Guid? GeoMaster0Id { get; set; }
+        public Guid? GeoMaster1Id { get; set; }
+        public Guid? GeoMaster2Id { get; set; }
+        public Guid? GeoMaster3Id { get; set; }
+        public Guid? GeoMaster4Id { get; set; }
 
         public GetCustomerGroupByGeosInput()
         {

@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.CustomerGroupByGeo.Id == Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a")).ShouldBe(true);
-            result.Items.Any(x => x.CustomerGroupByGeo.Id == Guid.Parse("eef99443-cea3-4efc-851c-935a9e06531f")).ShouldBe(true);
+            result.Items.Any(x => x.CustomerGroupByGeo.Id == Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef")).ShouldBe(true);
+            result.Items.Any(x => x.CustomerGroupByGeo.Id == Guid.Parse("cb2f83d4-2dbd-4947-b02b-bf67d993b48e")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _customerGroupByGeosAppService.GetAsync(Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"));
+            var result = await _customerGroupByGeosAppService.GetAsync(Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"));
+            result.Id.ShouldBe(Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"));
         }
 
         [Fact]
@@ -49,9 +49,9 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             var input = new CustomerGroupByGeoCreateDto
             {
                 Active = true,
-                EffectiveDate = new DateTime(2006, 8, 21),
-                CustomerGroupId = Guid.Parse("62485c9b-4efb-48f4-a7e3-63a6ab70dfe9"),
-                GeoMasterId = Guid.Parse("d9d076a2-ac81-4ca0-950c-5a573acea367")
+                EffectiveDate = new DateTime(2018, 6, 19),
+                CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"),
+
             };
 
             // Act
@@ -62,7 +62,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 
             result.ShouldNotBe(null);
             result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2006, 8, 21));
+            result.EffectiveDate.ShouldBe(new DateTime(2018, 6, 19));
         }
 
         [Fact]
@@ -72,30 +72,30 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             var input = new CustomerGroupByGeoUpdateDto()
             {
                 Active = true,
-                EffectiveDate = new DateTime(2003, 11, 15),
-                CustomerGroupId = Guid.Parse("62485c9b-4efb-48f4-a7e3-63a6ab70dfe9"),
-                GeoMasterId = Guid.Parse("d9d076a2-ac81-4ca0-950c-5a573acea367")
+                EffectiveDate = new DateTime(2001, 6, 16),
+                CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"),
+
             };
 
             // Act
-            var serviceResult = await _customerGroupByGeosAppService.UpdateAsync(Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"), input);
+            var serviceResult = await _customerGroupByGeosAppService.UpdateAsync(Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"), input);
 
             // Assert
             var result = await _customerGroupByGeoRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
             result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2003, 11, 15));
+            result.EffectiveDate.ShouldBe(new DateTime(2001, 6, 16));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _customerGroupByGeosAppService.DeleteAsync(Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"));
+            await _customerGroupByGeosAppService.DeleteAsync(Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"));
 
             // Assert
-            var result = await _customerGroupByGeoRepository.FindAsync(c => c.Id == Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"));
+            var result = await _customerGroupByGeoRepository.FindAsync(c => c.Id == Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"));
 
             result.ShouldBeNull();
         }

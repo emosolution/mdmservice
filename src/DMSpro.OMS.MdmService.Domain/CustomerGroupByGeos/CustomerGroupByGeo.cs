@@ -1,16 +1,10 @@
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.GeoMasters;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
 
 using Volo.Abp;
-using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
@@ -22,24 +16,29 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 
         public virtual DateTime? EffectiveDate { get; set; }
         public Guid CustomerGroupId { get; set; }
-        public Guid GeoMasterId { get; set; }
-
-        public virtual CustomerGroup CustomerGroup { get; set; }
-        public virtual GeoMaster GeoMaster { get; set; }
+        public Guid? GeoMaster0Id { get; set; }
+        public Guid? GeoMaster1Id { get; set; }
+        public Guid? GeoMaster2Id { get; set; }
+        public Guid? GeoMaster3Id { get; set; }
+        public Guid? GeoMaster4Id { get; set; }
 
         public CustomerGroupByGeo()
         {
 
         }
 
-        public CustomerGroupByGeo(Guid id, Guid customerGroupId, Guid geoMasterId, bool active, DateTime? effectiveDate = null)
+        public CustomerGroupByGeo(Guid id, Guid customerGroupId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, bool active, DateTime? effectiveDate = null)
         {
 
             Id = id;
             Active = active;
             EffectiveDate = effectiveDate;
             CustomerGroupId = customerGroupId;
-            GeoMasterId = geoMasterId;
+            GeoMaster0Id = geoMaster0Id;
+            GeoMaster1Id = geoMaster1Id;
+            GeoMaster2Id = geoMaster2Id;
+            GeoMaster3Id = geoMaster3Id;
+            GeoMaster4Id = geoMaster4Id;
         }
 
     }

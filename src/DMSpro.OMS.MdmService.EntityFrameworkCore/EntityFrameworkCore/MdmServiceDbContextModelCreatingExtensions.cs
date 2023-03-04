@@ -356,8 +356,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupByGeo.Active));
             b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroupByGeo.EffectiveDate));
             b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster).WithMany().IsRequired().HasForeignKey(x => x.GeoMasterId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
         });
+
         builder.Entity<CustomerGroupByList>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByLists", MdmServiceDbProperties.DbSchema);

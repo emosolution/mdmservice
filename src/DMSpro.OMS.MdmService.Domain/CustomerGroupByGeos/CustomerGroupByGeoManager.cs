@@ -20,14 +20,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
         }
 
         public async Task<CustomerGroupByGeo> CreateAsync(
-        Guid customerGroupId, Guid geoMasterId, bool active, DateTime? effectiveDate = null)
+        Guid customerGroupId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, bool active, DateTime? effectiveDate = null)
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
-            Check.NotNull(geoMasterId, nameof(geoMasterId));
 
             var customerGroupByGeo = new CustomerGroupByGeo(
              GuidGenerator.Create(),
-             customerGroupId, geoMasterId, active, effectiveDate
+             customerGroupId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, active, effectiveDate
              );
 
             return await _customerGroupByGeoRepository.InsertAsync(customerGroupByGeo);
@@ -35,19 +34,19 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 
         public async Task<CustomerGroupByGeo> UpdateAsync(
             Guid id,
-            Guid customerGroupId, Guid geoMasterId, bool active, DateTime? effectiveDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid customerGroupId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, bool active, DateTime? effectiveDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
-            Check.NotNull(geoMasterId, nameof(geoMasterId));
 
-            var queryable = await _customerGroupByGeoRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerGroupByGeo = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerGroupByGeo = await _customerGroupByGeoRepository.GetAsync(id);
 
             customerGroupByGeo.CustomerGroupId = customerGroupId;
-            customerGroupByGeo.GeoMasterId = geoMasterId;
+            customerGroupByGeo.GeoMaster0Id = geoMaster0Id;
+            customerGroupByGeo.GeoMaster1Id = geoMaster1Id;
+            customerGroupByGeo.GeoMaster2Id = geoMaster2Id;
+            customerGroupByGeo.GeoMaster3Id = geoMaster3Id;
+            customerGroupByGeo.GeoMaster4Id = geoMaster4Id;
             customerGroupByGeo.Active = active;
             customerGroupByGeo.EffectiveDate = effectiveDate;
 
