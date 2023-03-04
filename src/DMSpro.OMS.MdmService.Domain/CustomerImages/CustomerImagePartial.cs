@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Items;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CustomerImages
 {
@@ -18,5 +20,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
         {
             return new();
         }
+
+        public virtual Customer Customer { get; set; }
+        public virtual Item ItemPOSM { get; set; }
     }
 }

@@ -831,8 +831,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.IsAvatar).HasColumnName(nameof(CustomerImage.IsAvatar));
         b.Property(x => x.IsPOSM).HasColumnName(nameof(CustomerImage.IsPOSM));
         b.Property(x => x.FileId).HasColumnName(nameof(CustomerImage.FileId));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Item>().WithMany().HasForeignKey(x => x.POSMItemId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Item>(x => x.ItemPOSM).WithMany().HasForeignKey(x => x.POSMItemId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }

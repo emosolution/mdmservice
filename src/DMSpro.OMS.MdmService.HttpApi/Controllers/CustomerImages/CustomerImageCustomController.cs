@@ -7,8 +7,9 @@ using DMSpro.OMS.MdmService.EmployeeImages;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp;
+using DMSpro.OMS.MdmService.CustomerImages;
 
-namespace DMSpro.OMS.MdmService.CustomerImages
+namespace DMSpro.OMS.MdmService.Controllers.CustomerImages
 {
     public partial class CustomerImageController
     {

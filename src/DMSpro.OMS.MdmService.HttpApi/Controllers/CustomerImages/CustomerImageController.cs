@@ -6,8 +6,9 @@ using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.CustomerImages;
 
-namespace DMSpro.OMS.MdmService.CustomerImages
+namespace DMSpro.OMS.MdmService.Controllers.CustomerImages
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]
