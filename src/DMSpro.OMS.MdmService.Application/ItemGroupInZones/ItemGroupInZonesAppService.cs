@@ -10,37 +10,18 @@ using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
-using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemGroupInZones
 {
 
     [Authorize(MdmServicePermissions.ItemGroupInZones.Default)]
-    public class ItemGroupInZonesAppService : ApplicationService, IItemGroupInZonesAppService
+    public partial class ItemGroupInZonesAppService
     {
-        private readonly IDistributedCache<ItemGroupInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly IItemGroupInZoneRepository _itemGroupInZoneRepository;
-        private readonly ItemGroupInZoneManager _itemGroupInZoneManager;
-        private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
-        private readonly IRepository<ItemGroup, Guid> _itemGroupRepository;
-
-        public ItemGroupInZonesAppService(IItemGroupInZoneRepository itemGroupInZoneRepository, ItemGroupInZoneManager itemGroupInZoneManager, IDistributedCache<ItemGroupInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository, IRepository<ItemGroup, Guid> itemGroupRepository)
-        {
-            _excelDownloadTokenCache = excelDownloadTokenCache;
-            _itemGroupInZoneRepository = itemGroupInZoneRepository;
-            _itemGroupInZoneManager = itemGroupInZoneManager; _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
-            _itemGroupRepository = itemGroupRepository;
-        }
-
         public virtual async Task<PagedResultDto<ItemGroupInZoneWithNavigationPropertiesDto>> GetListAsync(GetItemGroupInZonesInput input)
         {
             var totalCount = await _itemGroupInZoneRepository.GetCountAsync(input.FilterText, input.EffectiveDateMin, input.EffectiveDateMax, input.EndDateMin, input.EndDateMax, input.Active, input.Description, input.SellingZoneId, input.ItemGroupId);

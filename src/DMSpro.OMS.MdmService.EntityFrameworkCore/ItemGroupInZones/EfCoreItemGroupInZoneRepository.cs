@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.ItemGroupInZones
 {
-    public class EfCoreItemGroupInZoneRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupInZone, Guid>, IItemGroupInZoneRepository
+    public partial class EfCoreItemGroupInZoneRepository : EfCoreRepository<MdmServiceDbContext, ItemGroupInZone, Guid>, IItemGroupInZoneRepository
     {
         public EfCoreItemGroupInZoneRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
             : base(dbContextProvider)

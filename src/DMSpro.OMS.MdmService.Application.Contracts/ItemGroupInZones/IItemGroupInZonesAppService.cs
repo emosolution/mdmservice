@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemGroupInZones
 {
-    public interface IItemGroupInZonesAppService : IApplicationService
+    public partial interface IItemGroupInZonesAppService : IApplicationService
     {
         Task<PagedResultDto<ItemGroupInZoneWithNavigationPropertiesDto>> GetListAsync(GetItemGroupInZonesInput input);
 

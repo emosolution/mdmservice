@@ -15,7 +15,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroupInZones
     [Area("mdmService")]
     [ControllerName("ItemGroupInZone")]
     [Route("api/mdm-service/item-group-in-zones")]
-    public class ItemGroupInZoneController : AbpController, IItemGroupInZonesAppService
+    public partial class ItemGroupInZoneController : AbpController, IItemGroupInZonesAppService
     {
         private readonly IItemGroupInZonesAppService _itemGroupInZonesAppService;
 

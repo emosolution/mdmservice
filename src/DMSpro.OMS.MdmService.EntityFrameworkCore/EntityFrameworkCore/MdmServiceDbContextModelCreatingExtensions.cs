@@ -849,8 +849,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.EndDate).HasColumnName(nameof(ItemGroupInZone.EndDate));
         b.Property(x => x.Active).HasColumnName(nameof(ItemGroupInZone.Active));
         b.Property(x => x.Description).HasColumnName(nameof(ItemGroupInZone.Description)).HasMaxLength(ItemGroupInZoneConsts.DescriptionMaxLength);
-        b.HasOne<SalesOrgHierarchy>().WithMany().IsRequired().HasForeignKey(x => x.SellingZoneId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<SalesOrgHierarchy>(x => x.SellingZone).WithMany().IsRequired().HasForeignKey(x => x.SellingZoneId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }
