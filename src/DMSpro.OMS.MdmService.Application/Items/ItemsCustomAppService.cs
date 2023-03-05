@@ -26,6 +26,23 @@ namespace DMSpro.OMS.MdmService.Items
             return result;
         }
 
+        public async Task<string> GetItemInfoForSOAsync(Guid companyId, DateTime lastApiDate)
+        {
+            Dictionary<string, List<string>> test1 = new()
+            {
+                {"1", new List<string>(){ "111", "111111" }},
+                {"2", new List<string>(){ "2222", "23333333" }},
+            };
+            Dictionary<string, ItemDto> test2 = new()
+            {
+                {"222", new ItemDto() },
+                {"333", new ItemDto() },
+            };
+            string jsonResult = $"{{routeWithItemList:{_jsonSerializer.Serialize(test1)}, " +
+                $"itemFullDetails:{_jsonSerializer.Serialize(test2)}}}";
+            return jsonResult;
+        }
+
         /*
         public async Task<ItemProfileWithDataDto> GetItemProfileWithData(Guid id)
         {

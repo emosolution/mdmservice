@@ -7,6 +7,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Items;
 using Volo.Abp.Content;
+using Volo.Abp.Json;
 
 namespace DMSpro.OMS.MdmService.Controllers.Items
 {
@@ -17,10 +18,11 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
     public partial class ItemController : AbpController, IItemsAppService
     {
         private readonly IItemsAppService _itemsAppService;
-
-        public ItemController(IItemsAppService itemsAppService)
+        private readonly IJsonSerializer _jsonSerializer;
+        public ItemController(IItemsAppService itemsAppService, IJsonSerializer jsonSerializer)
         {
             _itemsAppService = itemsAppService;
+            _jsonSerializer = jsonSerializer;
         }
 
         [HttpGet]

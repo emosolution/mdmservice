@@ -6,5 +6,7 @@ namespace DMSpro.OMS.MdmService.Items
     public partial interface IItemsAppService
     {
         Task<ItemProfileDto> GetItemProfileAsync(Guid id);
+
+        Task<string> GetItemInfoForSOAsync(Guid companyId, DateTime lastApiDate);
     }
 }

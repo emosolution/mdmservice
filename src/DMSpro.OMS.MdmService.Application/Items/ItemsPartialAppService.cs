@@ -12,6 +12,7 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
+using Volo.Abp.Json;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -23,6 +24,7 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IDistributedCache<ItemExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
         private readonly ItemManager _itemManager;
+        private readonly IJsonSerializer _jsonSerializer;
 
         private readonly IItemAttachmentRepository _itemAttachmentRepository;
         private readonly IItemImageRepository _itemImageRepository;
@@ -38,6 +40,7 @@ namespace DMSpro.OMS.MdmService.Items
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
             ItemManager itemManager,
+            IJsonSerializer jsonSerializer,
             IItemAttachmentRepository itemAttachmentRepository,
             IItemImageRepository itemImageRepository,
             //IItemAttachmentsAppService itemAttachmentsAppService,
@@ -54,6 +57,7 @@ namespace DMSpro.OMS.MdmService.Items
             _itemRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemManager = itemManager;
+            _jsonSerializer = jsonSerializer;
 
             _itemAttachmentRepository = itemAttachmentRepository;
             _itemImageRepository = itemImageRepository;

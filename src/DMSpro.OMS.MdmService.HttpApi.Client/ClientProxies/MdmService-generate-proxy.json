@@ -28326,6 +28326,31 @@
                   }
                 },
                 {
+                  "name": "GetItemInfoForSOAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastApiDate",
+                      "typeAsString": "System.DateTime, System.Private.CoreLib",
+                      "type": "System.DateTime",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -30196,6 +30221,63 @@
               "returnValue": {
                 "type": "DMSpro.OMS.MdmService.Items.ItemProfileDto",
                 "typeSimple": "DMSpro.OMS.MdmService.Items.ItemProfileDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
+            },
+            "GetItemInfoForSOAsyncByCompanyIdAndLastApiDate": {
+              "uniqueName": "GetItemInfoForSOAsyncByCompanyIdAndLastApiDate",
+              "name": "GetItemInfoForSOAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/items/test",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastApiDate",
+                  "typeAsString": "System.DateTime, System.Private.CoreLib",
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastApiDate",
+                  "name": "lastApiDate",
+                  "jsonName": null,
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
