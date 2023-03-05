@@ -10,6 +10,7 @@ using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
 using System.Linq;
 using Volo.Abp.MultiTenancy;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
@@ -20,6 +21,8 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
     private readonly ICompanyInZonesAppService _companyInZonesAppService;
     private readonly ICustomerInZonesAppService _customerInZonesAppService;
     private readonly IEmployeeProfileRepository _employeeProfileRepository;
+    private readonly ICompanyInZoneRepository _companyInZoneRepository;
+    private readonly ICustomerInZoneRepository _customerInZoneRepository;
     private readonly ICurrentTenant _currentTenant;
 
     public SalesOrgHierarchiesGRPCAppService(
@@ -28,6 +31,8 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         ICompanyInZonesAppService companyInZonesAppService,
         ICustomerInZonesAppService customerInZonesAppService,
         IEmployeeProfileRepository employeeProfileRepository,
+        ICompanyInZoneRepository companyInZoneRepository,
+        ICustomerInZoneRepository customerInZoneRepository,
         ICurrentTenant currentTenant)
     {
         _repository = repository;
@@ -35,6 +40,8 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         _companyInZonesAppService = companyInZonesAppService;
         _customerInZonesAppService = customerInZonesAppService;
         _employeeProfileRepository = employeeProfileRepository;
+        _companyInZoneRepository = companyInZoneRepository;
+        _customerInZoneRepository = customerInZoneRepository;
         _currentTenant = currentTenant;
     }
 
@@ -84,6 +91,7 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
                 {
                     return response;
                 }
+                response.Employee = employee;
             }
             if (!(await CheckCompany(request.CompanyId, sellingZone.Id, tenantId)))
             {
@@ -103,8 +111,87 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
                 Code = route.Code,
                 Name = route.Name,
             };
-            response.Employee = employee;
             return response;
+        }
+    }
+
+    public override async Task<GetSellingZoneFromCompanyAndCustomerResponse>
+        GetSellingZoneFromCompanyAndCustomer(GetSellingZoneFromCompanyAndCustomerRequest request, 
+            ServerCallContext context)
+    {
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
+        Guid companyId = Guid.Parse(request.CompanyId);
+        Guid? customerId = string.IsNullOrEmpty(request.CustomerId) ? null : new(request.CustomerId);
+        var response = new GetSellingZoneFromCompanyAndCustomerResponse();
+        List<SalesOrgHierarchy> companyZones = await GetSellingZonesFromCompany(companyId, tenantId);
+        List<SalesOrgHierarchy> commonZones = new(companyZones);
+        if (customerId != null)
+        {
+            List<SalesOrgHierarchy> customerZones = await GetSellingZonesFromCustomer((Guid) customerId, tenantId);
+            commonZones = customerZones.Intersect(companyZones).ToList();
+        }
+        if (commonZones.Count() < 1)
+        {
+            return response;
+        }
+        foreach (var zone in commonZones)
+        {
+            response.SellingZoneIds.Add(zone.Id.ToString());
+        }
+        return response;
+    }
+
+    private async Task<List<SalesOrgHierarchy>> GetSellingZonesFromCompany(Guid companyId, Guid? tenantId)
+    {
+        using (_currentTenant.Change(tenantId))
+        {
+            var companiesInZone =
+                await _companyInZoneRepository.GetListWithNavigationPropertiesAsync(isBase: true, companyId: companyId);
+            List<SalesOrgHierarchy> zonesWithCompany = new();
+            foreach (var companyInZone in companiesInZone)
+            {
+                var assignment = companyInZone.CompanyInZone;
+                bool active = MDMHelpers.CheckActive(true, assignment.EffectiveDate, assignment.EndDate);
+                if (!active)
+                {
+                    continue;
+                }
+                var zone = companyInZone.SalesOrgHierarchy;
+                if (!zone.Active || !zone.IsSellingZone)
+                {
+                    continue;
+                }
+                zonesWithCompany.Add(zone);
+            }
+            return zonesWithCompany;
+        }
+    }
+
+    private async Task<List<SalesOrgHierarchy>> GetSellingZonesFromCustomer(Guid customerId, Guid? tenantId)
+    {
+        using (_currentTenant.Change(tenantId))
+        {
+            var customersInZone =
+                await _customerInZoneRepository.GetListWithNavigationPropertiesAsync(customerId: customerId);
+            List<SalesOrgHierarchy> zonesWithCustomer = new();
+            foreach (var customerInZone in customersInZone)
+            {
+                var assignment = customerInZone.CustomerInZone;
+                DateTime assignmentStartDate = assignment.EffectiveDate == null ? new DateTime(1900, 1, 1) : 
+                    (DateTime) assignment.EffectiveDate;
+                bool active = MDMHelpers.CheckActive(true, assignmentStartDate, assignment.EndDate);
+                if (!active)
+                {
+                    continue;
+                }
+                var zone = customerInZone.SalesOrgHierarchy;
+                if (!zone.Active || !zone.IsSellingZone)
+                {
+                    continue;
+                }
+                zonesWithCustomer.Add(zone);
+            }
+            return zonesWithCustomer;
         }
     }
 

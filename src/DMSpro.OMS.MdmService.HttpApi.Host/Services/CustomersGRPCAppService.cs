@@ -31,11 +31,7 @@ public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAp
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
         using (_currentTenant.Change(tenantId))
         {
-            IQueryable<Customer> queryable = await _repository.GetQueryableAsync();
-            var query = from item in queryable
-                        where item.Id == id && item.TenantId == tenantId
-                        select item;
-            Customer customer = query.FirstOrDefault();
+            Customer customer = await _repository.GetAsync(x => x.Id == id && x.TenantId == tenantId);
             var response = new CustomerResponse();
             if (customer == null)
             {
@@ -78,11 +74,35 @@ public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAp
             response.Customer = new OMS.Shared.Protos.MdmService.Customers.Customer()
             {
                 Id = customer.Id.ToString(),
-                CompanyId = customerAssignment.CompanyId.ToString(),
                 TenantId = request.TenantId,
                 Code = customer.Code,
                 Name = customer.Name,
                 Active = customerActive && assignmentActive,
+            };
+            return response;
+        }
+    }
+
+    public override async Task<CustomerResponse> GetCustomer(GetCustomerRequest request, ServerCallContext context)
+    {
+        Guid id = new(request.CustomerId);
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
+        using (_currentTenant.Change(tenantId))
+        {
+            Customer customer = await _repository.GetAsync(x => x.Id == id && x.TenantId == tenantId);
+            var response = new CustomerResponse();
+            if (customer == null)
+            {
+                return response;
+            }
+            bool customerActive = MDMHelpers.CheckActive(customer.Active, customer.EffectiveDate, customer.EndDate);
+            response.Customer = new OMS.Shared.Protos.MdmService.Customers.Customer()
+            {
+                Id = customer.Id.ToString(),
+                TenantId = request.TenantId,
+                Code = customer.Code,
+                Name = customer.Name,
+                Active = customerActive,
             };
             return response;
         }
