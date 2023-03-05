@@ -11,7 +11,7 @@ using DMSpro.OMS.MdmService.FileManagementInfo;
 namespace DMSpro.OMS.MdmService.ItemImages
 {
     [Authorize(MdmServicePermissions.Items.Default)]
-    public partial class ItemImagesAppService : PartialAppService<ItemImage, ItemImageDto, IItemImageRepository>,
+    public partial class ItemImagesAppService : PartialAppService<ItemImage, ItemImageWithDetailsDto, IItemImageRepository>,
         IItemImagesAppService
     {
         private readonly IItemImageRepository _itemImageRepository;

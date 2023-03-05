@@ -19,7 +19,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
             Guid? customerGroupId = null,
-            Guid? geoMasterId = null,
+            Guid? geoMaster0Id = null,
+            Guid? geoMaster1Id = null,
+            Guid? geoMaster2Id = null,
+            Guid? geoMaster3Id = null,
+            Guid? geoMaster4Id = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
@@ -43,7 +47,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             DateTime? effectiveDateMin = null,
             DateTime? effectiveDateMax = null,
             Guid? customerGroupId = null,
-            Guid? geoMasterId = null,
+            Guid? geoMaster0Id = null,
+            Guid? geoMaster1Id = null,
+            Guid? geoMaster2Id = null,
+            Guid? geoMaster3Id = null,
+            Guid? geoMaster4Id = null,
             CancellationToken cancellationToken = default);
     }
 }

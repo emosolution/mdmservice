@@ -24,8 +24,8 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
     {
         public virtual async Task<PagedResultDto<CustomerGroupByGeoWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByGeosInput input)
         {
-            var totalCount = await _customerGroupByGeoRepository.GetCountAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.CustomerGroupId, input.GeoMasterId);
-            var items = await _customerGroupByGeoRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.CustomerGroupId, input.GeoMasterId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _customerGroupByGeoRepository.GetCountAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.CustomerGroupId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id);
+            var items = await _customerGroupByGeoRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax, input.CustomerGroupId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<CustomerGroupByGeoWithNavigationPropertiesDto>
             {
@@ -90,13 +90,9 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerGroup"]]);
             }
-            if (input.GeoMasterId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
 
             var customerGroupByGeo = await _customerGroupByGeoManager.CreateAsync(
-            input.CustomerGroupId, input.GeoMasterId, input.Active, input.EffectiveDate
+            input.CustomerGroupId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.Active, input.EffectiveDate
             );
 
             return ObjectMapper.Map<CustomerGroupByGeo, CustomerGroupByGeoDto>(customerGroupByGeo);
@@ -109,14 +105,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerGroup"]]);
             }
-            if (input.GeoMasterId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
 
             var customerGroupByGeo = await _customerGroupByGeoManager.UpdateAsync(
             id,
-            input.CustomerGroupId, input.GeoMasterId, input.Active, input.EffectiveDate, input.ConcurrencyStamp
+            input.CustomerGroupId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.Active, input.EffectiveDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<CustomerGroupByGeo, CustomerGroupByGeoDto>(customerGroupByGeo);
@@ -131,10 +123,23 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var items = await _customerGroupByGeoRepository.GetListAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax);
+            var customerGroupByGeos = await _customerGroupByGeoRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Active, input.EffectiveDateMin, input.EffectiveDateMax);
+            var items = customerGroupByGeos.Select(item => new
+            {
+                Active = item.CustomerGroupByGeo.Active,
+                EffectiveDate = item.CustomerGroupByGeo.EffectiveDate,
+
+                CustomerGroupCode = item.CustomerGroup?.Code,
+                GeoMasterCode0 = item.GeoMaster0?.Code,
+                GeoMasterCode1 = item.GeoMaster1?.Code,
+                GeoMasterCode2 = item.GeoMaster2?.Code,
+                GeoMasterCode3 = item.GeoMaster3?.Code,
+                GeoMasterCode4 = item.GeoMaster4?.Code,
+
+            });
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<CustomerGroupByGeo>, List<CustomerGroupByGeoExcelDto>>(items));
+            await memoryStream.SaveAsAsync(items);
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "CustomerGroupByGeos.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

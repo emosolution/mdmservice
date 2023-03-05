@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("d647c0d8-11d5-45ac-a94a-26b92b3db71a"));
+                result.First().Id.ShouldBe(Guid.Parse("d80a2a0d-fbc9-43f0-8b13-f0ca571774ef"));
             });
         }
 
