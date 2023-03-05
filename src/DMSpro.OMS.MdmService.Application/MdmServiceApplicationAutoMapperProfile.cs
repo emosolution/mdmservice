@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
 using System;
@@ -374,5 +375,9 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerImage, CustomerImageWithDetailsDto>();
         CreateMap<CustomerImage, CustomerImageExcelDto>();
         CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
+
+        CreateMap<ItemGroupInZone, ItemGroupInZoneDto>();
+        CreateMap<ItemGroupInZone, ItemGroupInZoneExcelDto>();
+        CreateMap<ItemGroupInZoneWithNavigationProperties, ItemGroupInZoneWithNavigationPropertiesDto>();
     }
 }

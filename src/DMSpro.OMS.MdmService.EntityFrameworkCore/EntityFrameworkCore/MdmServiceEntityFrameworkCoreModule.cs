@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -187,6 +188,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ItemGroupList, ItemGroupLists.EfCoreItemGroupListRepository>();
 
             options.AddRepository<CustomerImage, CustomerImages.EfCoreCustomerImageRepository>();
+
+            options.AddRepository<ItemGroupInZone, ItemGroupInZones.EfCoreItemGroupInZoneRepository>();
 
         });
 
