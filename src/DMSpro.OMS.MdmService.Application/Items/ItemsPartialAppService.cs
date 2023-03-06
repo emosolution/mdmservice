@@ -20,6 +20,11 @@ using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.CustomerInZones;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.PriceLists;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -50,6 +55,13 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IItemGroupListRepository _itemGroupListRepository;
         private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
         private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+        private readonly ICustomerInZoneRepository _customerInZoneRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IPriceListRepository _priceListRepository;
+        private readonly IPriceListDetailRepository _priceListDetailRepository;
+
+        private static List<object> _itemRepositories = new();
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -72,6 +84,11 @@ namespace DMSpro.OMS.MdmService.Items
             IItemGroupListRepository itemGroupListRepository,
             IItemGroupAttributeRepository itemGroupAttributeRepository,
             IUOMGroupDetailRepository uOMGroupDetailRepository,
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
+            ICustomerInZoneRepository customerInZoneRepository,
+            ICustomerRepository customerRepository,
+            IPriceListRepository priceListRepository,
+            IPriceListDetailRepository priceListDetailRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -111,6 +128,12 @@ namespace DMSpro.OMS.MdmService.Items
             _itemGroupListRepository = itemGroupListRepository;
             _itemGroupAttributeRepository = itemGroupAttributeRepository;
             _uOMGroupDetailRepository = uOMGroupDetailRepository;
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+
+            _customerInZoneRepository = customerInZoneRepository;
+            _customerRepository = customerRepository;
+            _priceListDetailRepository = priceListDetailRepository;
+            _priceListRepository = priceListRepository;
         }
     }
 }

@@ -28326,7 +28326,7 @@
                   }
                 },
                 {
-                  "name": "GetItemInfoForSOAsync",
+                  "name": "GetInfoForSOAsync",
                   "parametersOnMethod": [
                     {
                       "name": "companyId",
@@ -28338,9 +28338,9 @@
                     },
                     {
                       "name": "lastApiDate",
-                      "typeAsString": "System.DateTime, System.Private.CoreLib",
-                      "type": "System.DateTime",
-                      "typeSimple": "string",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -30225,9 +30225,9 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetItemInfoForSOAsyncByCompanyIdAndLastApiDate": {
-              "uniqueName": "GetItemInfoForSOAsyncByCompanyIdAndLastApiDate",
-              "name": "GetItemInfoForSOAsync",
+            "GetInfoForSOAsyncByCompanyIdAndLastApiDate": {
+              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDate",
+              "name": "GetInfoForSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/items/test",
               "supportedVersions": [],
@@ -30242,9 +30242,9 @@
                 },
                 {
                   "name": "lastApiDate",
-                  "typeAsString": "System.DateTime, System.Private.CoreLib",
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -30266,8 +30266,8 @@
                   "nameOnMethod": "lastApiDate",
                   "name": "lastApiDate",
                   "jsonName": null,
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
