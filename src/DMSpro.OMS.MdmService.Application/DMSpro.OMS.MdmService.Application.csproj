@@ -47,6 +47,11 @@
 		</Reference>
 	</ItemGroup>
 
+	<!-- ToListAsync -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+	</ItemGroup>
+
 	<!-- ABP 6.0.2 GRPC -->
 	<!--
 	<ItemGroup>

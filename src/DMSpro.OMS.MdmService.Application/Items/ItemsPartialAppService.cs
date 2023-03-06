@@ -13,6 +13,13 @@ using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using Volo.Abp.Json;
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.CompanyInZones;
+using DMSpro.OMS.MdmService.ItemGroupInZones;
+using DMSpro.OMS.MdmService.ItemGroups;
+using DMSpro.OMS.MdmService.ItemGroupLists;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -36,6 +43,13 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
         private readonly IUOMRepository _uOMRepository;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ICompanyInZoneRepository _companyInZoneRepository;
+        private readonly IItemGroupInZoneRepository _itemGroupInZoneRepository;
+        private readonly IItemGroupRepository _itemGroupRepository;
+        private readonly IItemGroupListRepository _itemGroupListRepository;
+        private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
+        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -51,6 +65,13 @@ namespace DMSpro.OMS.MdmService.Items
             IItemAttributeValueRepository itemAttributeValueRepository,
             IUOMRepository uOMRepository,
             ISystemDataRepository systemDataRepository,
+            ICompanyRepository companyRepository,
+            ICompanyInZoneRepository companyInZoneRepository,
+            IItemGroupInZoneRepository itemGroupInZoneRepository,
+            IItemGroupRepository itemGroupRepository,
+            IItemGroupListRepository itemGroupListRepository,
+            IItemGroupAttributeRepository itemGroupAttributeRepository,
+            IUOMGroupDetailRepository uOMGroupDetailRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -82,6 +103,14 @@ namespace DMSpro.OMS.MdmService.Items
                 new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemAttributeValueRepository", _itemAttributeValueRepository));
+
+            _companyRepository = companyRepository;
+            _companyInZoneRepository = companyInZoneRepository;
+            _itemGroupInZoneRepository = itemGroupInZoneRepository;
+            _itemGroupRepository = itemGroupRepository;
+            _itemGroupListRepository = itemGroupListRepository;
+            _itemGroupAttributeRepository = itemGroupAttributeRepository;
+            _uOMGroupDetailRepository = uOMGroupDetailRepository;
         }
     }
 }
