@@ -28337,7 +28337,31 @@
                       "defaultValue": null
                     },
                     {
-                      "name": "lastApiDate",
+                      "name": "lastItemInfoUpdate",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastCustomerInfoUpdate",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastRouteInfoUpdate",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastVendorInfoUpdate",
                       "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.DateTime?",
                       "typeSimple": "string?",
@@ -30249,8 +30273,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo": {
-              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo",
+            "GetInfoForSOAsyncByCompanyIdAndLastItemInfoUpdateAndLastCustomerInfoUpdateAndLastRouteInfoUpdateAndLastVendorInfoUpdateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo": {
+              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastItemInfoUpdateAndLastCustomerInfoUpdateAndLastRouteInfoUpdateAndLastVendorInfoUpdateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo",
               "name": "GetInfoForSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/items/info-for-so-po",
@@ -30265,7 +30289,31 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "lastApiDate",
+                  "name": "lastItemInfoUpdate",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastCustomerInfoUpdate",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastRouteInfoUpdate",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastVendorInfoUpdate",
                   "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
@@ -30311,8 +30359,44 @@
                   "descriptorName": ""
                 },
                 {
-                  "nameOnMethod": "lastApiDate",
-                  "name": "lastApiDate",
+                  "nameOnMethod": "lastItemInfoUpdate",
+                  "name": "lastItemInfoUpdate",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastCustomerInfoUpdate",
+                  "name": "lastCustomerInfoUpdate",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastRouteInfoUpdate",
+                  "name": "lastRouteInfoUpdate",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastVendorInfoUpdate",
+                  "name": "lastVendorInfoUpdate",
                   "jsonName": null,
                   "type": "System.DateTime?",
                   "typeSimple": "string?",

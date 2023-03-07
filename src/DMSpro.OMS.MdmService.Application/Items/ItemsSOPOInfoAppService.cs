@@ -11,7 +11,9 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public partial class ItemsAppService
     {
-        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate,
+        public async Task<string> GetInfoForSOAsync(Guid companyId,
+            DateTime? lastItemInfoUpdate, DateTime? lastCustomerInfoUpdate,
+            DateTime? lastRouteInfoUpdate, DateTime? lastVendorInfoUpdate,
             bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo)
         {
             DateTime now = DateTime.Now;
@@ -21,12 +23,13 @@ namespace DMSpro.OMS.MdmService.Items
             (string itemInfo,
                 Dictionary<string, ItemSOPODto> itemDictionary,
                 Dictionary<string, UOMSOPODto> uomDictionary) =
-                await GetItemInfoForSOAsync(zoneIds, lastApiDate, nowString);
+                await GetItemInfoForSOAsync(zoneIds, lastItemInfoUpdate, nowString);
             string customerInfo = await GetCustomerInfoForSOAsync(getCustomerInfo, zoneIds,
-                lastApiDate, now, nowString, itemDictionary, uomDictionary);
-            string routeInfo = await GetRouteInfo(getRouteInfo, zoneIds, lastApiDate, now, nowString);
+                lastCustomerInfoUpdate, now, nowString, itemDictionary, uomDictionary);
+            string routeInfo = await GetRouteInfo(getRouteInfo, zoneIds, lastRouteInfoUpdate, 
+                now, nowString);
             string vendorInfo = await GetVendorInfo(getVendorInfo, companyId,
-                lastApiDate, now, nowString, itemDictionary, uomDictionary);
+                lastVendorInfoUpdate, now, nowString, itemDictionary, uomDictionary);
             return $"{{{itemInfo}, {customerInfo}, {routeInfo}, {vendorInfo}}}";
         }
 

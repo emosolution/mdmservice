@@ -130,12 +130,15 @@ public partial class ItemClientProxy : ClientProxyBase<IItemsAppService>, IItems
         });
     }
 
-    public virtual async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate, bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo)
+    public virtual async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastItemInfoUpdate, DateTime? lastCustomerInfoUpdate, DateTime? lastRouteInfoUpdate, DateTime? lastVendorInfoUpdate, bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo)
     {
         return await RequestAsync<string>(nameof(GetInfoForSOAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), companyId },
-            { typeof(DateTime?), lastApiDate },
+            { typeof(DateTime?), lastItemInfoUpdate },
+            { typeof(DateTime?), lastCustomerInfoUpdate },
+            { typeof(DateTime?), lastRouteInfoUpdate },
+            { typeof(DateTime?), lastVendorInfoUpdate },
             { typeof(bool), getCustomerInfo },
             { typeof(bool), getVendorInfo },
             { typeof(bool), getRouteInfo }
