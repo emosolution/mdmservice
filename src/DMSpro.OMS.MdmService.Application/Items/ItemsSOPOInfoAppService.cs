@@ -98,6 +98,8 @@ namespace DMSpro.OMS.MdmService.Items
             }
             Dictionary<string, RouteSOPODto> routeDictionary =
                 await GetRouteFromZoneIds(zoneIds);
+            Dictionary<string, List<string>> itemGroupsInRoute =
+                await GetItemGroupsInRoute(routeDictionary.Keys.ToList());
             (Dictionary<string, List<string>> employeesInRoute,
                 List<Guid> employeeList) = await GetEmployeesInRoute(
                     routeDictionary.Keys.ToList(), now);
@@ -106,12 +108,47 @@ namespace DMSpro.OMS.MdmService.Items
             List<string> resultParts = new()
             {
                 $"\"route\": {_jsonSerializer.Serialize(routeDictionary)}",
+                $"\"itemGroupInRoute\": {_jsonSerializer.Serialize(itemGroupsInRoute)}",
                 $"\"employee\": {_jsonSerializer.Serialize(employeeDictionary)}",
                 $"\"employeeInRoute\": {_jsonSerializer.Serialize(employeesInRoute)}",
                 $"\"lastUpdated\": {nowString}",
                 $"\"updateRequired\": \"true\"",
             };
             return $"\"routeInfo\":{{{resultParts.JoinAsString(",")}}}";
+        }
+
+        private async Task<Dictionary<string, List<string>>>
+            GetItemGroupsInRoute(List<string> routeIds)
+        {
+            var assignments = (await _itemGroupInZoneRepository.GetListAsync(
+                x => routeIds.Contains(x.Id.ToString()))).Distinct();
+            var itemGroupIds = assignments.Select(x => x.ItemGroupId).ToList();
+            var validItemGroupIds = (await _itemGroupRepository.GetListAsync(
+                x => itemGroupIds.Contains(x.Id) &&
+                x.Status == GroupStatus.RELEASED)).Distinct().Select(x => x.Id);
+            Dictionary<string, List<string>> result = new();
+            foreach (var assignment in assignments)
+            {
+                if (!validItemGroupIds.Contains(assignment.ItemGroupId))
+                {
+                    continue;
+                }
+                string routeIdString = assignment.Id.ToString();
+                string itemGroupIdString = assignment.ItemGroupId.ToString();
+                if (result.TryGetValue(routeIdString, out List<string> parts))
+                {
+                    if (!parts.Contains(itemGroupIdString))
+                    {
+                        parts.Add(itemGroupIdString);
+                    }
+                }
+                else
+                {
+                    List<string> itemGroups = new() { itemGroupIdString };
+                    result.Add(routeIdString, itemGroups);
+                }
+            }
+            return result;
         }
 
         private async Task<Dictionary<string, RouteSOPODto>> GetRouteFromZoneIds(List<Guid> zoneIds)
@@ -590,7 +627,6 @@ namespace DMSpro.OMS.MdmService.Items
             }
             return result;
         }
-
 
         private async Task<bool> CheckItemInfoRequired(DateTime? lastApiDate)
         {

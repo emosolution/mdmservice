@@ -28345,6 +28345,22 @@
                       "defaultValue": null
                     },
                     {
+                      "name": "getCustomerInfo",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "getVendorInfo",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
                       "name": "getRouteInfo",
                       "typeAsString": "System.Boolean, System.Private.CoreLib",
                       "type": "System.Boolean",
@@ -30233,8 +30249,8 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetRouteInfo": {
-              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetRouteInfo",
+            "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo": {
+              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo",
               "name": "GetInfoForSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/items/info-for-so-po",
@@ -30253,6 +30269,22 @@
                   "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "getCustomerInfo",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "getVendorInfo",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null
                 },
@@ -30284,6 +30316,30 @@
                   "jsonName": null,
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "getCustomerInfo",
+                  "name": "getCustomerInfo",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "getVendorInfo",
+                  "name": "getVendorInfo",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
