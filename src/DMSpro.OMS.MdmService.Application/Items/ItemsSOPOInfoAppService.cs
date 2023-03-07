@@ -201,31 +201,31 @@ namespace DMSpro.OMS.MdmService.Items
                 return ($"\"itemInfo\":{{updateRequired: false}}", null, null);
             }
 
-            Dictionary<string, List<string>> uomGroupDictionary;
+            Dictionary<string, List<string>> itemGroupDictionary;
             Dictionary<string, ItemSOPODto> itemDictionary;
-            Dictionary<string, List<string>> altUOMDictionary;
+            Dictionary<string, List<string>> uomGroupDictionary;
             List<string> allAltUomIds;
             List<Guid> vatIds;
             List<Guid> itemGroupIds = await GetAllItemGroupIds(zoneIds);
             if (itemGroupIds.Count < 1)
             {
-                (uomGroupDictionary, itemDictionary,
-                  altUOMDictionary, allAltUomIds, vatIds) = await GetAllItemDetails();
+                (itemGroupDictionary, itemDictionary,
+                  uomGroupDictionary, allAltUomIds, vatIds) = await GetAllItemDetails();
             }
             else
             {
                 List<ItemGroup> itemGroups = await GetAllItemGroups(itemGroupIds);
-                (uomGroupDictionary, itemDictionary,
-                    altUOMDictionary, allAltUomIds, vatIds) = await GetItemDetails(itemGroups);
+                (itemGroupDictionary, itemDictionary,
+                    uomGroupDictionary, allAltUomIds, vatIds) = await GetItemDetails(itemGroups);
             }
             Dictionary<string, VATSOPODto> vatDictionary = await GetVatDetails(vatIds);
             Dictionary<string, UOMSOPODto> uomDictionary = await GetUOMDetails(allAltUomIds);
             List<string> resultParts = new() {
                 $"\"uom\": {_jsonSerializer.Serialize(uomDictionary)}",
                 $"\"vat\": {_jsonSerializer.Serialize(vatDictionary)}",
-                $"\"uomGroup\": {_jsonSerializer.Serialize(uomGroupDictionary)}",
+                $"\"itemGroup\": {_jsonSerializer.Serialize(itemGroupDictionary)}",
                 $"\"item\": {_jsonSerializer.Serialize(itemDictionary)}",
-                $"\"altUom\": {_jsonSerializer.Serialize(altUOMDictionary)}",
+                $"\"uomGroup\": {_jsonSerializer.Serialize(uomGroupDictionary)}",
                 $"\"lastUpdated\": {nowString}",
                 $"\"updateRequired\": true",
             };
@@ -373,7 +373,7 @@ namespace DMSpro.OMS.MdmService.Items
         {
             Dictionary<string, List<string>> itemGroupDictionary = new();
             Dictionary<string, ItemSOPODto> itemDictionary = new();
-            Dictionary<string, List<string>> altUOMDictionary = new();
+            Dictionary<string, List<string>> uomGroupDictionary = new();
             List<string> allAltUomIds = new();
             List<Guid> vatIds = new();
             foreach (ItemGroup itemGroup in itemGroups)
@@ -392,11 +392,11 @@ namespace DMSpro.OMS.MdmService.Items
                         vatIds.Add(item.VatId);
                     }
                     string uomGroupId = item.UomGroupId.ToString();
-                    if (!altUOMDictionary.ContainsKey(uomGroupId))
+                    if (!uomGroupDictionary.ContainsKey(uomGroupId))
                     {
                         var altUomIds = await GetAltUOMs(item.UomGroupId);
                         allAltUomIds.AddRange(altUomIds);
-                        altUOMDictionary.Add(uomGroupId, altUomIds);
+                        uomGroupDictionary.Add(uomGroupId, altUomIds);
                     }
                     if (itemDictionary.ContainsKey(itemId))
                     {
@@ -427,7 +427,7 @@ namespace DMSpro.OMS.MdmService.Items
                 }
             }
             return (itemGroupDictionary, itemDictionary,
-                altUOMDictionary, allAltUomIds, vatIds);
+                uomGroupDictionary, allAltUomIds, vatIds);
         }
 
         private async Task<(
@@ -440,7 +440,7 @@ namespace DMSpro.OMS.MdmService.Items
         {
             Dictionary<string, List<string>> itemGroupDictionary = new();
             Dictionary<string, ItemSOPODto> itemDictionary = new();
-            Dictionary<string, List<string>> altUOMDictionary = new();
+            Dictionary<string, List<string>> uomGroupDictionary = new();
             List<string> allAltUomIds = new();
             List<Guid> vatIds = new();
 
@@ -454,11 +454,11 @@ namespace DMSpro.OMS.MdmService.Items
                     vatIds.Add(item.VatId);
                 }
                 string uomGroupId = item.UomGroupId.ToString();
-                if (!altUOMDictionary.ContainsKey(uomGroupId))
+                if (!uomGroupDictionary.ContainsKey(uomGroupId))
                 {
                     var altUomIds = await GetAltUOMs(item.UomGroupId);
                     allAltUomIds.AddRange(altUomIds);
-                    altUOMDictionary.Add(uomGroupId, altUomIds);
+                    uomGroupDictionary.Add(uomGroupId, altUomIds);
                 }
                 if (itemDictionary.ContainsKey(itemId))
                 {
@@ -483,7 +483,7 @@ namespace DMSpro.OMS.MdmService.Items
                 itemDictionary.Add(itemId, dto);
             }
             return (itemGroupDictionary, itemDictionary,
-               altUOMDictionary, allAltUomIds, vatIds);
+               uomGroupDictionary, allAltUomIds, vatIds);
         }
 
         private async Task<Dictionary<string, VATSOPODto>> GetVatDetails(List<Guid> vatIds)
