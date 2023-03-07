@@ -27,7 +27,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         }
 
         [HttpGet]
-        [Route("test")]
+        [Route("info-for-so-po")]
         public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate)
         {
             try
