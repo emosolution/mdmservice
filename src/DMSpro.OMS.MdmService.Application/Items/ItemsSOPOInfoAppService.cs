@@ -1,6 +1,4 @@
 ﻿
-using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Collections.Generic;
@@ -13,37 +11,88 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public partial class ItemsAppService
     {
-        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate, bool getRouteInfo)
+        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate,
+            bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo)
         {
             DateTime now = DateTime.Now;
             await CheckCompany(companyId, now);
             List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, now);
-            if (zoneIds.Count < 1)
-            {
-                throw new BusinessException(message: L[""], code: "0");
-            }
-            string nowString = $"\"{now.ToString("yyyy/MM/dd HH:mm:ss")}\"";
+            string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
             (string itemInfo,
                 Dictionary<string, ItemSOPODto> itemDictionary,
                 Dictionary<string, UOMSOPODto> uomDictionary) =
                 await GetItemInfoForSOAsync(zoneIds, lastApiDate, nowString);
-            string customerInfo = await GetCustomerInfoForSOAsync(zoneIds, lastApiDate,
-                now, nowString, itemDictionary, uomDictionary);
+            string customerInfo = await GetCustomerInfoForSOAsync(getCustomerInfo, zoneIds,
+                lastApiDate, now, nowString, itemDictionary, uomDictionary);
             string routeInfo = await GetRouteInfo(getRouteInfo, zoneIds, lastApiDate, now, nowString);
-            return $"{{{itemInfo}, {customerInfo}, {routeInfo}}}";
+            string vendorInfo = await GetVendorInfo(getVendorInfo, companyId,
+                lastApiDate, now, nowString, itemDictionary, uomDictionary);
+            return $"{{{itemInfo}, {customerInfo}, {routeInfo}, {vendorInfo}}}";
         }
 
-        private async Task<string> GetRouteInfo(bool getRouteInfo, 
-            List<Guid> zoneIds, DateTime? lastApiDate, 
+        private async Task<string> GetVendorInfo(bool getVendorInfo,
+            Guid companyId, DateTime? lastApiDate,
+            DateTime now, string nowString,
+            Dictionary<string, ItemSOPODto> itemDictionary,
+            Dictionary<string, UOMSOPODto> uomDictionary)
+        {
+            if (!getVendorInfo)
+            {
+                getVendorInfo = await CheckVendorInfoRequired(lastApiDate);
+            }
+            if (!getVendorInfo)
+            {
+                return $"\"vendorInfo\":{{\"updateRequired\": \"false\"}}";
+            }
+            Dictionary<string, VendorSOPODto> vendorDictionary;
+            List<string> priceListIds;
+            (vendorDictionary, priceListIds) =
+                await GetVendorAndPriceList(companyId, now);
+            Dictionary<string, decimal> priceDictionary = await GetPrice(priceListIds,
+              itemDictionary, uomDictionary);
+
+            List<string> resultParts = new()
+            {
+                $"\"vendor\": {_jsonSerializer.Serialize(vendorDictionary)}",
+                $"\"price\": {_jsonSerializer.Serialize(priceDictionary)}",
+                $"\"lastUpdated\": {nowString}",
+                $"\"updateRequired\": true",
+            };
+            return $"\"vendorInfo\":{{{resultParts.JoinAsString(",")}}}";
+
+        }
+
+        private async Task<(Dictionary<string, VendorSOPODto>, List<string>)>
+            GetVendorAndPriceList(Guid companyId, DateTime now)
+        {
+            var vendors = (await _vendorRepository.GetListAsync(x => x.CompanyId == companyId &&
+                x.Active == true && (x.EndDate == null || x.EndDate > now)))
+                .Distinct().Select(x => new VendorSOPODto()
+                {
+                    id = x.Id.ToString(),
+                    code = x.Code,
+                    name = x.Name,
+                    priceListId = x.PriceListId.ToString(),
+                });
+            List<string> priceListId = new();
+            Dictionary<string, VendorSOPODto> vendorDictionary = new();
+            foreach (var vendor in vendors)
+            {
+                vendorDictionary.Add(vendor.id, vendor);
+                priceListId.Add(vendor.priceListId);
+            }
+            return (vendorDictionary, priceListId);
+        }
+
+        private async Task<string> GetRouteInfo(bool getRouteInfo,
+            List<Guid> zoneIds, DateTime? lastApiDate,
             DateTime now, string nowString)
-        {   
+        {
             if (!getRouteInfo)
             {
-                return $"\"routeInfo\":{{\"updateRequired\": \"false\"}}";
+                getRouteInfo = await CheckRouteInfoRequired(lastApiDate);
             }
-            var routeInfoRequired =
-                await CheckRouteInfoRequired(lastApiDate);
-            if (!routeInfoRequired)
+            if (!getRouteInfo)
             {
                 return $"\"routeInfo\":{{\"updateRequired\": \"false\"}}";
             }
@@ -139,19 +188,23 @@ namespace DMSpro.OMS.MdmService.Items
             return result;
         }
 
-        private async Task<string> GetCustomerInfoForSOAsync(List<Guid> zoneIds,
-            DateTime? lastApiDate, DateTime now, string nowString,
-             Dictionary<string, ItemSOPODto> itemDictionary,
-             Dictionary<string, UOMSOPODto> uomDictionary)
+        private async Task<string> GetCustomerInfoForSOAsync(bool getCustomerInfo,
+            List<Guid> zoneIds, DateTime? lastApiDate,
+            DateTime now, string nowString,
+            Dictionary<string, ItemSOPODto> itemDictionary,
+            Dictionary<string, UOMSOPODto> uomDictionary)
         {
-            var customerInfoRequired = await CheckCustomerInfoRequired(lastApiDate);
-            if (!customerInfoRequired)
+            if (!getCustomerInfo)
+            {
+                getCustomerInfo = await CheckCustomerInfoRequired(lastApiDate);
+            }
+            if (!getCustomerInfo)
             {
                 return $"\"customerInfo\":{{updateRequired: false}}";
             }
 
             Dictionary<string, CustomerSOPODto> customerDictionary;
-            List<Guid> priceListIds;
+            List<string> priceListIds;
             (customerDictionary, priceListIds) = await GetCustomerAndPriceList(zoneIds, now);
             Dictionary<string, decimal> priceDictionary = await GetPrice(priceListIds,
                 itemDictionary, uomDictionary);
@@ -166,15 +219,15 @@ namespace DMSpro.OMS.MdmService.Items
             return $"\"customerInfo\":{{{resultParts.JoinAsString(",")}}}";
         }
 
-        private async Task<Dictionary<string, decimal>> GetPrice(List<Guid> priceListIds,
+        private async Task<Dictionary<string, decimal>> GetPrice(List<string> priceListIds,
             Dictionary<string, ItemSOPODto> itemDictionary,
             Dictionary<string, UOMSOPODto> uomDictionary)
         {
             List<string> itemIds = itemDictionary.Keys.ToList();
             List<string> uomIds = uomDictionary.Keys.ToList();
             List<Guid> activePriceListIds = (await _priceListRepository.GetListAsync(
-                x => priceListIds.Contains(x.Id) && x.Active == true)).Select(x => x.Id)
-                .Distinct().ToList();
+                x => priceListIds.Contains(x.Id.ToString()) &&
+                x.Active == true)).Select(x => x.Id).Distinct().ToList();
             var priceListDetails = await _priceListDetailRepository.GetListAsync(
                 x => activePriceListIds.Contains(x.PriceListId) &&
                 uomIds.Contains(x.UOMId.ToString()) &&
@@ -214,7 +267,7 @@ namespace DMSpro.OMS.MdmService.Items
             }
             else
             {
-                List<ItemGroup> itemGroups = await GetAllItemGroups(itemGroupIds);
+                var itemGroups = await GetAllItemGroups(itemGroupIds);
                 (itemGroupDictionary, itemDictionary,
                     uomGroupDictionary, allAltUomIds, vatIds) = await GetItemDetails(itemGroups);
             }
@@ -232,13 +285,12 @@ namespace DMSpro.OMS.MdmService.Items
             return ($"\"itemInfo\":{{{resultParts.JoinAsString(",")}}}", itemDictionary, uomDictionary);
         }
 
-        private async Task<Company> CheckCompany(Guid companyId, DateTime now)
+        private async Task CheckCompany(Guid companyId, DateTime now)
         {
             try
             {
-                var result = await _companyRepository.GetAsync(x => x.Id == companyId &&
+                await _companyRepository.GetAsync(x => x.Id == companyId &&
                     x.Active == true && x.EffectiveDate < now && (x.EndDate == null || x.EndDate > now));
-                return result;
             }
             catch (EntityNotFoundException)
             {
@@ -261,17 +313,17 @@ namespace DMSpro.OMS.MdmService.Items
             return result;
         }
 
-        private async Task<(Dictionary<string, CustomerSOPODto>, List<Guid>)>
+        private async Task<(Dictionary<string, CustomerSOPODto>, List<string>)>
             GetCustomerAndPriceList(List<Guid> zoneIds, DateTime now)
         {
             var customersInZone = await _customerInZoneRepository.GetListAsync(
                 x => zoneIds.Contains(x.SalesOrgHierarchyId) &&
                 x.EffectiveDate < now && (x.EndDate == null || x.EndDate > now));
             List<Guid> customerIds = customersInZone.Select(x => x.CustomerId).Distinct().ToList();
-            List<Customer> customers = await _customerRepository.GetListAsync(x => customerIds.Contains(x.Id) &&
+            var customers = await _customerRepository.GetListAsync(x => customerIds.Contains(x.Id) &&
                 x.Active == true && x.EffectiveDate < now && (x.EndDate == null || x.EndDate > now));
             Dictionary<string, CustomerSOPODto> customerDictionary = new();
-            List<Guid> priceListIds = new();
+            List<string> priceListIds = new();
             foreach (var customer in customers)
             {
                 string id = customer.Id.ToString();
@@ -283,7 +335,7 @@ namespace DMSpro.OMS.MdmService.Items
                     priceListId = customer.PriceListId.ToString(),
                 };
                 customerDictionary.Add(id, dto);
-                priceListIds.Add(customer.PriceListId);
+                priceListIds.Add(dto.priceListId);
             }
             return (customerDictionary, priceListIds);
         }
@@ -627,6 +679,27 @@ namespace DMSpro.OMS.MdmService.Items
             return false;
         }
 
+        private async Task<bool> CheckVendorInfoRequired(DateTime? lastApiDate)
+        {
+            if (!lastApiDate.HasValue)
+            {
+                return true;
+            }
+            if ((await _vendorRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            if ((await _priceListDetailRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            if ((await _priceListRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
         private class ItemSOPODto
         {
             public string id { get; set; }
@@ -669,9 +742,7 @@ namespace DMSpro.OMS.MdmService.Items
             public string name { get; set; }
             public string priceListId { get; set; }
 
-            public CustomerSOPODto()
-            {
-            }
+            public CustomerSOPODto() { }
         }
 
         private class RouteSOPODto
@@ -691,9 +762,16 @@ namespace DMSpro.OMS.MdmService.Items
             public string lastName { get; set; }
             public string email { get; set; }
 
-            public EmployeeSOPODto()
-            {
-            }
+            public EmployeeSOPODto() { }
+        }
+
+        private class VendorSOPODto
+        {
+            public string id { get; set; }
+            public string code { get; set; }
+            public string name { get; set; }
+            public string priceListId { get; set; }
+            public VendorSOPODto() { }
         }
     }
 }

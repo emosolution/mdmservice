@@ -7,7 +7,7 @@ namespace DMSpro.OMS.MdmService.Items
     {
         Task<ItemProfileDto> GetItemProfileAsync(Guid id);
 
-        Task<string> GetInfoForSOAsync(Guid companyId, 
-            DateTime? lastApiDate, bool getRouteInfo);
+        Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate,
+            bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo);
     }
 }
