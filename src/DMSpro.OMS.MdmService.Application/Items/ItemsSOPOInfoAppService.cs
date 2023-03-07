@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new BusinessException(message: L[""], code: "0");
             }
-            string nowString = now.ToString("yyyy/MM/dd HH:mm:ss");
+            string nowString = $"\"{now.ToString("yyyy/MM/dd HH:mm:ss")}\"";
             (string itemInfo,
                 Dictionary<string, ItemSOPODto> itemDictionary,
                 Dictionary<string, UOMSOPODto> uomDictionary) =
@@ -39,13 +39,13 @@ namespace DMSpro.OMS.MdmService.Items
         {   
             if (!getRouteInfo)
             {
-                return $"routeInfo:{{updateRequired: false}}";
+                return $"\"routeInfo\":{{updateRequired: false}}";
             }
             var routeInfoRequired =
                 await CheckRouteInfoRequired(lastApiDate);
             if (!routeInfoRequired)
             {
-                return $"routeInfo:{{updateRequired: false}}";
+                return $"\"routeInfo\":{{updateRequired: false}}";
             }
             Dictionary<string, RouteSOPODto> routeDictionary =
                 await GetRouteFromZoneIds(zoneIds);
@@ -56,13 +56,13 @@ namespace DMSpro.OMS.MdmService.Items
                 await GetEmployees(employeeList, now);
             List<string> resultParts = new()
             {
-                $"route: {_jsonSerializer.Serialize(routeDictionary)}",
-                $"employee: {_jsonSerializer.Serialize(employeeDictionary)}",
-                $"employeeInRoute: {_jsonSerializer.Serialize(employeesInRoute)}",
-                $"lastUpdated: {nowString}",
-                $"updateRequired: true",
+                $"\"route\": {_jsonSerializer.Serialize(routeDictionary)}",
+                $"\"employee\": {_jsonSerializer.Serialize(employeeDictionary)}",
+                $"\"employeeInRoute\": {_jsonSerializer.Serialize(employeesInRoute)}",
+                $"\"lastUpdated\": {nowString}",
+                $"\"updateRequired\": \"true\"",
             };
-            return $"customerInfo:{{{resultParts.JoinAsString(",")}}}";
+            return $"\"routeInfo\":{{{resultParts.JoinAsString(",")}}}";
         }
 
         private async Task<Dictionary<string, RouteSOPODto>> GetRouteFromZoneIds(List<Guid> zoneIds)
@@ -147,7 +147,7 @@ namespace DMSpro.OMS.MdmService.Items
             var customerInfoRequired = await CheckCustomerInfoRequired(lastApiDate);
             if (!customerInfoRequired)
             {
-                return $"customerInfo:{{updateRequired: false}}";
+                return $"\"customerInfo\":{{updateRequired: false}}";
             }
 
             Dictionary<string, CustomerSOPODto> customerDictionary;
@@ -158,12 +158,12 @@ namespace DMSpro.OMS.MdmService.Items
 
             List<string> resultParts = new()
             {
-                $"customer: {_jsonSerializer.Serialize(customerDictionary)}",
-                $"price: {_jsonSerializer.Serialize(priceDictionary)}",
-                $"lastUpdated: {nowString}",
-                $"updateRequired: true",
+                $"\"customer\": {_jsonSerializer.Serialize(customerDictionary)}",
+                $"\"price\": {_jsonSerializer.Serialize(priceDictionary)}",
+                $"\"lastUpdated\": {nowString}",
+                $"\"updateRequired\": true",
             };
-            return $"customerInfo:{{{resultParts.JoinAsString(",")}}}";
+            return $"\"customerInfo\":{{{resultParts.JoinAsString(",")}}}";
         }
 
         private async Task<Dictionary<string, decimal>> GetPrice(List<Guid> priceListIds,
@@ -198,7 +198,7 @@ namespace DMSpro.OMS.MdmService.Items
             var itemInfoRequired = await CheckItemInfoRequired(lastApiDate);
             if (!itemInfoRequired)
             {
-                return ($"itemInfo:{{updateRequired: false}}", null, null);
+                return ($"\"itemInfo\":{{updateRequired: false}}", null, null);
             }
 
             Dictionary<string, List<string>> uomGroupDictionary;
@@ -221,15 +221,15 @@ namespace DMSpro.OMS.MdmService.Items
             Dictionary<string, VATSOPODto> vatDictionary = await GetVatDetails(vatIds);
             Dictionary<string, UOMSOPODto> uomDictionary = await GetUOMDetails(allAltUomIds);
             List<string> resultParts = new() {
-                $"uom: {_jsonSerializer.Serialize(uomDictionary)}",
-                $"vat: {_jsonSerializer.Serialize(vatDictionary)}",
-                $"uomGroup: {_jsonSerializer.Serialize(uomGroupDictionary)}",
-                $"item: {_jsonSerializer.Serialize(itemDictionary)}",
-                $"altUom: {_jsonSerializer.Serialize(altUOMDictionary)}",
-                $"lastUpdated: {nowString}",
-                $"updateRequired: true",
+                $"\"uom\": {_jsonSerializer.Serialize(uomDictionary)}",
+                $"\"vat\": {_jsonSerializer.Serialize(vatDictionary)}",
+                $"\"uomGroup\": {_jsonSerializer.Serialize(uomGroupDictionary)}",
+                $"\"item\": {_jsonSerializer.Serialize(itemDictionary)}",
+                $"\"altUom\": {_jsonSerializer.Serialize(altUOMDictionary)}",
+                $"\"lastUpdated\": {nowString}",
+                $"\"updateRequired\": true",
             };
-            return ($"itemInfo:{{{resultParts.JoinAsString(",")}}}", itemDictionary, uomDictionary);
+            return ($"\"itemInfo\":{{{resultParts.JoinAsString(",")}}}", itemDictionary, uomDictionary);
         }
 
         private async Task<Company> CheckCompany(Guid companyId, DateTime now)
