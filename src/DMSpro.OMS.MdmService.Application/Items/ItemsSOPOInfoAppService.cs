@@ -39,13 +39,13 @@ namespace DMSpro.OMS.MdmService.Items
         {   
             if (!getRouteInfo)
             {
-                return $"\"routeInfo\":{{updateRequired: false}}";
+                return $"\"routeInfo\":{{\"updateRequired\": \"false\"}}";
             }
             var routeInfoRequired =
                 await CheckRouteInfoRequired(lastApiDate);
             if (!routeInfoRequired)
             {
-                return $"\"routeInfo\":{{updateRequired: false}}";
+                return $"\"routeInfo\":{{\"updateRequired\": \"false\"}}";
             }
             Dictionary<string, RouteSOPODto> routeDictionary =
                 await GetRouteFromZoneIds(zoneIds);
