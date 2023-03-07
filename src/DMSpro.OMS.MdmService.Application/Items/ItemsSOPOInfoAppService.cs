@@ -13,11 +13,15 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public partial class ItemsAppService
     {
-        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate)
+        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate, bool getRouteInfo)
         {
             DateTime now = DateTime.Now;
             await CheckCompany(companyId, now);
             List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, now);
+            if (zoneIds.Count < 1)
+            {
+                throw new BusinessException(message: L[""], code: "0");
+            }
             string nowString = now.ToString("yyyy/MM/dd HH:mm:ss");
             (string itemInfo,
                 Dictionary<string, ItemSOPODto> itemDictionary,
@@ -25,8 +29,114 @@ namespace DMSpro.OMS.MdmService.Items
                 await GetItemInfoForSOAsync(zoneIds, lastApiDate, nowString);
             string customerInfo = await GetCustomerInfoForSOAsync(zoneIds, lastApiDate,
                 now, nowString, itemDictionary, uomDictionary);
+            string routeInfo = await GetRouteInfo(getRouteInfo, zoneIds, lastApiDate, now, nowString);
+            return $"{{{itemInfo}, {customerInfo}, {routeInfo}}}";
+        }
 
-            return $"{{{itemInfo}, {customerInfo}}}";
+        private async Task<string> GetRouteInfo(bool getRouteInfo, 
+            List<Guid> zoneIds, DateTime? lastApiDate, 
+            DateTime now, string nowString)
+        {   
+            if (!getRouteInfo)
+            {
+                return $"routeInfo:{{updateRequired: false}}";
+            }
+            var routeInfoRequired =
+                await CheckRouteInfoRequired(lastApiDate);
+            if (!routeInfoRequired)
+            {
+                return $"routeInfo:{{updateRequired: false}}";
+            }
+            Dictionary<string, RouteSOPODto> routeDictionary =
+                await GetRouteFromZoneIds(zoneIds);
+            (Dictionary<string, List<string>> employeesInRoute,
+                List<Guid> employeeList) = await GetEmployeesInRoute(
+                    routeDictionary.Keys.ToList(), now);
+            Dictionary<string, EmployeeSOPODto> employeeDictionary =
+                await GetEmployees(employeeList, now);
+            List<string> resultParts = new()
+            {
+                $"route: {_jsonSerializer.Serialize(routeDictionary)}",
+                $"employee: {_jsonSerializer.Serialize(employeeDictionary)}",
+                $"employeeInRoute: {_jsonSerializer.Serialize(employeesInRoute)}",
+                $"lastUpdated: {nowString}",
+                $"updateRequired: true",
+            };
+            return $"customerInfo:{{{resultParts.JoinAsString(",")}}}";
+        }
+
+        private async Task<Dictionary<string, RouteSOPODto>> GetRouteFromZoneIds(List<Guid> zoneIds)
+        {
+            var routes = await _salesOrgHierarchyRepository.GetListAsync(x => x.IsRoute == true &&
+                x.ParentId != null && zoneIds.Contains((Guid)x.ParentId) &&
+                x.Active == true);
+            var dtos = routes.Select(x => new RouteSOPODto()
+            {
+                id = x.Id.ToString(),
+                code = x.Code,
+                name = x.Name,
+            });
+            Dictionary<string, RouteSOPODto> result = new();
+            foreach (var dto in dtos)
+            {
+                result.Add(dto.id, dto);
+            }
+            return result;
+        }
+
+        private async Task<(Dictionary<string, List<string>>, List<Guid>)>
+            GetEmployeesInRoute(List<string> routeIds, DateTime now)
+        {
+            var assignments = await _salesOrgEmpAssignmentRepository.GetListAsync(
+                x => routeIds.Contains(x.SalesOrgHierarchyId.ToString()) &&
+                x.IsBase == true && x.EffectiveDate <= now &&
+                (x.EndDate == null || x.EndDate > now));
+            List<Guid> employeeIds = assignments.Select(x => x.EmployeeProfileId)
+                .Distinct().ToList();
+            Dictionary<string, List<string>> employeesInRoute = new();
+            foreach (var assignment in assignments)
+            {
+                string routeIdString = assignment.SalesOrgHierarchyId.ToString();
+                string employeeIdString = assignment.EmployeeProfileId.ToString();
+                if (employeesInRoute.TryGetValue(routeIdString, out List<string> employees))
+                {
+                    if (!employees.Contains(employeeIdString))
+                    {
+                        employees.Add(employeeIdString);
+                    }
+                }
+                else
+                {
+                    List<string> newEmployeeList = new()
+                    {
+                        employeeIdString
+                    };
+                    employeesInRoute.Add(routeIdString, newEmployeeList);
+                }
+            }
+            return (employeesInRoute, employeeIds);
+        }
+
+        private async Task<Dictionary<string, EmployeeSOPODto>> GetEmployees(
+            List<Guid> employeeList, DateTime now)
+        {
+            var employees = await _employeeProfileRepository.GetListAsync(
+                x => employeeList.Contains(x.Id) && x.Active == true &&
+                x.EffectiveDate <= now && x.EndDate > now);
+            var dtos = employees.Distinct().Select(x => new EmployeeSOPODto()
+            {
+                id = x.Id.ToString(),
+                code = x.Code,
+                firstName = x.FirstName,
+                lastName = x.LastName,
+                email = x.Email,
+            });
+            Dictionary<string, EmployeeSOPODto> result = new();
+            foreach (var dto in dtos)
+            {
+                result.Add(dto.id, dto);
+            }
+            return result;
         }
 
         private async Task<string> GetCustomerInfoForSOAsync(List<Guid> zoneIds,
@@ -61,19 +171,19 @@ namespace DMSpro.OMS.MdmService.Items
             Dictionary<string, UOMSOPODto> uomDictionary)
         {
             List<string> itemIds = itemDictionary.Keys.ToList();
-            List<string> uomIds= uomDictionary.Keys.ToList();
+            List<string> uomIds = uomDictionary.Keys.ToList();
             List<Guid> activePriceListIds = (await _priceListRepository.GetListAsync(
                 x => priceListIds.Contains(x.Id) && x.Active == true)).Select(x => x.Id)
                 .Distinct().ToList();
             var priceListDetails = await _priceListDetailRepository.GetListAsync(
-                x => activePriceListIds.Contains(x.PriceListId) && 
+                x => activePriceListIds.Contains(x.PriceListId) &&
                 uomIds.Contains(x.UOMId.ToString()) &&
                 itemIds.Contains(x.ItemId.ToString()));
-            var parts = priceListDetails.Select(x => new 
-                { 
-                    Key = $"{x.PriceListId}|{x.ItemId}|{x.UOMId}", 
-                    x.Price,
-                }).ToList();
+            var parts = priceListDetails.Select(x => new
+            {
+                Key = $"{x.PriceListId}|{x.ItemId}|{x.UOMId}",
+                x.Price,
+            }).ToList();
             Dictionary<string, decimal> result = new();
             foreach (var part in parts)
             {
@@ -436,35 +546,35 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 return true;
             }
-            if ((await _itemGroupInZoneRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _itemGroupInZoneRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _itemRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _itemRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _uOMRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _uOMRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _uOMGroupDetailRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _uOMGroupDetailRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _vATRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _vATRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _itemGroupRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _itemGroupRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _itemGroupListRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _itemGroupListRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _itemGroupAttributeRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _itemGroupAttributeRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
@@ -477,19 +587,40 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 return true;
             }
-            if ((await _customerInZoneRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _customerInZoneRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _customerRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _customerRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _priceListDetailRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _priceListDetailRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
-            if ((await _priceListRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Any())
+            if ((await _priceListRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private async Task<bool> CheckRouteInfoRequired(DateTime? lastApiDate)
+        {
+            if (!lastApiDate.HasValue)
+            {
+                return true;
+            }
+            if ((await _salesOrgHierarchyRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            if ((await _employeeProfileRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
+            {
+                return true;
+            }
+            if ((await _salesOrgEmpAssignmentRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }
@@ -539,6 +670,28 @@ namespace DMSpro.OMS.MdmService.Items
             public string priceListId { get; set; }
 
             public CustomerSOPODto()
+            {
+            }
+        }
+
+        private class RouteSOPODto
+        {
+            public string id { get; set; }
+            public string code { get; set; }
+            public string name { get; set; }
+
+            public RouteSOPODto() { }
+        }
+
+        private class EmployeeSOPODto
+        {
+            public string id { get; set; }
+            public string code { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public string email { get; set; }
+
+            public EmployeeSOPODto()
             {
             }
         }

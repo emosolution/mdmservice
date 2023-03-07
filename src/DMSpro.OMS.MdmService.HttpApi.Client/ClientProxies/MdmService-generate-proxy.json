@@ -28343,6 +28343,14 @@
                       "typeSimple": "string?",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "getRouteInfo",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -30225,11 +30233,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetInfoForSOAsyncByCompanyIdAndLastApiDate": {
-              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDate",
+            "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetRouteInfo": {
+              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastApiDateAndGetRouteInfo",
               "name": "GetInfoForSOAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/items/test",
+              "url": "api/mdm-service/items/info-for-so-po",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -30245,6 +30253,14 @@
                   "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "getRouteInfo",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -30268,6 +30284,18 @@
                   "jsonName": null,
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "getRouteInfo",
+                  "name": "getRouteInfo",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

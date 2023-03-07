@@ -28,15 +28,18 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
 
         [HttpGet]
         [Route("info-for-so-po")]
-        public async Task<string> GetInfoForSOAsync(Guid companyId, DateTime? lastApiDate)
+        public async Task<string> GetInfoForSOAsync(Guid companyId, 
+            DateTime? lastApiDate, bool getRouteInfo)
         {
             try
             {
-                return await _itemsAppService.GetInfoForSOAsync(companyId, lastApiDate);
+                return await _itemsAppService.GetInfoForSOAsync(companyId, 
+                    lastApiDate, getRouteInfo);
             }
             catch (BusinessException bex)
             {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+                throw new UserFriendlyException(message: bex.Message, 
+                    code: bex.Code, details: bex.Details);
             }
             catch (Exception e)
             {

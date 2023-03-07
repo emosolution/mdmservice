@@ -25,6 +25,8 @@ using DMSpro.OMS.MdmService.CustomerInZones;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
+using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -60,6 +62,8 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly ICustomerRepository _customerRepository;
         private readonly IPriceListRepository _priceListRepository;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
+        private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
+        private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
         private static List<object> _itemRepositories = new();
 
@@ -89,6 +93,8 @@ namespace DMSpro.OMS.MdmService.Items
             ICustomerRepository customerRepository,
             IPriceListRepository priceListRepository,
             IPriceListDetailRepository priceListDetailRepository,
+            ISalesOrgEmpAssignmentRepository salesOrgEmpAssignmentRepository,
+            IEmployeeProfileRepository employeeProfileRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -134,6 +140,9 @@ namespace DMSpro.OMS.MdmService.Items
             _customerRepository = customerRepository;
             _priceListDetailRepository = priceListDetailRepository;
             _priceListRepository = priceListRepository;
+
+            _salesOrgEmpAssignmentRepository = salesOrgEmpAssignmentRepository;
+            _employeeProfileRepository = employeeProfileRepository;
         }
     }
 }
