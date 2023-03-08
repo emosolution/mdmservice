@@ -482,6 +482,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
             b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
+            b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
             b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CompanyInZone>(b =>
@@ -851,6 +852,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.Description).HasColumnName(nameof(ItemGroupInZone.Description)).HasMaxLength(ItemGroupInZoneConsts.DescriptionMaxLength);
         b.HasOne<SalesOrgHierarchy>(x => x.SellingZone).WithMany().IsRequired().HasForeignKey(x => x.SellingZoneId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CompanyIdentityUserAssignment>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
+        b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
+        b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
+        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
     }
 }
