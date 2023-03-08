@@ -27,6 +27,7 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
+using DMSpro.OMS.MdmService.Vendors;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -64,8 +65,7 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IPriceListDetailRepository _priceListDetailRepository;
         private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
-
-        private static List<object> _itemRepositories = new();
+        private readonly IVendorRepository _vendorRepository;
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -95,6 +95,7 @@ namespace DMSpro.OMS.MdmService.Items
             IPriceListDetailRepository priceListDetailRepository,
             ISalesOrgEmpAssignmentRepository salesOrgEmpAssignmentRepository,
             IEmployeeProfileRepository employeeProfileRepository,
+            IVendorRepository vendorRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -143,6 +144,8 @@ namespace DMSpro.OMS.MdmService.Items
 
             _salesOrgEmpAssignmentRepository = salesOrgEmpAssignmentRepository;
             _employeeProfileRepository = employeeProfileRepository;
+
+            _vendorRepository = vendorRepository;
         }
     }
 }

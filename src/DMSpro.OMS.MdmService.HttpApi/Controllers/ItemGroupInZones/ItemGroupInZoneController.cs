@@ -7,7 +7,6 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemGroupInZones;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroupInZones
 {
