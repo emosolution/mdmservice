@@ -74,7 +74,7 @@ public class MdmServiceHttpApiHostModule : AbpModule
         context.Services.AddGrpc().AddJsonTranscoding();
 
         // DISABLE ALL AUTHORIZATIONS 
-        //context.Services.AddAlwaysAllowAuthorization();
+        context.Services.AddAlwaysAllowAuthorization();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

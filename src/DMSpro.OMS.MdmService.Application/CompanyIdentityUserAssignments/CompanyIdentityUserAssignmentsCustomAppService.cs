@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using DMSpro.OMS.MdmService.Companies;
 using System;
 using Volo.Abp;
-using System.ComponentModel.Design;
+using Grpc.Net.Client;
+using DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -20,7 +21,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
             LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
-            results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, 
+            results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>,
                 IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(
                 results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
             return results;
@@ -28,15 +29,69 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
-            var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
+            // var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
+            var assignmentWithNavigationProperties =
+                await _companyIdentityUserAssignmentRepository.GetListWithNavigationPropertiesAsync();
+            var assignments =
+                assignmentWithNavigationProperties.Select(x => x.CompanyIdentityUserAssignment).ToList();
+            var identityUserIds = assignments.Select(x => x.IdentityUserId.ToString()).Distinct().ToList();
+            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]);
+            var client = new IdentityUsersProtoAppService.IdentityUsersProtoAppServiceClient(channel);
+            GetListIdentityUsersRequest request = new()
+            {
+                TenantId = _currentTenant.Id.ToString(),
+            };
+            request.IdentityUserIds.Add(identityUserIds);
+            var response = await client.GetListIdentityUsersAsync(request);
+            if (response.IdentityUsers == null || response.IdentityUsers.Count < 1)
+            {
+                throw new Exception(L["At least one user cannot be found in the system"]);
+            }
+            List<IdentityUser> identityUsers = response.IdentityUsers.ToList();
+            var assignmentsWithIdentity = from x in assignmentWithNavigationProperties
+                                          join y in identityUsers
+                                          on x.CompanyIdentityUserAssignment.IdentityUserId.ToString() equals y.Id
+                                          select new
+                                          {
+                                              x.CompanyIdentityUserAssignment,
+                                              x.Company,
+                                              y
+                                          };
+            List<CompanyIdentityUserAssignmentDevExtremeDto> dtos = new();
+            foreach (var assignmentWithIdentity in assignmentsWithIdentity)
+            {
+                CompanyIdentityUserAssignmentDevExtremeDto dto = new()
+                {
+                    CompanyIdentityUserAssignment =
+                        ObjectMapper.Map<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto>
+                        (assignmentWithIdentity.CompanyIdentityUserAssignment),
+                    Company = ObjectMapper.Map<Company, CompanyDto>
+                        (assignmentWithIdentity.Company),
+                    IdentityUser = new()
+                    {
+                        Id = Guid.Parse(assignmentWithIdentity.y.Id),
+                        TenantId = _currentTenant.Id,
+                        UserName = assignmentWithIdentity.y.UserName,
+                        Name = assignmentWithIdentity.y.Name == "" ? null : assignmentWithIdentity.y.Name,
+                        Email = assignmentWithIdentity.y.Email,
+                        EmailConfirmed = assignmentWithIdentity.y.EmailConfirmed,
+                        PhoneNumber = assignmentWithIdentity.y.PhoneNumber == "" ? null : assignmentWithIdentity.y.PhoneNumber,
+                        PhoneNumberConfirmed = assignmentWithIdentity.y.PhoneNumberConfirmed,
+                        IsActive = assignmentWithIdentity.y.IsActive,
+                    },
+                };
+                dtos.Add(dto);
+            }
+            if (dtos.Count != assignmentWithNavigationProperties.Count)
+            {
+                throw new Exception(L["At least one user cannot be found in the system"]);
+            }
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);
-            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            LoadResult results = DataSourceLoader.Load(dtos, base_dataloadoption);
             if (inputDev.Group == null)
             {
-                results.data = ObjectMapper.Map<IEnumerable<CompanyIdentityUserAssignmentWithNavigationProperties>, 
-                    IEnumerable<CompanyIdentityUserAssignmentWithNavigationPropertiesDto>>(
-                    results.data.Cast<CompanyIdentityUserAssignmentWithNavigationProperties>());
+                results.data = dtos;
             }
             return results;
         }
@@ -72,10 +127,11 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
                 throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
             }
             assignments = assignments.OrderBy(x => x.CreationTime).ToList();
-            foreach(var assignment in assignments) { 
+            foreach (var assignment in assignments)
+            {
                 if (assignment.CurrentlySelected == true)
                 {
-                    var selectedCompany = 
+                    var selectedCompany =
                         await _companyRepository.GetAsync(assignment.CompanyId);
                     return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
                 }

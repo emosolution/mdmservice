@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
 
@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
 
@@ -65,7 +65,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
 
@@ -87,7 +87,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeAttachments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
 

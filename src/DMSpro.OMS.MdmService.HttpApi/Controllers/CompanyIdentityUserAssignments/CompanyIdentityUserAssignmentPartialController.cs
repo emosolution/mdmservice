@@ -8,20 +8,31 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
 {
-	public partial class CompanyIdentityUserAssignmentController
-	{
-		[HttpGet]
-		[Route("GetListDevextremes")]
-		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			return _companyIdentityUserAssignmentsAppService.GetListDevextremesAsync(inputDev);
-		}
+    public partial class CompanyIdentityUserAssignmentController
+    {
+        [HttpGet]
+        [Route("GetListDevextremes")]
+        public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            try
+            {
+                return _companyIdentityUserAssignmentsAppService.GetListDevextremesAsync(inputDev);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
+        }
 
-		[HttpPost]
-		[Route("update-from-excel")]
-		public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			try
+        [HttpPost]
+        [Route("update-from-excel")]
+        public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
+        {
+            try
             {
                 return await _companyIdentityUserAssignmentsAppService.UpdateFromExcelAsync(file);
             }
@@ -31,13 +42,13 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
-		}
+        }
 
-		[HttpPost]
-		[Route("insert-from-excel")]
-		public async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+        [HttpPost]
+        [Route("insert-from-excel")]
+        public async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
         {
             try
             {
@@ -49,11 +60,11 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
-		
-		[HttpGet]
+
+        [HttpGet]
         [Route("get-excel-template")]
         public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
         {
@@ -67,8 +78,8 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
             }
             catch (Exception e)
             {
-                throw new UserFriendlyException(message: e.Message);
+                throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
-	}
+    }
 }
