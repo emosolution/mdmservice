@@ -69642,6 +69642,31 @@
                   }
                 },
                 {
+                  "name": "SetCurrentlySelectedCompanyAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"
+                  }
+                },
+                {
+                  "name": "GetCurrentlySelectedCompanyAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -70440,6 +70465,58 @@
               "returnValue": {
                 "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
                 "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
+            },
+            "SetCurrentlySelectedCompanyAsyncByCompanyId": {
+              "uniqueName": "SetCurrentlySelectedCompanyAsyncByCompanyId",
+              "name": "SetCurrentlySelectedCompanyAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/company-identity-user-assignments/set-selected-company",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
+                "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
+            },
+            "GetCurrentlySelectedCompanyAsync": {
+              "uniqueName": "GetCurrentlySelectedCompanyAsync",
+              "name": "GetCurrentlySelectedCompanyAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/company-identity-user-assignments/get-selected-company",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
+                "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
