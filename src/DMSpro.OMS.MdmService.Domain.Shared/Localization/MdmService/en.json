@@ -1057,6 +1057,8 @@
     "Error:ItemsAppService:552": "Unknown item group type",
     "Error:CompanyIdentityUserAssignment:550": "Company does not belong to current user",
     "Error:CompanyIdentityUserAssignment:551": "Current user is not assigned to any company",
-    "Error:CompanyIdentityUserAssignment:552": "At least one user cannot be found in the system"
+    "Error:CompanyIdentityUserAssignment:552": "At least one user cannot be found in the system",
+    "Error:NumberingConfigsAppService:550": "More than one system data of value code {valueCode} found",
+    "Error:NumberingConfigsAppService:551": "No config can be found"
   }
 }
