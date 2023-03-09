@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -190,6 +191,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CustomerImage, CustomerImages.EfCoreCustomerImageRepository>();
 
             options.AddRepository<ItemGroupInZone, ItemGroupInZones.EfCoreItemGroupInZoneRepository>();
+
+            options.AddRepository<NumberingConfigDetail, NumberingConfigDetails.EfCoreNumberingConfigDetailRepository>();
 
         });
 
@@ -395,6 +398,12 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup)
                     .Include(o => o.SellingZone);
+            });
+
+            options.Entity<NumberingConfigDetail>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Company)
+                    .Include(o => o.NumberingConfig);
             });
 
         });

@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
@@ -379,5 +380,10 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupInZone, ItemGroupInZoneDto>();
         CreateMap<ItemGroupInZone, ItemGroupInZoneExcelDto>();
         CreateMap<ItemGroupInZoneWithNavigationProperties, ItemGroupInZoneWithNavigationPropertiesDto>();
+
+        CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
+        CreateMap<NumberingConfigDetail, NumberingConfigDetailExcelDto>();
+        CreateMap<NumberingConfigDetailWithNavigationProperties, NumberingConfigDetailWithNavigationPropertiesDto>();
+        CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
     }
 }
