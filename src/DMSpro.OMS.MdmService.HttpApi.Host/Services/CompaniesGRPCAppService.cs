@@ -5,6 +5,7 @@ using Grpc.Core;
 using DMSpro.OMS.MdmService.Helpers;
 using Volo.Abp.MultiTenancy;
 using System.Linq;
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 
 namespace DMSpro.OMS.MdmService.Companies;
 
@@ -12,14 +13,17 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
 {
     private readonly ICompaniesInternalAppService _companiesInternalAppService;
     private readonly ICompanyRepository _companyRepository;
+    private readonly ICompanyIdentityUserAssignmentRepository _userAssignmentRepository;
     private readonly ICurrentTenant _currentTenant;
 
     public CompaniesGRPCAppService(ICompaniesInternalAppService companiesInternalAppService,
         ICompanyRepository companyRepository,
+        ICompanyIdentityUserAssignmentRepository userAssignmentRepository,
         ICurrentTenant currentTenant)
     {
         _companiesInternalAppService = companiesInternalAppService;
         _companyRepository = companyRepository;
+        _userAssignmentRepository = userAssignmentRepository;
         _currentTenant = currentTenant;
     }
 
@@ -65,6 +69,17 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             if (companyDto == null)
             {
                 return response;
+            }
+
+            if (request.CheckCurrentlySelected == true)
+            {
+                var assignment = await _userAssignmentRepository.GetListAsync(
+                    x => x.IdentityUserId.ToString() == request.IdentityUserId &&
+                    x.CompanyId.ToString() ==request.CompanyId && x.CurrentlySelected == true);
+                if (assignment.Count != 1)
+                {
+                    return response;
+                }
             }
 
             response.Company = new OMS.Shared.Protos.MdmService.Companies.Company()
