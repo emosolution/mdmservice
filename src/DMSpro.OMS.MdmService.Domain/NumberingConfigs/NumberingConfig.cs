@@ -27,6 +27,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public virtual int Length { get; set; }
 
         public virtual bool Active { get; set; }
+
+        [CanBeNull]
+        public virtual string Description { get; set; }
         public Guid? SystemDataId { get; set; }
 
         public virtual SystemData SystemData { get; set; }
@@ -35,17 +38,19 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         }
 
-        public NumberingConfig(Guid id, Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active)
+        public NumberingConfig(Guid id, Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, string description)
         {
 
             Id = id;
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength, 0);
             Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength, 0);
+            Check.Length(description, nameof(description), NumberingConfigConsts.DescriptionMaxLength, 0);
             StartNumber = startNumber;
             Prefix = prefix;
             Suffix = suffix;
             Length = length;
             Active = active;
+            Description = description;
             SystemDataId = systemDataId;
         }
 

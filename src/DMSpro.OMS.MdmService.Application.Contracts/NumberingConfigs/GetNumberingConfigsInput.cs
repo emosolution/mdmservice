@@ -14,6 +14,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public int? LengthMin { get; set; }
         public int? LengthMax { get; set; }
         public bool? Active { get; set; }
+        public string Description { get; set; }
         public Guid? SystemDataId { get; set; }
 
         public GetNumberingConfigsInput()

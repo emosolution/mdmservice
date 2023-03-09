@@ -18,12 +18,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
 
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
-    public partial class NumberingConfigsAppService 
+    public partial class NumberingConfigsAppService
     {
         public virtual async Task<PagedResultDto<NumberingConfigWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigsInput input)
         {
-            var totalCount = await _numberingConfigRepository.GetCountAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.SystemDataId);
-            var items = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.SystemDataId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _numberingConfigRepository.GetCountAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.Description, input.SystemDataId);
+            var items = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.Description, input.SystemDataId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<NumberingConfigWithNavigationPropertiesDto>
             {
@@ -70,7 +70,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         {
 
             var numberingConfig = await _numberingConfigManager.CreateAsync(
-            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active
+            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active, input.Description
             );
 
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(numberingConfig);
@@ -82,7 +82,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var numberingConfig = await _numberingConfigManager.UpdateAsync(
             id,
-            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active, input.ConcurrencyStamp
+            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active, input.Description, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(numberingConfig);
@@ -97,7 +97,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var numberingConfigs = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active);
+            var numberingConfigs = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.Description);
             var items = numberingConfigs.Select(item => new
             {
                 StartNumber = item.NumberingConfig.StartNumber,
@@ -105,6 +105,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 Suffix = item.NumberingConfig.Suffix,
                 Length = item.NumberingConfig.Length,
                 Active = item.NumberingConfig.Active,
+                Description = item.NumberingConfig.Description,
 
                 SystemDataCode = item.SystemData?.Code,
 
