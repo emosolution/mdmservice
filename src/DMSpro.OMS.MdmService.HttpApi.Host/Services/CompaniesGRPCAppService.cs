@@ -4,18 +4,22 @@ using DMSpro.OMS.Shared.Protos.MdmService.Companies;
 using Grpc.Core;
 using DMSpro.OMS.MdmService.Helpers;
 using Volo.Abp.MultiTenancy;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.Companies;
 
 public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAppServiceBase
 {
     private readonly ICompaniesInternalAppService _companiesInternalAppService;
+    private readonly ICompanyRepository _companyRepository;
     private readonly ICurrentTenant _currentTenant;
 
     public CompaniesGRPCAppService(ICompaniesInternalAppService companiesInternalAppService,
+        ICompanyRepository companyRepository,
         ICurrentTenant currentTenant)
     {
         _companiesInternalAppService = companiesInternalAppService;
+        _companyRepository = companyRepository;
         _currentTenant = currentTenant;
     }
 
@@ -72,6 +76,35 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
                 Active = MDMHelpers.CheckActive(companyDto.Active, companyDto.EffectiveDate, companyDto.EndDate),
                 HO = companyDto.IsHO
             };
+            return response;
+        }
+    }
+
+    public override async Task<GetListCompaniesResponse> GetListCompanies(
+        GetListCompaniesRequest request, ServerCallContext context)
+    {
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
+        using (_currentTenant.Change(tenantId))
+        {
+            var companies = await _companyRepository.GetListAsync(
+                x => request.CompanyIds.Contains(x.Id.ToString()) &&
+                x.TenantId == tenantId);
+            var response = new GetListCompaniesResponse();
+            if (companies.Count < 1)
+            {
+                return response;
+            }
+            response.Companies.Add(
+                companies.Select(
+                    x => new DMSpro.OMS.Shared.Protos.MdmService.Companies.Company()
+                    {
+                        Id = x.Id.ToString(),
+                        TenantId = request.TenantId,
+                        Code = x.Code,
+                        Name = x.Name,
+                        Active = x.Active,
+                        HO = x.IsHO,
+                    }));
             return response;
         }
     }
