@@ -41,6 +41,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             Guid? systemDataId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -48,7 +49,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description, systemDataId);
+            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description, isDefault, systemDataId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? NumberingConfigConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -77,6 +78,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             Guid? systemDataId = null)
         {
             return query
@@ -89,6 +91,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     .WhereIf(lengthMax.HasValue, e => e.NumberingConfig.Length <= lengthMax.Value)
                     .WhereIf(active.HasValue, e => e.NumberingConfig.Active == active)
                     .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.NumberingConfig.Description.Contains(description))
+                    .WhereIf(isDefault.HasValue, e => e.NumberingConfig.IsDefault == isDefault)
                     .WhereIf(systemDataId != null && systemDataId != Guid.Empty, e => e.SystemData != null && e.SystemData.Id == systemDataId);
         }
 
@@ -102,12 +105,13 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description, isDefault);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? NumberingConfigConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -122,11 +126,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             Guid? systemDataId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description, systemDataId);
+            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, description, isDefault, systemDataId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -140,7 +145,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMin = null,
             int? lengthMax = null,
             bool? active = null,
-            string description = null)
+            string description = null,
+            bool? isDefault = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Prefix.Contains(filterText) || e.Suffix.Contains(filterText) || e.Description.Contains(filterText))
@@ -151,7 +157,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     .WhereIf(lengthMin.HasValue, e => e.Length >= lengthMin.Value)
                     .WhereIf(lengthMax.HasValue, e => e.Length <= lengthMax.Value)
                     .WhereIf(active.HasValue, e => e.Active == active)
-                    .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description));
+                    .WhereIf(!string.IsNullOrWhiteSpace(description), e => e.Description.Contains(description))
+                    .WhereIf(isDefault.HasValue, e => e.IsDefault == isDefault);
         }
     }
 }

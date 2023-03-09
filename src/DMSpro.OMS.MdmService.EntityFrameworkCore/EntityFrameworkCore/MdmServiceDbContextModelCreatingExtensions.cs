@@ -461,6 +461,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Length).HasColumnName(nameof(NumberingConfig.Length));
             b.Property(x => x.Active).HasColumnName(nameof(NumberingConfig.Active));
             b.Property(x => x.Description).HasColumnName(nameof(NumberingConfig.Description)).HasMaxLength(NumberingConfigConsts.DescriptionMaxLength);
+            b.Property(x => x.IsDefault).HasColumnName(nameof(NumberingConfig.IsDefault));
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<SystemConfig>(b =>

@@ -15,6 +15,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public bool Active { get; set; } = true;
         [StringLength(NumberingConfigConsts.DescriptionMaxLength)]
         public string Description { get; set; }
+        public bool IsDefault { get; set; } = false;
         public Guid? SystemDataId { get; set; }
     }
 }

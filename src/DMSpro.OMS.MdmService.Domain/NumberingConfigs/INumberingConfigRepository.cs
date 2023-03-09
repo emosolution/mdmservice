@@ -22,6 +22,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             Guid? systemDataId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -39,6 +40,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     int? lengthMax = null,
                     bool? active = null,
                     string description = null,
+                    bool? isDefault = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -55,6 +57,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             int? lengthMax = null,
             bool? active = null,
             string description = null,
+            bool? isDefault = null,
             Guid? systemDataId = null,
             CancellationToken cancellationToken = default);
     }

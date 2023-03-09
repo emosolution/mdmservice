@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         }
 
         public async Task<NumberingConfig> CreateAsync(
-        Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, string description)
+        Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, string description, bool isDefault)
         {
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
             Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength);
@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var numberingConfig = new NumberingConfig(
              GuidGenerator.Create(),
-             systemDataId, startNumber, prefix, suffix, length, active, description
+             systemDataId, startNumber, prefix, suffix, length, active, description, isDefault
              );
 
             return await _numberingConfigRepository.InsertAsync(numberingConfig);
@@ -36,7 +36,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         public async Task<NumberingConfig> UpdateAsync(
             Guid id,
-            Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, string description, [CanBeNull] string concurrencyStamp = null
+            Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, string description, bool isDefault, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
@@ -52,6 +52,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             numberingConfig.Length = length;
             numberingConfig.Active = active;
             numberingConfig.Description = description;
+            numberingConfig.IsDefault = isDefault;
 
             numberingConfig.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _numberingConfigRepository.UpdateAsync(numberingConfig);

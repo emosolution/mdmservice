@@ -10,5 +10,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public int Length { get; set; }
         public bool Active { get; set; }
         public string Description { get; set; }
+        public bool IsDefault { get; set; }
     }
 }
