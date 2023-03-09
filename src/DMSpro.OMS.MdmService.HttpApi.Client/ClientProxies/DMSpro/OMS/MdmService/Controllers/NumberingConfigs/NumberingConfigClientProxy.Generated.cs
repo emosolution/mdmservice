@@ -44,14 +44,6 @@ public partial class NumberingConfigClientProxy : ClientProxyBase<INumberingConf
         });
     }
 
-    public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-    {
-        return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetCompanyLookupAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(LookupRequestDto), input }
-        });
-    }
-
     public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
     {
         return await RequestAsync<PagedResultDto<LookupDto<Guid>>>(nameof(GetSystemDataLookupAsync), new ClientProxyRequestTypeValue
