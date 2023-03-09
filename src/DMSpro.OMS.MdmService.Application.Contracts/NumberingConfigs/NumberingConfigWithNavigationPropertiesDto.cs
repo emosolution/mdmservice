@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SystemDatas;
 
 using System;
@@ -11,7 +10,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
     {
         public NumberingConfigDto NumberingConfig { get; set; }
 
-        public CompanyDto Company { get; set; }
         public SystemDataDto SystemData { get; set; }
 
     }

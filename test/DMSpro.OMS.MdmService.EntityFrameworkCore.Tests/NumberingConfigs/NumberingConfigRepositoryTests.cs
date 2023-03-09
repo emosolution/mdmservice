@@ -25,14 +25,15 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             {
                 // Act
                 var result = await _numberingConfigRepository.GetListAsync(
-                    prefix: "ae90690e5d1c49ecbebf",
-                    suffix: "d191f000a5fa4e1e92f9"
+                    prefix: "e88fabc858b34177b150",
+                    suffix: "020e39c4c8de4d80aca5",
+                    active: true
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"));
+                result.First().Id.ShouldBe(Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"));
             });
         }
 
@@ -44,8 +45,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             {
                 // Act
                 var result = await _numberingConfigRepository.GetCountAsync(
-                    prefix: "fe06d03b9e8b4e28ae66",
-                    suffix: "dbe25d5eb7a84995b7ff"
+                    prefix: "522c941224c645139c05",
+                    suffix: "66ebea96bd524154a081",
+                    active: true
                 );
 
                 // Assert

@@ -8,5 +8,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public int Length { get; set; }
+        public bool Active { get; set; }
     }
 }

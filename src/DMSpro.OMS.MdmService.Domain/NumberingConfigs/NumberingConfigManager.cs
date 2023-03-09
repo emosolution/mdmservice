@@ -20,14 +20,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         }
 
         public async Task<NumberingConfig> CreateAsync(
-        Guid? companyId, Guid? systemDataId, int startNumber, string prefix, string suffix, int length)
+        Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active)
         {
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
             Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength);
 
             var numberingConfig = new NumberingConfig(
              GuidGenerator.Create(),
-             companyId, systemDataId, startNumber, prefix, suffix, length
+             systemDataId, startNumber, prefix, suffix, length, active
              );
 
             return await _numberingConfigRepository.InsertAsync(numberingConfig);
@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         public async Task<NumberingConfig> UpdateAsync(
             Guid id,
-            Guid? companyId, Guid? systemDataId, int startNumber, string prefix, string suffix, int length, [CanBeNull] string concurrencyStamp = null
+            Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength);
@@ -43,12 +43,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var numberingConfig = await _numberingConfigRepository.GetAsync(id);
 
-            numberingConfig.CompanyId = companyId;
             numberingConfig.SystemDataId = systemDataId;
             numberingConfig.StartNumber = startNumber;
             numberingConfig.Prefix = prefix;
             numberingConfig.Suffix = suffix;
             numberingConfig.Length = length;
+            numberingConfig.Active = active;
 
             numberingConfig.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _numberingConfigRepository.UpdateAsync(numberingConfig);

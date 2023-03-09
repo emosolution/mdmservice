@@ -44,13 +44,6 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
         }
 
         [HttpGet]
-        [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-        {
-            return _numberingConfigsAppService.GetCompanyLookupAsync(input);
-        }
-
-        [HttpGet]
         [Route("system-data-lookup")]
         public Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
         {

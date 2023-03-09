@@ -13,7 +13,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public string Suffix { get; set; }
         public int? LengthMin { get; set; }
         public int? LengthMax { get; set; }
-        public Guid? CompanyId { get; set; }
+        public bool? Active { get; set; }
         public Guid? SystemDataId { get; set; }
 
         public GetNumberingConfigsInput()

@@ -334,7 +334,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<NumberingConfig>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData).Include(o => o.Company);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SystemData);
             });
 
             options.Entity<PricelistAssignment>(orderOptions =>

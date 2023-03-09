@@ -10,7 +10,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 			return new()
 			{
 				{ "CompanyId", (1, "ICompanyRepository", "", "") },
-                { "SystemDataId", (1, "ISystemDataRepository", "", "") },
             };
 		}
 

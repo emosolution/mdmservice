@@ -9,8 +9,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
     public partial interface INumberingConfigRepository : IRepository<NumberingConfig, Guid>
     {
         Task<NumberingConfigWithNavigationProperties> GetWithNavigationPropertiesAsync(
-        Guid id,
-        CancellationToken cancellationToken = default);
+            Guid id,
+            CancellationToken cancellationToken = default);
 
         Task<List<NumberingConfigWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
-            Guid? companyId = null,
+            bool? active = null,
             Guid? systemDataId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -36,6 +36,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     string suffix = null,
                     int? lengthMin = null,
                     int? lengthMax = null,
+                    bool? active = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -50,7 +51,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
-            Guid? companyId = null,
+            bool? active = null,
             Guid? systemDataId = null,
             CancellationToken cancellationToken = default);
     }

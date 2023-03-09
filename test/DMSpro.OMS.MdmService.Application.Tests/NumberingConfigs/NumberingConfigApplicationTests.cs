@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c")).ShouldBe(true);
-            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("c5560f29-7b0d-4263-82dc-fa7c1f48f2c4")).ShouldBe(true);
+            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3")).ShouldBe(true);
+            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("ed8dc997-c9c1-4312-80a6-3f858ade8e23")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _numberingConfigsAppService.GetAsync(Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"));
+            var result = await _numberingConfigsAppService.GetAsync(Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"));
+            result.Id.ShouldBe(Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"));
         }
 
         [Fact]
@@ -48,10 +48,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Arrange
             var input = new NumberingConfigCreateDto
             {
-                StartNumber = 1486911631,
-                Prefix = "cfe3267b62d7432e889b",
-                Suffix = "fd65db97e58244ae87ab",
-                Length = 1193454886
+                StartNumber = 892980332,
+                Prefix = "2bc4d1c1b291437393fe",
+                Suffix = "7d4e12c76e6f4b189ac9",
+                Length = 1322091069,
+                Active = true
             };
 
             // Act
@@ -61,10 +62,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             var result = await _numberingConfigRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.StartNumber.ShouldBe(1486911631);
-            result.Prefix.ShouldBe("cfe3267b62d7432e889b");
-            result.Suffix.ShouldBe("fd65db97e58244ae87ab");
-            result.Length.ShouldBe(1193454886);
+            result.StartNumber.ShouldBe(892980332);
+            result.Prefix.ShouldBe("2bc4d1c1b291437393fe");
+            result.Suffix.ShouldBe("7d4e12c76e6f4b189ac9");
+            result.Length.ShouldBe(1322091069);
+            result.Active.ShouldBe(true);
         }
 
         [Fact]
@@ -73,33 +75,35 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Arrange
             var input = new NumberingConfigUpdateDto()
             {
-                StartNumber = 754431018,
-                Prefix = "cb354aaf23df40b380f1",
-                Suffix = "95bace5d541c4b8baa97",
-                Length = 88975725
+                StartNumber = 621049075,
+                Prefix = "a4db362702574521a336",
+                Suffix = "a6bfac8c9eb540b98dc8",
+                Length = 511842015,
+                Active = true
             };
 
             // Act
-            var serviceResult = await _numberingConfigsAppService.UpdateAsync(Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"), input);
+            var serviceResult = await _numberingConfigsAppService.UpdateAsync(Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"), input);
 
             // Assert
             var result = await _numberingConfigRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.StartNumber.ShouldBe(754431018);
-            result.Prefix.ShouldBe("cb354aaf23df40b380f1");
-            result.Suffix.ShouldBe("95bace5d541c4b8baa97");
-            result.Length.ShouldBe(88975725);
+            result.StartNumber.ShouldBe(621049075);
+            result.Prefix.ShouldBe("a4db362702574521a336");
+            result.Suffix.ShouldBe("a6bfac8c9eb540b98dc8");
+            result.Length.ShouldBe(511842015);
+            result.Active.ShouldBe(true);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _numberingConfigsAppService.DeleteAsync(Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"));
+            await _numberingConfigsAppService.DeleteAsync(Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"));
 
             // Assert
-            var result = await _numberingConfigRepository.FindAsync(c => c.Id == Guid.Parse("b85fea39-2102-4295-9d6b-1bbb8dc7568c"));
+            var result = await _numberingConfigRepository.FindAsync(c => c.Id == Guid.Parse("e4a8349f-e1bc-4217-a569-6829fb5322e3"));
 
             result.ShouldBeNull();
         }

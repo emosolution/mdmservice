@@ -27,7 +27,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 .Select(numberingConfig => new NumberingConfigWithNavigationProperties
                 {
                     NumberingConfig = numberingConfig,
-                    Company = dbContext.Companies.FirstOrDefault(c => c.Id == numberingConfig.CompanyId),
                     SystemData = dbContext.SystemDatas.FirstOrDefault(c => c.Id == numberingConfig.SystemDataId)
                 }).FirstOrDefault();
         }
@@ -40,7 +39,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
-            Guid? companyId = null,
+            bool? active = null,
             Guid? systemDataId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -48,7 +47,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, companyId, systemDataId);
+            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, systemDataId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? NumberingConfigConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -56,15 +55,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         protected virtual async Task<IQueryable<NumberingConfigWithNavigationProperties>> GetQueryForNavigationPropertiesAsync()
         {
             return from numberingConfig in (await GetDbSetAsync())
-                   join company in (await GetDbContextAsync()).Companies on numberingConfig.CompanyId equals company.Id into companies
-                   from company in companies.DefaultIfEmpty()
                    join systemData in (await GetDbContextAsync()).SystemDatas on numberingConfig.SystemDataId equals systemData.Id into systemDatas
                    from systemData in systemDatas.DefaultIfEmpty()
 
                    select new NumberingConfigWithNavigationProperties
                    {
                        NumberingConfig = numberingConfig,
-                       Company = company,
                        SystemData = systemData
                    };
         }
@@ -78,7 +74,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
-            Guid? companyId = null,
+            bool? active = null,
             Guid? systemDataId = null)
         {
             return query
@@ -89,7 +85,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     .WhereIf(!string.IsNullOrWhiteSpace(suffix), e => e.NumberingConfig.Suffix.Contains(suffix))
                     .WhereIf(lengthMin.HasValue, e => e.NumberingConfig.Length >= lengthMin.Value)
                     .WhereIf(lengthMax.HasValue, e => e.NumberingConfig.Length <= lengthMax.Value)
-                    .WhereIf(companyId != null && companyId != Guid.Empty, e => e.Company != null && e.Company.Id == companyId)
+                    .WhereIf(active.HasValue, e => e.NumberingConfig.Active == active)
                     .WhereIf(systemDataId != null && systemDataId != Guid.Empty, e => e.SystemData != null && e.SystemData.Id == systemDataId);
         }
 
@@ -101,12 +97,13 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
+            bool? active = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? NumberingConfigConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -119,12 +116,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string suffix = null,
             int? lengthMin = null,
             int? lengthMax = null,
-            Guid? companyId = null,
+            bool? active = null,
             Guid? systemDataId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, companyId, systemDataId);
+            query = ApplyFilter(query, filterText, startNumberMin, startNumberMax, prefix, suffix, lengthMin, lengthMax, active, systemDataId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -136,7 +133,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string prefix = null,
             string suffix = null,
             int? lengthMin = null,
-            int? lengthMax = null)
+            int? lengthMax = null,
+            bool? active = null)
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Prefix.Contains(filterText) || e.Suffix.Contains(filterText))
@@ -145,7 +143,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     .WhereIf(!string.IsNullOrWhiteSpace(prefix), e => e.Prefix.Contains(prefix))
                     .WhereIf(!string.IsNullOrWhiteSpace(suffix), e => e.Suffix.Contains(suffix))
                     .WhereIf(lengthMin.HasValue, e => e.Length >= lengthMin.Value)
-                    .WhereIf(lengthMax.HasValue, e => e.Length <= lengthMax.Value);
+                    .WhereIf(lengthMax.HasValue, e => e.Length <= lengthMax.Value)
+                    .WhereIf(active.HasValue, e => e.Active == active);
         }
     }
 }

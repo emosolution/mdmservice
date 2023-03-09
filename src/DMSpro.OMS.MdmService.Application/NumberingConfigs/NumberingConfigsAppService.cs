@@ -1,5 +1,4 @@
 using DMSpro.OMS.MdmService.SystemDatas;
-using DMSpro.OMS.MdmService.Companies;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,12 +18,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
 
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
-    public partial class NumberingConfigsAppService
+    public partial class NumberingConfigsAppService 
     {
         public virtual async Task<PagedResultDto<NumberingConfigWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigsInput input)
         {
-            var totalCount = await _numberingConfigRepository.GetCountAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.CompanyId, input.SystemDataId);
-            var items = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.CompanyId, input.SystemDataId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _numberingConfigRepository.GetCountAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.SystemDataId);
+            var items = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active, input.SystemDataId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<NumberingConfigWithNavigationPropertiesDto>
             {
@@ -42,22 +41,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public virtual async Task<NumberingConfigDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(await _numberingConfigRepository.GetAsync(id));
-        }
-
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-        {
-            var query = (await _companyRepository.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                    x => x.Code != null &&
-                         x.Code.Contains(input.Filter));
-
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Company>();
-            var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid>>
-            {
-                TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<Company>, List<LookupDto<Guid>>>(lookupData)
-            };
         }
 
         public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
@@ -87,7 +70,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         {
 
             var numberingConfig = await _numberingConfigManager.CreateAsync(
-            input.CompanyId, input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length
+            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active
             );
 
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(numberingConfig);
@@ -99,7 +82,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             var numberingConfig = await _numberingConfigManager.UpdateAsync(
             id,
-            input.CompanyId, input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.ConcurrencyStamp
+            input.SystemDataId, input.StartNumber, input.Prefix, input.Suffix, input.Length, input.Active, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(numberingConfig);
@@ -114,15 +97,15 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var numberingConfigs = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax);
+            var numberingConfigs = await _numberingConfigRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.StartNumberMin, input.StartNumberMax, input.Prefix, input.Suffix, input.LengthMin, input.LengthMax, input.Active);
             var items = numberingConfigs.Select(item => new
             {
                 StartNumber = item.NumberingConfig.StartNumber,
                 Prefix = item.NumberingConfig.Prefix,
                 Suffix = item.NumberingConfig.Suffix,
                 Length = item.NumberingConfig.Length,
+                Active = item.NumberingConfig.Active,
 
-                CompanyCode = item.Company?.Code,
                 SystemDataCode = item.SystemData?.Code,
 
             });

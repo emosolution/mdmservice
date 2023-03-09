@@ -20,14 +20,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 		private readonly NumberingConfigManager _numberingConfigManager;
 
 		private readonly ISystemDataRepository _systemDataRepository;
-		private readonly ICompanyRepository _companyRepository;
 
 		public NumberingConfigsAppService(ICurrentTenant currentTenant,
 			INumberingConfigRepository repository,
 			NumberingConfigManager numberingConfigManager,
 			IConfiguration settingProvider,
 			ISystemDataRepository systemDataRepository,
-			ICompanyRepository companyRepository,
 			IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider)
 		{
@@ -36,14 +34,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 			_numberingConfigManager = numberingConfigManager;
 			
 			_systemDataRepository= systemDataRepository;
-			_companyRepository= companyRepository;
 
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("INumberingConfigRepository", _numberingConfigRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
-            _repositories.AddIfNotContains(
-                    new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         [StringLength(NumberingConfigConsts.SuffixMaxLength)]
         public string Suffix { get; set; }
         public int Length { get; set; }
-        public Guid? CompanyId { get; set; }
+        public bool Active { get; set; }
         public Guid? SystemDataId { get; set; }
 
         public string ConcurrencyStamp { get; set; }

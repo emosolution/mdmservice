@@ -458,10 +458,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfig.Prefix)).HasMaxLength(NumberingConfigConsts.PrefixMaxLength);
             b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfig.Suffix)).HasMaxLength(NumberingConfigConsts.SuffixMaxLength);
             b.Property(x => x.Length).HasColumnName(nameof(NumberingConfig.Length));
-            b.HasOne<Company>(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+            b.Property(x => x.Active).HasColumnName(nameof(NumberingConfig.Active));
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
-
         builder.Entity<SystemConfig>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SystemConfigs", MdmServiceDbProperties.DbSchema);

@@ -104,24 +104,31 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
+    },
+    {
+      "Id": "892ffd02-50c5-4f26-a0d9-225b28915830",
+      "Name": "Active",
+      "Type": "bool",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": "true",
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [
-    {
-      "EntityNameWithDuplicationNumber": "Company",
-      "EntitySetNameWithDuplicationNumber": "Companies",
-      "ReferencePropertyName": "Company",
-      "UiPickType": "Dropdown",
-      "IsRequired": false,
-      "Name": "CompanyId",
-      "DisplayProperty": "Code",
-      "Namespace": "DMSpro.OMS.MdmService.Companies",
-      "EntityName": "Company",
-      "EntitySetName": "Companies",
-      "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
-      "DtoEntityName": "CompanyDto",
-      "Type": "Guid"
-    },
     {
       "EntityNameWithDuplicationNumber": "SystemData",
       "EntitySetNameWithDuplicationNumber": "SystemDatas",

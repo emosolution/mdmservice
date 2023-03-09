@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.SystemDatas;
 using System;
 using System.Linq;
@@ -26,17 +25,17 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public virtual string Suffix { get; set; }
 
         public virtual int Length { get; set; }
-        public Guid? CompanyId { get; set; }
+
+        public virtual bool Active { get; set; }
         public Guid? SystemDataId { get; set; }
 
-        public virtual Company Company { get; set; }
         public virtual SystemData SystemData { get; set; }
         public NumberingConfig()
         {
 
         }
 
-        public NumberingConfig(Guid id, Guid? companyId, Guid? systemDataId, int startNumber, string prefix, string suffix, int length)
+        public NumberingConfig(Guid id, Guid? systemDataId, int startNumber, string prefix, string suffix, int length, bool active)
         {
 
             Id = id;
@@ -46,7 +45,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             Prefix = prefix;
             Suffix = suffix;
             Length = length;
-            CompanyId = companyId;
+            Active = active;
             SystemDataId = systemDataId;
         }
 
