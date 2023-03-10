@@ -14,8 +14,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
         Task<List<NumberingConfigDetailWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
-            bool? active = null,
             string description = null,
+            string prefix = null,
+            int? paddingZeroNumberMin = null,
+            int? paddingZeroNumberMax = null,
+            string suffix = null,
+            bool? active = null,
+            int? currentNumberMin = null,
+            int? currentNumberMax = null,
             Guid? numberingConfigId = null,
             Guid? companyId = null,
             string sorting = null,
@@ -26,8 +32,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
         Task<List<NumberingConfigDetail>> GetListAsync(
                     string filterText = null,
-                    bool? active = null,
                     string description = null,
+                    string prefix = null,
+                    int? paddingZeroNumberMin = null,
+                    int? paddingZeroNumberMax = null,
+                    string suffix = null,
+                    bool? active = null,
+                    int? currentNumberMin = null,
+                    int? currentNumberMax = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -36,8 +48,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
         Task<long> GetCountAsync(
             string filterText = null,
-            bool? active = null,
             string description = null,
+            string prefix = null,
+            int? paddingZeroNumberMin = null,
+            int? paddingZeroNumberMax = null,
+            string suffix = null,
+            bool? active = null,
+            int? currentNumberMin = null,
+            int? currentNumberMax = null,
             Guid? numberingConfigId = null,
             Guid? companyId = null,
             CancellationToken cancellationToken = default);

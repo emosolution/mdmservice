@@ -21,11 +21,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
     public partial class NumberingConfigDetailsAppService
-    { 
+    {
         public virtual async Task<PagedResultDto<NumberingConfigDetailWithNavigationPropertiesDto>> GetListAsync(GetNumberingConfigDetailsInput input)
         {
-            var totalCount = await _numberingConfigDetailRepository.GetCountAsync(input.FilterText, input.Active, input.Description, input.NumberingConfigId, input.CompanyId);
-            var items = await _numberingConfigDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Active, input.Description, input.NumberingConfigId, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _numberingConfigDetailRepository.GetCountAsync(input.FilterText, input.Description, input.Prefix, input.PaddingZeroNumberMin, input.PaddingZeroNumberMax, input.Suffix, input.Active, input.CurrentNumberMin, input.CurrentNumberMax, input.NumberingConfigId, input.CompanyId);
+            var items = await _numberingConfigDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Prefix, input.PaddingZeroNumberMin, input.PaddingZeroNumberMax, input.Suffix, input.Active, input.CurrentNumberMin, input.CurrentNumberMax, input.NumberingConfigId, input.CompanyId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<NumberingConfigDetailWithNavigationPropertiesDto>
             {
@@ -96,7 +96,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             }
 
             var numberingConfigDetail = await _numberingConfigDetailManager.CreateAsync(
-            input.NumberingConfigId, input.CompanyId, input.Active, input.Description
+            input.NumberingConfigId, input.CompanyId, input.Description, input.Prefix, input.PaddingZeroNumber, input.Suffix, input.Active, input.CurrentNumber
             );
 
             return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(numberingConfigDetail);
@@ -116,7 +116,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
             var numberingConfigDetail = await _numberingConfigDetailManager.UpdateAsync(
             id,
-            input.NumberingConfigId, input.CompanyId, input.Active, input.Description, input.ConcurrencyStamp
+            input.NumberingConfigId, input.CompanyId, input.Description, input.Prefix, input.PaddingZeroNumber, input.Suffix, input.Active, input.CurrentNumber, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(numberingConfigDetail);
@@ -131,11 +131,15 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var numberingConfigDetails = await _numberingConfigDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Active, input.Description);
+            var numberingConfigDetails = await _numberingConfigDetailRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Description, input.Prefix, input.PaddingZeroNumberMin, input.PaddingZeroNumberMax, input.Suffix, input.Active, input.CurrentNumberMin, input.CurrentNumberMax);
             var items = numberingConfigDetails.Select(item => new
             {
-                Active = item.NumberingConfigDetail.Active,
                 Description = item.NumberingConfigDetail.Description,
+                Prefix = item.NumberingConfigDetail.Prefix,
+                PaddingZeroNumber = item.NumberingConfigDetail.PaddingZeroNumber,
+                Suffix = item.NumberingConfigDetail.Suffix,
+                Active = item.NumberingConfigDetail.Active,
+                CurrentNumber = item.NumberingConfigDetail.CurrentNumber,
 
                 NumberingConfigDescription = item.NumberingConfig?.Description,
                 CompanyCode = item.Company?.Code,

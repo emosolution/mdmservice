@@ -25,14 +25,16 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             {
                 // Act
                 var result = await _numberingConfigDetailRepository.GetListAsync(
-                    active: true,
-                    description: "92e10b91f7e34bdfa50900f8afd3cc0e270cd6a8f3ec45e5a5a20f4dfa713124b11d11353b5f4a958da2f47cc831ddc1e75f0cc1dd0e4ad784335cb0611b9cbd4ddc22e36b354436a6e2736d42e9c7f1bcf351d71e6a49cda484ab914885862ea0b4a99da2d4402696ff8853366c4d950b21f456c71149828d7ed507052e9d1"
+                    description: "cc3a9eb211c14d8dacb9711b77328dffffb8fc5232594fecbf00ef1588b07169942fdbc2df7a443f9b450c36855a1095f5b93d9ba4e74da1abe12fd6c6496430be97a6737a004a3a92d9c5a9565a0bb140cd7dcac452414fa54b717a871e800ea533a7610acf47fcb5b4749452fcc793bac49b30f29f4b85abe1ee90c5c08c7",
+                    prefix: "204e1edaca1b4ace9634",
+                    suffix: "901a3e1da6a845d280ac",
+                    active: true
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("d9aa889f-a795-4808-a7b7-8388d8a85a7d"));
+                result.First().Id.ShouldBe(Guid.Parse("9b4a47af-ef8d-4cb5-ba7d-48cb051e18ba"));
             });
         }
 
@@ -44,8 +46,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             {
                 // Act
                 var result = await _numberingConfigDetailRepository.GetCountAsync(
-                    active: true,
-                    description: "6a3b7f00a8304577b8dae685691f440710c0af59b8af4ba19b56859d38e9b8624e688b8297314e70b5282cf346baf0e733f134edc30148b8a087b4997f7040c7881cd3100ef7423f869207cf71fe4e93e26b55a5d4764f3088849cfa5d7d960c33d67ebc313b42bdb853231f635adbc1de2e025c2e0f48598d00a2b31fdd4b5"
+                    description: "afbcbd5f1d264290930615e6f236735daef2c1c20b27458a8683f4ed8a3a3d79225f24b8535b4278861cf7ff92dee11fbb44e3594c3e43b78ee3a645c1652baa8c282212b7b744caa9088d3d3cfd76012f3bf3af703546be985006bf977293372a0c566928894184acb91ccfe60e5823a032f2fbf05a46d383d9498564e8dd2",
+                    prefix: "89214a485e6549e48cc1",
+                    suffix: "f22709ae91e34e84ac65",
+                    active: true
                 );
 
                 // Assert

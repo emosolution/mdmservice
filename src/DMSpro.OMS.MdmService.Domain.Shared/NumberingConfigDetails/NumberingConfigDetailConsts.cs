@@ -2,7 +2,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
     public static class NumberingConfigDetailConsts
     {
-        private const string DefaultSorting = "{0}Active asc";
+        private const string DefaultSorting = "{0}Description asc";
 
         public static string GetDefaultSorting(bool withEntityName)
         {
@@ -10,5 +10,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         }
 
         public const int DescriptionMaxLength = 255;
+        public const int PrefixMaxLength = 20;
+        public const int SuffixMaxLength = 20;
     }
 }

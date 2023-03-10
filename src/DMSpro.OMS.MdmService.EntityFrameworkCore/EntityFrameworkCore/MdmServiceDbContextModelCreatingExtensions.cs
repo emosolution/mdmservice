@@ -862,14 +862,18 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<NumberingConfigDetail>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigDetails", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(NumberingConfigDetail.TenantId));
-        b.Property(x => x.Active).HasColumnName(nameof(NumberingConfigDetail.Active));
-        b.Property(x => x.Description).HasColumnName(nameof(NumberingConfigDetail.Description)).HasMaxLength(NumberingConfigDetailConsts.DescriptionMaxLength);
-        b.HasOne<NumberingConfig>(x => x.NumberingConfig).WithMany().IsRequired().HasForeignKey(x => x.NumberingConfigId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigDetails", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(NumberingConfigDetail.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(NumberingConfigDetail.Description)).HasMaxLength(NumberingConfigDetailConsts.DescriptionMaxLength);
+            b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfigDetail.Prefix)).HasMaxLength(NumberingConfigDetailConsts.PrefixMaxLength);
+            b.Property(x => x.PaddingZeroNumber).HasColumnName(nameof(NumberingConfigDetail.PaddingZeroNumber));
+            b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfigDetail.Suffix)).HasMaxLength(NumberingConfigDetailConsts.SuffixMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(NumberingConfigDetail.Active));
+            b.Property(x => x.CurrentNumber).HasColumnName(nameof(NumberingConfigDetail.CurrentNumber));
+            b.HasOne<NumberingConfig>(x => x.NumberingConfig).WithMany().IsRequired().HasForeignKey(x => x.NumberingConfigId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        });
     }
 }
