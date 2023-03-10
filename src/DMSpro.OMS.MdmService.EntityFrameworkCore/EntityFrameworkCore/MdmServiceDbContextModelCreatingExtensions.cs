@@ -455,13 +455,10 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigs", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(NumberingConfig.TenantId));
-            b.Property(x => x.StartNumber).HasColumnName(nameof(NumberingConfig.StartNumber));
             b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfig.Prefix)).HasMaxLength(NumberingConfigConsts.PrefixMaxLength);
             b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfig.Suffix)).HasMaxLength(NumberingConfigConsts.SuffixMaxLength);
-            b.Property(x => x.Length).HasColumnName(nameof(NumberingConfig.Length));
-            b.Property(x => x.Active).HasColumnName(nameof(NumberingConfig.Active));
+            b.Property(x => x.PaddingZeroNumber).HasColumnName(nameof(NumberingConfig.PaddingZeroNumber));
             b.Property(x => x.Description).HasColumnName(nameof(NumberingConfig.Description)).HasMaxLength(NumberingConfigConsts.DescriptionMaxLength);
-            b.Property(x => x.IsDefault).HasColumnName(nameof(NumberingConfig.IsDefault));
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<SystemConfig>(b =>

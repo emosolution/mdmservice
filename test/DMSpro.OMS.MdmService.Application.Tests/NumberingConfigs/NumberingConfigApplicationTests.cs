@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9")).ShouldBe(true);
-            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("8130f1cd-bb3e-4967-8c16-ce1dbc47c48b")).ShouldBe(true);
+            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a")).ShouldBe(true);
+            result.Items.Any(x => x.NumberingConfig.Id == Guid.Parse("0766bc5f-e627-4487-b6fe-f0c7b70568f4")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _numberingConfigsAppService.GetAsync(Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"));
+            var result = await _numberingConfigsAppService.GetAsync(Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"));
+            result.Id.ShouldBe(Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"));
         }
 
         [Fact]
@@ -48,13 +48,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Arrange
             var input = new NumberingConfigCreateDto
             {
-                StartNumber = 1984619074,
-                Prefix = "05c01747ed094750b310",
-                Suffix = "81788fdccff54246996c",
-                Length = 241419465,
-                Active = true,
-                Description = "77b60566a2ac42a3ab60098bcd725a47715d905bb1ae46b3b4afa8bb72e780b0a663461e2513419ebcbbe6850cbb2d8cee419799d2ff4fad857941ea448cfa04db1a18c588224a69b61a186d241104553622cc91d6e74e1089a1c10e8de23f88c0fef76f554642d9bbdbebcd040620d9e31b363b48044bec9d303af0cc52bbf",
-                IsDefault = true
+                Prefix = "95326f43c55e44eaaef9",
+                Suffix = "41338d84f80f49bab0ac",
+                PaddingZeroNumber = 1771669533,
+                Description = "56e06bae132e41a79dcd9b45c642753b4311ed92e1894fcfa17ec2986627107d75f90a16754642c3a138eff5e64b08ae072ae29c3ab744999bae06492ac3ef3b817086f9b3214b81822e0f74e47fcfa4d443a67f467e41648453717542cde78f2cbc840b09db41cba5dcd071b2b1d48666bd8218dd5e44f0a9d603da4e1e570"
             };
 
             // Act
@@ -64,13 +61,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             var result = await _numberingConfigRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.StartNumber.ShouldBe(1984619074);
-            result.Prefix.ShouldBe("05c01747ed094750b310");
-            result.Suffix.ShouldBe("81788fdccff54246996c");
-            result.Length.ShouldBe(241419465);
-            result.Active.ShouldBe(true);
-            result.Description.ShouldBe("77b60566a2ac42a3ab60098bcd725a47715d905bb1ae46b3b4afa8bb72e780b0a663461e2513419ebcbbe6850cbb2d8cee419799d2ff4fad857941ea448cfa04db1a18c588224a69b61a186d241104553622cc91d6e74e1089a1c10e8de23f88c0fef76f554642d9bbdbebcd040620d9e31b363b48044bec9d303af0cc52bbf");
-            result.IsDefault.ShouldBe(true);
+            result.Prefix.ShouldBe("95326f43c55e44eaaef9");
+            result.Suffix.ShouldBe("41338d84f80f49bab0ac");
+            result.PaddingZeroNumber.ShouldBe(1771669533);
+            result.Description.ShouldBe("56e06bae132e41a79dcd9b45c642753b4311ed92e1894fcfa17ec2986627107d75f90a16754642c3a138eff5e64b08ae072ae29c3ab744999bae06492ac3ef3b817086f9b3214b81822e0f74e47fcfa4d443a67f467e41648453717542cde78f2cbc840b09db41cba5dcd071b2b1d48666bd8218dd5e44f0a9d603da4e1e570");
         }
 
         [Fact]
@@ -79,39 +73,33 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             // Arrange
             var input = new NumberingConfigUpdateDto()
             {
-                StartNumber = 1976847671,
-                Prefix = "41afa850d8904315aa40",
-                Suffix = "5fc5710113584fcd82b7",
-                Length = 148881755,
-                Active = true,
-                Description = "a2e127c5f29c473e9718fc1e0275d42ca08f707f76c34b5dafddcf903d8ee07dfa5c46ae72894898979f7f5aa8ccfca32cac707145aa4115bebe21664cb1ab1603fc5f4f189c4004bb5d77a1ff4fb58bf569309a1baf4fe5b341824772348fc3e81974c896314644a91ca1d7a5741d8f1cb8117316b64d14853f7f67c754f24",
-                IsDefault = true
+                Prefix = "6be092801c12473c97c1",
+                Suffix = "56a60e1f12e041fbb063",
+                PaddingZeroNumber = 1979550699,
+                Description = "8c824c7775fb400b922a0252165c1808f83748a7d38145e698d510525eeca2cadf68e2db9be9428a8a6215851edddfb76783c198981f4b8ebad28051eea78afd74761b43633c4e4cb1aa13a8d16c8751a6f181c49d2c4869acd6094591e6768182076bee23984e269c5b22e64df7049c8c818d3d6dfe48b5814cd3ded6bbcad"
             };
 
             // Act
-            var serviceResult = await _numberingConfigsAppService.UpdateAsync(Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"), input);
+            var serviceResult = await _numberingConfigsAppService.UpdateAsync(Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"), input);
 
             // Assert
             var result = await _numberingConfigRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.StartNumber.ShouldBe(1976847671);
-            result.Prefix.ShouldBe("41afa850d8904315aa40");
-            result.Suffix.ShouldBe("5fc5710113584fcd82b7");
-            result.Length.ShouldBe(148881755);
-            result.Active.ShouldBe(true);
-            result.Description.ShouldBe("a2e127c5f29c473e9718fc1e0275d42ca08f707f76c34b5dafddcf903d8ee07dfa5c46ae72894898979f7f5aa8ccfca32cac707145aa4115bebe21664cb1ab1603fc5f4f189c4004bb5d77a1ff4fb58bf569309a1baf4fe5b341824772348fc3e81974c896314644a91ca1d7a5741d8f1cb8117316b64d14853f7f67c754f24");
-            result.IsDefault.ShouldBe(true);
+            result.Prefix.ShouldBe("6be092801c12473c97c1");
+            result.Suffix.ShouldBe("56a60e1f12e041fbb063");
+            result.PaddingZeroNumber.ShouldBe(1979550699);
+            result.Description.ShouldBe("8c824c7775fb400b922a0252165c1808f83748a7d38145e698d510525eeca2cadf68e2db9be9428a8a6215851edddfb76783c198981f4b8ebad28051eea78afd74761b43633c4e4cb1aa13a8d16c8751a6f181c49d2c4869acd6094591e6768182076bee23984e269c5b22e64df7049c8c818d3d6dfe48b5814cd3ded6bbcad");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _numberingConfigsAppService.DeleteAsync(Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"));
+            await _numberingConfigsAppService.DeleteAsync(Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"));
 
             // Assert
-            var result = await _numberingConfigRepository.FindAsync(c => c.Id == Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"));
+            var result = await _numberingConfigRepository.FindAsync(c => c.Id == Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"));
 
             result.ShouldBeNull();
         }

@@ -33,27 +33,21 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
             await _numberingConfigRepository.InsertAsync(new NumberingConfig
             (
-                id: Guid.Parse("6c1c601c-4aa2-4711-a528-c28c7f3f89b9"),
-                startNumber: 1351337401,
-                prefix: "1761aae285984c2781fe",
-                suffix: "60aae8ed4f794f4b8a06",
-                length: 1102717907,
-                active: true,
-                description: "65584192913c48ba8594082831da1285d6c5abc0dcec4b899081588446797136f96233766cbc48d199be06d9305929790794a8c4324e4a1d932e6d6cd688210f67309852c1804e9a919c7c9b44f225bf7c858103fa034451a6a16afb728e441a23334778c92d4a43a2c959ad1f4731e284f43dbf1d564f4e84c2a7b69509930",
-                isDefault: true,
+                id: Guid.Parse("1f96f177-3168-49f6-9fdd-97d2c5776f0a"),
+                prefix: "135b9e74c0944c8499ed",
+                suffix: "d8cbaf40cc6a484a8f47",
+                paddingZeroNumber: 849203903,
+                description: "29e19cc86aa645eda6d93fc383a6ac07002d99050a544389914880017591ab7906151163b69d43beae4c379b625edabf04956acd7f794d86817da1024fa633ccc00fd4fd60b64f0e9b3b9edb8bf777dd5f84ac4d0af844ada8edfbc6aa44b40d2872ca651a834ae19ba758ffc5be1eb22901bf6e72514c7aa6575ac87cbac2e",
                 systemDataId: null
             ));
 
             await _numberingConfigRepository.InsertAsync(new NumberingConfig
             (
-                id: Guid.Parse("8130f1cd-bb3e-4967-8c16-ce1dbc47c48b"),
-                startNumber: 1230582730,
-                prefix: "3e9ba95c4fd34026bb22",
-                suffix: "09d34815caac4db098ac",
-                length: 897690841,
-                active: true,
-                description: "b4f4b15c015949cd98146f92f30ba7c7f1d43cb260d744869d86bcdda1ecb73770d506ecf3ce4f38b110ef677b64af8644fdefa8627a47b994b7f24360a91f90ceddbe7157fd4c55b41a8dd75b23ebc841685763c5d545d9aece7665811bcc56f2e0d311408a412c8afa470168ca91557469e4d19e6542fdbfb6be37927a660",
-                isDefault: true,
+                id: Guid.Parse("0766bc5f-e627-4487-b6fe-f0c7b70568f4"),
+                prefix: "de5fffeeebf943098aac",
+                suffix: "cc1ec3971cf04b2fa8af",
+                paddingZeroNumber: 665356493,
+                description: "69f8d5291eba4ba0bbdcbf992fa3cef74168476ed58c443bb9bffec5dbb9dc23870c76ca3fb94344ad29f61d2faac5fe35e51f4864ac40c3b9d46bd862866896f362051a29604be192409fc637e6d7dcfeaebdab91044f5c82341900b5492073a90d9364176a46c495f0e32d0fe7ba7119ecbe21414a4adb89e23e39720dbe8",
                 systemDataId: null
             ));
 

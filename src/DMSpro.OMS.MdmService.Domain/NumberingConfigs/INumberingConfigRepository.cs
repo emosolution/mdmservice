@@ -14,15 +14,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         Task<List<NumberingConfigWithNavigationProperties>> GetListWithNavigationPropertiesAsync(
             string filterText = null,
-            int? startNumberMin = null,
-            int? startNumberMax = null,
             string prefix = null,
             string suffix = null,
-            int? lengthMin = null,
-            int? lengthMax = null,
-            bool? active = null,
+            int? paddingZeroNumberMin = null,
+            int? paddingZeroNumberMax = null,
             string description = null,
-            bool? isDefault = null,
             Guid? systemDataId = null,
             string sorting = null,
             int maxResultCount = int.MaxValue,
@@ -32,15 +28,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         Task<List<NumberingConfig>> GetListAsync(
                     string filterText = null,
-                    int? startNumberMin = null,
-                    int? startNumberMax = null,
                     string prefix = null,
                     string suffix = null,
-                    int? lengthMin = null,
-                    int? lengthMax = null,
-                    bool? active = null,
+                    int? paddingZeroNumberMin = null,
+                    int? paddingZeroNumberMax = null,
                     string description = null,
-                    bool? isDefault = null,
                     string sorting = null,
                     int maxResultCount = int.MaxValue,
                     int skipCount = 0,
@@ -49,15 +41,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         Task<long> GetCountAsync(
             string filterText = null,
-            int? startNumberMin = null,
-            int? startNumberMax = null,
             string prefix = null,
             string suffix = null,
-            int? lengthMin = null,
-            int? lengthMax = null,
-            bool? active = null,
+            int? paddingZeroNumberMin = null,
+            int? paddingZeroNumberMax = null,
             string description = null,
-            bool? isDefault = null,
             Guid? systemDataId = null,
             CancellationToken cancellationToken = default);
     }

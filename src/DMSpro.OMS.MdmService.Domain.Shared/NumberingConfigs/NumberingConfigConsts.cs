@@ -2,7 +2,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
     public static class NumberingConfigConsts
     {
-        private const string DefaultSorting = "{0}StartNumber asc";
+        private const string DefaultSorting = "{0}Prefix asc";
 
         public static string GetDefaultSorting(bool withEntityName)
         {

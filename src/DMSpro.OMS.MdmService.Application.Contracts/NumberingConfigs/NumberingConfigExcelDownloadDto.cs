@@ -9,15 +9,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         public string FilterText { get; set; }
 
-        public int? StartNumberMin { get; set; }
-        public int? StartNumberMax { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
-        public int? LengthMin { get; set; }
-        public int? LengthMax { get; set; }
-        public bool? Active { get; set; }
+        public int? PaddingZeroNumberMin { get; set; }
+        public int? PaddingZeroNumberMax { get; set; }
         public string Description { get; set; }
-        public bool? IsDefault { get; set; }
         public Guid? SystemDataId { get; set; }
 
         public NumberingConfigExcelDownloadDto()
