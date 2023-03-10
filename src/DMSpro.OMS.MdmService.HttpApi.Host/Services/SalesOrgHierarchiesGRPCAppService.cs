@@ -233,21 +233,26 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
                         select item;
             EmployeeProfile employee = query.FirstOrDefault();
             DateTime effectiveDate = DateTime.Now;
-            if (employee is not null && employee.EffectiveDate != null)
+            Employee result = new Employee();
+            if (employee is not null)
             {
-                effectiveDate = (DateTime)employee.EffectiveDate;
+                if (employee.EffectiveDate != null)
+                {
+                    effectiveDate = (DateTime)employee.EffectiveDate;
+                }
+                // TODO Do we need to check employee type?
+                result = new Employee()
+                {
+                    Id = employeeId,
+                    TenantId = employee.TenantId == null ? "" : employee.TenantId.ToString(),
+                    Code = employee.Code,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    ErpCode = employee.ERPCode,
+                    Active = MDMHelpers.CheckActive(employee.Active, effectiveDate, employee.EndDate),
+                };
             }
-            // TODO Do we need to check employee type?
-            Employee result = new()
-            {
-                Id = employeeId,
-                TenantId = employee.TenantId == null ? "" : employee.TenantId.ToString(),
-                Code = employee.Code,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                ErpCode = employee.ERPCode,
-                Active = MDMHelpers.CheckActive(employee.Active, effectiveDate, employee.EndDate),
-            };
+            
             return result;
         }
     }
