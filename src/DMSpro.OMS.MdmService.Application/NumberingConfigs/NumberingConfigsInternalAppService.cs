@@ -19,8 +19,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         private readonly ISystemDatasInternalAppService _systemDatasInternalAppService;
 
         public NumberingConfigsInternalAppService(INumberingConfigRepository numberingConfigRepository,
-            ISystemDatasInternalAppService systemDatasInternalAppService,
-            ISystemDataRepository systemDataRepository)
+            ISystemDatasInternalAppService systemDatasInternalAppService)
         {
             _numberingConfigRepository = numberingConfigRepository;
             _systemDatasInternalAppService = systemDatasInternalAppService;
@@ -32,7 +31,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public virtual async Task<NumberingConfigDto> Create(NumberingConfigCreateDto input)
         {
             (string prefix, int paddingZeroNumber, string suffix) = 
-                GetPresetDataOfConfig(input.ObjectType);
+                NumberingConfigConsts.GetPresetDataOfConfig(input.ObjectType);
             input.Prefix = input.Prefix == null ? prefix : input.Prefix;
             input.PaddingZeroNumber = input.PaddingZeroNumber == null ? paddingZeroNumber : input.PaddingZeroNumber;
             input.Suffix = input.Suffix == null ? suffix : input.Suffix;
@@ -115,7 +114,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     throw new BusinessException(message: L["Error:SystemData:550"],
                         code: "1", details: detailString);
                 }
-                (string prefix, int paddingZeroNumber, string suffix) = GetPresetDataOfConfig(objectType);
+                (string prefix, int paddingZeroNumber, string suffix) = 
+                    NumberingConfigConsts.GetPresetDataOfConfig(objectType);
                 NumberingConfigCreateDto input = new()
                 {
                     Prefix = prefix,
@@ -130,30 +130,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 }
             }
             return result;
-        }
-
-        private static (string, int, string) GetPresetDataOfConfig(string objectType)
-        {
-            string prefix = NumberingConfigConsts.DefaultCommonPrefix;
-            if (NumberingConfigConsts.PrefixDictionary.TryGetValue(objectType,
-                out string dictionaryPrefix))
-            {
-                prefix = dictionaryPrefix;
-                ;
-            }
-            int paddingZeroNumber = NumberingConfigConsts.DefaultCommonPaddingZeroNumber;
-            if (NumberingConfigConsts.PaddingZeroNumberDictionary.TryGetValue(objectType,
-                out int dictionaryPaddingZeroNumber))
-            {
-                paddingZeroNumber = dictionaryPaddingZeroNumber;
-            }
-            string suffix = NumberingConfigConsts.DefaultCommonSuffix;
-            if (NumberingConfigConsts.SuffixDictionary.TryGetValue(objectType,
-                out string dictionarySuffix))
-            {
-                suffix = dictionarySuffix;
-            }
-            return (prefix, paddingZeroNumber, suffix);
         }
     }
 }

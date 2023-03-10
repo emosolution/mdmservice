@@ -29,5 +29,30 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public const string DefaultCommonPrefix = "";
         public const int DefaultCommonPaddingZeroNumber = 5;
         public const string DefaultCommonSuffix = "";
+
+
+        public static (string, int, string) GetPresetDataOfConfig(string objectType)
+        {
+            string prefix = DefaultCommonPrefix;
+            if (PrefixDictionary.TryGetValue(objectType,
+                out string dictionaryPrefix))
+            {
+                prefix = dictionaryPrefix;
+                ;
+            }
+            int paddingZeroNumber = DefaultCommonPaddingZeroNumber;
+            if (PaddingZeroNumberDictionary.TryGetValue(objectType,
+                out int dictionaryPaddingZeroNumber))
+            {
+                paddingZeroNumber = dictionaryPaddingZeroNumber;
+            }
+            string suffix = DefaultCommonSuffix;
+            if (SuffixDictionary.TryGetValue(objectType,
+                out string dictionarySuffix))
+            {
+                suffix = dictionarySuffix;
+            }
+            return (prefix, paddingZeroNumber, suffix);
+        }
     }
 }
