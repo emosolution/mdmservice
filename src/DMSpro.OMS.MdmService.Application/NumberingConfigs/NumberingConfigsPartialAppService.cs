@@ -15,25 +15,19 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         INumberingConfigsAppService
     {
         private readonly INumberingConfigRepository _numberingConfigRepository;
-        private readonly IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
 
         private readonly ISystemDataRepository _systemDataRepository;
-        private readonly INumberingConfigDetailRepository _numberingConfigDetailRepository;
 
         public NumberingConfigsAppService(ICurrentTenant currentTenant,
             INumberingConfigRepository repository,
             IConfiguration settingProvider,
             ISystemDataRepository systemDataRepository,
-            INumberingConfigDetailRepository numberingConfigDetailRepository,
-            IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            INumberingConfigDetailRepository numberingConfigDetailRepository)
             : base(currentTenant, repository, settingProvider)
         {
             _numberingConfigRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
 
             _systemDataRepository = systemDataRepository;
-            _numberingConfigDetailRepository = numberingConfigDetailRepository;
 
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("INumberingConfigRepository", _numberingConfigRepository));
