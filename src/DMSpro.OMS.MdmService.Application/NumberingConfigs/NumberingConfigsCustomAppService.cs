@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Authorization;
 using DMSpro.OMS.MdmService.Permissions;
-using Volo.Abp.VirtualFileSystem;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Volo.Abp;
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.Json;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-
+    
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
     public partial class NumberingConfigsAppService
     {
@@ -20,10 +18,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         {
             {"Customer", "M1" },
             {"Employee", "M2" },
-            {"Route", "M3" },
+            {"SalesOrgHierarchy", "M3" },
             {"SalesRequest", "S0" },
         };
 
+        /*
         private async Task<List<NumberingConfig>> GetConfigsOfValueCode(string valueCode)
         {
             var data = await _systemDataRepository.GetListAsync(x => x.Code == _NUMBERING_CONFIG_SYSTEM_DATA_CODE &&
@@ -43,7 +42,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             }
             return configs;
         }
-
+        */
         /*
         private async Task<NumberingConfig> GetConfigOfCompanyAndValueCode(Guid companyId, string valueCode)
         {
