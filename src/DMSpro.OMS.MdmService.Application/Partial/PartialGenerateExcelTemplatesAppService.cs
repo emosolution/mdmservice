@@ -54,12 +54,6 @@ namespace DMSpro.OMS.MdmService.Partial
         {
             Type type = typeof(T);
             string entityName = type.Name;
-            if (type == null)
-            {
-                var detailDict = new Dictionary<string, string> { ["entityName"] = entityName };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:ImportHandler:584"], code: "0", details: detailString);
-            }
             var package = CreateTemplate(type);
             var memoryStream = new MemoryStream();
             await package.SaveAsAsync(memoryStream);

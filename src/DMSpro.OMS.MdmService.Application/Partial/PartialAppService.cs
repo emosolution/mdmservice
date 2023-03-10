@@ -628,7 +628,7 @@ namespace DMSpro.OMS.MdmService.Partial
                 throw new BusinessException(message: L["Error:ImportHandler:561"],
                     code: "1", details: detailString);
             }
-            if (!codeList.ContainsKey(repoName))
+            if (codeList is not null && !codeList.ContainsKey(repoName))
             {
                 codeList.Add(repoName, new List<string>());
             }
