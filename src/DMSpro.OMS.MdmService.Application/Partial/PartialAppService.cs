@@ -628,16 +628,20 @@ namespace DMSpro.OMS.MdmService.Partial
                 throw new BusinessException(message: L["Error:ImportHandler:561"],
                     code: "1", details: detailString);
             }
-            if (codeList is not null && !codeList.ContainsKey(repoName))
+
+            if (codeList is not null)
             {
-                codeList.Add(repoName, new List<string>());
+                if (!codeList.ContainsKey(repoName))
+                {
+                    codeList.Add(repoName, new List<string>());
+                }
+                List<string> codes = codeList[repoName];
+                if (codes.Contains(code))
+                {
+                    return;
+                }
+                codes.Add(value.ToString());
             }
-            List<string> codes = codeList[repoName];
-            if (codes.Contains(code))
-            {
-                return;
-            }
-            codes.Add(value.ToString());
         }
 
         private DataTable ReadExcelToDatatable(ExcelWorksheet sheetStructure,
