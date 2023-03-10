@@ -233,7 +233,7 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
                         select item;
             EmployeeProfile employee = query.FirstOrDefault();
             DateTime effectiveDate = DateTime.Now;
-            if (employee.EffectiveDate != null)
+            if (employee is not null && employee.EffectiveDate != null)
             {
                 effectiveDate = (DateTime)employee.EffectiveDate;
             }

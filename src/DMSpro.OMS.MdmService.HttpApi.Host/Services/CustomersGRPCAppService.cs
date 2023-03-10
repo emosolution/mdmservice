@@ -66,7 +66,7 @@ public class CustomersGRPCAppService : CustomersProtoAppService.CustomersProtoAp
                     return response;
                 }
             }
-            if (customerAssignment.TenantId != tenantId)
+            if (customerAssignment is not null && customerAssignment.TenantId != tenantId)
             {
                 return response;
             }
