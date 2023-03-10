@@ -7,7 +7,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
 {
     public partial interface ICustomerImagesAppService
     {
-        Task DeleteManyAsync(List<Guid> id);
+        Task DeleteManyAsync(List<Guid> ids);
 
         Task<IRemoteStreamContent> GetFileAsync(Guid id);
 

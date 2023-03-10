@@ -7,7 +7,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 {
     public partial interface IEmployeeAttachmentsAppService
     {
-        Task DeleteManyAsync(List<Guid> id);
+        Task DeleteManyAsync(List<Guid> ids);
 
         Task<IRemoteStreamContent> GetFileAsync(Guid id);
 
