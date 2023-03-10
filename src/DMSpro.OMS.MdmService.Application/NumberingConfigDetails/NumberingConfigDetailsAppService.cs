@@ -77,13 +77,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             };
         }
 
-        [Authorize(MdmServicePermissions.NumberingConfigs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _numberingConfigDetailRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.NumberingConfigs.Create)]
+        [Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
         public virtual async Task<NumberingConfigDetailDto> CreateAsync(NumberingConfigDetailCreateDto input)
         {
             if (input.NumberingConfigId == default)

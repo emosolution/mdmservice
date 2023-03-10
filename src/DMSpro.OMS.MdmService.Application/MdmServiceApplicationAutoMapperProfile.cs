@@ -123,7 +123,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<NumberingConfig, NumberingConfigDto>();
         CreateMap<NumberingConfig, NumberingConfigWithDetailsDto>();
-        CreateMap<NumberingConfig, NumberingConfigExcelDto>();
 
         CreateMap<WorkingPosition, WorkingPositionDto>();
         CreateMap<WorkingPosition, WorkingPositionExcelDto>();
@@ -315,7 +314,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>();
         CreateMap<MCPDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<NumberingConfigWithNavigationProperties, NumberingConfigWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SystemConfig, SystemConfigDto>();

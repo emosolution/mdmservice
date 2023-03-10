@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.SystemDatas;
-using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
@@ -18,14 +17,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         private readonly INumberingConfigRepository _numberingConfigRepository;
         private readonly IDistributedCache<NumberingConfigExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
-        private readonly NumberingConfigManager _numberingConfigManager;
 
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly INumberingConfigDetailRepository _numberingConfigDetailRepository;
 
         public NumberingConfigsAppService(ICurrentTenant currentTenant,
             INumberingConfigRepository repository,
-            NumberingConfigManager numberingConfigManager,
             IConfiguration settingProvider,
             ISystemDataRepository systemDataRepository,
             INumberingConfigDetailRepository numberingConfigDetailRepository,
@@ -34,7 +31,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         {
             _numberingConfigRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
-            _numberingConfigManager = numberingConfigManager;
 
             _systemDataRepository = systemDataRepository;
             _numberingConfigDetailRepository = numberingConfigDetailRepository;

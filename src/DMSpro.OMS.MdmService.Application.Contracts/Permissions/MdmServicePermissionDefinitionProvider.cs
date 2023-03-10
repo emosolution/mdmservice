@@ -26,9 +26,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         systemConfigPermission.AddChild(MdmServicePermissions.SystemConfig.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SystemConfig);
 
         var numberingConfigPermission = myGroup.AddPermission(MdmServicePermissions.NumberingConfigs.Default, L("Permission:MdmService:NumberingConfigs")).RequireFeatures(MdmFeatures.NumberingConfig);
-        numberingConfigPermission.AddChild(MdmServicePermissions.NumberingConfigs.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.NumberingConfig);
         numberingConfigPermission.AddChild(MdmServicePermissions.NumberingConfigs.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.NumberingConfig);
-        numberingConfigPermission.AddChild(MdmServicePermissions.NumberingConfigs.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.NumberingConfig);
 
         // Geographical group
         var geoMasterPermission = myGroup.AddPermission(MdmServicePermissions.GeoMasters.Default, L("Permission:MdmService:GeoMaster")).RequireFeatures(MdmFeatures.GeoMaster);
@@ -241,6 +239,9 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         routeAssignmentPermission.AddChild(MdmServicePermissions.RouteAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.RouteAssignments);
         routeAssignmentPermission.AddChild(MdmServicePermissions.RouteAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.RouteAssignments);
         routeAssignmentPermission.AddChild(MdmServicePermissions.RouteAssignments.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.RouteAssignments);
+
+        var masterDataManipulatorPermission = myGroup.AddPermission(MdmServicePermissions.MasterDataManipulators.Default, L("Permission:MdmService:MasterDataManipulators"));
+        masterDataManipulatorPermission.AddChild(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs, L("Permission:MdmService:MasterDataManipulators:CreateNumberConfigs"));
     }
 
     private static LocalizableString L(string name)
