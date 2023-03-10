@@ -3,12 +3,6 @@ using DMSpro.OMS.MdmService.Companies;
 using Volo.Abp.Caching;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
-using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Domain.Devextreme;
-using DMSpro.OMS.Shared.Lib.Parser;
-using System.Threading.Tasks;
-using System.Linq;
 using DMSpro.OMS.MdmService.Partial;
 using Volo.Abp.Users;
 
