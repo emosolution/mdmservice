@@ -3,11 +3,8 @@ using DMSpro.OMS.MdmService.NumberingConfigs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Http.Client;
 using Volo.Abp.Http.Client.ClientProxying;
-using Volo.Abp.Http.Modeling;
 
 // ReSharper disable once CheckNamespace
 namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs;
@@ -16,19 +13,19 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs;
 [ExposeServices(typeof(INumberingConfigsInternalAppService), typeof(NumberingConfigInternalClientProxy))]
 public partial class NumberingConfigInternalClientProxy : ClientProxyBase<INumberingConfigsInternalAppService>, INumberingConfigsInternalAppService
 {
-    public virtual List<NumberingConfigDto> CreateAllConfigsForHost()
+    public virtual Task<List<NumberingConfigDto>> CreateAllConfigsForHost()
     {
         //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
         throw new System.NotImplementedException(); 
     }
 
-    public virtual List<NumberingConfigDto> CreateAllConfigsForTenant(List<Guid> tenantIds)
+    public virtual Task<List<NumberingConfigDto>> CreateAllConfigsForTenant(List<Guid> tenantIds)
     {
         //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
         throw new System.NotImplementedException(); 
     }
 
-    public virtual NumberingConfigDto Create(NumberingConfigCreateDto input)
+    public virtual Task<NumberingConfigDto> Create(NumberingConfigCreateDto input)
     {
         //Client Proxy does not support the synchronization method, you should always use asynchronous methods as a best practice
         throw new System.NotImplementedException(); 
