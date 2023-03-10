@@ -72,7 +72,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             result.IsPOSM.ShouldBe(true);
             result.FileId.ShouldBe(Guid.Parse("3869061f-4bf4-4a48-a598-866895777060"));
             */
-            await _customerImageRepository.GetQueryableAsync();
+            var result = await _customerImageRepository.GetQueryableAsync();
+            result.ShouldNotBeNull();
         }
 
         [Fact]
@@ -104,7 +105,8 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             result.IsPOSM.ShouldBe(true);
             result.FileId.ShouldBe(Guid.Parse("f1dfc9db-263f-4039-98bf-999bc02832cd"));
             */
-            await _customerImageRepository.GetQueryableAsync();
+            var result = await _customerImageRepository.GetQueryableAsync();
+            result.ShouldNotBeNull();
         }
 
         [Fact]

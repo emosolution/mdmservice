@@ -67,7 +67,8 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             result.Active.ShouldBe(true);
             result.FileId.ShouldBe(Guid.Parse("922d6552-ec5e-4cb1-9d80-a5b755408e20"));
             */
-            await _employeeAttachmentRepository.GetQueryableAsync();
+            var result = await _employeeAttachmentRepository.GetQueryableAsync();
+            result.ShouldNotBeNull();
             
         }
 
@@ -95,7 +96,8 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
             result.Active.ShouldBe(true);
             result.FileId.ShouldBe(Guid.Parse("d1fa3251-03ce-4dbb-b918-145dc502d89a"));
             */
-            await _employeeAttachmentRepository.GetQueryableAsync();
+            var result = await _employeeAttachmentRepository.GetQueryableAsync();
+            result.ShouldNotBeNull();
         }
 
         [Fact]
