@@ -4,6 +4,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using DMSpro.OMS.MdmService.NumberingConfigs;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
@@ -33,13 +34,19 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
         }
 
-        public NumberingConfigDetail(Guid id, Guid numberingConfigId, Guid companyId, string description, string prefix, int paddingZeroNumber, string suffix, bool active, int currentNumber)
+        public NumberingConfigDetail(Guid id, Guid numberingConfigId, Guid companyId, 
+            string description, string prefix, int paddingZeroNumber, 
+            string suffix, bool active, int currentNumber)
         {
-
             Id = id;
-            Check.Length(description, nameof(description), NumberingConfigDetailConsts.DescriptionMaxLength, 0);
-            Check.Length(prefix, nameof(prefix), NumberingConfigDetailConsts.PrefixMaxLength, 0);
-            Check.Length(suffix, nameof(suffix), NumberingConfigDetailConsts.SuffixMaxLength, 0);
+            Check.Length(description, nameof(description), NumberingConfigConsts.DescriptionMaxLength, 0);
+            Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength, 0);
+            Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength, 0);
+            Check.Range(paddingZeroNumber, nameof(paddingZeroNumber), 
+                NumberingConfigConsts.PaddingZeroNumberMinValue, 
+                NumberingConfigConsts.PaddingZeroNumberMaxValue);
+            Check.Range(currentNumber, nameof(currentNumber),
+                NumberingConfigDetailConsts.CurrentNumberMinValue);
             Description = description;
             Prefix = prefix;
             PaddingZeroNumber = paddingZeroNumber;

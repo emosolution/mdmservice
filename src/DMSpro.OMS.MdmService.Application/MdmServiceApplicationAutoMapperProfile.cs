@@ -380,8 +380,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupInZoneWithNavigationProperties, ItemGroupInZoneWithNavigationPropertiesDto>();
 
         CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
-        CreateMap<NumberingConfigDetail, NumberingConfigDetailExcelDto>();
-        CreateMap<NumberingConfigDetailWithNavigationProperties, NumberingConfigDetailWithNavigationPropertiesDto>();
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
     }
 }

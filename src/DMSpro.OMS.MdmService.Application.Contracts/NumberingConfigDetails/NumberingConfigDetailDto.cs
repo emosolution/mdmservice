@@ -6,7 +6,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
     public class NumberingConfigDetailDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        public string Description { get; set; }
         public string Prefix { get; set; }
         public int PaddingZeroNumber { get; set; }
         public string Suffix { get; set; }

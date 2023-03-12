@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
@@ -13,6 +11,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         [StringLength(NumberingConfigConsts.SuffixMaxLength)]
         [CanBeNull]
         public string Suffix { get; set; }
+        [Range(NumberingConfigConsts.PaddingZeroNumberMinValue,
+            NumberingConfigConsts.PaddingZeroNumberMaxValue)]
         public int? PaddingZeroNumber { get; set; }
         [NotNull]
         public string ObjectType { get; set; }

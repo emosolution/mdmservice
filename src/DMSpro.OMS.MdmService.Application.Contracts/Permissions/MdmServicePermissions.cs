@@ -32,6 +32,7 @@ public class MdmServicePermissions
     {
         public const string Default = GroupName + ".NumberingConfig";
         public const string Edit = Default + ".Edit";
+        public const string CreateDetail = Default + ".CreateDetail";
     }
 
     // Geographical group

@@ -35,7 +35,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             Check.Length(prefix, nameof(prefix), NumberingConfigConsts.PrefixMaxLength, 0);
             Check.Length(suffix, nameof(suffix), NumberingConfigConsts.SuffixMaxLength, 0);
             Check.Length(description, nameof(description), NumberingConfigConsts.DescriptionMaxLength, 0);
-            Check.Range(paddingZeroNumber, nameof(paddingZeroNumber), NumberingConfigConsts.PaddingZeroNumberMinValue);
+            Check.Range(paddingZeroNumber, nameof(paddingZeroNumber), 
+                NumberingConfigConsts.PaddingZeroNumberMinValue,
+                NumberingConfigConsts.PaddingZeroNumberMaxValue);
             Prefix = prefix;
             Suffix = suffix;
             PaddingZeroNumber = paddingZeroNumber;

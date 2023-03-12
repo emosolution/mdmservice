@@ -12,16 +12,15 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         [Authorize(MdmServicePermissions.NumberingConfigs.Edit)]
         public virtual async Task<NumberingConfigDto> UpdateAsync(Guid id, NumberingConfigUpdateDto input)
         {
-            Check.Length(input.Prefix, nameof(input.Prefix), NumberingConfigConsts.PrefixMaxLength);
-            Check.Length(input.Suffix, nameof(input.Suffix), NumberingConfigConsts.SuffixMaxLength);
-            Check.Range(input.PaddingZeroNumber,
-                nameof(input.PaddingZeroNumber), NumberingConfigConsts.PaddingZeroNumberMinValue);
-
             var numberingConfig = await _numberingConfigRepository.GetAsync(id);
+            var systemData = await _systemDataRepository.GetAsync(numberingConfig.SystemDataId);
+            (string prefix, int paddingZeroNumber, string suffix) =
+               NumberingConfigConsts.GetBaseData(input.Suffix,
+                   input.PaddingZeroNumber, input.Suffix, systemData.ValueName);
 
-            numberingConfig.Prefix = input.Prefix;
-            numberingConfig.Suffix = input.Suffix;
-            numberingConfig.PaddingZeroNumber = input.PaddingZeroNumber;
+            numberingConfig.Prefix = prefix;
+            numberingConfig.Suffix = suffix;
+            numberingConfig.PaddingZeroNumber = paddingZeroNumber;
 
             numberingConfig.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
             await _numberingConfigRepository.UpdateAsync(numberingConfig);

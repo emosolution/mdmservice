@@ -14,6 +14,5 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public const int PrefixMaxLength = 20;
         public const int SuffixMaxLength = 20;
         public const int DescriptionMaxLength = 255;
-        public const short PaddingZeroNumberMinValue = 0;
     }
 }

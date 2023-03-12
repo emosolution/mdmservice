@@ -27,6 +27,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
 
         var numberingConfigPermission = myGroup.AddPermission(MdmServicePermissions.NumberingConfigs.Default, L("Permission:MdmService:NumberingConfigs")).RequireFeatures(MdmFeatures.NumberingConfig);
         numberingConfigPermission.AddChild(MdmServicePermissions.NumberingConfigs.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.NumberingConfig);
+        numberingConfigPermission.AddChild(MdmServicePermissions.NumberingConfigs.CreateDetail, L("Permission:Create")).RequireFeatures(MdmFeatures.NumberingConfig);
 
         // Geographical group
         var geoMasterPermission = myGroup.AddPermission(MdmServicePermissions.GeoMasters.Default, L("Permission:MdmService:GeoMaster")).RequireFeatures(MdmFeatures.GeoMaster);

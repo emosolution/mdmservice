@@ -31,16 +31,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public virtual async Task<NumberingConfigDto> Create(NumberingConfigCreateDto input)
         {
             (string prefix, int paddingZeroNumber, string suffix) = 
-                NumberingConfigConsts.GetPresetDataOfConfig(input.ObjectType);
-            input.Prefix = input.Prefix == null ? prefix : input.Prefix;
-            input.PaddingZeroNumber = input.PaddingZeroNumber == null ? paddingZeroNumber : input.PaddingZeroNumber;
-            input.Suffix = input.Suffix == null ? suffix : input.Suffix;
-
-            Check.Length(input.Prefix, nameof(input.Prefix), NumberingConfigConsts.PrefixMaxLength);
-            Check.Length(input.Suffix, nameof(input.Suffix), NumberingConfigConsts.SuffixMaxLength);
-            Check.Range((short)input.PaddingZeroNumber,
-                nameof(input.PaddingZeroNumber), NumberingConfigConsts.PaddingZeroNumberMinValue);
-
+                NumberingConfigConsts.GetBaseData(input.Suffix, 
+                    input.PaddingZeroNumber, input.Suffix, input.ObjectType);
             var systemData = await
                 _systemDatasInternalAppService.GetNumberConfigSystemDataByValueName(input.ObjectType);
             

@@ -11,7 +11,8 @@ using DMSpro.OMS.MdmService.NumberingConfigDetails;
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
     [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
-    public partial class NumberingConfigsAppService : PartialAppService<NumberingConfig, NumberingConfigWithDetailsDto, INumberingConfigRepository>,
+    public partial class NumberingConfigsAppService : 
+        PartialAppService<NumberingConfig, NumberingConfigWithDetailsDto, INumberingConfigRepository>,
         INumberingConfigsAppService
     {
         private readonly INumberingConfigRepository _numberingConfigRepository;

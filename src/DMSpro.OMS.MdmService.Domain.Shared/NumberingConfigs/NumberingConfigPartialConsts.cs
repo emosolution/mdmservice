@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
     public static partial class NumberingConfigConsts
     {
+        public const short PaddingZeroNumberMinValue = 0;
+        public const short PaddingZeroNumberMaxValue = 10;
+
         public const string SystemDataCode = "SY01";
         public static Dictionary<string, string> ObjectTypeDictionary = new()
         {
@@ -52,6 +56,22 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             {
                 suffix = dictionarySuffix;
             }
+            return (prefix, paddingZeroNumber, suffix);
+        }
+
+        public static (string, int, string) GetBaseData(string inputPrefix,
+            int? inputPaddingZeroNumber, string inputSuffix, string objectType)
+        {
+            (string prefix, int paddingZeroNumber, string suffix) =
+               GetPresetDataOfConfig(objectType);
+            inputPrefix ??= prefix;
+            inputPaddingZeroNumber = inputPaddingZeroNumber == null ? paddingZeroNumber : inputPaddingZeroNumber;
+            inputSuffix ??= suffix;
+
+            Check.Length(inputPrefix, nameof(inputPrefix), PrefixMaxLength);
+            Check.Length(inputSuffix, nameof(inputSuffix), SuffixMaxLength);
+            Check.Range((short)inputPaddingZeroNumber, nameof(inputPaddingZeroNumber),
+                PaddingZeroNumberMinValue, PaddingZeroNumberMaxValue);
             return (prefix, paddingZeroNumber, suffix);
         }
     }
