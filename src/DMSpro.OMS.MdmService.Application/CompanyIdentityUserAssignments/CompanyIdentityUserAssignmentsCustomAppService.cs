@@ -109,7 +109,8 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             };
             request.IdentityUserIds.Add(identityUserIds);
             var response = await client.GetListIdentityUsersAsync(request);
-            if (response.IdentityUsers == null || response.IdentityUsers.Count < 1)
+            if ((response.IdentityUsers == null && identityUserIds.Count != 0) ||
+                response.IdentityUsers.Count != identityUserIds.Count)
             {
                 throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
             }
