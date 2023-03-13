@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
+using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -20,10 +21,11 @@ namespace DMSpro.OMS.MdmService.Items
             List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, postingDate);
             DateTime now = DateTime.Now;
             string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
-            (string itemInfo, Dictionary<string, ItemSOPODto> itemDictionary,
-                Dictionary<string, UOMSOPODto> uomDictionary) =
-                await GetSOInfoStringAsync(zoneIds, postingDate,
-                    lastUpdateDate, nowString);
+            string itemInfo = "";
+            //(string itemInfo, Dictionary<string, ItemSOPODto> itemDictionary,
+            //    Dictionary<string, UOMSOPODto> uomDictionary) =
+            //    await GetSOInfoStringAsync(zoneIds, postingDate,
+            //        lastUpdateDate, nowString);
             //string customerInfo = await GetCustomerInfoForSOAsync(getCustomerInfo, zoneIds,
             //    lastCustomerInfoUpdate, postingDate, postingDateString, itemDictionary, uomDictionary);
             //string routeInfo = await GetRouteInfo(getRouteInfo, zoneIds, lastRouteInfoUpdate,
@@ -35,12 +37,15 @@ namespace DMSpro.OMS.MdmService.Items
         }
 
         #region GET ITEM INFO
+
         private async Task<(string,
-            Dictionary<string, ItemSOPODto>,
-            Dictionary<string, UOMSOPODto>)>
-            GetSOInfoStringAsync(List<Guid> zoneIds, DateTime postingDate,
-                DateTime? lastUpdateDate, string nowString)
+           Dictionary<string, ItemSOPODto>,
+           Dictionary<string, UOMSOPODto>)>
+           GetSOInfoStringAsync(List<Guid> zoneIds, DateTime postingDate,
+               DateTime? lastUpdateDate, string nowString)
         {
+
+
             //ItemInfoGroup zoneItemInfoGroup =
             //    await GetItemInfoFromSalesOrgHierarchyIds(zoneIds, postingDate);
             //(Dictionary<string, RouteSOPODto> routeDictionary, 
@@ -48,10 +53,7 @@ namespace DMSpro.OMS.MdmService.Items
             //  await GetRouteFromZoneIds(zoneIds);
             //ItemInfoGroup routeItemInfoGroup = 
             //    await GetItemInfoFromSalesOrgHierarchyIds(routeIds, postingDate);
-            //var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(x => 
-            //    routeIds.Contains(x.RouteId) &&
-            //    x.EffectiveDate < postingDate &&
-            //    (x.EndDate == null || x.EndDate >= postingDate))).ToList();
+
 
 
 
@@ -64,42 +66,137 @@ namespace DMSpro.OMS.MdmService.Items
             //        $"\"updateRequired\": true",
             //    };
             //return ($"\"itemInfo\":{{{resultParts.JoinAsString(",")}}}", itemDictionary, uomDictionary);
-            return "";
+            return ("", null, null);
         }
 
-        private async Dictionary<string, List<string>> GetItemInRouteDictionary(
-            DateTime postingDate, List<MCPHeader> headerList, 
-            ItemInfoGroup zoneItemInfoGroup, ItemInfoGroup routeItemInfoGroup)
+        private async Task<ItemGroupInSalesOrgHierarchy> GetItemGroupInSalesOrgHierarchy(
+            List<Guid> salesOrgHierarchyIds, DateTime postingDate)
         {
-            foreach (var header in headerList)
+            Dictionary<string, List<string>> itemGroupDictionary = new();
+            var itemAssignments = (await _itemGroupInZoneRepository.GetListAsync(x =>
+                salesOrgHierarchyIds.Contains(x.SellingZoneId))).ToList();
+            if (itemAssignments.Count == 0)
             {
-                Guid? itemGroupId = header.ItemGroupId;
-                if (itemGroupId != null)
+                return new ItemGroupInSalesOrgHierarchy(true, itemGroupDictionary);
+            }
+            var eligibleItemAssignments = itemAssignments.Where(x => x.Active == true &&
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate >= postingDate)).ToList();
+            if (eligibleItemAssignments.Count < 1)
+            {
+                return new ItemGroupInSalesOrgHierarchy(false, itemGroupDictionary);
+            }
+            foreach (var eligibleItemAssignment in eligibleItemAssignments)
+            {
+                var itemGroupList =
+                    await _itemGroupRepository.GetListAsync(x =>
+                        x.Id == eligibleItemAssignment.ItemGroupId &&
+                        x.Status == GroupStatus.RELEASED);
+                if (itemGroupList.Count != 1)
                 {
-                    
+                    continue;
                 }
+                var itemGroupIdString = itemGroupList.First().Id.ToString();
+                string salesOrgHierarchyIdString = eligibleItemAssignment.SellingZoneId.ToString();
+                List<string> itemGroupIdList = new();
+                if (itemGroupDictionary.TryGetValue(salesOrgHierarchyIdString, out var values))
+                {
+                    itemGroupIdList.AddRange(values);
+                }
+                if (!itemGroupIdList.Contains(itemGroupIdString))
+                {
+                    itemGroupIdList.Add(itemGroupIdString);
+                }
+                itemGroupDictionary[salesOrgHierarchyIdString] = itemGroupIdList;
+            }
+            return new ItemGroupInSalesOrgHierarchy(false, itemGroupDictionary);
+            //var itemGroupIds = eligibleItemAssignments.Select(x => x.ItemGroupId).Distinct();
+            //var itemGroups =
+            //    (await _itemGroupRepository.GetListAsync(x => itemGroupIds.Contains(x.Id))).ToList();
+            //if (itemGroups.Count < 1)
+            //{
+            //    throw new BusinessException(message: "Error:ItemsAppService:553", code: "1");
+            //}
+            //itemIds.AddRange(await GetAllItemIdsFromItemGroups(itemGroups));
+            //return itemIds;
+        }
+
+        private async Task<Dictionary<string, List<string>>> GetItemGroupInRouteFromMCPs(
+            List<Guid> zoneIds, DateTime postingDate)
+        {
+            Dictionary<string, List<string>> result = new();
+            var itemGroupInZones =
+                await GetItemGroupInSalesOrgHierarchy(zoneIds, postingDate);
+            (Dictionary<string, RouteSOPODto> routeDictionary,
+                List<Guid> routeIds) =
+              await GetRouteFromZoneIds(zoneIds);
+            var itemGroupInRoute =
+                await GetItemGroupInSalesOrgHierarchy(routeIds, postingDate);
+            var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(x =>
+                routeIds.Contains(x.RouteId) &&
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate >= postingDate))).ToList();
+            foreach (var mcpHeader in mcpHeaders)
+            {
+                var routeId = mcpHeader.RouteId;
+                List<string> itemGroupList = new();
+                if (result.TryGetValue(routeId.ToString(), out var values))
+                {
+                    itemGroupList.AddRange(values);
+                }
+                Guid? itemGroupId = mcpHeader.ItemGroupId;
+                if (itemGroupId == null)
+                {
+                    if (itemGroupInRoute.AllItems == true)
+                    {
+                        if (itemGroupInZones.AllItems == true)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+
             }
         }
 
-        private async Task<ItemInfoGroup> GetItemInfoFromSalesOrgHierarchyIds(
-            List<Guid> zosalesOrgHierarchyIdsneIds, DateTime postingDate)
-        {
-            Dictionary<string, ItemSOPODto> itemDictionary;
-            Dictionary<string, List<string>> uomGroupDictionary;
 
-            List<Guid> itemIds = await GetItemIdsInSalesOrgHierarchies(
-                zosalesOrgHierarchyIdsneIds, postingDate);
+        //private async Dictionary<string, List<string>> GetItemInRouteDictionary(
+        //    DateTime postingDate, List<MCPHeader> headerList, 
+        //    ItemInfoGroup zoneItemInfoGroup, ItemInfoGroup routeItemInfoGroup)
+        //{
+        //    foreach (var header in headerList)
+        //    {
+        //        Guid? itemGroupId = header.ItemGroupId;
+        //        if (itemGroupId != null)
+        //        {
 
-            (itemDictionary, uomGroupDictionary, List<string> allAltUomIds,
-                List<Guid> vatIds) = await GetItemDetailsFromItemIds(itemIds, true);
-            Dictionary<string, VATSOPODto> vatDictionary = await GetVatDetails(vatIds);
-            Dictionary<string, UOMSOPODto> uomDictionary = await GetUOMDetails(allAltUomIds);
+        //        }
+        //    }
+        //}
 
-            return new ItemInfoGroup(itemDictionary, uomGroupDictionary,
-                vatDictionary, uomDictionary);
-        }
+        //private async Task<ItemInfoGroup> GetItemInfoFromSalesOrgHierarchyIds(
+        //    List<Guid> zosalesOrgHierarchyIdsneIds, DateTime postingDate)
+        //{
+        //    Dictionary<string, ItemSOPODto> itemDictionary;
+        //    Dictionary<string, List<string>> uomGroupDictionary;
 
-        private async Task<List<Guid>> GetItemIdsInSalesOrgHierarchies(List<Guid> salesOrgHierarchyIds, 
+        //    List<Guid> itemIds = await GetItemIdsInSalesOrgHierarchies(
+        //        zosalesOrgHierarchyIdsneIds, postingDate);
+
+        //    (itemDictionary, uomGroupDictionary, List<string> allAltUomIds,
+        //        List<Guid> vatIds) = await GetItemDetailsFromItemIds(itemIds, true);
+        //    Dictionary<string, VATSOPODto> vatDictionary = await GetVatDetails(vatIds);
+        //    Dictionary<string, UOMSOPODto> uomDictionary = await GetUOMDetails(allAltUomIds);
+
+        //    return new ItemInfoGroup(itemDictionary, uomGroupDictionary,
+        //        vatDictionary, uomDictionary);
+        //}
+
+        private async Task<List<Guid>> GetItemIdsInSalesOrgHierarchies(List<Guid> salesOrgHierarchyIds,
             DateTime postingDate)
         {
             List<Guid> itemIds = new();
@@ -266,7 +363,7 @@ namespace DMSpro.OMS.MdmService.Items
             return ids;
         }
 
-        private async Task<(Dictionary<string, RouteSOPODto>, List<Guid>)> 
+        private async Task<(Dictionary<string, RouteSOPODto>, List<Guid>)>
             GetRouteFromZoneIds(List<Guid> zoneIds)
         {
             var routes = await _salesOrgHierarchyRepository.GetListAsync(x => x.IsRoute == true &&
@@ -941,7 +1038,8 @@ namespace DMSpro.OMS.MdmService.Items
             public ItemGroupInSalesOrgHierarchy() { }
 
             public ItemGroupInSalesOrgHierarchy(bool allItems,
-                Dictionary<string, List<string>> itemGroupDictionary) { 
+                Dictionary<string, List<string>> itemGroupDictionary)
+            {
                 AllItems = allItems;
                 ItemGroupDictionary = itemGroupDictionary;
             }
