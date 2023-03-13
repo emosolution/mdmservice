@@ -14,8 +14,19 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 		[Route("GetListDevextremes")]
 		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
 		{
-			return _numberingConfigsAppService.GetListDevextremesAsync(inputDev);
-		}
+            try
+            {
+                return _numberingConfigsAppService.GetListDevextremesAsync(inputDev);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
+        }
 
 		[HttpPost]
 		[Route("update-from-excel")]

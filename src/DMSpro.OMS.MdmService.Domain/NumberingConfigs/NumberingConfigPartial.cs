@@ -1,16 +1,19 @@
+using DMSpro.OMS.MdmService.SystemDatas;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
 	public partial class NumberingConfig
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual SystemData SystemData { get; set; }
+
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()
 			{
-				{ "CompanyId", (1, "ICompanyRepository", "", "") },
-                { "SystemDataId", (1, "ISystemDataRepository", "", "") },
+				{ "SystemDataId", (1, "ISystemDataRepository", "", "") },
             };
 		}
 

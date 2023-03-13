@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
-    public static class NumberingConfigConsts
+    public static partial class NumberingConfigConsts
     {
-        private const string DefaultSorting = "{0}StartNumber asc";
+        private const string DefaultSorting = "{0}Prefix asc";
 
         public static string GetDefaultSorting(bool withEntityName)
         {
@@ -11,5 +13,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 
         public const int PrefixMaxLength = 20;
         public const int SuffixMaxLength = 20;
+        public const int DescriptionMaxLength = 255;
     }
 }

@@ -18,28 +18,6 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "b0a21b35-08ee-4e1e-8cc0-2cf4f4e84310",
-      "Name": "StartNumber",
-      "Type": "int",
-      "EnumType": "",
-      "EnumNamespace": "",
-      "EnumAngularImport": "shared/enums",
-      "EnumFilePath": null,
-      "DefaultValue": null,
-      "IsNullable": false,
-      "IsRequired": false,
-      "IsTextArea": false,
-      "MinLength": null,
-      "MaxLength": null,
-      "SortOrder": 0,
-      "SortType": 0,
-      "Regex": "",
-      "EmailValidation": false,
-      "EnumValues": null,
-      "IsSelected": true,
-      "OrdinalIndex": 0
-    },
-    {
       "Id": "69a92b45-4057-4945-9eb7-412391448269",
       "Name": "Prefix",
       "Type": "string",
@@ -84,8 +62,8 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "d95bb922-0e52-4a03-a647-768db4c7293c",
-      "Name": "Length",
+      "Id": "ad82b877-6f4b-432a-9f82-8923de55ef60",
+      "Name": "PaddingZeroNumber",
       "Type": "int",
       "EnumType": "",
       "EnumNamespace": "",
@@ -104,24 +82,31 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
+    },
+    {
+      "Id": "2f51c1c5-3933-4569-9c8c-3b1d2a2ad2c9",
+      "Name": "Description",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": 255,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [
-    {
-      "EntityNameWithDuplicationNumber": "Company",
-      "EntitySetNameWithDuplicationNumber": "Companies",
-      "ReferencePropertyName": "Company",
-      "UiPickType": "Dropdown",
-      "IsRequired": false,
-      "Name": "CompanyId",
-      "DisplayProperty": "Code",
-      "Namespace": "DMSpro.OMS.MdmService.Companies",
-      "EntityName": "Company",
-      "EntitySetName": "Companies",
-      "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
-      "DtoEntityName": "CompanyDto",
-      "Type": "Guid"
-    },
     {
       "EntityNameWithDuplicationNumber": "SystemData",
       "EntitySetNameWithDuplicationNumber": "SystemDatas",

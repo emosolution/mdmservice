@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
@@ -122,7 +123,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<NumberingConfig, NumberingConfigDto>();
         CreateMap<NumberingConfig, NumberingConfigWithDetailsDto>();
-        CreateMap<NumberingConfig, NumberingConfigExcelDto>();
 
         CreateMap<WorkingPosition, WorkingPositionDto>();
         CreateMap<WorkingPosition, WorkingPositionExcelDto>();
@@ -314,7 +314,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>();
         CreateMap<MCPDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<NumberingConfigWithNavigationProperties, NumberingConfigWithNavigationPropertiesDto>();
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SystemConfig, SystemConfigDto>();
@@ -379,5 +378,8 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<ItemGroupInZone, ItemGroupInZoneDto>();
         CreateMap<ItemGroupInZone, ItemGroupInZoneExcelDto>();
         CreateMap<ItemGroupInZoneWithNavigationProperties, ItemGroupInZoneWithNavigationPropertiesDto>();
+
+        CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
+        CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
     }
 }

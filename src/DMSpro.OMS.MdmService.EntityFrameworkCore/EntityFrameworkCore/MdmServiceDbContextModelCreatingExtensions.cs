@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -454,14 +455,12 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigs", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(NumberingConfig.TenantId));
-            b.Property(x => x.StartNumber).HasColumnName(nameof(NumberingConfig.StartNumber));
             b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfig.Prefix)).HasMaxLength(NumberingConfigConsts.PrefixMaxLength);
             b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfig.Suffix)).HasMaxLength(NumberingConfigConsts.SuffixMaxLength);
-            b.Property(x => x.Length).HasColumnName(nameof(NumberingConfig.Length));
-            b.HasOne<Company>(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+            b.Property(x => x.PaddingZeroNumber).HasColumnName(nameof(NumberingConfig.PaddingZeroNumber));
+            b.Property(x => x.Description).HasColumnName(nameof(NumberingConfig.Description)).HasMaxLength(NumberingConfigConsts.DescriptionMaxLength);
             b.HasOne<SystemData>(x => x.SystemData).WithMany().HasForeignKey(x => x.SystemDataId).OnDelete(DeleteBehavior.NoAction);
         });
-
         builder.Entity<SystemConfig>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SystemConfigs", MdmServiceDbProperties.DbSchema);
@@ -862,5 +861,19 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
         b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
+        builder.Entity<NumberingConfigDetail>(b =>
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "NumberingConfigDetails", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(NumberingConfigDetail.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(NumberingConfigDetail.Description)).HasMaxLength(NumberingConfigConsts.DescriptionMaxLength);
+            b.Property(x => x.Prefix).HasColumnName(nameof(NumberingConfigDetail.Prefix)).HasMaxLength(NumberingConfigConsts.PrefixMaxLength);
+            b.Property(x => x.PaddingZeroNumber).HasColumnName(nameof(NumberingConfigDetail.PaddingZeroNumber));
+            b.Property(x => x.Suffix).HasColumnName(nameof(NumberingConfigDetail.Suffix)).HasMaxLength(NumberingConfigConsts.SuffixMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(NumberingConfigDetail.Active));
+            b.Property(x => x.CurrentNumber).HasColumnName(nameof(NumberingConfigDetail.CurrentNumber));
+            b.HasOne<NumberingConfig>(x => x.NumberingConfig).WithMany().IsRequired().HasForeignKey(x => x.NumberingConfigId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        });
     }
 }

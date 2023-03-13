@@ -32,8 +32,7 @@ public class MdmServicePermissions
     {
         public const string Default = GroupName + ".NumberingConfig";
         public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
+        public const string CreateDetail = Default + ".CreateDetail";
     }
 
     // Geographical group
@@ -405,5 +404,11 @@ public class MdmServicePermissions
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
+    }
+
+    public static class MasterDataManipulators
+    {
+        public const string Default = GroupName + ".MasterDataManipulators";
+        public const string CreateNumberConfigs = Default + ".CreateNumberConfigs";
     }
 }

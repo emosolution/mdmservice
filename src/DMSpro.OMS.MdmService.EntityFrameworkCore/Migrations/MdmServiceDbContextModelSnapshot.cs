@@ -3311,12 +3311,100 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.ToTable("MCPHeaders", (string)null);
                 });
 
-            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfig", b =>
+            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CompanyId")
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("Active");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<int>("CurrentNumber")
+                        .HasColumnType("int")
+                        .HasColumnName("CurrentNumber");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid>("NumberingConfigId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PaddingZeroNumber")
+                        .HasColumnType("int")
+                        .HasColumnName("PaddingZeroNumber");
+
+                    b.Property<string>("Prefix")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("Prefix");
+
+                    b.Property<string>("Suffix")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("Suffix");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TenantId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("NumberingConfigId");
+
+                    b.ToTable("NumberingConfigDetails", (string)null);
+                });
+
+            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfig", b =>
+                {
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -3341,6 +3429,11 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Description");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -3359,25 +3452,21 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<int>("Length")
+                    b.Property<int>("PaddingZeroNumber")
                         .HasColumnType("int")
-                        .HasColumnName("Length");
+                        .HasColumnName("PaddingZeroNumber");
 
                     b.Property<string>("Prefix")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("Prefix");
 
-                    b.Property<int>("StartNumber")
-                        .HasColumnType("int")
-                        .HasColumnName("StartNumber");
-
                     b.Property<string>("Suffix")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("Suffix");
 
-                    b.Property<Guid?>("SystemDataId")
+                    b.Property<Guid>("SystemDataId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TenantId")
@@ -3385,8 +3474,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnName("TenantId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("SystemDataId");
 
@@ -5890,19 +5977,32 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.Navigation("SalesOrgHierarchy");
                 });
 
-            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfig", b =>
+            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetail", b =>
                 {
                     b.HasOne("DMSpro.OMS.MdmService.Companies.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
+                    b.HasOne("DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfig", "NumberingConfig")
+                        .WithMany()
+                        .HasForeignKey("NumberingConfigId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("NumberingConfig");
+                });
+
+            modelBuilder.Entity("DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfig", b =>
+                {
                     b.HasOne("DMSpro.OMS.MdmService.SystemDatas.SystemData", "SystemData")
                         .WithMany()
                         .HasForeignKey("SystemDataId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Company");
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("SystemData");
                 });
