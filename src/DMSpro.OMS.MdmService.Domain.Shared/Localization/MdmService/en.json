@@ -1055,6 +1055,7 @@
     "Error:ItemsAppService:550": "Company does not exist or is longer active",
     "Error:ItemsAppService:551": "Company is not assigned to any active selling zone",
     "Error:ItemsAppService:552": "Unknown item group type",
+    "Error:ItemsAppService:553": "No valid item group can be found from ids for company's assigned selling zones",
     "Error:CompanyIdentityUserAssignment:550": "Company does not belong to current user",
     "Error:CompanyIdentityUserAssignment:551": "Current user is not assigned to any company",
     "Error:CompanyIdentityUserAssignment:552": "At least one user cannot be found in the system",
