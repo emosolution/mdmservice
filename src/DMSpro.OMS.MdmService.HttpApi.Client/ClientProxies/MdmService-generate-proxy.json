@@ -28474,7 +28474,7 @@
                   }
                 },
                 {
-                  "name": "GetInfoForSOAsync",
+                  "name": "GetSOInfoAsync",
                   "parametersOnMethod": [
                     {
                       "name": "companyId",
@@ -28485,58 +28485,18 @@
                       "defaultValue": null
                     },
                     {
-                      "name": "lastItemInfoUpdate",
+                      "name": "postingDate",
+                      "typeAsString": "System.DateTime, System.Private.CoreLib",
+                      "type": "System.DateTime",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastUpdateDate",
                       "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.DateTime?",
                       "typeSimple": "string?",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "lastCustomerInfoUpdate",
-                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.DateTime?",
-                      "typeSimple": "string?",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "lastRouteInfoUpdate",
-                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.DateTime?",
-                      "typeSimple": "string?",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "lastVendorInfoUpdate",
-                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.DateTime?",
-                      "typeSimple": "string?",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "getCustomerInfo",
-                      "typeAsString": "System.Boolean, System.Private.CoreLib",
-                      "type": "System.Boolean",
-                      "typeSimple": "boolean",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "getVendorInfo",
-                      "typeAsString": "System.Boolean, System.Private.CoreLib",
-                      "type": "System.Boolean",
-                      "typeSimple": "boolean",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "getRouteInfo",
-                      "typeAsString": "System.Boolean, System.Private.CoreLib",
-                      "type": "System.Boolean",
-                      "typeSimple": "boolean",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -30421,11 +30381,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
             },
-            "GetInfoForSOAsyncByCompanyIdAndLastItemInfoUpdateAndLastCustomerInfoUpdateAndLastRouteInfoUpdateAndLastVendorInfoUpdateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo": {
-              "uniqueName": "GetInfoForSOAsyncByCompanyIdAndLastItemInfoUpdateAndLastCustomerInfoUpdateAndLastRouteInfoUpdateAndLastVendorInfoUpdateAndGetCustomerInfoAndGetVendorInfoAndGetRouteInfo",
-              "name": "GetInfoForSOAsync",
+            "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate": {
+              "uniqueName": "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate",
+              "name": "GetSOInfoAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/items/info-for-so-po",
+              "url": "api/mdm-service/items/info-for-so",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -30437,58 +30397,18 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "lastItemInfoUpdate",
+                  "name": "postingDate",
+                  "typeAsString": "System.DateTime, System.Private.CoreLib",
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastUpdateDate",
                   "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "lastCustomerInfoUpdate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "lastRouteInfoUpdate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "lastVendorInfoUpdate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "getCustomerInfo",
-                  "typeAsString": "System.Boolean, System.Private.CoreLib",
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "getVendorInfo",
-                  "typeAsString": "System.Boolean, System.Private.CoreLib",
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "getRouteInfo",
-                  "typeAsString": "System.Boolean, System.Private.CoreLib",
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -30507,83 +30427,23 @@
                   "descriptorName": ""
                 },
                 {
-                  "nameOnMethod": "lastItemInfoUpdate",
-                  "name": "lastItemInfoUpdate",
+                  "nameOnMethod": "postingDate",
+                  "name": "postingDate",
+                  "jsonName": null,
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastUpdateDate",
+                  "name": "lastUpdateDate",
                   "jsonName": null,
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "lastCustomerInfoUpdate",
-                  "name": "lastCustomerInfoUpdate",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "lastRouteInfoUpdate",
-                  "name": "lastRouteInfoUpdate",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "lastVendorInfoUpdate",
-                  "name": "lastVendorInfoUpdate",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "getCustomerInfo",
-                  "name": "getCustomerInfo",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "getVendorInfo",
-                  "name": "getVendorInfo",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "getRouteInfo",
-                  "name": "getRouteInfo",
-                  "jsonName": null,
-                  "type": "System.Boolean",
-                  "typeSimple": "boolean",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -31087,7 +30947,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
@@ -40259,7 +40119,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
@@ -46419,7 +46279,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
@@ -48047,7 +47907,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
@@ -54654,7 +54514,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
@@ -63509,7 +63369,7 @@
                   "name": "DeleteManyAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "id",
+                      "name": "ids",
                       "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Guid>",
                       "typeSimple": "[string]",
