@@ -1,10 +1,10 @@
-﻿using DMSpro.OMS.MdmService.Permissions;
+﻿using DMSpro.OMS.MdmService.NumberingConfigs;
+using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
-using Volo.Abp.ObjectMapping;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
@@ -62,8 +62,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
         }
 
-        [Authorize(MdmServicePermissions.NumberingConfigs.CreateDetail)]
-        public virtual async Task<NumberingConfigDetailDto> GetConfigDetailByObjectTypeAndCompanyAsync(
+        private async Task<(NumberingConfigDetail, NumberingConfig)> GetDetailFromObjectTypeAndCompany(
             string objectType, Guid companyId)
         {
             var company = _companyRepository.GetAsync(companyId);
@@ -75,28 +74,83 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             {
                 throw new BusinessException(message: L["Error:NumberingConfig:550"], code: "1");
             }
+            var header = headers.First();
             var details = await
-                _numberingConfigDetailRepository.GetListAsync(x => x.CompanyId == companyId);
+                _numberingConfigDetailRepository.GetListAsync(x => x.CompanyId == companyId &&
+                    x.NumberingConfigId == header.Id);
             if (details.Count > 1)
             {
                 throw new BusinessException(message: L["Error:NumberingConfigDetail:550"], code: "1");
             }
             if (details.Count == 1)
             {
-                var detail = details.First();
-                return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
+                return (details.First(), header);
             }
-            var header = headers.First();
-            NumberingConfigDetailCreateDto input = new()
+            return (null, header);
+        }
+
+        [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
+        public virtual async Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(
+            string objectType, Guid companyId)
+        {
+            (NumberingConfigDetail detail, NumberingConfig header) =
+                await GetDetailFromObjectTypeAndCompany(objectType, companyId);
+            if (detail != null)
+            {
+                if (detail.Active)
+                {
+                    return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
+                }
+                NumberingConfigDetailDto inactiveDto = new()
+                {
+                    Prefix = header.Prefix,
+                    PaddingZeroNumber = header.PaddingZeroNumber,
+                    Suffix = header.Suffix,
+                    CurrentNumber = detail.CurrentNumber,
+                    Active = false,
+                    NumberingConfigId = header.Id,
+                    CompanyId = companyId,
+                };
+                return inactiveDto;
+            }
+            NumberingConfigDetailDto dto = new()
             {
                 Prefix = header.Prefix,
                 PaddingZeroNumber = header.PaddingZeroNumber,
                 Suffix = header.Suffix,
                 CurrentNumber = NumberingConfigDetailConsts.CurrentNumberMinValue,
                 Active = true,
+                NumberingConfigId = header.Id,
+                CompanyId = companyId,
             };
-            var dto = await CreateAsync(input);
             return dto;
+        }
+
+        [Authorize(MdmServicePermissions.NumberingConfigs.Edit)]
+        public virtual async Task<NumberingConfigDetailDto> SaveNumberingConfigAsync(
+            string objectType, Guid companyId, int currentNumber)
+        {
+            (NumberingConfigDetail detail, NumberingConfig header) =
+                await GetDetailFromObjectTypeAndCompany(objectType, companyId);
+            var newCurrentNumber = currentNumber + 1;
+            if (detail != null)
+            {
+                detail.CurrentNumber = newCurrentNumber;
+                await _numberingConfigDetailRepository.UpdateAsync(detail);
+                return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
+            }
+            var createDto = new NumberingConfigDetailCreateDto()
+            {
+                Prefix = header.Prefix,
+                PaddingZeroNumber = header.PaddingZeroNumber,
+                Suffix = header.Suffix,
+                Active = true,
+                CurrentNumber = newCurrentNumber,
+                NumberingConfigId = header.Id,
+                CompanyId = companyId,
+            };
+            var newDetail = await CreateAsync(createDto);
+            return newDetail;
+        }
     }
-}
 }

@@ -24243,7 +24243,7 @@
                   }
                 },
                 {
-                  "name": "GetConfigDetailByObjectTypeAndCompanyAsync",
+                  "name": "GetSuggestedNumberingConfigAsync",
                   "parametersOnMethod": [
                     {
                       "name": "objectType",
@@ -24258,6 +24258,39 @@
                       "typeAsString": "System.Guid, System.Private.CoreLib",
                       "type": "System.Guid",
                       "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetailDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetailDto"
+                  }
+                },
+                {
+                  "name": "SaveNumberingConfigAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "objectType",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "currentNumber",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -24461,11 +24494,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigDetails.INumberingConfigDetailsAppService"
             },
-            "GetConfigDetailByObjectTypeAndCompanyAsyncByObjectTypeAndCompanyId": {
-              "uniqueName": "GetConfigDetailByObjectTypeAndCompanyAsyncByObjectTypeAndCompanyId",
-              "name": "GetConfigDetailByObjectTypeAndCompanyAsync",
+            "GetSuggestedNumberingConfigAsyncByObjectTypeAndCompanyId": {
+              "uniqueName": "GetSuggestedNumberingConfigAsyncByObjectTypeAndCompanyId",
+              "name": "GetSuggestedNumberingConfigAsync",
               "httpMethod": "GET",
-              "url": "api/mdm-service/numbering-config-details/by-object-type-and-company",
+              "url": "api/mdm-service/numbering-config-details/suggested-numbering",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -24504,6 +24537,83 @@
                   "jsonName": null,
                   "type": "System.Guid",
                   "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetailDto",
+                "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigDetails.NumberingConfigDetailDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigDetails.INumberingConfigDetailsAppService"
+            },
+            "SaveNumberingConfigAsyncByObjectTypeAndCompanyIdAndCurrentNumber": {
+              "uniqueName": "SaveNumberingConfigAsyncByObjectTypeAndCompanyIdAndCurrentNumber",
+              "name": "SaveNumberingConfigAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/numbering-config-details/save-numbering",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "objectType",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "currentNumber",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "objectType",
+                  "name": "objectType",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "currentNumber",
+                  "name": "currentNumber",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

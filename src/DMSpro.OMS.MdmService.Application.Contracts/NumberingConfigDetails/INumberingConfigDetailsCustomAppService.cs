@@ -5,6 +5,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
     public partial interface INumberingConfigDetailsAppService
     {
-        Task<NumberingConfigDetailDto> GetConfigDetailByObjectTypeAndCompanyAsync(string objectType, Guid companyId);
+        Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(string objectType, Guid companyId);
+
+        Task<NumberingConfigDetailDto> SaveNumberingConfigAsync(string objectType, Guid companyId, int currentNumber);
     }
 }
