@@ -44,12 +44,22 @@ public partial class NumberingConfigDetailClientProxy : ClientProxyBase<INumberi
         });
     }
 
-    public virtual async Task<NumberingConfigDetailDto> GetConfigDetailByObjectTypeAndCompanyAsync(string objectType, Guid companyId)
+    public virtual async Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(string objectType, Guid companyId)
     {
-        return await RequestAsync<NumberingConfigDetailDto>(nameof(GetConfigDetailByObjectTypeAndCompanyAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<NumberingConfigDetailDto>(nameof(GetSuggestedNumberingConfigAsync), new ClientProxyRequestTypeValue
         {
             { typeof(string), objectType },
             { typeof(Guid), companyId }
+        });
+    }
+
+    public virtual async Task<NumberingConfigDetailDto> SaveNumberingConfigAsync(string objectType, Guid companyId, int currentNumber)
+    {
+        return await RequestAsync<NumberingConfigDetailDto>(nameof(SaveNumberingConfigAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(string), objectType },
+            { typeof(Guid), companyId },
+            { typeof(int), currentNumber }
         });
     }
 
