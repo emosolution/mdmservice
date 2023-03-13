@@ -25,11 +25,11 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 
         [HttpPost]
         [Route("create-all-for-host")]
-        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForHost()
+        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync()
         {
             try
             {
-                return await _internalAppService.CreateAllConfigsForHost();
+                return await _internalAppService.CreateAllConfigsForHostAsync();
             }
             catch (BusinessException bex)
             {
@@ -43,11 +43,11 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 
         [HttpPost]
         [Route("create-all-for-tenants")]
-        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForTenant(List<Guid> tenantIds)
+        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(List<Guid> tenantIds)
         {
             try
             {
-                return await _internalAppService.CreateAllConfigsForTenant(tenantIds);
+                return await _internalAppService.CreateAllConfigsForTenantAsync(tenantIds);
             }
             catch (BusinessException bex)
             {
@@ -60,11 +60,11 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
         }
 
         [HttpPost]
-        public virtual async Task<NumberingConfigDto> Create(NumberingConfigCreateDto input)
+        public virtual async Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
         {
             try
             {
-                return await _internalAppService.Create(input);
+                return await _internalAppService.CreateAsync(input);
             }
             catch (BusinessException bex)
             {

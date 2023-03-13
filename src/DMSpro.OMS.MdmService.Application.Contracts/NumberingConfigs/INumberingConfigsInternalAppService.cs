@@ -7,10 +7,10 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
 {
     public interface INumberingConfigsInternalAppService :  IApplicationService
     {
-        Task<NumberingConfigDto> Create(NumberingConfigCreateDto input);
+        Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input);
 
-        Task<List<NumberingConfigDto>> CreateAllConfigsForTenant(List<Guid> tenantIds);
+        Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(List<Guid> tenantIds);
 
-        Task<List<NumberingConfigDto>> CreateAllConfigsForHost();
+        Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync();
     }
 }

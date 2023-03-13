@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         }
 
         [Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
-        public virtual async Task<NumberingConfigDto> Create(NumberingConfigCreateDto input)
+        public virtual async Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
         {
             (string prefix, int paddingZeroNumber, string suffix) = 
                 NumberingConfigConsts.GetBaseData(input.Suffix, 
@@ -59,7 +59,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         }
 
         [Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
-        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForTenant(
+        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(
             List<Guid> tenantIds)
         {
             List<NumberingConfigDto> result = new();
@@ -72,7 +72,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         }
 
         [Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
-        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForHost()
+        public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync()
         {
             List<NumberingConfigDto> result = new();
             var dtos = await CreateAllConfigsForATenantAsync(null);
@@ -117,7 +117,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 };
                 using (CurrentTenant.Change(tenantId))
                 {
-                    var dto = await Create(input);
+                    var dto = await CreateAsync(input);
                     result.Add(dto);
                 }
             }
