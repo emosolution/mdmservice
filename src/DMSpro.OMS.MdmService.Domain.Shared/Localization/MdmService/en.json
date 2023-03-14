@@ -1058,6 +1058,7 @@
     "Error:CompanyIdentityUserAssignment:550": "Company does not belong to current user",
     "Error:CompanyIdentityUserAssignment:551": "Current user is not assigned to any company",
     "Error:CompanyIdentityUserAssignment:552": "At least one user cannot be found in the system",
+    "Error:CompanyIdentityUserAssignment:553": "Current user is assigned to more than one company",
     "Error:SystemData:550": "Not exactly one system data of code {code} with value name {valueName} found",
     "Error:NumberingConfig:550": "There are more than one numbering config found for this object type",
     "Error:NumberingConfig:551": "Numbering config for this object type already exists",

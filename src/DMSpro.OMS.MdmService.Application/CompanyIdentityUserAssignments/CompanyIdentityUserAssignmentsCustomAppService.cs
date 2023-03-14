@@ -10,6 +10,7 @@ using System;
 using Volo.Abp;
 using Grpc.Net.Client;
 using DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers;
+using System.ComponentModel.Design;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -52,7 +53,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
-            await _companyRepository.CheckActiveAsync(companyId, true);
+            var selectedCompany = await _companyRepository.CheckActiveAsync(companyId, true);
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                 x.IdentityUserId == _currentUser.Id);
             var companies = assignments.Distinct().Select(x => x.CompanyId).ToList();
@@ -69,7 +70,6 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
                 }
             }
             await _companyIdentityUserAssignmentRepository.UpdateManyAsync(assignments);
-            var selectedCompany = await _companyRepository.GetAsync(companyId);
             return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
         }
 
@@ -81,20 +81,26 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             {
                 throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
             }
-            assignments = assignments.OrderBy(x => x.CreationTime).ToList();
-            foreach (var assignment in assignments)
+            Company selectedCompany;
+            var selectedAssignment = assignments.OrderBy(x => x.CreationTime)
+                .Where(x => x.CurrentlySelected == true).ToList();
+            if (selectedAssignment.Count > 1)
             {
-                if (assignment.CurrentlySelected == true)
-                {
-                    var selectedCompany =
-                        await _companyRepository.GetAsync(assignment.CompanyId);
-                    return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
-                }
+                throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:553"], code: "1");
             }
-            var lastAssignment = assignments.First();
-            var lastCreatedCompany =
-                        await _companyRepository.GetAsync(lastAssignment.CompanyId);
-            return ObjectMapper.Map<Company, CompanyDto>(lastCreatedCompany);
+            else if (assignments.Count == 1)
+            {
+                Guid firstSelectedCompanyId = assignments.First().Id;
+                selectedCompany =
+                        await _companyRepository.CheckActiveAsync(firstSelectedCompanyId, true);
+            }
+            else
+            {
+                Guid lastAssignmentId = assignments.First().Id;
+                selectedCompany =
+                    await _companyRepository.CheckActiveAsync(lastAssignmentId, true);
+            }
+            return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
         }
 
         private async Task<List<IdentityUser>>
