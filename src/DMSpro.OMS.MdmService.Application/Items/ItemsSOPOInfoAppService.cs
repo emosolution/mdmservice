@@ -1,14 +1,10 @@
-﻿
-using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.MCPHeaders;
+﻿using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
-using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -36,8 +32,160 @@ namespace DMSpro.OMS.MdmService.Items
             return $"{{{itemInfo}}}";
         }
 
-        #region GET ITEM INFO
+        private async Task<Dictionary<string, List<string>>> GetItemGroupInSalesOrgHierarchy(
+            List<Guid> salesOrgHierarchyIds, DateTime postingDate)
+        {
+            Dictionary<string, List<string>> result = new();
+            var itemAssignments = (await _itemGroupInZoneRepository.GetListAsync(x =>
+                salesOrgHierarchyIds.Contains(x.SellingZoneId))).ToList();
+            if (itemAssignments.Count == 0)
+            {
+                return null;
+            }
+            var eligibleItemAssignments = itemAssignments.Where(x => x.Active == true &&
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate >= postingDate)).ToList();
+            if (eligibleItemAssignments.Count < 1)
+            {
+                return result;
+            }
+            foreach (var eligibleItemAssignment in eligibleItemAssignments)
+            {
+                var itemGroupList =
+                    await _itemGroupRepository.GetListAsync(x =>
+                        x.Id == eligibleItemAssignment.ItemGroupId &&
+                        x.Status == GroupStatus.RELEASED);
+                if (itemGroupList.Count != 1)
+                {
+                    continue;
+                }
+                var itemGroupIdString = itemGroupList.First().Id.ToString();
+                string salesOrgHierarchyIdString = eligibleItemAssignment.SellingZoneId.ToString();
+                List<string> itemGroupIdList = new();
+                if (result.TryGetValue(salesOrgHierarchyIdString, out var values))
+                {
+                    itemGroupIdList.AddRange(values);
+                }
+                if (!itemGroupIdList.Contains(itemGroupIdString))
+                {
+                    itemGroupIdList.Add(itemGroupIdString);
+                }
+                result[salesOrgHierarchyIdString] = itemGroupIdList;
+            }
+            return result;
+        }
 
+        private async Task<(Dictionary<string, List<string>>,
+            Dictionary<string, List<string>>,
+            Dictionary<string, RouteSOPODto>,
+            List<Guid>)> GetItemGroupInZonesAndRoutes(List<Guid> zoneIds, 
+                DateTime postingDate)
+        {
+            var itemGroupInZones =
+               await GetItemGroupInSalesOrgHierarchy(zoneIds, postingDate);
+            (Dictionary<string, RouteSOPODto> routeDictionary,
+                List<Guid> routeIds) =
+              await GetRouteFromZoneIds(zoneIds);
+            var itemGroupInRoutes =
+                await GetItemGroupInSalesOrgHierarchy(routeIds, postingDate);
+            return (itemGroupInZones, itemGroupInRoutes,
+                routeDictionary, routeIds);
+        }
+
+        private async Task<string> GetSOInfoString(List<Guid> zoneIds, DateTime postingDate,
+               DateTime? lastUpdateDate, string nowString)
+        {
+            (Dictionary<string, List<string>> itemGroupInZones,
+            Dictionary<string, List<string>> itemGroupInRoutes,
+            Dictionary<string, RouteSOPODto> routeDictionary,
+            List<Guid> routeIds) = await GetItemGroupInZonesAndRoutes(zoneIds, postingDate);
+            (Dictionary<string, Dictionary<string, List<string>>> customerRouteItemGroup,
+                List<Guid> itemGroupIds) = 
+                await GetCustomerRouteItemGroupDictionary(routeIds, postingDate);
+            return "";
+        }
+
+        private async Task GetItemGroupData(List<Guid> itemGroupIds)
+        {
+            
+        }
+
+        private async Task<(Dictionary<string, Dictionary<string, List<string>>>,
+            List<Guid>)> GetCustomerRouteItemGroupDictionary(List<Guid> routeIds,
+                DateTime postingDate)
+        {
+            var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(x =>
+             routeIds.Contains(x.RouteId) &&
+             x.EffectiveDate < postingDate &&
+             (x.EndDate == null || x.EndDate >= postingDate))).ToList();
+            var mcpHeaderIds = mcpHeaders.Select(x => x.Id)
+                .Distinct().ToList();
+            var mcpDetails = (await _mcpDetailRepository.GetListAsync(x =>
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate >= postingDate) &&
+                mcpHeaderIds.Contains(x.Id))).Distinct().ToList();
+            var customersRoutesItemGroupsData = from mcpHeader in mcpHeaders
+                                                join mcpDetail in mcpDetails on mcpHeader.Id equals mcpDetail.MCPHeaderId
+                                                select new CustomerRouteItemGroup()
+                                                {
+                                                    CustomerIdString = mcpDetail.CustomerId.ToString(),
+                                                    RouteIdString = mcpHeader.RouteId.ToString(),
+                                                    ItemGroupId = mcpHeader.ItemGroupId,
+                                                };
+            (Dictionary<string, Dictionary<string, List<string>>> result,
+                List<Guid> itemGroupIds) = ProcessCustomerRouteItemgroupData(customersRoutesItemGroupsData);
+            return (result, itemGroupIds);
+        }
+
+        private static (Dictionary<string, Dictionary<string, List<string>>>,
+            List<Guid>) ProcessCustomerRouteItemgroupData(
+                IEnumerable<CustomerRouteItemGroup> customersRoutesItemGroupsData)
+        {
+            Dictionary<string, Dictionary<string, List<string>>> result = new();
+            List<Guid> itemGroupIds = new();
+            foreach (var data in customersRoutesItemGroupsData)
+            {
+                string customerIdString = data.CustomerIdString;
+                string routeIdString = data.RouteIdString;
+                Guid itemGroupId = Guid.Empty;
+                if (data.ItemGroupId != null)
+                {
+                    itemGroupId = (Guid)data.ItemGroupId;
+                }
+                if (!itemGroupIds.Contains(itemGroupId))
+                {
+                    itemGroupIds.Add(itemGroupId);
+                }
+                string itemGroupIdString = itemGroupId.ToString();
+                Dictionary<string, List<string>> routeAndItemGroups;
+                if (result.TryGetValue(customerIdString, out var dictionary))
+                {
+                    routeAndItemGroups = dictionary;
+                }
+                else
+                {
+                    routeAndItemGroups = new();
+                }
+                List<string> itemGroupIdList;
+                if (routeAndItemGroups.TryGetValue(routeIdString, out var list))
+                {
+                    itemGroupIdList = list;
+                }
+                else
+                {
+                    itemGroupIdList = new();
+                }
+                if (!itemGroupIdList.Contains(itemGroupIdString))
+                {
+                    itemGroupIdList.Add(itemGroupIdString);
+                }
+                routeAndItemGroups[routeIdString] = itemGroupIdList;
+                result[customerIdString] = routeAndItemGroups;
+            }
+            return (result, itemGroupIds);
+        }
+
+        #region GET ITEM INFO
         private async Task<(string,
            Dictionary<string, ItemSOPODto>,
            Dictionary<string, UOMSOPODto>)>
@@ -69,73 +217,12 @@ namespace DMSpro.OMS.MdmService.Items
             return ("", null, null);
         }
 
-        private async Task<ItemGroupInSalesOrgHierarchy> GetItemGroupInSalesOrgHierarchy(
-            List<Guid> salesOrgHierarchyIds, DateTime postingDate)
-        {
-            Dictionary<string, List<string>> itemGroupDictionary = new();
-            var itemAssignments = (await _itemGroupInZoneRepository.GetListAsync(x =>
-                salesOrgHierarchyIds.Contains(x.SellingZoneId))).ToList();
-            if (itemAssignments.Count == 0)
-            {
-                return new ItemGroupInSalesOrgHierarchy(true, itemGroupDictionary);
-            }
-            var eligibleItemAssignments = itemAssignments.Where(x => x.Active == true &&
-                x.EffectiveDate < postingDate &&
-                (x.EndDate == null || x.EndDate >= postingDate)).ToList();
-            if (eligibleItemAssignments.Count < 1)
-            {
-                return new ItemGroupInSalesOrgHierarchy(false, itemGroupDictionary);
-            }
-            foreach (var eligibleItemAssignment in eligibleItemAssignments)
-            {
-                var itemGroupList =
-                    await _itemGroupRepository.GetListAsync(x =>
-                        x.Id == eligibleItemAssignment.ItemGroupId &&
-                        x.Status == GroupStatus.RELEASED);
-                if (itemGroupList.Count != 1)
-                {
-                    continue;
-                }
-                var itemGroupIdString = itemGroupList.First().Id.ToString();
-                string salesOrgHierarchyIdString = eligibleItemAssignment.SellingZoneId.ToString();
-                List<string> itemGroupIdList = new();
-                if (itemGroupDictionary.TryGetValue(salesOrgHierarchyIdString, out var values))
-                {
-                    itemGroupIdList.AddRange(values);
-                }
-                if (!itemGroupIdList.Contains(itemGroupIdString))
-                {
-                    itemGroupIdList.Add(itemGroupIdString);
-                }
-                itemGroupDictionary[salesOrgHierarchyIdString] = itemGroupIdList;
-            }
-            return new ItemGroupInSalesOrgHierarchy(false, itemGroupDictionary);
-            //var itemGroupIds = eligibleItemAssignments.Select(x => x.ItemGroupId).Distinct();
-            //var itemGroups =
-            //    (await _itemGroupRepository.GetListAsync(x => itemGroupIds.Contains(x.Id))).ToList();
-            //if (itemGroups.Count < 1)
-            //{
-            //    throw new BusinessException(message: "Error:ItemsAppService:553", code: "1");
-            //}
-            //itemIds.AddRange(await GetAllItemIdsFromItemGroups(itemGroups));
-            //return itemIds;
-        }
-
+        /*
         private async Task<Dictionary<string, List<string>>> GetItemGroupInRouteFromMCPs(
             List<Guid> zoneIds, DateTime postingDate)
         {
-            Dictionary<string, List<string>> result = new();
-            var itemGroupInZones =
-                await GetItemGroupInSalesOrgHierarchy(zoneIds, postingDate);
-            (Dictionary<string, RouteSOPODto> routeDictionary,
-                List<Guid> routeIds) =
-              await GetRouteFromZoneIds(zoneIds);
-            var itemGroupInRoute =
-                await GetItemGroupInSalesOrgHierarchy(routeIds, postingDate);
-            var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(x =>
-                routeIds.Contains(x.RouteId) &&
-                x.EffectiveDate < postingDate &&
-                (x.EndDate == null || x.EndDate >= postingDate))).ToList();
+         
+         
             foreach (var mcpHeader in mcpHeaders)
             {
                 var routeId = mcpHeader.RouteId;
@@ -162,6 +249,7 @@ namespace DMSpro.OMS.MdmService.Items
 
             }
         }
+        */
 
 
         //private async Dictionary<string, List<string>> GetItemInRouteDictionary(
@@ -196,35 +284,6 @@ namespace DMSpro.OMS.MdmService.Items
         //        vatDictionary, uomDictionary);
         //}
 
-        private async Task<List<Guid>> GetItemIdsInSalesOrgHierarchies(List<Guid> salesOrgHierarchyIds,
-            DateTime postingDate)
-        {
-            List<Guid> itemIds = new();
-            var itemAssignments = (await _itemGroupInZoneRepository.GetListAsync(x =>
-                salesOrgHierarchyIds.Contains(x.SellingZoneId))).Distinct().ToList();
-            if (itemAssignments.Count == 0)
-            {
-                itemIds = (await _itemRepository.GetListAsync()).Select(x => x.Id)
-                    .Distinct().ToList();
-                return itemIds;
-            }
-            var eligibleItemAssignments = itemAssignments.Where(x => x.Active == true &&
-                x.EffectiveDate < postingDate &&
-                (x.EndDate == null || x.EndDate >= postingDate)).ToList();
-            if (eligibleItemAssignments.Count < 1)
-            {
-                return itemIds;
-            }
-            var itemGroupIds = eligibleItemAssignments.Select(x => x.ItemGroupId).Distinct();
-            var itemGroups =
-                (await _itemGroupRepository.GetListAsync(x => itemGroupIds.Contains(x.Id))).ToList();
-            if (itemGroups.Count < 1)
-            {
-                throw new BusinessException(message: "Error:ItemsAppService:553", code: "1");
-            }
-            itemIds.AddRange(await GetAllItemIdsFromItemGroups(itemGroups));
-            return itemIds;
-        }
 
         private async Task<(
             Dictionary<string, ItemSOPODto>,
@@ -1030,19 +1089,12 @@ namespace DMSpro.OMS.MdmService.Items
             public VendorSOPODto() { }
         }
 
-        private class ItemGroupInSalesOrgHierarchy
+        private class CustomerRouteItemGroup
         {
-            public bool AllItems { get; set; }
-            public Dictionary<string, List<string>> ItemGroupDictionary { get; set; }
-
-            public ItemGroupInSalesOrgHierarchy() { }
-
-            public ItemGroupInSalesOrgHierarchy(bool allItems,
-                Dictionary<string, List<string>> itemGroupDictionary)
-            {
-                AllItems = allItems;
-                ItemGroupDictionary = itemGroupDictionary;
-            }
+            public string CustomerIdString { get; set; }
+            public string RouteIdString { get; set; }
+            public Guid? ItemGroupId { get; set; }
+            public CustomerRouteItemGroup() { }
         }
     }
 }

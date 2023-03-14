@@ -29,6 +29,7 @@ using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.Vendors;
 using DMSpro.OMS.MdmService.MCPHeaders;
+using DMSpro.OMS.MdmService.MCPDetails;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -68,6 +69,7 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
         private readonly IVendorRepository _vendorRepository;
         private readonly IMCPHeaderRepository _mcpHeaderRepository;
+        private readonly IMCPDetailRepository _mcpDetailRepository;
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -99,6 +101,7 @@ namespace DMSpro.OMS.MdmService.Items
             IEmployeeProfileRepository employeeProfileRepository,
             IVendorRepository vendorRepository,
             IMCPHeaderRepository mcpHeaderRepository,
+            IMCPDetailRepository mcpDetailRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -135,6 +138,7 @@ namespace DMSpro.OMS.MdmService.Items
             _companyInZoneRepository = companyInZoneRepository;
 
             _mcpHeaderRepository = mcpHeaderRepository;
+            _mcpDetailRepository = mcpDetailRepository;
 
             _itemGroupInZoneRepository = itemGroupInZoneRepository;
             _itemGroupRepository = itemGroupRepository;
