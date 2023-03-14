@@ -8,15 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using DMSpro.OMS.MdmService.EntityFrameworkCore;
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
     public partial class EfCoreCompanyRepository : EfCoreRepository<MdmServiceDbContext, Company, Guid>, ICompanyRepository
     {
-        public EfCoreCompanyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
+        private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
+
+        public EfCoreCompanyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider,
+             ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository)
             : base(dbContextProvider)
         {
-
+            _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
         }
 
         public async Task<CompanyWithNavigationProperties> GetWithNavigationPropertiesAsync(Guid id, CancellationToken cancellationToken = default)

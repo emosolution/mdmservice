@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public interface ICompanyCustomRepository : IRepository<Company, Guid>
+    public partial interface ICompanyRepository 
     {
         Task<Company> GetHOCompanyOfTenant(Guid? tenantId);
         Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId);
+        Task<bool> CheckActive(Guid id, bool throwErrorOnInactive);
     }
 }
     

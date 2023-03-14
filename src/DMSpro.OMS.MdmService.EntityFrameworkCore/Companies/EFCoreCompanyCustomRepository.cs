@@ -3,24 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class EfCoreCompanyCustomRepository : EfCoreRepository<MdmServiceDbContext, Company, Guid>, ICompanyCustomRepository
+    public partial class EfCoreCompanyRepository
     {
-        ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
-
-        public EfCoreCompanyCustomRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider, 
-            ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository)
-            : base(dbContextProvider)
-        {
-            _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
-        }
-
         public async Task<Company> GetHOCompanyOfTenant(Guid? tenantId)
         {
             var dbContext = await GetDbContextAsync();
@@ -53,6 +42,25 @@ namespace DMSpro.OMS.MdmService.Companies
                 return null;
             }
             return companyHO;
+        }
+
+        public async Task<bool> CheckActive(Guid id, bool throwErrorOnInactive = false)
+        {
+            DateTime now = DateTime.Now;
+            try
+            {
+                await GetAsync(x => x.Id == id && x.Active == true &&
+                    x.EffectiveDate < now && (x.EndDate == null || x.EndDate >= now));
+                return true;
+            }
+            catch (EntityNotFoundException)
+            {
+                if (throwErrorOnInactive)
+                {
+                    throw new BusinessException(message: "", code: "1");
+                }
+                return false;
+            }
         }
     }
 }
