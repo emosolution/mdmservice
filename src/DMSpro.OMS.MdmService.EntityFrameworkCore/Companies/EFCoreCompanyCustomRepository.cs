@@ -44,14 +44,14 @@ namespace DMSpro.OMS.MdmService.Companies
             return companyHO;
         }
 
-        public async Task<bool> CheckActiveAsync(Guid id, bool throwErrorOnInactive = false)
+        public async Task<Company> CheckActiveAsync(Guid id, bool throwErrorOnInactive = false)
         {
             DateTime now = DateTime.Now;
             try
             {
-                await GetAsync(x => x.Id == id && x.Active == true &&
+                var record = await GetAsync(x => x.Id == id && x.Active == true &&
                     x.EffectiveDate < now && (x.EndDate == null || x.EndDate >= now));
-                return true;
+                return record;
             }
             catch (EntityNotFoundException)
             {
@@ -59,7 +59,7 @@ namespace DMSpro.OMS.MdmService.Companies
                 {
                     throw new BusinessException(message: "", code: "1");
                 }
-                return false;
+                return null;
             }
         }
     }

@@ -7,7 +7,7 @@ namespace DMSpro.OMS.MdmService.Companies
     {
         Task<Company> GetHOCompanyOfTenantAsync(Guid? tenantId);
         Task<Company> GetHOCompanyFromIdentityUserAsync(Guid identityUser, Guid? tenantId);
-        Task<bool> CheckActiveAsync(Guid id, bool throwErrorOnInactive);
+        Task<Company> CheckActiveAsync(Guid id, bool throwErrorOnInactive);
     }
 }
     
