@@ -52,6 +52,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
+            await _companyRepository.CheckActiveAsync(companyId, true);
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                 x.IdentityUserId == _currentUser.Id);
             var companies = assignments.Distinct().Select(x => x.CompanyId).ToList();

@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.Companies
 {
     public partial class EfCoreCompanyRepository
     {
-        public async Task<Company> GetHOCompanyOfTenant(Guid? tenantId)
+        public async Task<Company> GetHOCompanyOfTenantAsync(Guid? tenantId)
         {
             var dbContext = await GetDbContextAsync();
             List<Company> companies = dbContext.Companies.Where(c => c.TenantId == tenantId && c.IsHO == true).ToList();
@@ -29,9 +29,9 @@ namespace DMSpro.OMS.MdmService.Companies
             return companyHO;
         }
 
-        public async Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId)
+        public async Task<Company> GetHOCompanyFromIdentityUserAsync(Guid identityUser, Guid? tenantId)
         {
-            Company companyHO = await GetHOCompanyOfTenant(tenantId);
+            Company companyHO = await GetHOCompanyOfTenantAsync(tenantId);
             if (companyHO == null)
             {
                 return null;
@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.Companies
             return companyHO;
         }
 
-        public async Task<bool> CheckActive(Guid id, bool throwErrorOnInactive = false)
+        public async Task<bool> CheckActiveAsync(Guid id, bool throwErrorOnInactive = false)
         {
             DateTime now = DateTime.Now;
             try

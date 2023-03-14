@@ -5,9 +5,9 @@ namespace DMSpro.OMS.MdmService.Companies
 {
     public partial interface ICompanyRepository 
     {
-        Task<Company> GetHOCompanyOfTenant(Guid? tenantId);
-        Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId);
-        Task<bool> CheckActive(Guid id, bool throwErrorOnInactive);
+        Task<Company> GetHOCompanyOfTenantAsync(Guid? tenantId);
+        Task<Company> GetHOCompanyFromIdentityUserAsync(Guid identityUser, Guid? tenantId);
+        Task<bool> CheckActiveAsync(Guid id, bool throwErrorOnInactive);
     }
 }
     
