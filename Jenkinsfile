@@ -1,5 +1,8 @@
-node {	
+pipeline {
+agent {label 'OMS'}	
+  stages {
 	stage('SCM') {
+	steps{
 		dir('mdmservice') {
 			checkout scm
 			}
@@ -9,13 +12,34 @@ node {
 		dir ('sharerepos'){
 			checkout BbS(branches: [[name: '*/master']], credentialsId: 'bitbucket1', extensions: [], id: 'b133ec73-4dee-41e9-82e1-3f9e2aa6f960', mirrorName: '', projectName: 'OMS Product', repositoryName: 'ShareRepos', serverId: '4e3e5fa5-95ce-4273-95e1-67489f1a5fd4', sshCredentialsId: '')
 		}
+		}
 	}
 	stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner for MSBuild'
-    withSonarQubeEnv() {
-	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"OMSP_mdmservice\""
+	environment {
+	scannerHome = tool 'SonarScanner for MSBuild'
+	}
+    steps {
+    withSonarQubeEnv('SonarQube') {
+	  bat "dotnet tool install --global dotnet-coverage"
+	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"OMSP_mdmservice\" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml"
 	  bat "dotnet build ./mdmservice"
+	  bat "dotnet-coverage collect dotnet test ./mdmservice  -f xml  -o coverage.xml"
 	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
     }
-  }	
+  }
+  }
+  }
+  post{
+		success {
+            emailext to: "hieu.bui@dmspro.vn, kalickvn@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} \nMore Info can be found here: ${env.BUILD_URL}"			
+        }
+        failure {
+            emailext to: "hieu.bui@dmspro.vn, kalickvn@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} \nMore Info can be found here: ${env.BUILD_URL}",
+			attachLog: true
+        }
+    }  
 }
