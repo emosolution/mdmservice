@@ -62,5 +62,25 @@ namespace DMSpro.OMS.MdmService.Companies
                 return null;
             }
         }
+
+        public async Task<Company> CheckActiveWithDateAsync(Guid id, DateTime checkingDate,
+            bool throwErrorOnInactive = false)
+        {
+            try
+            {
+                var record = await GetAsync(x => x.Id == id && x.Active == true &&
+                    x.EffectiveDate < checkingDate &&
+                    (x.EndDate == null || x.EndDate >= checkingDate));
+                return record;
+            }
+            catch (EntityNotFoundException)
+            {
+                if (throwErrorOnInactive)
+                {
+                    throw new BusinessException(message: "", code: "1");
+                }
+                return null;
+            }
+        }
     }
 }
