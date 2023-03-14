@@ -57,7 +57,7 @@ namespace DMSpro.OMS.MdmService.Companies
             {
                 if (throwErrorOnInactive)
                 {
-                    throw new BusinessException(message: "", code: "1");
+                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
                 }
                 return null;
             }
@@ -77,7 +77,7 @@ namespace DMSpro.OMS.MdmService.Companies
             {
                 if (throwErrorOnInactive)
                 {
-                    throw new BusinessException(message: "", code: "1");
+                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
                 }
                 return null;
             }
