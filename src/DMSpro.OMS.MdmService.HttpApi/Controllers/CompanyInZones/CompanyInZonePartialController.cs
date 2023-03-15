@@ -12,17 +12,21 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
 	{
 		[HttpGet]
 		[Route("GetListDevextremes")]
-		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+		public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
 		{
-			return _companyInZonesAppService.GetListDevextremesAsync(inputDev);
-		}
-
-        [HttpGet]
-		[Route("GetListDevextremeWithNavigation")]
-		public Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev)
-		{
-			return _companyInZonesAppService.GetListDevextremesWithNavigationAsync(inputDev);
-		}
+            try
+            {
+                return await _companyInZonesAppService.GetListDevextremesAsync(inputDev);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
+        }
 
 		[HttpPost]
 		[Route("update-from-excel")]

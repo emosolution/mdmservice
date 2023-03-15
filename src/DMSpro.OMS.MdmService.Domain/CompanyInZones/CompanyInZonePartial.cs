@@ -1,10 +1,15 @@
+using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
 	public partial class CompanyInZone
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual Company Company { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

@@ -131,7 +131,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesOrgEmpAssignment, SalesOrgEmpAssignmentExcelDto>();
 
         CreateMap<CompanyInZone, CompanyInZoneDto>();
-        CreateMap<CompanyInZone, CompanyInZoneExcelDto>();
         CreateMap<CompanyInZone, CompanyInZoneWithDetailsDto>();
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
@@ -255,7 +254,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesOrgEmpAssignmentWithNavigationProperties, SalesOrgEmpAssignmentWithNavigationPropertiesDto>();
         CreateMap<SalesOrgHierarchy, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<CompanyInZoneWithNavigationProperties, CompanyInZoneWithNavigationPropertiesDto>();
         CreateMap<Company, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<CusAttributeValue, CusAttributeValueDto>();
