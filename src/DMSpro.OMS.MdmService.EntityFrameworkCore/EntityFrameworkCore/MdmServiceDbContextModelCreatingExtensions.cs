@@ -1,5 +1,4 @@
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
@@ -839,18 +838,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.FileId).HasColumnName(nameof(CustomerImage.FileId));
         b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<Item>(x => x.ItemPOSM).WithMany().HasForeignKey(x => x.POSMItemId).OnDelete(DeleteBehavior.NoAction);
-    });
-        builder.Entity<ItemGroupInZone>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroupInZones", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroupInZone.TenantId));
-        b.Property(x => x.EffectiveDate).HasColumnName(nameof(ItemGroupInZone.EffectiveDate));
-        b.Property(x => x.EndDate).HasColumnName(nameof(ItemGroupInZone.EndDate));
-        b.Property(x => x.Active).HasColumnName(nameof(ItemGroupInZone.Active));
-        b.Property(x => x.Description).HasColumnName(nameof(ItemGroupInZone.Description)).HasMaxLength(ItemGroupInZoneConsts.DescriptionMaxLength);
-        b.HasOne<SalesOrgHierarchy>(x => x.SellingZone).WithMany().IsRequired().HasForeignKey(x => x.SellingZoneId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CompanyIdentityUserAssignment>(b =>
     {

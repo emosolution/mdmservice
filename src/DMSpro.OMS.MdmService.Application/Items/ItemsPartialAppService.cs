@@ -15,7 +15,6 @@ using DMSpro.OMS.MdmService.ItemImages;
 using Volo.Abp.Json;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.CompanyInZones;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
@@ -56,7 +55,6 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IUOMRepository _uOMRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
-        private readonly IItemGroupInZoneRepository _itemGroupInZoneRepository;
         private readonly IItemGroupRepository _itemGroupRepository;
         private readonly IItemGroupListRepository _itemGroupListRepository;
         private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
@@ -89,7 +87,6 @@ namespace DMSpro.OMS.MdmService.Items
             ISystemDataRepository systemDataRepository,
             ICompanyRepository companyRepository,
             ICompanyInZoneRepository companyInZoneRepository,
-            IItemGroupInZoneRepository itemGroupInZoneRepository,
             IItemGroupRepository itemGroupRepository,
             IItemGroupListRepository itemGroupListRepository,
             IItemGroupAttributeRepository itemGroupAttributeRepository,
@@ -144,7 +141,6 @@ namespace DMSpro.OMS.MdmService.Items
             _mcpDetailRepository = mcpDetailRepository;
             _companyIdentityUserAssignmentsAppService = companyIdentityUserAssignmentsAppService;
 
-            _itemGroupInZoneRepository = itemGroupInZoneRepository;
             _itemGroupRepository = itemGroupRepository;
             _itemGroupListRepository = itemGroupListRepository;
             _itemGroupAttributeRepository = itemGroupAttributeRepository;

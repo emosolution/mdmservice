@@ -65,6 +65,7 @@ namespace DMSpro.OMS.MdmService.Items
             GetItemGroupInSalesOrgHierarchy(List<Guid> salesOrgHierarchyIds,
                 DateTime postingDate)
         {
+            /*
             var itemAssignments = (await _itemGroupInZoneRepository.GetListAsync(x =>
                 salesOrgHierarchyIds.Contains(x.SellingZoneId))).ToList();
             if (itemAssignments.Count == 0)
@@ -105,6 +106,8 @@ namespace DMSpro.OMS.MdmService.Items
                 result[salesOrgHierarchyIdString] = itemGroupIdList;
             }
             return result;
+            */
+            return null;
         }
 
         private async Task<(
@@ -256,12 +259,14 @@ namespace DMSpro.OMS.MdmService.Items
                                                     RouteIdString = mcpHeader.RouteId.ToString(),
                                                     ItemGroupId = mcpHeader.ItemGroupId,
                                                 };
-            (Dictionary<string, Dictionary<string, List<string>>> result, List<Guid> itemGroupIds) =
-                ProcessCustomerRouteItemgroupData(customersRoutesItemGroupsData,
-                    itemGroupInZones, itemGroupInRoutes);
-            return (result, itemGroupIds);
+            //(Dictionary<string, Dictionary<string, List<string>>> result, List<Guid> itemGroupIds) =
+            //    ProcessCustomerRouteItemgroupData(customersRoutesItemGroupsData,
+            //        itemGroupInZones, itemGroupInRoutes);
+            //return (result, itemGroupIds);
+            return (null, null);
         }
 
+        /*
         private static (Dictionary<string, Dictionary<string, List<string>>>,
             List<Guid>) ProcessCustomerRouteItemgroupData(
                 IEnumerable<CustomerRouteItemGroup> customersRoutesItemGroupsData,
@@ -313,6 +318,7 @@ namespace DMSpro.OMS.MdmService.Items
             }
             return (result, itemGroupIds);
         }
+        */
 
         private static List<string> ProcessNullItemGroupsInMCPHeaders(
             string routeIdString,
@@ -731,8 +737,10 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 return $"\"routeInfo\":{{\"updateRequired\": \"false\"}}";
             }
-            Dictionary<string, RouteSOPODto> routeDictionary =
-                await GetRouteFromZoneIds(zoneIds);
+            (Dictionary<string, RouteSOPODto> routeDictionary,
+                List<Guid> routeIds,
+                Dictionary<string, string> routeInZoneDictionary) = 
+                    await GetRouteFromZoneIds(zoneIds);
             Dictionary<string, List<string>> itemGroupsInRoute =
                 await GetItemGroupsInRoute(routeDictionary.Keys.ToList());
             (Dictionary<string, List<string>> employeesInRoute,
@@ -754,6 +762,7 @@ namespace DMSpro.OMS.MdmService.Items
         private async Task<Dictionary<string, List<string>>>
             GetItemGroupsInRoute(List<string> routeIds)
         {
+            /*
             var assignments = (await _itemGroupInZoneRepository.GetListAsync(
                 x => routeIds.Contains(x.Id.ToString()))).Distinct();
             var itemGroupIds = assignments.Select(x => x.ItemGroupId).ToList();
@@ -783,6 +792,8 @@ namespace DMSpro.OMS.MdmService.Items
                 }
             }
             return result;
+            */
+            return null;
         }
 
 
@@ -968,9 +979,12 @@ namespace DMSpro.OMS.MdmService.Items
 
         private async Task<List<Guid>> GetAllItemGroupIds(List<Guid> zoneIds)
         {
+            /*
             var itemGroupsInZone = await _itemGroupInZoneRepository.GetListAsync(x => zoneIds.Contains(x.SellingZoneId));
             var result = itemGroupsInZone.Select(x => x.ItemGroupId).Distinct().ToList();
             return result;
+            */
+            return null;
         }
 
         private async Task<List<ItemGroup>> GetAllItemGroups(List<Guid> itemGroupIds)
@@ -1053,10 +1067,6 @@ namespace DMSpro.OMS.MdmService.Items
         private async Task<bool> CheckItemInfoRequired(DateTime? lastApiDate)
         {
             if (!lastApiDate.HasValue)
-            {
-                return true;
-            }
-            if ((await _itemGroupInZoneRepository.GetListAsync(x => x.LastModificationTime >= lastApiDate)).Take(1).Any())
             {
                 return true;
             }

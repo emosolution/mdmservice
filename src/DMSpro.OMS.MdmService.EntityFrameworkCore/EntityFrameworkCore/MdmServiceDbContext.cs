@@ -1,7 +1,5 @@
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
@@ -65,7 +63,6 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
     public DbSet<NumberingConfigDetail> NumberingConfigDetails { get; set; }
-    public DbSet<ItemGroupInZone> ItemGroupInZones { get; set; }
     public DbSet<CustomerImage> CustomerImages { get; set; }
     public DbSet<ItemGroupList> ItemGroupLists { get; set; }
     public DbSet<ItemAttachment> ItemAttachments { get; set; }
