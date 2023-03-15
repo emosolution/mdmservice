@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
@@ -18,5 +19,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 				"Name",
             };
         }
+
+        public virtual ICollection<UOMGroupDetail> Details { get; set; }
     }
 }

@@ -56,6 +56,7 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.Companies;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
+using System.Runtime.CompilerServices;
 
 namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 
@@ -154,6 +155,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.TenantId).HasColumnName(nameof(UOMGroup.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(UOMGroup.Code)).IsRequired().HasMaxLength(UOMGroupConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(UOMGroup.Name)).IsRequired().HasMaxLength(UOMGroupConsts.NameMaxLength);
+            b.HasMany<UOMGroupDetail>(x => x.Details).WithOne(y => y.UOMGroup).HasForeignKey(s => s.UOMGroupId);
         });
         builder.Entity<UOMGroupDetail>(b =>
         {

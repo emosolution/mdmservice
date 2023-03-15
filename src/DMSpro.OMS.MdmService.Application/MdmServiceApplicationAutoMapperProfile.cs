@@ -189,6 +189,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesChannel, SalesChannelDto>();
         CreateMap<SalesChannel, SalesChannelExcelDto>();
 
+        CreateMap<UOMGroup, UOMGroupWithDetailsDto>();
         CreateMap<UOMGroupDetailWithNavigationProperties, UOMGroupDetailWithNavigationPropertiesDto>();
         CreateMap<UOMGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
         CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

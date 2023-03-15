@@ -372,6 +372,11 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.SalesOrgHeader);
             });
 
+            options.Entity<UOMGroup>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Details);
+            });
+
             options.Entity<UOMGroupDetail>(orderOptions =>
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.UOMGroup).Include(o => o.BaseUOM).Include(o => o.AltUOM);
