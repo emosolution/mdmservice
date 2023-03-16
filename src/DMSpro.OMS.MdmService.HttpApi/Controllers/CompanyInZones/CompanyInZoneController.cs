@@ -24,71 +24,74 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
         }
 
         [HttpGet]
-        public Task<PagedResultDto<CompanyInZoneWithNavigationPropertiesDto>> GetListAsync(GetCompanyInZonesInput input)
-        {
-            return _companyInZonesAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<CompanyInZoneWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _companyInZonesAppService.GetWithNavigationPropertiesAsync(id);
-        }
-        
-        [HttpGet]
         [Route("{id}")]
-        public virtual Task<CompanyInZoneDto> GetAsync(Guid id)
+        public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
         {
-            return _companyInZonesAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("sales-org-hierarchy-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
-        {
-            return _companyInZonesAppService.GetSalesOrgHierarchyLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-        {
-            return _companyInZonesAppService.GetCompanyLookupAsync(input);
+            try
+            {
+                return await _companyInZonesAppService.GetAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpPost]
-        public virtual Task<CompanyInZoneDto> CreateAsync(CompanyInZoneCreateDto input)
+        public virtual async Task<CompanyInZoneDto> CreateAsync(CompanyInZoneCreateDto input)
         {
-            return _companyInZonesAppService.CreateAsync(input);
+            try
+            {
+                return await _companyInZonesAppService.CreateAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual Task<CompanyInZoneDto> UpdateAsync(Guid id, CompanyInZoneUpdateDto input)
+        public virtual async Task<CompanyInZoneDto> UpdateAsync(Guid id, CompanyInZoneUpdateDto input)
         {
-            return _companyInZonesAppService.UpdateAsync(id, input);
+            try
+            {
+                return await _companyInZonesAppService.UpdateAsync(id, input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
-            return _companyInZonesAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(CompanyInZoneExcelDownloadDto input)
-        {
-            return _companyInZonesAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _companyInZonesAppService.GetDownloadTokenAsync();
+            try
+            {
+                await _companyInZonesAppService.DeleteAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
     }
 }

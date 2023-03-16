@@ -16,7 +16,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
     {
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
         private readonly CompanyInZoneManager _companyInZoneManager;
-        private readonly IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
 
         private readonly ICompanyRepository _companyRepository;
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
@@ -26,13 +25,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             CompanyInZoneManager manager,
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
-            ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
-            IDistributedCache<CompanyInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            ISalesOrgHierarchyRepository salesOrgHierarchyRepository)
             : base(currentTenant, repository, settingProvider)
         {
             _companyInZoneRepository = repository;
             _companyInZoneManager = manager;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
 
             _companyRepository = companyRepository;
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;

@@ -10,22 +10,22 @@ namespace DMSpro.OMS.MdmService.Companies
 {
     public class CompaniesInternalAppService : ApplicationService, ICompaniesInternalAppService
     {
-        private readonly ICompanyCustomRepository _companyCustomRepository;
+        private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
 
         public CompaniesInternalAppService(
-            ICompanyCustomRepository companyCustomRepository,
+            ICompanyRepository companyRepository,
             ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository)
         {
-            _companyCustomRepository = companyCustomRepository;
+            _companyRepository = companyRepository;
             _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
         }
 
-        public async Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUser(Guid identityUserId, Guid? tenantId)
+        public async Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUserAsync(Guid identityUserId, Guid? tenantId)
         {
             try
             {
-                Company companyHO = await _companyCustomRepository.GetHOCompanyFromIdentityUser(identityUserId, tenantId);
+                Company companyHO = await _companyRepository.GetHOCompanyFromIdentityUserAsync(identityUserId, tenantId);
                 return ObjectMapper.Map<Company, CompanyWithTenantDto>(companyHO);
             }
             catch (EntityNotFoundException)
@@ -35,10 +35,12 @@ namespace DMSpro.OMS.MdmService.Companies
 
         }
 
-        public async Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUser(Guid companyId, Guid identityUserId, Guid? tenantId)
+        public async Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUserAsync(Guid companyId, 
+            Guid identityUserId, Guid? tenantId)
         {
             List<CompanyIdentityUserAssignmentWithNavigationProperties> assignments =
-                await _companyIdentityUserAssignmentRepository.GetListWithNavigationPropertiesAsync(identityUserId: identityUserId, companyId: companyId);
+                await _companyIdentityUserAssignmentRepository.GetListWithNavigationPropertiesAsync(
+                    identityUserId: identityUserId, companyId: companyId);
             if (assignments.Count != 1)
             {
                 return null;

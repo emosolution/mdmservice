@@ -35,7 +35,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         using (_currentTenant.Change(tenantId))
         {
             CompanyWithTenantDto companyDto =
-                await _companiesInternalAppService.GetHOCompanyFromIdentityUser(
+                await _companiesInternalAppService.GetHOCompanyFromIdentityUserAsync(
                     new Guid(request.IdentityUserId), tenantId);
             var response = new CompanyResponse();
             if (companyDto == null)
@@ -63,7 +63,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         using (_currentTenant.Change(tenantId))
         {
             CompanyWithTenantDto companyDto =
-            await _companiesInternalAppService.CheckCompanyBelongToIdentityUser(
+            await _companiesInternalAppService.CheckCompanyBelongToIdentityUserAsync(
                 new Guid(request.CompanyId), new Guid(request.IdentityUserId), tenantId);
             var response = new CompanyResponse();
             if (companyDto == null)

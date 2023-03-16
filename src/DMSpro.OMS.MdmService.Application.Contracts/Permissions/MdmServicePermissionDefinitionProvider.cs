@@ -158,11 +158,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         employeeInZonePermission.AddChild(MdmServicePermissions.EmployeeInZones.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SellingZones);
         employeeInZonePermission.AddChild(MdmServicePermissions.EmployeeInZones.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SellingZones);
 
-        var itemGroupInZonePermission = myGroup.AddPermission(MdmServicePermissions.ItemGroupInZones.Default, L("Permission:ItemGroupInZones")).RequireFeatures(MdmFeatures.SellingZones); ;
-        itemGroupInZonePermission.AddChild(MdmServicePermissions.ItemGroupInZones.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SellingZones);
-        itemGroupInZonePermission.AddChild(MdmServicePermissions.ItemGroupInZones.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SellingZones);
-        itemGroupInZonePermission.AddChild(MdmServicePermissions.ItemGroupInZones.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SellingZones);
-
         // Customer group
         var customerAttributePermission = myGroup.AddPermission(MdmServicePermissions.CustomerAttributes.Default, L("Permission:MdmService:CustomerAttribute")).RequireFeatures(MdmFeatures.CustomerAttributes);
         customerAttributePermission.AddChild(MdmServicePermissions.CustomerAttributes.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerAttributes);

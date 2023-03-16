@@ -15,7 +15,6 @@ using DMSpro.OMS.MdmService.ItemImages;
 using Volo.Abp.Json;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.CompanyInZones;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroupAttributes;
@@ -28,6 +27,9 @@ using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.Vendors;
+using DMSpro.OMS.MdmService.MCPHeaders;
+using DMSpro.OMS.MdmService.MCPDetails;
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -53,7 +55,6 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IUOMRepository _uOMRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
-        private readonly IItemGroupInZoneRepository _itemGroupInZoneRepository;
         private readonly IItemGroupRepository _itemGroupRepository;
         private readonly IItemGroupListRepository _itemGroupListRepository;
         private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
@@ -66,6 +67,9 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
         private readonly IVendorRepository _vendorRepository;
+        private readonly IMCPHeaderRepository _mcpHeaderRepository;
+        private readonly IMCPDetailRepository _mcpDetailRepository;
+        private readonly ICompanyIdentityUserAssignmentsAppService _companyIdentityUserAssignmentsAppService;
 
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
@@ -83,7 +87,6 @@ namespace DMSpro.OMS.MdmService.Items
             ISystemDataRepository systemDataRepository,
             ICompanyRepository companyRepository,
             ICompanyInZoneRepository companyInZoneRepository,
-            IItemGroupInZoneRepository itemGroupInZoneRepository,
             IItemGroupRepository itemGroupRepository,
             IItemGroupListRepository itemGroupListRepository,
             IItemGroupAttributeRepository itemGroupAttributeRepository,
@@ -96,6 +99,9 @@ namespace DMSpro.OMS.MdmService.Items
             ISalesOrgEmpAssignmentRepository salesOrgEmpAssignmentRepository,
             IEmployeeProfileRepository employeeProfileRepository,
             IVendorRepository vendorRepository,
+            IMCPHeaderRepository mcpHeaderRepository,
+            IMCPDetailRepository mcpDetailRepository,
+            ICompanyIdentityUserAssignmentsAppService companyIdentityUserAssignmentsAppService,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -130,7 +136,11 @@ namespace DMSpro.OMS.MdmService.Items
 
             _companyRepository = companyRepository;
             _companyInZoneRepository = companyInZoneRepository;
-            _itemGroupInZoneRepository = itemGroupInZoneRepository;
+
+            _mcpHeaderRepository = mcpHeaderRepository;
+            _mcpDetailRepository = mcpDetailRepository;
+            _companyIdentityUserAssignmentsAppService = companyIdentityUserAssignmentsAppService;
+
             _itemGroupRepository = itemGroupRepository;
             _itemGroupListRepository = itemGroupListRepository;
             _itemGroupAttributeRepository = itemGroupAttributeRepository;

@@ -8,10 +8,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 	public partial interface ICompanyInZonesAppService
 	{
 		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-		Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev);
 		Task<int>UpdateFromExcelAsync(IRemoteStreamContent file);
 		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
-
 		Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
 	}
 }

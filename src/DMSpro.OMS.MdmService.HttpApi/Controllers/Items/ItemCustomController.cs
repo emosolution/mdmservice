@@ -27,18 +27,14 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         }
 
         [HttpGet]
-        [Route("info-for-so-po")]
-        public async Task<string> GetInfoForSOAsync(Guid companyId,
-            DateTime? lastItemInfoUpdate, DateTime? lastCustomerInfoUpdate,
-            DateTime? lastRouteInfoUpdate, DateTime? lastVendorInfoUpdate,
-            bool getCustomerInfo, bool getVendorInfo, bool getRouteInfo)
+        [Route("info-so")]
+        public virtual async Task<string> GetSOInfoAsync(Guid companyId, 
+            DateTime postingDate, DateTime? lastUpdateDate)
         {
             try
             {
-                return await _itemsAppService.GetInfoForSOAsync(companyId,
-                    lastItemInfoUpdate, lastCustomerInfoUpdate,
-                    lastRouteInfoUpdate, lastVendorInfoUpdate,
-                    getCustomerInfo, getVendorInfo, getRouteInfo);
+                return await _itemsAppService.GetSOInfoAsync(companyId,
+                    postingDate, lastUpdateDate);
             }
             catch (BusinessException bex)
             {

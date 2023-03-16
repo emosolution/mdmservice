@@ -3,25 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
-    public class EfCoreCompanyCustomRepository : EfCoreRepository<MdmServiceDbContext, Company, Guid>, ICompanyCustomRepository
+    public partial class EfCoreCompanyRepository
     {
-        ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
-
-        public EfCoreCompanyCustomRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider, 
-            ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository)
-            : base(dbContextProvider)
-        {
-            _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
-        }
-
-        public async Task<Company> GetHOCompanyOfTenant(Guid? tenantId)
+        public async Task<Company> GetHOCompanyOfTenantAsync(Guid? tenantId)
         {
             var dbContext = await GetDbContextAsync();
             List<Company> companies = dbContext.Companies.Where(c => c.TenantId == tenantId && c.IsHO == true).ToList();
@@ -40,9 +29,9 @@ namespace DMSpro.OMS.MdmService.Companies
             return companyHO;
         }
 
-        public async Task<Company> GetHOCompanyFromIdentityUser(Guid identityUser, Guid? tenantId)
+        public async Task<Company> GetHOCompanyFromIdentityUserAsync(Guid identityUser, Guid? tenantId)
         {
-            Company companyHO = await GetHOCompanyOfTenant(tenantId);
+            Company companyHO = await GetHOCompanyOfTenantAsync(tenantId);
             if (companyHO == null)
             {
                 return null;
@@ -53,6 +42,45 @@ namespace DMSpro.OMS.MdmService.Companies
                 return null;
             }
             return companyHO;
+        }
+
+        public async Task<Company> CheckActiveAsync(Guid id, bool throwErrorOnInactive = false)
+        {
+            DateTime now = DateTime.Now;
+            try
+            {
+                var record = await GetAsync(x => x.Id == id && x.Active == true &&
+                    x.EffectiveDate < now && (x.EndDate == null || x.EndDate >= now));
+                return record;
+            }
+            catch (EntityNotFoundException)
+            {
+                if (throwErrorOnInactive)
+                {
+                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
+                }
+                return null;
+            }
+        }
+
+        public async Task<Company> CheckActiveWithDateAsync(Guid id, DateTime checkingDate,
+            bool throwErrorOnInactive = false)
+        {
+            try
+            {
+                var record = await GetAsync(x => x.Id == id && x.Active == true &&
+                    x.EffectiveDate < checkingDate &&
+                    (x.EndDate == null || x.EndDate >= checkingDate));
+                return record;
+            }
+            catch (EntityNotFoundException)
+            {
+                if (throwErrorOnInactive)
+                {
+                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
+                }
+                return null;
+            }
         }
     }
 }

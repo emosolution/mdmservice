@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _companyInZonesAppService.GetListAsync(new GetCompanyInZonesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.CompanyInZone.Id == Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb")).ShouldBe(true);
-            result.Items.Any(x => x.CompanyInZone.Id == Guid.Parse("5d00f7ed-c7a2-414d-9aaf-a0e9a518cedd")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act

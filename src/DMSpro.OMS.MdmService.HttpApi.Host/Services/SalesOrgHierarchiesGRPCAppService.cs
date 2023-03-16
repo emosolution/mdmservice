@@ -11,6 +11,7 @@ using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
 using System.Linq;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
+using DMSpro.OMS.MdmService.Migrations;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
@@ -143,27 +144,16 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
 
     private async Task<List<SalesOrgHierarchy>> GetSellingZonesFromCompany(Guid companyId, Guid? tenantId)
     {
+        DateTime now = DateTime.Now;
         using (_currentTenant.Change(tenantId))
         {
-            var companiesInZone =
-                await _companyInZoneRepository.GetListWithNavigationPropertiesAsync(isBase: true, companyId: companyId);
-            List<SalesOrgHierarchy> zonesWithCompany = new();
-            foreach (var companyInZone in companiesInZone)
-            {
-                var assignment = companyInZone.CompanyInZone;
-                bool active = MDMHelpers.CheckActive(true, assignment.EffectiveDate, assignment.EndDate);
-                if (!active)
-                {
-                    continue;
-                }
-                var zone = companyInZone.SalesOrgHierarchy;
-                if (!zone.Active || !zone.IsSellingZone)
-                {
-                    continue;
-                }
-                zonesWithCompany.Add(zone);
-            }
-            return zonesWithCompany;
+            var result = (await _companyInZoneRepository.GetListAsync(
+                x => x.EffectiveDate < now &&
+                // x.IsBase == true &&
+                (x.EndDate == null || x.EndDate >= now) &&
+                x.CompanyId == companyId, includeDetails:true))
+                .Select(x => x.SalesOrgHierarchy).Distinct().ToList();
+            return result;
         }
     }
 
@@ -259,16 +249,13 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
 
     private async Task<bool> CheckCompany(string companyId, Guid sellingZoneId, Guid? tenantId)
     {
+        DateTime now = DateTime.Now;
         using (_currentTenant.Change(tenantId))
         {
-            CompanyInZoneWithNavigationPropertiesDto dto =
-            await _companyInZonesAppService.GetWithNavigationPropertiesAsync(sellingZoneId);
-            if (dto.Company.Id.ToString().CompareTo(companyId) != 0)
-            {
-                return false;
-            }
-            CompanyInZoneDto assingment = dto.CompanyInZone;
-            if (!MDMHelpers.CheckActive(true, assingment.EffectiveDate, assingment.EndDate))
+            var assingments = (await _companyInZoneRepository.GetListAsync(x => x.SalesOrgHierarchyId == sellingZoneId &&
+                x.CompanyId.ToString() == companyId && x.EffectiveDate < now &&
+                (x.EndDate == null && x.EndDate >= now))).Distinct().ToList();
+            if (assingments.Count != 1)
             {
                 return false;
             }

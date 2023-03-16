@@ -1,5 +1,4 @@
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
-using DMSpro.OMS.MdmService.ItemGroupInZones;
 using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
 using System;
@@ -98,6 +97,11 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<UOMGroup, UOMGroupDto>();
         CreateMap<UOMGroup, UOMGroupExcelDto>();
+        CreateMap<UOMGroup, UOMGroupWithDetailsDto>();
+        CreateMap<UOMGroupDetailWithNavigationProperties, UOMGroupDetailWithNavigationPropertiesDto>();
+        CreateMap<UOMGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+        CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
+        CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<UOMGroupDetail, UOMGroupDetailDto>();
         CreateMap<UOMGroupDetail, UOMGroupDetailWithDetailsDto>();
@@ -132,7 +136,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesOrgEmpAssignment, SalesOrgEmpAssignmentExcelDto>();
 
         CreateMap<CompanyInZone, CompanyInZoneDto>();
-        CreateMap<CompanyInZone, CompanyInZoneExcelDto>();
         CreateMap<CompanyInZone, CompanyInZoneWithDetailsDto>();
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
@@ -190,11 +193,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<SalesChannel, SalesChannelDto>();
         CreateMap<SalesChannel, SalesChannelExcelDto>();
-
-        CreateMap<UOMGroupDetailWithNavigationProperties, UOMGroupDetailWithNavigationPropertiesDto>();
-        CreateMap<UOMGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-        CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
-        CreateMap<UOM, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SystemData, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.ValueCode));
         CreateMap<VAT, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -256,7 +254,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<SalesOrgEmpAssignmentWithNavigationProperties, SalesOrgEmpAssignmentWithNavigationPropertiesDto>();
         CreateMap<SalesOrgHierarchy, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<CompanyInZoneWithNavigationProperties, CompanyInZoneWithNavigationPropertiesDto>();
         CreateMap<Company, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<CusAttributeValue, CusAttributeValueDto>();
@@ -374,10 +371,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerImage, CustomerImageWithDetailsDto>();
         CreateMap<CustomerImage, CustomerImageExcelDto>();
         CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
-
-        CreateMap<ItemGroupInZone, ItemGroupInZoneDto>();
-        CreateMap<ItemGroupInZone, ItemGroupInZoneExcelDto>();
-        CreateMap<ItemGroupInZoneWithNavigationProperties, ItemGroupInZoneWithNavigationPropertiesDto>();
 
         CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));

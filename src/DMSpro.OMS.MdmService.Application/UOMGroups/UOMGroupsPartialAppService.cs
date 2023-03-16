@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.Partial;
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
 	[Authorize(MdmServicePermissions.UOMGroups.Default)]
-	public partial class UOMGroupsAppService : PartialAppService<UOMGroup, UOMGroupDto, IUOMGroupRepository>,
+	public partial class UOMGroupsAppService : PartialAppService<UOMGroup, UOMGroupWithDetailsDto, IUOMGroupRepository>,
 		IUOMGroupsAppService
 	{
 		private readonly IUOMGroupRepository _uOMGroupRepository;

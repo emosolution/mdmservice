@@ -346,8 +346,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             IQueryable<CompanyInZone> queryable = await _companyInZoneRepository.GetQueryableAsync();
             var query = from companyInZone in queryable
                         where companyInZone.SalesOrgHierarchyId == sellingZoneId &&
-                            companyInZone.CompanyId == companyId &&
-                            companyInZone.IsBase == true 
+                            // companyInZone.IsBase == true &&
+                            companyInZone.CompanyId == companyId 
+                            
                         select companyInZone;
             var companyInZones = query.ToList();
             if (companyInZones.Count < 1)
