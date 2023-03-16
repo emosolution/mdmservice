@@ -148,7 +148,8 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         using (_currentTenant.Change(tenantId))
         {
             var result = (await _companyInZoneRepository.GetListAsync(
-                x => x.IsBase == true && x.EffectiveDate < now && 
+                x => x.EffectiveDate < now &&
+                // x.IsBase == true &&
                 (x.EndDate == null || x.EndDate >= now) &&
                 x.CompanyId == companyId, includeDetails:true))
                 .Select(x => x.SalesOrgHierarchy).Distinct().ToList();

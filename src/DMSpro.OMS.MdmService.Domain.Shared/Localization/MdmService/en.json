@@ -1056,6 +1056,7 @@
     "Error:ItemsAppService:550": "Company is not currently selected by user",
     "Error:ItemsAppService:551": "Company is not assigned to any active selling zone",
     "Error:ItemsAppService:552": "Unknown item group type",
+    "Error:ItemsAppService:553": "No valid {objectType} can be found",
     "Error:CompanyIdentityUserAssignment:550": "Company does not belong to current user",
     "Error:CompanyIdentityUserAssignment:551": "Current user is not assigned to any company",
     "Error:CompanyIdentityUserAssignment:552": "At least one user cannot be found in the system",

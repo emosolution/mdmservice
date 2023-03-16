@@ -27,7 +27,7 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         }
 
         [HttpGet]
-        [Route("info-for-so")]
+        [Route("info-so")]
         public virtual async Task<string> GetSOInfoAsync(Guid companyId, 
             DateTime postingDate, DateTime? lastUpdateDate)
         {

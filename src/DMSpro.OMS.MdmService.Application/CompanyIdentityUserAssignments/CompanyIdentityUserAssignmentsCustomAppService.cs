@@ -88,9 +88,9 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             {
                 throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:553"], code: "1");
             }
-            else if (assignments.Count == 1)
+            else if (selectedAssignment.Count == 1)
             {
-                Guid firstSelectedCompanyId = assignments.First().Id;
+                Guid firstSelectedCompanyId = assignments.First().CompanyId;
                 selectedCompany =
                         await _companyRepository.CheckActiveAsync(firstSelectedCompanyId, true);
             }
