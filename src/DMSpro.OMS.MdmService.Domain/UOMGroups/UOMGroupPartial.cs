@@ -20,6 +20,6 @@ namespace DMSpro.OMS.MdmService.UOMGroups
             };
         }
 
-        public virtual ICollection<UOMGroupDetail> Details { get; set; }
+        public virtual List<UOMGroupDetail> Details { get; set; }
     }
 }
