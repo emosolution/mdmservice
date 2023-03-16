@@ -20,9 +20,8 @@ agent {label 'OMS'}
 	}
     steps {
     withSonarQubeEnv('SonarQube') {
-	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"OMSP_mdmservice\" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml"
+	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"OMSP_mdmservice\""
 	  bat "dotnet build ./mdmservice"
-	  bat "dotnet-coverage collect dotnet test ./mdmservice  -f xml  -o coverage.xml"
 	  bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
     }
   }
