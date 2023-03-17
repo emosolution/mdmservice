@@ -138,7 +138,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 await GetVatDictionary(vatIds);
 
             (Dictionary<string, CustomerSOPODto> allCustomersInZoneDictionary,
-            List<string> customerIdsWithoutZone) = await GetCustomersWithoutRoute(
+            List<string> customerIdsWithoutRoute) = await GetCustomersWithoutRoute(
                 postingDate, zoneIds, customerDictionary);
 
             Dictionary<string, decimal> priceDictionary =
@@ -165,7 +165,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 $"\"employeeDictionary\": {_jsonSerializer.Serialize(employeeDictionary)}",
                 $"\"employeesInRoutesDictionary\": {_jsonSerializer.Serialize(employeesInRoutesDictionary)}",
                 $"\"routesWithEmployeesDictionary\": {_jsonSerializer.Serialize(routesWithEmployeesDictionary)}",
-                $"\"customerIdsWithoutZone\": {_jsonSerializer.Serialize(customerIdsWithoutZone)}",
+                $"\"customerIdsWithoutRoute\": {_jsonSerializer.Serialize(customerIdsWithoutRoute)}",
                 $"\"lastUpdated\": {nowString}",
                 $"\"updateRequired\": true",
             };
@@ -233,10 +233,10 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             var zoneIds = companiesInZone.Select(x => x.SalesOrgHierarchyId).Distinct().ToList();
             var zones = await _salesOrgHierarchyRepository.GetListAsync(x => zoneIds.Contains(x.Id) &&
                 x.Active == true && x.IsSellingZone == true);
-            if (zones.Count < 1)
-            {
-                throw new BusinessException(message: L["Error:ItemsAppService:551"], code: "1");
-            }
+            // if (zones.Count < 1)
+            // {
+            //     throw new BusinessException(message: L["Error:ItemsAppService:551"], code: "1");
+            // }
             var result = zones.Select(x => x.Id).Distinct().ToList();
             return result;
         }
@@ -251,13 +251,13 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 x.ParentId != null && zoneIds.Contains((Guid)x.ParentId) &&
                 x.Active == true)).Distinct();
             var routeIds = routes.Select(x => x.Id).ToList();
-            if (routeIds.Count < 1)
-            {
-                var detailDict = new Dictionary<string, string> { ["objectType"] = "route" };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
-                    details: detailString);
-            }
+            // if (routeIds.Count < 1)
+            // {
+            //     var detailDict = new Dictionary<string, string> { ["objectType"] = "route" };
+            //     string detailString = JsonSerializer.Serialize(detailDict).ToString();
+            //     throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
+            //         details: detailString);
+            // }
             var routeDictionary = routes.ToDictionary(x => x.Id.ToString(), x => new RouteSOPODto()
             {
                 id = x.Id.ToString(),
@@ -292,13 +292,13 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                // x.EffectiveDate < postingDate &&
                // (x.EndDate == null || x.EndDate >= postingDate) &&
                x.Active == true);
-            if (validCustomers.Count < 1)
-            {
-                var detailDict = new Dictionary<string, string> { ["objectType"] = "customer" };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
-                    details: detailString);
-            }
+            //if (validCustomers.Count < 1)
+            //{
+            //    var detailDict = new Dictionary<string, string> { ["objectType"] = "customer" };
+            //    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+            //    throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
+            //        details: detailString);
+            //}
             var validCustomerIdStrings = validCustomers.Select(
                 x => x.Id.ToString()).Distinct().ToList();
             var customerDictionary = validCustomers.ToDictionary(x => x.Id.ToString(),
@@ -376,13 +376,13 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             {
                 allItems = allItems.Where(x => x.IsPurchasable == true).ToList();
             }
-            if (allItems.Count < 1)
-            {
-                var detailDict = new Dictionary<string, string> { ["objectType"] = "item" };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
-                    details: detailString);
-            }
+            // if (allItems.Count < 1)
+            // {
+            //     var detailDict = new Dictionary<string, string> { ["objectType"] = "item" };
+            //     string detailString = JsonSerializer.Serialize(detailDict).ToString();
+            //     throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
+            //         details: detailString);
+            // }
             var allItemIdStrings = allItems.Select(x => x.Id.ToString()).ToList();
             Dictionary<string, List<string>> itemsInItemGroupsDictionary = new()
             {
@@ -563,13 +563,13 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     email = x.Email,
                 });
             var validEmployeeIds = validEmployees.Select(x => x.Id).ToList();
-            if (validEmployeeIds.Count < 1)
-            {
-                var detailDict = new Dictionary<string, string> { ["objectType"] = "employee" };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
-                    details: detailString);
-            }
+            //if (validEmployeeIds.Count < 1)
+            //{
+            //    var detailDict = new Dictionary<string, string> { ["objectType"] = "employee" };
+            //    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+            //    throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
+            //        details: detailString);
+            //}
             var validAssignments =
                 assignments.Where(x => validEmployeeIds.Contains(x.EmployeeProfileId));
             var employeesInRoutesDictionary = validAssignments.GroupBy(x => x.EmployeeProfileId.ToString())
