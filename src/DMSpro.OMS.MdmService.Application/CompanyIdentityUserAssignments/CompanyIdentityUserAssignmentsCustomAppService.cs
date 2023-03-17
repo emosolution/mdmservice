@@ -96,9 +96,13 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             }
             else
             {
-                Guid lastAssignmentId = assignments.First().Id;
+                var lastAssignment = assignments.First();
+                Guid lastAssignedCompanyId = lastAssignment.CompanyId;
                 selectedCompany =
-                    await _companyRepository.CheckActiveAsync(lastAssignmentId, true);
+                    await _companyRepository.CheckActiveAsync(lastAssignedCompanyId, true);
+
+                lastAssignment.CurrentlySelected = true;
+                await _companyIdentityUserAssignmentRepository.UpdateAsync(lastAssignment);
             }
             return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
         }
