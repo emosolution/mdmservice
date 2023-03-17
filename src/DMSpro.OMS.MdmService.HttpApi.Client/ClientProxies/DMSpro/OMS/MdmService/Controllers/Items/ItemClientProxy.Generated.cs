@@ -130,16 +130,6 @@ public partial class ItemClientProxy : ClientProxyBase<IItemsAppService>, IItems
         });
     }
 
-    public virtual async Task<string> GetSOInfoAsync(Guid companyId, DateTime postingDate, DateTime? lastUpdateDate)
-    {
-        return await RequestAsync<string>(nameof(GetSOInfoAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(Guid), companyId },
-            { typeof(DateTime), postingDate },
-            { typeof(DateTime?), lastUpdateDate }
-        });
-    }
-
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

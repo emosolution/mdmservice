@@ -16380,6 +16380,134 @@
             }
           }
         },
+        "DMSpro.OMS.MdmService.Controllers.SalesOrders.SalesOrderController": {
+          "controllerName": "SalesOrder",
+          "controllerGroupName": "SalesOrder",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "DMSpro.OMS.MdmService.Controllers.SalesOrders.SalesOrderController",
+          "interfaces": [
+            {
+              "type": "DMSpro.OMS.MdmService.SalesOrders.ISalesOrdersAppService",
+              "name": "ISalesOrdersAppService",
+              "methods": [
+                {
+                  "name": "GetSOInfoAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "companyId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "postingDate",
+                      "typeAsString": "System.DateTime, System.Private.CoreLib",
+                      "type": "System.DateTime",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "lastUpdateDate",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate": {
+              "uniqueName": "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate",
+              "name": "GetSOInfoAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/sales-orders/info-so",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "companyId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "postingDate",
+                  "typeAsString": "System.DateTime, System.Private.CoreLib",
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "lastUpdateDate",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "companyId",
+                  "name": "companyId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "postingDate",
+                  "name": "postingDate",
+                  "jsonName": null,
+                  "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "lastUpdateDate",
+                  "name": "lastUpdateDate",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrders.ISalesOrdersAppService"
+            }
+          }
+        },
         "DMSpro.OMS.MdmService.Controllers.SalesChannels.SalesChannelController": {
           "controllerName": "SalesChannel",
           "controllerGroupName": "SalesChannel",
@@ -28623,39 +28751,6 @@
                   }
                 },
                 {
-                  "name": "GetSOInfoAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "companyId",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "postingDate",
-                      "typeAsString": "System.DateTime, System.Private.CoreLib",
-                      "type": "System.DateTime",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "lastUpdateDate",
-                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.DateTime?",
-                      "typeSimple": "string?",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.String",
-                    "typeSimple": "string"
-                  }
-                },
-                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -30526,83 +30621,6 @@
               "returnValue": {
                 "type": "DMSpro.OMS.MdmService.Items.ItemProfileDto",
                 "typeSimple": "DMSpro.OMS.MdmService.Items.ItemProfileDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
-            },
-            "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate": {
-              "uniqueName": "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate",
-              "name": "GetSOInfoAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/items/info-so",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "companyId",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "postingDate",
-                  "typeAsString": "System.DateTime, System.Private.CoreLib",
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "lastUpdateDate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "companyId",
-                  "name": "companyId",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "postingDate",
-                  "name": "postingDate",
-                  "jsonName": null,
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "lastUpdateDate",
-                  "name": "lastUpdateDate",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.String",
-                "typeSimple": "string"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.Items.IItemsAppService"
