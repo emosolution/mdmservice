@@ -1,6 +1,4 @@
-﻿using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Vendors;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
@@ -11,5 +9,7 @@ namespace DMSpro.OMS.MdmService.Companies
         Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUserAsync(Guid identityUserId, Guid? tenantId);
 
         Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUserAsync(Guid companyId, Guid identityUserId, Guid? tenantId);
+
+        Task<CompanyDto> CheckActiveAsync(Guid id, DateTime? checkingDate, bool throwErrorOnInactive = false);
     }
 }

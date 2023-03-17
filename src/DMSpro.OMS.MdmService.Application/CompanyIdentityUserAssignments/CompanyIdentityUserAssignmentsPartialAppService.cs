@@ -16,6 +16,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         private readonly IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
         private readonly CompanyIdentityUserAssignmentManager _companyIdentityUserAssignmentManager;
         private readonly ICompanyRepository _companyRepository;
+        private readonly ICompaniesInternalAppService _companiesInternalAppService;
         private readonly ICurrentUser _currentUser;
 
         public CompanyIdentityUserAssignmentsAppService(ICurrentTenant currentTenant,
@@ -23,6 +24,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             CompanyIdentityUserAssignmentManager companyIdentityUserAssignmentManager,
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
+            ICompaniesInternalAppService companiesInternalAppService,
             ICurrentUser currentUser,
             IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
@@ -31,13 +33,14 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyIdentityUserAssignmentManager = companyIdentityUserAssignmentManager;
             _currentUser = currentUser;
-            
+
             _companyRepository = companyRepository;
-            
+            _companiesInternalAppService = companiesInternalAppService;
+
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyIdentityUserAssignmentRepository", _companyIdentityUserAssignmentRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
-        } 
-	}
+        }
+    }
 }

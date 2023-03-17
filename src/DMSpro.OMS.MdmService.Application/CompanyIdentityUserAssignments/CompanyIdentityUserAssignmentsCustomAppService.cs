@@ -10,7 +10,6 @@ using System;
 using Volo.Abp;
 using Grpc.Net.Client;
 using DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers;
-using System.ComponentModel.Design;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -53,7 +52,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
-            var selectedCompany = await _companyRepository.CheckActiveAsync(companyId, true);
+            var selectedCompany = await _companiesInternalAppService.CheckActiveAsync(companyId, null, true);
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                 x.IdentityUserId == _currentUser.Id);
             var companies = assignments.Distinct().Select(x => x.CompanyId).ToList();
@@ -70,18 +69,21 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
                 }
             }
             await _companyIdentityUserAssignmentRepository.UpdateManyAsync(assignments);
-            return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
+            return selectedCompany;
         }
 
-        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync()
+        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
+            Guid? inputIdentityUserId = null, DateTime? checkTime = null)
         {
+            DateTime time = checkTime == null ? DateTime.Now : (DateTime)checkTime;
+            Guid? identityUserId = inputIdentityUserId == null ? _currentUser.Id : (Guid) inputIdentityUserId;
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
-                x.IdentityUserId == _currentUser.Id);
+                x.IdentityUserId == identityUserId);
             if (assignments.Count < 1)
             {
                 throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
             }
-            Company selectedCompany;
+            CompanyDto selectedCompany;
             var selectedAssignment = assignments.OrderBy(x => x.CreationTime)
                 .Where(x => x.CurrentlySelected == true).ToList();
             if (selectedAssignment.Count > 1)
@@ -92,19 +94,19 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             {
                 Guid firstSelectedCompanyId = assignments.First().CompanyId;
                 selectedCompany =
-                        await _companyRepository.CheckActiveAsync(firstSelectedCompanyId, true);
+                        await _companiesInternalAppService.CheckActiveAsync(firstSelectedCompanyId, time, true);
             }
             else
             {
                 var lastAssignment = assignments.First();
                 Guid lastAssignedCompanyId = lastAssignment.CompanyId;
                 selectedCompany =
-                    await _companyRepository.CheckActiveAsync(lastAssignedCompanyId, true);
+                    await _companiesInternalAppService.CheckActiveAsync(lastAssignedCompanyId, time, true);
 
                 lastAssignment.CurrentlySelected = true;
                 await _companyIdentityUserAssignmentRepository.UpdateAsync(lastAssignment);
             }
-            return ObjectMapper.Map<Company, CompanyDto>(selectedCompany);
+            return selectedCompany;
         }
 
         private async Task<List<IdentityUser>>

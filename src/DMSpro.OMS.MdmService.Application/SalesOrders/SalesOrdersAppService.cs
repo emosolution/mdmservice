@@ -20,7 +20,6 @@ using DMSpro.OMS.MdmService.VATs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -72,6 +71,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             ICompanyIdentityUserAssignmentsAppService companyIdentityUserAssignmentsAppService,
             IVATRepository vATRepository,
             IUOMRepository uOMRepository,
+
             IJsonSerializer jsonSerializer)
         {
             _itemRepository = itemRepository;
@@ -93,13 +93,14 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             _employeeProfileRepository = employeeProfileRepository;
             _vATRepository = vATRepository;
             _uOMRepository = uOMRepository;
+
             _jsonSerializer = jsonSerializer;
         }
 
-        public async Task<string> GetSOInfoAsync(Guid companyId,
-            DateTime postingDate, DateTime? lastUpdateDate)
+        public async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate, 
+            DateTime? lastUpdateDate, Guid? identityUserId = null)
         {
-            await CheckCompany(companyId, postingDate);
+            await CheckCompany(companyId, identityUserId, postingDate);
             List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, postingDate);
             DateTime now = DateTime.Now;
             string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
@@ -112,32 +113,32 @@ namespace DMSpro.OMS.MdmService.SalesOrders
        DateTime? lastUpdateDate, string nowString)
         {
             bool isForSO = true;
-            (Dictionary<string, RouteSOPODto> routeDictionary,
+            (Dictionary<string, RouteDto> routeDictionary,
             List<Guid> routeIds,
             Dictionary<string, string> routeInZoneDictionary) =
                 await GetRouteFromZoneIds(zoneIds);
 
             (Dictionary<string, Dictionary<string, List<string>>> customersRoutesItemGroupsDictionary,
-            Dictionary<string, CustomerSOPODto> customerDictionary,
+            Dictionary<string, CustomerDto> customerDictionary,
             Dictionary<string, List<string>> customersRoutesDictionary) =
                 await GetCustomerRouteItemGroupDictionary(routeIds, postingDate);
 
             (Dictionary<string, List<string>> itemsInItemGroupsDictionary,
             List<Guid> itemIds) = await GetAllItemsInNullItemGroup(isForSO);
 
-            (Dictionary<string, ItemSOPODto> itemDictionary,
+            (Dictionary<string, ItemDto> itemDictionary,
             Dictionary<string, List<string>> uomGroupDictionary,
             List<string> allAltUomIds,
             List<Guid> vatIds) =
                 await GetItemDetailsFromItemIds(itemIds, isForSO);
 
-            Dictionary<string, UOMSOPODto> uomDictionary =
+            Dictionary<string, UOMDto> uomDictionary =
                 await GetUOMDictionary(allAltUomIds);
 
-            Dictionary<string, VATSOPODto> vatDictionary =
+            Dictionary<string, VATDto> vatDictionary =
                 await GetVatDictionary(vatIds);
 
-            (Dictionary<string, CustomerSOPODto> allCustomersInZoneDictionary,
+            (Dictionary<string, CustomerDto> allCustomersInZoneDictionary,
             List<string> customerIdsWithoutRoute) = await GetCustomersWithoutRoute(
                 postingDate, zoneIds, customerDictionary);
 
@@ -147,7 +148,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
 
             (Dictionary<string, List<string>> employeesInRoutesDictionary,
             Dictionary<string, List<string>> routesWithEmployeesDictionary,
-            Dictionary<string, EmployeeSOPODto> employeeDictionary) =
+            Dictionary<string, EmployeeDto> employeeDictionary) =
                 await GetEmployeesDictionaries(routeIds, postingDate);
 
             List<string> resultParts = new()
@@ -173,12 +174,12 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
         private async Task<(
-            Dictionary<string, CustomerSOPODto>,
+            Dictionary<string, CustomerDto>,
             List<string>
             )> GetCustomersWithoutRoute(
             DateTime postingDate,
             List<Guid> zoneIds,
-            Dictionary<string, CustomerSOPODto> customerDictionary)
+            Dictionary<string, CustomerDto> customerDictionary)
         {
             var allCustomersInZones = (await _customerInZoneRepository.GetListAsync(
                 x => zoneIds.Contains(x.SalesOrgHierarchyId) &&
@@ -195,15 +196,15 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 x.Active == true)).Distinct().ToList();
             var customersWithoutRouteDictionary =
                 customersWithoutRoute.ToDictionary(x => x.Id.ToString(),
-                x => new CustomerSOPODto()
+                x => new CustomerDto()
                 {
                     id = x.Id.ToString(),
                     code = x.Code,
                     name = x.Name,
                     priceListId = x.PriceListId.ToString(),
                 });
-            Dictionary<string, CustomerSOPODto> result = new();
-            List<Dictionary<string, CustomerSOPODto>> dictionaries = new()
+            Dictionary<string, CustomerDto> result = new();
+            List<Dictionary<string, CustomerDto>> dictionaries = new()
             { customerDictionary, customersWithoutRouteDictionary };
             foreach (var dictionary in dictionaries)
             {
@@ -214,15 +215,14 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             }
             return (result, customerIdsWithoutRoute);
         }
-        private async Task CheckCompany(Guid companyId, DateTime postingDate)
+        private async Task CheckCompany(Guid companyId, Guid? identityUserId, DateTime postingDate)
         {
             var companyDto =
-                await _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync();
+                await _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(identityUserId);
             if (companyDto.Id != companyId)
             {
                 throw new BusinessException(message: L["Error:ItemsAppService:550"], code: "1");
             }
-            await _companyRepository.CheckActiveWithDateAsync(companyId, postingDate);
         }
 
         private async Task<List<Guid>> GetAllSellingZoneIds(Guid companyId, DateTime postingDate)
@@ -242,7 +242,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
         private async Task<(
-            Dictionary<string, RouteSOPODto>,
+            Dictionary<string, RouteDto>,
             List<Guid>,
             Dictionary<string, string>
             )> GetRouteFromZoneIds(List<Guid> zoneIds)
@@ -258,7 +258,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             //     throw new BusinessException(message: L["Error:ItemsAppService:553"], code: "0",
             //         details: detailString);
             // }
-            var routeDictionary = routes.ToDictionary(x => x.Id.ToString(), x => new RouteSOPODto()
+            var routeDictionary = routes.ToDictionary(x => x.Id.ToString(), x => new RouteDto()
             {
                 id = x.Id.ToString(),
                 code = x.Code,
@@ -271,7 +271,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
 
         private async Task<(
             Dictionary<string, Dictionary<string, List<string>>>,
-            Dictionary<string, CustomerSOPODto>,
+            Dictionary<string, CustomerDto>,
             Dictionary<string, List<string>>
             )> GetCustomerRouteItemGroupDictionary(List<Guid> routeIds,
                 DateTime postingDate)
@@ -302,7 +302,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             var validCustomerIdStrings = validCustomers.Select(
                 x => x.Id.ToString()).Distinct().ToList();
             var customerDictionary = validCustomers.ToDictionary(x => x.Id.ToString(),
-                x => new CustomerSOPODto()
+                x => new CustomerDto()
                 {
                     id = x.Id.ToString(),
                     code = x.Code,
@@ -393,13 +393,13 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
         private async Task<(
-            Dictionary<string, ItemSOPODto>,
+            Dictionary<string, ItemDto>,
             Dictionary<string, List<string>>,
             List<string>,
             List<Guid>
             )> GetItemDetailsFromItemIds(List<Guid> itemIds, bool isForSO)
         {
-            Dictionary<string, ItemSOPODto> itemDictionary = new();
+            Dictionary<string, ItemDto> itemDictionary = new();
             Dictionary<string, List<string>> uomGroupDictionary = new();
             List<string> allAltUomIds = new();
             List<Guid> vatIds = new();
@@ -432,7 +432,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 {
                     continue;
                 }
-                ItemSOPODto dto = new()
+                ItemDto dto = new()
                 {
                     #region INPUT PARAMS
                     id = itemId,
@@ -456,10 +456,10 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 allAltUomIds, vatIds);
         }
 
-        private async Task<Dictionary<string, VATSOPODto>> GetVatDictionary(List<Guid> vatIds)
+        private async Task<Dictionary<string, VATDto>> GetVatDictionary(List<Guid> vatIds)
         {
             var vats = await _vATRepository.GetListAsync(x => vatIds.Contains(x.Id));
-            Dictionary<string, VATSOPODto> result = new();
+            Dictionary<string, VATDto> result = new();
             foreach (var vat in vats)
             {
                 string id = vat.Id.ToString();
@@ -467,7 +467,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 {
                     continue;
                 }
-                VATSOPODto dto = new()
+                VATDto dto = new()
                 {
                     id = id,
                     code = vat.Code,
@@ -487,10 +487,10 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             return result;
         }
 
-        private async Task<Dictionary<string, UOMSOPODto>> GetUOMDictionary(List<string> allAltUomIds)
+        private async Task<Dictionary<string, UOMDto>> GetUOMDictionary(List<string> allAltUomIds)
         {
             var uoms = await _uOMRepository.GetListAsync(x => allAltUomIds.Contains(x.Id.ToString()));
-            Dictionary<string, UOMSOPODto> result = new();
+            Dictionary<string, UOMDto> result = new();
             foreach (var uom in uoms)
             {
                 string id = uom.Id.ToString();
@@ -498,7 +498,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 {
                     continue;
                 }
-                UOMSOPODto dto = new()
+                UOMDto dto = new()
                 {
                     id = id,
                     code = uom.Code,
@@ -511,9 +511,9 @@ namespace DMSpro.OMS.MdmService.SalesOrders
 
         private async Task<Dictionary<string, decimal>>
             GetPriceDictionary(
-                Dictionary<string, CustomerSOPODto> customerDictionary,
-                Dictionary<string, ItemSOPODto> itemDictionary,
-                Dictionary<string, UOMSOPODto> uomDictionary)
+                Dictionary<string, CustomerDto> customerDictionary,
+                Dictionary<string, ItemDto> itemDictionary,
+                Dictionary<string, UOMDto> uomDictionary)
         {
             var itemIds = itemDictionary.Keys.ToList();
             var uomIds = uomDictionary.Keys.ToList();
@@ -537,7 +537,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private async Task<(
             Dictionary<string, List<string>>,
             Dictionary<string, List<string>>,
-            Dictionary<string, EmployeeSOPODto>
+            Dictionary<string, EmployeeDto>
             )> GetEmployeesDictionaries(List<Guid> routeIds, DateTime postingDate)
         {
             var assignments = await _salesOrgEmpAssignmentRepository.GetListAsync(
@@ -554,7 +554,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     )).Distinct().ToList();
             var employeeDictionary = validEmployees.ToDictionary(
                 x => x.Id.ToString(),
-                x => new EmployeeSOPODto()
+                x => new EmployeeDto()
                 {
                     id = x.Id.ToString(),
                     code = x.Code,
@@ -642,7 +642,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
         #endregion
 
-        private class ItemSOPODto
+        private class ItemDto
         {
             public string id { get; set; }
             public string name { get; set; }
@@ -657,46 +657,46 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             public decimal salesRate { get; set; }
             public bool isPurchasable { get; set; }
             public bool isSalesable { get; set; }
-            public ItemSOPODto() { }
+            public ItemDto() { }
         }
 
-        private class VATSOPODto
+        private class VATDto
         {
             public string id { get; set; }
             public string name { get; set; }
             public string code { get; set; }
             public uint rate { get; set; }
-            public VATSOPODto() { }
+            public VATDto() { }
         }
 
-        private class UOMSOPODto
+        private class UOMDto
         {
             public string id { get; set; }
             public string name { get; set; }
             public string code { get; set; }
-            public UOMSOPODto() { }
+            public UOMDto() { }
         }
 
-        private class CustomerSOPODto
+        private class CustomerDto
         {
             public string id { get; set; }
             public string code { get; set; }
             public string name { get; set; }
             public string priceListId { get; set; }
 
-            public CustomerSOPODto() { }
+            public CustomerDto() { }
         }
 
-        private class RouteSOPODto
+        private class RouteDto
         {
             public string id { get; set; }
             public string code { get; set; }
             public string name { get; set; }
 
-            public RouteSOPODto() { }
+            public RouteDto() { }
         }
 
-        private class EmployeeSOPODto
+        private class EmployeeDto
         {
             public string id { get; set; }
             public string code { get; set; }
@@ -704,7 +704,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             public string lastName { get; set; }
             public string email { get; set; }
 
-            public EmployeeSOPODto() { }
+            public EmployeeDto() { }
         }
 
         private class CustomerRouteItemGroup

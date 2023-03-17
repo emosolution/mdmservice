@@ -43,44 +43,5 @@ namespace DMSpro.OMS.MdmService.Companies
             }
             return companyHO;
         }
-
-        public async Task<Company> CheckActiveAsync(Guid id, bool throwErrorOnInactive = false)
-        {
-            DateTime now = DateTime.Now;
-            try
-            {
-                var record = await GetAsync(x => x.Id == id && x.Active == true &&
-                    x.EffectiveDate < now && (x.EndDate == null || x.EndDate >= now));
-                return record;
-            }
-            catch (EntityNotFoundException)
-            {
-                if (throwErrorOnInactive)
-                {
-                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
-                }
-                return null;
-            }
-        }
-
-        public async Task<Company> CheckActiveWithDateAsync(Guid id, DateTime checkingDate,
-            bool throwErrorOnInactive = false)
-        {
-            try
-            {
-                var record = await GetAsync(x => x.Id == id && x.Active == true &&
-                    x.EffectiveDate < checkingDate &&
-                    (x.EndDate == null || x.EndDate >= checkingDate));
-                return record;
-            }
-            catch (EntityNotFoundException)
-            {
-                if (throwErrorOnInactive)
-                {
-                    throw new BusinessException(message: "Error:CompanyEfCoreRepository:550", code: "1");
-                }
-                return null;
-            }
-        }
     }
 }

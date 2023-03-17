@@ -107,9 +107,13 @@ public partial class CompanyIdentityUserAssignmentClientProxy : ClientProxyBase<
         });
     }
 
-    public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync()
+    public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(Guid? identityUserId, DateTime? checkTime)
     {
-        return await RequestAsync<CompanyDto>(nameof(GetCurrentlySelectedCompanyAsync));
+        return await RequestAsync<CompanyDto>(nameof(GetCurrentlySelectedCompanyAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid?), identityUserId },
+            { typeof(DateTime?), checkTime }
+        });
     }
 
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)

@@ -49,12 +49,14 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
 
         [HttpPost]
         [Route("get-selected-company")]
-        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync()
+        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
+            Guid? identityUserId = null, DateTime? checkTime = null)
         {
             try
             {
                 return await
-                    _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync();
+                    _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(
+                        identityUserId, checkTime);
             }
             catch (BusinessException bex)
             {

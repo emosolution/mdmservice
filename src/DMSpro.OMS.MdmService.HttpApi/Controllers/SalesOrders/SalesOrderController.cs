@@ -21,11 +21,13 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrders
 
         [HttpGet]
         [Route("info-so")]
-        public virtual async Task<string> GetSOInfoAsync(Guid companyId, DateTime postingDate, DateTime? lastUpdateDate)
+        public virtual async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate, 
+            DateTime? lastUpdateDate, Guid? identityUserId = null)
         {
             try
             {
-                return await _salesOrdersAppService.GetSOInfoAsync(companyId, postingDate, lastUpdateDate);
+                return await _salesOrdersAppService.GetInfoSOAsync(companyId, postingDate, 
+                    lastUpdateDate, identityUserId);
             }
             catch (BusinessException bex)
             {

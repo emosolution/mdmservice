@@ -12,6 +12,6 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId);
 
-        Task<CompanyDto> GetCurrentlySelectedCompanyAsync();
+        Task<CompanyDto> GetCurrentlySelectedCompanyAsync(Guid? identityUserId = null, DateTime? checkTime = null);
     }
 }

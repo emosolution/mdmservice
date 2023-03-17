@@ -16393,7 +16393,7 @@
               "name": "ISalesOrdersAppService",
               "methods": [
                 {
-                  "name": "GetSOInfoAsync",
+                  "name": "GetInfoSOAsync",
                   "parametersOnMethod": [
                     {
                       "name": "companyId",
@@ -16418,6 +16418,14 @@
                       "typeSimple": "string?",
                       "isOptional": false,
                       "defaultValue": null
+                    },
+                    {
+                      "name": "identityUserId",
+                      "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.Guid?",
+                      "typeSimple": "string?",
+                      "isOptional": true,
+                      "defaultValue": null
                     }
                   ],
                   "returnValue": {
@@ -16429,9 +16437,9 @@
             }
           ],
           "actions": {
-            "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate": {
-              "uniqueName": "GetSOInfoAsyncByCompanyIdAndPostingDateAndLastUpdateDate",
-              "name": "GetSOInfoAsync",
+            "GetInfoSOAsyncByCompanyIdAndPostingDateAndLastUpdateDateAndIdentityUserId": {
+              "uniqueName": "GetInfoSOAsyncByCompanyIdAndPostingDateAndLastUpdateDateAndIdentityUserId",
+              "name": "GetInfoSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/sales-orders/info-so",
               "supportedVersions": [],
@@ -16458,6 +16466,14 @@
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
                   "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "identityUserId",
+                  "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": true,
                   "defaultValue": null
                 }
               ],
@@ -16491,6 +16507,18 @@
                   "name": "lastUpdateDate",
                   "jsonName": null,
                   "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "identityUserId",
+                  "name": "identityUserId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
                   "typeSimple": "string?",
                   "isOptional": false,
                   "defaultValue": null,
@@ -67386,7 +67414,24 @@
                 },
                 {
                   "name": "GetCurrentlySelectedCompanyAsync",
-                  "parametersOnMethod": [],
+                  "parametersOnMethod": [
+                    {
+                      "name": "identityUserId",
+                      "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.Guid?",
+                      "typeSimple": "string?",
+                      "isOptional": true,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "checkTime",
+                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.DateTime?",
+                      "typeSimple": "string?",
+                      "isOptional": true,
+                      "defaultValue": null
+                    }
+                  ],
                   "returnValue": {
                     "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
                     "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"
@@ -68232,14 +68277,56 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CompanyIdentityUserAssignments.ICompanyIdentityUserAssignmentsAppService"
             },
-            "GetCurrentlySelectedCompanyAsync": {
-              "uniqueName": "GetCurrentlySelectedCompanyAsync",
+            "GetCurrentlySelectedCompanyAsyncByIdentityUserIdAndCheckTime": {
+              "uniqueName": "GetCurrentlySelectedCompanyAsyncByIdentityUserIdAndCheckTime",
               "name": "GetCurrentlySelectedCompanyAsync",
               "httpMethod": "POST",
               "url": "api/mdm-service/company-identity-user-assignments/get-selected-company",
               "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
+              "parametersOnMethod": [
+                {
+                  "name": "identityUserId",
+                  "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": true,
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkTime",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": true,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "identityUserId",
+                  "name": "identityUserId",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "checkTime",
+                  "name": "checkTime",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
               "returnValue": {
                 "type": "DMSpro.OMS.MdmService.Companies.CompanyDto",
                 "typeSimple": "DMSpro.OMS.MdmService.Companies.CompanyDto"

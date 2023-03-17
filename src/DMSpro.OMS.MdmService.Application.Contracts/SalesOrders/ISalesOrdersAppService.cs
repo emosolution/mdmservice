@@ -6,7 +6,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
 {
     public interface ISalesOrdersAppService : IApplicationService
     {
-        Task<string> GetSOInfoAsync(Guid companyId,
-            DateTime postingDate, DateTime? lastUpdateDate);
+        Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate, 
+            DateTime? lastUpdateDate, Guid? identityUserId = null);
     }
 }

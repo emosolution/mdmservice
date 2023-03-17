@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         }
 
-        public async Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUserAsync(Guid companyId, 
+        public async Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUserAsync(Guid companyId,
             Guid identityUserId, Guid? tenantId)
         {
             List<CompanyIdentityUserAssignmentWithNavigationProperties> assignments =
@@ -53,5 +53,26 @@ namespace DMSpro.OMS.MdmService.Companies
             return ObjectMapper.Map<Company, CompanyWithTenantDto>(company);
         }
 
+        public async Task<CompanyDto> CheckActiveAsync(Guid id, DateTime? checkingDate,
+            bool throwErrorOnInactive = false)
+        {
+            checkingDate = checkingDate == null ? DateTime.Now : (DateTime)checkingDate;
+            try
+            {
+                var record = await _companyRepository.GetAsync(
+                    x => x.Id == id && x.Active == true &&
+                    x.EffectiveDate < checkingDate &&
+                    (x.EndDate == null || x.EndDate >= checkingDate));
+                return ObjectMapper.Map<Company, CompanyDto>(record);
+            }
+            catch (EntityNotFoundException)
+            {
+                if (throwErrorOnInactive)
+                {
+                    throw new BusinessException(message: L["Error:CompaniesAppService:550"], code: "1");
+                }
+                return null;
+            }
+        }
     }
 }
