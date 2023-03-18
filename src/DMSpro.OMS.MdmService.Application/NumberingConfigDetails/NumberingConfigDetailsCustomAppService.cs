@@ -65,7 +65,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         private async Task<(NumberingConfigDetail, NumberingConfig)> GetDetailFromObjectTypeAndCompany(
             string objectType, Guid companyId)
         {
-            var company = _companyRepository.GetAsync(companyId);
+            var company = await _companyRepository.GetAsync(companyId);
             var systemData =
                 await _systemDatasInternalAppService.GetNumberConfigSystemDataByValueName(objectType);
             var headers = await _numberingConfigRepository.GetListAsync(x =>
@@ -75,8 +75,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 throw new BusinessException(message: L["Error:NumberingConfig:550"], code: "1");
             }
             var header = headers.First();
-            var details = await
-                _numberingConfigDetailRepository.GetListAsync(x => x.CompanyId == companyId &&
+            var details = 
+                await _numberingConfigDetailRepository.GetListAsync(
+                    x => x.CompanyId == companyId &&
                     x.NumberingConfigId == header.Id);
             if (details.Count > 1)
             {
