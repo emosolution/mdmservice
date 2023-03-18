@@ -14,16 +14,19 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
     private readonly ICompaniesInternalAppService _companiesInternalAppService;
     private readonly ICompanyRepository _companyRepository;
     private readonly ICompanyIdentityUserAssignmentRepository _userAssignmentRepository;
+    private readonly ICompanyIdentityUserAssignmentsAppService _userAssignmentsAppService;
     private readonly ICurrentTenant _currentTenant;
 
     public CompaniesGRPCAppService(ICompaniesInternalAppService companiesInternalAppService,
         ICompanyRepository companyRepository,
         ICompanyIdentityUserAssignmentRepository userAssignmentRepository,
+        ICompanyIdentityUserAssignmentsAppService userAssignmentsAppService,
         ICurrentTenant currentTenant)
     {
         _companiesInternalAppService = companiesInternalAppService;
         _companyRepository = companyRepository;
         _userAssignmentRepository = userAssignmentRepository;
+        _userAssignmentsAppService = userAssignmentsAppService;
         _currentTenant = currentTenant;
     }
 
@@ -73,7 +76,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             {
                 var assignment = await _userAssignmentRepository.GetListAsync(
                     x => x.IdentityUserId.ToString() == request.IdentityUserId &&
-                    x.CompanyId.ToString() ==request.CompanyId && x.CurrentlySelected == true);
+                    x.CompanyId.ToString() == request.CompanyId && x.CurrentlySelected == true);
                 if (assignment.Count != 1)
                 {
                     return response;
@@ -118,6 +121,31 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
                         Active = x.Active,
                         HO = x.IsHO,
                     }));
+            return response;
+        }
+    }
+
+    public override async Task<CompanyResponse> GetCurrentlySelectedCompany(
+        GetCurrentlySelectedCompanyRequest request, ServerCallContext context)
+    {
+        Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
+        Guid? identityUserId = string.IsNullOrEmpty(request.IdentityUserId) ? null : new(request.IdentityUserId);
+        using (_currentTenant.Change(tenantId))
+        {
+            var dto =
+                await _userAssignmentsAppService.GetCurrentlySelectedCompanyAsync(identityUserId);
+            CompanyResponse response = new()
+            {
+                Company = new()
+                {
+                    Id = dto.Id.ToString(),
+                    TenantId = request.TenantId,
+                    Code = dto.Code,
+                    Name = dto.Name,
+                    Active = dto.Active,
+                    HO = dto.IsHO,
+                },
+            };
             return response;
         }
     }
