@@ -1,4 +1,5 @@
 ﻿using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using DMSpro.OMS.MdmService.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace DMSpro.OMS.MdmService.Companies
         {
             _companyRepository = companyRepository;
             _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
         public async Task<CompanyWithTenantDto> GetHOCompanyFromIdentityUserAsync(Guid identityUserId, Guid? tenantId)

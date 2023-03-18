@@ -30,12 +30,12 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         [Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
         public virtual async Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
         {
-            (string prefix, int paddingZeroNumber, string suffix) = 
-                NumberingConfigConsts.GetBaseData(input.Suffix, 
+            (string prefix, int paddingZeroNumber, string suffix) =
+                NumberingConfigConsts.GetBaseData(input.Suffix,
                     input.PaddingZeroNumber, input.Suffix, input.ObjectType);
             var systemData = await
                 _systemDatasInternalAppService.GetNumberConfigSystemDataByValueName(input.ObjectType);
-            
+
             var config = await _numberingConfigRepository.GetListAsync(x => x.SystemDataId == systemData.Id);
             if (config.Count > 1)
             {
@@ -49,7 +49,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             string description = $"Numbering config for {input.ObjectType}";
             var numberingConfig = new NumberingConfig(
                 GuidGenerator.Create(), systemData.Id,
-                input.Prefix, input.Suffix, (int) input.PaddingZeroNumber,
+                input.Prefix, input.Suffix, (int)input.PaddingZeroNumber,
                 description
              );
 
@@ -83,40 +83,40 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         private async Task<List<NumberingConfigDto>> CreateAllConfigsForATenantAsync(Guid? tenantId)
         {
             List<NumberingConfigDto> result = new();
-            var configs = await _numberingConfigRepository.GetListAsync(x => x.TenantId == tenantId);
-            var systemDatas =
-                await _systemDatasInternalAppService.GetNumberingConfigsSystemData();
-            foreach (var systemData in systemDatas)
+            using (CurrentTenant.Change(tenantId))
             {
-                string objectType = systemData.ValueName;
-                var config = configs.Select(x => x.SystemDataId == systemData.Id);
-                int count = config.Count();
-                if (count == 1)
+                var configs = await _numberingConfigRepository.GetListAsync(x => x.TenantId == tenantId);
+                var systemDatas =
+                    await _systemDatasInternalAppService.GetNumberingConfigsSystemData();
+                foreach (var systemData in systemDatas)
                 {
-                    continue;
-                }
-                if (count > 1)
-                {
-                    var detailDict = new Dictionary<string, string>
+                    string objectType = systemData.ValueName;
+                    var config = configs.Select(x => x.SystemDataId == systemData.Id);
+                    int count = config.Count();
+                    if (count == 1)
                     {
-                        ["code"] = systemData.Code,
-                        ["valueName"] = objectType,
+                        continue;
+                    }
+                    if (count > 1)
+                    {
+                        var detailDict = new Dictionary<string, string>
+                        {
+                            ["code"] = systemData.Code,
+                            ["valueName"] = objectType,
+                        };
+                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                        throw new BusinessException(message: L["Error:SystemData:550"],
+                            code: "1", details: detailString);
+                    }
+                    (string prefix, int paddingZeroNumber, string suffix) =
+                        NumberingConfigConsts.GetPresetDataOfConfig(objectType);
+                    NumberingConfigCreateDto input = new()
+                    {
+                        Prefix = prefix,
+                        PaddingZeroNumber = paddingZeroNumber,
+                        Suffix = suffix,
+                        ObjectType = objectType,
                     };
-                    string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                    throw new BusinessException(message: L["Error:SystemData:550"],
-                        code: "1", details: detailString);
-                }
-                (string prefix, int paddingZeroNumber, string suffix) = 
-                    NumberingConfigConsts.GetPresetDataOfConfig(objectType);
-                NumberingConfigCreateDto input = new()
-                {
-                    Prefix = prefix,
-                    PaddingZeroNumber = paddingZeroNumber,
-                    Suffix = suffix,
-                    ObjectType = objectType,
-                };
-                using (CurrentTenant.Change(tenantId))
-                {
                     var dto = await CreateAsync(input);
                     result.Add(dto);
                 }

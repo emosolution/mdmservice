@@ -24,6 +24,8 @@ public class SalesOrdersGRPCAppService : SalesOrdersProtoAppService.SalesOrdersP
     {
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
         Guid companyId = Guid.Parse(request.CompanyId);
+        Guid? identityUserId = 
+            string.IsNullOrEmpty(request.IdentityUserId) ? null : new(request.IdentityUserId);
         DateTime postingDate = DateTime.Parse(request.PostingDate);
         DateTime? lastUpdateDate =
             string.IsNullOrEmpty(request.LastUpdateDate)
@@ -31,10 +33,12 @@ public class SalesOrdersGRPCAppService : SalesOrdersProtoAppService.SalesOrdersP
         using (_currentTenant.Change(tenantId))
         {
             var result =
-                await _salesOrdersAppService.GetInfoSOAsync(companyId, postingDate, lastUpdateDate);
+                await _salesOrdersAppService.GetInfoSOAsync(companyId, postingDate,
+                    request.ObjectType, lastUpdateDate, identityUserId);
             GetInfoSOResponse response = new()
             {
                 TenantId = request.TenantId,
+                IdentityUserId = request.IdentityUserId,
                 CompanyId = request.CompanyId,
                 JsonString = result,
                 UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),

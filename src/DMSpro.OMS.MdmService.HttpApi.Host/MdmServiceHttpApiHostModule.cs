@@ -21,6 +21,8 @@ using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.VATs;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
+using DMSpro.OMS.MdmService.SalesOrders;
 
 namespace DMSpro.OMS.MdmService;
 
@@ -118,6 +120,8 @@ public class MdmServiceHttpApiHostModule : AbpModule
             endpoints.MapGrpcService<UOMsGRPCAppService>();
             endpoints.MapGrpcService<VATsGRPCAppService>();
             endpoints.MapGrpcService<VendorsGRPCAppService>();
+            endpoints.MapGrpcService<NumberingConfigsGRPCAppService>();
+            endpoints.MapGrpcService<SalesOrdersGRPCAppService>();
         });
     }
 

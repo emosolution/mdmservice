@@ -16412,11 +16412,19 @@
                       "defaultValue": null
                     },
                     {
+                      "name": "objectType",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": true,
+                      "defaultValue": ""
+                    },
+                    {
                       "name": "lastUpdateDate",
                       "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.DateTime?",
                       "typeSimple": "string?",
-                      "isOptional": false,
+                      "isOptional": true,
                       "defaultValue": null
                     },
                     {
@@ -16437,8 +16445,8 @@
             }
           ],
           "actions": {
-            "GetInfoSOAsyncByCompanyIdAndPostingDateAndLastUpdateDateAndIdentityUserId": {
-              "uniqueName": "GetInfoSOAsyncByCompanyIdAndPostingDateAndLastUpdateDateAndIdentityUserId",
+            "GetInfoSOAsyncByCompanyIdAndPostingDateAndObjectTypeAndLastUpdateDateAndIdentityUserId": {
+              "uniqueName": "GetInfoSOAsyncByCompanyIdAndPostingDateAndObjectTypeAndLastUpdateDateAndIdentityUserId",
               "name": "GetInfoSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/sales-orders/info-so",
@@ -16461,11 +16469,19 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "objectType",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": true,
+                  "defaultValue": ""
+                },
+                {
                   "name": "lastUpdateDate",
                   "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
-                  "isOptional": false,
+                  "isOptional": true,
                   "defaultValue": null
                 },
                 {
@@ -16495,6 +16511,18 @@
                   "name": "postingDate",
                   "jsonName": null,
                   "type": "System.DateTime",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "objectType",
+                  "name": "objectType",
+                  "jsonName": null,
+                  "type": "System.String",
                   "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null,

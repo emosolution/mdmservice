@@ -27,7 +27,6 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         _currentTenant = currentTenant;
     }
 
-
     public override async Task<CompanyResponse> GetHOCompanyWithIdentityUser(
         GetHOCompanyWithIdentityUserRequest request, ServerCallContext context)
     {
@@ -54,7 +53,6 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
             return response;
         }
     }
-
 
     public override async Task<CompanyResponse> GetCompanyWithIdentityUser(
         GetCompanyWithIdentityUserRequest request, ServerCallContext context)

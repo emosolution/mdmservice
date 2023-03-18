@@ -2,25 +2,20 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Volo.Abp.MultiTenancy;
 using DMSpro.OMS.Shared.Protos.MdmService.NumberingConfigs;
-using Volo.Saas.Tenants;
 using System;
-using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigDetails;
 
 public class NumberingConfigsGRPCAppService : NumberingConfigsProtoAppService.NumberingConfigsProtoAppServiceBase
 {
     private readonly INumberingConfigDetailsAppService _numberingConfigDetailsAppService;
-    private readonly ICompanyRepository _companyRepository;
     private readonly ICurrentTenant _currentTenant;
 
     public NumberingConfigsGRPCAppService(
         INumberingConfigDetailsAppService numberingConfigDetailsAppService,
-        ICompanyRepository companyRepository,
         ICurrentTenant currentTenant)
     {
         _numberingConfigDetailsAppService = numberingConfigDetailsAppService;
-        _companyRepository = companyRepository;
         _currentTenant = currentTenant;
     }
 

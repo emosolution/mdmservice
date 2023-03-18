@@ -10,6 +10,7 @@ using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
@@ -49,6 +50,8 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private readonly IVATRepository _vATRepository;
         private readonly IUOMRepository _uOMRepository;
 
+        private readonly INumberingConfigDetailsAppService _numberingConfigDetailsAppService;
+
         private readonly IJsonSerializer _jsonSerializer;
 
         public SalesOrdersAppService(
@@ -72,6 +75,8 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             IVATRepository vATRepository,
             IUOMRepository uOMRepository,
 
+            INumberingConfigDetailsAppService numberingConfigDetailsAppService,
+
             IJsonSerializer jsonSerializer)
         {
             _itemRepository = itemRepository;
@@ -94,23 +99,29 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             _vATRepository = vATRepository;
             _uOMRepository = uOMRepository;
 
+            _numberingConfigDetailsAppService = numberingConfigDetailsAppService;
+
             _jsonSerializer = jsonSerializer;
         }
 
-        public async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate, 
-            DateTime? lastUpdateDate, Guid? identityUserId = null)
+
+        public async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate,
+            string objectType = "", DateTime? lastUpdateDate = null,
+            Guid? identityUserId = null)
         {
             await CheckCompany(companyId, identityUserId, postingDate);
             List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, postingDate);
             DateTime now = DateTime.Now;
             string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
 
-            string soInfo = await GetSOInfoStringAsync(zoneIds, postingDate, lastUpdateDate, nowString);
+            string soInfo = await GetSOInfoStringAsync(zoneIds, postingDate, nowString,
+                companyId, objectType, lastUpdateDate);
             return $"{{{soInfo}}}";
         }
 
-        private async Task<string> GetSOInfoStringAsync(List<Guid> zoneIds, DateTime postingDate,
-       DateTime? lastUpdateDate, string nowString)
+        private async Task<string> GetSOInfoStringAsync(List<Guid> zoneIds,
+            DateTime postingDate, string nowString, Guid companyId,
+            string objectType = "", DateTime? lastUpdateDate = null)
         {
             bool isForSO = true;
             (Dictionary<string, RouteDto> routeDictionary,
@@ -126,8 +137,10 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             (Dictionary<string, List<string>> itemsInItemGroupsDictionary,
             List<Guid> itemIds) = await GetAllItemsInNullItemGroup(isForSO);
 
+
             (Dictionary<string, ItemDto> itemDictionary,
             Dictionary<string, List<string>> uomGroupDictionary,
+            Dictionary<string, UOMGroupDto> uomGroupWithDetailsDictionary,
             List<string> allAltUomIds,
             List<Guid> vatIds) =
                 await GetItemDetailsFromItemIds(itemIds, isForSO);
@@ -151,15 +164,21 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             Dictionary<string, EmployeeDto> employeeDictionary) =
                 await GetEmployeesDictionaries(routeIds, postingDate);
 
+            var customerEmployeesDictionary =
+                GetCustomerEmployeesDictionary(customersRoutesDictionary,
+                    routesWithEmployeesDictionary);
+
             List<string> resultParts = new()
             {
                 $"\"customersRoutesDictionary\": {_jsonSerializer.Serialize(customersRoutesDictionary)}",
+                $"\"customerEmployeesDictionary\": {_jsonSerializer.Serialize(customerEmployeesDictionary)}",
                 $"\"routeDictionary\": {_jsonSerializer.Serialize(routeDictionary)}",
                 $"\"customersRoutesItemGroupsDictionary\": {_jsonSerializer.Serialize(customersRoutesItemGroupsDictionary)}",
                 $"\"customerDictionary\": {_jsonSerializer.Serialize(allCustomersInZoneDictionary)}",
                 $"\"itemsInItemGroupsDictionary\": {_jsonSerializer.Serialize(itemsInItemGroupsDictionary)}",
                 $"\"item\": {_jsonSerializer.Serialize(itemDictionary)}",
                 $"\"uomGroup\": {_jsonSerializer.Serialize(uomGroupDictionary)}",
+                $"\"uomGroupWithDetailsDictionary\": {_jsonSerializer.Serialize(uomGroupWithDetailsDictionary)}",
                 $"\"uom\": {_jsonSerializer.Serialize(uomDictionary)}",
                 $"\"vat\": {_jsonSerializer.Serialize(vatDictionary)}",
                 $"\"priceDictionary\": {_jsonSerializer.Serialize(priceDictionary)}",
@@ -170,6 +189,14 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 $"\"lastUpdated\": {nowString}",
                 $"\"updateRequired\": true",
             };
+
+            if (!string.IsNullOrEmpty(objectType))
+            {
+                var config =
+                    await _numberingConfigDetailsAppService.GetSuggestedNumberingConfigAsync(objectType, companyId);
+                resultParts.Add($"\"numberingConfig\": {_jsonSerializer.Serialize(config)}");
+            }
+
             return ($"\"soInfo\":{{{resultParts.JoinAsString(",")}}}");
         }
 
@@ -215,10 +242,12 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             }
             return (result, customerIdsWithoutRoute);
         }
+
         private async Task CheckCompany(Guid companyId, Guid? identityUserId, DateTime postingDate)
         {
             var companyDto =
-                await _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(identityUserId);
+                await _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(
+                    identityUserId, postingDate);
             if (companyDto.Id != companyId)
             {
                 throw new BusinessException(message: L["Error:ItemsAppService:550"], code: "1");
@@ -395,6 +424,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private async Task<(
             Dictionary<string, ItemDto>,
             Dictionary<string, List<string>>,
+            Dictionary<string, UOMGroupDto>,
             List<string>,
             List<Guid>
             )> GetItemDetailsFromItemIds(List<Guid> itemIds, bool isForSO)
@@ -403,6 +433,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             Dictionary<string, List<string>> uomGroupDictionary = new();
             List<string> allAltUomIds = new();
             List<Guid> vatIds = new();
+            Dictionary<string, UOMGroupDto> uomGroupWithDetailsDictionary = new();
 
             var items = (await _itemRepository.GetListAsync(x => x.Active == true &&
                 itemIds.Contains(x.Id))).Distinct().ToList();
@@ -424,9 +455,16 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 string uomGroupId = item.UomGroupId.ToString();
                 if (!uomGroupDictionary.ContainsKey(uomGroupId))
                 {
-                    var altUomIds = await GetAltUOMs(item.UomGroupId);
+                    (var altUomIds, var uomBaseId, var detailsDictionary) = 
+                        await GetUOMDetails(item.UomGroupId);
                     allAltUomIds.AddRange(altUomIds);
                     uomGroupDictionary.Add(uomGroupId, altUomIds);
+                    UOMGroupDto uomGroupDto = new()
+                    {
+                        baseUOMId = uomBaseId,
+                        detailsDictionary = detailsDictionary,
+                    };
+                    uomGroupWithDetailsDictionary.Add(uomGroupId, uomGroupDto);
                 }
                 if (itemDictionary.ContainsKey(itemId))
                 {
@@ -452,7 +490,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 };
                 itemDictionary.Add(itemId, dto);
             }
-            return (itemDictionary, uomGroupDictionary,
+            return (itemDictionary, uomGroupDictionary, uomGroupWithDetailsDictionary,
                 allAltUomIds, vatIds);
         }
 
@@ -479,33 +517,44 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             return result;
         }
 
-        private async Task<List<string>> GetAltUOMs(Guid uomGroupId)
+        private async Task<(List<string>,
+            string, 
+            Dictionary<string, UOMDetailDto>
+            )> GetUOMDetails(Guid uomGroupId)
         {
             var uomGroupDetails = await _uOMGroupDetailRepository.GetListAsync(
                 x => x.UOMGroupId == uomGroupId && x.Active == true);
-            var result = uomGroupDetails.Select(x => x.AltUOMId.ToString()).Distinct().ToList();
-            return result;
+
+            var altUOMIds = uomGroupDetails.Select(x => x.AltUOMId.ToString())
+                .Distinct().ToList();
+            var baseDetailIds = uomGroupDetails.Where(x => x.BaseQty == 1 && x.AltQty == 1 &&
+                x.BaseUOMId == x.AltUOMId).Select(x => x.Id).Distinct().ToList();
+            var baseUOMId = uomGroupDetails.Where(x => x.Id == baseDetailIds.First())
+                .Select(x => x.BaseUOMId.ToString()).First();
+            var details = uomGroupDetails.Where(x => !baseDetailIds.Contains(x.Id))
+                .Distinct().ToList();
+            var detailDtos = details.ToDictionary(x => x.AltUOMId.ToString(),
+                x => new UOMDetailDto()
+                    {
+                        altUOMId = x.AltUOMId.ToString(),
+                        altQty = (int)x.AltQty,
+                        baseQty = (int)x.BaseQty,
+                    });
+            return (altUOMIds, baseUOMId, detailDtos);
         }
 
         private async Task<Dictionary<string, UOMDto>> GetUOMDictionary(List<string> allAltUomIds)
         {
-            var uoms = await _uOMRepository.GetListAsync(x => allAltUomIds.Contains(x.Id.ToString()));
-            Dictionary<string, UOMDto> result = new();
-            foreach (var uom in uoms)
-            {
-                string id = uom.Id.ToString();
-                if (result.ContainsKey(id))
+            var uoms =
+                (await _uOMRepository.GetListAsync(x => allAltUomIds.Contains(x.Id.ToString())))
+                    .Distinct().ToList();
+            var result = uoms.ToDictionary(x => x.Id.ToString(),
+                x => new UOMDto()
                 {
-                    continue;
-                }
-                UOMDto dto = new()
-                {
-                    id = id,
-                    code = uom.Code,
-                    name = uom.Name,
-                };
-                result.Add(id, dto);
-            }
+                    id = x.Id.ToString(),
+                    code = x.Code,
+                    name = x.Name,
+                });
             return result;
         }
 
@@ -578,6 +627,35 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 .ToDictionary(x => x.Key, x => x.Select(x => x.EmployeeProfileId.ToString()).ToList());
             return (employeesInRoutesDictionary, routesWithEmployeesDictionary,
                 employeeDictionary);
+        }
+
+        private Dictionary<string, List<string>>
+            GetCustomerEmployeesDictionary(
+                Dictionary<string, List<string>> customerRouteDictionary,
+                Dictionary<string, List<string>> routeEmployeeDictionary)
+        {
+            Dictionary<string, List<string>> result = new();
+            foreach (var customerId in customerRouteDictionary.Keys)
+            {
+                List<string> resultEmployees = new();
+                result[customerId] = resultEmployees;
+                var routeIds = customerRouteDictionary[customerId];
+                foreach (var routeId in routeIds)
+                {
+                    if (routeEmployeeDictionary.TryGetValue(routeId, out var employeeList))
+                    {
+                        foreach (var employee in employeeList)
+                        {
+                            if (!resultEmployees.Contains(employee))
+                            {
+                                resultEmployees.Add(employee);
+                            }
+                        }
+                    }
+                }
+                result[customerId] = resultEmployees;
+            }
+            return result;
         }
 
         #region Get Item From Item Group Type
@@ -675,6 +753,23 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             public string name { get; set; }
             public string code { get; set; }
             public UOMDto() { }
+        }
+
+        private class UOMDetailDto
+        {
+            public string altUOMId { get; set; }
+            public int altQty { get; set; }
+            public int baseQty { get; set; }
+
+            public UOMDetailDto() { }
+        }
+
+        private class UOMGroupDto
+        {
+            public string baseUOMId { get; set; }
+            public Dictionary<string, UOMDetailDto> detailsDictionary { get; set; }
+
+            public UOMGroupDto() { }
         }
 
         private class CustomerDto

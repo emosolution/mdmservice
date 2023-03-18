@@ -167,11 +167,11 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
                 new SystemData { Code = "SY01", ValueCode = "M1", ValueName = "Customer", TenantId = eventData.Id },
                 new SystemData { Code = "SY01", ValueCode = "M2", ValueName = "Employee", TenantId = eventData.Id },
                 new SystemData { Code = "SY01", ValueCode = "M3", ValueName = "Route", TenantId = eventData.Id },
-                new SystemData { Code = "SY01", ValueCode = "S1", ValueName = "Sales Order", TenantId = eventData.Id },
-                new SystemData { Code = "SY01", ValueCode = "S2", ValueName = "Delivery", TenantId = eventData.Id },
-                new SystemData { Code = "SY01", ValueCode = "S3", ValueName = "A/R Invoice", TenantId = eventData.Id },
-                new SystemData { Code = "SY01", ValueCode = "S4", ValueName = "A/R Credit Memo", TenantId = eventData.Id },
-                new SystemData { Code = "SY01", ValueCode = "S5", ValueName = "Return Order", TenantId = eventData.Id },
+                //new SystemData { Code = "SY01", ValueCode = "S1", ValueName = "Sales Order", TenantId = eventData.Id },
+                //new SystemData { Code = "SY01", ValueCode = "S2", ValueName = "Delivery", TenantId = eventData.Id },
+                //new SystemData { Code = "SY01", ValueCode = "S3", ValueName = "A/R Invoice", TenantId = eventData.Id },
+                //new SystemData { Code = "SY01", ValueCode = "S4", ValueName = "A/R Credit Memo", TenantId = eventData.Id },
+                //new SystemData { Code = "SY01", ValueCode = "S5", ValueName = "Return Order", TenantId = eventData.Id },
                 new SystemData { Code = "SY01", ValueCode = "P1", ValueName = "Purchase Request", TenantId = eventData.Id },
                 new SystemData { Code = "SY01", ValueCode = "P2", ValueName = "Purchase Order", TenantId = eventData.Id },
                 new SystemData { Code = "SY01", ValueCode = "P3", ValueName = "A/P Invoice", TenantId = eventData.Id },
@@ -185,9 +185,9 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
                 new SystemData { Code = "SO01", ValueCode = "SO", ValueName = "Sale Order", TenantId = eventData.Id },
                 new SystemData { Code = "SO01", ValueCode = "DR", ValueName = "Delivery Request", TenantId = eventData.Id },
                 //SO03 - Order Source
-                new SystemData { Code = "SO03", ValueCode = "MANUAL", ValueName = "Manual", TenantId = eventData.Id },
-                new SystemData { Code = "SO03", ValueCode = "SFA", ValueName = "SFA", TenantId = eventData.Id },
-                new SystemData { Code = "SO03", ValueCode = "BBS", ValueName = "bonbonShop", TenantId = eventData.Id }
+                //new SystemData { Code = "SO03", ValueCode = "MANUAL", ValueName = "Manual", TenantId = eventData.Id },
+                //new SystemData { Code = "SO03", ValueCode = "SFA", ValueName = "SFA", TenantId = eventData.Id },
+                //new SystemData { Code = "SO03", ValueCode = "BBS", ValueName = "bonbonShop", TenantId = eventData.Id }
 
 
             };

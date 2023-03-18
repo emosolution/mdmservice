@@ -10,6 +10,8 @@ using System;
 using Volo.Abp;
 using Grpc.Net.Client;
 using DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers;
+using DMSpro.OMS.MdmService.Permissions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -50,6 +52,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             return results;
         }
 
+        [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Edit)]
         public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
             var selectedCompany = await _companiesInternalAppService.CheckActiveAsync(companyId, null, true);
@@ -72,6 +75,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             return selectedCompany;
         }
 
+        [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Default)]
         public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
             Guid? inputIdentityUserId = null, DateTime? checkTime = null)
         {
