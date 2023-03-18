@@ -47,20 +47,23 @@ namespace DMSpro.OMS.MdmService.SystemDatas
 
         public virtual async Task<SystemDataDto> GetSystemDataByCodeAndValueName(string code, string valueName)
         {
-            var items = await _systemDataRepository.GetListAsync(x => x.Code == code &&
-            x.ValueName == valueName);
-            if (items.Count != 1)
+            using (CurrentTenant.Change(null))
             {
-                var detailDict = new Dictionary<string, string>
+                var items = await _systemDataRepository.GetListAsync(x => x.Code == code &&
+            x.ValueName == valueName);
+                if (items.Count != 1)
                 {
-                    ["code"] = code,
-                    ["valueName"] = valueName,
-                };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:SystemData:550"],
-                    code: "1", details: detailString);
+                    var detailDict = new Dictionary<string, string>
+                    {
+                        ["code"] = code,
+                        ["valueName"] = valueName,
+                    };
+                    string detailString = JsonSerializer.Serialize(detailDict).ToString();
+                    throw new BusinessException(message: L["Error:SystemData:550"],
+                        code: "1", details: detailString);
+                }
+                return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
             }
-            return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
         }
 
         public virtual async Task<List<SystemDataDto>> GetNumberingConfigsSystemData()

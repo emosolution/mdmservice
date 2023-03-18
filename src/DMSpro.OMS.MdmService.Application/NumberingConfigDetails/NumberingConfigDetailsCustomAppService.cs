@@ -21,14 +21,16 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
-            var header = await _numberingConfigRepository.GetAsync(input.NumberingConfigId);
+            var headers = await _numberingConfigRepository.GetListAsync(x => x.Id == input.NumberingConfigId);
+            var header = headers.FirstOrDefault();
             var company = await _companyRepository.GetAsync(input.CompanyId);
-            var systemData = await _systemDataRepository.GetAsync(header.SystemDataId);
+            var systemDatas = await _systemDatasInternalAppService.GetNumberingConfigsSystemData();
+            var systemData = systemDatas.Where(x => x.Id == header.SystemDataId).First();
             (string prefix, int paddingZeroNumber, string suffix, int currentNumer, bool active) =
                 NumberingConfigDetailConsts.GetBaseDetailData(input.Suffix,
                 input.PaddingZeroNumber, input.Suffix, input.CurrentNumber,
                 input.Active, systemData.ValueName);
-            string description = $"Numbering config detail for compamy ${company.Code}, type ${systemData.ValueName}";
+            string description = $"Numbering config detail for compamy {company.Code}, type {systemData.ValueName}";
 
             var numberingConfigDetail = new NumberingConfigDetail(
                 GuidGenerator.Create(), input.NumberingConfigId, input.CompanyId,
@@ -75,7 +77,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 throw new BusinessException(message: L["Error:NumberingConfig:550"], code: "1");
             }
             var header = headers.First();
-            var details = 
+            var details =
                 await _numberingConfigDetailRepository.GetListAsync(
                     x => x.CompanyId == companyId &&
                     x.NumberingConfigId == header.Id);
