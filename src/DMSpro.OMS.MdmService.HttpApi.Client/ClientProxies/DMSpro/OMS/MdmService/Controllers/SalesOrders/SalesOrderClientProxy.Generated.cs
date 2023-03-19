@@ -16,15 +16,11 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrders;
 [ExposeServices(typeof(ISalesOrdersAppService), typeof(SalesOrderClientProxy))]
 public partial class SalesOrderClientProxy : ClientProxyBase<ISalesOrdersAppService>, ISalesOrdersAppService
 {
-    public virtual async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate, string objectType, DateTime? lastUpdateDate, Guid? identityUserId)
+    public virtual async Task<string> GetInfoSOAsync(GetInfoSODto input)
     {
         return await RequestAsync<string>(nameof(GetInfoSOAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(Guid), companyId },
-            { typeof(DateTime), postingDate },
-            { typeof(string), objectType },
-            { typeof(DateTime?), lastUpdateDate },
-            { typeof(Guid?), identityUserId }
+            { typeof(GetInfoSODto), input }
         });
     }
 }

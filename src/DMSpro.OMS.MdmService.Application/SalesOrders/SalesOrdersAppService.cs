@@ -105,17 +105,17 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
 
-        public async Task<string> GetInfoSOAsync(Guid companyId, DateTime postingDate,
-            string objectType = "", DateTime? lastUpdateDate = null,
-            Guid? identityUserId = null)
+        public async Task<string> GetInfoSOAsync(GetInfoSODto input)
         {
-            await CheckCompany(companyId, identityUserId, postingDate);
-            List<Guid> zoneIds = await GetAllSellingZoneIds(companyId, postingDate);
             DateTime now = DateTime.Now;
+            Guid? identityUserId = input.IdentityUserId == null ? CurrentUser.Id : (Guid) input.IdentityUserId;
+            DateTime postingDate = input.PostingDate == null ? now : (DateTime) input.PostingDate;
+            await CheckCompany(input.CompanyId, identityUserId, postingDate);
+            List<Guid> zoneIds = await GetAllSellingZoneIds(input.CompanyId, postingDate);
             string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
 
             string soInfo = await GetSOInfoStringAsync(zoneIds, postingDate, nowString,
-                companyId, objectType, lastUpdateDate);
+                input.CompanyId, input.ObjectType, input.LastUpdateDate);
             return $"{{{soInfo}}}";
         }
 

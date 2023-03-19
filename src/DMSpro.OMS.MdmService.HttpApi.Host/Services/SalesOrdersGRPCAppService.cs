@@ -30,11 +30,19 @@ public class SalesOrdersGRPCAppService : SalesOrdersProtoAppService.SalesOrdersP
         DateTime? lastUpdateDate =
             string.IsNullOrEmpty(request.LastUpdateDate)
                 ? null : DateTime.Parse(request.LastUpdateDate);
+        GetInfoSODto input = new()
+        {
+            CompanyId = companyId,
+            IdentityUserId = identityUserId,
+            PostingDate = postingDate,
+            LastUpdateDate = lastUpdateDate,
+            ObjectType = request.ObjectType,
+        };
+
         using (_currentTenant.Change(tenantId))
         {
             var result =
-                await _salesOrdersAppService.GetInfoSOAsync(companyId, postingDate,
-                    request.ObjectType, lastUpdateDate, identityUserId);
+                await _salesOrdersAppService.GetInfoSOAsync(input);
             GetInfoSOResponse response = new()
             {
                 TenantId = request.TenantId,

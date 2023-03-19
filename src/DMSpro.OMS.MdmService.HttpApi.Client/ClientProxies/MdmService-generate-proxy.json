@@ -16396,43 +16396,11 @@
                   "name": "GetInfoSOAsync",
                   "parametersOnMethod": [
                     {
-                      "name": "companyId",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto",
+                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto",
                       "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "postingDate",
-                      "typeAsString": "System.DateTime, System.Private.CoreLib",
-                      "type": "System.DateTime",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "objectType",
-                      "typeAsString": "System.String, System.Private.CoreLib",
-                      "type": "System.String",
-                      "typeSimple": "string",
-                      "isOptional": true,
-                      "defaultValue": ""
-                    },
-                    {
-                      "name": "lastUpdateDate",
-                      "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.DateTime?",
-                      "typeSimple": "string?",
-                      "isOptional": true,
-                      "defaultValue": null
-                    },
-                    {
-                      "name": "identityUserId",
-                      "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                      "type": "System.Guid?",
-                      "typeSimple": "string?",
-                      "isOptional": true,
                       "defaultValue": null
                     }
                   ],
@@ -16445,58 +16413,26 @@
             }
           ],
           "actions": {
-            "GetInfoSOAsyncByCompanyIdAndPostingDateAndObjectTypeAndLastUpdateDateAndIdentityUserId": {
-              "uniqueName": "GetInfoSOAsyncByCompanyIdAndPostingDateAndObjectTypeAndLastUpdateDateAndIdentityUserId",
+            "GetInfoSOAsyncByInput": {
+              "uniqueName": "GetInfoSOAsyncByInput",
               "name": "GetInfoSOAsync",
               "httpMethod": "GET",
               "url": "api/mdm-service/sales-orders/info-so",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "companyId",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrders.GetInfoSODto",
                   "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "postingDate",
-                  "typeAsString": "System.DateTime, System.Private.CoreLib",
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "objectType",
-                  "typeAsString": "System.String, System.Private.CoreLib",
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": true,
-                  "defaultValue": ""
-                },
-                {
-                  "name": "lastUpdateDate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": true,
-                  "defaultValue": null
-                },
-                {
-                  "name": "identityUserId",
-                  "typeAsString": "System.Nullable`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": true,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "companyId",
-                  "name": "companyId",
+                  "nameOnMethod": "input",
+                  "name": "CompanyId",
                   "jsonName": null,
                   "type": "System.Guid",
                   "typeSimple": "string",
@@ -16504,35 +16440,11 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
+                  "descriptorName": "input"
                 },
                 {
-                  "nameOnMethod": "postingDate",
-                  "name": "postingDate",
-                  "jsonName": null,
-                  "type": "System.DateTime",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "objectType",
-                  "name": "objectType",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "lastUpdateDate",
-                  "name": "lastUpdateDate",
+                  "nameOnMethod": "input",
+                  "name": "PostingDate",
                   "jsonName": null,
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
@@ -16540,11 +16452,35 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
+                  "descriptorName": "input"
                 },
                 {
-                  "nameOnMethod": "identityUserId",
-                  "name": "identityUserId",
+                  "nameOnMethod": "input",
+                  "name": "ObjectType",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "LastUpdateDate",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IdentityUserId",
                   "jsonName": null,
                   "type": "System.Guid?",
                   "typeSimple": "string?",
@@ -16552,7 +16488,7 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "ModelBinding",
-                  "descriptorName": ""
+                  "descriptorName": "input"
                 }
               ],
               "returnValue": {
