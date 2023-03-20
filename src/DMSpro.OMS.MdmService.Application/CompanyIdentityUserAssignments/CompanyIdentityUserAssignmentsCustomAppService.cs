@@ -75,12 +75,19 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             return selectedCompany;
         }
 
-        [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Default)]
+        //[Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Default)]
+        [AllowAnonymous]
         public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
             Guid? inputIdentityUserId = null, DateTime? checkTime = null)
         {
+            return await GetCurrentlySelectedCompany(inputIdentityUserId, checkTime);
+        }
+
+        public async Task<CompanyDto> GetCurrentlySelectedCompany(
+            Guid? inputIdentityUserId = null, DateTime? checkTime = null)
+        {
             DateTime time = checkTime == null ? DateTime.Now : (DateTime)checkTime;
-            Guid? identityUserId = inputIdentityUserId == null ? _currentUser.Id : (Guid) inputIdentityUserId;
+            Guid? identityUserId = inputIdentityUserId == null ? _currentUser.Id : (Guid)inputIdentityUserId;
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                 x.IdentityUserId == identityUserId);
             if (assignments.Count < 1)
