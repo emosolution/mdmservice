@@ -10,7 +10,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
     public partial class NumberingConfigDetailsAppService
     {
-        [Authorize(MdmServicePermissions.NumberingConfigs.CreateDetail)]
+        //[Authorize(MdmServicePermissions.NumberingConfigs.CreateDetail)]
+        [AllowAnonymous]
         public virtual async Task<NumberingConfigDetailDto> CreateAsync(NumberingConfigDetailCreateDto input)
         {
             if (input.NumberingConfigId == default)
@@ -92,7 +93,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             return (null, header);
         }
 
-        [Authorize(MdmServicePermissions.NumberingConfigs.Default)]
+        //[Authorize(MdmServicePermissions.NumberingConfigs.Default)]
+        [AllowAnonymous]
         public virtual async Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(
             string objectType, Guid companyId)
         {
@@ -129,7 +131,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             return dto;
         }
 
-        [Authorize(MdmServicePermissions.NumberingConfigs.Edit)]
+        //[Authorize(MdmServicePermissions.NumberingConfigs.Edit)]
+        [AllowAnonymous]
         public virtual async Task<NumberingConfigDetailDto> SaveNumberingConfigAsync(
             string objectType, Guid companyId, int currentNumber)
         {
