@@ -47,7 +47,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
         private readonly IMCPHeaderRepository _mcpHeaderRepository;
         private readonly IMCPDetailRepository _mcpDetailRepository;
-        private readonly ICompanyIdentityUserAssignmentsAppService _companyIdentityUserAssignmentsAppService;
+        private readonly ICompanyIdentityUserAssignmentsInternalAppService _companyIdentityUserAssignmentsInternalAppService;
         private readonly IVATRepository _vATRepository;
         private readonly IUOMRepository _uOMRepository;
 
@@ -72,7 +72,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             IEmployeeProfileRepository employeeProfileRepository,
             IMCPHeaderRepository mcpHeaderRepository,
             IMCPDetailRepository mcpDetailRepository,
-            ICompanyIdentityUserAssignmentsAppService companyIdentityUserAssignmentsAppService,
+            ICompanyIdentityUserAssignmentsInternalAppService companyIdentityUserAssignmentsInternalAppService,
             IVATRepository vATRepository,
             IUOMRepository uOMRepository,
 
@@ -85,7 +85,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             _companyInZoneRepository = companyInZoneRepository;
             _mcpHeaderRepository = mcpHeaderRepository;
             _mcpDetailRepository = mcpDetailRepository;
-            _companyIdentityUserAssignmentsAppService = companyIdentityUserAssignmentsAppService;
+            _companyIdentityUserAssignmentsInternalAppService = companyIdentityUserAssignmentsInternalAppService;
             _itemGroupRepository = itemGroupRepository;
             _itemGroupListRepository = itemGroupListRepository;
             _itemGroupAttributeRepository = itemGroupAttributeRepository;
@@ -106,7 +106,6 @@ namespace DMSpro.OMS.MdmService.SalesOrders
 
             LocalizationResource = typeof(MdmServiceResource);
         }
-
 
         public async Task<string> GetInfoSOAsync(GetInfoSODto input)
         {
@@ -249,7 +248,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private async Task CheckCompany(Guid companyId, Guid? identityUserId, DateTime postingDate)
         {
             var companyDto =
-                await _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(
+                await _companyIdentityUserAssignmentsInternalAppService.GetCurrentlySelectedCompanyAsync(
                     identityUserId, postingDate);
             if (companyDto.Id != companyId)
             {
