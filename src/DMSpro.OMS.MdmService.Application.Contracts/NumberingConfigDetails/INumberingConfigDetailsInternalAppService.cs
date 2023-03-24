@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Services;
 
 namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 {
-    public partial interface INumberingConfigDetailsAppService
+    public interface INumberingConfigDetailsInternalAppService : IApplicationService
     {
         Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(string objectType, Guid companyId);
 
