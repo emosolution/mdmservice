@@ -8,6 +8,7 @@ using DMSpro.OMS.MdmService.ItemGroupAttributes;
 using DMSpro.OMS.MdmService.ItemGroupLists;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.Localization;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
@@ -102,6 +103,8 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             _numberingConfigDetailsAppService = numberingConfigDetailsAppService;
 
             _jsonSerializer = jsonSerializer;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
 
@@ -250,7 +253,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     identityUserId, postingDate);
             if (companyDto.Id != companyId)
             {
-                throw new BusinessException(message: L["Error:ItemsAppService:550"], code: "1");
+                throw new BusinessException(message: L["Error:SalesOrdersAppService:550"], code: "1");
             }
         }
 
@@ -637,7 +640,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             {
                 return await GetAllItemIdsFromItemGroupAttr(itemGroup.Id);
             }
-            throw new BusinessException(message: L["Error:ItemsAppService:552"], code: "1");
+            throw new BusinessException(message: L["Error:SalesOrdersAppService:551"], code: "1");
         }
 
         private async Task<List<Guid>> GetAllItemIdsFromItemGroupList(Guid itemGroupId)
