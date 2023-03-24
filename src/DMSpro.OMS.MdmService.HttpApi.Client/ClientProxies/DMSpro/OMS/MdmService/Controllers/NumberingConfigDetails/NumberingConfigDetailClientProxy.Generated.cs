@@ -44,25 +44,6 @@ public partial class NumberingConfigDetailClientProxy : ClientProxyBase<INumberi
         });
     }
 
-    public virtual async Task<NumberingConfigDetailDto> GetSuggestedNumberingConfigAsync(string objectType, Guid companyId)
-    {
-        return await RequestAsync<NumberingConfigDetailDto>(nameof(GetSuggestedNumberingConfigAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(string), objectType },
-            { typeof(Guid), companyId }
-        });
-    }
-
-    public virtual async Task<NumberingConfigDetailDto> SaveNumberingConfigAsync(string objectType, Guid companyId, int currentNumber)
-    {
-        return await RequestAsync<NumberingConfigDetailDto>(nameof(SaveNumberingConfigAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(string), objectType },
-            { typeof(Guid), companyId },
-            { typeof(int), currentNumber }
-        });
-    }
-
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue
