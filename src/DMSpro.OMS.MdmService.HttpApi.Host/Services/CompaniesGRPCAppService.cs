@@ -14,19 +14,19 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
     private readonly ICompaniesInternalAppService _companiesInternalAppService;
     private readonly ICompanyRepository _companyRepository;
     private readonly ICompanyIdentityUserAssignmentRepository _userAssignmentRepository;
-    private readonly ICompanyIdentityUserAssignmentsAppService _userAssignmentsAppService;
+    private readonly ICompanyIdentityUserAssignmentsInternalAppService _userAssignmentsInternalAppService;
     private readonly ICurrentTenant _currentTenant;
 
     public CompaniesGRPCAppService(ICompaniesInternalAppService companiesInternalAppService,
         ICompanyRepository companyRepository,
         ICompanyIdentityUserAssignmentRepository userAssignmentRepository,
-        ICompanyIdentityUserAssignmentsAppService userAssignmentsAppService,
+        ICompanyIdentityUserAssignmentsInternalAppService userAssignmentsInternalAppService,
         ICurrentTenant currentTenant)
     {
         _companiesInternalAppService = companiesInternalAppService;
         _companyRepository = companyRepository;
         _userAssignmentRepository = userAssignmentRepository;
-        _userAssignmentsAppService = userAssignmentsAppService;
+        _userAssignmentsInternalAppService = userAssignmentsInternalAppService;
         _currentTenant = currentTenant;
     }
 
@@ -133,7 +133,7 @@ public class CompaniesGRPCAppService : CompaniesProtoAppService.CompaniesProtoAp
         using (_currentTenant.Change(tenantId))
         {
             var dto =
-                await _userAssignmentsAppService.GetCurrentlySelectedCompanyAsync(identityUserId);
+                await _userAssignmentsInternalAppService.GetCurrentlySelectedCompanyAsync(identityUserId);
             CompanyResponse response = new()
             {
                 Company = new()

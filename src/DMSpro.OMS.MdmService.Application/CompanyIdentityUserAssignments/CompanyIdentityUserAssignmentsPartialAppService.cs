@@ -18,6 +18,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompaniesInternalAppService _companiesInternalAppService;
         private readonly ICurrentUser _currentUser;
+        private readonly ICompanyIdentityUserAssignmentsInternalAppService _companyIdentityUserAssignmentsInternalAppService;
 
         public CompanyIdentityUserAssignmentsAppService(ICurrentTenant currentTenant,
             ICompanyIdentityUserAssignmentRepository repository,
@@ -26,12 +27,14 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             ICompanyRepository companyRepository,
             ICompaniesInternalAppService companiesInternalAppService,
             ICurrentUser currentUser,
-            IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
+            ICompanyIdentityUserAssignmentsInternalAppService companyIdentityUserAssignmentsInternalAppService)
             : base(currentTenant, repository, settingProvider)
         {
             _companyIdentityUserAssignmentRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _companyIdentityUserAssignmentManager = companyIdentityUserAssignmentManager;
+            _companyIdentityUserAssignmentsInternalAppService = companyIdentityUserAssignmentsInternalAppService;
             _currentUser = currentUser;
 
             _companyRepository = companyRepository;
