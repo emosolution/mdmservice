@@ -71,7 +71,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             using (CurrentTenant.Change(null))
             {
                 var items =
-                    await _systemDataRepository.GetListAsync(x => x.Code == NumberingConfigConsts.SystemDataCode);
+                    await _systemDataRepository.GetNumberingConfigsSystemDataAsync();
                 return ObjectMapper.Map<List<SystemData>, List<SystemDataDto>>(items);
             }
         }

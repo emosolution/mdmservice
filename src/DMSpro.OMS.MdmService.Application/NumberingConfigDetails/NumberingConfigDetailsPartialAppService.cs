@@ -23,16 +23,20 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly ISystemDatasInternalAppService _systemDatasInternalAppService;
 
+        private readonly NumberingConfigDetailManager _numberingConfigDetailManager;
+
         public NumberingConfigDetailsAppService(ICurrentTenant currentTenant,
             INumberingConfigDetailRepository repository,
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
             INumberingConfigRepository numberingConfigRepository,
             ISystemDataRepository systemDataRepository,
-            ISystemDatasInternalAppService systemDatasInternalAppService)
+            ISystemDatasInternalAppService systemDatasInternalAppService,
+            NumberingConfigDetailManager numberingConfigDetailManager)
             : base(currentTenant, repository, settingProvider)
         {
             _numberingConfigDetailRepository = repository;
+            _numberingConfigDetailManager = numberingConfigDetailManager;
 
             _companyRepository = companyRepository;
             _numberingConfigRepository = numberingConfigRepository;

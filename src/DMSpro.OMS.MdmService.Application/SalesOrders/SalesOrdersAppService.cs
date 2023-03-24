@@ -51,7 +51,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         private readonly IVATRepository _vATRepository;
         private readonly IUOMRepository _uOMRepository;
 
-        private readonly INumberingConfigDetailsAppService _numberingConfigDetailsAppService;
+        private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
 
         private readonly IJsonSerializer _jsonSerializer;
 
@@ -76,7 +76,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             IVATRepository vATRepository,
             IUOMRepository uOMRepository,
 
-            INumberingConfigDetailsAppService numberingConfigDetailsAppService,
+            INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
 
             IJsonSerializer jsonSerializer)
         {
@@ -100,7 +100,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             _vATRepository = vATRepository;
             _uOMRepository = uOMRepository;
 
-            _numberingConfigDetailsAppService = numberingConfigDetailsAppService;
+            _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
 
             _jsonSerializer = jsonSerializer;
 
@@ -196,7 +196,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             if (!string.IsNullOrEmpty(objectType))
             {
                 var config =
-                    await _numberingConfigDetailsAppService.GetSuggestedNumberingConfigAsync(objectType, companyId);
+                    await _numberingConfigDetailsInternalAppService.GetSuggestedNumberingConfigAsync(objectType, companyId);
                 resultParts.Add($"\"numberingConfig\": {_jsonSerializer.Serialize(config)}");
             }
 

@@ -8,14 +8,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails;
 
 public class NumberingConfigsGRPCAppService : NumberingConfigsProtoAppService.NumberingConfigsProtoAppServiceBase
 {
-    private readonly INumberingConfigDetailsAppService _numberingConfigDetailsAppService;
+    private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
     private readonly ICurrentTenant _currentTenant;
 
     public NumberingConfigsGRPCAppService(
-        INumberingConfigDetailsAppService numberingConfigDetailsAppService,
+        INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
         ICurrentTenant currentTenant)
     {
-        _numberingConfigDetailsAppService = numberingConfigDetailsAppService;
+        _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
         _currentTenant = currentTenant;
     }
 
@@ -29,7 +29,7 @@ public class NumberingConfigsGRPCAppService : NumberingConfigsProtoAppService.Nu
         using (_currentTenant.Change(tenantId))
         {
             var dto =
-                await _numberingConfigDetailsAppService.GetSuggestedNumberingConfigAsync(
+                await _numberingConfigDetailsInternalAppService.GetSuggestedNumberingConfigAsync(
                     request.ObjectType, companyId);
             response.NumberingConfig =
                 new DMSpro.OMS.Shared.Protos.MdmService.NumberingConfigs.NumberingConfig()
@@ -57,7 +57,7 @@ public class NumberingConfigsGRPCAppService : NumberingConfigsProtoAppService.Nu
         using (_currentTenant.Change(tenantId))
         {
             var dto =
-                await _numberingConfigDetailsAppService.SaveNumberingConfigAsync(
+                await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(
                     request.ObjectType, companyId, request.CurrentNumber);
             response.NumberingConfig =
                 new DMSpro.OMS.Shared.Protos.MdmService.NumberingConfigs.NumberingConfig()
