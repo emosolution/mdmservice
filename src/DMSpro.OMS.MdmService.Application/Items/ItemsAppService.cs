@@ -18,6 +18,9 @@ using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.PriceLists;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -165,6 +168,37 @@ namespace DMSpro.OMS.MdmService.Items
             var item = await _itemManager.CreateAsync(
             input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Code, input.Name, input.ShortName, input.erpCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice, input.Active, input.ManageItemBy, input.CanUpdate, input.PurUnitRate, input.SalesUnitRate, input.ExpiredType, input.ExpiredValue, input.IssueMethod
             );
+
+            //Add Item to Price List
+            if (await _priceListRepository.CountAsync() > 0)
+            {
+                var priceListCollection = await _priceListRepository.GetListAsync();
+                foreach (var priceList in priceListCollection)
+                {
+                    PriceListDetail priceListDetailObj = new()
+                    {
+                        PriceListId = priceList.Id,
+                        Description = "",
+                        ItemId = item.Id,
+                        UOMId = item.InventoryUOMId,
+                        BasedOnPrice = item.BasePrice,
+                        Price = item.BasePrice,
+                    };
+                    switch (priceList.ArithmeticOperation)
+                    {
+                        case ArithmeticOperator.ADD:
+                            priceListDetailObj.Price = item.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            break;
+                        case ArithmeticOperator.SUBTRACT:
+                            priceListDetailObj.Price = item.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    await _priceListDetailRepository.InsertAsync(priceListDetailObj);
+                }
+            }
 
             return ObjectMapper.Map<Item, ItemDto>(item);
         }

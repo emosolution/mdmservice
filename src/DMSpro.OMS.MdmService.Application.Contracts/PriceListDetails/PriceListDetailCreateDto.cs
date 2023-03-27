@@ -8,7 +8,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
     {
         public decimal Price { get; set; }
         public decimal? BasedOnPrice { get; set; }
-        [Required]
         public string Description { get; set; }
         public Guid PriceListId { get; set; }
         public Guid UOMId { get; set; }

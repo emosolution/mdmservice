@@ -12,6 +12,8 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.PriceLists;
+using DMSpro.OMS.MdmService.PriceListDetails;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -32,6 +34,8 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IVATRepository _vATRepository;
         private readonly IUOMGroupRepository _uOMGroupRepository;
         private readonly ISystemDataRepository _systemDataRepository;
+        private readonly IPriceListRepository _priceListRepository;
+        private readonly IPriceListDetailRepository _priceListDetailRepository;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
         private readonly IUOMRepository _uOMRepository;
 
@@ -48,6 +52,8 @@ namespace DMSpro.OMS.MdmService.Items
             IItemAttributeValueRepository itemAttributeValueRepository,
             IUOMRepository uOMRepository,
             ISystemDataRepository systemDataRepository,
+            IPriceListRepository priceListRepository,
+            IPriceListDetailRepository priceListDetailRepository,
             IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
             : base(currentTenant, repository, settingProvider)
         {
@@ -62,6 +68,8 @@ namespace DMSpro.OMS.MdmService.Items
 
             _vATRepository = vATRepository;
             _systemDataRepository = systemDataRepository;
+            _priceListRepository = priceListRepository;
+            _priceListDetailRepository = priceListDetailRepository;
             _itemAttributeValueRepository = itemAttributeValueRepository;
             _uOMGroupRepository = uOMGroupRepository;
             _uOMRepository = uOMRepository;
