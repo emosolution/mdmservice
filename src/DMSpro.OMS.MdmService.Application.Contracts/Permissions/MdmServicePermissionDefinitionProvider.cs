@@ -117,6 +117,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceListAssignments);
         pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceListAssignments);
         pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.PriceListAssignments);
+        pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Release, L("Permission:MdmService:PriceListAssignment:Release")).RequireFeatures(MdmFeatures.PriceListAssignments);
 
         // Sales Organization group
         var workingPositionPermission = myGroup.AddPermission(MdmServicePermissions.WorkingPositions.Default, L("Permission:MdmService:WorkingPosition")).RequireFeatures(MdmFeatures.WorkingPositions);
