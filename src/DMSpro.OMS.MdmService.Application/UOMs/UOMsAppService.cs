@@ -11,6 +11,7 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.UOMs
 {
@@ -38,13 +39,17 @@ namespace DMSpro.OMS.MdmService.UOMs
         [Authorize(MdmServicePermissions.UOMs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            if (await _uOMGroupDetailRepository.AnyAsync(x => x.BaseUOMId == id))
+            {
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            }
+            
             await _uOMRepository.DeleteAsync(id);
         }
 
         [Authorize(MdmServicePermissions.UOMs.Create)]
         public virtual async Task<UOMDto> CreateAsync(UOMCreateDto input)
         {
-
             var uOM = await _uOMManager.CreateAsync(
             input.Code, input.Name
             );

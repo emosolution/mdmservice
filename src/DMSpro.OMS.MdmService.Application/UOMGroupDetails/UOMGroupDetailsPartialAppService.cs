@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.UOMGroups;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
@@ -21,13 +22,15 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 
 		private readonly IUOMRepository _uOMRepository;
 		private readonly IUOMGroupRepository _uOMGroupRepository;
+        private readonly IItemRepository _itemRepository;
 
-		public UOMGroupDetailsAppService(ICurrentTenant currentTenant,
+        public UOMGroupDetailsAppService(ICurrentTenant currentTenant,
 			IUOMGroupDetailRepository repository,
 			UOMGroupDetailManager uOMGroupDetailManager,
 			IConfiguration settingProvider,
 			IUOMRepository uOMRepository,
 			IUOMGroupRepository uOMGroupRepository,
+			IItemRepository itemRepository,
 			IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider)
 		{
@@ -37,8 +40,8 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 			
 			_uOMRepository = uOMRepository;
 			_uOMGroupRepository= uOMGroupRepository;
-
-			_repositories.AddIfNotContains(
+            _itemRepository = itemRepository;
+            _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IUOMGroupDetailRepository", _uOMGroupDetailRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IUOMRepository", _uOMRepository));
