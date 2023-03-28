@@ -516,7 +516,7 @@
       "EntitySetNameWithDuplicationNumber": "PriceLists",
       "ReferencePropertyName": "PriceList",
       "UiPickType": "Dropdown",
-      "IsRequired": true,
+      "IsRequired": false,
       "Name": "PriceListId",
       "DisplayProperty": "Code",
       "Namespace": "DMSpro.OMS.MdmService.PriceLists",

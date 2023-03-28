@@ -78,7 +78,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public virtual DateTime LastOrderDate { get; set; }
         public Guid? PaymentTermId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
-        public Guid PriceListId { get; set; }
+        public Guid? PriceListId { get; set; }
         public Guid? GeoMaster0Id { get; set; }
         public Guid? GeoMaster1Id { get; set; }
         public Guid? GeoMaster2Id { get; set; }
@@ -106,19 +106,12 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? Attribute19Id { get; set; }
         public Guid? PaymentId { get; set; }
 
-        public virtual GeoMaster GeoMaster0 { get; set; }
-        public virtual GeoMaster GeoMaster1 { get; set; }
-        public virtual GeoMaster GeoMaster2 { get; set; }
-        public virtual GeoMaster GeoMaster3 { get; set; }
-        public virtual GeoMaster GeoMaster4 { get; set; }
-        public virtual PriceList PriceList { get; set; }
-        //public virtual Company LinkedCompany { get; set; }
         public Customer()
         {
 
         }
 
-        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
+        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
         {
 
             Id = id;

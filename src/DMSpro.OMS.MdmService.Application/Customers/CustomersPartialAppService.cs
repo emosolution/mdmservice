@@ -19,8 +19,6 @@ namespace DMSpro.OMS.MdmService.Customers
 		ICustomersAppService
 	{
 		private readonly ICustomerRepository _customerRepository;
-		private readonly IDistributedCache<CustomerExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
 		private readonly CustomerManager _customerManager;
 		private readonly ICustomerAttachmentRepository _customerAttachmentRepository;
 
@@ -39,12 +37,10 @@ namespace DMSpro.OMS.MdmService.Customers
 			IPriceListRepository priceListRepository,
 			IGeoMasterRepository geoMasterRepository,
             ICusAttributeValueRepository cusAttributeValueRepository,
-			ICompanyRepository companyRepository,
-			IDistributedCache<CustomerExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			ICompanyRepository companyRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
 		{
 			_customerRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_customerManager = customerManager;
 			_customerAttachmentRepository = customerAttachmentRepository;
 			

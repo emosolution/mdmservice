@@ -1,10 +1,20 @@
+using DMSpro.OMS.MdmService.GeoMasters;
+using DMSpro.OMS.MdmService.PriceLists;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
 	public partial class Customer
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual GeoMaster GeoMaster0 { get; set; }
+        public virtual GeoMaster GeoMaster1 { get; set; }
+        public virtual GeoMaster GeoMaster2 { get; set; }
+        public virtual GeoMaster GeoMaster3 { get; set; }
+        public virtual GeoMaster GeoMaster4 { get; set; }
+        public virtual PriceList? PriceList { get; set; }
+        //public virtual Company LinkedCompany { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public DateTime LastOrderDate { get; set; }
         public Guid? PaymentTermId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
-        public Guid PriceListId { get; set; }
+        public Guid? PriceListId { get; set; }
         public Guid? GeoMaster0Id { get; set; }
         public Guid? GeoMaster1Id { get; set; }
         public Guid? GeoMaster2Id { get; set; }

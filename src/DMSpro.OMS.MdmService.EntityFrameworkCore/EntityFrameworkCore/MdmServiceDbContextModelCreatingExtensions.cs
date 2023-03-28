@@ -745,7 +745,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.LastOrderDate).HasColumnName(nameof(Customer.LastOrderDate));
             b.HasOne<SystemData>().WithMany().HasForeignKey(x => x.PaymentTermId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>().WithMany().HasForeignKey(x => x.LinkedCompanyId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<PriceList>(x => x.PriceList).WithMany().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);

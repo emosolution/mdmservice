@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.Customers
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _customersAppService.GetListAsync(new GetCustomersInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Customer.Id == Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")).ShouldBe(true);
-            result.Items.Any(x => x.Customer.Id == Guid.Parse("0fe1132a-a470-49af-976c-0132f54e3aa7")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
