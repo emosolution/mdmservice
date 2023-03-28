@@ -24,14 +24,12 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
         public virtual bool Active { get; set; }
 
-        public virtual bool IsSellingCategory { get; set; }
-
         public ItemAttribute()
         {
 
         }
 
-        public ItemAttribute(Guid id, int attrNo, string attrName, bool active, bool isSellingCategory, int? hierarchyLevel = null)
+        public ItemAttribute(Guid id, int attrNo, string attrName, bool active, int? hierarchyLevel = null)
         {
 
             Id = id;
@@ -50,7 +48,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             AttrNo = attrNo;
             AttrName = attrName;
             Active = active;
-            IsSellingCategory = isSellingCategory;
             HierarchyLevel = hierarchyLevel;
         }
 

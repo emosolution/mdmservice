@@ -1,3 +1,4 @@
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;

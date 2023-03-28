@@ -527,7 +527,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.AttrName).HasColumnName(nameof(ItemAttribute.AttrName)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNameMaxLength);
             b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
             b.Property(x => x.Active).HasColumnName(nameof(ItemAttribute.Active));
-            b.Property(x => x.IsSellingCategory).HasColumnName(nameof(ItemAttribute.IsSellingCategory));
         });
 
         builder.Entity<ItemGroupAttribute>(b =>

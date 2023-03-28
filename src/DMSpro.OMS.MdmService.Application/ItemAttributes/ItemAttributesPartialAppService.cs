@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -13,20 +12,13 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 		IItemAttributesAppService
 	{
 		private readonly IItemAttributeRepository _itemAttributeRepository;
-		private readonly IDistributedCache<ItemAttributeExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly ItemAttributeManager _itemAttributeManager;
 
 		public ItemAttributesAppService(ICurrentTenant currentTenant,
 			IItemAttributeRepository repository,
-			ItemAttributeManager itemAttributeManager,
-			IConfiguration settingProvider,
-			IDistributedCache<ItemAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributes.Default)
 		{
 			_itemAttributeRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_itemAttributeManager = itemAttributeManager;
 			
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemAttributeRepository", _itemAttributeRepository));

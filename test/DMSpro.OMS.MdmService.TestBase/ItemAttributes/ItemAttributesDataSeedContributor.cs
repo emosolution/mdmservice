@@ -29,22 +29,20 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
             await _itemAttributeRepository.InsertAsync(new ItemAttribute
             (
-                id: Guid.Parse("42932fe9-fb80-4320-ba30-24dcef522f8f"),
-                attrNo: 18,
-                attrName: "601d6242fcbb447b8d0b",
-                hierarchyLevel: 1831578934,
-                active: true,
-                isSellingCategory: true
+                id: Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
+                attrNo: 4,
+                attrName: "8bd5f05b8ea241ae9c16",
+                hierarchyLevel: 1482070413,
+                active: true
             ));
 
             await _itemAttributeRepository.InsertAsync(new ItemAttribute
             (
-                id: Guid.Parse("d3b859c6-5b84-454c-a914-68680e430af5"),
-                attrNo: 3,
-                attrName: "e0f2827c1ba846ad8edf",
-                hierarchyLevel: 1841818253,
-                active: true,
-                isSellingCategory: true
+                id: Guid.Parse("034e167b-d081-4290-bd89-8f61afe77ad6"),
+                attrNo: 7,
+                attrName: "a7875aca46cc4993b9ad",
+                hierarchyLevel: 556463913,
+                active: true
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

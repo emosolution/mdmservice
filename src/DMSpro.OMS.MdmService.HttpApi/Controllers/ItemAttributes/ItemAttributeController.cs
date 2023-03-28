@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemAttributes;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
 {
@@ -21,12 +18,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
         public ItemAttributeController(IItemAttributesAppService itemAttributesAppService)
         {
             _itemAttributesAppService = itemAttributesAppService;
-        }
-
-        [HttpGet]
-        public virtual Task<PagedResultDto<ItemAttributeDto>> GetListAsync(GetItemAttributesInput input)
-        {
-            return _itemAttributesAppService.GetListAsync(input);
         }
 
         [HttpGet]
@@ -54,20 +45,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
         public virtual Task DeleteAsync(Guid id)
         {
             return _itemAttributesAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemAttributeExcelDownloadDto input)
-        {
-            return _itemAttributesAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _itemAttributesAppService.GetDownloadTokenAsync();
         }
     }
 }

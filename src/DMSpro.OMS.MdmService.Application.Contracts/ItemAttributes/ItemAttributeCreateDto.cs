@@ -13,6 +13,5 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         public string AttrName { get; set; }
         public int? HierarchyLevel { get; set; }
         public bool Active { get; set; } = false;
-        public bool IsSellingCategory { get; set; } = false;
     }
 }

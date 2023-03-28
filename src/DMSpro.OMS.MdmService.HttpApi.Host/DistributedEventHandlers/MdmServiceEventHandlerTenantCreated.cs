@@ -87,7 +87,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
             short AttrNo = (short)i;
             string AttrName = "Attribute " + i;
             Guid id = _guidGenerator.Create();
-            ItemAttribute data = new(id, AttrNo, AttrName, false, false, null);
+            ItemAttribute data = new(id, AttrNo, AttrName, false, null);
             seedProductAttributes.Add(data);
         }
         await _itemAttributeRepository.InsertManyAsync(seedProductAttributes);

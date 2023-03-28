@@ -321,7 +321,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CompanyIdentityUserAssignmentWithNavigationProperties, CompanyIdentityUserAssignmentWithNavigationPropertiesDto>();
 
         CreateMap<ItemAttribute, ItemAttributeDto>();
-        CreateMap<ItemAttribute, ItemAttributeExcelDto>();
 
         CreateMap<ItemAttributeValue, ItemAttributeValueDto>();
         CreateMap<ItemAttributeValue, ItemAttributeValueWithDetailsDto>();
