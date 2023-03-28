@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 			SalesOrgHeaderManager salesOrgHeaderManager,
 			IConfiguration settingProvider,
 			IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHeaders.Default)
 		{
 			_salesOrgHeaderRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

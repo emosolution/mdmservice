@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Streets
 			StreetManager streetManager,
 			IConfiguration settingProvider,
 			IDistributedCache<StreetExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Streets.Default)
 		{
 			_streetRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

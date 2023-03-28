@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Currencies
 			CurrencyManager currencyManager,
 			IConfiguration settingProvider,
 			IDistributedCache<CurrencyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Currencies.Default)
 		{
 			_currencyRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

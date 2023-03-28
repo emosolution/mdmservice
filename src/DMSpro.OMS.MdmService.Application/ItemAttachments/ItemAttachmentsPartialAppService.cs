@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.ItemAttachments
             IConfiguration settingProvider,
             IItemRepository itemRepository,
             IDistributedCache<ItemAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.Items.Default)
         {
             _itemAttachmentRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

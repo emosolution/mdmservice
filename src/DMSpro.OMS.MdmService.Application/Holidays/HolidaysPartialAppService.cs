@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.Holidays
 			HolidayManager holidayManager,
 			IConfiguration settingProvider,
 			IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Holidays.Default)
 		{
 			_holidayRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

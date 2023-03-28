@@ -23,6 +23,8 @@ using Volo.Abp.MultiTenancy;
 using Grpc.Core;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Localization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace DMSpro.OMS.MdmService.Partial
 {
@@ -58,22 +60,31 @@ namespace DMSpro.OMS.MdmService.Partial
         private readonly Dictionary<string, Type> _structureType = new();
         private readonly List<string> _structurePropertyName = new();
         private readonly List<Guid> _guidForUpdate = new();
+        protected readonly string _permissionDefault;
 
         protected readonly Dictionary<string, object> _repositories = new();
 
         public PartialAppService(ICurrentTenant currentTenant,
             TRepository repository,
-            IConfiguration settingProvider)
+            IConfiguration settingProvider, string permissionDefault)
         {
             _repository = repository;
             _settingProvider = settingProvider;
             _currentTenant = currentTenant;
-
+            _permissionDefault = permissionDefault;
             LocalizationResource = typeof(MdmServiceResource);
+        }
+
+        private async Task CheckPermission(string operationPermission = "")
+        {
+            string lastString = operationPermission == "" ? "" : $".{operationPermission}";
+            await AuthorizationService.CheckAsync($"{_permissionDefault}{lastString}");
         }
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
+            //await AuthorizationService.CheckAsync(MdmService);
+            await CheckPermission("");
             var items = await _repository.WithDetailsAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);

@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.VATs
 			VATManager vATManager,
 			IConfiguration settingProvider,
 			IDistributedCache<VATExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.VATs.Default)
 		{
 			_vATRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

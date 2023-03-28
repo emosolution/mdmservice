@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             ISystemDataRepository systemDataRepository,
             ISystemDatasInternalAppService systemDatasInternalAppService,
             NumberingConfigDetailManager numberingConfigDetailManager)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.NumberingConfigs.Default)
         {
             _numberingConfigDetailRepository = repository;
             _numberingConfigDetailManager = numberingConfigDetailManager;

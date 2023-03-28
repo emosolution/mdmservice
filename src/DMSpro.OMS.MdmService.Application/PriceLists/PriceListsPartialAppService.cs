@@ -27,7 +27,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 			IPriceListDetailRepository priceListDetailRepository,
 			IItemRepository itemRepository,
 			IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceLists.Default)
 		{
 			_priceListRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 			ItemGroupManager itemGroupManager,
 			IConfiguration settingProvider,
 			IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemGroups.Default)
 		{
 			_itemGroupRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

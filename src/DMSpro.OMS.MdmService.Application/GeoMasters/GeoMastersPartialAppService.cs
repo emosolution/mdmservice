@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
 			GeoMasterManager geoMasterManager,
 			IConfiguration settingProvider,
 			IDistributedCache<GeoMasterExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.GeoMasters.Default)
 		{
 			_geoMasterRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

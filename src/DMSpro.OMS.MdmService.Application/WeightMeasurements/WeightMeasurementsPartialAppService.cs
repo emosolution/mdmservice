@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
 			WeightMeasurementManager weightMeasurementManager,
 			IConfiguration settingProvider,
 			IDistributedCache<WeightMeasurementExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.WeightMeasurements.Default)
 		{
 			_weightMeasurementRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

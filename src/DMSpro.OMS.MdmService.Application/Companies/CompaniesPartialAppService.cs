@@ -24,7 +24,7 @@ namespace DMSpro.OMS.MdmService.Companies
             CompanyManager companyManager,
             IConfiguration settingProvider,
             IDistributedCache<CompanyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider,MdmServicePermissions.CompanyMasters.Default)
         {
             _companyRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

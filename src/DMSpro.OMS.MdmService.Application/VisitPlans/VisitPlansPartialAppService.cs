@@ -41,7 +41,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             ICustomerRepository customerRepository,
             ICompanyRepository companyRepository,
             IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.VisitPlans.Default)
         {
             _visitPlanRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

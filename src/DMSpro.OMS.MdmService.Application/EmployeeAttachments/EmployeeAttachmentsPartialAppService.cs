@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.EmployeeAttachments
 			IConfiguration settingProvider,
 			IEmployeeProfileRepository employeeProfileRepository,
 			IDistributedCache<EmployeeAttachmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.EmployeeProfiles.Default)
 		{
 			_employeeAttachmentRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

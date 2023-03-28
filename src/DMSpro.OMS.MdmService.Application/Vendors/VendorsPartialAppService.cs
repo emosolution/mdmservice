@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             IGeoMasterRepository geoMasterRepository,
             ICompanyRepository companyRepository,
             IDistributedCache<VendorExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.Vendors.Default)
         {
             _vendorRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

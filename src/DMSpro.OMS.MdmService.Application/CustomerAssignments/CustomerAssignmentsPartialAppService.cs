@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
 			ICompanyRepository companyRepository,
 			ICustomerRepository customerRepository,
 			IDistributedCache<CustomerAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerAssignments.Default)
 		{
 			_customerAssignmentRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

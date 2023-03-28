@@ -41,7 +41,7 @@ namespace DMSpro.OMS.MdmService.Customers
             ICusAttributeValueRepository cusAttributeValueRepository,
 			ICompanyRepository companyRepository,
 			IDistributedCache<CustomerExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
 		{
 			_customerRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

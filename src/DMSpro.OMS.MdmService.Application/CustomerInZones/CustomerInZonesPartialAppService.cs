@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
             ICustomerRepository customerRepository,
             IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerInZones.Default)
         {
             _customerInZoneRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

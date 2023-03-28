@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
             ICustomerGroupRepository customerGroupRepository,
             ICusAttributeValueRepository cusAttributeValueRepository,
             IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByAtts.Default)
         {
             _customerGroupByAttRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

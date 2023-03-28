@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.SalesChannels
 			SalesChannelManager salesChannelManager,
 			IConfiguration settingProvider,
 			IDistributedCache<SalesChannelExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesChannels.Default)
 		{
 			_salesChannelRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

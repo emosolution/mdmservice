@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
 			IMCPHeaderRepository mCPHeaderRepository,
 			ICustomerRepository customerRepository,
 			IDistributedCache<MCPDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.MCPs.Default)
 		{
 			_mCPDetailRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
