@@ -24,7 +24,6 @@ using Grpc.Core;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Localization;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 
 namespace DMSpro.OMS.MdmService.Partial
 {
@@ -83,8 +82,7 @@ namespace DMSpro.OMS.MdmService.Partial
 
         public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
-            //await AuthorizationService.CheckAsync(MdmService);
-            await CheckPermission("");
+            await CheckPermission();
             var items = await _repository.WithDetailsAsync();
             var base_dataloadoption = new DataSourceLoadOptionsBase();
             DataLoadParser.Parse(base_dataloadoption, inputDev);

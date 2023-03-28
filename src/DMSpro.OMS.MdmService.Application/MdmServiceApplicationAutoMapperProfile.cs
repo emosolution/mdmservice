@@ -120,7 +120,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<PricelistAssignment, PricelistAssignmentDto>();
         CreateMap<PricelistAssignment, PricelistAssignmentWithDetailsDto>();
-        CreateMap<PricelistAssignment, PricelistAssignmentExcelDto>();
 
         CreateMap<SystemData, SystemDataDto>();
         CreateMap<SystemData, SystemDataExcelDto>();
@@ -226,7 +225,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<PriceUpdate, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
         CreateMap<PriceListDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
 
-        CreateMap<PricelistAssignmentWithNavigationProperties, PricelistAssignmentWithNavigationPropertiesDto>();
         CreateMap<CustomerGroup, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<EmployeeImage, EmployeeImageDto>();

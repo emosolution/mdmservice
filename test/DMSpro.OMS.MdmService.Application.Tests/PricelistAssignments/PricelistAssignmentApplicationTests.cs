@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
@@ -19,27 +18,14 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _pricelistAssignmentsAppService.GetListAsync(new GetPricelistAssignmentsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.PricelistAssignment.Id == Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324")).ShouldBe(true);
-            result.Items.Any(x => x.PricelistAssignment.Id == Guid.Parse("696527d2-cbbb-4bae-b694-6dce484e2ade")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _pricelistAssignmentsAppService.GetAsync(Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324"));
+            var result = await _pricelistAssignmentsAppService.GetAsync(Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324"));
+            result.Id.ShouldBe(Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"));
         }
 
         [Fact]
@@ -48,7 +34,7 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
             // Arrange
             var input = new PricelistAssignmentCreateDto
             {
-                Description = "4a4d5377d978451a904beb32402027653adb3d48460849dc9373957651dab9d71925665e62104f05848a22121b6d0aedbd7a6d6cf7e5406abbeb5626ff91d965500ecd69f25e48d4babaa7640bfb137d53e673fc297749c9bba46808103807fcdb883b4658dd4f88852f91598f29c981ea0d87b360824a1aa40133899f56797146afd32d34114b788c57a174dd2fff0049460cc1d8f6446b8000ef5ed1efead020c01f3124184356ad1085321013386b5dd2a4edc002468ebdc055f5c9e841fde05802116a514b72931b91845d25ad6ac6b9ecd517394388a57a4cd99a0e898447bd9ab5f8074d9ba3391bf30e60c1e2d9ea592e8f4448ce9da7",
+                Description = "d44e89dfcda44b15b28c08e5174ba90e846d05f12eb74528b84403acd83ab86f49b245c49d4f4364a509650d1bcd72379b9f889498f94d11ae67a32b6f9099c09a0361e973784183a2b0adf10996f18e20c21395c6474e0298eba62e6fb3d48d5eed8bfefec642808645c52292afff6f2394e9ba5d8f426a801a55898794c804db6cd34111bb41ac9832012963f41bbddf91d52c2ee44171b20c6aa8d6c1e651e1c7de2c88d04ba9954ff856fe2814bba10ab3f2db504845898c6113a0caa972bb0b6a8a7b6d430a8b9b5609a7f7d715b62bd0c1d983409584fb93f9a5c6b221eeea83dd59934a08ba168593cdb9f4b726731acf5856438cbda9",
                 PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
                 CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             };
@@ -60,7 +46,8 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
             var result = await _pricelistAssignmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("4a4d5377d978451a904beb32402027653adb3d48460849dc9373957651dab9d71925665e62104f05848a22121b6d0aedbd7a6d6cf7e5406abbeb5626ff91d965500ecd69f25e48d4babaa7640bfb137d53e673fc297749c9bba46808103807fcdb883b4658dd4f88852f91598f29c981ea0d87b360824a1aa40133899f56797146afd32d34114b788c57a174dd2fff0049460cc1d8f6446b8000ef5ed1efead020c01f3124184356ad1085321013386b5dd2a4edc002468ebdc055f5c9e841fde05802116a514b72931b91845d25ad6ac6b9ecd517394388a57a4cd99a0e898447bd9ab5f8074d9ba3391bf30e60c1e2d9ea592e8f4448ce9da7");
+            result.Description.ShouldBe("d44e89dfcda44b15b28c08e5174ba90e846d05f12eb74528b84403acd83ab86f49b245c49d4f4364a509650d1bcd72379b9f889498f94d11ae67a32b6f9099c09a0361e973784183a2b0adf10996f18e20c21395c6474e0298eba62e6fb3d48d5eed8bfefec642808645c52292afff6f2394e9ba5d8f426a801a55898794c804db6cd34111bb41ac9832012963f41bbddf91d52c2ee44171b20c6aa8d6c1e651e1c7de2c88d04ba9954ff856fe2814bba10ab3f2db504845898c6113a0caa972bb0b6a8a7b6d430a8b9b5609a7f7d715b62bd0c1d983409584fb93f9a5c6b221eeea83dd59934a08ba168593cdb9f4b726731acf5856438cbda9");
+            result.ReleaseDate.ShouldBe(null);
         }
 
         [Fact]
@@ -69,29 +56,30 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
             // Arrange
             var input = new PricelistAssignmentUpdateDto()
             {
-                Description = "384a299cb95b4cf28ffb12681efc29c8f332c28562374ed3b406846bd1b56d280d1d975656584cd1b2a86c8bbb811f415a939049ac8e45e9bc5c867c9e88230fd0ed8ccf47cc4871be9cef1d2c269cc7113bac96d82443ed86feb8ffa18170267c237b47904e4922adc13d5d0920664eb9896a507e5e4f2581b12b3e998c35b403e6d438d36d470a8532c646148b80c7409a342162b14c20b37487a7175631801aad3a1f83dd45d18b51bb6ca31431f6a2acbd977abd43388c90398f0611f3eaaa76d3457a7648579786b4060c0f21b01d16569b986b4906b96a7e6fdd069f0f1c969830542a427a8d24d862c78e69a643397877c06f4ae0a9c0",
+                Description = "8791c3fe2cd84b21ba75b0d1d354d2e72722c5c6257846b49977cb9dd493ca4541fc183108ba4ba6af432a4d3332c7c859156a1d3cce4e748fe062b00760ae85575b181fd3784e1a8544a115f7904da321fcb97712d04daab1f156ac6bc5d09babfe276269134c0e8ec4393ddbec8472a5ae22e0e0a74d159b13a3b05499ad9fb79e4f529e48495d9863da6cfd06dafe45dd1a85674c4d938cf0701c9de440af629725a8c58b4693825e4413dc8506cc88db97f8a3ad43fbaf5b998ee7dd564b710df7e929334374b901d3c2f2721fdf0374afb533b148a18fe34767ffd80875a8e44a1e7a2b4bbaa433fe4204a3f6e56a2d348b54d34eed93b5",
                 PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
                 CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             };
 
             // Act
-            var serviceResult = await _pricelistAssignmentsAppService.UpdateAsync(Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324"), input);
+            var serviceResult = await _pricelistAssignmentsAppService.UpdateAsync(Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"), input);
 
             // Assert
             var result = await _pricelistAssignmentRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("384a299cb95b4cf28ffb12681efc29c8f332c28562374ed3b406846bd1b56d280d1d975656584cd1b2a86c8bbb811f415a939049ac8e45e9bc5c867c9e88230fd0ed8ccf47cc4871be9cef1d2c269cc7113bac96d82443ed86feb8ffa18170267c237b47904e4922adc13d5d0920664eb9896a507e5e4f2581b12b3e998c35b403e6d438d36d470a8532c646148b80c7409a342162b14c20b37487a7175631801aad3a1f83dd45d18b51bb6ca31431f6a2acbd977abd43388c90398f0611f3eaaa76d3457a7648579786b4060c0f21b01d16569b986b4906b96a7e6fdd069f0f1c969830542a427a8d24d862c78e69a643397877c06f4ae0a9c0");
+            result.Description.ShouldBe("8791c3fe2cd84b21ba75b0d1d354d2e72722c5c6257846b49977cb9dd493ca4541fc183108ba4ba6af432a4d3332c7c859156a1d3cce4e748fe062b00760ae85575b181fd3784e1a8544a115f7904da321fcb97712d04daab1f156ac6bc5d09babfe276269134c0e8ec4393ddbec8472a5ae22e0e0a74d159b13a3b05499ad9fb79e4f529e48495d9863da6cfd06dafe45dd1a85674c4d938cf0701c9de440af629725a8c58b4693825e4413dc8506cc88db97f8a3ad43fbaf5b998ee7dd564b710df7e929334374b901d3c2f2721fdf0374afb533b148a18fe34767ffd80875a8e44a1e7a2b4bbaa433fe4204a3f6e56a2d348b54d34eed93b5");
+            result.ReleaseDate.ShouldBe(null);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _pricelistAssignmentsAppService.DeleteAsync(Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324"));
+            await _pricelistAssignmentsAppService.DeleteAsync(Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"));
 
             // Assert
-            var result = await _pricelistAssignmentRepository.FindAsync(c => c.Id == Guid.Parse("2b969661-f3b7-439d-a59d-7645f2568324"));
+            var result = await _pricelistAssignmentRepository.FindAsync(c => c.Id == Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"));
 
             result.ShouldBeNull();
         }

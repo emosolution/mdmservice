@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.CustomerGroups;
+using System.Threading.Tasks;
+using System;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
@@ -15,35 +17,28 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 		IPricelistAssignmentsAppService
 	{
 		private readonly IPricelistAssignmentRepository _pricelistAssignmentRepository;
-		private readonly IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly PricelistAssignmentManager _pricelistAssignmentManager;
 
 		private readonly IPriceListRepository _priceListRepository;
 		private readonly ICustomerGroupRepository _customerGroupRepository;
 
 		public PricelistAssignmentsAppService(ICurrentTenant currentTenant,
 			IPricelistAssignmentRepository repository,
-			PricelistAssignmentManager pricelistAssignmentManager,
 			IConfiguration settingProvider,
 			IPriceListRepository priceListRepository,
-			ICustomerGroupRepository customerGroupRepository,
-			IDistributedCache<PricelistAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			ICustomerGroupRepository customerGroupRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceListAssignments.Default)
 		{
 			_pricelistAssignmentRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_pricelistAssignmentManager = pricelistAssignmentManager;
-			
+
 			_priceListRepository = priceListRepository;
 			_customerGroupRepository = customerGroupRepository;
 
 			_repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("IPricelistAssignmentRepository", _pricelistAssignmentRepository));
-            _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
-            _repositories.AddIfNotContains(
-                    new KeyValuePair<string, object>("ICustomerGroupRepository", _customerGroupRepository));
-        }
+				new KeyValuePair<string, object>("IPricelistAssignmentRepository", _pricelistAssignmentRepository));
+			_repositories.AddIfNotContains(
+				new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
+			_repositories.AddIfNotContains(
+					new KeyValuePair<string, object>("ICustomerGroupRepository", _customerGroupRepository));
+		} 
     }
 }
