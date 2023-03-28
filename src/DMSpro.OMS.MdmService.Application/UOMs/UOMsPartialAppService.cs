@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.UOMs
 			UOMManager uOMManager,
 			IConfiguration settingProvider,
 			IDistributedCache<UOMExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.UOMs.Default)
 		{
 			_uOMRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

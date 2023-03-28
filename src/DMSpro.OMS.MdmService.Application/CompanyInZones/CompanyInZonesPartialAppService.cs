@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CompanyInZones.Default)
         {
             _companyInZoneRepository = repository;
             _companyInZoneManager = manager;

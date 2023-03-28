@@ -5,6 +5,7 @@ using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using Volo.Abp.Users;
+using DMSpro.OMS.MdmService.Permissions;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -29,7 +30,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             ICurrentUser currentUser,
             IDistributedCache<CompanyIdentityUserAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
             ICompanyIdentityUserAssignmentsInternalAppService companyIdentityUserAssignmentsInternalAppService)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CompanyIdentityUserAssignments.Default)
         {
             _companyIdentityUserAssignmentRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

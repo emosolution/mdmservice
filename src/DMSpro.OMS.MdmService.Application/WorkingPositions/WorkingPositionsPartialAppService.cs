@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
 			WorkingPositionManager workingPositionManager,
 			IConfiguration settingProvider,
 			IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.WorkingPositions.Default)
 		{
 			_workingPositionRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

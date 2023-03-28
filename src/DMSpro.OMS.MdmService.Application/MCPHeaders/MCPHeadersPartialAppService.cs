@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             IItemGroupRepository itemGroupRepository,
             ICompanyRepository companyRepository,
             IDistributedCache<MCPHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.MCPs.Default)
         {
             _mCPHeaderRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

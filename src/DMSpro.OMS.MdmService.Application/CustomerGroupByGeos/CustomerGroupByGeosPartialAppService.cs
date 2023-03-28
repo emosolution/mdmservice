@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 			IGeoMasterRepository geoMasterRepository,
 			ICustomerGroupRepository customerGroupRepository,
 			IDistributedCache<CustomerGroupByGeoExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByGeos.Default)
 		{
 			_customerGroupByGeoRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

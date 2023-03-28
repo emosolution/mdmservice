@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
 			CustomerGroupManager customerGroupManager,
 			IConfiguration settingProvider,
 			IDistributedCache<CustomerGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
 		{
 			_customerGroupRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

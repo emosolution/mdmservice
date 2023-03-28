@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
 			DimensionMeasurementManager dimensionMeasurementManager,
 			IConfiguration settingProvider,
 			IDistributedCache<DimensionMeasurementExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.DimensionMeasurements.Default)
 		{
 			_dimensionMeasurementRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

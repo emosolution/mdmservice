@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             ICustomerRepository customerRepository,
             IItemRepository itemRepository,
             IDistributedCache<CustomerImageExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
         {
             _customerImageRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

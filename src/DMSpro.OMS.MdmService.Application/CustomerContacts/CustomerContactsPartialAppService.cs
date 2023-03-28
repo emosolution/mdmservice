@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.CustomerContacts
             IConfiguration settingProvider,
             ICustomerRepository customerRepository,
             IDistributedCache<CustomerContactExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
         {
             _customerContactRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

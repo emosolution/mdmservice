@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 			ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
 			IEmployeeProfileRepository employeeProfileRepository,
 			IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgEmpAssignments.Default)
 		{
 			_salesOrgEmpAssignmentRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

@@ -36,7 +36,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             IWorkingPositionRepository workingPositionRepository,
             ISystemDataRepository systemDataRepository,
             IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.EmployeeProfiles.Default)
         {
             _employeeProfileRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

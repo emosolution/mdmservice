@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 			IConfiguration settingProvider,
 			ISalesOrgHeaderRepository salesOrgHeaderRepository,
 			IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHierarchies.Default)
 		{
 			_salesOrgHierarchyRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

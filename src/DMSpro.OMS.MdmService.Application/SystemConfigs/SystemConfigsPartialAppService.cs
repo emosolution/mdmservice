@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
 			SystemConfigManager systemConfigManager,
 			IConfiguration settingProvider,
 			IDistributedCache<SystemConfigExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SystemConfig.Default)
 		{
 			_systemConfigRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
