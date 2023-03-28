@@ -91,7 +91,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                 foreach (var systemData in systemDatas)
                 {
                     string objectType = systemData.ValueName;
-                    var config = configs.Select(x => x.SystemDataId == systemData.Id);
+                    var config = configs.Where(x => x.SystemDataId == systemData.Id);
                     int count = config.Count();
                     if (count == 1)
                     {

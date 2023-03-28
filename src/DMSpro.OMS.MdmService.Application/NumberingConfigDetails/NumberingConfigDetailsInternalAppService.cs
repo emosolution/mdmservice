@@ -1,4 +1,5 @@
 ﻿using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.Localization;
 using DMSpro.OMS.MdmService.NumberingConfigs;
 using DMSpro.OMS.MdmService.SystemDatas;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,8 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             _numberingConfigRepository = numberingConfigRepository;
             _numberingConfigDetailRepository = numberingConfigDetailRepository;
             _numberingConfigDetailManager = numberingConfigDetailManager;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
         private async Task<(NumberingConfigDetail, NumberingConfig)> GetDetailFromObjectTypeAndCompany(
