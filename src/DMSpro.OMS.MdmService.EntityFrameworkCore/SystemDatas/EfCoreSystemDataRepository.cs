@@ -58,10 +58,5 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     .WhereIf(!string.IsNullOrWhiteSpace(valueCode), e => e.ValueCode.Contains(valueCode))
                     .WhereIf(!string.IsNullOrWhiteSpace(valueName), e => e.ValueName.Contains(valueName));
         }
-        public async Task<bool> CreateWithExcepAsync(List<SystemData> seedData)
-        {
-            await this.InsertManyAsync(seedData);
-            return true;
-        }
     }
 }

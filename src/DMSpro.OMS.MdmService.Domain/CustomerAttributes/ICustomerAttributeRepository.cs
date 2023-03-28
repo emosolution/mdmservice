@@ -31,7 +31,5 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
             int? hierarchyLevelMax = null,
             bool? active = null,
             CancellationToken cancellationToken = default);
-
-        Task<bool> CreateWithExcepAsync(List<CustomerAttribute> seedData);
     }
 }

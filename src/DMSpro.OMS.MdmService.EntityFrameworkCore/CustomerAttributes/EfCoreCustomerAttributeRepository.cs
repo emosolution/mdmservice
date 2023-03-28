@@ -70,11 +70,5 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
                     .WhereIf(hierarchyLevelMax.HasValue, e => e.HierarchyLevel <= hierarchyLevelMax.Value)
                     .WhereIf(active.HasValue, e => e.Active == active);
         }
-
-        public async Task<bool> CreateWithExcepAsync(List<CustomerAttribute> seedData)
-        {
-            await this.InsertManyAsync(seedData);
-            return true;
-        }
     }
 }
