@@ -213,9 +213,10 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.ArithmeticFactor).HasColumnName(nameof(PriceList.ArithmeticFactor));
             b.Property(x => x.ArithmeticFactorType).HasColumnName(nameof(PriceList.ArithmeticFactorType));
             b.Property(x => x.IsBase).HasColumnName(nameof(PriceList.IsBase));
-            b.Property(x => x.IsDefault).HasColumnName(nameof(PriceList.IsDefault));
+            b.Property(x => x.IsDefaultForCustomer).HasColumnName(nameof(PriceList.IsDefaultForCustomer));
             b.Property(x => x.IsReleased).HasColumnName(nameof(PriceList.IsReleased));
             b.Property(x => x.ReleasedDate).HasColumnName(nameof(PriceList.ReleasedDate));
+            b.Property(x => x.IsDefaultForVendor).HasColumnName(nameof(PriceList.IsDefaultForVendor));
             b.HasOne<PriceList>(x => x.BasePriceList).WithMany().HasForeignKey(x => x.BasePriceListId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<PriceUpdate>(b =>

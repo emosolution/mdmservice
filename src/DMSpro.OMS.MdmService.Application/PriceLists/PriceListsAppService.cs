@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 {
 
     [Authorize(MdmServicePermissions.PriceLists.Default)]
-    public partial class PriceListsAppService 
+    public partial class PriceListsAppService
     {
         public virtual async Task<PriceListDto> GetAsync(Guid id)
         {
@@ -29,13 +29,11 @@ namespace DMSpro.OMS.MdmService.PriceLists
             bool isBase = (await _priceListRepository.CountAsync()) == 0;
             var basePriceListId = isBase ? null : input.BasePriceListId;
 
-            if (input.IsDefault)
-            {
-                await SetAllPriceListDefaultToFalse();
-            }
+            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
 
             var priceList = await _priceListManager.CreateAsync(
-                basePriceListId, input.Code, input.Name, input.Active, isBase, input.IsDefault, 
+                basePriceListId, input.Code, input.Name, input.Active, isBase,
+                input.IsDefaultForCustomer, input.IsDefaultForVendor,
                 input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType);
 
             await HandlePriceListDetail(priceList, isBase, basePriceListId);
@@ -47,18 +45,28 @@ namespace DMSpro.OMS.MdmService.PriceLists
         [Authorize(MdmServicePermissions.PriceLists.Edit)]
         public virtual async Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
         {
-            if (input.IsDefault)
-            {
-                await SetAllPriceListDefaultToFalse();
-            }
+            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
 
             var priceList = await _priceListManager.UpdateAsync(
                 id,
-                input.BasePriceListId, input.Code, input.Name, input.Active, input.IsDefault, 
-                input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType, 
+                input.BasePriceListId, input.Code, input.Name, input.Active,
+                input.IsDefaultForCustomer, input.IsDefaultForVendor,
+                input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType,
                 input.ConcurrencyStamp);
 
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
+        }
+
+        private async Task HandleDefault(bool defaultForCustomer, bool defaultForVendor)
+        {
+            if (defaultForCustomer)
+            {
+                await SetAllPriceListDefaultForCustomerToFalse();
+            }
+            if (defaultForVendor)
+            {
+                await SetAllPriceListDefaultForVendorToFalse();
+            }
         }
 
         private async Task HandlePriceListDetail(PriceList priceList, bool isBase, Guid? basePriceListId)
@@ -120,10 +128,17 @@ namespace DMSpro.OMS.MdmService.PriceLists
             await _priceListDetailRepository.InsertManyAsync(priceListDetails);
         }
 
-        private async Task SetAllPriceListDefaultToFalse()
+        private async Task SetAllPriceListDefaultForCustomerToFalse()
         {
             var priceLists = await _priceListRepository.GetListAsync();
-            priceLists.ForEach(x => x.IsDefault = false);
+            priceLists.ForEach(x => x.IsDefaultForCustomer = false);
+            await _priceListRepository.UpdateManyAsync(priceLists);
+        }
+
+        private async Task SetAllPriceListDefaultForVendorToFalse()
+        {
+            var priceLists = await _priceListRepository.GetListAsync();
+            priceLists.ForEach(x => x.IsDefaultForVendor = false);
             await _priceListRepository.UpdateManyAsync(priceLists);
         }
     }

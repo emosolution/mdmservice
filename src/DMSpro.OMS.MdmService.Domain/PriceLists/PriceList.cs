@@ -32,12 +32,13 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         public virtual bool IsBase { get; set; }
 
-        public virtual bool IsDefault { get; set; }
+        public virtual bool IsDefaultForCustomer { get; set; }
 
         public virtual bool IsReleased { get; set; }
 
         public virtual DateTime? ReleasedDate { get; set; }
-        
+
+        public virtual bool IsDefaultForVendor { get; set; }
         public Guid? BasePriceListId { get; set; }
 
         public PriceList()
@@ -45,7 +46,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         }
 
-        public PriceList(Guid id, Guid? basePriceListId, string code, string name, bool active, bool isBase, bool isDefault, bool isReleased, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null, DateTime? releasedDate = null)
+        public PriceList(Guid id, Guid? basePriceListId, string code, string name, bool active, bool isBase, bool isDefaultForCustomer, bool isReleased, bool isDefaultForVendor, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null, DateTime? releasedDate = null)
         {
 
             Id = id;
@@ -56,8 +57,9 @@ namespace DMSpro.OMS.MdmService.PriceLists
             Name = name;
             Active = active;
             IsBase = isBase;
-            IsDefault = isDefault;
+            IsDefaultForCustomer = isDefaultForCustomer;
             IsReleased = isReleased;
+            IsDefaultForVendor = isDefaultForVendor;
             ArithmeticOperation = arithmeticOperation;
             ArithmeticFactor = arithmeticFactor;
             ArithmeticFactorType = arithmeticFactorType;

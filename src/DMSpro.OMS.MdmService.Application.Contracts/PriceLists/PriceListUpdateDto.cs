@@ -17,7 +17,8 @@ namespace DMSpro.OMS.MdmService.PriceLists
         public ArithmeticOperator? ArithmeticOperation { get; set; }
         public int? ArithmeticFactor { get; set; }
         public ArithmeticFactorType? ArithmeticFactorType { get; set; }
-        public bool IsDefault { get; set; }
+        public bool IsDefaultForCustomer { get; set; }
+        public bool IsDefaultForVendor { get; set; }
         public Guid? BasePriceListId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
