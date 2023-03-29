@@ -52,6 +52,14 @@ public partial class PriceListClientProxy : ClientProxyBase<IPriceListsAppServic
         });
     }
 
+    public virtual async Task<PriceListDto> ReleaseAsync(Guid id)
+    {
+        return await RequestAsync<PriceListDto>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

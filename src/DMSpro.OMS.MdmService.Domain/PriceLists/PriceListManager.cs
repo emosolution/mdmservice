@@ -17,22 +17,30 @@ namespace DMSpro.OMS.MdmService.PriceLists
         }
 
         public async Task<PriceList> CreateAsync(
-        Guid? basePriceListId, string code, string name, bool active, bool isBase, bool isDefault, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null)
+            Guid? basePriceListId, string code, string name, bool active, 
+            bool isBase, bool isDefault, 
+            ArithmeticOperator? arithmeticOperation = null, 
+            int? arithmeticFactor = null, 
+            ArithmeticFactorType? arithmeticFactorType = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceListConsts.CodeMaxLength, PriceListConsts.CodeMinLength);
             Check.Length(name, nameof(name), PriceListConsts.NameMaxLength);
 
             var priceList = new PriceList(
-                GuidGenerator.Create(),
-                basePriceListId, code, name, active, isBase, isDefault, arithmeticOperation, arithmeticFactor, arithmeticFactorType);
+             GuidGenerator.Create(),
+             basePriceListId, code, name, active, 
+             isBase, isDefault, false, arithmeticOperation, arithmeticFactor, arithmeticFactorType, null);
 
             return await _priceListRepository.InsertAsync(priceList);
         }
 
         public async Task<PriceList> UpdateAsync(
             Guid id,
-            Guid? basePriceListId, string code, string name, bool active, bool isDefault, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null, [CanBeNull] string concurrencyStamp = null
+            Guid? basePriceListId, string code, string name, bool active, bool isDefault, 
+            ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, 
+            ArithmeticFactorType? arithmeticFactorType = null,  
+            [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));

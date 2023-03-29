@@ -17,16 +17,16 @@ namespace DMSpro.OMS.MdmService.PriceLists
             _priceListsAppService = GetRequiredService<IPriceListsAppService>();
             _priceListRepository = GetRequiredService<IRepository<PriceList, Guid>>();
         }
-
+    
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _priceListsAppService.GetAsync(Guid.Parse("3158ddf9-eb6a-4e20-b24f-7c0161437270"));
+            var result = await _priceListsAppService.GetAsync(Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("3158ddf9-eb6a-4e20-b24f-7c0161437270"));
+            result.Id.ShouldBe(Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"));
         }
 
         [Fact]
@@ -35,13 +35,13 @@ namespace DMSpro.OMS.MdmService.PriceLists
             // Arrange
             var input = new PriceListCreateDto
             {
-                Code = "9fcb898b3907412a951e",
-                Name = "f484f7a3a3074ca881fda113d007bb2173d3466faf504d3fae5d3389817738cfff1a1c64dc1749909db159a9b35ba21040c98273bb8f4f4aae7cae483b96880d4b267840aac644ff917e6bffbc667300b35d1e5f95994166a7c8fa662949343fe9e94e894abf4bf3b3818f094e60ce3e7dfbbf7dc188485da41820b42321bb8",
+                Code = "a77eb2f06ac4453694d1",
+                Name = "82b66a969bd4466c94517c0d7e9579fb4964085cf40a4c228a653f0f3656d5428d8a03c09ae54c08b26f1696b9190705d1f7cf1e462542dd92180b7bed70cdcf37d8208c783a4e29bddf45c55869a25f6df6891ed8ba44d8a37a08871374c1307b2e9cfb5645454f9b094f17ce13dd873bf25da1a84c49e7aae61611f8039bc",
                 Active = true,
                 ArithmeticOperation = default,
-                ArithmeticFactor = 524263729,
+                ArithmeticFactor = 1253240624,
                 ArithmeticFactorType = default,
-                IsDefault = true
+                IsDefault = true,
             };
 
             // Act
@@ -51,14 +51,16 @@ namespace DMSpro.OMS.MdmService.PriceLists
             var result = await _priceListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("9fcb898b3907412a951e");
-            result.Name.ShouldBe("f484f7a3a3074ca881fda113d007bb2173d3466faf504d3fae5d3389817738cfff1a1c64dc1749909db159a9b35ba21040c98273bb8f4f4aae7cae483b96880d4b267840aac644ff917e6bffbc667300b35d1e5f95994166a7c8fa662949343fe9e94e894abf4bf3b3818f094e60ce3e7dfbbf7dc188485da41820b42321bb8");
+            result.Code.ShouldBe("a77eb2f06ac4453694d1");
+            result.Name.ShouldBe("82b66a969bd4466c94517c0d7e9579fb4964085cf40a4c228a653f0f3656d5428d8a03c09ae54c08b26f1696b9190705d1f7cf1e462542dd92180b7bed70cdcf37d8208c783a4e29bddf45c55869a25f6df6891ed8ba44d8a37a08871374c1307b2e9cfb5645454f9b094f17ce13dd873bf25da1a84c49e7aae61611f8039bc");
             result.Active.ShouldBe(true);
             result.ArithmeticOperation.ShouldBe(default);
-            result.ArithmeticFactor.ShouldBe(524263729);
+            result.ArithmeticFactor.ShouldBe(1253240624);
             result.ArithmeticFactorType.ShouldBe(default);
             result.IsBase.ShouldBe(false);
             result.IsDefault.ShouldBe(true);
+            result.IsReleased.ShouldBe(false);
+            result.ReleasedDate.ShouldBe(null);
         }
 
         [Fact]
@@ -67,40 +69,42 @@ namespace DMSpro.OMS.MdmService.PriceLists
             // Arrange
             var input = new PriceListUpdateDto()
             {
-                Code = "05e9b81e2d1c4a7ea2a6",
-                Name = "29b7b46b845a41c2b9952bd916e7186597e8449df5c847e0abc1a99987318a253196c988872a4dbc921976680643be16f13a190156634bac9b1966062dbb43d1ba5e82703750414486a460ba330fc0b58c9dfad6bc7948b59686a59d76beb13d96888a4337a547e3823aced120c38959f8a1e6d3cb304246aa1ebf19e3883e6",
+                Code = "7acc9c141ff94a40908a",
+                Name = "90b87e5aa84d462e830935bcea14202a495c7328467148f9af09799cf8701fc91f7995206ac041339c36433adb2797579a540bb42be5480d8ef344730d40e4a43cf3838b197f4bbeba64a3c4209f0cf7316070b938e1436eaaec27ee727c3988662a980bb46941a1be35640086b66b90ec3c3d93752841daa35444e555511c6",
                 Active = true,
                 ArithmeticOperation = default,
-                ArithmeticFactor = 424901024,
+                ArithmeticFactor = 2029648485,
                 ArithmeticFactorType = default,
-                IsDefault = true
+                IsDefault = true,
             };
 
             // Act
-            var serviceResult = await _priceListsAppService.UpdateAsync(Guid.Parse("3158ddf9-eb6a-4e20-b24f-7c0161437270"), input);
+            var serviceResult = await _priceListsAppService.UpdateAsync(Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"), input);
 
             // Assert
             var result = await _priceListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("05e9b81e2d1c4a7ea2a6");
-            result.Name.ShouldBe("29b7b46b845a41c2b9952bd916e7186597e8449df5c847e0abc1a99987318a253196c988872a4dbc921976680643be16f13a190156634bac9b1966062dbb43d1ba5e82703750414486a460ba330fc0b58c9dfad6bc7948b59686a59d76beb13d96888a4337a547e3823aced120c38959f8a1e6d3cb304246aa1ebf19e3883e6");
+            result.Code.ShouldBe("7acc9c141ff94a40908a");
+            result.Name.ShouldBe("90b87e5aa84d462e830935bcea14202a495c7328467148f9af09799cf8701fc91f7995206ac041339c36433adb2797579a540bb42be5480d8ef344730d40e4a43cf3838b197f4bbeba64a3c4209f0cf7316070b938e1436eaaec27ee727c3988662a980bb46941a1be35640086b66b90ec3c3d93752841daa35444e555511c6");
             result.Active.ShouldBe(true);
             result.ArithmeticOperation.ShouldBe(default);
-            result.ArithmeticFactor.ShouldBe(424901024);
+            result.ArithmeticFactor.ShouldBe(2029648485);
             result.ArithmeticFactorType.ShouldBe(default);
             result.IsBase.ShouldBe(false);
             result.IsDefault.ShouldBe(true);
+            result.IsReleased.ShouldBe(false);
+            result.ReleasedDate.ShouldBe(null);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _priceListsAppService.DeleteAsync(Guid.Parse("3158ddf9-eb6a-4e20-b24f-7c0161437270"));
+            await _priceListsAppService.DeleteAsync(Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"));
 
             // Assert
-            var result = await _priceListRepository.FindAsync(c => c.Id == Guid.Parse("3158ddf9-eb6a-4e20-b24f-7c0161437270"));
+            var result = await _priceListRepository.FindAsync(c => c.Id == Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"));
 
             result.ShouldBeNull();
         }
