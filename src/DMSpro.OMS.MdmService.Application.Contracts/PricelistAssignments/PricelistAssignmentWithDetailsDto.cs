@@ -9,6 +9,8 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 	public class PricelistAssignmentWithDetailsDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
         public string Description { get; set; }
+        public DateTime? ReleasedDate { get; set; }
+        public bool IsReleased { get; set; }
         public Guid PriceListId { get; set; }
         public Guid CustomerGroupId { get; set; }
 

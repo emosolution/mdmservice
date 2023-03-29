@@ -36,12 +36,13 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 
             Check.NotNull(input.PriceListId, nameof(input.PriceListId));
             Check.NotNull(input.CustomerGroupId, nameof(input.CustomerGroupId));
-            Check.Length(input.Description, nameof(input.Description), PricelistAssignmentConsts.DescriptionMaxLength);
+
+            string description = PricelistAssignmentConsts.DefaultDescription;
+            Check.Length(description, nameof(description), PricelistAssignmentConsts.DescriptionMaxLength);
 
             var pricelistAssignment = new PricelistAssignment(
                 GuidGenerator.Create(),
-                input.PriceListId, input.CustomerGroupId, input.Description, null
-             );
+                input.PriceListId, input.CustomerGroupId, description);
 
             var newRecord = await _pricelistAssignmentRepository.InsertAsync(pricelistAssignment);
 

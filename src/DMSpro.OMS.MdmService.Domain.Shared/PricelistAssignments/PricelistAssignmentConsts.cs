@@ -10,5 +10,7 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         }
 
         public const int DescriptionMaxLength = 500;
+
+        public const string DefaultDescription = "Price assignment";
     }
 }

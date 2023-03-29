@@ -22168,8 +22168,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "System.DateTime",
-                    "typeSimple": "string"
+                    "type": "DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignmentDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignmentDto"
                   }
                 },
                 {
@@ -22434,8 +22434,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.DateTime",
-                "typeSimple": "string"
+                "type": "DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignmentDto",
+                "typeSimple": "DMSpro.OMS.MdmService.PricelistAssignments.PricelistAssignmentDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.PricelistAssignments.IPricelistAssignmentsAppService"

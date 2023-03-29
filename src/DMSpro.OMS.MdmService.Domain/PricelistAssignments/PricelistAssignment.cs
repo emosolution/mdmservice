@@ -12,7 +12,10 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        public virtual DateTime? ReleaseDate { get; set; }
+        public virtual DateTime? ReleasedDate { get; set; }
+
+        public virtual bool IsReleased { get; set; }
+        
         public Guid PriceListId { get; set; }
         public Guid CustomerGroupId { get; set; }
 
@@ -21,13 +24,14 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 
         }
 
-        public PricelistAssignment(Guid id, Guid priceListId, Guid customerGroupId, string description, DateTime? releaseDate = null)
+        public PricelistAssignment(Guid id, Guid priceListId, Guid customerGroupId, string description)
         {
 
             Id = id;
             Check.Length(description, nameof(description), PricelistAssignmentConsts.DescriptionMaxLength, 0);
             Description = description;
-            ReleaseDate = releaseDate;
+            IsReleased = false;
+            ReleasedDate = null;
             PriceListId = priceListId;
             CustomerGroupId = customerGroupId;
         }

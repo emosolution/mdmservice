@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp;
 using System;
+using DMSpro.OMS.MdmService.PricelistAssignments;
 
 namespace DMSpro.OMS.MdmService.Controllers.PricelistAssignments
 {
@@ -9,7 +10,7 @@ namespace DMSpro.OMS.MdmService.Controllers.PricelistAssignments
 	{
 		[HttpPut]
 		[Route("release")]
-		public virtual async Task<DateTime> ReleaseAsync(Guid id)
+		public virtual async Task<PricelistAssignmentDto> ReleaseAsync(Guid id)
 		{
             try
             {

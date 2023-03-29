@@ -37,19 +37,17 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 
             await _pricelistAssignmentRepository.InsertAsync(new PricelistAssignment
             (
-                id: Guid.Parse("db548c16-3cf0-49b8-a724-8b8dfa26ffda"),
-                description: "c9ebe18b18c441a3b1ef4c868fac4622b3c0687862cf4cf88e5893065bf9a711106899eb226044e1847bab8edc3b6d61e595a86c3e434ef69cedcfd212af43b61874044cd68c4ef69b3729ab6d713e64bc4da30662c14661ad703f0365b951ef631b1e7e3c3443dfb06b2aec083b23b55994f256ea3a47b2b547020156f57b887023a345af204539bb9a6111705020fdc0af32d81c594e94b2742551b001523e803906ad6ffa49d9a8397f842595419cd1ca403c60744085914b83b3784950eb397be5fe43904c1cb29de840bcd4297271e06830b44541e8bd827914ac0180f1e360259fc17e4f0aa80ff04aa39650a1bc09cb9f45e84ed781b0",
-                releaseDate: new DateTime(2004, 3, 10),
-                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
+                id: Guid.Parse("a45bc2f2-49d4-43aa-9b37-6a4c88e2721c"),
+                description: "c57f206ced1940c29558d46f611d37e7cb5ba272a9864e988988af532212c324b2e4c1a2c27e422785b811bd9302e3bb3ea98e037a0f401abbdc56904a9763ce00f13f1a5e084d13a2af9b887600b4a731b2f9005e7b445c97d79d9f3c4d5730262c92c3481f4a06be2cebceeb47a47a6178a71ad72d438c99a8b158bd4d51efd1101cece682401d9592aef0b629b0db1929c903cba04103b66866f80c8d492532ff2dfeaa5d4c7fbf535d53be606b89fc211ae2a1b1426b89422301e69d9a8c3c94fa2133e44ca5bc776c9c95aab6706c31431c0dee479193f3649f35a3c7fc96379e308c4d4f6bb06ed292d3d2588ac7ede12b9d714f0b9d42",
+                priceListId: Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"),
                 customerGroupId: Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             ));
 
             await _pricelistAssignmentRepository.InsertAsync(new PricelistAssignment
             (
-                id: Guid.Parse("e7a00afb-2350-4a64-9eae-2b9da33e247c"),
-                description: "8d577df2d53c4e8393cba2d610e9a0dbff182f3e064f44a8b2951250d0d156b5495fd882b2ec4630a3fe6c91bd3aae556c815b431033480699257aed033fdb979976efa5dc094316bc89f0b5cfb9dfad1fe514ee08884653a0cb797f37b9def7e9b8d34a1f0c45149ffb0b6d57e3f98c4449a1ba65fa4d81b2ddb7cf93c5daab0ed5eafd67ba434096c543c21f352a899a68fad1b5fa49c5b8dbb0542605d07eef4f41256ee2461d998d9b330748ff9d40b881ca5c0b48b683a4e9ca0ba39857c898373eb2fa4f36a975e38939f25819751e361b3754452782496e81c57bc232e8e3a9495d234b0895b88ad3c666e8b04c4527f9b4cc430db571",
-                releaseDate: new DateTime(2005, 1, 12),
-                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
+                id: Guid.Parse("43280865-cc3b-4d46-b78b-29ebc68e7cbf"),
+                description: "357145810c36486fb92c916649825ae5c78ac9d212484ba2aad885e50e78bdab22e610c6d1174dc5bc548b8d7aa4ee497c45958f98ba4564a5fa925d48125699a635f9d7150c47dbab5d6f09ec6a3fd99bfe0efbf5f247e3b2c920ed5ba086906cbba3c700504077b6c62b643707975bdd26286385c4499f8d29c6a01889724009bc75260e3e4aa69dba9f6118e673acc2f9998ef86e4aa68fbfe1ff3066c531df0fc786f05b41ea94f3da1efb39515e19f8ee2629884996891a838e9029cb7c5ea4aacfdbc747af930bc15572b68b4f246882248e044ddabe951feafa869630fe0400e324494a75826962bdfa7d2878c781769faf224b4b91a8",
+                priceListId: Guid.Parse("e12fe94e-91f7-474f-a74b-c83fc1fce713"),
                 customerGroupId: Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             ));
 

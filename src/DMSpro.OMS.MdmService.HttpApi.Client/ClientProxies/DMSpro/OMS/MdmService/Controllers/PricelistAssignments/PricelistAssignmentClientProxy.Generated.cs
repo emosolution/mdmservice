@@ -52,9 +52,9 @@ public partial class PricelistAssignmentClientProxy : ClientProxyBase<IPricelist
         });
     }
 
-    public virtual async Task<DateTime> ReleaseAsync(Guid id)
+    public virtual async Task<PricelistAssignmentDto> ReleaseAsync(Guid id)
     {
-        return await RequestAsync<DateTime>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<PricelistAssignmentDto>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

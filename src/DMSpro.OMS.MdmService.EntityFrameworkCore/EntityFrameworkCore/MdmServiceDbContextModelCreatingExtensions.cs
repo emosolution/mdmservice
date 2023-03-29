@@ -248,7 +248,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(PricelistAssignment.TenantId));
             b.Property(x => x.Description).HasColumnName(nameof(PricelistAssignment.Description)).HasMaxLength(PricelistAssignmentConsts.DescriptionMaxLength);
-            b.Property(x => x.ReleaseDate).HasColumnName(nameof(PricelistAssignment.ReleaseDate));
+            b.Property(x => x.ReleasedDate).HasColumnName(nameof(PricelistAssignment.ReleasedDate));
+            b.Property(x => x.IsReleased).HasColumnName(nameof(PricelistAssignment.IsReleased));
             b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
         });

@@ -5,6 +5,6 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
     public partial interface IPricelistAssignmentsAppService
     {
-        Task<DateTime> ReleaseAsync(Guid id);
+        Task<PricelistAssignmentDto> ReleaseAsync(Guid id);
     }
 }
