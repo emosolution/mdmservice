@@ -4,7 +4,9 @@ namespace DMSpro.OMS.MdmService.PriceLists
 {
 	public partial class PriceList
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual PriceList BasePriceList { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

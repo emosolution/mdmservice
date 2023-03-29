@@ -8,20 +8,31 @@ using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.Controllers.PriceLists
 {
-	public partial class PriceListController
-	{
-		[HttpGet]
-		[Route("GetListDevextremes")]
-		public Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-		{
-			return _priceListsAppService.GetListDevextremesAsync(inputDev);
-		}
+    public partial class PriceListController
+    {
+        [HttpGet]
+        [Route("GetListDevextremes")]
+        public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            try
+            {
+                return await _priceListsAppService.GetListDevextremesAsync(inputDev);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
+        }
 
-		[HttpPost]
-		[Route("update-from-excel")]
-		public async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
-		{
-			try
+        [HttpPost]
+        [Route("update-from-excel")]
+        public virtual async Task<int> UpdateFromExcelAsync(IRemoteStreamContent file)
+        {
+            try
             {
                 return await _priceListsAppService.UpdateFromExcelAsync(file);
             }
@@ -33,11 +44,11 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
             {
                 throw new UserFriendlyException(message: e.Message, code: "1");
             }
-		}
+        }
 
-		[HttpPost]
-		[Route("insert-from-excel")]
-		public async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
+        [HttpPost]
+        [Route("insert-from-excel")]
+        public virtual async Task<int> InsertFromExcelAsync(IRemoteStreamContent file)
         {
             try
             {
@@ -52,8 +63,8 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
                 throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
-		
-		[HttpGet]
+
+        [HttpGet]
         [Route("get-excel-template")]
         public virtual async Task<IRemoteStreamContent> GenerateExcelTemplatesAsync()
         {
@@ -70,5 +81,5 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
                 throw new UserFriendlyException(message: e.Message, code: "1");
             }
         }
-	}
+    }
 }

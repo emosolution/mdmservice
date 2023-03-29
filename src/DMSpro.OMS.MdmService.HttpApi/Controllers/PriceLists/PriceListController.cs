@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.PriceLists;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.PriceLists
 {
@@ -24,64 +21,73 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
         }
 
         [HttpGet]
-        public Task<PagedResultDto<PriceListWithNavigationPropertiesDto>> GetListAsync(GetPriceListsInput input)
-        {
-            return _priceListsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<PriceListWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _priceListsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
-        public virtual Task<PriceListDto> GetAsync(Guid id)
+        public virtual async Task<PriceListDto> GetAsync(Guid id)
         {
-            return _priceListsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("price-list-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
-        {
-            return _priceListsAppService.GetPriceListLookupAsync(input);
+            try { 
+            return await _priceListsAppService.GetAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpPost]
-        public virtual Task<PriceListDto> CreateAsync(PriceListCreateDto input)
+        public virtual async Task<PriceListDto> CreateAsync(PriceListCreateDto input)
         {
-            return _priceListsAppService.CreateAsync(input);
+            try
+            {
+                return await _priceListsAppService.CreateAsync(input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
+        public virtual async Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
         {
-            return _priceListsAppService.UpdateAsync(id, input);
+            try
+            {
+                return await _priceListsAppService.UpdateAsync(id, input);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
-            return _priceListsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(PriceListExcelDownloadDto input)
-        {
-            return _priceListsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _priceListsAppService.GetDownloadTokenAsync();
+            try
+            {
+                await _priceListsAppService.DeleteAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
         }
     }
 }

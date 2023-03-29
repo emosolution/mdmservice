@@ -12,12 +12,14 @@ namespace DMSpro.OMS.MdmService.PriceLists
         public ArithmeticOperator? ArithmeticOperation { get; set; }
         public int? ArithmeticFactor { get; set; }
         public ArithmeticFactorType? ArithmeticFactorType { get; set; }
-        public bool IsFirstPriceList { get; set; }
+        public bool IsBase { get; set; }
+        public bool IsDefault { get; set; }
         public Guid? BasePriceListId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
 
         public PriceListDto BasePriceList { get; set; }
+        
         public PriceListWithDetailsDto()
 		{
 		}

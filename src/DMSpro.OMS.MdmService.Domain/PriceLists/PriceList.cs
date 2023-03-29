@@ -30,15 +30,18 @@ namespace DMSpro.OMS.MdmService.PriceLists
 
         public virtual ArithmeticFactorType? ArithmeticFactorType { get; set; }
 
-        public virtual bool IsFirstPriceList { get; set; }
+        public virtual bool IsBase { get; set; }
+
+        public virtual bool IsDefault { get; set; }
+
         public Guid? BasePriceListId { get; set; }
-        public virtual PriceList BasePriceList { get; set; }
+        
         public PriceList()
         {
 
         }
 
-        public PriceList(Guid id, Guid? basePriceListId, string code, string name, bool active, bool isFirstPriceList, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null)
+        public PriceList(Guid id, Guid? basePriceListId, string code, string name, bool active, bool isBase, bool isDefault, ArithmeticOperator? arithmeticOperation = null, int? arithmeticFactor = null, ArithmeticFactorType? arithmeticFactorType = null)
         {
 
             Id = id;
@@ -48,7 +51,8 @@ namespace DMSpro.OMS.MdmService.PriceLists
             Code = code;
             Name = name;
             Active = active;
-            IsFirstPriceList = isFirstPriceList;
+            IsBase = isBase;
+            IsDefault = isDefault;
             ArithmeticOperation = arithmeticOperation;
             ArithmeticFactor = arithmeticFactor;
             ArithmeticFactorType = arithmeticFactorType;

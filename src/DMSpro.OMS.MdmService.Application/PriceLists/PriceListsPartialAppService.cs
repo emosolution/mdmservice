@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -15,8 +14,6 @@ namespace DMSpro.OMS.MdmService.PriceLists
 		IPriceListsAppService
 	{
 		private readonly IPriceListRepository _priceListRepository;
-		private readonly IDistributedCache<PriceListExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
 		private readonly PriceListManager _priceListManager;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
 		private readonly IItemRepository _itemRepository;
@@ -25,12 +22,10 @@ namespace DMSpro.OMS.MdmService.PriceLists
 			PriceListManager priceListManager,
 			IConfiguration settingProvider,
 			IPriceListDetailRepository priceListDetailRepository,
-			IItemRepository itemRepository,
-			IDistributedCache<PriceListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IItemRepository itemRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceLists.Default)
 		{
 			_priceListRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_priceListManager = priceListManager;
 			_priceListDetailRepository = priceListDetailRepository;
 			_itemRepository = itemRepository;

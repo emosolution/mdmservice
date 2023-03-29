@@ -1,5 +1,6 @@
 using DMSpro.OMS.MdmService.GeoMasters;
 using DMSpro.OMS.MdmService.PriceLists;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Customers
@@ -11,7 +12,9 @@ namespace DMSpro.OMS.MdmService.Customers
         public virtual GeoMaster GeoMaster2 { get; set; }
         public virtual GeoMaster GeoMaster3 { get; set; }
         public virtual GeoMaster GeoMaster4 { get; set; }
-        public virtual PriceList? PriceList { get; set; }
+        
+        [CanBeNull]
+        public virtual PriceList PriceList { get; set; }
         //public virtual Company LinkedCompany { get; set; }
 
         public Dictionary<string, (int, string, string, string)>

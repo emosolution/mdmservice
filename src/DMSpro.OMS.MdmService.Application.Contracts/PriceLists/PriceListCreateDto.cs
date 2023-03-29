@@ -1,7 +1,5 @@
-using DMSpro.OMS.MdmService.PriceLists;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -16,7 +14,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
         public ArithmeticOperator? ArithmeticOperation { get; set; }
         public int? ArithmeticFactor { get; set; }
         public ArithmeticFactorType? ArithmeticFactorType { get; set; }
-        public bool IsFirstPriceList { get; set; } = false;
+        public bool IsDefault { get; set; } = false;
         public Guid? BasePriceListId { get; set; }
     }
 }
