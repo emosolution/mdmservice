@@ -164,7 +164,7 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
-
+            await CheckCodeUniqueness(input.Code);
             var item = await _itemManager.CreateAsync(
             input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Code, input.Name, input.ShortName, input.erpCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice, input.Active, input.ManageItemBy, input.CanUpdate, input.PurUnitRate, input.SalesUnitRate, input.ExpiredType, input.ExpiredValue, input.IssueMethod
             );
@@ -230,7 +230,7 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
-
+            await CheckCodeUniqueness(input.Code, id);
             var item = await _itemManager.UpdateAsync(
             id,
             input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Code, input.Name, input.ShortName, input.erpCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice, input.Active, input.ManageItemBy, input.CanUpdate, input.PurUnitRate, input.SalesUnitRate, input.ExpiredType, input.ExpiredValue, input.IssueMethod, input.ConcurrencyStamp

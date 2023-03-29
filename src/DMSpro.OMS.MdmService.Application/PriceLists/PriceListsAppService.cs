@@ -26,6 +26,8 @@ namespace DMSpro.OMS.MdmService.PriceLists
         [Authorize(MdmServicePermissions.PriceLists.Create)]
         public virtual async Task<PriceListDto> CreateAsync(PriceListCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
+
             bool isBase = (await _priceListRepository.CountAsync()) == 0;
             var basePriceListId = isBase ? null : input.BasePriceListId;
 
@@ -45,6 +47,8 @@ namespace DMSpro.OMS.MdmService.PriceLists
         [Authorize(MdmServicePermissions.PriceLists.Edit)]
         public virtual async Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
+
             await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
 
             var priceList = await _priceListManager.UpdateAsync(

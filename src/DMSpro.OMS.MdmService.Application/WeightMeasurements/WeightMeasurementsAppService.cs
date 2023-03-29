@@ -44,6 +44,7 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
         [Authorize(MdmServicePermissions.WeightMeasurements.Create)]
         public virtual async Task<WeightMeasurementDto> CreateAsync(WeightMeasurementCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
 
             var weightMeasurement = await _weightMeasurementManager.CreateAsync(
             input.Code, input.Name, input.Value
@@ -55,6 +56,7 @@ namespace DMSpro.OMS.MdmService.WeightMeasurements
         [Authorize(MdmServicePermissions.WeightMeasurements.Edit)]
         public virtual async Task<WeightMeasurementDto> UpdateAsync(Guid id, WeightMeasurementUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var weightMeasurement = await _weightMeasurementManager.UpdateAsync(
             id,

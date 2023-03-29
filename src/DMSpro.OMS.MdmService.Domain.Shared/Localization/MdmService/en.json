@@ -1066,6 +1066,10 @@
     "Permission:MdmService:MasterDataManipulators": "Manually manipulate master data",
     "Permission:MdmService:MasterDataManipulators:CreateNumberConfigs": "Create numbering configs",
     "Permission:MdmService:PriceList:Release": "Release price lists",
-    "Permission:MdmService:PriceListAssignment:Release": "Release price list assignments"
+    "Permission:MdmService:PriceListAssignment:Release": "Release price list assignments",
+    "Error:PartialCheckCodeUniquenessAppService:550": "Entity repository does not have the required method",
+    "Error:PartialCheckCodeUniquenessAppService:551": "Failed when trying to retrieve any existing record with the same code",
+    "Error:PartialCheckCodeUniquenessAppService:552": "Input code already exists",
+    "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty"
   }
 }

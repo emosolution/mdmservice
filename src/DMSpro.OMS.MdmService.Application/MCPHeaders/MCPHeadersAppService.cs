@@ -111,7 +111,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
-
+            await CheckCodeUniqueness(input.Code);
             var mCPHeader = await _mCPHeaderManager.CreateAsync(
             input.RouteId, input.CompanyId, input.ItemGroupId, input.Code, input.Name, input.EffectiveDate, input.EndDate
             );
@@ -130,7 +130,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
-
+            await CheckCodeUniqueness(input.Code, id);
             var mCPHeader = await _mCPHeaderManager.UpdateAsync(
             id,
             input.RouteId, input.CompanyId, input.ItemGroupId, input.Code, input.Name, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp

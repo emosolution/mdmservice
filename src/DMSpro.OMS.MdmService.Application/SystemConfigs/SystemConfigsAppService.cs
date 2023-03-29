@@ -43,6 +43,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
         [Authorize(MdmServicePermissions.SystemConfig.Create)]
         public virtual async Task<SystemConfigDto> CreateAsync(SystemConfigCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
 
             var systemConfig = await _systemConfigManager.CreateAsync(
             input.Code, input.Description, input.Value, input.DefaultValue, input.EditableByTenant, input.ControlType, input.DataSource
@@ -54,6 +55,7 @@ namespace DMSpro.OMS.MdmService.SystemConfigs
         [Authorize(MdmServicePermissions.SystemConfig.Edit)]
         public virtual async Task<SystemConfigDto> UpdateAsync(Guid id, SystemConfigUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var systemConfig = await _systemConfigManager.UpdateAsync(
             id,

@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.Currencies
         [Authorize(MdmServicePermissions.Currencies.Create)]
         public virtual async Task<CurrencyDto> CreateAsync(CurrencyCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var currency = await _currencyManager.CreateAsync(
             input.Code, input.Name
             );
@@ -55,7 +55,7 @@ namespace DMSpro.OMS.MdmService.Currencies
         [Authorize(MdmServicePermissions.Currencies.Edit)]
         public virtual async Task<CurrencyDto> UpdateAsync(Guid id, CurrencyUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var currency = await _currencyManager.UpdateAsync(
             id,
             input.Code, input.Name, input.ConcurrencyStamp

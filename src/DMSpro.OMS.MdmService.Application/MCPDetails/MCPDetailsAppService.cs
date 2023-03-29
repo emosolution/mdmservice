@@ -94,7 +94,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["MCPHeader"]]);
             }
-
+            await CheckCodeUniqueness(input.Code);
             var mcpDetail = await _mCPDetailManager.CreateAsync(
             input.CustomerId, input.MCPHeaderId, input.Code, input.EffectiveDate, input.Distance, input.VisitOrder, input.Monday, input.Tuesday, input.Wednesday, input.Thursday, input.Friday, input.Saturday, input.Sunday, input.Week1, input.Week2, input.Week3, input.Week4, input.EndDate
             );
@@ -113,7 +113,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["MCPHeader"]]);
             }
-
+            await CheckCodeUniqueness(input.Code, id);
             var mcpDetail = await _mCPDetailManager.UpdateAsync(
             id,
             input.CustomerId, input.MCPHeaderId, input.Code, input.EffectiveDate, input.Distance, input.VisitOrder, input.Monday, input.Tuesday, input.Wednesday, input.Thursday, input.Friday, input.Saturday, input.Sunday, input.Week1, input.Week2, input.Week3, input.Week4, input.EndDate, input.ConcurrencyStamp

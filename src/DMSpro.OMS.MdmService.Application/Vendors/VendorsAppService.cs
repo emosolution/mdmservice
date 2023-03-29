@@ -111,6 +111,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
+            await CheckCodeUniqueness(input.Code);
 
             var vendor = await _vendorManager.CreateAsync(
             input.PriceListId, input.GeoMaster0Id, input.GeoMaster1Id, input.GeoMaster2Id, input.GeoMaster3Id, input.GeoMaster4Id, input.CompanyId, input.LinkedCompanyId, input.Code, input.Name, input.ShortName, input.Phone1, input.Phone2, input.ERPCode, input.Active, input.Street, input.Address, input.Latitude, input.Longitude, input.EndDate
@@ -130,6 +131,7 @@ namespace DMSpro.OMS.MdmService.Vendors
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
+            await CheckCodeUniqueness(input.Code, id);
 
             var vendor = await _vendorManager.UpdateAsync(
             id,

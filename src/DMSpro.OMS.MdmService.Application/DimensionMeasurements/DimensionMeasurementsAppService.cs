@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
         [Authorize(MdmServicePermissions.DimensionMeasurements.Create)]
         public virtual async Task<DimensionMeasurementDto> CreateAsync(DimensionMeasurementCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var dimensionMeasurement = await _dimensionMeasurementManager.CreateAsync(
             input.Code, input.Name, input.Value
             );
@@ -55,7 +55,7 @@ namespace DMSpro.OMS.MdmService.DimensionMeasurements
         [Authorize(MdmServicePermissions.DimensionMeasurements.Edit)]
         public virtual async Task<DimensionMeasurementDto> UpdateAsync(Guid id, DimensionMeasurementUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var dimensionMeasurement = await _dimensionMeasurementManager.UpdateAsync(
             id,
             input.Code, input.Name, input.Value, input.ConcurrencyStamp

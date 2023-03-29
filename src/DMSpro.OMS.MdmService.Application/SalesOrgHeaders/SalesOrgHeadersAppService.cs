@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         [Authorize(MdmServicePermissions.SalesOrgHeaders.Create)]
         public virtual async Task<SalesOrgHeaderDto> CreateAsync(SalesOrgHeaderCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var salesOrgHeader = await _salesOrgHeaderManager.CreateAsync(
             input.Code, input.Name, input.Active
             );
@@ -54,7 +54,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         [Authorize(MdmServicePermissions.SalesOrgHeaders.Edit)]
         public virtual async Task<SalesOrgHeaderDto> UpdateAsync(Guid id, SalesOrgHeaderUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var salesOrgHeader = await _salesOrgHeaderManager.UpdateAsync(
             id,
             input.Code, input.Name, input.Active, input.ConcurrencyStamp

@@ -43,7 +43,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupDto> CreateAsync(CustomerGroupCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var customerGroup = await _customerGroupManager.CreateAsync(
             input.Code, input.Name, input.Active, input.GroupBy, input.Status, input.EffectiveDate
             );
@@ -54,7 +54,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupDto> UpdateAsync(Guid id, CustomerGroupUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var customerGroup = await _customerGroupManager.UpdateAsync(
             id,
             input.Code, input.Name, input.Active, input.GroupBy, input.Status, input.EffectiveDate, input.ConcurrencyStamp

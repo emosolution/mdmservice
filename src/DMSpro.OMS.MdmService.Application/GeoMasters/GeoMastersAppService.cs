@@ -70,7 +70,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         [Authorize(MdmServicePermissions.GeoMasters.Create)]
         public virtual async Task<GeoMasterDto> CreateAsync(GeoMasterCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var geoMaster = await _geoMasterManager.CreateAsync(
             input.ParentId, input.Code, input.ERPCode, input.Name, input.Level
             );
@@ -81,7 +81,7 @@ namespace DMSpro.OMS.MdmService.GeoMasters
         [Authorize(MdmServicePermissions.GeoMasters.Edit)]
         public virtual async Task<GeoMasterDto> UpdateAsync(Guid id, GeoMasterUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var geoMaster = await _geoMasterManager.UpdateAsync(
             id,
             input.ParentId, input.Code, input.ERPCode, input.Name, input.Level, input.ConcurrencyStamp

@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         [Authorize(MdmServicePermissions.ItemGroups.Create)]
         public virtual async Task<ItemGroupDto> CreateAsync(ItemGroupCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var itemGroup = await _itemGroupManager.CreateAsync(
             input.Code, input.Name, input.Description, input.Type, input.Status
             );
@@ -55,7 +55,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         [Authorize(MdmServicePermissions.ItemGroups.Edit)]
         public virtual async Task<ItemGroupDto> UpdateAsync(Guid id, ItemGroupUpdateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code, id);
             var itemGroup = await _itemGroupManager.UpdateAsync(
             id,
             input.Code, input.Name, input.Description, input.Type, input.Status, input.ConcurrencyStamp

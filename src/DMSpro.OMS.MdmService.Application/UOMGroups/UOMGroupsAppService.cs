@@ -44,6 +44,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
         [Authorize(MdmServicePermissions.UOMGroups.Create)]
         public virtual async Task<UOMGroupDto> CreateAsync(UOMGroupCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
 
             var uOMGroup = await _uOMGroupManager.CreateAsync(
             input.Code, input.Name
@@ -55,6 +56,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
         [Authorize(MdmServicePermissions.UOMGroups.Edit)]
         public virtual async Task<UOMGroupDto> UpdateAsync(Guid id, UOMGroupUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var uOMGroup = await _uOMGroupManager.UpdateAsync(
             id,

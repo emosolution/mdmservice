@@ -73,7 +73,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
             }
-
+            await CheckCodeUniqueness(input.Code);
             var priceUpdate = await _priceUpdateManager.CreateAsync(
             input.PriceListId, input.Code, input.Description, input.EffectiveDate, input.Status, input.UpdateStatusDate
             );
@@ -88,7 +88,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
             }
-
+            await CheckCodeUniqueness(input.Code, id);
             var priceUpdate = await _priceUpdateManager.UpdateAsync(
             id,
             input.PriceListId, input.Code, input.Description, input.EffectiveDate, input.Status, input.UpdateStatusDate, input.ConcurrencyStamp

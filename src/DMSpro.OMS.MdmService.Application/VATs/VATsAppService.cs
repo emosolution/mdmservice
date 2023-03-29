@@ -44,6 +44,7 @@ namespace DMSpro.OMS.MdmService.VATs
         [Authorize(MdmServicePermissions.VATs.Create)]
         public virtual async Task<VATDto> CreateAsync(VATCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
 
             var vAT = await _vATManager.CreateAsync(
             input.Code, input.Name, input.Rate
@@ -55,6 +56,7 @@ namespace DMSpro.OMS.MdmService.VATs
         [Authorize(MdmServicePermissions.VATs.Edit)]
         public virtual async Task<VATDto> UpdateAsync(Guid id, VATUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var vAT = await _vATManager.UpdateAsync(
             id,

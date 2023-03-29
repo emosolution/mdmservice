@@ -43,6 +43,7 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         [Authorize(MdmServicePermissions.WorkingPositions.Create)]
         public virtual async Task<WorkingPositionDto> CreateAsync(WorkingPositionCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
 
             var workingPosition = await _workingPositionManager.CreateAsync(
             input.Code, input.Name, input.Description, input.Active
@@ -54,6 +55,7 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         [Authorize(MdmServicePermissions.WorkingPositions.Edit)]
         public virtual async Task<WorkingPositionDto> UpdateAsync(Guid id, WorkingPositionUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var workingPosition = await _workingPositionManager.UpdateAsync(
             id,

@@ -50,6 +50,8 @@ namespace DMSpro.OMS.MdmService.UOMs
         [Authorize(MdmServicePermissions.UOMs.Create)]
         public virtual async Task<UOMDto> CreateAsync(UOMCreateDto input)
         {
+            await CheckCodeUniqueness(input.Code);
+
             var uOM = await _uOMManager.CreateAsync(
             input.Code, input.Name
             );
@@ -60,6 +62,7 @@ namespace DMSpro.OMS.MdmService.UOMs
         [Authorize(MdmServicePermissions.UOMs.Edit)]
         public virtual async Task<UOMDto> UpdateAsync(Guid id, UOMUpdateDto input)
         {
+            await CheckCodeUniqueness(input.Code, id);
 
             var uOM = await _uOMManager.UpdateAsync(
             id,
