@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.PriceListDetails;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -20,6 +21,11 @@ namespace DMSpro.OMS.MdmService.PriceLists
         [Authorize(MdmServicePermissions.PriceLists.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            var priceList = await _priceListRepository.FirstAsync(x => x.Id == id);
+            if (priceList.IsBase || priceList.IsDefaultForCustomer || priceList.IsDefaultForVendor)
+            {
+                throw new UserFriendlyException(L[""]);
+            }
             await _priceListRepository.DeleteAsync(id);
         }
 
@@ -38,8 +44,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 input.IsDefaultForCustomer, input.IsDefaultForVendor,
                 input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType);
 
-            await HandlePriceListDetail(priceList, isBase, basePriceListId);
-
+            await HandlePriceListDetail(priceList);
 
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
         }
@@ -73,10 +78,10 @@ namespace DMSpro.OMS.MdmService.PriceLists
             }
         }
 
-        private async Task HandlePriceListDetail(PriceList priceList, bool isBase, Guid? basePriceListId)
+        private async Task HandlePriceListDetail(PriceList priceList)
         {
             List<PriceListDetail> priceListDetails = new();
-            if (isBase) //Get all ItemMaster
+            if (priceList.IsBase) //Get all ItemMaster
             {
                 var items = await _itemRepository.GetListAsync();
                 foreach (var i in items)
@@ -111,7 +116,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             }
             else
             { //Get detail from base price list
-                priceListDetails = await _priceListDetailRepository.GetListAsync(filterText: $"PriceListId = {basePriceListId}");
+                priceListDetails = await _priceListDetailRepository.GetListAsync(x => x.PriceListId == priceList.BasePriceListId);
                 foreach (var item in priceListDetails)
                 {
                     item.BasedOnPrice = item.Price;
