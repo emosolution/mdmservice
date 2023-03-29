@@ -21,7 +21,6 @@ using DMSpro.OMS.MdmService.EmployeeAttachments;
 using DMSpro.OMS.MdmService.EmployeeImages;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
-using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
@@ -86,7 +85,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<PriceUpdateDetail> PriceUpdateDetails { get; set; }
     public DbSet<PriceList> PriceLists { get; set; }
     public DbSet<EmployeeProfile> EmployeeProfiles { get; set; }
-    public DbSet<SalesChannel> SalesChannels { get; set; }
     public DbSet<VisitPlan> VisitPlans { get; set; }
     public DbSet<MCPDetail> MCPDetails { get; set; }
     public DbSet<MCPHeader> MCPHeaders { get; set; }

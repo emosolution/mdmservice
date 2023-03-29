@@ -20,7 +20,6 @@ using DMSpro.OMS.MdmService.EmployeeAttachments;
 using DMSpro.OMS.MdmService.EmployeeImages;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
-using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
@@ -142,8 +141,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<MCPDetail, MCPDetails.EfCoreMCPDetailRepository>();
 
             options.AddRepository<VisitPlan, VisitPlans.EfCoreVisitPlanRepository>();
-
-            options.AddRepository<SalesChannel, SalesChannels.EfCoreSalesChannelRepository>();
 
             options.AddRepository<EmployeeProfile, EmployeeProfiles.EfCoreEmployeeProfileRepository>();
 

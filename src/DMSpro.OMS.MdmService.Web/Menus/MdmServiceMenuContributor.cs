@@ -126,12 +126,10 @@ public class MdmServiceMenuContributor : IMenuContributor
            )
             .RequirePermissions(false, MdmServicePermissions.CompanyMasters.Default,
                 MdmServicePermissions.VATs.Default,
-                MdmServicePermissions.SalesChannels.Default,
                 MdmServicePermissions.CompanyIdentityUserAssignments.Default)
             .RequireFeatures(false,
                 MdmFeatures.CompanyMaster,
                 MdmFeatures.VATs,
-                MdmFeatures.SalesChannels,
                 MdmFeatures.CompanyIdentityUserAssignments);
 
         parentMenu.AddItem(groupMenu);
@@ -154,16 +152,6 @@ public class MdmServiceMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.VATs.Default
             ).RequireFeatures(MdmFeatures.VATs)
-        );
-
-        groupMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.MdmServiceMenus.SalesChannels,
-                context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:SalesChannels"],
-                "/Mdm/SalesChannels",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.SalesChannels.Default
-            ).RequireFeatures(MdmFeatures.SalesChannels)
         );
 
         groupMenu.AddItem(

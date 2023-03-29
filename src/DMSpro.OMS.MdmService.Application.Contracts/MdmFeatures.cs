@@ -23,7 +23,6 @@
         public const string Currencies = Company + ".Currencies";
         public const string Measurements = Company + ".Measurements";
         public const string VATs = Company + ".VATs";
-        public const string SalesChannels = Company + ".SalesChannels";
         public const string CompanyIdentityUserAssignments = Company + ".CompanyIdentityUserAssignments";
 
         //

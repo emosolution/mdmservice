@@ -96,14 +96,6 @@ namespace DMSpro.OMS.MdmService
             );
 
             enableCompany.CreateChild(
-                MdmFeatures.SalesChannels,
-                defaultValue: "false",
-                displayName: LocalizableString
-                                 .Create<MdmServiceResource>("Feature:MDMService:EnableSalesChannel"),
-                valueType: new ToggleStringValueType()
-            );
-
-            enableCompany.CreateChild(
                 MdmFeatures.CompanyIdentityUserAssignments,
                 defaultValue: "false",
                 displayName: LocalizableString

@@ -93,14 +93,6 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
-    public static class SalesChannels
-    {
-        public const string Default = GroupName + ".SalesChannels";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
     public static class CompanyIdentityUserAssignments
     {
         public const string Default = GroupName + ".CompanyIdentityUserAssignments";

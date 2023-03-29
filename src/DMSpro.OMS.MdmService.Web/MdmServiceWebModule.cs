@@ -65,7 +65,6 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/DimensionMeasurements/Index", MdmServicePermissions.DimensionMeasurements.Default);
             options.Conventions.AuthorizePage("/WeightMeasurements/Index", MdmServicePermissions.WeightMeasurements.Default);
             options.Conventions.AuthorizePage("/VATs/Index", MdmServicePermissions.VATs.Default);
-            options.Conventions.AuthorizePage("/SalesChannels/Index", MdmServicePermissions.SalesChannels.Default);
             options.Conventions.AuthorizePage("/UOMs/Index", MdmServicePermissions.UOMs.Default);
             options.Conventions.AuthorizePage("/UOMGroups/Index", MdmServicePermissions.UOMGroups.Default);
             options.Conventions.AuthorizePage("/UOMGroupDetails/Index", MdmServicePermissions.UOMGroupDetails.Default);

@@ -46,11 +46,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         vatPermission.AddChild(MdmServicePermissions.VATs.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.VATs);
         vatPermission.AddChild(MdmServicePermissions.VATs.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.VATs);
 
-        var salesChannelPermission = myGroup.AddPermission(MdmServicePermissions.SalesChannels.Default, L("Permission:MdmService:SalesChannels")).RequireFeatures(MdmFeatures.SalesChannels);
-        salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.SalesChannels);
-        salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.SalesChannels);
-        salesChannelPermission.AddChild(MdmServicePermissions.SalesChannels.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.SalesChannels);
-
         var companyIdentityUserAssignmentPermission = myGroup.AddPermission(MdmServicePermissions.CompanyIdentityUserAssignments.Default, L("Permission:MdmService:CompanyIdentityUserAssignments")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
         companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);
         companyIdentityUserAssignmentPermission.AddChild(MdmServicePermissions.CompanyIdentityUserAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CompanyIdentityUserAssignments);

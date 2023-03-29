@@ -20,7 +20,6 @@ using DMSpro.OMS.MdmService.EmployeeAttachments;
 using DMSpro.OMS.MdmService.EmployeeImages;
 using DMSpro.OMS.MdmService.PriceUpdateDetails;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
-using DMSpro.OMS.MdmService.SalesChannels;
 using DMSpro.OMS.MdmService.VisitPlans;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.MCPHeaders;
@@ -128,16 +127,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Code).HasColumnName(nameof(VAT.Code)).IsRequired().HasMaxLength(VATConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(VAT.Name)).IsRequired().HasMaxLength(VATConsts.NameMaxLength);
             b.Property(x => x.Rate).HasColumnName(nameof(VAT.Rate)).IsRequired().HasMaxLength(VATConsts.RateMaxLength);
-        });
-        builder.Entity<SalesChannel>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "SalesChannels", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(SalesChannel.TenantId));
-            b.Property(x => x.Code).HasColumnName(nameof(SalesChannel.Code)).IsRequired().HasMaxLength(SalesChannelConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(SalesChannel.Name)).IsRequired().HasMaxLength(SalesChannelConsts.NameMaxLength);
-            b.Property(x => x.Description).HasColumnName(nameof(SalesChannel.Description)).HasMaxLength(SalesChannelConsts.DescriptionMaxLength);
-            b.Property(x => x.Active).HasColumnName(nameof(SalesChannel.Active));
         });
         builder.Entity<UOM>(b =>
         {
