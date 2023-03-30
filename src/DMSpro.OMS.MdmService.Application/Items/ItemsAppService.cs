@@ -206,6 +206,8 @@ namespace DMSpro.OMS.MdmService.Items
         [Authorize(MdmServicePermissions.Items.Edit)]
         public virtual async Task<ItemDto> UpdateAsync(Guid id, ItemUpdateDto input)
         {
+            await CheckCanBeUpdated(id);
+
             if (input.ItemTypeId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SystemData"]]);
@@ -230,6 +232,7 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
+
             await CheckCodeUniqueness(input.Code, id);
             var item = await _itemManager.UpdateAsync(
             id,
@@ -237,6 +240,22 @@ namespace DMSpro.OMS.MdmService.Items
             );
 
             return ObjectMapper.Map<Item, ItemDto>(item);
+        }
+
+        private async Task CheckCanBeUpdated(Guid id)
+        {
+            var record = await _itemRepository.GetAsync(id);
+            if (!record.CanUpdate)
+            {
+                throw new UserFriendlyException(message: L["Error:ItemsAppService:550"], code: "0");
+            }
+            bool canBeUpdated = await _itemsInternalAppService.CheckCanBeUpdatedAsync(id);
+            if (!canBeUpdated)
+            {
+                record.CanUpdate = false;
+                await _itemRepository.UpdateAsync(record);
+                throw new UserFriendlyException(message: L["Error:ItemsAppService:550"], code: "0");
+            }
         }
 
         [AllowAnonymous]

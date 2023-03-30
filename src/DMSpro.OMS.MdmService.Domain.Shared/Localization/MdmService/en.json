@@ -1056,6 +1056,7 @@
     "Error:PartialCheckCodeUniquenessAppService:550": "Entity repository does not have the required method",
     "Error:PartialCheckCodeUniquenessAppService:551": "Failed when trying to retrieve any existing record with the same code",
     "Error:PartialCheckCodeUniquenessAppService:552": "Input code already exists",
-    "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty"
+    "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
+    "Error:ItemsAppService:550": "Item can no longer be updated"
   }
 }
