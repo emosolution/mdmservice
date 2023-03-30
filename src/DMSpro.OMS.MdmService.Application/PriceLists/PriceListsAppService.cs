@@ -6,6 +6,7 @@ using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using Volo.Abp;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -83,35 +84,35 @@ namespace DMSpro.OMS.MdmService.PriceLists
             List<PriceListDetail> priceListDetails = new();
             if (priceList.IsBase) //Get all ItemMaster
             {
-                var items = await _itemRepository.GetListAsync();
+                var items = (await _itemRepository.WithDetailsAsync()).ToList();
                 foreach (var i in items)
                 {
-                    PriceListDetail priceListDetailObj = new()
+                    foreach (var uom in i.UOMGroup.Details)
                     {
-                        Description = "",
-                        PriceListId = priceList.Id,
-                        ItemId = i.Id,
-                        UOMId = i.InventoryUOMId,
-                        BasedOnPrice = i.BasePrice,
-                        Price = i.BasePrice
-                    };
+                        PriceListDetail priceListDetailObj = new()
+                        {
+                            Description = "",
+                            PriceListId = priceList.Id,
+                            ItemId = i.Id,
+                            UOMId = uom.AltUOMId,
+                            BasedOnPrice = i.BasePrice * uom.BaseQty,
+                            Price = i.BasePrice * uom.BaseQty
+                        };
 
-                    switch (priceList.ArithmeticOperation)
-                    {
-                        case ArithmeticOperator.ADD:
-                            priceListDetailObj.Price = i.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                            break;
-                        case ArithmeticOperator.SUBTRACT:
-                            priceListDetailObj.Price = i.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                            break;
-                        default:
-                            break;
+                        switch (priceList.ArithmeticOperation)
+                        {
+                            case ArithmeticOperator.ADD:
+                                priceListDetailObj.Price = i.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                break;
+                            case ArithmeticOperator.SUBTRACT:
+                                priceListDetailObj.Price = i.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                break;
+                            default:
+                                break;
+                        }
+
+                        priceListDetails.Add(priceListDetailObj);
                     }
-
-                    priceListDetails.Add(priceListDetailObj);
-
-                    //priceListDetailObj.
-                    //var priceListDetail = await _priceListDetailRepository.InsertAsync(priceListDetailObj);
                 }
             }
             else

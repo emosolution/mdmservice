@@ -172,32 +172,39 @@ namespace DMSpro.OMS.MdmService.Items
             //Add Item to Price List
             if (await _priceListRepository.CountAsync() > 0)
             {
+                List<PriceListDetail> priceListDetails = new();
                 var priceListCollection = await _priceListRepository.GetListAsync();
+
                 foreach (var priceList in priceListCollection)
                 {
-                    PriceListDetail priceListDetailObj = new()
+                    foreach (var uom in await _uOMGroupDetailRepository.GetListAsync(x => x.UOMGroupId == item.UomGroupId))
                     {
-                        PriceListId = priceList.Id,
-                        Description = "",
-                        ItemId = item.Id,
-                        UOMId = item.InventoryUOMId,
-                        BasedOnPrice = item.BasePrice,
-                        Price = item.BasePrice,
-                    };
-                    switch (priceList.ArithmeticOperation)
-                    {
-                        case ArithmeticOperator.ADD:
-                            priceListDetailObj.Price = item.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                            break;
-                        case ArithmeticOperator.SUBTRACT:
-                            priceListDetailObj.Price = item.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                            break;
-                        default:
-                            break;
-                    }
+                        var price = item.BasePrice * uom.BaseQty;
+                        PriceListDetail priceListDetailObj = new()
+                        {
+                            PriceListId = priceList.Id,
+                            Description = "",
+                            ItemId = item.Id,
+                            UOMId = uom.AltUOMId,
+                            BasedOnPrice = price,
+                            Price = price,
+                        };
+                        switch (priceList.ArithmeticOperation)
+                        {
+                            case ArithmeticOperator.ADD:
+                                priceListDetailObj.Price = price + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                break;
+                            case ArithmeticOperator.SUBTRACT:
+                                priceListDetailObj.Price = price - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                break;
+                            default:
+                                break;
+                        }
 
-                    await _priceListDetailRepository.InsertAsync(priceListDetailObj);
+                        priceListDetails.Add(priceListDetailObj);
+                    }
                 }
+                await _priceListDetailRepository.InsertManyAsync(priceListDetails);
             }
 
             return ObjectMapper.Map<Item, ItemDto>(item);

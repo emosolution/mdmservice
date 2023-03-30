@@ -14,6 +14,7 @@ using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -33,6 +34,7 @@ namespace DMSpro.OMS.MdmService.Items
 
         private readonly IVATRepository _vATRepository;
         private readonly IUOMGroupRepository _uOMGroupRepository;
+        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly IPriceListRepository _priceListRepository;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
@@ -49,6 +51,7 @@ namespace DMSpro.OMS.MdmService.Items
             IConfiguration settingProvider,
             IVATRepository vATRepository,
             IUOMGroupRepository uOMGroupRepository,
+            IUOMGroupDetailRepository uOMGroupDetailRepository,
             IItemAttributeValueRepository itemAttributeValueRepository,
             IUOMRepository uOMRepository,
             ISystemDataRepository systemDataRepository,
@@ -72,6 +75,7 @@ namespace DMSpro.OMS.MdmService.Items
             _priceListDetailRepository = priceListDetailRepository;
             _itemAttributeValueRepository = itemAttributeValueRepository;
             _uOMGroupRepository = uOMGroupRepository;
+            _uOMGroupDetailRepository = uOMGroupDetailRepository;
             _uOMRepository = uOMRepository;
 
             _repositories.AddIfNotContains(
