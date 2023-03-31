@@ -11,6 +11,7 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
@@ -38,6 +39,10 @@ namespace DMSpro.OMS.MdmService.UOMGroups
         [Authorize(MdmServicePermissions.UOMGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            if (await _itemRepository.AnyAsync(x => x.UomGroupId == id))
+            {
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            }
             await _uOMGroupDetailRepository.DeleteAsync(x => x.UOMGroupId == id);
             await _uOMGroupRepository.DeleteAsync(id);
         }

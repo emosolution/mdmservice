@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
@@ -15,6 +16,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 	{
 		private readonly IUOMGroupRepository _uOMGroupRepository;
         private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly UOMGroupManager _uOMGroupManager;
@@ -22,6 +24,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 		public UOMGroupsAppService(ICurrentTenant currentTenant,
 			IUOMGroupRepository repository,
 			IUOMGroupDetailRepository uOMGroupDetailRepository,
+			IItemRepository itemRepository,
 			UOMGroupManager uOMGroupManager,
 			IConfiguration settingProvider,
 			IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
@@ -29,6 +32,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 		{
 			_uOMGroupRepository = repository;
             _uOMGroupDetailRepository = uOMGroupDetailRepository;
+            _itemRepository = itemRepository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
 			_uOMGroupManager = uOMGroupManager;
 			
