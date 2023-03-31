@@ -8,6 +8,7 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.Vendors;
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -18,6 +19,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 		private readonly IPriceListRepository _priceListRepository;
 		private readonly PriceListManager _priceListManager;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
+        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IVendorRepository _vendorRepository;
         private readonly IItemRepository _itemRepository;
@@ -26,6 +28,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 			PriceListManager priceListManager,
 			IConfiguration settingProvider,
 			IPriceListDetailRepository priceListDetailRepository,
+			IUOMGroupDetailRepository uOMGroupDetailRepository, 
 			ICustomerRepository customerRepository,
 			IVendorRepository vendorRepository,
 			IItemRepository itemRepository)
@@ -34,6 +37,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
 			_priceListRepository = repository;
 			_priceListManager = priceListManager;
 			_priceListDetailRepository = priceListDetailRepository;
+            _uOMGroupDetailRepository = uOMGroupDetailRepository;
             _customerRepository = customerRepository;
             _vendorRepository = vendorRepository;
             _itemRepository = itemRepository;
