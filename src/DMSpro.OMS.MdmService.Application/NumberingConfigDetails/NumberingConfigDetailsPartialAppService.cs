@@ -21,7 +21,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         private readonly ICompanyRepository _companyRepository;
         private readonly INumberingConfigRepository _numberingConfigRepository;
         private readonly ISystemDataRepository _systemDataRepository;
-        private readonly ISystemDatasInternalAppService _systemDatasInternalAppService;
 
         private readonly NumberingConfigDetailManager _numberingConfigDetailManager;
 
@@ -31,7 +30,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             ICompanyRepository companyRepository,
             INumberingConfigRepository numberingConfigRepository,
             ISystemDataRepository systemDataRepository,
-            ISystemDatasInternalAppService systemDatasInternalAppService,
             NumberingConfigDetailManager numberingConfigDetailManager)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.NumberingConfigs.Default)
         {
@@ -40,7 +38,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
 
             _companyRepository = companyRepository;
             _numberingConfigRepository = numberingConfigRepository;
-            _systemDatasInternalAppService = systemDatasInternalAppService;
             _systemDataRepository = systemDataRepository;
 
             _repositories.AddIfNotContains(
@@ -49,7 +46,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 new KeyValuePair<string, object>("INumberingConfigRepository", _numberingConfigRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
-            _systemDatasInternalAppService = systemDatasInternalAppService;
         }
     }
 }
