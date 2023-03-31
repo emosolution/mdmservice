@@ -84,7 +84,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             List<DateTime> holidays = await GetHolidayDates(DateStart, DateEnd);
             List<Tuple<DateTime, int, DayOfWeek>> DateDetails = GetDateDetails(DateStart, DateEnd, holidays);
             List<MCPDetail> MCPDetails = await GetMCPDetails(input.MCPHeaderId, input.MCPDetailIds);
-            List<Guid> mcpDetailIds = MCPDetails.AsQueryable().Select(c => c.Id).ToList();
+            List<Guid> mcpDetailIds = MCPDetails.Select(c => c.Id).ToList();
             await DeleteExistingVisitPlans(DateStart, DateEnd, mcpDetailIds);
             List<VisitPlan> allVisitPlans = new();
             int successfulGeneration = 0;
@@ -132,7 +132,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             }
             DateTime dateStart = GetMaxDateFromList(inputDateStart, CustomerDateStart, MCPDetailDateStart);
             DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, CustomerDateEnd, MCPDetailDateEnd)).Date;
-            foreach (Tuple<DateTime, int, DayOfWeek> dateDetail in dateDetails)
+            foreach (var dateDetail in dateDetails)
             {
                 DateTime date = dateDetail.Item1;
                 if (date < dateStart)
@@ -151,9 +151,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 {
                     continue;
                 }
+                int weekInYear = ISOWeek.GetWeekOfYear(date);
                 VisitPlan visitPlan =
                     new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, companyId, itemGroupId, 
-                        date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, WeekNum, date.Month, date.Year)
+                        date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, weekInYear, date.Month, date.Year)
                     { TenantId = mcpDetail.TenantId };
                 result.Add(visitPlan);
             }
@@ -279,7 +280,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             // For example: current date is 17/12/2022, then end date would be 28/02/2023
             if (DateEnd == null)
             {
-                DateTime firstDayThisMonth = new DateTime(reference.Year, reference.Month, 1);
+                DateTime firstDayThisMonth = new(reference.Year, reference.Month, 1);
                 DateTime firstDayPlusThreeMonths = firstDayThisMonth.AddMonths(3);
                 DateTime lastDayNextTwoMonth = firstDayPlusThreeMonths.AddDays(-1);
                 DateEnd = lastDayNextTwoMonth.Date;
