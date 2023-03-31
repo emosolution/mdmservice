@@ -12,16 +12,16 @@ namespace DMSpro.OMS.MdmService.Items
 {
     public class ItemsInternalAppService : ApplicationService, IItemsInternalAppService
     {
-        private readonly IItemsAppService _itemsAppService;
+        private readonly IItemRepository _itemRepository;
 
         private readonly IConfiguration _settingProvider;
         private readonly ICurrentTenant _currentTenant;
 
-        public ItemsInternalAppService(IItemsAppService itemsAppService,
+        public ItemsInternalAppService(IItemRepository itemRepository,
             IConfiguration settingProvider,
             ICurrentTenant currentTenant)
         {
-            _itemsAppService = itemsAppService;
+            _itemRepository = itemRepository;
 
             _settingProvider = settingProvider;
             _currentTenant = currentTenant;
@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.Items
 
         public virtual async Task<bool> CheckCanBeUpdatedAsync(Guid id)
         {
-            var item = await _itemsAppService.GetAsync(id);
+            var item = await _itemRepository.GetAsync(id);
             if (!item.CanUpdate) { return false; }
 
             CheckItemUsedRequest request = new()
