@@ -15,14 +15,14 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public virtual DateTime? EndDate { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CompanyId { get; set; }
-        public Guid ItemGroupId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public CompanyInZone()
         {
 
         }
 
-        public CompanyInZone(Guid id, Guid salesOrgHierarchyId, Guid companyId, Guid itemGroupId, DateTime effectiveDate, DateTime? endDate = null)
+        public CompanyInZone(Guid id, Guid salesOrgHierarchyId, Guid companyId, Guid? itemGroupId, DateTime effectiveDate, DateTime? endDate = null)
         {
 
             Id = id;

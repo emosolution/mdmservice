@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"));
+                result.First().Id.ShouldBe(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
             });
         }
 

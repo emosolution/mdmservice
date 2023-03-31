@@ -22,11 +22,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public async Task GetAsync()
         {
             // Act
-            var result = await _companyInZonesAppService.GetAsync(Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"));
+            var result = await _companyInZonesAppService.GetAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"));
+            result.Id.ShouldBe(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
         }
 
         [Fact]
@@ -35,11 +35,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             // Arrange
             var input = new CompanyInZoneCreateDto
             {
-                EffectiveDate = new DateTime(2021, 7, 13),
-                EndDate = new DateTime(2009, 8, 3),
+                EffectiveDate = new DateTime(2019, 3, 14),
+                EndDate = new DateTime(2007, 5, 11),
                 SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 CompanyId = Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
-                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+
             };
 
             // Act
@@ -49,8 +49,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             var result = await _companyInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2021, 7, 13));
-            result.EndDate.ShouldBe(new DateTime(2009, 8, 3));
+            result.EffectiveDate.ShouldBe(new DateTime(2019, 3, 14));
+            result.EndDate.ShouldBe(new DateTime(2007, 5, 11));
         }
 
         [Fact]
@@ -59,32 +59,32 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             // Arrange
             var input = new CompanyInZoneUpdateDto()
             {
-                EffectiveDate = new DateTime(2006, 3, 4),
-                EndDate = new DateTime(2012, 2, 21),
+                EffectiveDate = new DateTime(2004, 1, 7),
+                EndDate = new DateTime(2022, 6, 23),
                 SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 CompanyId = Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
-                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+
             };
 
             // Act
-            var serviceResult = await _companyInZonesAppService.UpdateAsync(Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"), input);
+            var serviceResult = await _companyInZonesAppService.UpdateAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"), input);
 
             // Assert
             var result = await _companyInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2006, 3, 4));
-            result.EndDate.ShouldBe(new DateTime(2012, 2, 21));
+            result.EffectiveDate.ShouldBe(new DateTime(2004, 1, 7));
+            result.EndDate.ShouldBe(new DateTime(2022, 6, 23));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _companyInZonesAppService.DeleteAsync(Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"));
+            await _companyInZonesAppService.DeleteAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             // Assert
-            var result = await _companyInZoneRepository.FindAsync(c => c.Id == Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"));
+            var result = await _companyInZoneRepository.FindAsync(c => c.Id == Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             result.ShouldBeNull();
         }

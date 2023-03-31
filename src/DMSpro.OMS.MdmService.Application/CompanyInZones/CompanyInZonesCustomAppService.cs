@@ -30,10 +30,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
-            if (input.ItemGroupId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
-            }
 
             var companyInZone = await _companyInZoneManager.CreateAsync(
             input.SalesOrgHierarchyId, input.CompanyId, input.ItemGroupId, input.EffectiveDate, input.EndDate
@@ -52,10 +48,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             if (input.CompanyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
-            }
-            if (input.ItemGroupId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
             }
 
             var companyInZone = await _companyInZoneManager.UpdateAsync(

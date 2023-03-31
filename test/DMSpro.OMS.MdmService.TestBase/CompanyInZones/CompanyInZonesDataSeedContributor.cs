@@ -41,22 +41,22 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
             await _companyInZoneRepository.InsertAsync(new CompanyInZone
             (
-                id: Guid.Parse("e982da88-da0d-465e-9261-439f600ea491"),
-                effectiveDate: new DateTime(2015, 1, 5),
-                endDate: new DateTime(2010, 8, 21),
+                id: Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"),
+                effectiveDate: new DateTime(2003, 6, 9),
+                endDate: new DateTime(2011, 1, 17),
                 salesOrgHierarchyId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 companyId: Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
-                itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+                itemGroupId: null
             ));
 
             await _companyInZoneRepository.InsertAsync(new CompanyInZone
             (
-                id: Guid.Parse("41e56b56-64eb-4e0c-ac8c-2462d6aa3b42"),
-                effectiveDate: new DateTime(2007, 11, 1),
-                endDate: new DateTime(2020, 8, 4),
+                id: Guid.Parse("03f3d0f3-813b-4ca6-827e-bb2962d1edda"),
+                effectiveDate: new DateTime(2009, 8, 2),
+                endDate: new DateTime(2021, 9, 15),
                 salesOrgHierarchyId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 companyId: Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
-                itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")
+                itemGroupId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

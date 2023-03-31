@@ -20,11 +20,10 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         }
 
         public async Task<CompanyInZone> CreateAsync(
-        Guid salesOrgHierarchyId, Guid companyId, Guid itemGroupId, DateTime effectiveDate, DateTime? endDate = null)
+        Guid salesOrgHierarchyId, Guid companyId, Guid? itemGroupId, DateTime effectiveDate, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(companyId, nameof(companyId));
-            Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var companyInZone = new CompanyInZone(
@@ -37,12 +36,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         public async Task<CompanyInZone> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid companyId, Guid itemGroupId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid companyId, Guid? itemGroupId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(companyId, nameof(companyId));
-            Check.NotNull(itemGroupId, nameof(itemGroupId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var companyInZone = await _companyInZoneRepository.GetAsync(id);
