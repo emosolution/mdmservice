@@ -38,6 +38,7 @@ namespace DMSpro.OMS.MdmService.UOMGroups
         [Authorize(MdmServicePermissions.UOMGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            await _uOMGroupDetailRepository.DeleteAsync(x => x.UOMGroupId == id);
             await _uOMGroupRepository.DeleteAsync(id);
         }
 

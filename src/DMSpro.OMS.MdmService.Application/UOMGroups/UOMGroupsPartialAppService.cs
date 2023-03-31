@@ -5,6 +5,7 @@ using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 
 namespace DMSpro.OMS.MdmService.UOMGroups
 {
@@ -13,19 +14,22 @@ namespace DMSpro.OMS.MdmService.UOMGroups
 		IUOMGroupsAppService
 	{
 		private readonly IUOMGroupRepository _uOMGroupRepository;
-		private readonly IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string>
+        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
+        private readonly IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly UOMGroupManager _uOMGroupManager;
 
 		public UOMGroupsAppService(ICurrentTenant currentTenant,
 			IUOMGroupRepository repository,
+			IUOMGroupDetailRepository uOMGroupDetailRepository,
 			UOMGroupManager uOMGroupManager,
 			IConfiguration settingProvider,
 			IDistributedCache<UOMGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.UOMGroups.Default)
 		{
 			_uOMGroupRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
+            _uOMGroupDetailRepository = uOMGroupDetailRepository;
+            _excelDownloadTokenCache = excelDownloadTokenCache;
 			_uOMGroupManager = uOMGroupManager;
 			
 			_repositories.AddIfNotContains(
