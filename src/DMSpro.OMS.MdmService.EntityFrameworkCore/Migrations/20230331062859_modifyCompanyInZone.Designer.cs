@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DMSpro.OMS.MdmService.Migrations
 {
     [DbContext(typeof(MdmServiceDbContext))]
-    partial class MdmServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230331062859_modifyCompanyInZone")]
+    partial class modifyCompanyInZone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,7 +314,7 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("IsDeleted");
 
-                    b.Property<Guid?>("ItemGroupId")
+                    b.Property<Guid>("ItemGroupId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastModificationTime")
@@ -5042,7 +5045,8 @@ namespace DMSpro.OMS.MdmService.Migrations
                     b.HasOne("DMSpro.OMS.MdmService.ItemGroups.ItemGroup", "ItemGroup")
                         .WithMany()
                         .HasForeignKey("ItemGroupId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchy", "SalesOrgHierarchy")
                         .WithMany()

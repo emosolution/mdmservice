@@ -19,7 +19,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         public string ConcurrencyStamp { get; set; }
 
         public CompanyDto Company { get; set; }
-        public NumberingConfigDto NumberConfig { get; set; }
+        public NumberingConfigDto NumberingConfig { get; set; }
         public NumberingConfigDetailWithDetailsDto()
         {
         }

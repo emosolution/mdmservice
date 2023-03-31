@@ -9,9 +9,9 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
     {
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public bool IsBase { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid CompanyId { get; set; }
+        public Guid? ItemGroupId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

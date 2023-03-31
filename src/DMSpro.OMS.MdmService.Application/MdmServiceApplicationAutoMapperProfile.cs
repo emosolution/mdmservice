@@ -362,6 +362,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
 
         CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
+        CreateMap<NumberingConfigDetail, NumberingConfigDetailWithDetailsDto>();
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
     }
 }

@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         }
 
         public async Task<CompanyInZone> CreateAsync(
-        Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, bool isBase, DateTime? endDate = null)
+        Guid salesOrgHierarchyId, Guid companyId, Guid? itemGroupId, DateTime effectiveDate, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(companyId, nameof(companyId));
@@ -28,7 +28,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
             var companyInZone = new CompanyInZone(
              GuidGenerator.Create(),
-             salesOrgHierarchyId, companyId, effectiveDate, isBase, endDate
+             salesOrgHierarchyId, companyId, itemGroupId, effectiveDate, endDate
              );
 
             return await _companyInZoneRepository.InsertAsync(companyInZone);
@@ -36,22 +36,19 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         public async Task<CompanyInZone> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid companyId, DateTime effectiveDate, bool isBase, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid companyId, Guid? itemGroupId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(companyId, nameof(companyId));
             Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var queryable = await _companyInZoneRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var companyInZone = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var companyInZone = await _companyInZoneRepository.GetAsync(id);
 
             companyInZone.SalesOrgHierarchyId = salesOrgHierarchyId;
             companyInZone.CompanyId = companyId;
+            companyInZone.ItemGroupId = itemGroupId;
             companyInZone.EffectiveDate = effectiveDate;
-            companyInZone.IsBase = isBase;
             companyInZone.EndDate = endDate;
 
             companyInZone.SetConcurrencyStampIfNotNull(concurrencyStamp);

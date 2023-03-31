@@ -38,13 +38,11 @@ namespace DMSpro.OMS.MdmService.PriceLists
             bool isBase = (await _priceListRepository.CountAsync()) == 0;
             var basePriceListId = isBase ? null : input.BasePriceListId;
 
-            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
-
+            await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
             var priceList = await _priceListManager.CreateAsync(
                 basePriceListId, input.Code, input.Name, input.Active, isBase,
                 input.IsDefaultForCustomer, input.IsDefaultForVendor,
                 input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType);
-
             await HandlePriceListDetail(priceList);
 
             return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
@@ -55,7 +53,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
         {
             await CheckCodeUniqueness(input.Code, id);
 
-            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
+            await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
 
             var priceList = await _priceListManager.UpdateAsync(
                 id,
@@ -120,24 +118,39 @@ namespace DMSpro.OMS.MdmService.PriceLists
             }
             else
             { //Get detail from base price list
-                priceListDetails = await _priceListDetailRepository.GetListAsync(x => x.PriceListId == priceList.BasePriceListId);
-                foreach (var item in priceListDetails)
+                var basePrice = await _priceListRepository.FirstAsync(x => x.IsBase);
+
+                var priceListDetailsBase = await _priceListDetailRepository.GetListAsync(x => x.PriceListId == basePrice.Id);
+                
+                foreach (var item in priceListDetailsBase)
                 {
-                    item.BasedOnPrice = item.Price;
+                    var newItem = item.ShallowCopy();
+                    newItem.PriceListId = priceList.Id;
+                    newItem.BasedOnPrice = item.Price;
+
+                    decimal addValue = 0;
+                    if (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE)
+                    {
+                        addValue = newItem.BasedOnPrice.Value * (priceList.ArithmeticFactor ?? 0) / 100;
+                    }
+                    else addValue = priceList.ArithmeticFactor ?? 0;
+
                     switch (priceList.ArithmeticOperation)
                     {
                         case ArithmeticOperator.ADD:
-                            item.Price = item.BasedOnPrice.Value + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            newItem.Price = newItem.BasedOnPrice.Value + addValue;
                             break;
                         case ArithmeticOperator.SUBTRACT:
-                            item.Price = item.BasedOnPrice.Value - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            newItem.Price = newItem.BasedOnPrice.Value - addValue;
                             break;
                         default:
                             break;
                     }
+                    //Console.WriteLine(newItem);
+                    priceListDetails.Add(newItem);
                 }
             }
-
+            
             await _priceListDetailRepository.InsertManyAsync(priceListDetails);
         }
 

@@ -109,7 +109,7 @@ public class MdmServiceHttpApiHostModule : AbpModule
         app.UseAbpSerilogEnrichers();
         app.UseAuditing();
         app.UseUnitOfWork();
-        //app.UseConfiguredEndpoints(endpoints => endpoints.MapMetrics());
+        
         app.UseConfiguredEndpoints(endpoints =>
         {
             endpoints.MapMetrics();

@@ -22,11 +22,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         public async Task GetAsync()
         {
             // Act
-            var result = await _companyInZonesAppService.GetAsync(Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"));
+            var result = await _companyInZonesAppService.GetAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"));
+            result.Id.ShouldBe(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
         }
 
         [Fact]
@@ -35,11 +35,11 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             // Arrange
             var input = new CompanyInZoneCreateDto
             {
-                EffectiveDate = new DateTime(2017, 8, 13),
-                EndDate = new DateTime(2008, 6, 11),
-                IsBase = true,
-                SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                CompanyId = Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557")
+                EffectiveDate = new DateTime(2019, 3, 14),
+                EndDate = new DateTime(2007, 5, 11),
+                SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                CompanyId = Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
+
             };
 
             // Act
@@ -49,9 +49,8 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             var result = await _companyInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2017, 8, 13));
-            result.EndDate.ShouldBe(new DateTime(2008, 6, 11));
-            result.IsBase.ShouldBe(true);
+            result.EffectiveDate.ShouldBe(new DateTime(2019, 3, 14));
+            result.EndDate.ShouldBe(new DateTime(2007, 5, 11));
         }
 
         [Fact]
@@ -60,33 +59,32 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             // Arrange
             var input = new CompanyInZoneUpdateDto()
             {
-                EffectiveDate = new DateTime(2021, 10, 19),
-                EndDate = new DateTime(2018, 8, 22),
-                IsBase = true,
-                SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                CompanyId = Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557")
+                EffectiveDate = new DateTime(2004, 1, 7),
+                EndDate = new DateTime(2022, 6, 23),
+                SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                CompanyId = Guid.Parse("b0aca71d-adf2-47c1-a39a-b1e2ff33dcfc"),
+
             };
 
             // Act
-            var serviceResult = await _companyInZonesAppService.UpdateAsync(Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"), input);
+            var serviceResult = await _companyInZonesAppService.UpdateAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"), input);
 
             // Assert
             var result = await _companyInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2021, 10, 19));
-            result.EndDate.ShouldBe(new DateTime(2018, 8, 22));
-            result.IsBase.ShouldBe(true);
+            result.EffectiveDate.ShouldBe(new DateTime(2004, 1, 7));
+            result.EndDate.ShouldBe(new DateTime(2022, 6, 23));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _companyInZonesAppService.DeleteAsync(Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"));
+            await _companyInZonesAppService.DeleteAsync(Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             // Assert
-            var result = await _companyInZoneRepository.FindAsync(c => c.Id == Guid.Parse("c1702429-6343-45e0-bf7d-03cb29fa4beb"));
+            var result = await _companyInZoneRepository.FindAsync(c => c.Id == Guid.Parse("18cf812e-4e0b-491e-828a-a632eee53480"));
 
             result.ShouldBeNull();
         }

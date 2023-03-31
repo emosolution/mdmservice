@@ -41,6 +41,8 @@ namespace DMSpro.OMS.MdmService.Items
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
         private readonly IUOMRepository _uOMRepository;
 
+        private readonly IItemsInternalAppService _itemsInternalAppService;
+
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
             ItemManager itemManager,
@@ -57,7 +59,8 @@ namespace DMSpro.OMS.MdmService.Items
             ISystemDataRepository systemDataRepository,
             IPriceListRepository priceListRepository,
             IPriceListDetailRepository priceListDetailRepository,
-            IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
+            IItemsInternalAppService itemsInternalAppService)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.Items.Default)
         {
             _itemRepository = repository;
@@ -90,6 +93,8 @@ namespace DMSpro.OMS.MdmService.Items
                 new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemAttributeValueRepository", _itemAttributeValueRepository));
+            
+            _itemsInternalAppService = itemsInternalAppService;
         }
     }
 }
