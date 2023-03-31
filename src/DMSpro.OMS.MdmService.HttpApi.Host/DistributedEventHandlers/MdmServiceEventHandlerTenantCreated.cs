@@ -66,10 +66,10 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
 
                 await SeedSystemData();
 
-                await uow.CompleteAsync();
-
                 await _numberingConfigsInternalAppService.CreateAllConfigsForTenantAsync(
                     new List<Guid>() { eventData.Id });
+
+                await uow.CompleteAsync();
             }
         }
         catch (Exception e)
@@ -175,10 +175,10 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         };
 
         List<SystemData> seedSystemData = new();
-        foreach (var data in seedData)
+        foreach (var (Code, ValueCode, ValueName) in seedData)
         {
             SystemData seed = new SystemData(id: _guidGenerator.Create(),
-                code: data.Code, valueCode: data.ValueCode, valueName: data.ValueName);
+                code: Code, valueCode: ValueCode, valueName: ValueName);
             seedSystemData.Add(seed);
         }
         await _systemDataRepository.InsertManyAsync(seedSystemData);
