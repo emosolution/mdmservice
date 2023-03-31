@@ -179,6 +179,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         {
             SystemData seed = new SystemData(id: _guidGenerator.Create(),
                 code: data.Code, valueCode: data.ValueCode, valueName: data.ValueName);
+            seedSystemData.Add(seed);
         }
         await _systemDataRepository.InsertManyAsync(seedSystemData);
     }
