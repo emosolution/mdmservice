@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             bool isBase = (await _priceListRepository.CountAsync()) == 0;
             var basePriceListId = isBase ? null : input.BasePriceListId;
 
-            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
+            await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
             var priceList = await _priceListManager.CreateAsync(
                 basePriceListId, input.Code, input.Name, input.Active, isBase,
                 input.IsDefaultForCustomer, input.IsDefaultForVendor,
@@ -53,7 +53,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
         {
             await CheckCodeUniqueness(input.Code, id);
 
-            await HandleDefault(input.IsDefaultForVendor, input.IsDefaultForVendor);
+            await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
 
             var priceList = await _priceListManager.UpdateAsync(
                 id,
