@@ -118,7 +118,9 @@ namespace DMSpro.OMS.MdmService.PriceLists
             }
             else
             { //Get detail from base price list
-                var priceListDetailsBase = await _priceListDetailRepository.GetListAsync(x => x.PriceListId == priceList.BasePriceListId);
+                var basePrice = await _priceListRepository.FirstAsync(x => x.IsBase);
+
+                var priceListDetailsBase = await _priceListDetailRepository.GetListAsync(x => x.PriceListId == basePrice.Id);
                 
                 foreach (var item in priceListDetailsBase)
                 {
