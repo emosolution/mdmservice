@@ -60,28 +60,6 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
-    },
-    {
-      "Id": "ce000369-728e-4e55-80a2-a0f89e070d31",
-      "Name": "IsBase",
-      "Type": "bool",
-      "EnumType": "",
-      "EnumNamespace": "",
-      "EnumAngularImport": "shared/enums",
-      "EnumFilePath": null,
-      "DefaultValue": "false",
-      "IsNullable": false,
-      "IsRequired": false,
-      "IsTextArea": false,
-      "MinLength": null,
-      "MaxLength": null,
-      "SortOrder": 0,
-      "SortType": 0,
-      "Regex": "",
-      "EmailValidation": false,
-      "EnumValues": null,
-      "IsSelected": true,
-      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [
@@ -113,6 +91,21 @@
       "EntitySetName": "Companies",
       "DtoNamespace": "DMSpro.OMS.MdmService.Companies",
       "DtoEntityName": "CompanyDto",
+      "Type": "Guid"
+    },
+    {
+      "EntityNameWithDuplicationNumber": "ItemGroup",
+      "EntitySetNameWithDuplicationNumber": "ItemGroups",
+      "ReferencePropertyName": "ItemGroup",
+      "UiPickType": "Dropdown",
+      "IsRequired": true,
+      "Name": "ItemGroupId",
+      "DisplayProperty": "Code",
+      "Namespace": "DMSpro.OMS.MdmService.ItemGroups",
+      "EntityName": "ItemGroup",
+      "EntitySetName": "ItemGroups",
+      "DtoNamespace": "DMSpro.OMS.MdmService.ItemGroups",
+      "DtoEntityName": "ItemGroupDto",
       "Type": "Guid"
     }
   ],

@@ -6,9 +6,7 @@ using DMSpro.OMS.MdmService.Permissions;
 
 namespace DMSpro.OMS.MdmService.CompanyInZones
 {
-
-    [Authorize(MdmServicePermissions.CompanyInZones.Default)]
-    public partial class CompanyInZonesAppService 
+    public partial class CompanyInZonesAppService
     {
         public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
         {
@@ -32,9 +30,13 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
+            if (input.ItemGroupId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
+            }
 
             var companyInZone = await _companyInZoneManager.CreateAsync(
-            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.IsBase, input.EndDate
+            input.SalesOrgHierarchyId, input.CompanyId, input.ItemGroupId, input.EffectiveDate, input.EndDate
             );
 
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(companyInZone);
@@ -51,10 +53,14 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
+            if (input.ItemGroupId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["ItemGroup"]]);
+            }
 
             var companyInZone = await _companyInZoneManager.UpdateAsync(
             id,
-            input.SalesOrgHierarchyId, input.CompanyId, input.EffectiveDate, input.IsBase, input.EndDate, input.ConcurrencyStamp
+            input.SalesOrgHierarchyId, input.CompanyId, input.ItemGroupId, input.EffectiveDate, input.EndDate, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<CompanyInZone, CompanyInZoneDto>(companyInZone);

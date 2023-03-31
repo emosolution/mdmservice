@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.CompanyInZones;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
 {
@@ -25,73 +22,29 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyInZones
 
         [HttpGet]
         [Route("{id}")]
-        public virtual async Task<CompanyInZoneDto> GetAsync(Guid id)
+        public virtual Task<CompanyInZoneDto> GetAsync(Guid id)
         {
-            try
-            {
-                return await _companyInZonesAppService.GetAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyInZonesAppService.GetAsync(id);
         }
 
         [HttpPost]
-        public virtual async Task<CompanyInZoneDto> CreateAsync(CompanyInZoneCreateDto input)
+        public virtual Task<CompanyInZoneDto> CreateAsync(CompanyInZoneCreateDto input)
         {
-            try
-            {
-                return await _companyInZonesAppService.CreateAsync(input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyInZonesAppService.CreateAsync(input);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual async Task<CompanyInZoneDto> UpdateAsync(Guid id, CompanyInZoneUpdateDto input)
+        public virtual Task<CompanyInZoneDto> UpdateAsync(Guid id, CompanyInZoneUpdateDto input)
         {
-            try
-            {
-                return await _companyInZonesAppService.UpdateAsync(id, input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyInZonesAppService.UpdateAsync(id, input);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual Task DeleteAsync(Guid id)
         {
-            try
-            {
-                await _companyInZonesAppService.DeleteAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyInZonesAppService.DeleteAsync(id);
         }
     }
 }
