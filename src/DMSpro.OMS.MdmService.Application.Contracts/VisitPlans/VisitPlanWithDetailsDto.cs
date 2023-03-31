@@ -18,10 +18,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public int Week { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+        public bool IsCommando { get; set; }
         public Guid MCPDetailId { get; set; }
         public Guid CustomerId { get; set; }
         public Guid RouteId { get; set; }
-        public Guid CompanyId { get; set; }
         public Guid? ItemGroupId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
@@ -31,7 +31,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public SalesOrgHierarchyDto Route { get; set; }
         public ItemGroupDto ItemGroup { get; set; }
 
-        public CompanyDto Company {get;set;}
         public VisitPlanWithDetailsDto()
 		{
 		}

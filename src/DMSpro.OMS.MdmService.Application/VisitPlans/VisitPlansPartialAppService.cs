@@ -1,11 +1,9 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
-using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using DMSpro.OMS.MdmService.MCPDetails;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.Customers;
@@ -19,8 +17,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         IVisitPlansAppService
     {
         private readonly IVisitPlanRepository _visitPlanRepository;
-        private readonly IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly VisitPlanManager _visitPlanManager;
 
         private readonly IVisitPlansScheduledAppService _visitPlansScheduledAppService;
@@ -28,7 +24,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         private readonly IMCPDetailRepository _mCPDetailRepository;
         private readonly IItemGroupRepository _itemGroupRepository;
         private readonly ICustomerRepository _customerRepository;
-        private readonly ICompanyRepository _companyRepository;
 
         public VisitPlansAppService(ICurrentTenant currentTenant,
             IVisitPlanRepository repository,
@@ -39,12 +34,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             IMCPDetailRepository mCPDetailRepository,
             IItemGroupRepository itemGroupRepository,
             ICustomerRepository customerRepository,
-            ICompanyRepository companyRepository,
-            IDistributedCache<VisitPlanExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            ICompanyRepository companyRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.VisitPlans.Default)
         {
             _visitPlanRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _visitPlanManager = visitPlanManager;
 
             _visitPlansScheduledAppService = visitPlansScheduledAppService;
@@ -52,7 +45,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             _mCPDetailRepository = mCPDetailRepository;
             _itemGroupRepository = itemGroupRepository;
             _customerRepository = customerRepository;
-            _companyRepository = companyRepository;
 
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IVisitPlanRepository", _visitPlanRepository));
@@ -66,8 +58,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 new KeyValuePair<string, object>("IItemGroupRepository", _itemGroupRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICustomerRepository", _customerRepository));
-            _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
         }
     }
 }

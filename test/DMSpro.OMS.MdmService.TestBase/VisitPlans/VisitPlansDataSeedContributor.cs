@@ -49,35 +49,35 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
             await _visitPlanRepository.InsertAsync(new VisitPlan
             (
-                id: Guid.Parse("bd83721f-3a02-42d0-8187-4e5504558cd3"),
-                dateVisit: new DateTime(2008, 3, 16),
-                distance: 983691058,
-                visitOrder: 512221060,
+                id: Guid.Parse("1280a097-e2bb-4283-bc5e-37d343c44f58"),
+                dateVisit: new DateTime(2001, 3, 15),
+                distance: 976386175,
+                visitOrder: 495876567,
                 dayOfWeek: default,
-                week: 989657167,
-                month: 1307483504,
-                year: 558824439,
+                week: 1788057009,
+                month: 606316094,
+                year: 913634963,
+                isCommando: true,
                 mCPDetailId: Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
-                customerId: Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
-                routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
+                routeId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 itemGroupId: null
             ));
 
             await _visitPlanRepository.InsertAsync(new VisitPlan
             (
-                id: Guid.Parse("473b81d2-fc78-4a5b-ba79-f56cb707d365"),
-                dateVisit: new DateTime(2003, 2, 2),
-                distance: 1043636306,
-                visitOrder: 712029538,
+                id: Guid.Parse("6653549e-0dde-4618-981f-0591c3e4b624"),
+                dateVisit: new DateTime(2000, 11, 7),
+                distance: 1359180350,
+                visitOrder: 132117602,
                 dayOfWeek: default,
-                week: 612409450,
-                month: 1532259848,
-                year: 557855497,
+                week: 43855291,
+                month: 870617472,
+                year: 907038626,
+                isCommando: true,
                 mCPDetailId: Guid.Parse("40eb1f6c-27a8-44c6-91e5-5c40816e7ab9"),
-                customerId: Guid.Parse("e9c6f102-3d37-46de-b979-3e039dd965dc"),
-                routeId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                companyId: Guid.Parse("5cf1d383-b77c-4d86-ae4e-1ceb0e5e0246"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
+                routeId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
                 itemGroupId: null
             ));
 

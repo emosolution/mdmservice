@@ -179,7 +179,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<VisitPlan, VisitPlanDto>();
         CreateMap<VisitPlan, VisitPlanWithDetailsDto>();
-        CreateMap<VisitPlan, VisitPlanExcelDto>();
 
         CreateMap<GeoMasterWithNavigationProperties, GeoMasterWithNavigationPropertiesDto>();
         CreateMap<GeoMaster, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -298,7 +297,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<MCPHeader, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<VisitPlanWithNavigationProperties, VisitPlanWithNavigationPropertiesDto>();
         CreateMap<MCPDetail, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));

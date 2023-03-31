@@ -20,7 +20,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 {
     public class VisitPlansScheduledAppService : ApplicationService, IVisitPlansScheduledAppService
     {
-        private readonly IVisitPlanInternalRepository _visitPlanInternalRepository;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<Customer, Guid> _customerRepository;
         private readonly IRepository<SalesOrgHierarchy, Guid> _salesOrgHierarchyRepository;
@@ -32,7 +31,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         private readonly IMCPHeaderCustomRepository _mCPHeaderCustomRepository;
         private readonly IHolidayDetailCustomRepository _holidayDetailCustomRepository;
 
-        public VisitPlansScheduledAppService(IVisitPlanInternalRepository visitPlanInternalRepository,
+        public VisitPlansScheduledAppService(
             IGuidGenerator guidGenerator,
             IRepository<SalesOrgHierarchy, Guid> salesOrgHierarchyRepository,
             IRepository<Company, Guid> companyRepository,
@@ -46,7 +45,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         )
         {
             _visitPlanRepository = visitPlanRepository;
-            _visitPlanInternalRepository = visitPlanInternalRepository;
             _guidGenerator = guidGenerator;
             _customerRepository = customerRepository;
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
@@ -151,10 +149,12 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 {
                     continue;
                 }
+                bool isCommando = false;
                 int weekInYear = ISOWeek.GetWeekOfYear(date);
                 VisitPlan visitPlan =
-                    new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, companyId, itemGroupId, 
-                        date, mcpDetail.Distance, mcpDetail.VisitOrder, dayOfWeek, weekInYear, date.Month, date.Year)
+                    new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, itemGroupId, 
+                        date, mcpDetail.Distance, mcpDetail.VisitOrder, 
+                        dayOfWeek, weekInYear, date.Month, date.Year, isCommando)
                     { TenantId = mcpDetail.TenantId };
                 result.Add(visitPlan);
             }
@@ -165,31 +165,31 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             List<DayOfWeek> DoWs = new();
             if (mcpDetail.Monday == true)
             {
-                DoWs.Add(DayOfWeek.MONDAY);
+                DoWs.Add(DayOfWeek.Monday);
             }
             if (mcpDetail.Tuesday == true)
             {
-                DoWs.Add(DayOfWeek.TUESDAY);
+                DoWs.Add(DayOfWeek.Tuesday);
             }
             if (mcpDetail.Wednesday == true)
             {
-                DoWs.Add(DayOfWeek.WEDNESDAY);
+                DoWs.Add(DayOfWeek.Wednesday);
             }
             if (mcpDetail.Thursday == true)
             {
-                DoWs.Add(DayOfWeek.THURSDAY);
+                DoWs.Add(DayOfWeek.Thursday);
             }
             if (mcpDetail.Friday == true)
             {
-                DoWs.Add(DayOfWeek.FRIDAY);
+                DoWs.Add(DayOfWeek.Friday);
             }
             if (mcpDetail.Saturday == true)
             {
-                DoWs.Add(DayOfWeek.SATURDAY);
+                DoWs.Add(DayOfWeek.Saturday);
             }
             if (mcpDetail.Sunday == true)
             {
-                DoWs.Add(DayOfWeek.SUNDAY);
+                DoWs.Add(DayOfWeek.Sunday);
             }
             return DoWs;
         }
@@ -380,7 +380,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         private async Task DeleteExistingVisitPlans(DateTime DateStart, DateTime DateEnd, List<Guid> mcpDetailIds)
         {
-            await _visitPlanInternalRepository.DeleteExistingVisitPlansAsync(DateStart, DateEnd, mcpDetailIds);
+            await _visitPlanRepository.DeleteExistingVisitPlansAsync(DateStart, DateEnd, mcpDetailIds);
         }
 
         private async Task<List<DateTime>> GetHolidayDates(DateTime dateStart, DateTime dateEnd)
