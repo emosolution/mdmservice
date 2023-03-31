@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.Vendors;
+using DMSpro.OMS.MdmService.UOMGroupDetails;
 
 namespace DMSpro.OMS.MdmService.PriceLists
 {
@@ -16,19 +19,28 @@ namespace DMSpro.OMS.MdmService.PriceLists
 		private readonly IPriceListRepository _priceListRepository;
 		private readonly PriceListManager _priceListManager;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
-		private readonly IItemRepository _itemRepository;
+        private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IVendorRepository _vendorRepository;
+        private readonly IItemRepository _itemRepository;
         public PriceListsAppService(ICurrentTenant currentTenant,
 			IPriceListRepository repository,
 			PriceListManager priceListManager,
 			IConfiguration settingProvider,
 			IPriceListDetailRepository priceListDetailRepository,
+			IUOMGroupDetailRepository uOMGroupDetailRepository, 
+			ICustomerRepository customerRepository,
+			IVendorRepository vendorRepository,
 			IItemRepository itemRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceLists.Default)
 		{
 			_priceListRepository = repository;
 			_priceListManager = priceListManager;
 			_priceListDetailRepository = priceListDetailRepository;
-			_itemRepository = itemRepository;
+            _uOMGroupDetailRepository = uOMGroupDetailRepository;
+            _customerRepository = customerRepository;
+            _vendorRepository = vendorRepository;
+            _itemRepository = itemRepository;
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));
 		}
