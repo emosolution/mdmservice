@@ -85,9 +85,12 @@ namespace DMSpro.OMS.MdmService.PriceLists
             if (priceList.IsBase) //Get all ItemMaster
             {
                 var items = (await _itemRepository.WithDetailsAsync()).ToList();
+                List<Guid> group  = items.Select(x => x.UomGroupId).ToList();
+                var groupDetails = await _uOMGroupDetailRepository.GetListAsync(x => group.Contains(x.UOMGroupId));
+
                 foreach (var i in items)
                 {
-                    foreach (var uom in i.UOMGroup.Details)
+                    foreach (var uom in groupDetails.Where(x => x.UOMGroupId == i.UomGroupId))
                     {
                         PriceListDetail priceListDetailObj = new()
                         {
