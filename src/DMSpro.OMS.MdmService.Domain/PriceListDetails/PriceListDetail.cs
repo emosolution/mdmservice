@@ -11,6 +11,7 @@ using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
 
 using Volo.Abp;
+using Volo.Abp.Guids;
 
 namespace DMSpro.OMS.MdmService.PriceListDetails
 {
@@ -47,6 +48,13 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             PriceListId = priceListId;
             UOMId = uOMId;
             ItemId = itemId;
+        }
+
+        public PriceListDetail ShallowCopy()
+        {
+            PriceListDetail list_detail = (PriceListDetail) this.MemberwiseClone();
+            list_detail.Id = Guid.NewGuid();
+            return list_detail;
         }
 
     }
