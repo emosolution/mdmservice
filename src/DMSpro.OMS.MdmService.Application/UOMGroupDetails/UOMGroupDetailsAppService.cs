@@ -17,6 +17,8 @@ using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp.Domain.Repositories;
 using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.PriceLists;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
@@ -83,6 +85,11 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
         public virtual async Task DeleteAsync(Guid id)
         {
             var uomGroupDetail = await _uOMGroupDetailRepository.GetAsync(id);
+            //base uom cannot inactive
+            if (uomGroupDetail.AltUOMId == uomGroupDetail.BaseUOMId && uomGroupDetail.AltQty == 1 && uomGroupDetail.BaseQty == 1)
+            {
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            }
             if (await _itemRepository.AnyAsync(x => x.UomGroupId == uomGroupDetail.UOMGroupId))
             {
                 throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
@@ -113,10 +120,47 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
             }
 
             var uOMGroupDetail = await _uOMGroupDetailManager.CreateAsync(
-            input.UOMGroupId, input.AltUOMId, input.BaseUOMId, 1, input.BaseQty, input.Active
-            );
+            input.UOMGroupId, input.AltUOMId, input.BaseUOMId, altQty: 1, input.BaseQty, active: true);
+
+            await InsertToPriceList(input.UOMGroupId, input.AltUOMId, input.BaseQty);
+
 
             return ObjectMapper.Map<UOMGroupDetail, UOMGroupDetailDto>(uOMGroupDetail);
+        }
+
+        private async Task InsertToPriceList(Guid uOMGroupId, Guid altUOMId, uint baseQty)
+        {
+            var items = await _itemRepository.GetListAsync(x => x.UomGroupId == uOMGroupId);
+            var priceLists = await _priceListRepository.GetListAsync();
+            List<PriceListDetail> details = new();
+            foreach (var priceList in priceLists)
+            {
+                foreach (var i in items)
+                {
+                    PriceListDetail detail = new()
+                    {
+                        Description = "",
+                        PriceListId = priceList.Id,
+                        ItemId = i.Id,
+                        UOMId = altUOMId,
+                        BasedOnPrice = i.BasePrice * baseQty,
+                        Price = i.BasePrice * baseQty
+                    };
+
+                    switch (priceList.ArithmeticOperation)
+                    {
+                        case ArithmeticOperator.ADD:
+                            detail.Price = i.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            break;
+                        case ArithmeticOperator.SUBTRACT:
+                            detail.Price = i.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                            break;
+                        default:
+                            break;
+                    }
+                    details.Add(detail);
+                }
+            }
         }
 
         [Authorize(MdmServicePermissions.UOMGroupDetails.Edit)]
@@ -135,16 +179,25 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
 
+            var uomGroupDetail = await _uOMGroupDetailRepository.GetAsync(x => x.Id == id);
             //base uom cannot inactive
-            if (await _uOMGroupDetailRepository.AnyAsync(x => x.UOMGroupId == input.UOMGroupId && x.AltUOMId == input.AltUOMId 
-                && input.UOMGroupId == input.BaseUOMId && input.AltQty == 1 && input.BaseQty == 1))
+            if (uomGroupDetail.AltUOMId == uomGroupDetail.BaseUOMId && uomGroupDetail.AltQty == 1 && uomGroupDetail.BaseQty == 1)
             {
                 throw new UserFriendlyException(L["Error:General:UpdateContraint:550"]);
             }
 
-            if (await _itemRepository.AnyAsync(x => x.UomGroupId == input.UOMGroupId && (x.SalesUOMId == input.AltUOMId || x.PurUOMId == input.AltUOMId)))
+            if (await _itemRepository.AnyAsync(x => x.UomGroupId == uomGroupDetail.UOMGroupId))
             {
                 throw new UserFriendlyException(L["Error:General:UpdateContraint:550"]);
+            }
+
+            if (input.Active)
+            {
+                //can not duplicate altUomId in group
+                if (await _uOMGroupDetailRepository.AnyAsync(x => x.UOMGroupId == input.UOMGroupId && x.AltUOMId == input.AltUOMId && x.Active && x.Id != id))
+                {
+                    throw new UserFriendlyException(L["Error:General:InsertContraint:550"]);
+                }
             }
 
             var uOMGroupDetail = await _uOMGroupDetailManager.UpdateAsync(

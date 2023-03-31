@@ -8,6 +8,8 @@ using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.PriceLists;
 
 namespace DMSpro.OMS.MdmService.UOMGroupDetails
 {
@@ -23,6 +25,8 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 		private readonly IUOMRepository _uOMRepository;
 		private readonly IUOMGroupRepository _uOMGroupRepository;
         private readonly IItemRepository _itemRepository;
+        private readonly IPriceListRepository _priceListRepository;
+        private readonly IPriceListDetailRepository _priceListDetailRepository;
 
         public UOMGroupDetailsAppService(ICurrentTenant currentTenant,
 			IUOMGroupDetailRepository repository,
@@ -31,6 +35,8 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 			IUOMRepository uOMRepository,
 			IUOMGroupRepository uOMGroupRepository,
 			IItemRepository itemRepository,
+			IPriceListRepository priceListRepository,
+			IPriceListDetailRepository priceListDetailRepository,
 			IDistributedCache<UOMGroupDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.UOMGroupDetails.Default)
 		{
@@ -41,6 +47,8 @@ namespace DMSpro.OMS.MdmService.UOMGroupDetails
 			_uOMRepository = uOMRepository;
 			_uOMGroupRepository= uOMGroupRepository;
             _itemRepository = itemRepository;
+            _priceListRepository = priceListRepository;
+            _priceListDetailRepository = priceListDetailRepository;
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IUOMGroupDetailRepository", _uOMGroupDetailRepository));
             _repositories.AddIfNotContains(
