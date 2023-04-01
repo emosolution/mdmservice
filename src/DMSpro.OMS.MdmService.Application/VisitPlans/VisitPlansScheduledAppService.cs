@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         private readonly IMCPDetailCustomRepository _mcpDetailCustomRepository;
         private readonly IVisitPlanRepository _visitPlanRepository;
         private readonly IMCPHeaderCustomRepository _mCPHeaderCustomRepository;
-        private readonly IHolidayDetailCustomRepository _holidayDetailCustomRepository;
+        private readonly IHolidayDetailRepository _holidayDetailRepository;
 
         public VisitPlansScheduledAppService(
             IGuidGenerator guidGenerator,
@@ -41,7 +41,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             IMCPDetailCustomRepository mcpDetailCustomRepository,
             IVisitPlanRepository visitPlanRepository,
             IMCPHeaderCustomRepository mCPHeaderCustomRepository,
-            IHolidayDetailCustomRepository holidayDetailCustomRepository
+            IHolidayDetailRepository holidayDetailRepository
         )
         {
             _visitPlanRepository = visitPlanRepository;
@@ -53,7 +53,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             _mcpHeaderRepository = mcpHeaderRepository;
             _mcpDetailCustomRepository = mcpDetailCustomRepository;
             _mCPHeaderCustomRepository = mCPHeaderCustomRepository;
-            _holidayDetailCustomRepository = holidayDetailCustomRepository;
+            _holidayDetailRepository = holidayDetailRepository;
 
             LocalizationResource = typeof(MdmServiceResource);
         }
@@ -71,11 +71,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public async Task<List<VisitPlanDto>> GenerateAsync(VisitPlanGenerationInputDto input)
         {
             DateTime reference = DateTime.Now;
-            MCPHeader mcpHeader = await GetMCPHeaderData(input.MCPHeaderId);
-            SalesOrgHierarchy route = await CheckRoute(mcpHeader.RouteId);
-            SalesOrgHierarchy sellingZone = await CheckSellingZone(route);
-            CompanyInZone companyInZone = await CheckCompanyInZone(sellingZone.Id, mcpHeader.CompanyId);
-            Tuple<DateTime, DateTime?> companyData = await GetCompanyData(mcpHeader.CompanyId);
+            MCPHeader mcpHeader = await GetMCPHeader(input.MCPHeaderId, reference);
+            SalesOrgHierarchy route = await GetRoute(mcpHeader.RouteId);
+            SalesOrgHierarchy sellingZone = await GetSellingZone(route);
+            CompanyInZone companyInZone = await GetCompanyInZone(sellingZone.Id, mcpHeader.CompanyId, reference);
+            Tuple<DateTime, DateTime?> companyData = await GetCompanyData(mcpHeader.CompanyId, reference);
             Tuple<DateTime, DateTime> processedInputDates = ProcessInputDates(reference, input.DateStart, input.DateEnd);
             DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeader.EffectiveDate, companyData.Item1, companyInZone.EffectiveDate.Date).Date;
             DateTime DateEnd = ((DateTime)GetMinDateFromList(processedInputDates.Item2, mcpHeader.EndDate, companyData.Item2, companyInZone.EndDate)).Date;
@@ -91,7 +91,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 try
                 {
                     List<VisitPlan> visitPlans = await GenerateVisitPlanForMCPDetail(mCPDetail, DateStart, DateEnd, DateDetails,
-                        route.Id, mcpHeader.CompanyId, mcpHeader.ItemGroupId);
+                        route.Id, mcpHeader.ItemGroupId);
                     allVisitPlans.AddRange(visitPlans);
                     successfulGeneration++;
                     Console.WriteLine($"{visitPlans.Count} visit plans will be generated for MCPDetail ${mCPDetail.Code}.");
@@ -108,7 +108,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         }
 
         private async Task<List<VisitPlan>> GenerateVisitPlanForMCPDetail(MCPDetail mcpDetail, DateTime inputDateStart, DateTime inputDateEnd,
-            List<Tuple<DateTime, int, DayOfWeek>> dateDetails, Guid routeId, Guid companyId, Guid? itemGroupId)
+            List<Tuple<DateTime, int, DayOfWeek>> dateDetails, Guid routeId, Guid? itemGroupId)
         {
             List<VisitPlan> result = new();
             Customer customer = await _customerRepository.GetAsync(mcpDetail.CustomerId);
@@ -152,10 +152,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 bool isCommando = false;
                 int weekInYear = ISOWeek.GetWeekOfYear(date);
                 VisitPlan visitPlan =
-                    new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, itemGroupId, 
-                        date, mcpDetail.Distance, mcpDetail.VisitOrder, 
-                        dayOfWeek, weekInYear, date.Month, date.Year, isCommando)
-                    { TenantId = mcpDetail.TenantId };
+                    new(_guidGenerator.Create(), mcpDetail.Id, customer.Id, routeId, itemGroupId,
+                        date, mcpDetail.Distance, mcpDetail.VisitOrder,
+                        dayOfWeek, weekInYear, date.Month, date.Year, isCommando);
                 result.Add(visitPlan);
             }
             return result;
@@ -304,19 +303,19 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return dates.ToList().AsQueryable().Min();
         }
 
-        private async Task<MCPHeader> GetMCPHeaderData(Guid mcpHeaderId)
+        private async Task<MCPHeader> GetMCPHeader(Guid mcpHeaderId, DateTime now)
         {
-            MCPHeader mcpHeader = await _mcpHeaderRepository.GetAsync(mcpHeaderId);
-            if (mcpHeader.EndDate != null && mcpHeader.EndDate < mcpHeader.EffectiveDate)
+            var mcpHeader = await _mcpHeaderRepository.GetAsync(mcpHeaderId);
+            if (mcpHeader.EffectiveDate < now && (mcpHeader.EndDate == null || mcpHeader.EndDate > now))
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:556"], code: "0");
+                return mcpHeader;
             }
-            return mcpHeader;
+            throw new BusinessException(message: L["Error:VisitPlanGeneration:556"], code: "0");
         }
 
-        private async Task<SalesOrgHierarchy> CheckRoute(Guid routeId)
+        private async Task<SalesOrgHierarchy> GetRoute(Guid routeId)
         {
-            SalesOrgHierarchy route = await _salesOrgHierarchyRepository.GetAsync(routeId);
+            var route = await _salesOrgHierarchyRepository.GetAsync(routeId);
             if (!route.IsRoute)
             {
                 throw new BusinessException(message: L["Error:VisitPlanGeneration:557"], code: "1");
@@ -328,9 +327,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return route;
         }
 
-        private async Task<SalesOrgHierarchy> CheckSellingZone(SalesOrgHierarchy route)
+        private async Task<SalesOrgHierarchy> GetSellingZone(SalesOrgHierarchy route)
         {
-            SalesOrgHierarchy sellingZone = await _salesOrgHierarchyRepository.GetAsync(x => x.Id == route.ParentId);
+            SalesOrgHierarchy sellingZone = await _salesOrgHierarchyRepository.GetAsync(
+                x => x.Id == route.ParentId);
             if (!sellingZone.IsSellingZone)
             {
                 throw new BusinessException(message: L["Error:VisitPlanGeneration:550"], code: "1");
@@ -342,39 +342,32 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return sellingZone;
         }
 
-        private async Task<CompanyInZone> CheckCompanyInZone(Guid sellingZoneId, Guid companyId)
+        private async Task<CompanyInZone> GetCompanyInZone(Guid sellingZoneId, Guid companyId, DateTime now)
         {
-            IQueryable<CompanyInZone> queryable = await _companyInZoneRepository.GetQueryableAsync();
-            var query = from companyInZone in queryable
-                        where companyInZone.SalesOrgHierarchyId == sellingZoneId &&
-                            // companyInZone.IsBase == true &&
-                            companyInZone.CompanyId == companyId 
-                            
-                        select companyInZone;
-            var companyInZones = query.ToList();
-            if (companyInZones.Count < 1)
+            var assignments = await _companyInZoneRepository.GetListAsync(
+                x => x.SalesOrgHierarchyId == sellingZoneId && x.CompanyId == companyId &&
+                x.EffectiveDate < now && (x.EndDate == null || x.EndDate > now));
+
+            if (assignments.Count < 1)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:552"], code: "1");
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:552"], code: "0");
             }
-            if (companyInZones.Count > 1)
+            if (assignments.Count > 1)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:553"], code: "1");
+                throw new BusinessException(message: L["Error:VisitPlanGeneration:553"], code: "0");
             }
-            CompanyInZone result = companyInZones.First();
-            return result;
+            return assignments.First();
         }
 
-        private async Task<Tuple<DateTime, DateTime?>> GetCompanyData(Guid companyId)
+        private async Task<Tuple<DateTime, DateTime?>> GetCompanyData(Guid companyId, DateTime now)
         {
-            Company company = await _companyRepository.GetAsync(companyId);
-            if (!company.Active)
+            var companies = await _companyRepository.GetListAsync(x => x.Id == companyId &&
+                x.Active == true);
+            if (!companies.Any())
             {
                 throw new BusinessException(message: L["Error:VisitPlanGeneration:554"], code: "0");
             }
-            if (company.EndDate != null && company.EndDate < company.EffectiveDate.Date)
-            {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:555"], code:"0");
-            }
+            var company = companies.FirstOrDefault();
             return new Tuple<DateTime, DateTime?>(company.EffectiveDate.Date, company.EndDate);
         }
 
@@ -385,10 +378,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         private async Task<List<DateTime>> GetHolidayDates(DateTime dateStart, DateTime dateEnd)
         {
-            DateTime dateStartMax = dateStart.Date.AddDays(1).AddSeconds(-1);
-            DateTime dateEndMax = dateEnd.Date.AddDays(1).AddSeconds(-1);
-            List<HolidayDetail> holidays =
-                await _holidayDetailCustomRepository.GetHolidayDetailsWithinRange(dateStart, dateEnd);
+            List<HolidayDetail> holidays = await GetHolidayDetailsWithinRange(dateStart, dateEnd);
             List<DateTime> result = new();
             foreach (HolidayDetail holiday in holidays)
             {
@@ -401,6 +391,15 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 }
             }
             return result;
+        }
+
+        private async Task<List<HolidayDetail>> GetHolidayDetailsWithinRange(DateTime dateStart, DateTime dateEnd)
+        {
+            DateTime dateEndMax = dateEnd.Date.AddDays(1).AddSeconds(-1);
+            return await _holidayDetailRepository.GetListAsync(
+                b => (b.StartDate.Date <= dateStart.Date && b.EndDate.Date >= dateEndMax) ||
+                (b.StartDate.Date >= dateStart.Date && b.StartDate.Date <= dateEndMax) ||
+                (b.EndDate.Date >= dateStart.Date && b.EndDate.Date <= dateEndMax));
         }
     }
 }

@@ -17,8 +17,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         IVisitPlansAppService
     {
         private readonly IVisitPlanRepository _visitPlanRepository;
-        private readonly VisitPlanManager _visitPlanManager;
-
+        
         private readonly IVisitPlansScheduledAppService _visitPlansScheduledAppService;
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
         private readonly IMCPDetailRepository _mCPDetailRepository;
@@ -27,7 +26,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
         public VisitPlansAppService(ICurrentTenant currentTenant,
             IVisitPlanRepository repository,
-            VisitPlanManager visitPlanManager,
             IConfiguration settingProvider,
             IVisitPlansScheduledAppService visitPlansScheduledAppService,
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
@@ -38,8 +36,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.VisitPlans.Default)
         {
             _visitPlanRepository = repository;
-            _visitPlanManager = visitPlanManager;
-
+            
             _visitPlansScheduledAppService = visitPlansScheduledAppService;
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
             _mCPDetailRepository = mCPDetailRepository;
