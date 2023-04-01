@@ -110,8 +110,8 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         public async Task<string> GetInfoSOAsync(GetInfoSODto input)
         {
             DateTime now = DateTime.Now;
-            Guid? identityUserId = input.IdentityUserId == null ? CurrentUser.Id : (Guid) input.IdentityUserId;
-            DateTime postingDate = input.PostingDate == null ? now : (DateTime) input.PostingDate;
+            Guid? identityUserId = input.IdentityUserId == null ? CurrentUser.Id : (Guid)input.IdentityUserId;
+            DateTime postingDate = input.PostingDate == null ? now : (DateTime)input.PostingDate;
             await CheckCompany(input.CompanyId, identityUserId, postingDate);
             List<Guid> zoneIds = await GetAllSellingZoneIds(input.CompanyId, postingDate);
             string nowString = $"\"{now:yyyy/MM/dd HH:mm:ss}\"";
@@ -126,19 +126,42 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             string objectType = "", DateTime? lastUpdateDate = null)
         {
             bool isForSO = true;
-            (Dictionary<string, RouteDto> routeDictionary,
-            List<Guid> routeIds,
-            Dictionary<string, string> routeInZoneDictionary) =
-                await GetRouteFromZoneIds(zoneIds);
+            (List<SalesOrgHierarchy> allRoutesInZones,
+            List<Guid> routeIds) = await GetRouteFromZoneIds(zoneIds);
+
+            (Dictionary<string, CustomerDto> customerDictionary,
+            List<Guid> customerIds) = await GetCustomerDictionary(
+                zoneIds, postingDate);
+
+            (List<Guid> customersWithRoute, List<Guid> validRoutes, 
+            List<Guid> validEmployeeIds, List<Guid?> validItemGroups,
+            List<MCPHeader> validHeaders, List<MCPDetail> validDetails,
+            List<EmployeeProfile> validEmployees,
+            List<SalesOrgEmpAssignment> validEmployeeAssignments) = 
+                await GetCustomerRouteEmployeeItemGroupList(customerIds, routeIds, postingDate);
+
 
             (Dictionary<string, Dictionary<string, List<string>>> customersRoutesItemGroupsDictionary,
-            Dictionary<string, CustomerDto> customerDictionary,
             Dictionary<string, List<string>> customersRoutesDictionary) =
-                await GetCustomerRouteItemGroupDictionary(routeIds, postingDate);
+                GetCustomerRouteItemGroupDictionary(validHeaders, validDetails);
+
+            Dictionary<string, RouteDto> routeDictionary = GetRouteDictionary(allRoutesInZones, validRoutes);
+
+            (Dictionary<string, List<string>> employeesInRoutesDictionary,
+            Dictionary<string, List<string>> routesWithEmployeesDictionary,
+            Dictionary<string, EmployeeDto> employeeDictionary) =
+                GetEmployeesDictionaries(validRoutes, validEmployeeIds, validEmployees, validEmployeeAssignments);
+
+            (Dictionary<string, List<string>> customerEmployeesDictionary,
+            List<string> customersWithoutEmployee) =
+                GetCustomerEmployeesDictionary(customersRoutesDictionary,
+                    routesWithEmployeesDictionary);
+
+            List<Guid> customerIdsWithoutRoute = customerIds.Where(x => !customersWithRoute.Contains(x))
+                .Distinct().ToList();
 
             (Dictionary<string, List<string>> itemsInItemGroupsDictionary,
             List<Guid> itemIds) = await GetAllItemsInNullItemGroup(isForSO);
-
 
             (Dictionary<string, ItemDto> itemDictionary,
             Dictionary<string, List<string>> uomGroupDictionary,
@@ -153,22 +176,9 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             Dictionary<string, VATDto> vatDictionary =
                 await GetVatDictionary(vatIds);
 
-            (Dictionary<string, CustomerDto> allCustomersInZoneDictionary,
-            List<string> customerIdsWithoutRoute) = await GetCustomersWithoutRoute(
-                postingDate, zoneIds, customerDictionary);
-
             Dictionary<string, decimal> priceDictionary =
-                await GetPriceDictionary(allCustomersInZoneDictionary,
+                await GetPriceDictionary(customerDictionary,
                     itemDictionary, uomDictionary);
-
-            (Dictionary<string, List<string>> employeesInRoutesDictionary,
-            Dictionary<string, List<string>> routesWithEmployeesDictionary,
-            Dictionary<string, EmployeeDto> employeeDictionary) =
-                await GetEmployeesDictionaries(routeIds, postingDate);
-
-            var customerEmployeesDictionary =
-                GetCustomerEmployeesDictionary(customersRoutesDictionary,
-                    routesWithEmployeesDictionary);
 
             List<string> resultParts = new()
             {
@@ -176,7 +186,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 $"\"customerEmployeesDictionary\": {_jsonSerializer.Serialize(customerEmployeesDictionary)}",
                 $"\"routeDictionary\": {_jsonSerializer.Serialize(routeDictionary)}",
                 $"\"customersRoutesItemGroupsDictionary\": {_jsonSerializer.Serialize(customersRoutesItemGroupsDictionary)}",
-                $"\"customerDictionary\": {_jsonSerializer.Serialize(allCustomersInZoneDictionary)}",
+                $"\"customerDictionary\": {_jsonSerializer.Serialize(customerDictionary)}",
                 $"\"itemsInItemGroupsDictionary\": {_jsonSerializer.Serialize(itemsInItemGroupsDictionary)}",
                 $"\"item\": {_jsonSerializer.Serialize(itemDictionary)}",
                 $"\"uomGroup\": {_jsonSerializer.Serialize(uomGroupDictionary)}",
@@ -202,29 +212,74 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             return ($"\"soInfo\":{{{resultParts.JoinAsString(",")}}}");
         }
 
+        private async Task<(List<Guid>, List<Guid>, List<Guid>, List<Guid?>,
+            List<MCPHeader>, List<MCPDetail>, 
+            List<EmployeeProfile>, List<SalesOrgEmpAssignment>
+            )> GetCustomerRouteEmployeeItemGroupList(List<Guid> customerIds, 
+                List<Guid> routeIds, DateTime postingDate)
+        {
+            var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(
+               x => routeIds.Contains(x.RouteId) &&
+               x.EffectiveDate < postingDate &&
+               (x.EndDate == null || x.EndDate >= postingDate))).ToList();
+            var mcpHeaderIds = mcpHeaders.Select(x => x.Id)
+                .Distinct().ToList();
+            var mcpDetails = (await _mcpDetailRepository.GetListAsync(x =>
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate >= postingDate) &&
+                customerIds.Contains(x.CustomerId) &&
+                mcpHeaderIds.Contains(x.MCPHeaderId))).Distinct().ToList();
+            var headerIdsWithDetail = mcpDetails.Select(x => x.MCPHeaderId).Distinct().ToList();
+            var headersWithDetail = mcpHeaders.Where(x => headerIdsWithDetail.Contains(x.Id)).Distinct().ToList();
+            var routesInDetails = headersWithDetail.Select(x => x.RouteId).Distinct().ToList();
+            var employeesInRoute = await _salesOrgEmpAssignmentRepository.GetListAsync(
+                x => routesInDetails.Contains(x.SalesOrgHierarchyId) && 
+                x.EffectiveDate <= postingDate &&
+                (x.EndDate == null || x.EndDate > postingDate));
+            var employeeIds = employeesInRoute.Select(x => x.EmployeeProfileId).Distinct().ToList();
+            var validEmployees = (await _employeeProfileRepository.GetListAsync(
+                    x => employeeIds.Contains(x.Id) && x.Active == true)).Distinct().ToList();
+            var validEmployeeIds = validEmployees.Select(x => x.Id).Distinct().ToList();
+            var validEmployeesInRoute = employeesInRoute.Where(x => validEmployeeIds.Contains(x.EmployeeProfileId))
+                .Distinct().ToList();
+            var validRouteIds = validEmployeesInRoute.Select(x => x.SalesOrgHierarchyId).Distinct().ToList();
+            var validHeaders = headersWithDetail.Where(x => validRouteIds.Contains(x.RouteId)).Distinct().ToList();
+            var validHeaderIds = validHeaders.Select(x => x.Id).Distinct().ToList();
+            var validDetails = mcpDetails.Where(x => validHeaderIds.Contains(x.MCPHeaderId)).Distinct().ToList(); 
+            var validCustomers = validDetails.Select(x => x.CustomerId).Distinct().ToList();
+            var validItemGroupIds = validHeaders.Select(x => x.ItemGroupId).Distinct().ToList();
+            return (validCustomers, validRouteIds, validEmployeeIds, validItemGroupIds, 
+                validHeaders, validDetails, validEmployees, validEmployeesInRoute);
+        }
+
+        private static Dictionary<string, RouteDto> GetRouteDictionary(
+            List<SalesOrgHierarchy> allRoutesInZones, List<Guid> validRoutes)
+        {
+            var routes = allRoutesInZones.Where(x => validRoutes.Contains(x.Id));
+            Dictionary<string, RouteDto> result = routes.ToDictionary(
+                x => x.Id.ToString(), x => new RouteDto()
+                {
+                    id = x.Id.ToString(),
+                    code = x.Code,
+                    name = x.Name,
+                });
+            return result;
+        }
+
         private async Task<(
             Dictionary<string, CustomerDto>,
-            List<string>
-            )> GetCustomersWithoutRoute(
-            DateTime postingDate,
-            List<Guid> zoneIds,
-            Dictionary<string, CustomerDto> customerDictionary)
+            List<Guid>
+            )> GetCustomerDictionary(
+            List<Guid> zoneIds, DateTime postingDate)
         {
-            var allCustomersInZones = (await _customerInZoneRepository.GetListAsync(
+            var assignments = await _customerInZoneRepository.GetListAsync(
                 x => zoneIds.Contains(x.SalesOrgHierarchyId) &&
-                (x.EffectiveDate == null || x.EffectiveDate < postingDate) &&
-                (x.EndDate == null || x.EndDate >= postingDate))).Distinct().ToList();
-            var allCustomerIdsInZone = allCustomersInZones.Select(
-                x => x.CustomerId.ToString()).Distinct().ToList();
-            var customerIdsWithRoute =
-                customerDictionary.Values.ToList().Select(x => x.id).Distinct().ToList();
-            var customerIdsWithoutRoute =
-                allCustomerIdsInZone.Where(x => !customerIdsWithRoute.Contains(x)).ToList();
-            var customersWithoutRoute = (await _customerRepository.GetListAsync(
-                x => customerIdsWithoutRoute.Contains(x.Id.ToString()) &&
-                x.Active == true)).Distinct().ToList();
-            var customersWithoutRouteDictionary =
-                customersWithoutRoute.ToDictionary(x => x.Id.ToString(),
+                x.EffectiveDate < postingDate &&
+                (x.EndDate == null || x.EndDate > postingDate));
+            var customerIds = assignments.Select(x => x.CustomerId).Distinct().ToList();
+            var customers = await _customerRepository.GetListAsync(
+                x => customerIds.Contains(x.Id) && x.Active == true);
+            var customerDictionary = customers.ToDictionary(x => x.Id.ToString(),
                 x => new CustomerDto()
                 {
                     id = x.Id.ToString(),
@@ -232,19 +287,11 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     name = x.Name,
                     priceListId = x.PriceListId.ToString(),
                 });
-            Dictionary<string, CustomerDto> result = new();
-            List<Dictionary<string, CustomerDto>> dictionaries = new()
-            { customerDictionary, customersWithoutRouteDictionary };
-            foreach (var dictionary in dictionaries)
-            {
-                foreach (var pair in dictionary)
-                {
-                    result[pair.Key] = pair.Value;
-                }
-            }
-            return (result, customerIdsWithoutRoute);
+            var validCustomerIds = customers.Select(x => x.Id).Distinct().ToList();
+            return (customerDictionary, validCustomerIds);
         }
 
+        
         private async Task CheckCompany(Guid companyId, Guid? identityUserId, DateTime postingDate)
         {
             var companyDto =
@@ -269,14 +316,14 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
         private async Task<(
-            Dictionary<string, RouteDto>,
-            List<Guid>,
-            Dictionary<string, string>
+            //Dictionary<string, RouteDto>,
+            List<SalesOrgHierarchy>,
+            List<Guid>
             )> GetRouteFromZoneIds(List<Guid> zoneIds)
         {
             var routes = (await _salesOrgHierarchyRepository.GetListAsync(x => x.IsRoute == true &&
                 x.ParentId != null && zoneIds.Contains((Guid)x.ParentId) &&
-                x.Active == true)).Distinct();
+                x.Active == true)).Distinct().ToList();
             var routeIds = routes.Select(x => x.Id).ToList();
             var routeDictionary = routes.ToDictionary(x => x.Id.ToString(), x => new RouteDto()
             {
@@ -284,93 +331,46 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 code = x.Code,
                 name = x.Name,
             });
-            var routeInZoneDictionary = routes.ToDictionary(x => x.Id.ToString(),
-                x => ((Guid)x.ParentId).ToString());
-            return (routeDictionary, routeIds, routeInZoneDictionary);
+            return (routes, routeIds);
         }
 
-        private async Task<(
-            Dictionary<string, Dictionary<string, List<string>>>,
-            Dictionary<string, CustomerDto>,
+        private (Dictionary<string, Dictionary<string, List<string>>>,
             Dictionary<string, List<string>>
-            )> GetCustomerRouteItemGroupDictionary(List<Guid> routeIds,
-                DateTime postingDate)
+            ) GetCustomerRouteItemGroupDictionary(List<MCPHeader> mcpHeaders,
+                List<MCPDetail> mcpDetails)
         {
-            var mcpHeaders = (await _mcpHeaderRepository.GetListAsync(
-                x => routeIds.Contains(x.RouteId) &&
-                x.EffectiveDate < postingDate &&
-                (x.EndDate == null || x.EndDate >= postingDate))).ToList();
-            var mcpHeaderIds = mcpHeaders.Select(x => x.Id)
-                .Distinct().ToList();
-            var mcpDetails = (await _mcpDetailRepository.GetListAsync(x =>
-                x.EffectiveDate < postingDate &&
-                (x.EndDate == null || x.EndDate >= postingDate) &&
-                mcpHeaderIds.Contains(x.MCPHeaderId))).Distinct().ToList();
-            var customerIds = mcpDetails.Select(x => x.CustomerId).Distinct().ToList();
-            var validCustomers = await _customerRepository.GetListAsync(
-               x => customerIds.Contains(x.Id) &&
-               // x.EffectiveDate < postingDate &&
-               // (x.EndDate == null || x.EndDate >= postingDate) &&
-               x.Active == true);
-            var validCustomerIdStrings = validCustomers.Select(
-                x => x.Id.ToString()).Distinct().ToList();
-            var customerDictionary = validCustomers.ToDictionary(x => x.Id.ToString(),
-                x => new CustomerDto()
-                {
-                    id = x.Id.ToString(),
-                    code = x.Code,
-                    name = x.Name,
-                    priceListId = x.PriceListId.ToString(),
-                });
-            var customersRoutesItemGroupsData = from mcpHeader in mcpHeaders
-                                                join mcpDetail in mcpDetails on mcpHeader.Id equals mcpDetail.MCPHeaderId
-                                                select new CustomerRouteItemGroup()
-                                                {
-                                                    CustomerIdString = mcpDetail.CustomerId.ToString(),
-                                                    RouteIdString = mcpHeader.RouteId.ToString(),
-                                                    ItemGroupId = Guid.Empty,
-                                                };
-            var customersRoutesDictionary = customersRoutesItemGroupsData.GroupBy(x => x.CustomerIdString)
-                .ToDictionary(x => x.Key, x => x.Select(x => x.RouteIdString).ToList());
-            Dictionary<string, Dictionary<string, List<string>>> result = new();
-            foreach (var data in customersRoutesItemGroupsData)
+            List<CustomerRouteItemGroup> customersRoutesItemGroupsData = new();
+            foreach (var detail in mcpDetails)
             {
-                var customerIdString = data.CustomerIdString;
-                if (!validCustomerIdStrings.Contains(customerIdString))
+                var header = mcpHeaders.First(x => x.Id == detail.MCPHeaderId);
+                customersRoutesItemGroupsData.Add(new()
                 {
-                    continue;
-                }
-                var routeIdString = data.RouteIdString;
-                var itemGroupId = data.ItemGroupId;
-                Dictionary<string, List<string>> itemGroupInRoute;
-                if (result.TryGetValue(customerIdString, out var dictionary))
-                {
-                    itemGroupInRoute = dictionary;
-                    List<string> routeIdStrings;
-                    if (itemGroupInRoute.TryGetValue(routeIdString, out var list))
-                    {
-                        routeIdStrings = list;
-                        if (!routeIdStrings.Contains(routeIdString))
-                        {
-                            routeIdStrings.Add(routeIdString);
-                        }
-                    }
-                    else
-                    {
-                        routeIdStrings = new() { routeIdString };
-                    }
-                    itemGroupInRoute[routeIdString] = routeIdStrings;
-                }
-                else
-                {
-                    itemGroupInRoute = new()
-                    {
-                        [routeIdString] = new List<string> { itemGroupId.ToString() }
-                    };
-                }
-                result[customerIdString] = itemGroupInRoute;
+                    CustomerIdString = detail.CustomerId.ToString(),
+                    RouteIdString = header.RouteId.ToString(),
+                    ItemGroupIdString = header.ItemGroupId == null ? Guid.Empty.ToString() : header.ItemGroupId.ToString(),
+                });
             }
-            return (result, customerDictionary, customersRoutesDictionary);
+            var customersRoutesDictionary = customersRoutesItemGroupsData.GroupBy(x => x.CustomerIdString)
+                .ToDictionary(x => x.Key, x => x.Select(x => x.RouteIdString).Distinct().ToList());
+            //var routeItemGroupDictionary = customersRoutesItemGroupsData.GroupBy(x => x.RouteIdString)
+            //    .ToDictionary(x => x.Key, x => x.Select(x => x.ItemGroupIdString).Distinct().ToList());
+            Dictionary<string, Dictionary<string, List<string>>> customersRoutesItemGroupsDictionary = new();
+            foreach (var kvp in customersRoutesDictionary)
+            {
+                var customer = kvp.Key;
+                var routes = kvp.Value;
+                Dictionary<string, List<string>> itemGroupsInRoute = new();
+                foreach (var route in routes)
+                {
+                    //if (routeItemGroupDictionary.TryGetValue(route, out var list))
+                    //{
+                    //    itemGroupsInRoute.Add(route, list);
+                    //}
+                    itemGroupsInRoute.Add(route, new List<string>() { Guid.Empty.ToString() });
+                }
+                customersRoutesItemGroupsDictionary.Add(customer, itemGroupsInRoute);
+            }
+            return (customersRoutesItemGroupsDictionary, customersRoutesDictionary); 
         }
 
         private async Task<(
@@ -432,7 +432,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 string uomGroupId = item.UomGroupId.ToString();
                 if (!uomGroupDictionary.ContainsKey(uomGroupId))
                 {
-                    (var altUomIds, var uomBaseId, var detailsDictionary) = 
+                    (var altUomIds, var uomBaseId, var detailsDictionary) =
                         await GetUOMDetails(item.UomGroupId);
                     allAltUomIds.AddRange(altUomIds);
                     uomGroupDictionary.Add(uomGroupId, altUomIds);
@@ -495,7 +495,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         }
 
         private async Task<(List<string>,
-            string, 
+            string,
             Dictionary<string, UOMDetailDto>
             )> GetUOMDetails(Guid uomGroupId)
         {
@@ -512,11 +512,11 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                 .Distinct().ToList();
             var detailDtos = details.ToDictionary(x => x.AltUOMId.ToString(),
                 x => new UOMDetailDto()
-                    {
-                        altUOMId = x.AltUOMId.ToString(),
-                        altQty = (int)x.AltQty,
-                        baseQty = (int)x.BaseQty,
-                    });
+                {
+                    altUOMId = x.AltUOMId.ToString(),
+                    altQty = (int)x.AltQty,
+                    baseQty = (int)x.BaseQty,
+                });
             return (altUOMIds, baseUOMId, detailDtos);
         }
 
@@ -560,24 +560,14 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             return result;
         }
 
-        private async Task<(
+        private (
             Dictionary<string, List<string>>,
             Dictionary<string, List<string>>,
             Dictionary<string, EmployeeDto>
-            )> GetEmployeesDictionaries(List<Guid> routeIds, DateTime postingDate)
+            ) GetEmployeesDictionaries(List<Guid> routeIds, List<Guid> validEmployeeIds,
+                List<EmployeeProfile> validEmployees,
+                List<SalesOrgEmpAssignment> validEmployeeAssignments)
         {
-            var assignments = await _salesOrgEmpAssignmentRepository.GetListAsync(
-                x => routeIds.Contains(x.SalesOrgHierarchyId) &&
-                // x.IsBase == true && 
-                x.EffectiveDate <= postingDate &&
-                (x.EndDate == null || x.EndDate > postingDate));
-            var employeeIds =
-                assignments.Select(x => x.EmployeeProfileId).Distinct().ToList();
-            var validEmployees = (await _employeeProfileRepository.GetListAsync(
-                    x => employeeIds.Contains(x.Id) && x.Active == true
-                    // && (x.EffectiveDate == null && x.EffectiveDate < postingDate)
-                    // && (x.EndDate == null || x.EndDate > postingDate))
-                    )).Distinct().ToList();
             var employeeDictionary = validEmployees.ToDictionary(
                 x => x.Id.ToString(),
                 x => new EmployeeDto()
@@ -588,23 +578,21 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     lastName = x.LastName,
                     email = x.Email,
                 });
-            var validEmployeeIds = validEmployees.Select(x => x.Id).ToList();
-            var validAssignments =
-                assignments.Where(x => validEmployeeIds.Contains(x.EmployeeProfileId));
-            var employeesInRoutesDictionary = validAssignments.GroupBy(x => x.EmployeeProfileId.ToString())
-                .ToDictionary(x => x.Key, x => x.Select(x => x.SalesOrgHierarchyId.ToString()).ToList());
-            var routesWithEmployeesDictionary = validAssignments.GroupBy(x => x.SalesOrgHierarchyId.ToString())
-                .ToDictionary(x => x.Key, x => x.Select(x => x.EmployeeProfileId.ToString()).ToList());
+            var employeesInRoutesDictionary = validEmployeeAssignments.GroupBy(x => x.EmployeeProfileId.ToString())
+                .ToDictionary(x => x.Key, x => x.Select(x => x.SalesOrgHierarchyId.ToString()).Distinct().ToList());
+            var routesWithEmployeesDictionary = validEmployeeAssignments.GroupBy(x => x.SalesOrgHierarchyId.ToString())
+                .ToDictionary(x => x.Key, x => x.Select(x => x.EmployeeProfileId.ToString()).Distinct().ToList());
             return (employeesInRoutesDictionary, routesWithEmployeesDictionary,
                 employeeDictionary);
         }
 
-        private Dictionary<string, List<string>>
+        private static (Dictionary<string, List<string>>, List<string>)
             GetCustomerEmployeesDictionary(
                 Dictionary<string, List<string>> customerRouteDictionary,
                 Dictionary<string, List<string>> routeEmployeeDictionary)
         {
             Dictionary<string, List<string>> result = new();
+            List<string> customersWithNoEmployee = new();
             foreach (var customerId in customerRouteDictionary.Keys)
             {
                 List<string> resultEmployees = new();
@@ -623,9 +611,16 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                         }
                     }
                 }
-                result[customerId] = resultEmployees;
+                if (resultEmployees.Count > 0)
+                {
+                    result[customerId] = resultEmployees;
+                }
+                else
+                {
+                    customersWithNoEmployee.Add(customerId);
+                }
             }
-            return result;
+            return (result, customersWithNoEmployee);
         }
 
         #region Get Item From Item Group Type
@@ -776,7 +771,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
         {
             public string CustomerIdString { get; set; }
             public string RouteIdString { get; set; }
-            public Guid? ItemGroupId { get; set; }
+            public string ItemGroupIdString { get; set; }
             public CustomerRouteItemGroup() { }
         }
     }
