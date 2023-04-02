@@ -75,10 +75,10 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             SalesOrgHierarchy route = await GetRoute(mcpHeader.RouteId);
             SalesOrgHierarchy sellingZone = await GetSellingZone(route);
             CompanyInZone companyInZone = await GetCompanyInZone(sellingZone.Id, mcpHeader.CompanyId, reference);
-            Tuple<DateTime, DateTime?> companyData = await GetCompanyData(mcpHeader.CompanyId, reference);
+            await CheckCompany(mcpHeader.CompanyId);
             Tuple<DateTime, DateTime> processedInputDates = ProcessInputDates(reference, input.DateStart, input.DateEnd);
-            DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeader.EffectiveDate, companyData.Item1, companyInZone.EffectiveDate.Date).Date;
-            DateTime DateEnd = ((DateTime)GetMinDateFromList(processedInputDates.Item2, mcpHeader.EndDate, companyData.Item2, companyInZone.EndDate)).Date;
+            DateTime DateStart = GetMaxDateFromList(processedInputDates.Item1, mcpHeader.EffectiveDate, companyInZone.EffectiveDate.Date).Date;
+            DateTime DateEnd = ((DateTime)GetMinDateFromList(processedInputDates.Item2, mcpHeader.EndDate, companyInZone.EndDate)).Date;
             List<DateTime> holidays = await GetHolidayDates(DateStart, DateEnd);
             List<Tuple<DateTime, int, DayOfWeek>> DateDetails = GetDateDetails(DateStart, DateEnd, holidays);
             List<MCPDetail> MCPDetails = await GetMCPDetails(input.MCPHeaderId, input.MCPDetailIds);
@@ -116,20 +116,14 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 return result;
             }
-            DateTime CustomerDateStart = customer.EffectiveDate.Date;
-            DateTime? CustomerDateEnd = customer.EndDate;
-            if (CustomerDateEnd != null && CustomerDateEnd < CustomerDateStart)
-            {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:559"], code: "0");
-            }
             DateTime MCPDetailDateStart = mcpDetail.EffectiveDate.Date;
             DateTime? MCPDetailDateEnd = mcpDetail.EndDate;
             if (MCPDetailDateEnd != null && MCPDetailDateEnd < MCPDetailDateStart)
             {
                 throw new BusinessException(message: L["Error:VisitPlanGeneration:560"], code: "0");
             }
-            DateTime dateStart = GetMaxDateFromList(inputDateStart, CustomerDateStart, MCPDetailDateStart);
-            DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, CustomerDateEnd, MCPDetailDateEnd)).Date;
+            DateTime dateStart = GetMaxDateFromList(inputDateStart, MCPDetailDateStart);
+            DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, MCPDetailDateEnd)).Date;
             foreach (var dateDetail in dateDetails)
             {
                 DateTime date = dateDetail.Item1;
@@ -359,7 +353,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             return assignments.First();
         }
 
-        private async Task<Tuple<DateTime, DateTime?>> GetCompanyData(Guid companyId, DateTime now)
+        private async Task CheckCompany(Guid companyId)
         {
             var companies = await _companyRepository.GetListAsync(x => x.Id == companyId &&
                 x.Active == true);
@@ -367,8 +361,6 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 throw new BusinessException(message: L["Error:VisitPlanGeneration:554"], code: "0");
             }
-            var company = companies.FirstOrDefault();
-            return new Tuple<DateTime, DateTime?>(company.EffectiveDate.Date, company.EndDate);
         }
 
         private async Task DeleteExistingVisitPlans(DateTime DateStart, DateTime DateEnd, List<Guid> mcpDetailIds)
