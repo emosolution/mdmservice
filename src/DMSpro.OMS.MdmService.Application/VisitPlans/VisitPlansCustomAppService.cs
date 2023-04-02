@@ -6,6 +6,7 @@ using System;
 using Volo.Abp;
 using System.Globalization;
 using Volo.Abp.Data;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
@@ -45,7 +46,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         [Authorize(MdmServicePermissions.VisitPlans.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            var record= await _visitPlanRepository.GetAsync(id);
+            var record = await _visitPlanRepository.GetAsync(id);
             CheckVisitDate(record.DateVisit);
             await _visitPlanRepository.DeleteAsync(id);
         }
@@ -54,7 +55,8 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public virtual async Task<VisitPlanDto> CreateAsync(VisitPlanCreateDto input)
         {
             CheckInput(input.MCPDetailId, input.CustomerId, input.RouteId, input.DateVisit);
-            
+            await CheckExistingVisitPlan(input.MCPDetailId, input.CustomerId,
+                input.RouteId, input.DateVisit);
             bool isCommando = true;
             VisitPlan visitPlan = new(GuidGenerator.Create(),
                 input.MCPDetailId, input.CustomerId, input.RouteId, input.ItemGroupId,
@@ -69,12 +71,12 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public virtual async Task<VisitPlanDto> UpdateAsync(Guid id, VisitPlanUpdateDto input)
         {
             CheckInput(input.MCPDetailId, input.CustomerId, input.RouteId, input.DateVisit);
-
-            var record = await _visitPlanRepository.GetAsync(id);
+            var record = await CheckExistingVisitPlan(input.MCPDetailId, input.CustomerId,
+                input.RouteId, input.DateVisit, id);
             CheckVisitDate(record.DateVisit);
 
             record.DateVisit = input.DateVisit;
-            record.Distance= input.Distance;
+            record.Distance = input.Distance;
             record.VisitOrder = input.VisitOrder;
             record.DayOfWeek = input.DateVisit.DayOfWeek;
             record.Week = ISOWeek.GetWeekOfYear(input.DateVisit);
@@ -123,6 +125,27 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             Check.NotNull(customerId, nameof(customerId));
             Check.NotNull(routeId, nameof(routeId));
             Check.NotNull(dateVisit, nameof(dateVisit));
+        }
+
+        private async Task<VisitPlan> CheckExistingVisitPlan(Guid mCPDetailId, Guid customerId, Guid routeId,
+            DateTime dateVisit, Guid? id = null)
+        {
+            var records = await _visitPlanRepository.GetListAsync(x => x.MCPDetailId == mCPDetailId &&
+                x.CustomerId == customerId && x.RouteId == routeId && x.DateVisit.Date == dateVisit.Date);
+            if (records.Count < 1)
+            {
+                return null;
+            }
+            if (records.Count > 1)
+            {
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:561"], code: "0");
+            }
+            var record = records.First();
+            if (id != null && record.Id == id)
+            {
+                return record;
+            }
+            throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:559"], code: "0");
         }
     }
 }
