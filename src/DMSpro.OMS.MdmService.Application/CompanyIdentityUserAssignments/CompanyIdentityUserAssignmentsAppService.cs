@@ -14,6 +14,8 @@ using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
+using Volo.Abp.Domain.Repositories;
+using DMSpro.OMS.MdmService.PriceUpdateDetails;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -72,6 +74,11 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             if (input.CompanyId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
+            }
+
+            if (await _companyIdentityUserAssignmentRepository.AnyAsync(x => x.IdentityUserId == input.IdentityUserId && x.CompanyId == input.CompanyId))
+            {
+                throw new UserFriendlyException(L["Duplicate data"]);
             }
 
             var companyIdentityUserAssignment = await _companyIdentityUserAssignmentManager.CreateAsync(
