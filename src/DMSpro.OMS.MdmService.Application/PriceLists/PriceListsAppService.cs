@@ -125,6 +125,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 foreach (var item in priceListDetailsBase)
                 {
                     var newItem = item.ShallowCopy();
+                    newItem.PriceList = null;
                     newItem.PriceListId = priceList.Id;
                     newItem.BasedOnPrice = item.Price;
 
