@@ -114,6 +114,9 @@ namespace DMSpro.OMS.MdmService.Partial
                     case "System.Int32":
                         propertyDataType.Add(propertyName, "int");
                         break;
+                    case "System.UInt32":
+                        propertyDataType.Add(propertyName, "int");
+                        break;
                     case "System.Decimal":
                         propertyDataType.Add(propertyName, "decimal");
                         break;
@@ -141,6 +144,8 @@ namespace DMSpro.OMS.MdmService.Partial
                                 break;
                             }
                         }
+                        Console.WriteLine("====");
+                        Console.WriteLine(propertyTypeName);
                         var detailDict = new Dictionary<string, string> { ["propertyType"] = propertyTypeName };
                         string detailString = JsonSerializer.Serialize(detailDict).ToString();
                         throw new BusinessException(message: L["Error:ImportHandler:585"], code: "1", details: detailString);
