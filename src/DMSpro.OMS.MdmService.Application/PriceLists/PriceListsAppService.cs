@@ -100,18 +100,6 @@ namespace DMSpro.OMS.MdmService.PriceLists
                             Price = i.BasePrice * uom.BaseQty
                         };
 
-                        switch (priceList.ArithmeticOperation)
-                        {
-                            case ArithmeticOperator.ADD:
-                                priceListDetailObj.Price = i.BasePrice + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                                break;
-                            case ArithmeticOperator.SUBTRACT:
-                                priceListDetailObj.Price = i.BasePrice - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
-                                break;
-                            default:
-                                break;
-                        }
-
                         priceListDetails.Add(priceListDetailObj);
                     }
                 }

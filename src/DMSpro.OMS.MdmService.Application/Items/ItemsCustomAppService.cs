@@ -75,13 +75,20 @@ namespace DMSpro.OMS.MdmService.Items
                             BasedOnPrice = price,
                             Price = price,
                         };
+                        decimal addValue = 0;
+                        if (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE)
+                        {
+                            addValue = price * (priceList.ArithmeticFactor ?? 0) / 100;
+                        }
+                        else addValue = priceList.ArithmeticFactor ?? 0;
+
                         switch (priceList.ArithmeticOperation)
                         {
                             case ArithmeticOperator.ADD:
-                                priceListDetailObj.Price = price + priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                priceListDetailObj.Price = price + addValue;
                                 break;
                             case ArithmeticOperator.SUBTRACT:
-                                priceListDetailObj.Price = price - priceList.ArithmeticFactor.Value * (priceList.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE ? priceList.ArithmeticFactor.Value / 100 : 1);
+                                priceListDetailObj.Price = price - addValue;
                                 break;
                             default:
                                 break;
