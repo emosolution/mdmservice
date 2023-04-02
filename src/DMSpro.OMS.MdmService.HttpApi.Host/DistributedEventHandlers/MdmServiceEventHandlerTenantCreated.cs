@@ -65,11 +65,11 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
                 await SeedCustomerAttribute();
 
                 await SeedSystemData();
-
+                await uow.CompleteAsync();
                 await _numberingConfigsInternalAppService.CreateAllConfigsForTenantAsync(
                     new List<Guid>() { eventData.Id });
 
-                await uow.CompleteAsync();
+                
             }
         }
         catch (Exception e)
