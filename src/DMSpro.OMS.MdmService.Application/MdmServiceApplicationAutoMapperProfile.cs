@@ -232,7 +232,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<EmployeeAttachmentWithNavigationProperties, EmployeeAttachmentWithNavigationPropertiesDto>();
 
         CreateMap<SalesOrgHeader, SalesOrgHeaderDto>();
-        CreateMap<SalesOrgHeader, SalesOrgHeaderExcelDto>();
 
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyDto>();
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyWithDetailsDto>();

@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Microsoft.EntityFrameworkCore;
+using DMSpro.OMS.MdmService.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
-	public partial class EfCoreSalesOrgHeaderRepository
-	{
-		public virtual async Task<Guid?> GetIdByCodeAsync(string code)
+    public partial class EfCoreSalesOrgHeaderRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHeader, Guid>, ISalesOrgHeaderRepository
+    {
+        public EfCoreSalesOrgHeaderRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
+            : base(dbContextProvider)
+        {
+
+        }
+
+        public virtual async Task<Guid?> GetIdByCodeAsync(string code)
 		{
 		var item = (await GetDbSetAsync()).Where(x => x.Code == code).FirstOrDefault();
 		return item?.Id;

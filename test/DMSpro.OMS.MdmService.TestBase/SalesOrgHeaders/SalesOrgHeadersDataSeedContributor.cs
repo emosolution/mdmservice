@@ -29,18 +29,20 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 
             await _salesOrgHeaderRepository.InsertAsync(new SalesOrgHeader
             (
-                id: Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"),
-                code: "e305d36f333646b5842a",
-                name: "3297f6947f424f80aeb22b3dde2f0891ffd31a2553494b9e8e95757770ef602b3652c7ee7a424daa8437342097e84f9a7349e650e9634cc4a438c67f39966b79c51edce3c0af47ca8daa5e1101291e7c24183db2d464421db2873e70e524ccab095b2227b0564666bbe90e75bd9861b59b6630747c33436e88ea606a3aead0b",
-                active: true
+                id: Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"),
+                code: "925254bf7cdd4f4289f6",
+                name: "cb8f4279b130459a9d040b9741fdcc854b5c3ff7a24d4c0fbbde46a6c2538755e5ae34766daf4a54b2651b5b8909865eb151395347a844139ae7c9379289d0ebd5e1720062fd4de4bd6adc7d76f56c8c531cc76155a846f897c0d40dc502a4fcc43db22fcb904c64a16831338995faa6541ee47ca80c477c913bab546669eb2",
+                active: true,
+                status: default
             ));
 
             await _salesOrgHeaderRepository.InsertAsync(new SalesOrgHeader
             (
-                id: Guid.Parse("7753baa0-bd90-49f3-87ac-4cc3c687e075"),
-                code: "7f596c4a8dfc495bb94f",
-                name: "aec38aa60f534493af8d629925275c0b615ec763ccda4322b2b4a390eafc2e0acde6a03d60c64a37813de39cfeebd2d1e061288fd3c84ec38cccc7582b9448e41be5a7794efd4947b0b4bbd67dcf202262a8d0778c714a4591592c60559909b07d07d87dfad745cc889d986f2760f66af8c0b51c9493449c828dd4def4163e8",
-                active: true
+                id: Guid.Parse("29fd816b-9258-4c5d-94c4-3727fe82e559"),
+                code: "fc394a97d2154f76aac6",
+                name: "0667fb4e08804af7bc899c22b513f54cac2b76b4e63e4c239e41234fc671bcec5a472498a6b442ff97e564906d26a9841cfd793d5841462ea6436fd1b5d4ca1f6ba8271bb6654ecf8f52facfcfebe9602cb00b93c7724814ab7c68cb42ecaa9004ab0644170f4c748a49de7da34e9aecfc0b0c33d6b14eb1be95a4adbaca3a8",
+                active: true,
+                status: default
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();
