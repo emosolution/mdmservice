@@ -89,7 +89,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
             }
-            await CheckCodeUniqueness(input.Code);
+            //await CheckCodeUniqueness(input.Code);
             var salesOrgHierarchy = await _salesOrgHierarchyManager.CreateAsync(
             input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active
             );
@@ -104,7 +104,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
             }
-            await CheckCodeUniqueness(input.Code, id);
+            //await CheckCodeUniqueness(input.Code, id);
             var salesOrgHierarchy = await _salesOrgHierarchyManager.UpdateAsync(
             id,
             input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active, input.ConcurrencyStamp
