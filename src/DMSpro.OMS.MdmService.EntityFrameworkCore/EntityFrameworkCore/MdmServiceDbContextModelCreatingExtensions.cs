@@ -679,10 +679,10 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Week).HasColumnName(nameof(VisitPlan.Week));
             b.Property(x => x.Month).HasColumnName(nameof(VisitPlan.Month));
             b.Property(x => x.Year).HasColumnName(nameof(VisitPlan.Year));
+            b.Property(x => x.IsCommando).HasColumnName(nameof(VisitPlan.IsCommando));
             b.HasOne<MCPDetail>(x => x.MCPDetail).WithMany().IsRequired().HasForeignKey(x => x.MCPDetailId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Route).WithMany().IsRequired().HasForeignKey(x => x.RouteId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<Vendor>(b =>

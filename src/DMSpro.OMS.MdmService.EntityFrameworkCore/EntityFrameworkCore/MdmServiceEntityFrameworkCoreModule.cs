@@ -388,8 +388,8 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<VisitPlan>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup)
-                    .Include(o => o.Company).Include(o => o.Customer)
+                orderOptions.DefaultWithDetailsFunc = query => query
+                    .Include(o => o.ItemGroup).Include(o => o.Customer)
                     .Include(o => o.MCPDetail).Include(o => o.Route);
             });
 

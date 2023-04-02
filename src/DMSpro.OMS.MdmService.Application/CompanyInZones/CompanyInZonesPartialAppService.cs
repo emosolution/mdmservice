@@ -15,7 +15,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
         ICompanyInZonesAppService
     {
         private readonly ICompanyInZoneRepository _companyInZoneRepository;
-        private readonly CompanyInZoneManager _companyInZoneManager;
 
         private readonly ICompanyRepository _companyRepository;
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
@@ -23,7 +22,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
 
         public CompanyInZonesAppService(ICurrentTenant currentTenant,
             ICompanyInZoneRepository repository,
-            CompanyInZoneManager manager,
             IConfiguration settingProvider,
             ICompanyRepository companyRepository,
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
@@ -31,7 +29,6 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CompanyInZones.Default)
         {
             _companyInZoneRepository = repository;
-            _companyInZoneManager = manager;
 
             _companyRepository = companyRepository;
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;

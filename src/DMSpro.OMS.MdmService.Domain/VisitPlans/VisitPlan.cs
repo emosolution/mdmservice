@@ -1,18 +1,6 @@
-using DMSpro.OMS.MdmService.MCPDetails;
-using DMSpro.OMS.MdmService.Customers;
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.ItemGroups;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
-
-using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.VisitPlans
 {
@@ -33,24 +21,20 @@ namespace DMSpro.OMS.MdmService.VisitPlans
         public virtual int Month { get; set; }
 
         public virtual int Year { get; set; }
+
+        public virtual bool IsCommando { get; set; }
+
         public Guid MCPDetailId { get; set; }
         public Guid CustomerId { get; set; }
         public Guid RouteId { get; set; }
-        public Guid CompanyId { get; set; }
         public Guid? ItemGroupId { get; set; }
-
-        public virtual MCPDetail MCPDetail { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual SalesOrgHierarchy Route { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual ItemGroup ItemGroup { get; set; }
 
         public VisitPlan()
         {
 
         }
 
-        public VisitPlan(Guid id, Guid mCPDetailId, Guid customerId, Guid routeId, Guid companyId, Guid? itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year)
+        public VisitPlan(Guid id, Guid mCPDetailId, Guid customerId, Guid routeId, Guid? itemGroupId, DateTime dateVisit, int distance, int visitOrder, DayOfWeek dayOfWeek, int week, int month, int year, bool isCommando)
         {
 
             Id = id;
@@ -61,12 +45,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             Week = week;
             Month = month;
             Year = year;
+            IsCommando = isCommando;
             MCPDetailId = mCPDetailId;
             CustomerId = customerId;
             RouteId = routeId;
-            CompanyId = companyId;
             ItemGroupId = itemGroupId;
         }
-
     }
 }
