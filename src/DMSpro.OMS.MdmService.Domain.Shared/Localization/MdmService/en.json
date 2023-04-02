@@ -1026,6 +1026,7 @@
     "Error:VisitPlanGeneration:552": "Company is not assigned to selling zone or assignment is no longer effective",
     "Error:VisitPlanGeneration:553": "Company is assignned multiple times in a zone",
     "Error:VisitPlanGeneration:554": "Company is not valid or not active",
+    "Error:VisitPlanGeneration:555": "Identical visit plan already exists",
     "Error:VisitPlanGeneration:556": "MCPHeader is not effective at the moment",
     "Error:VisitPlanGeneration:557": "RouteId does not represent a route",
     "Error:VisitPlanGeneration:558": "Route is no longer active",
