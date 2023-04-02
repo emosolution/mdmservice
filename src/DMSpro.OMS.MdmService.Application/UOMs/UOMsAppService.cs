@@ -39,7 +39,7 @@ namespace DMSpro.OMS.MdmService.UOMs
         [Authorize(MdmServicePermissions.UOMs.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            if (await _uOMGroupDetailRepository.AnyAsync(x => x.BaseUOMId == id))
+            if (await _uOMGroupDetailRepository.AnyAsync(x => x.AltUOMId == id))
             {
                 throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
             }
