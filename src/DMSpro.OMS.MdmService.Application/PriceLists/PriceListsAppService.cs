@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             var priceList = await _priceListRepository.FirstAsync(x => x.Id == id);
             if (priceList.IsBase || priceList.IsDefaultForCustomer || priceList.IsDefaultForVendor)
             {
-                throw new UserFriendlyException(L[""]);
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
             }
             await _priceListRepository.DeleteAsync(id);
         }

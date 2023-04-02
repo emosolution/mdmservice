@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.ItemAttributes;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
@@ -14,6 +15,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         IItemAttributeValuesAppService
     {
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IDistributedCache<ItemAttributeValueExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
         private readonly ItemAttributeValueManager _itemAttributeValueManager;
@@ -22,6 +24,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
         public ItemAttributeValuesAppService(ICurrentTenant currentTenant,
             IItemAttributeValueRepository repository,
+            IItemRepository itemRepository,
             ItemAttributeValueManager itemAttributeValueManager,
             IConfiguration settingProvider,
             IItemAttributeRepository itemAttributeRepository,
@@ -29,6 +32,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributeValues.Default)
         {
             _itemAttributeValueRepository = repository;
+            _itemRepository = itemRepository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemAttributeValueManager = itemAttributeValueManager;
 

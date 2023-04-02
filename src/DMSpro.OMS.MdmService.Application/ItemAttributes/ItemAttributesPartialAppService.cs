@@ -4,6 +4,7 @@ using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
@@ -12,14 +13,16 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 		IItemAttributesAppService
 	{
 		private readonly IItemAttributeRepository _itemAttributeRepository;
+		private readonly IItemRepository _itemRepository;
 
 		public ItemAttributesAppService(ICurrentTenant currentTenant,
 			IItemAttributeRepository repository,
+			IItemRepository itemRepository,
 			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributes.Default)
 		{
 			_itemAttributeRepository = repository;
-			
+			_itemRepository = itemRepository;
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemAttributeRepository", _itemAttributeRepository));
 		}

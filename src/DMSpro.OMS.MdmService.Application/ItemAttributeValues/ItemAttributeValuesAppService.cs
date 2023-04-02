@@ -14,6 +14,10 @@ using MiniExcelLibs;
 using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
+using DMSpro.OMS.MdmService.CusAttributeValues;
+using DMSpro.OMS.MdmService.CustomerAttributes;
+using DMSpro.OMS.MdmService.Customers;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
@@ -78,6 +82,35 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Authorize(MdmServicePermissions.ItemAttributeValues.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            var attrValue = await _itemAttributeValueRepository.GetAsync(id);
+            var attribute = await _itemAttributeRepository.GetAsync(attrValue.ItemAttributeId);
+
+            if (await _itemRepository.AnyAsync(x =>
+                    (attribute.AttrNo == 0 && x.Attr0Id.HasValue) ||
+                    (attribute.AttrNo == 1 && x.Attr1Id.HasValue) ||
+                    (attribute.AttrNo == 2 && x.Attr2Id.HasValue) ||
+                    (attribute.AttrNo == 3 && x.Attr3Id.HasValue) ||
+                    (attribute.AttrNo == 4 && x.Attr4Id.HasValue) ||
+                    (attribute.AttrNo == 5 && x.Attr5Id.HasValue) ||
+                    (attribute.AttrNo == 6 && x.Attr6Id.HasValue) ||
+                    (attribute.AttrNo == 7 && x.Attr7Id.HasValue) ||
+                    (attribute.AttrNo == 8 && x.Attr8Id.HasValue) ||
+                    (attribute.AttrNo == 9 && x.Attr9Id.HasValue) ||
+                    (attribute.AttrNo == 10 && x.Attr10Id.HasValue) ||
+                    (attribute.AttrNo == 11 && x.Attr11Id.HasValue) ||
+                    (attribute.AttrNo == 12 && x.Attr12Id.HasValue) ||
+                    (attribute.AttrNo == 13 && x.Attr13Id.HasValue) ||
+                    (attribute.AttrNo == 14 && x.Attr14Id.HasValue) ||
+                    (attribute.AttrNo == 15 && x.Attr15Id.HasValue) ||
+                    (attribute.AttrNo == 16 && x.Attr16Id.HasValue) ||
+                    (attribute.AttrNo == 17 && x.Attr17Id.HasValue) ||
+                    (attribute.AttrNo == 18 && x.Attr18Id.HasValue) ||
+                    (attribute.AttrNo == 19 && x.Attr19Id.HasValue)
+                    ))
+            {
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            }
+
             await _itemAttributeValueRepository.DeleteAsync(id);
         }
 

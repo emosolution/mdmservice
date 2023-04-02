@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.CustomerAttributes;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
@@ -14,6 +15,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
         ICusAttributeValuesAppService
     {
         private readonly ICusAttributeValueRepository _cusAttributeValueRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IDistributedCache<CusAttributeValueExcelDownloadTokenCacheItem, string>
             _excelDownloadTokenCache;
         private readonly CusAttributeValueManager _cusAttributeValueManager;
@@ -22,6 +24,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
 
         public CusAttributeValuesAppService(ICurrentTenant currentTenant,
             ICusAttributeValueRepository repository,
+            ICustomerRepository customerRepository,
             CusAttributeValueManager cusAttributeValueManager,
             IConfiguration settingProvider,
             ICustomerAttributeRepository customerAttributeRepository,
@@ -29,6 +32,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CusAttributeValues.Default)
         {
             _cusAttributeValueRepository = repository;
+            _customerRepository = customerRepository;
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _cusAttributeValueManager = cusAttributeValueManager;
 
