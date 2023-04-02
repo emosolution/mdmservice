@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         [StringLength(SalesOrgHeaderConsts.NameMaxLength)]
         public string Name { get; set; }
         public bool Active { get; set; }
+        public Status Status { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

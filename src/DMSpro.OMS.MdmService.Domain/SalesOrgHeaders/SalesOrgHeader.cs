@@ -19,12 +19,14 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 
         public virtual bool Active { get; set; }
 
+        public virtual Status Status { get; set; }
+
         public SalesOrgHeader()
         {
 
         }
 
-        public SalesOrgHeader(Guid id, string code, string name, bool active)
+        public SalesOrgHeader(Guid id, string code, string name, bool active, Status status)
         {
 
             Id = id;
@@ -34,6 +36,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             Code = code;
             Name = name;
             Active = active;
+            Status = status;
         }
 
     }

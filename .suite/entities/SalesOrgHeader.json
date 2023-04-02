@@ -82,6 +82,32 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
+    },
+    {
+      "Id": "2f180c33-ff23-4d1e-aab5-ec23462a413d",
+      "Name": "Status",
+      "Type": "enum",
+      "EnumType": "Status",
+      "EnumNamespace": "DMSpro.OMS.MdmService.SalesOrgHeaders",
+      "EnumAngularImport": "shared/enums/status",
+      "EnumFilePath": "/src/DMSpro.OMS.MdmService.Domain.Shared/SalesOrgHeaders/Status.cs",
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": {
+        "Open": 0,
+        "Released": 1,
+        "Inactive": 2
+      },
+      "IsSelected": true,
+      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [],

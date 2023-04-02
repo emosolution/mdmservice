@@ -251,6 +251,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Code).HasColumnName(nameof(SalesOrgHeader.Code)).IsRequired().HasMaxLength(SalesOrgHeaderConsts.CodeMaxLength);
             b.Property(x => x.Name).HasColumnName(nameof(SalesOrgHeader.Name)).HasMaxLength(SalesOrgHeaderConsts.NameMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(SalesOrgHeader.Active));
+            b.Property(x => x.Status).HasColumnName(nameof(SalesOrgHeader.Status));
         });
 
         builder.Entity<SalesOrgEmpAssignment>(b =>

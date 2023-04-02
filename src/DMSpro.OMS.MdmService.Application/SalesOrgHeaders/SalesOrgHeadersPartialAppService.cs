@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -13,19 +12,15 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 		ISalesOrgHeadersAppService
 	{
 		private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
-		private readonly IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
 		private readonly SalesOrgHeaderManager _salesOrgHeaderManager;
 
 		public SalesOrgHeadersAppService(ICurrentTenant currentTenant,
 			ISalesOrgHeaderRepository repository,
 			SalesOrgHeaderManager salesOrgHeaderManager,
-			IConfiguration settingProvider,
-			IDistributedCache<SalesOrgHeaderExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHeaders.Default)
 		{
 			_salesOrgHeaderRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_salesOrgHeaderManager = salesOrgHeaderManager;
 			
 			_repositories.AddIfNotContains(

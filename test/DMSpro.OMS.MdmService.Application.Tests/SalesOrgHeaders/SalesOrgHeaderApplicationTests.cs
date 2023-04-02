@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _salesOrgHeadersAppService.GetListAsync(new GetSalesOrgHeadersInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("7753baa0-bd90-49f3-87ac-4cc3c687e075")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _salesOrgHeadersAppService.GetAsync(Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"));
+            var result = await _salesOrgHeadersAppService.GetAsync(Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"));
+            result.Id.ShouldBe(Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"));
         }
 
         [Fact]
@@ -48,9 +35,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             // Arrange
             var input = new SalesOrgHeaderCreateDto
             {
-                Code = "0b3fe5705cf146e3913e",
-                Name = "a58ac8c106bb4abc9f6a47a486261ca484a10792edbb4811a613b24b2f0ee3f19cde66cc604b4832a335036f8acbf3d2194bea23934641659c924ad6ea354328201c8a2150d94e7d82704d08bba49f4ab0f5736384ed49ae9db1f182452dc924f365f4a505b44e5bb0c38856f0bba212e623330cc485488eb61a34cf19d7a7c",
-                Active = true
+                Code = "ee32bed3b9ba4361afdc",
+                Name = "94c42f71780444959f8025a1e8e9e90e91632c985419404290d65d1c36a7db75d32ec3f09fef4263bb25a984fc649ca5f42bb66873d148069c7e73f501d2d2ea77a6e126443843509674cd9fd95cb685680eb0f0e10146a288e522194c1ba56d2dcbb252a46f47bf88b2127d7817044fca9b2d9b09cb45fd92ca8e111837cff",
+                Active = true,
             };
 
             // Act
@@ -60,9 +47,10 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             var result = await _salesOrgHeaderRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("0b3fe5705cf146e3913e");
-            result.Name.ShouldBe("a58ac8c106bb4abc9f6a47a486261ca484a10792edbb4811a613b24b2f0ee3f19cde66cc604b4832a335036f8acbf3d2194bea23934641659c924ad6ea354328201c8a2150d94e7d82704d08bba49f4ab0f5736384ed49ae9db1f182452dc924f365f4a505b44e5bb0c38856f0bba212e623330cc485488eb61a34cf19d7a7c");
+            result.Code.ShouldBe("ee32bed3b9ba4361afdc");
+            result.Name.ShouldBe("94c42f71780444959f8025a1e8e9e90e91632c985419404290d65d1c36a7db75d32ec3f09fef4263bb25a984fc649ca5f42bb66873d148069c7e73f501d2d2ea77a6e126443843509674cd9fd95cb685680eb0f0e10146a288e522194c1ba56d2dcbb252a46f47bf88b2127d7817044fca9b2d9b09cb45fd92ca8e111837cff");
             result.Active.ShouldBe(true);
+            result.Status.ShouldBe(Status.Open);
         }
 
         [Fact]
@@ -71,31 +59,33 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             // Arrange
             var input = new SalesOrgHeaderUpdateDto()
             {
-                Code = "f86eede1e55a466ca9db",
-                Name = "462f31fc8a7c48c6acc43ed50b6d29af15f137e602704aff819695c630c5d12903dfe77ee7dc4c96a5b9e1c3a95743721f8f881393524a33875213728e0e7b8166e3ce5a3a4b44c693717194aafc234fef9a4741dd8c4dea9528784d2839acdf36a266528d5345faa164c047b0e030b2d023e37feb044623b500b74a6d807d4",
-                Active = true
+                Code = "6300b505d406456488a0",
+                Name = "ad6b8af2cc3649aaba84d772281c49381c29e6cf68fd4e9fadbe369b48fc9ce306a7848360584cf2b69439245cdfc69f814a6ea709d1462e9c30a5a89267189c2d65020038204c70a954ba6d701463512af0823dcd224f4480ac50870c62d2f09ab54f6bfb5d44b7bfadd702c323bf84f34247980a294fc3996b11ff0b0200c",
+                Active = true,
+                Status = default
             };
 
             // Act
-            var serviceResult = await _salesOrgHeadersAppService.UpdateAsync(Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"), input);
+            var serviceResult = await _salesOrgHeadersAppService.UpdateAsync(Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"), input);
 
             // Assert
             var result = await _salesOrgHeaderRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("f86eede1e55a466ca9db");
-            result.Name.ShouldBe("462f31fc8a7c48c6acc43ed50b6d29af15f137e602704aff819695c630c5d12903dfe77ee7dc4c96a5b9e1c3a95743721f8f881393524a33875213728e0e7b8166e3ce5a3a4b44c693717194aafc234fef9a4741dd8c4dea9528784d2839acdf36a266528d5345faa164c047b0e030b2d023e37feb044623b500b74a6d807d4");
+            result.Code.ShouldBe("6300b505d406456488a0");
+            result.Name.ShouldBe("ad6b8af2cc3649aaba84d772281c49381c29e6cf68fd4e9fadbe369b48fc9ce306a7848360584cf2b69439245cdfc69f814a6ea709d1462e9c30a5a89267189c2d65020038204c70a954ba6d701463512af0823dcd224f4480ac50870c62d2f09ab54f6bfb5d44b7bfadd702c323bf84f34247980a294fc3996b11ff0b0200c");
             result.Active.ShouldBe(true);
+            result.Status.ShouldBe(default);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _salesOrgHeadersAppService.DeleteAsync(Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"));
+            await _salesOrgHeadersAppService.DeleteAsync(Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"));
 
             // Assert
-            var result = await _salesOrgHeaderRepository.FindAsync(c => c.Id == Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"));
+            var result = await _salesOrgHeaderRepository.FindAsync(c => c.Id == Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"));
 
             result.ShouldBeNull();
         }

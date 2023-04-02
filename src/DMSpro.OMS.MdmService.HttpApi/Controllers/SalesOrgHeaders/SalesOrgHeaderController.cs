@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
 {
@@ -22,13 +19,7 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
         {
             _salesOrgHeadersAppService = salesOrgHeadersAppService;
         }
-
-        [HttpGet]
-        public virtual Task<PagedResultDto<SalesOrgHeaderDto>> GetListAsync(GetSalesOrgHeadersInput input)
-        {
-            return _salesOrgHeadersAppService.GetListAsync(input);
-        }
-
+        
         [HttpGet]
         [Route("{id}")]
         public virtual Task<SalesOrgHeaderDto> GetAsync(Guid id)
@@ -54,20 +45,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
         public virtual Task DeleteAsync(Guid id)
         {
             return _salesOrgHeadersAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(SalesOrgHeaderExcelDownloadDto input)
-        {
-            return _salesOrgHeadersAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _salesOrgHeadersAppService.GetDownloadTokenAsync();
         }
     }
 }
