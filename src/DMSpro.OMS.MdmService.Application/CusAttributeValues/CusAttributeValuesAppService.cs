@@ -80,9 +80,15 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
         [Authorize(MdmServicePermissions.CusAttributeValues.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            AllowEditDelete(id, "D");
+
+            await _cusAttributeValueRepository.DeleteAsync(id);
+        }
+
+        private async void AllowEditDelete(Guid id, string action)
+        {
             var attrValue = await _cusAttributeValueRepository.GetAsync(id);
             var attribute = await _customerAttributeRepository.GetAsync(attrValue.CustomerAttributeId);
-
             if (await _customerRepository.AnyAsync(x =>
                     (attribute.AttrNo == 0 && x.Attribute0Id == id) ||
                     (attribute.AttrNo == 1 && x.Attribute1Id == id) ||
@@ -106,9 +112,11 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
                     (attribute.AttrNo == 19 && x.Attribute19Id == id)
                     ))
             {
-                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+                if (action == "D")
+                    throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+                if (action == "U")
+                    throw new UserFriendlyException(L["Error:General:UpdateContraint:550"]);
             }
-            await _cusAttributeValueRepository.DeleteAsync(id);
         }
 
         [Authorize(MdmServicePermissions.CusAttributeValues.Create)]
@@ -133,6 +141,8 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerAttribute"]]);
             }
+
+            AllowEditDelete(id, "U");
 
             var cusAttributeValue = await _cusAttributeValueManager.UpdateAsync(
             id,
