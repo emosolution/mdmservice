@@ -3,6 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
+using DMSpro.OMS.MdmService.SalesOrgHeaders;
+using System.Linq;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Data;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
@@ -26,62 +31,141 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         {
             if (input.SalesOrgHeaderId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:550"], code: "0");
             }
-            var company = await _companyIdentityUserAssignmentsInternalAppService.GetCurrentlySelectedCompanyAsync();
-            await _numberingConfigDetailsInternalAppService.GetSuggestedNumberingConfigAsync("", company.Id);
-            
-            var salesOrgHierarchy = await _salesOrgHierarchyManager.CreateAsync(
-            input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active
-            );
+            var header = await CheckHeader(input.SalesOrgHeaderId);
+            var treeNodes = await _salesOrgHierarchyRepository.GetListAsync(x => x.SalesOrgHeaderId == header.Id);
+            if (treeNodes.Any())
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:553"], code: "0");
+            }
+            (var numberingConfig, var companyHOId) = await GetAndCheckSuggestedNumberingConfig();
 
-            return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(salesOrgHierarchy);
+            var salesOrgHierarchy = await _salesOrgHierarchiesInternalAppService.CreateAsync(
+                salesOrgHeaderId: input.SalesOrgHeaderId,
+                parentId: null,
+                code: numberingConfig.SuggestedCode,
+                name: input.Name,
+                isRoute: false,
+                isSellingZone: false,
+                active: true);
+
+            await SaveNumberingConfig(numberingConfig, companyHOId);
+            return salesOrgHierarchy;
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Create)]
         public virtual async Task<SalesOrgHierarchyDto> CreateSubAsync(SalesOrgHierarchyCreateSubDto input)
         {
-            if (input.SalesOrgHeaderId == default)
+            if (input.ParentId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:551"], code: "0");
             }
-            //await CheckCodeUniqueness(input.Code);
-            var salesOrgHierarchy = await _salesOrgHierarchyManager.CreateAsync(
-            input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active
-            );
+            var parent = await _salesOrgHierarchyRepository.GetAsync((Guid)input.ParentId);
+            if (parent.IsRoute || parent.IsSellingZone)
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:554"], code: "1");
+            }
 
-            return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(salesOrgHierarchy);
+            var header = await CheckHeader(parent.SalesOrgHeaderId);
+            (var numberingConfig, var companyHOId) = await GetAndCheckSuggestedNumberingConfig();
+
+            var salesOrgHierarchy = await _salesOrgHierarchiesInternalAppService.CreateAsync(
+                salesOrgHeaderId: header.Id,
+                parentId: parent.Id,
+                code: numberingConfig.SuggestedCode,
+                name: input.Name,
+                isRoute: false,
+                isSellingZone: false,
+                active: true);
+            await SaveNumberingConfig(numberingConfig, companyHOId);
+            return salesOrgHierarchy;
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Create)]
         public virtual async Task<SalesOrgHierarchyDto> CreateRouteAsync(SalesOrgHierarchyCreateRouteDto input)
         {
-            if (input.SalesOrgHeaderId == default)
+            if (input.ParentId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:551"], code: "0");
             }
-            //await CheckCodeUniqueness(input.Code);
-            var salesOrgHierarchy = await _salesOrgHierarchyManager.CreateAsync(
-            input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active
-            );
+            var parent = await _salesOrgHierarchyRepository.GetAsync((Guid)input.ParentId);
+            if (parent.IsRoute)
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:555"], code: "1");
+            }
+            if (!parent.IsSellingZone)
+            {
+                if (await _salesOrgHierarchyRepository.AnyAsync(x => x.ParentId == input.ParentId))
+                {
+                    throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:556"], code: "1");
+                }
+            }
+            var header = await CheckHeader(parent.SalesOrgHeaderId);
+            (var numberingConfig, var companyHOId) = await GetAndCheckSuggestedNumberingConfig();
 
-            return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(salesOrgHierarchy);
+            var salesOrgHierarchy = await _salesOrgHierarchiesInternalAppService.CreateAsync(
+                salesOrgHeaderId: header.Id,
+                parentId: parent.Id,
+                code: numberingConfig.SuggestedCode,
+                name: input.Name,
+                isRoute: true,
+                isSellingZone: false,
+                active: true);
+            await SaveNumberingConfig(numberingConfig, companyHOId);
+
+            if (!parent.IsSellingZone)
+            {
+                parent.IsSellingZone = true;
+            }
+            await _salesOrgHierarchyRepository.UpdateAsync(parent);
+
+            return salesOrgHierarchy;
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Edit)]
-        public virtual async Task<SalesOrgHierarchyDto> UpdateAsync(Guid id, SalesOrgHierarchyUpdateDto input)
+        public virtual async Task<SalesOrgHierarchyDto> UpdateAsync(
+            Guid id, SalesOrgHierarchyUpdateDto input)
         {
-            if (input.SalesOrgHeaderId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SalesOrgHeader"]]);
-            }
-            //await CheckCodeUniqueness(input.Code, id);
-            var salesOrgHierarchy = await _salesOrgHierarchyManager.UpdateAsync(
-            id,
-            input.SalesOrgHeaderId, input.ParentId, input.Code, input.Name, input.Level, input.IsRoute, input.IsSellingZone, input.HierarchyCode, input.Active, input.ConcurrencyStamp
-            );
+            Check.NotNullOrWhiteSpace(input.Name, nameof(input.Name));
+            Check.Length(input.Name, nameof(input.Name), SalesOrgHierarchyConsts.NameMaxLength, SalesOrgHierarchyConsts.NameMaxLength);
 
-            return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(salesOrgHierarchy);
+            var record = await _salesOrgHierarchyRepository.GetAsync(x => x.Id == id);
+            var header = await CheckHeader(record.SalesOrgHeaderId);
+            await _salesOrgHierarchiesInternalAppService.ValidateOrganizationUnitAsync(
+                id, input.Name, record.ParentId, record.SalesOrgHeaderId);
+            record.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
+            await _salesOrgHierarchyRepository.UpdateAsync(record);
+            return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(record);
+        }
+
+        private async Task<SalesOrgHeader> CheckHeader(Guid headerId)
+        {
+            var header = await _salesOrgHeaderRepository.GetAsync(headerId);
+            if (header.Status != Status.OPEN)
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:552"], code: "0");
+            }
+            return header;
+        }
+
+        private async Task<(NumberingConfigDetailDto, Guid)> GetAndCheckSuggestedNumberingConfig()
+        {
+            var companyHO = await _companyRepository.GetAsync(x => x.IsHO == true);
+            var companyHOId = companyHO.Id;
+            var numberingConfig =
+                await _numberingConfigDetailsInternalAppService.GetSuggestedNumberingConfigAsync(
+                    SalesOrgHierarchyConsts.NumberingConfigObjectType, companyHOId);
+            await CheckCodeUniqueness(numberingConfig.SuggestedCode);
+
+            return (numberingConfig, companyHOId);
+        }
+
+        private async Task SaveNumberingConfig(NumberingConfigDetailDto numberingConfig, Guid companyHOId)
+        {
+            await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(
+                SalesOrgHierarchyConsts.NumberingConfigObjectType, companyHOId,
+                numberingConfig.CurrentNumber);
         }
     }
 }

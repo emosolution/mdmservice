@@ -6,8 +6,8 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
-using DMSpro.OMS.MdmService.CompanyInZones;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
@@ -16,27 +16,26 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 		ISalesOrgHierarchiesAppService
 	{
 		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
-		private readonly SalesOrgHierarchyManager _salesOrgHierarchyManager;
 		private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
-		private readonly ICompanyIdentityUserAssignmentsInternalAppService _companyIdentityUserAssignmentsInternalAppService;
+        private readonly ISalesOrgHierarchiesInternalAppService _salesOrgHierarchiesInternalAppService;
+		private readonly ICompanyRepository _companyRepository;
 
 		private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
 
 		public SalesOrgHierarchiesAppService(ICurrentTenant currentTenant,
 			ISalesOrgHierarchyRepository repository,
-			SalesOrgHierarchyManager salesOrgHierarchyManager,
 			INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
-            ICompanyIdentityUserAssignmentsInternalAppService companyIdentityUserAssignmentsInternalAppService,
+			ISalesOrgHierarchiesInternalAppService salesOrgHierarchiesInternalAppService,
+            ICompanyRepository companyRepository,
             IConfiguration settingProvider,
 			ISalesOrgHeaderRepository salesOrgHeaderRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHierarchies.Default)
 		{
 			_salesOrgHierarchyRepository = repository;
-			_salesOrgHierarchyManager = salesOrgHierarchyManager;
             _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
-            _companyIdentityUserAssignmentsInternalAppService = companyIdentityUserAssignmentsInternalAppService;
-
+            _salesOrgHierarchiesInternalAppService = salesOrgHierarchiesInternalAppService;
             _salesOrgHeaderRepository = salesOrgHeaderRepository;
+			_companyRepository = companyRepository;
 
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));
