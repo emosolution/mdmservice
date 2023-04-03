@@ -45,6 +45,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
         [Authorize(MdmServicePermissions.SystemData.Create)]
         public virtual async Task<SystemDataDto> CreateAsync(SystemDataCreateDto input)
         {
+            await CheckUniqueValueCode(input.Code, input.ValueCode);
 
             var systemData = await _systemDataManager.CreateAsync(
             input.Code, input.ValueCode, input.ValueName
@@ -53,9 +54,28 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             return ObjectMapper.Map<SystemData, SystemDataDto>(systemData);
         }
 
+        private async Task CheckUniqueValueCode(string code, string valueCode,Guid? id=null){
+
+            var records = await _systemDataRepository.GetListAsync(x => x.Code == code && x.ValueCode == valueCode);
+            if(id is null){
+                if(records.Any())
+                {
+                    throw new UserFriendlyException(message: L["Error:PartialCheckSystemDataCodeUniquenessAppService:554"], code: "1");
+                }
+                    
+            }
+
+            if(records.Where(x => x.Id != id).Any())
+            {
+                throw new UserFriendlyException(message: L["Error:PartialCheckSystemDataCodeUniquenessAppService:554"], code: "1");
+            }
+        }
+
         [Authorize(MdmServicePermissions.SystemData.Edit)]
         public virtual async Task<SystemDataDto> UpdateAsync(Guid id, SystemDataUpdateDto input)
         {
+            
+            await CheckUniqueValueCode(input.Code, input.ValueCode,id);
 
             var systemData = await _systemDataManager.UpdateAsync(
             id,
