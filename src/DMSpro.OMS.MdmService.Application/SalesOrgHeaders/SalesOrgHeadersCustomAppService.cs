@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
@@ -23,7 +24,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             Check.NotNullOrWhiteSpace(input.Name, nameof(input.Name));
             Check.Length(input.Code, nameof(input.Code), SalesOrgHeaderConsts.CodeMaxLength, SalesOrgHeaderConsts.CodeMinLength);
             Check.Length(input.Name, nameof(input.Name), SalesOrgHeaderConsts.NameMaxLength);
-            
+
             await CheckCodeUniqueness(input.Code);
 
             var salesOrgHeader = new SalesOrgHeader(
@@ -64,9 +65,23 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             return ObjectMapper.Map<SalesOrgHeader, SalesOrgHeaderDto>(record);
         }
 
-        private Task CheckHierarchiesForRelease(Guid id)
+        private async Task CheckHierarchiesForRelease(Guid id)
         {
-            throw new NotImplementedException();
+            var allRoutes = await _salesOrgHierarchyRepository.GetListAsync(
+                x => x.SalesOrgHeaderId == id && x.IsRoute == true);
+            if (!allRoutes.Any())
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:552"], code: "0");
+            }
+            var allRouteParentIds = allRoutes.Select(x => x.ParentId).Distinct().ToList();  
+            var allZones = await _salesOrgHierarchyRepository.GetListAsync(
+                x => x.SalesOrgHeaderId == id && x.IsSellingZone == true);
+            var allZoneIds = allZones.Select(x =>x.Id).Distinct().ToList(); 
+            if (allRouteParentIds.Count != allZoneIds.Count)
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:553"], code: "0");
+            }
+            
         }
     }
 }
