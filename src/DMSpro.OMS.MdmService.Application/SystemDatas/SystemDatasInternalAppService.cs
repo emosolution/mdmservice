@@ -34,7 +34,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     ["valueName"] = valueName,
                 };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:SystemData:550"],
+                throw new UserFriendlyException(message: L["Error:SystemData:550"],
                     code: "1", details: detailString);
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     ["valueName"] = valueName,
                 };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:SystemData:550"],
+                throw new UserFriendlyException(message: L["Error:SystemData:550"],
                     code: "1", details: detailString);
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
@@ -100,7 +100,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     {
                         continue;
                     }
-                    SystemData seed = new SystemData(id: GuidGenerator.Create(),
+                    SystemData seed = new(id: GuidGenerator.Create(),
                         code: Code, valueCode: ValueCode, valueName: ValueName);
                     seedSystemData.Add(seed);
                 }
