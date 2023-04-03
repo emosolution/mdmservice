@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         }
 
         public virtual async Task<SalesOrgHierarchyDto> CreateAsync(Guid salesOrgHeaderId, 
-            Guid? parentId, string code, string name, bool isRoute, bool isSellingZone, bool active)
+            Guid? parentId, string code, string name, bool isRoute, bool isSellingZone)
         {
             Check.NotNull(salesOrgHeaderId, nameof(salesOrgHeaderId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -41,7 +41,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
             var salesOrgHierarchy = new SalesOrgHierarchy(
                 GuidGenerator.Create(),
-                salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, active);
+                salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, true, 0);
 
             var record = await _salesOrgHierarchyRepository.InsertAsync(salesOrgHierarchy);
             return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(record);
@@ -263,24 +263,24 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             }
 
             var organizationUnit = await _salesOrgHierarchyRepository.GetAsync(id);
-            if (organizationUnit.IsRoute == true)
-            {
-                //Find other children
-                var other_children = await FindChildrenAsync(organizationUnit.ParentId, false);
-                foreach (var child in other_children)
-                {
-                    if (child.IsRoute)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        var parentNode = await _salesOrgHierarchyRepository.GetAsync(organizationUnit.ParentId.Value);
-                        parentNode.IsSellingZone = false;
-                        await _salesOrgHierarchyRepository.UpdateAsync(parentNode);
-                    }
-                }
-            }
+            //if (organizationUnit.IsRoute == true)
+            //{
+            //    //Find other children
+            //    var other_children = await FindChildrenAsync(organizationUnit.ParentId, false);
+            //    foreach (var child in other_children)
+            //    {
+            //        if (child.IsRoute)
+            //        {
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            var parentNode = await _salesOrgHierarchyRepository.GetAsync(organizationUnit.ParentId.Value);
+            //            parentNode.IsSellingZone = false;
+            //            await _salesOrgHierarchyRepository.UpdateAsync(parentNode);
+            //        }
+            //    }
+            //}
             await _salesOrgHierarchyRepository.RemoveAllMembersAsync(organizationUnit);
             //await OrganizationUnitRepository.RemoveAllRolesAsync(organizationUnit);
             await _salesOrgHierarchyRepository.DeleteAsync(id);

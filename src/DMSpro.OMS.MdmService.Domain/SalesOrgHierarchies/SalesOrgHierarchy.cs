@@ -33,6 +33,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         public virtual string HierarchyCode { get; set; }
 
         public virtual bool Active { get; set; }
+
+        public virtual int DirectChildren { get; set; }
         public Guid SalesOrgHeaderId { get; set; }
         public Guid? ParentId { get; set; }
         
@@ -41,7 +43,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
         }
 
-        public SalesOrgHierarchy(Guid id, Guid salesOrgHeaderId, Guid? parentId, string code, string name, int level, bool isRoute, bool isSellingZone, string hierarchyCode, bool active)
+        public SalesOrgHierarchy(Guid id, Guid salesOrgHeaderId, Guid? parentId, string code, string name, int level, bool isRoute, bool isSellingZone, string hierarchyCode, bool active, int directChildren)
         {
 
             Id = id;
@@ -67,6 +69,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             IsSellingZone = isSellingZone;
             HierarchyCode = hierarchyCode;
             Active = active;
+            DirectChildren = directChildren;
             SalesOrgHeaderId = salesOrgHeaderId;
             ParentId = parentId;
         }

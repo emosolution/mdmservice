@@ -1063,6 +1063,8 @@
     "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate",
     "Error:SalesOrgHeadersAppService:550": "Only sales organization with OPEN status can be released",
     "Error:SalesOrgHeadersAppService:551": "Only sales organization with RELEASED status can be inactivated",
+    "Error:SalesOrgHeadersAppService:552": "Cannot realse sales organization with out any route",
+    "Error:SalesOrgHeadersAppService:553": "Each selling zone must have at least one route as child",
     "Error:SalesOrgHierarchiesInternalAppService:550": "The name {0} already exists in this sales organization",
     "Error:SalesOrgHierarchiesInternalAppService:551": "A child's code is null or empty",
     "Error:SalesOrgHierarchiesInternalAppService:552": "Code cannot be null or empty",

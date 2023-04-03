@@ -279,6 +279,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.IsSellingZone).HasColumnName(nameof(SalesOrgHierarchy.IsSellingZone));
             b.Property(x => x.HierarchyCode).HasColumnName(nameof(SalesOrgHierarchy.HierarchyCode)).IsRequired().HasMaxLength(SalesOrgHierarchyConsts.HierarchyCodeMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(SalesOrgHierarchy.Active));
+            b.Property(x => x.DirectChildren).HasColumnName(nameof(SalesOrgHierarchy.DirectChildren));
             b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });

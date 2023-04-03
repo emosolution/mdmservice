@@ -23,7 +23,21 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            await _salesOrgHierarchyRepository.DeleteAsync(id);
+            var node = await _salesOrgHierarchyRepository.GetAsync(id);
+            await CheckHeader(node.Id);
+
+            if (node.ParentId != null)
+            {
+                var parent = await _salesOrgHierarchyRepository.GetAsync(node.ParentId.Value);
+                parent.DirectChildren--;
+                if (parent.DirectChildren <= 0 && parent.IsSellingZone)
+                {
+                    parent.IsSellingZone = false;
+                }
+                await _salesOrgHierarchyRepository.UpdateAsync(parent);
+            }
+            await _salesOrgHierarchiesInternalAppService.DeleteAsync(id);
+            return;
         }
 
         [Authorize(MdmServicePermissions.SalesOrgHierarchies.Create)]
@@ -47,8 +61,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 code: numberingConfig.SuggestedCode,
                 name: input.Name,
                 isRoute: false,
-                isSellingZone: false,
-                active: true);
+                isSellingZone: false);
 
             await SaveNumberingConfig(numberingConfig, companyHOId);
             return salesOrgHierarchy;
@@ -76,8 +89,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 code: numberingConfig.SuggestedCode,
                 name: input.Name,
                 isRoute: false,
-                isSellingZone: false,
-                active: true);
+                isSellingZone: false);
+            parent.DirectChildren++;
+            await _salesOrgHierarchyRepository.UpdateAsync(parent);
             await SaveNumberingConfig(numberingConfig, companyHOId);
             return salesOrgHierarchy;
         }
@@ -110,15 +124,13 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 code: numberingConfig.SuggestedCode,
                 name: input.Name,
                 isRoute: true,
-                isSellingZone: false,
-                active: true);
-            await SaveNumberingConfig(numberingConfig, companyHOId);
+                isSellingZone: false);
 
-            if (!parent.IsSellingZone)
-            {
-                parent.IsSellingZone = true;
-            }
+            parent.DirectChildren++;
+            parent.IsSellingZone = true;
             await _salesOrgHierarchyRepository.UpdateAsync(parent);
+
+            await SaveNumberingConfig(numberingConfig, companyHOId);
 
             return salesOrgHierarchy;
         }

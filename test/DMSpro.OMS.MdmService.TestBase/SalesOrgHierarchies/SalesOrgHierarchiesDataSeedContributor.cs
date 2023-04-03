@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using System;
 using System.Threading.Tasks;
@@ -36,29 +35,31 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
             await _salesOrgHierarchyRepository.InsertAsync(new SalesOrgHierarchy
             (
-                id: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
-                code: "b90415bb92404ed49fed",
-                name: "04638fbe56dc47e0b2658e028d3e061197ed3cbf86d44d73ae3d1abcbaf859a1f5ee9056ef2042139d774142145c0af323f2a827ca3e487d802f306cbbbcdac1cfe16cddea974cff8b56ca63d425aacd64a85d477ce2453fb5aa6e4578662f89ac5a74ef2a42431090630cc11cfc92d8d20a9b3b4dd04cedb380bd58b94a00c",
-                level: 5,
+                id: Guid.Parse("1d1f0f7d-0901-4b2a-8c3a-72021f844286"),
+                code: "dad81512ca3b4aef9747",
+                name: "a1ba07741297426da34cf8cdb36f924186e5f3baa84148679ea5f823eb70b88ef78cb4cafe0d43b694ab1b301f1e595c76619e7bd22a489c8e32076bb1b8d9dab2af27f496ae4d56b64bf0601f3beef1475bf66d462b49cfb3807749dd9c983870511a59fed24d2e9e9e6ffadea37ff1ac4f66033f844153992d690f1a12e92",
+                level: 0,
                 isRoute: true,
                 isSellingZone: true,
-                hierarchyCode: "3fd1c1498653426cb8d658f7851c6fd026c1ad30e8f34214bce551033bfec62e52fd209812af41d89c9ce8cf14a728c4f5cf125d411a45d681bb7fc01bc283c08c506188b8684013a6a106b5a3eac56612c5abb7e478401f81af0d8b3b20431823bd75c445334dff95ad85c727ee05eaaa155a72bccd41069f4958a447f718f81528e62203544e36ba2210cfeebcd3a59546bfa655ed4657b94f8bddf94b13b60205ca7da0204288af5593c081664660a4c4c1aa0d284cf7aea21cd0cfbf74d2e4d6c7de7fa44d9dafe88fca8a45a979d985b8b7801642b48f1e6b0005b30f68683505815ffc4c7dba66a2abd48d2709673e5d08502d4b0fa6f5",
+                hierarchyCode: "fdbd3502beeb4684bec412d7990debb8a856c3bb3b564aa2be03c99fe90b1d9d9517ffb3cab2422d982d64cfe623ff195a029ac2921e49e38410103189fc9f98b0addc5371184bc1b88c68577efcd8f05fc56062f5da4261b4cd834dbc2cabbd0cb25ad8385449febe6bbae0f20b041dd69291da7e2d4886a11f7832ef45c525dc022ff4b4fd457eadb7c2b6017f1db764e66287471442d69068bfb58c977167264a6de2e4a2492e8c42395021bc903bca269c0bfff941ab96b3ac830aa117d2dda5408150594be6ad971de0a850bda41234e0c77f044f6f8ecfac105acf425a4f591636456c4ea0bba32a9268b4721d02c824b0346147b1a993",
                 active: true,
-                salesOrgHeaderId: Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"),
+                directChildren: 244255732,
+                salesOrgHeaderId: Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"),
                 parentId: null
             ));
 
             await _salesOrgHierarchyRepository.InsertAsync(new SalesOrgHierarchy
             (
-                id: Guid.Parse("467c0025-c593-48ef-98e0-5e5f5c17d501"),
-                code: "e5c933120c504e0182fb",
-                name: "e15e15e9008e4967ade760cd91f3654ee38db17afbb44b4d8ea1129d59c1e756904096dc787248f393fa753106c12ceab09011ffc5dc45dd81ee769041dd730fe68fe3332c17457bbf9e8fa4ac134681d2ffbd13ce954ed9b3de12311d7080a42a36ad4119ce42d08c6d807313b59ebf327b1c94cf264e8da6ab92bd868b577",
-                level: 6,
+                id: Guid.Parse("eafc07fd-99a5-426a-b63f-51e1b4b3e040"),
+                code: "bb40b51ad0d84f779c0b",
+                name: "4b12b0b0d065429388c2011bcd5a4d611200a0b49e99492d85520c47f59bf01aa7358d62b14847efa08ec12943c86d390d25990ca9204184a1a716cd581408a68707a49c749043fe815a5b9a088eed6dbbb845e5fab64bcebd3da7d6165e75c13e0db4c4328a43798cb5959c1ecb529d034208e0227a4097b78335cf96cedd3",
+                level: 5,
                 isRoute: true,
                 isSellingZone: true,
-                hierarchyCode: "3937f5f62b9944c093e84e0582bc30acc607d03db0f143aa9a88342b06338dff3e3a1a3530184f9c8e2db4edcbe0710a8bcdd77920be4b7f95221dda3a2b451f3cf5400484cb438bb9b1c56cafdbc2f001d44290c54c41a8ba48103efce613a22be66de16c8246f8934b5d9bc7b2bd117f766946bfb844f19067308b58f43c50f7c917a60c8d41b1bb29ad36f42dcb41c6d36d757aca47b5a28eabab78a6f949bf15bc692e8a4c9290613147e15151039c43b5312d4344568dcb9573641f7b96042d6633f6284d4e8c1038dcf249d9bf7cac4e9d36ea44d7920d1c72fee88b6a478f89bdfb0a4a7cbe70950ef2b84036934d69bd51d34f118fb4",
+                hierarchyCode: "229436bb15b24eaa9fc148ff06577a24c59cc14e70f04dbe8c8c272d22acaba75f5b9a9fb6084e4ebb76c65be7426feb779f28cfd4974a3e9c7c52dac2d2646f12c872f6bc704fa28391e9d92d0e71e49fe2c599ef794ae2834152eccbad7095618c19a547b342b7a67bc1929ae76352e763b05a9fab42eeb9693d969c8cbdc1f82188d56433474c8e27bfb9e47c85dc62af2bfd824c49ff810f3b55a64f2443b0851aeecfef451692dace34adf548350d46c9f9aff9488ebd19b9e61a9f254a502f322da4c64339a0903cbeaf99ae5c0a8b737bf3ab456582ccd917b7f38f162689eeb438154b7f842761f39864bbf367db3f081d57423ea592",
                 active: true,
-                salesOrgHeaderId: Guid.Parse("4308f81c-1cb1-418e-b180-430d2e91fdbf"),
+                directChildren: 1927269101,
+                salesOrgHeaderId: Guid.Parse("2d65cdf9-4242-44e8-8583-a57e4f3ee7f7"),
                 parentId: null
             ));
 
