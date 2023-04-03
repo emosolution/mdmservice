@@ -94,6 +94,7 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
             }
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
 
             var customerAssignment = await _customerAssignmentManager.CreateAsync(
             input.CompanyId, input.CustomerId, input.EffectiveDate, input.EndDate
@@ -113,6 +114,7 @@ namespace DMSpro.OMS.MdmService.CustomerAssignments
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
             }
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
 
             var customerAssignment = await _customerAssignmentManager.UpdateAsync(
             id,

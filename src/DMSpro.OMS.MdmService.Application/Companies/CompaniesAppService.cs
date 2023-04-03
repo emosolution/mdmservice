@@ -85,6 +85,7 @@ namespace DMSpro.OMS.MdmService.Companies
         public virtual async Task<CompanyDto> CreateAsync(CompanyCreateDto input)
         {
             await CheckCodeUniqueness(input.Code);
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var company = await _companyManager.CreateAsync(
             input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.EndDate
             );
@@ -96,6 +97,7 @@ namespace DMSpro.OMS.MdmService.Companies
         public virtual async Task<CompanyDto> UpdateAsync(Guid id, CompanyUpdateDto input)
         {
             await CheckCodeUniqueness(input.Code, id);
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var company = await _companyManager.UpdateAsync(
             id,
             input.ParentId, input.GeoLevel0Id, input.GeoLevel1Id, input.GeoLevel2Id, input.GeoLevel3Id, input.GeoLevel4Id, input.Code, input.Name, input.Street, input.Address, input.Phone, input.License, input.TaxCode, input.VATName, input.VATAddress, input.ERPCode, input.Active, input.EffectiveDate, input.IsHO, input.Latitude, input.Longitude, input.ContactName, input.ContactPhone, input.EndDate, input.ConcurrencyStamp

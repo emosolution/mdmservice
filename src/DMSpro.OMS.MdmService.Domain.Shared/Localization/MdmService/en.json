@@ -1026,6 +1026,7 @@
     "Error:VisitPlanGeneration:552": "Company is not assigned to selling zone or assignment is no longer effective",
     "Error:VisitPlanGeneration:553": "Company is assignned multiple times in a zone",
     "Error:VisitPlanGeneration:554": "Company is not valid or not active",
+    "Error:VisitPlanGeneration:555": "Identical visit plan already exists",
     "Error:VisitPlanGeneration:556": "MCPHeader is not effective at the moment",
     "Error:VisitPlanGeneration:557": "RouteId does not represent a route",
     "Error:VisitPlanGeneration:558": "Route is no longer active",
@@ -1049,6 +1050,7 @@
     "Error:NumberingConfig:550": "There are more than one numbering config found for this object type",
     "Error:NumberingConfig:551": "Numbering config for this object type already exists",
     "Error:NumberingConfigDetail:550": "There are more than one numbering config detail found for this combination of company and object type",
+    "Error:NumberingConfigDetail:551": "Config for this company already exists",
     "Permission:MdmService:MasterDataManipulators": "Manually manipulate master data",
     "Permission:MdmService:MasterDataManipulators:CreateNumberConfigs": "Create numbering configs",
     "Permission:MdmService:PriceList:Release": "Release price lists",
@@ -1057,6 +1059,7 @@
     "Error:PartialCheckCodeUniquenessAppService:551": "Failed when trying to retrieve any existing record with the same code",
     "Error:PartialCheckCodeUniquenessAppService:552": "Input code already exists",
     "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
-    "Error:ItemsAppService:550": "Item can no longer be updated"
+    "Error:ItemsAppService:550": "Item can no longer be updated",
+    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate"
   }
 }

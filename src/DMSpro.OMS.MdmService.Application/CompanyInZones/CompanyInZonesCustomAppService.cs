@@ -35,7 +35,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             Check.NotNull(input.SalesOrgHierarchyId, nameof(input.SalesOrgHierarchyId));
             Check.NotNull(input.CompanyId, nameof(input.CompanyId));
             Check.NotNull(input.EffectiveDate, nameof(input.EffectiveDate));
-
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var companyInZone = new CompanyInZone(
                 GuidGenerator.Create(),
                 input.SalesOrgHierarchyId, input.CompanyId, input.ItemGroupId, input.EffectiveDate, input.EndDate);
@@ -60,7 +60,7 @@ namespace DMSpro.OMS.MdmService.CompanyInZones
             Check.NotNull(input.SalesOrgHierarchyId, nameof(input.SalesOrgHierarchyId));
             Check.NotNull(input.CompanyId, nameof(input.CompanyId));
             Check.NotNull(input.EffectiveDate, nameof(input.EffectiveDate));
-
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var companyInZone = await _companyInZoneRepository.GetAsync(id);
 
             companyInZone.SalesOrgHierarchyId = input.SalesOrgHierarchyId;
