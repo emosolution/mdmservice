@@ -1049,6 +1049,7 @@
     "Error:NumberingConfig:550": "There are more than one numbering config found for this object type",
     "Error:NumberingConfig:551": "Numbering config for this object type already exists",
     "Error:NumberingConfigDetail:550": "There are more than one numbering config detail found for this combination of company and object type",
+    "Error:NumberingConfigDetail:551": "Config for this company already exists",
     "Permission:MdmService:MasterDataManipulators": "Manually manipulate master data",
     "Permission:MdmService:MasterDataManipulators:CreateNumberConfigs": "Create numbering configs",
     "Permission:MdmService:PriceList:Release": "Release price lists",
