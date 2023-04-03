@@ -45,4 +45,17 @@ public partial class PartialAppService<T, TDto, TRepository>
         }
         throw new BusinessException(message: L["Error:PartialCheckCodeUniquenessAppService:551"], code: "1");
     }
+
+    protected void CheckEffectiveDate(DateTime? effectiveDate, DateTime? endDate)
+    {
+        if(endDate is null)
+        {
+            return;
+        }
+        if(effectiveDate >= endDate)
+        {
+            throw new UserFriendlyException(message: L["Error:MdmService:Company:EffectiveDateCompareEndDate"], code: "1");
+        }
+        
+    }
 } 

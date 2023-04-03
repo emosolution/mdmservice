@@ -104,7 +104,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
                     throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
                 }
             }
-
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
 
             var customerInZone = await _customerInZoneManager.CreateAsync(
             input.SalesOrgHierarchyId, input.CustomerId, input.EffectiveDate, input.EndDate
@@ -124,6 +124,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
             }
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
 
             var customerInZone = await _customerInZoneManager.UpdateAsync(
             id,

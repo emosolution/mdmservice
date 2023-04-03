@@ -86,6 +86,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public virtual async Task<EmployeeProfileDto> CreateAsync(EmployeeProfileCreateDto input)
         {
             await CheckCodeUniqueness(input.Code);
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var employeeProfile = await _employeeProfileManager.CreateAsync(
             input.WorkingPositionId, input.EmployeeTypeId, input.Code, input.ERPCode, input.FirstName, input.LastName, input.IdCardNumber, input.Email, input.Phone, input.Address, input.Active, input.DateOfBirth, input.EffectiveDate, input.EndDate, input.IdentityUserId
             );
@@ -97,6 +98,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public virtual async Task<EmployeeProfileDto> UpdateAsync(Guid id, EmployeeProfileUpdateDto input)
         {
             await CheckCodeUniqueness(input.Code, id);
+            CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var employeeProfile = await _employeeProfileManager.UpdateAsync(
             id,
             input.WorkingPositionId, input.EmployeeTypeId, input.Code, input.ERPCode, input.FirstName, input.LastName, input.IdCardNumber, input.Email, input.Phone, input.Address, input.Active, input.DateOfBirth, input.EffectiveDate, input.EndDate, input.IdentityUserId, input.ConcurrencyStamp
