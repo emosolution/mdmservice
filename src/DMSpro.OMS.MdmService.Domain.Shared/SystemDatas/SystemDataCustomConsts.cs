@@ -1,3 +1,5 @@
+using DMSpro.OMS.MdmService.SalesOrgHeaders;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
@@ -61,7 +63,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             (Code: "SY01", ValueCode: "M3", ValueName: "Routes"),
             (Code: "SY01", ValueCode: "M4", ValueName: "Items"),
             (Code: "SY01", ValueCode: "M5", ValueName: "Vendors"),
-            (Code: "SY01", ValueCode: "M6", ValueName: "SalesOrgHierarchies"),
+            (Code: "SY01", ValueCode: "M6", ValueName: SalesOrgHierarchyConsts.NumberingConfigObjectType),
             // Inventory
             (Code: "SY01", ValueCode: "I1", ValueName: "Goods Receipts"),
             (Code: "SY01", ValueCode: "I2", ValueName: "Goods Issues"),
