@@ -42,6 +42,7 @@ public class NumberingConfigsGRPCAppService : NumberingConfigsProtoAppService.Nu
                     CurrentNumber = dto.CurrentNumber,
                     NumberingConfigId = dto.Id.ToString(),
                     CompanyId = request.CompanyId,
+                    SuggestedCode = dto.SuggestedCode,
                 };
             return response;
         }

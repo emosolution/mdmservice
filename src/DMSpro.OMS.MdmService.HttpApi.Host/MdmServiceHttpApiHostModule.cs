@@ -114,12 +114,6 @@ public class MdmServiceHttpApiHostModule : AbpModule
         {
             endpoints.MapMetrics();
             endpoints.MapGrpcService<CompaniesGRPCAppService>();
-            endpoints.MapGrpcService<CustomersGRPCAppService>();
-            endpoints.MapGrpcService<ItemsGRPCAppService>();
-            endpoints.MapGrpcService<SalesOrgHierarchiesGRPCAppService>();
-            endpoints.MapGrpcService<UOMsGRPCAppService>();
-            endpoints.MapGrpcService<VATsGRPCAppService>();
-            endpoints.MapGrpcService<VendorsGRPCAppService>();
             endpoints.MapGrpcService<NumberingConfigsGRPCAppService>();
             endpoints.MapGrpcService<SalesOrdersGRPCAppService>();
         });
