@@ -24,7 +24,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         public virtual async Task DeleteAsync(Guid id)
         {
             var node = await _salesOrgHierarchyRepository.GetAsync(id);
-            await CheckHeader(node.Id);
+            await CheckHeader(node.SalesOrgHeaderId);
 
             if (node.ParentId != null)
             {

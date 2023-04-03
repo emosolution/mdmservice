@@ -55,10 +55,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         public virtual async Task<SalesOrgHeaderDto> InactiveAsync(Guid id)
         {
             var header = await _salesOrgHeaderRepository.GetAsync(x => x.Id == id);
-            if (header.Status != Status.RELEASED)
-            {
-                throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:551"], code: "0");
-            }
             header.Status = Status.INACTIVE;
             var record = await _salesOrgHeaderRepository.UpdateAsync(header);
 
@@ -67,21 +63,17 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 
         private async Task CheckHierarchiesForRelease(Guid id)
         {
-            var allRoutes = await _salesOrgHierarchyRepository.GetListAsync(
-                x => x.SalesOrgHeaderId == id && x.IsRoute == true);
-            if (!allRoutes.Any())
+            if (!(await _salesOrgHierarchyRepository.GetListAsync(
+                x => x.SalesOrgHeaderId == id && x.IsRoute == true && 
+                x.Active == true)).Any())
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:551"], code: "0");
+            }
+            if ((await _salesOrgHierarchyRepository.GetListAsync(
+                x => x.DirectChildren == 0 && x.IsRoute != false)).Any())
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:552"], code: "0");
             }
-            var allRouteParentIds = allRoutes.Select(x => x.ParentId).Distinct().ToList();  
-            var allZones = await _salesOrgHierarchyRepository.GetListAsync(
-                x => x.SalesOrgHeaderId == id && x.IsSellingZone == true);
-            var allZoneIds = allZones.Select(x =>x.Id).Distinct().ToList(); 
-            if (allRouteParentIds.Count != allZoneIds.Count)
-            {
-                throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:553"], code: "0");
-            }
-            
         }
     }
 }
