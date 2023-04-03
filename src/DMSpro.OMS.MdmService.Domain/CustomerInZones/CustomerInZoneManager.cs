@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,10 +17,11 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
         }
 
         public async Task<CustomerInZone> CreateAsync(
-        Guid salesOrgHierarchyId, Guid customerId, DateTime? effectiveDate = null, DateTime? endDate = null)
+        Guid salesOrgHierarchyId, Guid customerId, DateTime effectiveDate, DateTime? endDate = null)
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(customerId, nameof(customerId));
+            Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var customerInZone = new CustomerInZone(
              GuidGenerator.Create(),
@@ -35,16 +33,14 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 
         public async Task<CustomerInZone> UpdateAsync(
             Guid id,
-            Guid salesOrgHierarchyId, Guid customerId, DateTime? effectiveDate = null, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid salesOrgHierarchyId, Guid customerId, DateTime effectiveDate, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(salesOrgHierarchyId, nameof(salesOrgHierarchyId));
             Check.NotNull(customerId, nameof(customerId));
+            Check.NotNull(effectiveDate, nameof(effectiveDate));
 
-            var queryable = await _customerInZoneRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var customerInZone = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var customerInZone = await _customerInZoneRepository.GetAsync(id);
 
             customerInZone.SalesOrgHierarchyId = salesOrgHierarchyId;
             customerInZone.CustomerId = customerId;

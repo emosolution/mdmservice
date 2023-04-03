@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -14,8 +13,6 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
         ICustomerInZonesAppService
     {
         private readonly ICustomerInZoneRepository _customerInZoneRepository;
-        private readonly IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly CustomerInZoneManager _customerInZoneManager;
 
         private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
@@ -27,12 +24,10 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             CustomerInZoneManager customerInZoneManager,
             IConfiguration settingProvider,
             ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
-            ICustomerRepository customerRepository,
-            IDistributedCache<CustomerInZoneExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            ICustomerRepository customerRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerInZones.Default)
         {
             _customerInZoneRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _customerInZoneManager = customerInZoneManager;
 
             _salesOrgHierarchyRepository = salesOrgHierarchyRepository;

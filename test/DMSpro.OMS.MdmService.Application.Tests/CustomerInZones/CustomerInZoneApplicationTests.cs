@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _customerInZonesAppService.GetListAsync(new GetCustomerInZonesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.CustomerInZone.Id == Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39")).ShouldBe(true);
-            result.Items.Any(x => x.CustomerInZone.Id == Guid.Parse("c5053680-b579-49de-8cbe-a30adc7fed0d")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _customerInZonesAppService.GetAsync(Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"));
+            var result = await _customerInZonesAppService.GetAsync(Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"));
+            result.Id.ShouldBe(Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"));
         }
 
         [Fact]
@@ -48,10 +35,10 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             // Arrange
             var input = new CustomerInZoneCreateDto
             {
-                EffectiveDate = new DateTime(2011, 1, 20),
-                EndDate = new DateTime(2011, 1, 22),
-                SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                CustomerId = Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                EffectiveDate = new DateTime(2019, 10, 12),
+                EndDate = new DateTime(2013, 1, 20),
+                SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                CustomerId = Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
             };
 
             // Act
@@ -61,8 +48,8 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             var result = await _customerInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2011, 1, 20));
-            result.EndDate.ShouldBe(new DateTime(2011, 1, 22));
+            result.EffectiveDate.ShouldBe(new DateTime(2019, 10, 12));
+            result.EndDate.ShouldBe(new DateTime(2013, 1, 20));
         }
 
         [Fact]
@@ -71,31 +58,31 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
             // Arrange
             var input = new CustomerInZoneUpdateDto()
             {
-                EffectiveDate = new DateTime(2019, 8, 13),
-                EndDate = new DateTime(2007, 10, 21),
-                SalesOrgHierarchyId = Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                CustomerId = Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                EffectiveDate = new DateTime(2012, 4, 1),
+                EndDate = new DateTime(2014, 10, 25),
+                SalesOrgHierarchyId = Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                CustomerId = Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
             };
 
             // Act
-            var serviceResult = await _customerInZonesAppService.UpdateAsync(Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"), input);
+            var serviceResult = await _customerInZonesAppService.UpdateAsync(Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"), input);
 
             // Assert
             var result = await _customerInZoneRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.EffectiveDate.ShouldBe(new DateTime(2019, 8, 13));
-            result.EndDate.ShouldBe(new DateTime(2007, 10, 21));
+            result.EffectiveDate.ShouldBe(new DateTime(2012, 4, 1));
+            result.EndDate.ShouldBe(new DateTime(2014, 10, 25));
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _customerInZonesAppService.DeleteAsync(Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"));
+            await _customerInZonesAppService.DeleteAsync(Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"));
 
             // Assert
-            var result = await _customerInZoneRepository.FindAsync(c => c.Id == Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"));
+            var result = await _customerInZoneRepository.FindAsync(c => c.Id == Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"));
 
             result.ShouldBeNull();
         }

@@ -11,38 +11,34 @@ using DMSpro.OMS.Shared.Protos.MdmService.EmployeeProfiles;
 using System.Linq;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
-using DMSpro.OMS.MdmService.Migrations;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies;
 
 public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppService.SalesOrgHierarchiesProtoAppServiceBase
 {
     private readonly ISalesOrgHierarchyRepository _repository;
-    private readonly ISalesOrgEmpAssignmentsAppService _employeeAssignmentsAppService;
-    private readonly ICompanyInZonesAppService _companyInZonesAppService;
-    private readonly ICustomerInZonesAppService _customerInZonesAppService;
     private readonly IEmployeeProfileRepository _employeeProfileRepository;
     private readonly ICompanyInZoneRepository _companyInZoneRepository;
     private readonly ICustomerInZoneRepository _customerInZoneRepository;
+    private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
+    private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
     private readonly ICurrentTenant _currentTenant;
 
     public SalesOrgHierarchiesGRPCAppService(
         ISalesOrgHierarchyRepository repository,
-        ISalesOrgEmpAssignmentsAppService employeeAssignmentsAppService,
-        ICompanyInZonesAppService companyInZonesAppService,
-        ICustomerInZonesAppService customerInZonesAppService,
         IEmployeeProfileRepository employeeProfileRepository,
         ICompanyInZoneRepository companyInZoneRepository,
         ICustomerInZoneRepository customerInZoneRepository,
+        ISalesOrgEmpAssignmentRepository salesOrgEmpAssignmentRepository,
+        ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
         ICurrentTenant currentTenant)
     {
         _repository = repository;
-        _employeeAssignmentsAppService = employeeAssignmentsAppService;
-        _companyInZonesAppService = companyInZonesAppService;
-        _customerInZonesAppService = customerInZonesAppService;
         _employeeProfileRepository = employeeProfileRepository;
         _companyInZoneRepository = companyInZoneRepository;
         _customerInZoneRepository = customerInZoneRepository;
+        _salesOrgEmpAssignmentRepository = salesOrgEmpAssignmentRepository;
+        _salesOrgHierarchyRepository  = salesOrgHierarchyRepository;
         _currentTenant = currentTenant;
     }
 
@@ -53,11 +49,7 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         Guid? tenantId = string.IsNullOrEmpty(request.TenantId) ? null : new(request.TenantId);
         using (_currentTenant.Change(tenantId))
         {
-            IQueryable<SalesOrgHierarchy> queryable = await _repository.GetQueryableAsync();
-            var query = from item in queryable
-                        where item.Id == id && item.TenantId == tenantId
-                        select item;
-            SalesOrgHierarchy route = query.FirstOrDefault();
+            SalesOrgHierarchy route = await _repository.GetAsync(x => x.Id == id);
             var response = new GetSOPORouteResponse();
             if (route == null)
             {
@@ -71,10 +63,7 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
             {
                 return response;
             }
-            var sellingZonequery = from item in queryable
-                                   where item.Id == route.ParentId && item.TenantId == tenantId
-                                   select item;
-            SalesOrgHierarchy sellingZone = query.FirstOrDefault();
+            SalesOrgHierarchy sellingZone = await _repository.GetAsync(x => x.Id == route.ParentId);
             if (sellingZone == null)
             {
                 return response;
@@ -149,7 +138,6 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         {
             var result = (await _companyInZoneRepository.GetListAsync(
                 x => x.EffectiveDate < now &&
-                // x.IsBase == true &&
                 (x.EndDate == null || x.EndDate >= now) &&
                 x.CompanyId == companyId, includeDetails:true))
                 .Select(x => x.SalesOrgHierarchy).Distinct().ToList();
@@ -162,19 +150,16 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         using (_currentTenant.Change(tenantId))
         {
             var customersInZone =
-                await _customerInZoneRepository.GetListWithNavigationPropertiesAsync(customerId: customerId);
+                await _customerInZoneRepository.GetListAsync(x => x.CustomerId == customerId);
             List<SalesOrgHierarchy> zonesWithCustomer = new();
             foreach (var customerInZone in customersInZone)
             {
-                var assignment = customerInZone.CustomerInZone;
-                DateTime assignmentStartDate = assignment.EffectiveDate == null ? new DateTime(1900, 1, 1) : 
-                    (DateTime) assignment.EffectiveDate;
-                bool active = MDMHelpers.CheckActive(true, assignmentStartDate, assignment.EndDate);
+                bool active = MDMHelpers.CheckActive(true, customerInZone.EffectiveDate, customerInZone.EndDate);
                 if (!active)
                 {
                     continue;
                 }
-                var zone = customerInZone.SalesOrgHierarchy;
+                var zone = await _salesOrgHierarchyRepository.GetAsync(customerInZone.SalesOrgHierarchyId);
                 if (!zone.Active || !zone.IsSellingZone)
                 {
                     continue;
@@ -206,43 +191,29 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
     {
         using (_currentTenant.Change(tenantId))
         {
-            SalesOrgEmpAssignmentWithNavigationPropertiesDto dto =
-            await _employeeAssignmentsAppService.GetWithNavigationPropertiesAsync(sellingZoneId);
-            if (dto.EmployeeProfile.Id.ToString().CompareTo(employeeId) != 0)
+            DateTime now = DateTime.Now;
+            var assingments = await _salesOrgEmpAssignmentRepository.GetListAsync(
+                x => x.SalesOrgHierarchyId == sellingZoneId &&
+                x.EmployeeProfileId.ToString() == employeeId &&
+                x.EffectiveDate < now &&
+                (x.EndDate == null || x.EndDate > now));
+            if (assingments.Count != 1)
             {
                 return null;
             }
-            SalesOrgEmpAssignmentDto assingment = dto.SalesOrgEmpAssignment;
-            if (!MDMHelpers.CheckActive(true, assingment.EffectiveDate, assingment.EndDate))
+            var assignment = assingments.First();
+            EmployeeProfile employee = await _employeeProfileRepository.GetAsync(
+                x => x.Id == assignment.EmployeeProfileId);
+            Employee result = new()
             {
-                return null;
-            }
-            IQueryable<EmployeeProfile> queryable = await _employeeProfileRepository.GetQueryableAsync();
-            var query = from item in queryable
-                        where item.Id == Guid.Parse(employeeId)
-                        select item;
-            EmployeeProfile employee = query.FirstOrDefault();
-            DateTime effectiveDate = DateTime.Now;
-            Employee result = new Employee();
-            if (employee is not null)
-            {
-                if (employee.EffectiveDate != null)
-                {
-                    effectiveDate = (DateTime)employee.EffectiveDate;
-                }
-                // TODO Do we need to check employee type?
-                result = new Employee()
-                {
-                    Id = employeeId,
-                    TenantId = employee.TenantId == null ? "" : employee.TenantId.ToString(),
-                    Code = employee.Code,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    ErpCode = employee.ERPCode,
-                    Active = MDMHelpers.CheckActive(employee.Active, effectiveDate, employee.EndDate),
-                };
-            }
-            
+                Id = employeeId,
+                TenantId = employee.TenantId == null ? "" : employee.TenantId.ToString(),
+                Code = employee.Code,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                ErpCode = employee.ERPCode,
+                Active = employee.Active,
+            };
             return result;
         }
     }
@@ -252,9 +223,9 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
         DateTime now = DateTime.Now;
         using (_currentTenant.Change(tenantId))
         {
-            var assingments = (await _companyInZoneRepository.GetListAsync(x => x.SalesOrgHierarchyId == sellingZoneId &&
+            var assingments = await _companyInZoneRepository.GetListAsync(x => x.SalesOrgHierarchyId == sellingZoneId &&
                 x.CompanyId.ToString() == companyId && x.EffectiveDate < now &&
-                (x.EndDate == null && x.EndDate >= now))).Distinct().ToList();
+                (x.EndDate == null && x.EndDate >= now));
             if (assingments.Count != 1)
             {
                 return false;
@@ -267,19 +238,13 @@ public class SalesOrgHierarchiesGRPCAppService : SalesOrgHierarchiesProtoAppServ
     {
         using (_currentTenant.Change(tenantId))
         {
-            CustomerInZoneWithNavigationPropertiesDto dto =
-            await _customerInZonesAppService.GetWithNavigationPropertiesAsync(sellingZoneId);
-            if (dto.Customer.Id.ToString().CompareTo(customerId) != 0)
-            {
-                return false;
-            }
-            CustomerInZoneDto assingment = dto.CustomerInZone;
-            DateTime assignmentEffectiveDate = DateTime.Now;
-            if (assingment.EffectiveDate != null)
-            {
-                assignmentEffectiveDate = (DateTime)assingment.EffectiveDate;
-            }
-            if (!MDMHelpers.CheckActive(true, assignmentEffectiveDate, assingment.EndDate))
+            DateTime now = DateTime.Now;
+            var customerInZone = await _customerInZoneRepository.GetListAsync(
+                x => x.CustomerId.ToString() == customerId &&
+                x.SalesOrgHierarchyId == sellingZoneId && 
+                x.EffectiveDate < now &&
+                (x.EndDate == null || x.EndDate > now));
+            if (customerInZone.Count != 1)
             {
                 return false;
             }

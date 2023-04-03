@@ -18,7 +18,7 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "4d621e72-f09f-45f8-8d89-430de16ab33e",
+      "Id": "fd6f51b4-39d8-4ed4-8a00-1d96d9f7a1aa",
       "Name": "EffectiveDate",
       "Type": "DateTime",
       "EnumType": "",
@@ -26,7 +26,7 @@
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
       "DefaultValue": null,
-      "IsNullable": true,
+      "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,

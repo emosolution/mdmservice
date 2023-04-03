@@ -138,7 +138,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CustomerInZone, CustomerInZoneDto>();
         CreateMap<CustomerInZone, CustomerInZoneWithDetailsDto>();
-        CreateMap<CustomerInZone, CustomerInZoneExcelDto>();
 
         CreateMap<CustomerAttribute, CustomerAttributeDto>();
         CreateMap<CustomerAttribute, CustomerAttributeExcelDto>();
@@ -258,7 +257,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Customer, CustomerWithDetailsDto>();
         CreateMap<Customer, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
-        CreateMap<CustomerInZoneWithNavigationProperties, CustomerInZoneWithNavigationPropertiesDto>();
         CreateMap<Customer, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<CustomerContact, CustomerContactDto>();

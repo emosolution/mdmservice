@@ -8,7 +8,7 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 	public partial interface ICustomerInZonesAppService
 	{
 		Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
-		Task<LoadResult> GetListDevextremesWithNavigationAsync(DataLoadOptionDevextreme inputDev);
+		
 		Task<int>UpdateFromExcelAsync(IRemoteStreamContent file);
 
 		Task<int> InsertFromExcelAsync(IRemoteStreamContent file);

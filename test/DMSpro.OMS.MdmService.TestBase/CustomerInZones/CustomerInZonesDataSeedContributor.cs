@@ -18,14 +18,11 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 
         private readonly CustomersDataSeedContributor _customersDataSeedContributor;
 
-        public CustomerInZonesDataSeedContributor(ICustomerInZoneRepository customerInZoneRepository, IUnitOfWorkManager unitOfWorkManager,  
-            CustomersDataSeedContributor customersDataSeedContributor,
-            SalesOrgHierarchiesDataSeedContributor salesOrgHierarchiesDataSeedContributor)
+        public CustomerInZonesDataSeedContributor(ICustomerInZoneRepository customerInZoneRepository, IUnitOfWorkManager unitOfWorkManager, SalesOrgHierarchiesDataSeedContributor salesOrgHierarchiesDataSeedContributor, CustomersDataSeedContributor customersDataSeedContributor)
         {
             _customerInZoneRepository = customerInZoneRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _salesOrgHierarchiesDataSeedContributor = salesOrgHierarchiesDataSeedContributor;
-            _customersDataSeedContributor = customersDataSeedContributor;
+            _salesOrgHierarchiesDataSeedContributor = salesOrgHierarchiesDataSeedContributor; _customersDataSeedContributor = customersDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -40,20 +37,20 @@ namespace DMSpro.OMS.MdmService.CustomerInZones
 
             await _customerInZoneRepository.InsertAsync(new CustomerInZone
             (
-                id: Guid.Parse("ece3682b-9037-4262-89fc-3193b52afd39"),
-                effectiveDate: new DateTime(2017, 7, 26),
-                endDate: new DateTime(2007, 10, 10),
-                salesOrgHierarchyId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                customerId: Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                id: Guid.Parse("55164995-b1b0-40b1-8070-cbc6b7b2a338"),
+                effectiveDate: new DateTime(2009, 5, 27),
+                endDate: new DateTime(2012, 4, 7),
+                salesOrgHierarchyId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
             ));
 
             await _customerInZoneRepository.InsertAsync(new CustomerInZone
             (
-                id: Guid.Parse("c5053680-b579-49de-8cbe-a30adc7fed0d"),
-                effectiveDate: new DateTime(2016, 10, 24),
-                endDate: new DateTime(2003, 11, 25),
-                salesOrgHierarchyId: Guid.Parse("b481dbc7-677d-4199-9065-4da2e69641c5"),
-                customerId: Guid.Parse("4db13257-b7dd-482e-80ba-4e2854cea781")
+                id: Guid.Parse("1bc3b736-6826-46c8-a7ce-4c374f3b6b77"),
+                effectiveDate: new DateTime(2020, 3, 23),
+                endDate: new DateTime(2000, 1, 19),
+                salesOrgHierarchyId: Guid.Parse("357a4424-f5c6-494d-b44d-cd180adc87cb"),
+                customerId: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

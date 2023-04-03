@@ -1,10 +1,15 @@
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CustomerInZones
 {
 	public partial class CustomerInZone
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual Customer Customer { get; set; }
+        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()
