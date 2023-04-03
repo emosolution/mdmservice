@@ -19,9 +19,9 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
         public string ConcurrencyStamp { get; set; }
 
-
         public SalesOrgHeaderDto SalesOrgHeader { get; set; }
         public SalesOrgHierarchyDto Parent { get; set; }
+        
         public SalesOrgHierarchyWithDetailsDto()
 		{
 		}

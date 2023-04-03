@@ -8,10 +8,10 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
     {
         Task<SalesOrgHeaderDto> GetAsync(Guid id);
 
-        Task DeleteAsync(Guid id);
-
         Task<SalesOrgHeaderDto> CreateAsync(SalesOrgHeaderCreateDto input);
 
-        Task<SalesOrgHeaderDto> UpdateAsync(Guid id, SalesOrgHeaderUpdateDto input);
+        Task<SalesOrgHeaderDto> ReleaseAsync(Guid id);
+
+        Task<SalesOrgHeaderDto> InactiveAsync(Guid id);
     }
 }

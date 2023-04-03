@@ -12,16 +12,13 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 		ISalesOrgHeadersAppService
 	{
 		private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
-		private readonly SalesOrgHeaderManager _salesOrgHeaderManager;
 
 		public SalesOrgHeadersAppService(ICurrentTenant currentTenant,
 			ISalesOrgHeaderRepository repository,
-			SalesOrgHeaderManager salesOrgHeaderManager,
 			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHeaders.Default)
 		{
 			_salesOrgHeaderRepository = repository;
-			_salesOrgHeaderManager = salesOrgHeaderManager;
 			
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISalesOrgHeaderRepository", _salesOrgHeaderRepository));

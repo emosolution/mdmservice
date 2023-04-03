@@ -9,6 +9,5 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
         public string Code { get; set; }
         [StringLength(SalesOrgHeaderConsts.NameMaxLength)]
         public string Name { get; set; }
-        public bool Active { get; set; } = true;
     }
 }

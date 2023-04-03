@@ -1060,6 +1060,9 @@
     "Error:PartialCheckCodeUniquenessAppService:552": "Input code already exists",
     "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
     "Error:ItemsAppService:550": "Item can no longer be updated",
-    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate"
+    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate",
+    "Error:SalesOrgHeadersAppService:550": "Only sales organization with OPEN status can be released",
+    "Error:SalesOrgHeadersAppService:551": "Only sales organization with RELEASED status can be inactivated"
+    
   }
 }

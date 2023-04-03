@@ -1,15 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public class SalesOrgHierarchyUpdateDto : IHasConcurrencyStamp
+    public class SalesOrgHierarchyCreateRootDto
     {
         [StringLength(SalesOrgHierarchyConsts.NameMaxLength)]
         public string Name { get; set; }
-
-        public string ConcurrencyStamp { get; set; }
+        public Guid SalesOrgHeaderId { get; set; }
     }
 }
