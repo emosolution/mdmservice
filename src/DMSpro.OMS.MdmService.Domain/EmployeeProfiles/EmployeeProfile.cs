@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.WorkingPositions;
-using DMSpro.OMS.MdmService.SystemDatas;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -45,7 +39,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 
         public virtual bool Active { get; set; }
 
-        public virtual DateTime? EffectiveDate { get; set; }
+        public virtual DateTime EffectiveDate { get; set; }
 
         public virtual DateTime? EndDate { get; set; }
 
@@ -53,14 +47,12 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public Guid? WorkingPositionId { get; set; }
         public Guid? EmployeeTypeId { get; set; }
 
-        public virtual WorkingPosition WorkingPosition { get; set; }
-        public virtual SystemData EmployeeType { get; set; }
         public EmployeeProfile()
         {
 
         }
 
-        public EmployeeProfile(Guid id, Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime? dateOfBirth = null, DateTime? effectiveDate = null, DateTime? endDate = null, Guid? identityUserId = null)
+        public EmployeeProfile(Guid id, Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null)
         {
 
             Id = id;

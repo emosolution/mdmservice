@@ -238,7 +238,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "50d52be9-c44b-40f3-89a1-31ef35875fc8",
+      "Id": "c4b19a7e-c3a4-45ea-9244-c0529639e7e5",
       "Name": "EffectiveDate",
       "Type": "DateTime",
       "EnumType": "",
@@ -246,7 +246,7 @@
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
       "DefaultValue": null,
-      "IsNullable": true,
+      "IsNullable": false,
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,

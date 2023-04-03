@@ -27,7 +27,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         [StringLength(EmployeeProfileConsts.AddressMaxLength)]
         public string Address { get; set; }
         public bool Active { get; set; } = true;
-        public DateTime? EffectiveDate { get; set; }
+        public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Guid? IdentityUserId { get; set; }
         public Guid? WorkingPositionId { get; set; }

@@ -17,8 +17,6 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         IEmployeeProfilesAppService
     {
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
-        private readonly IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly EmployeeProfileManager _employeeProfileManager;
         private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
         private readonly IEmployeeImageRepository _employeeImageRepository;
@@ -34,12 +32,10 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             IEmployeeImageRepository employeeImageRepository,
             IConfiguration settingProvider,
             IWorkingPositionRepository workingPositionRepository,
-            ISystemDataRepository systemDataRepository,
-            IDistributedCache<EmployeeProfileExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            ISystemDataRepository systemDataRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.EmployeeProfiles.Default)
         {
             _employeeProfileRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _employeeProfileManager = employeeProfileManager;
             _employeeAttachmentRepository = employeeAttachmentRepository;
             _employeeImageRepository = employeeImageRepository;

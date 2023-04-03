@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         }
 
         public async Task<EmployeeProfile> CreateAsync(
-        Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime? dateOfBirth = null, DateTime? effectiveDate = null, DateTime? endDate = null, Guid? identityUserId = null)
+        Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
@@ -32,10 +32,11 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             Check.Length(email, nameof(email), EmployeeProfileConsts.EmailMaxLength);
             Check.Length(phone, nameof(phone), EmployeeProfileConsts.PhoneMaxLength);
             Check.Length(address, nameof(address), EmployeeProfileConsts.AddressMaxLength);
+            Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var employeeProfile = new EmployeeProfile(
              GuidGenerator.Create(),
-             workingPositionId, employeeTypeId, code, erpCode, firstName, lastName, idCardNumber, email, phone, address, active, dateOfBirth, effectiveDate, endDate, identityUserId
+             workingPositionId, employeeTypeId, code, erpCode, firstName, lastName, idCardNumber, email, phone, address, active, effectiveDate, dateOfBirth, endDate, identityUserId
              );
 
             return await _employeeProfileRepository.InsertAsync(employeeProfile);
@@ -43,7 +44,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 
         public async Task<EmployeeProfile> UpdateAsync(
             Guid id,
-            Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime? dateOfBirth = null, DateTime? effectiveDate = null, DateTime? endDate = null, Guid? identityUserId = null, [CanBeNull] string concurrencyStamp = null
+            Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -56,6 +57,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             Check.Length(email, nameof(email), EmployeeProfileConsts.EmailMaxLength);
             Check.Length(phone, nameof(phone), EmployeeProfileConsts.PhoneMaxLength);
             Check.Length(address, nameof(address), EmployeeProfileConsts.AddressMaxLength);
+            Check.NotNull(effectiveDate, nameof(effectiveDate));
 
             var employeeProfile = await _employeeProfileRepository.GetAsync(id);
 
@@ -70,8 +72,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             employeeProfile.Phone = phone;
             employeeProfile.Address = address;
             employeeProfile.Active = active;
-            employeeProfile.DateOfBirth = dateOfBirth;
             employeeProfile.EffectiveDate = effectiveDate;
+            employeeProfile.DateOfBirth = dateOfBirth;
             employeeProfile.EndDate = endDate;
             employeeProfile.IdentityUserId = identityUserId;
 

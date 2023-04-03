@@ -16,7 +16,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public string Phone { get; set; }
         public string Address { get; set; }
         public bool Active { get; set; }
-        public DateTime? EffectiveDate { get; set; }
+        public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Guid? IdentityUserId { get; set; }
         public Guid? WorkingPositionId { get; set; }

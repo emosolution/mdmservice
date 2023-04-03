@@ -1,10 +1,15 @@
+using DMSpro.OMS.MdmService.SystemDatas;
+using DMSpro.OMS.MdmService.WorkingPositions;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
 	public partial class EmployeeProfile
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual WorkingPosition WorkingPosition { get; set; }
+        public virtual SystemData EmployeeType { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

@@ -194,8 +194,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<EmployeeProfile, EmployeeProfileDto>();
         CreateMap<EmployeeProfile, EmployeeProfileWithDetailsDto>();
-        CreateMap<EmployeeProfile, EmployeeProfileExcelDto>();
-        CreateMap<EmployeeProfileWithNavigationProperties, EmployeeProfileWithNavigationPropertiesDto>();
         CreateMap<WorkingPosition, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SystemData, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.ValueCode));
