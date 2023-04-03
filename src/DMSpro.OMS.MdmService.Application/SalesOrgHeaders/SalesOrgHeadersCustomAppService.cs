@@ -43,6 +43,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:550"], code: "0");
             }
+            await CheckHierarchiesForRelease(id);
             header.Status = Status.RELEASED;
             var record = await _salesOrgHeaderRepository.UpdateAsync(header);
 
@@ -61,6 +62,11 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
             var record = await _salesOrgHeaderRepository.UpdateAsync(header);
 
             return ObjectMapper.Map<SalesOrgHeader, SalesOrgHeaderDto>(record);
+        }
+
+        private Task CheckHierarchiesForRelease(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

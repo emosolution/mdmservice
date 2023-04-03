@@ -11,49 +11,45 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
     public partial class SalesOrgHierarchyManager : DomainService
     {
+        private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
+
+        public SalesOrgHierarchyManager(ISalesOrgHierarchyRepository salesOrgHierarchyRepository)
+        {
+            _salesOrgHierarchyRepository = salesOrgHierarchyRepository;
+        }
+
         public async Task<SalesOrgHierarchy> CreateAsync(
-        Guid salesOrgHeaderId, Guid? parentId, string code, string name, int level, bool isRoute, bool isSellingZone, string hierarchyCode, bool active)
+        Guid salesOrgHeaderId, Guid? parentId, string code, string name, bool isRoute, bool isSellingZone, bool active)
         {
             Check.NotNull(salesOrgHeaderId, nameof(salesOrgHeaderId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), SalesOrgHierarchyConsts.CodeMaxLength, SalesOrgHierarchyConsts.CodeMinLength);
-            Check.Range(level, nameof(level), SalesOrgHierarchyConsts.LevelMinLength, SalesOrgHierarchyConsts.LevelMaxLength);
-            Check.NotNullOrWhiteSpace(hierarchyCode, nameof(hierarchyCode));
+
+           
+            await ValidateOrganizationUnitAsync(salesOrgHierarchy, salesOrgHeaderId);
+            int level = 0;
+            if (parentId != null)
+            {
+                var parent = await _salesOrgHierarchyRepository.GetAsync(parentId.Value);
+                level = parent.Level + 1;
+            }
+            string hierarchyCode = await GetNextChildCodeAsync(parentId);
 
             var salesOrgHierarchy = new SalesOrgHierarchy(
-             GuidGenerator.Create(),
-             salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, active
-             );
-            await ValidateOrganizationUnitAsync(salesOrgHierarchy,salesOrgHeaderId);
-            if(parentId is null){
-                salesOrgHierarchy.Level = 0;    
-            }else{
-                var parent_node = await _salesOrgHierarchyRepository.GetAsync(parentId.Value);
-                salesOrgHierarchy.Level = parent_node.Level + 1;
-                if(parent_node.IsRoute == true){
-                    throw new UserFriendlyException("Route cannot add subroute.");
-                    
-                }
-                if(salesOrgHierarchy.IsRoute == true){
-                    parent_node.IsSellingZone = true;
-                    await _salesOrgHierarchyRepository.UpdateAsync(parent_node);
-                }
-            }
-            salesOrgHierarchy.HierarchyCode = await GetNextChildCodeAsync(parentId);
-            // Check isSelling Zone, isRoute
-            
-            
+                GuidGenerator.Create(),
+                salesOrgHeaderId, parentId, code, name, level, isRoute, isSellingZone, hierarchyCode, active);
+
             return await _salesOrgHierarchyRepository.InsertAsync(salesOrgHierarchy);
         }
 
         public virtual async Task<string> GetNextChildCodeAsync(Guid? parentId)
         {
             var lastChild = await GetLastChildOrNullAsync(parentId);
-            
+
             if (lastChild != null)
             {
                 return SalesOrgHierarchy.CalculateNextCode(lastChild.HierarchyCode);
-                
+
             }
 
             var parentCode = parentId != null
@@ -114,7 +110,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             organizationUnit.ParentId = parentId;
 
 
-            await ValidateOrganizationUnitAsync(organizationUnit,organizationUnit.SalesOrgHeaderId);
+            await ValidateOrganizationUnitAsync(organizationUnit, organizationUnit.SalesOrgHeaderId);
 
             //Update Children Codes
             foreach (var child in children)
@@ -169,7 +165,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             salesOrgHierarchy.IsSellingZone = isSellingZone;
             salesOrgHierarchy.HierarchyCode = hierarchyCode;
             salesOrgHierarchy.Active = active;
-            await ValidateOrganizationUnitAsync(salesOrgHierarchy,salesOrgHeaderId);
+            await ValidateOrganizationUnitAsync(salesOrgHierarchy, salesOrgHeaderId);
             salesOrgHierarchy.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _salesOrgHierarchyRepository.UpdateAsync(salesOrgHierarchy);
         }
@@ -183,18 +179,23 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             foreach (var child in children)
             {
                 await _salesOrgHierarchyRepository.RemoveAllMembersAsync(child);
-                
+
                 await _salesOrgHierarchyRepository.DeleteAsync(child);
             }
 
             var organizationUnit = await _salesOrgHierarchyRepository.GetAsync(id);
-            if(organizationUnit.IsRoute == true){
+            if (organizationUnit.IsRoute == true)
+            {
                 //Find other children
                 var other_children = await FindChildrenAsync(organizationUnit.ParentId, false);
-                foreach (var child in other_children){
-                    if(child.IsRoute){
+                foreach (var child in other_children)
+                {
+                    if (child.IsRoute)
+                    {
                         break;
-                    }else{
+                    }
+                    else
+                    {
                         var parentNode = await _salesOrgHierarchyRepository.GetAsync(organizationUnit.ParentId.Value);
                         parentNode.IsSellingZone = false;
                         await _salesOrgHierarchyRepository.UpdateAsync(parentNode);
