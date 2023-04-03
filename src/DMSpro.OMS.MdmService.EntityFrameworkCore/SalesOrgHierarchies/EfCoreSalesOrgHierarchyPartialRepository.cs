@@ -54,8 +54,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 			List<Guid> ids)
 		{
 			var items = await (await GetDbSetAsync()).
-			Where(x => codes.Contains(x.Code) && !ids.Contains(x.Id)).ToListAsync();
-			return items.Count() <= 0 ? true : false;
+			    Where(x => codes.Contains(x.Code) && !ids.Contains(x.Id)).ToListAsync();
+            return !items.Any();
 		}
 
 		public virtual async Task<List<SalesOrgHierarchy>> GetByIdAsync(List<Guid> ids)
