@@ -72,7 +72,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             Check.Length(inputSuffix, nameof(inputSuffix), SuffixMaxLength);
             Check.Range((short)inputPaddingZeroNumber, nameof(inputPaddingZeroNumber),
                 PaddingZeroNumberMinValue, PaddingZeroNumberMaxValue);
-            return (prefix, paddingZeroNumber, suffix);
+            return (inputPrefix, (int) inputPaddingZeroNumber, inputSuffix);
         }
     }
 }
