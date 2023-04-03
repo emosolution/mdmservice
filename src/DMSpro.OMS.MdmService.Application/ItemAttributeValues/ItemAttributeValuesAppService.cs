@@ -82,6 +82,57 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Authorize(MdmServicePermissions.ItemAttributeValues.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            //var attrValue = await _itemAttributeValueRepository.GetAsync(id);
+            //var attribute = await _itemAttributeRepository.GetAsync(attrValue.ItemAttributeId);
+
+            //if (await _itemRepository.AnyAsync(x =>
+            //        (attribute.AttrNo == 0 && x.Attr0Id == id) ||
+            //        (attribute.AttrNo == 1 && x.Attr1Id == id) ||
+            //        (attribute.AttrNo == 2 && x.Attr2Id == id) ||
+            //        (attribute.AttrNo == 3 && x.Attr3Id == id) ||
+            //        (attribute.AttrNo == 4 && x.Attr4Id == id) ||
+            //        (attribute.AttrNo == 5 && x.Attr5Id == id) ||
+            //        (attribute.AttrNo == 6 && x.Attr6Id == id) ||
+            //        (attribute.AttrNo == 7 && x.Attr7Id == id) ||
+            //        (attribute.AttrNo == 8 && x.Attr8Id == id) ||
+            //        (attribute.AttrNo == 9 && x.Attr9Id == id) ||
+            //        (attribute.AttrNo == 10 && x.Attr10Id == id) ||
+            //        (attribute.AttrNo == 11 && x.Attr11Id == id) ||
+            //        (attribute.AttrNo == 12 && x.Attr12Id == id) ||
+            //        (attribute.AttrNo == 13 && x.Attr13Id == id) ||
+            //        (attribute.AttrNo == 14 && x.Attr14Id == id) ||
+            //        (attribute.AttrNo == 15 && x.Attr15Id == id) ||
+            //        (attribute.AttrNo == 16 && x.Attr16Id == id) ||
+            //        (attribute.AttrNo == 17 && x.Attr17Id == id) ||
+            //        (attribute.AttrNo == 18 && x.Attr18Id == id) ||
+            //        (attribute.AttrNo == 19 && x.Attr19Id == id)
+            //        ))
+            //{
+            //    throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            //}
+
+            AllowEditDelete(id, "D");
+
+            await _itemAttributeValueRepository.DeleteAsync(id);
+        }
+
+        [Authorize(MdmServicePermissions.ItemAttributeValues.Create)]
+        public virtual async Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input)
+        {
+            if (input.ItemAttributeId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["ItemAttribute"]]);
+            }
+
+            var itemAttributeValue = await _itemAttributeValueManager.CreateAsync(
+            input.ItemAttributeId, input.ParentId, input.AttrValName
+            );
+
+            return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
+        }
+
+        private async void AllowEditDelete(Guid id, string action)
+        {
             var attrValue = await _itemAttributeValueRepository.GetAsync(id);
             var attribute = await _itemAttributeRepository.GetAsync(attrValue.ItemAttributeId);
 
@@ -108,25 +159,11 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
                     (attribute.AttrNo == 19 && x.Attr19Id == id)
                     ))
             {
-                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+                if(action == "D")
+                    throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+                if (action == "U")
+                    throw new UserFriendlyException(L["Error:General:UpdateContraint:550"]);
             }
-
-            await _itemAttributeValueRepository.DeleteAsync(id);
-        }
-
-        [Authorize(MdmServicePermissions.ItemAttributeValues.Create)]
-        public virtual async Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input)
-        {
-            if (input.ItemAttributeId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemAttribute"]]);
-            }
-
-            var itemAttributeValue = await _itemAttributeValueManager.CreateAsync(
-            input.ItemAttributeId, input.ParentId, input.AttrValName
-            );
-
-            return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
         }
 
         [Authorize(MdmServicePermissions.ItemAttributeValues.Edit)]
@@ -136,6 +173,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["ItemAttribute"]]);
             }
+
+            AllowEditDelete(id, "U");
 
             var itemAttributeValue = await _itemAttributeValueManager.UpdateAsync(
             id,
