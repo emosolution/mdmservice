@@ -8,6 +8,7 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Items;
 using Volo.Abp.Content;
 using Volo.Abp.Json;
+using Volo.Abp.Uow;
 
 namespace DMSpro.OMS.MdmService.Controllers.Items
 {
@@ -88,6 +89,8 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
 
         [HttpPut]
         [Route("{id}")]
+        [UnitOfWork(IsDisabled = true)]
+
         public virtual Task<ItemDto> UpdateAsync(Guid id, ItemUpdateDto input)
         {
             return _itemsAppService.UpdateAsync(id, input);
@@ -95,6 +98,8 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
 
         [HttpDelete]
         [Route("{id}")]
+        [UnitOfWork(IsDisabled = true)]
+
         public virtual Task DeleteAsync(Guid id)
         {
             return _itemsAppService.DeleteAsync(id);
