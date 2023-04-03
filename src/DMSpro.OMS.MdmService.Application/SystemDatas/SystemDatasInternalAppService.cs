@@ -1,5 +1,6 @@
 ﻿using DMSpro.OMS.MdmService.Localization;
 using DMSpro.OMS.MdmService.NumberingConfigs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -33,7 +34,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     ["valueName"] = valueName,
                 };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:SystemData:550"],
+                throw new UserFriendlyException(message: L["Error:SystemData:550"],
                     code: "1", details: detailString);
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
@@ -51,7 +52,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                     ["valueName"] = valueName,
                 };
                 string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: L["Error:SystemData:550"],
+                throw new UserFriendlyException(message: L["Error:SystemData:550"],
                     code: "1", details: detailString);
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
@@ -62,6 +63,49 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             var items =
                 await _systemDataRepository.GetNumberingConfigsSystemDataAsync();
             return ObjectMapper.Map<List<SystemData>, List<SystemDataDto>>(items);
+        }
+
+        public virtual async Task CreateAllForTenantAsync(
+            List<Guid> tenantIds)
+        {
+            foreach (var tenantId in tenantIds)
+            {
+                await CreateAllForATenantAsync(tenantId);
+            }
+        }
+
+        public virtual async Task CreateAllForHostAsync()
+        {
+            await CreateAllForATenantAsync(null);
+        }
+
+        private async Task CreateAllForATenantAsync(Guid? tenantId)
+        {
+            using (CurrentTenant.Change(tenantId))
+            {
+                var seedCodes = SystemDataConsts.SeedData.Select(x => x.Code).ToList();
+                var seedValueCodes = SystemDataConsts.SeedData.Select(x => x.ValueCode).ToList();
+                var seedValueNames = SystemDataConsts.SeedData.Select(x => x.ValueName).ToList();
+
+                var existingRecords = await _systemDataRepository.GetListAsync(
+                    x => seedCodes.Contains(x.Code) &&
+                    seedValueCodes.Contains(x.ValueCode) &&
+                    seedValueNames.Contains(x.ValueName));
+
+                List<SystemData> seedSystemData = new();
+                foreach (var (Code, ValueCode, ValueName) in SystemDataConsts.SeedData)
+                {
+                    if (existingRecords.Any(x => x.Code == Code &&
+                        x.ValueCode == ValueCode && x.ValueName == ValueName))
+                    {
+                        continue;
+                    }
+                    SystemData seed = new(id: GuidGenerator.Create(),
+                        code: Code, valueCode: ValueCode, valueName: ValueName);
+                    seedSystemData.Add(seed);
+                }
+                await _systemDataRepository.InsertManyAsync(seedSystemData);
+            }
         }
     }
 }

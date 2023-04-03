@@ -25,7 +25,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             LocalizationResource = typeof(MdmServiceResource);
         }
 
-        //[Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
         public virtual async Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
         {
             (string prefix, int paddingZeroNumber, string suffix) =
@@ -56,7 +55,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             return ObjectMapper.Map<NumberingConfig, NumberingConfigDto>(numberingConfig);
         }
 
-        //[Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
         public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(
             List<Guid> tenantIds)
         {
@@ -69,7 +67,6 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             return result;
         }
 
-        //[Authorize(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs)]
         public virtual async Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync()
         {
             List<NumberingConfigDto> result = new();

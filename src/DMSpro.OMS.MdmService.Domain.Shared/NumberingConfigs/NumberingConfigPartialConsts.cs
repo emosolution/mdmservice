@@ -9,15 +9,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
         public const short PaddingZeroNumberMaxValue = 10;
 
         public const string SystemDataCode = "SY01";
-        public static Dictionary<string, string> ObjectTypeDictionary = new()
-        {
-            {"Company", "M0" },
-            {"Customer", "M1" },
-            {"Employee", "M2" },
-            {"SalesOrgHierarchy", "M3" },
-            {"SalesRequest", "S0" },
-        };
-
+        
         public static Dictionary<string, string> PrefixDictionary = new()
         {
             {"SalesRequest", "SR" },

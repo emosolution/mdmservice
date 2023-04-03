@@ -5,18 +5,15 @@ using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore;
-using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-    public partial class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
+    public partial class EfCoreSalesOrgHierarchyRepository
     {
         public virtual async Task<List<SalesOrgHierarchy>> GetChildrenAsync(
-        Guid? parentId,
-        bool includeDetails = false,
-        CancellationToken cancellationToken = default)
+            Guid? parentId,
+            bool includeDetails = false,
+            CancellationToken cancellationToken = default)
         {
             return await (await GetDbSetAsync())
                 //.IncludeDetails(includeDetails)
@@ -76,8 +73,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
         }
 
         public virtual async Task RemoveAllMembersAsync(
-        SalesOrgHierarchy organizationUnit,
-        CancellationToken cancellationToken = default)
+            SalesOrgHierarchy organizationUnit,
+            CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();
 
@@ -87,7 +84,5 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 
             dbContext.Set<SalesOrgEmpAssignment>().RemoveRange(ouMembersQuery);
         }
-
-        
     }
 }

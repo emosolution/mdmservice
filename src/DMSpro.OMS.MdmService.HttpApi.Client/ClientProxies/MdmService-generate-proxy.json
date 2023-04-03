@@ -11780,40 +11780,6 @@
               "name": "ISalesOrgHierarchiesAppService",
               "methods": [
                 {
-                  "name": "GetListAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput",
-                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto>"
-                  }
-                },
-                {
-                  "name": "GetWithNavigationPropertiesAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "id",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto"
-                  }
-                },
-                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -11828,40 +11794,6 @@
                   "returnValue": {
                     "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
                     "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
-                  }
-                },
-                {
-                  "name": "GetSalesOrgHeaderLookupAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.Shared.LookupRequestDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
-                  }
-                },
-                {
-                  "name": "GetSalesOrgHierarchyLookupAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.Shared.LookupRequestDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
                   }
                 },
                 {
@@ -11882,13 +11814,47 @@
                   }
                 },
                 {
-                  "name": "CreateAsync",
+                  "name": "CreateRootAsync",
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
+                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
+                  }
+                },
+                {
+                  "name": "CreateSubAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
+                  }
+                },
+                {
+                  "name": "CreateRouteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -11921,31 +11887,6 @@
                   "returnValue": {
                     "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
                     "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
-                  }
-                },
-                {
-                  "name": "GetListAsExcelFileAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Content.IRemoteStreamContent",
-                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-                  }
-                },
-                {
-                  "name": "GetDownloadTokenAsync",
-                  "parametersOnMethod": [],
-                  "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
                   }
                 },
                 {
@@ -12011,236 +11952,6 @@
             }
           ],
           "actions": {
-            "GetListAsyncByInput": {
-              "uniqueName": "GetListAsyncByInput",
-              "name": "GetListAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.GetSalesOrgHierarchiesInput",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FilterText",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Code",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Name",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "LevelMin",
-                  "jsonName": null,
-                  "type": "System.Int32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "LevelMax",
-                  "jsonName": null,
-                  "type": "System.Int32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsRoute",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsSellingZone",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "HierarchyCode",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SalesOrgHeaderId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "ParentId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Sorting",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SkipCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "MaxResultCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto>"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
-            "GetWithNavigationPropertiesAsyncById": {
-              "uniqueName": "GetWithNavigationPropertiesAsyncById",
-              "name": "GetWithNavigationPropertiesAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies/with-navigation-properties/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto",
-                "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyWithNavigationPropertiesDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
               "name": "GetAsync",
@@ -12278,140 +11989,18 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
             },
-            "GetSalesOrgHeaderLookupAsyncByInput": {
-              "uniqueName": "GetSalesOrgHeaderLookupAsyncByInput",
-              "name": "GetSalesOrgHeaderLookupAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies/sales-org-header-lookup",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.Shared.LookupRequestDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "Filter",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SkipCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "MaxResultCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
-            "GetSalesOrgHierarchyLookupAsyncByInput": {
-              "uniqueName": "GetSalesOrgHierarchyLookupAsyncByInput",
-              "name": "GetSalesOrgHierarchyLookupAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies/sales-org-hierarchy-lookup",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.Shared.LookupRequestDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.Shared.LookupRequestDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "Filter",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SkipCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "MaxResultCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<System.Guid>>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.Shared.LookupDto<string>>"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
+            "CreateRootAsyncByInput": {
+              "uniqueName": "CreateRootAsyncByInput",
+              "name": "CreateRootAsync",
               "httpMethod": "POST",
-              "url": "api/mdm-service/sales-org-hierarchies",
+              "url": "api/mdm-service/sales-org-hierarchies/root",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
+                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -12421,8 +12010,82 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateDto",
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRootDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
+                "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
+            },
+            "CreateSubAsyncByInput": {
+              "uniqueName": "CreateSubAsyncByInput",
+              "name": "CreateSubAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/sales-org-hierarchies/sub",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateSubDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto",
+                "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
+            },
+            "CreateRouteAsyncByInput": {
+              "uniqueName": "CreateRouteAsyncByInput",
+              "name": "CreateRouteAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/sales-org-hierarchies/route",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyCreateRouteDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -12441,7 +12104,7 @@
               "uniqueName": "UpdateAsyncByIdAndInput",
               "name": "UpdateAsync",
               "httpMethod": "PUT",
-              "url": "api/mdm-service/sales-org-hierarchies/{id}",
+              "url": "api/mdm-service/sales-org-hierarchies",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -12470,8 +12133,8 @@
                   "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 },
                 {
@@ -12498,7 +12161,7 @@
               "uniqueName": "DeleteAsyncById",
               "name": "DeleteAsync",
               "httpMethod": "DELETE",
-              "url": "api/mdm-service/sales-org-hierarchies/{id}",
+              "url": "api/mdm-service/sales-org-hierarchies",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -12519,198 +12182,14 @@
                   "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 }
               ],
               "returnValue": {
                 "type": "System.Void",
                 "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
-            "GetListAsExcelFileAsyncByInput": {
-              "uniqueName": "GetListAsExcelFileAsyncByInput",
-              "name": "GetListAsExcelFileAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies/as-excel-file",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHierarchies.SalesOrgHierarchyExcelDownloadDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "DownloadToken",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "FilterText",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Code",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Name",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "LevelMin",
-                  "jsonName": null,
-                  "type": "System.Int32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "LevelMax",
-                  "jsonName": null,
-                  "type": "System.Int32?",
-                  "typeSimple": "number?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsRoute",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "IsSellingZone",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "HierarchyCode",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SalesOrgHeaderId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "ParentId",
-                  "jsonName": null,
-                  "type": "System.Guid?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Content.IRemoteStreamContent",
-                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
-            },
-            "GetDownloadTokenAsync": {
-              "uniqueName": "GetDownloadTokenAsync",
-              "name": "GetDownloadTokenAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/sales-org-hierarchies/download-token",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
-                "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHierarchies.ISalesOrgHierarchiesAppService"
@@ -13125,23 +12604,6 @@
                   }
                 },
                 {
-                  "name": "DeleteAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "id",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
-                  }
-                },
-                {
                   "name": "CreateAsync",
                   "parametersOnMethod": [
                     {
@@ -13159,7 +12621,7 @@
                   }
                 },
                 {
-                  "name": "UpdateAsync",
+                  "name": "ReleaseAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -13168,12 +12630,21 @@
                       "typeSimple": "string",
                       "isOptional": false,
                       "defaultValue": null
-                    },
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderDto"
+                  }
+                },
+                {
+                  "name": "InactiveAsync",
+                  "parametersOnMethod": [
                     {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -13320,11 +12791,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHeaders.ISalesOrgHeadersAppService"
             },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
-              "name": "UpdateAsync",
+            "ReleaseAsyncById": {
+              "uniqueName": "ReleaseAsyncById",
+              "name": "ReleaseAsync",
               "httpMethod": "PUT",
-              "url": "api/mdm-service/sales-org-headers/{id}",
+              "url": "api/mdm-service/sales-org-headers/release/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -13332,14 +12803,6 @@
                   "typeAsString": "System.Guid, System.Private.CoreLib",
                   "type": "System.Guid",
                   "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -13355,18 +12818,6 @@
                   "defaultValue": null,
                   "constraintTypes": [],
                   "bindingSourceId": "Path",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderUpdateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
                   "descriptorName": ""
                 }
               ],
@@ -13377,11 +12828,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHeaders.ISalesOrgHeadersAppService"
             },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/mdm-service/sales-org-headers/{id}",
+            "InactiveAsyncById": {
+              "uniqueName": "InactiveAsyncById",
+              "name": "InactiveAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/sales-org-headers/inactive/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -13408,8 +12859,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
+                "type": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderDto",
+                "typeSimple": "DMSpro.OMS.MdmService.SalesOrgHeaders.SalesOrgHeaderDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.SalesOrgHeaders.ISalesOrgHeadersAppService"

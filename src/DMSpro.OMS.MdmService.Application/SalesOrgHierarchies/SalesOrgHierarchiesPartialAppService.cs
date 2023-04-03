@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -6,6 +5,9 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
@@ -14,25 +16,26 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 		ISalesOrgHierarchiesAppService
 	{
 		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
-		private readonly IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly SalesOrgHierarchyManager _salesOrgHierarchyManager;
+		private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
+        private readonly ISalesOrgHierarchiesInternalAppService _salesOrgHierarchiesInternalAppService;
+		private readonly ICompanyRepository _companyRepository;
 
 		private readonly ISalesOrgHeaderRepository _salesOrgHeaderRepository;
 
 		public SalesOrgHierarchiesAppService(ICurrentTenant currentTenant,
 			ISalesOrgHierarchyRepository repository,
-			SalesOrgHierarchyManager salesOrgHierarchyManager,
-			IConfiguration settingProvider,
-			ISalesOrgHeaderRepository salesOrgHeaderRepository,
-			IDistributedCache<SalesOrgHierarchyExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
+			ISalesOrgHierarchiesInternalAppService salesOrgHierarchiesInternalAppService,
+            ICompanyRepository companyRepository,
+            IConfiguration settingProvider,
+			ISalesOrgHeaderRepository salesOrgHeaderRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgHierarchies.Default)
 		{
 			_salesOrgHierarchyRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_salesOrgHierarchyManager = salesOrgHierarchyManager;
-			
-			_salesOrgHeaderRepository = salesOrgHeaderRepository;
+            _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
+            _salesOrgHierarchiesInternalAppService = salesOrgHierarchiesInternalAppService;
+            _salesOrgHeaderRepository = salesOrgHeaderRepository;
+			_companyRepository = companyRepository;
 
 			_repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ISalesOrgHierarchyRepository", _salesOrgHierarchyRepository));

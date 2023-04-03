@@ -1,6 +1,6 @@
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
-    public static class SystemDataConsts
+    public static partial class SystemDataConsts
     {
         private const string DefaultSorting = "{0}Code asc";
 

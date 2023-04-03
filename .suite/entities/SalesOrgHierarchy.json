@@ -170,6 +170,28 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
+    },
+    {
+      "Id": "980e154e-66c4-4ee6-bdbe-998d793a9a7e",
+      "Name": "DirectChildren",
+      "Type": "int",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "EnumFilePath": null,
+      "DefaultValue": "0",
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true,
+      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [

@@ -232,8 +232,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyDto>();
         CreateMap<SalesOrgHierarchy, SalesOrgHierarchyWithDetailsDto>();
-        CreateMap<SalesOrgHierarchy, SalesOrgHierarchyExcelDto>();
-        CreateMap<SalesOrgHierarchyWithNavigationProperties, SalesOrgHierarchyWithNavigationPropertiesDto>();
         CreateMap<SalesOrgHeader, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
 
         CreateMap<SalesOrgHierarchy, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Code));
@@ -354,7 +352,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerImage, CustomerImageExcelDto>();
         CreateMap<CustomerImageWithNavigationProperties, CustomerImageWithNavigationPropertiesDto>();
 
-        CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>();
+        CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>().Ignore(x => x.SuggestedCode);
         CreateMap<NumberingConfigDetail, NumberingConfigDetailWithDetailsDto>();
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
     }

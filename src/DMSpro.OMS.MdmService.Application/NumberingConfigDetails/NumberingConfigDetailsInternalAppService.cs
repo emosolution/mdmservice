@@ -75,7 +75,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             {
                 if (detail.Active)
                 {
-                    return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
+                    var exstingDto = ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(detail);
+                    exstingDto.SuggestedCode = CreateSuggestedCode(exstingDto);
+                    return exstingDto;
                 }
                 NumberingConfigDetailDto inactiveDto = new()
                 {
@@ -87,6 +89,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                     NumberingConfigId = header.Id,
                     CompanyId = companyId,
                 };
+                inactiveDto.SuggestedCode = CreateSuggestedCode(inactiveDto);
                 return inactiveDto;
             }
             NumberingConfigDetailDto dto = new()
@@ -99,6 +102,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 NumberingConfigId = header.Id,
                 CompanyId = companyId,
             };
+            dto.SuggestedCode = CreateSuggestedCode(dto);
             return dto;
         }
 
@@ -131,6 +135,14 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                     createDto.CurrentNumber, createDto.NumberingConfigId,
                     createDto.CompanyId);
             return ObjectMapper.Map<NumberingConfigDetail, NumberingConfigDetailDto>(newDetail);
+        }
+
+        private static string CreateSuggestedCode(NumberingConfigDetailDto dto)
+        {
+            var padding = new string('0', dto.PaddingZeroNumber);
+            string paddingCurrentNumber = dto.CurrentNumber.ToString(padding);
+            string suggestedCode = $"{dto.Prefix}{paddingCurrentNumber}{dto.Suffix}";
+            return suggestedCode;
         }
     }
 }

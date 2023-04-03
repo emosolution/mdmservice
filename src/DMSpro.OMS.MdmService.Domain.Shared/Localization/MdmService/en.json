@@ -1061,6 +1061,19 @@
     "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
     "Error:PartialCheckSystemDataCodeUniquenessAppService:554": "Input ValueCode already exists",
     "Error:ItemsAppService:550": "Item can no longer be updated",
-    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate"
+    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate",
+    "Error:SalesOrgHeadersAppService:550": "Only sales organization with OPEN status can be released",
+    "Error:SalesOrgHeadersAppService:551": "Cannot realse sales organization with out any route",
+    "Error:SalesOrgHeadersAppService:552": "All last nodes must be routes",
+    "Error:SalesOrgHierarchiesInternalAppService:550": "The name {0} already exists in this sales organization",
+    "Error:SalesOrgHierarchiesInternalAppService:551": "A child's code is null or empty",
+    "Error:SalesOrgHierarchiesInternalAppService:552": "Code cannot be null or empty",
+    "Error:SalesOrgHierarchiesAppService:550": "Sales organization header field is required",
+    "Error:SalesOrgHierarchiesAppService:551": "Parent sales organization field is required",
+    "Error:SalesOrgHierarchiesAppService:552": "This sales organization can no longer be modified",
+    "Error:SalesOrgHierarchiesAppService:553": "This sales organization already has a root",
+    "Error:SalesOrgHierarchiesAppService:554": "Cannot add sub to a selling zone or route parent",
+    "Error:SalesOrgHierarchiesAppService:555": "Route parent must be a selling zone",
+    "Error:SalesOrgHierarchiesAppService:556": "Parent is not a selling zone and already child nodes"
   }
 }

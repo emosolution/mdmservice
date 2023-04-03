@@ -13,6 +13,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
         public int CurrentNumber { get; set; }
         public Guid NumberingConfigId { get; set; }
         public Guid CompanyId { get; set; }
+        public string SuggestedCode { get; set; } = "";
 
         public string ConcurrencyStamp { get; set; }
     }

@@ -34,17 +34,17 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgHeaders
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public virtual Task<SalesOrgHeaderDto> UpdateAsync(Guid id, SalesOrgHeaderUpdateDto input)
+        [Route("release/{id}")]
+        public virtual Task<SalesOrgHeaderDto> ReleaseAsync(Guid id)
         {
-            return _salesOrgHeadersAppService.UpdateAsync(id, input);
+            return _salesOrgHeadersAppService.ReleaseAsync(id);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        [HttpPut]
+        [Route("inactive/{id}")]
+        public virtual Task<SalesOrgHeaderDto> InactiveAsync(Guid id)
         {
-            return _salesOrgHeadersAppService.DeleteAsync(id);
+            return _salesOrgHeadersAppService.InactiveAsync(id);
         }
     }
 }

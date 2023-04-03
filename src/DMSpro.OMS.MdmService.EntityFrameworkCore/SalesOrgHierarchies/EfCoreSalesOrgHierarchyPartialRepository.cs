@@ -4,12 +4,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Microsoft.EntityFrameworkCore;
+using DMSpro.OMS.MdmService.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 {
-	public partial class EfCoreSalesOrgHierarchyRepository
-	{
-		public virtual async Task<Guid?> GetIdByCodeAsync(string code)
+	public partial class EfCoreSalesOrgHierarchyRepository : EfCoreRepository<MdmServiceDbContext, SalesOrgHierarchy, Guid>, ISalesOrgHierarchyRepository
+    {
+        public EfCoreSalesOrgHierarchyRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
+            : base(dbContextProvider)
+        {
+
+        }
+        public virtual async Task<Guid?> GetIdByCodeAsync(string code)
 		{
 		var item = (await GetDbSetAsync()).Where(x => x.Code == code).FirstOrDefault();
 		return item?.Id;
@@ -46,8 +54,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
 			List<Guid> ids)
 		{
 			var items = await (await GetDbSetAsync()).
-			Where(x => codes.Contains(x.Code) && !ids.Contains(x.Id)).ToListAsync();
-			return items.Count() <= 0 ? true : false;
+			    Where(x => codes.Contains(x.Code) && !ids.Contains(x.Id)).ToListAsync();
+            return !items.Any();
 		}
 
 		public virtual async Task<List<SalesOrgHierarchy>> GetByIdAsync(List<Guid> ids)

@@ -35,18 +35,17 @@ public partial class SalesOrgHeaderClientProxy : ClientProxyBase<ISalesOrgHeader
         });
     }
 
-    public virtual async Task<SalesOrgHeaderDto> UpdateAsync(Guid id, SalesOrgHeaderUpdateDto input)
+    public virtual async Task<SalesOrgHeaderDto> ReleaseAsync(Guid id)
     {
-        return await RequestAsync<SalesOrgHeaderDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<SalesOrgHeaderDto>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(Guid), id },
-            { typeof(SalesOrgHeaderUpdateDto), input }
+            { typeof(Guid), id }
         });
     }
 
-    public virtual async Task DeleteAsync(Guid id)
+    public virtual async Task<SalesOrgHeaderDto> InactiveAsync(Guid id)
     {
-        await RequestAsync(nameof(DeleteAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<SalesOrgHeaderDto>(nameof(InactiveAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });
