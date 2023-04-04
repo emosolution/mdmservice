@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -28,8 +25,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
             var itemAttributeValue = new ItemAttributeValue(
              GuidGenerator.Create(),
-             itemAttributeId, parentId, attrValName
-             );
+             itemAttributeId, parentId, attrValName);
 
             return await _itemAttributeValueRepository.InsertAsync(itemAttributeValue);
         }
@@ -43,14 +39,12 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             Check.NotNullOrWhiteSpace(attrValName, nameof(attrValName));
             Check.Length(attrValName, nameof(attrValName), ItemAttributeValueConsts.AttrValNameMaxLength, ItemAttributeValueConsts.AttrValNameMinLength);
 
-            var queryable = await _itemAttributeValueRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
-
-            var itemAttributeValue = await AsyncExecuter.FirstOrDefaultAsync(query);
+            var itemAttributeValue = await _itemAttributeValueRepository.GetAsync(id);
 
             itemAttributeValue.ItemAttributeId = itemAttributeId;
             itemAttributeValue.ParentId = parentId;
             itemAttributeValue.AttrValName = attrValName;
+            itemAttributeValue.Code = attrValName;
 
             itemAttributeValue.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _itemAttributeValueRepository.UpdateAsync(itemAttributeValue);

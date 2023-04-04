@@ -22,6 +22,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         {
             return new()
             {
+                "Code",
                 "AttrValName",
             };
         }

@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.ItemAttributes;
-using DMSpro.OMS.MdmService.ItemAttributeValues;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -19,9 +13,12 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
         [NotNull]
         public virtual string AttrValName { get; set; }
+
+        [NotNull]
+        public virtual string Code { get; set; }
         public Guid ItemAttributeId { get; set; }
         public Guid? ParentId { get; set; }
-        
+
         public ItemAttributeValue()
         {
 
@@ -34,6 +31,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             Check.NotNull(attrValName, nameof(attrValName));
             Check.Length(attrValName, nameof(attrValName), ItemAttributeValueConsts.AttrValNameMaxLength, ItemAttributeValueConsts.AttrValNameMinLength);
             AttrValName = attrValName;
+            Code = attrValName;
             ItemAttributeId = itemAttributeId;
             ParentId = parentId;
         }

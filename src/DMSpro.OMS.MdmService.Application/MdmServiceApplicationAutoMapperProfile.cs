@@ -305,8 +305,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<ItemAttributeValue, ItemAttributeValueDto>();
         CreateMap<ItemAttributeValue, ItemAttributeValueWithDetailsDto>();
-        CreateMap<ItemAttributeValue, ItemAttributeValueExcelDto>();
-        CreateMap<ItemAttributeValueWithNavigationProperties, ItemAttributeValueWithNavigationPropertiesDto>();
         CreateMap<ItemAttribute, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrName));
 
         CreateMap<ItemAttributeValue, LookupDto<Guid?>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));

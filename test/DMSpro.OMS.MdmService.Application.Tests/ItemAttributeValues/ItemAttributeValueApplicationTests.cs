@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _itemAttributeValuesAppService.GetListAsync(new GetItemAttributeValuesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.ItemAttributeValue.Id == Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290")).ShouldBe(true);
-            result.Items.Any(x => x.ItemAttributeValue.Id == Guid.Parse("c05ec9d8-99e4-444e-b228-c5273e917ec0")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemAttributeValuesAppService.GetAsync(Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"));
+            var result = await _itemAttributeValuesAppService.GetAsync(Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"));
+            result.Id.ShouldBe(Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"));
         }
 
         [Fact]
@@ -48,8 +35,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             // Arrange
             var input = new ItemAttributeValueCreateDto
             {
-                AttrValName = "887c5dafaec5466f96d07615e7ab470723f9c6047b764d13aaa24f320baa857968deac1fbcbd4bf8b63a69e0e2015db324ea07f73ba442239618ccc57c0afe78576ead9edb294d00a019882c1b82dba07c7250809ca34bef833b7fd56f4016e63d1a21a06dfb4d1ca2c6ee9574a35d0f0c943baf74f548868f7ee63bbba138e",
-                ItemAttributeId = Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"),
+                AttrValName = "5a3d3efa016e4c0594b807b9745cdb113927af82dfbe452f97c763eaba8a4ccae6faef8ec7a94995b831ce3929330bdfd6a975d6a4bc4f278fbe52e176a1478feb3038352b1a441cb751f9b448df14c9764ffb70c2034bce83c7a83c7599095d04fa9e6379774e448bd232e9f0e2bbe9cc0391a91e56491a94f599ac8802566",
+                ItemAttributeId = Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
 
             };
 
@@ -60,7 +47,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             var result = await _itemAttributeValueRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.AttrValName.ShouldBe("887c5dafaec5466f96d07615e7ab470723f9c6047b764d13aaa24f320baa857968deac1fbcbd4bf8b63a69e0e2015db324ea07f73ba442239618ccc57c0afe78576ead9edb294d00a019882c1b82dba07c7250809ca34bef833b7fd56f4016e63d1a21a06dfb4d1ca2c6ee9574a35d0f0c943baf74f548868f7ee63bbba138e");
+            result.AttrValName.ShouldBe("5a3d3efa016e4c0594b807b9745cdb113927af82dfbe452f97c763eaba8a4ccae6faef8ec7a94995b831ce3929330bdfd6a975d6a4bc4f278fbe52e176a1478feb3038352b1a441cb751f9b448df14c9764ffb70c2034bce83c7a83c7599095d04fa9e6379774e448bd232e9f0e2bbe9cc0391a91e56491a94f599ac8802566");
+            result.Code.ShouldBe("5a3d3efa016e4c0594b807b9745cdb113927af82dfbe452f97c763eaba8a4ccae6faef8ec7a94995b831ce3929330bdfd6a975d6a4bc4f278fbe52e176a1478feb3038352b1a441cb751f9b448df14c9764ffb70c2034bce83c7a83c7599095d04fa9e6379774e448bd232e9f0e2bbe9cc0391a91e56491a94f599ac8802566");
         }
 
         [Fact]
@@ -69,29 +57,30 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             // Arrange
             var input = new ItemAttributeValueUpdateDto()
             {
-                AttrValName = "e2b28539fa8d460f85ed15495f167f08d3a376d3e2bc460eae124f0c8b2fa94d5e5cfe723bc84757bd69cd8ebcd8ea0848bfb37f23bd4d3c8ae7c535b7d805691df71805cc194b68b93a28589744bfe22ea3e033ae284da2a953fbaf32e064e6cbae3561aaf745f794a6c55ef7718dcc13b28c39eca64abf886ef3b8f490941",
-                ItemAttributeId = Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"),
+                AttrValName = "b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5",
+                ItemAttributeId = Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
 
             };
 
             // Act
-            var serviceResult = await _itemAttributeValuesAppService.UpdateAsync(Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"), input);
+            var serviceResult = await _itemAttributeValuesAppService.UpdateAsync(Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"), input);
 
             // Assert
             var result = await _itemAttributeValueRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.AttrValName.ShouldBe("e2b28539fa8d460f85ed15495f167f08d3a376d3e2bc460eae124f0c8b2fa94d5e5cfe723bc84757bd69cd8ebcd8ea0848bfb37f23bd4d3c8ae7c535b7d805691df71805cc194b68b93a28589744bfe22ea3e033ae284da2a953fbaf32e064e6cbae3561aaf745f794a6c55ef7718dcc13b28c39eca64abf886ef3b8f490941");
+            result.AttrValName.ShouldBe("b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5");
+            result.Code.ShouldBe("b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemAttributeValuesAppService.DeleteAsync(Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"));
+            await _itemAttributeValuesAppService.DeleteAsync(Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"));
 
             // Assert
-            var result = await _itemAttributeValueRepository.FindAsync(c => c.Id == Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"));
+            var result = await _itemAttributeValueRepository.FindAsync(c => c.Id == Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"));
 
             result.ShouldBeNull();
         }

@@ -35,17 +35,17 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
             await _itemAttributeValueRepository.InsertAsync(new ItemAttributeValue
             (
-                id: Guid.Parse("a3d5ab55-1f66-4a90-9b36-42ae9b380290"),
-                attrValName: "7b5d35b967e44fc9a6e74c2ea8f6a2ff5655b58e63954c5e92ca3f02adfff6fa737de34a92c349359f17e4872cd7fdac32c3985d870d461fa9b66cd4d0a317c492d493280f6a4b1aaad745386c2b1cfe2428fa5f14584949af2b46dad3d5c9bc3520ca1e0ff345bfa5a21f93f006b929b63578c478224c5482ae8961323bb77",
-                itemAttributeId: Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"),
+                id: Guid.Parse("37e1733b-b6e1-43d9-879e-e0fcaaff1da4"),
+                attrValName: "d917f19ecb31403689a02f66c7e6502b72018666603441efadd5ef404b6755f06caa1ce9fec34479b6a9cfe79757ba525fd01f3636f74429ad41bbd920583efba76a0def261441fa811ef188d1d7360e8a95bb545f0b45eda77ebf8c3c985ba92f9ea600ec054e2782418a7cab0a900fa61dc924814a44349c46805948adb47",
+                itemAttributeId: Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
                 parentId: null
             ));
 
             await _itemAttributeValueRepository.InsertAsync(new ItemAttributeValue
             (
-                id: Guid.Parse("c05ec9d8-99e4-444e-b228-c5273e917ec0"),
-                attrValName: "c4dc8868fc8248e994fd438c298a74b4552e2c2c24cd48af81acfea85e4106ab431e38d2416749efb93818ad091a0d33b07e810519124c5c90c38af645dedfab2ff739fa8a2042d09c6c94c56024bdd9cb221540ce7a4034ad99d09bc0c51ffd540a1b68fbdd451582695f996a2ce057c3a7f3d123044b04a6ee0ef4c432ea9",
-                itemAttributeId: Guid.Parse("491c657a-c618-4c58-bde2-b5156e5728f3"),
+                id: Guid.Parse("e038b80d-7a00-467b-9366-12409f4a2370"),
+                attrValName: "0980af417f8e4cdf88b1415158e344e009e3b8a20f7046b1859103adcfa085ed028a7dff77624d0cb273b35ed5789c8e0df02982fe434a7bb6bbdfe50ce1c3e1dce1f9bf05134b9abf87ace886d998fab501ab092e684f8aa14462fd20126acfb273acf761834037a7225d40f43a94955781417f290e4b34be34a62b45b9c8d",
+                itemAttributeId: Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
                 parentId: null
             ));
 

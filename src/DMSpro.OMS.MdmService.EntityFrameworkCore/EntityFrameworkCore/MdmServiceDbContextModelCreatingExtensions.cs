@@ -315,7 +315,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHierarchy>(x => x.SalesOrgHierarchy).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHierarchyId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         });
-        
+
         builder.Entity<CustomerContact>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerContacts", MdmServiceDbProperties.DbSchema);
@@ -511,6 +511,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttributeValue.TenantId));
             b.Property(x => x.AttrValName).HasColumnName(nameof(ItemAttributeValue.AttrValName)).IsRequired().HasMaxLength(ItemAttributeValueConsts.AttrValNameMaxLength);
+            b.Property(x => x.Code).HasColumnName(nameof(ItemAttributeValue.Code)).IsRequired().HasMaxLength(ItemAttributeValueConsts.AttrValNameMaxLength);
             b.HasOne<ItemAttribute>(x => x.ItemAttribute).WithMany().IsRequired().HasForeignKey(x => x.ItemAttributeId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<ItemAttributeValue>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
