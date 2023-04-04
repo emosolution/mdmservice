@@ -1074,6 +1074,10 @@
     "Error:SalesOrgHierarchiesAppService:553": "This sales organization already has a root",
     "Error:SalesOrgHierarchiesAppService:554": "Cannot add sub to a selling zone or route parent",
     "Error:SalesOrgHierarchiesAppService:555": "Route parent must be a selling zone",
-    "Error:SalesOrgHierarchiesAppService:556": "Parent is not a selling zone and already child nodes"
+    "Error:SalesOrgHierarchiesAppService:556": "Parent is not a selling zone and already child nodes",
+    "Error:ItemAttributesAppService:550": "Cannot reset all attributes when there is at least one attribute value",
+    "Error:ItemAttributesAppService:551": "Cannot find any attribute for deletion",
+    "Error:ItemAttributesAppService:552": "Cannot delete attribute which already has at least one value name",
+    "Error:ItemAttributesAppService:553": "Maximum number of item attributes reached"
   }
 }
