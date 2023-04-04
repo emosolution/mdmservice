@@ -33518,23 +33518,14 @@
                 },
                 {
                   "name": "DeleteAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "id",
-                      "typeAsString": "System.Guid, System.Private.CoreLib",
-                      "type": "System.Guid",
-                      "typeSimple": "string",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
+                  "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
                   }
                 },
                 {
-                  "name": "CreateAsync",
+                  "name": "CreateHierarchyAsync",
                   "parametersOnMethod": [
                     {
                       "name": "input",
@@ -33546,8 +33537,25 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto"
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "CreateFlatAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
                   }
                 },
                 {
@@ -33571,8 +33579,16 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto"
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "ResetAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
                   }
                 },
                 {
@@ -33675,43 +33691,6 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
             },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
-              "httpMethod": "POST",
-              "url": "api/mdm-service/item-attributes",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto",
-                "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
-            },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
               "name": "UpdateAsync",
@@ -33763,35 +33742,26 @@
                 }
               ],
               "returnValue": {
-                "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto",
-                "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeDto"
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
             },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
+            "DeleteAsync": {
+              "uniqueName": "DeleteAsync",
               "name": "DeleteAsync",
               "httpMethod": "DELETE",
               "url": "api/mdm-service/item-attributes/{id}",
               "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
+              "parametersOnMethod": [],
               "parameters": [
                 {
                   "nameOnMethod": "id",
                   "name": "id",
                   "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
+                  "type": null,
+                  "typeSimple": null,
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": [],
@@ -33800,8 +33770,97 @@
                 }
               ],
               "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
+            },
+            "CreateHierarchyAsyncByInput": {
+              "uniqueName": "CreateHierarchyAsyncByInput",
+              "name": "CreateHierarchyAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/item-attributes/hierarchy",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
+            },
+            "CreateFlatAsyncByInput": {
+              "uniqueName": "CreateFlatAsyncByInput",
+              "name": "CreateFlatAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/item-attributes/flat",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributes.ItemAttributeCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"
+            },
+            "ResetAsync": {
+              "uniqueName": "ResetAsync",
+              "name": "ResetAsync",
+              "httpMethod": "DELETE",
+              "url": "api/mdm-service/item-attributes/reset",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributes.IItemAttributesAppService"

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using DMSpro.OMS.MdmService.ItemAttributes;
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
 {
@@ -27,24 +28,39 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
             return _itemAttributesAppService.GetAsync(id);
         }
 
-        [HttpPost]
-        public virtual Task<ItemAttributeDto> CreateAsync(ItemAttributeCreateDto input)
-        {
-            return _itemAttributesAppService.CreateAsync(input);
-        }
-
         [HttpPut]
         [Route("{id}")]
-        public virtual Task<ItemAttributeDto> UpdateAsync(Guid id, ItemAttributeUpdateDto input)
+        public virtual Task<LoadResult> UpdateAsync(Guid id, ItemAttributeUpdateDto input)
         {
             return _itemAttributesAppService.UpdateAsync(id, input);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        public virtual Task<LoadResult> DeleteAsync()
         {
-            return _itemAttributesAppService.DeleteAsync(id);
+            return _itemAttributesAppService.DeleteAsync();
+        }
+
+        [HttpPost]
+        [Route("hierarchy")]
+        public Task<LoadResult> CreateHierarchyAsync(ItemAttributeCreateDto input)
+        {
+            return _itemAttributesAppService.CreateHierarchyAsync(input);
+        }
+
+        [HttpPost]
+        [Route("flat")]
+        public Task<LoadResult> CreateFlatAsync(ItemAttributeCreateDto input)
+        {
+            return _itemAttributesAppService.CreateHierarchyAsync(input);
+        }
+
+        [HttpDelete]
+        [Route("reset")]
+        public Task<LoadResult> ResetAsync()
+        {
+            return _itemAttributesAppService.ResetAsync();
         }
     }
 }

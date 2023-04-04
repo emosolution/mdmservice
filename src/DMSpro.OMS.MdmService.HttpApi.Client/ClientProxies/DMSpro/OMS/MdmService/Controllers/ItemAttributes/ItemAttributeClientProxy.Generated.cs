@@ -27,29 +27,39 @@ public partial class ItemAttributeClientProxy : ClientProxyBase<IItemAttributesA
         });
     }
 
-    public virtual async Task<ItemAttributeDto> CreateAsync(ItemAttributeCreateDto input)
+    public virtual async Task<LoadResult> UpdateAsync(Guid id, ItemAttributeUpdateDto input)
     {
-        return await RequestAsync<ItemAttributeDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
-        {
-            { typeof(ItemAttributeCreateDto), input }
-        });
-    }
-
-    public virtual async Task<ItemAttributeDto> UpdateAsync(Guid id, ItemAttributeUpdateDto input)
-    {
-        return await RequestAsync<ItemAttributeDto>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<LoadResult>(nameof(UpdateAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id },
             { typeof(ItemAttributeUpdateDto), input }
         });
     }
 
-    public virtual async Task DeleteAsync(Guid id)
+    public virtual async Task<LoadResult> DeleteAsync()
     {
-        await RequestAsync(nameof(DeleteAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<LoadResult>(nameof(DeleteAsync));
+    }
+
+    public virtual async Task<LoadResult> CreateHierarchyAsync(ItemAttributeCreateDto input)
+    {
+        return await RequestAsync<LoadResult>(nameof(CreateHierarchyAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(Guid), id }
+            { typeof(ItemAttributeCreateDto), input }
         });
+    }
+
+    public virtual async Task<LoadResult> CreateFlatAsync(ItemAttributeCreateDto input)
+    {
+        return await RequestAsync<LoadResult>(nameof(CreateFlatAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(ItemAttributeCreateDto), input }
+        });
+    }
+
+    public virtual async Task<LoadResult> ResetAsync()
+    {
+        return await RequestAsync<LoadResult>(nameof(ResetAsync));
     }
 
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)

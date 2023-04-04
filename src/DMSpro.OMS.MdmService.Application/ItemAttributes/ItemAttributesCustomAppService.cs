@@ -9,6 +9,8 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 using DevExtreme.AspNet.Data.ResponseModel;
 using System.Collections.Generic;
 using System.Linq;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.Shared.Lib.Parser;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
@@ -124,7 +126,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             bool? canReset = null)
         {
             DataLoadOptionDevextreme inputDev = new() { Take = 20, Skip = 0, };
-            var result = await GetListDevextremesAsync(inputDev);
+            var result = await base.GetListDevextremesAsync(inputDev);
             canReset ??= await CheckCanReset();
             var summaryInfo = new Dictionary<string, string>()
             {
@@ -132,6 +134,18 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             };
             result.summary = new[] { summaryInfo };
             return result;
+        }
+
+        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var results = await base.GetListDevextremesAsync(inputDev);
+            bool canReset = await CheckCanReset();
+            var summaryInfo = new Dictionary<string, string>()
+            {
+                { "canReset", canReset.ToString() },
+            };
+            results.summary = new[] { summaryInfo };
+            return results;
         }
 
         private async Task<bool> CheckCanReset()
