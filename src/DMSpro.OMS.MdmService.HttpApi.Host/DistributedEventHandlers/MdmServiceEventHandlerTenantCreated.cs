@@ -89,7 +89,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         for (int i = 0; i < ITEM_ATTRIBUTE_ROWS; i++)
         {
             short AttrNo = (short)i;
-            string AttrName = "Attribute " + i;
+            string AttrName = $"{ItemAttributeConsts.DefaultAttributeNamePrefix}{i}";
             Guid id = _guidGenerator.Create();
             ItemAttribute data = new(id, AttrNo, AttrName, false, null);
             seedProductAttributes.Add(data);

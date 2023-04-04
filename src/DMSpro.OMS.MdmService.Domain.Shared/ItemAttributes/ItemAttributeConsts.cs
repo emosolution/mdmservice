@@ -13,5 +13,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         public const int AttrNoMaxLength = 19;
         public const int AttrNameMinLength = 1;
         public const int AttrNameMaxLength = 20;
+
+        public const string DefaultAttributeNamePrefix = "Attribute ";
     }
 }
