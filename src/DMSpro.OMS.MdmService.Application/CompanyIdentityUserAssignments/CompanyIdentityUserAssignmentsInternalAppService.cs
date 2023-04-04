@@ -44,7 +44,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             }
             else if (selectedAssignment.Count == 1)
             {
-                Guid firstSelectedCompanyId = assignments.First().CompanyId;
+                Guid firstSelectedCompanyId = selectedAssignment.First().CompanyId;
                 selectedCompany =
                         await _companiesInternalAppService.CheckActiveAsync(firstSelectedCompanyId, time, true);
             }
