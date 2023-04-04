@@ -14,6 +14,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
 using System.Linq;
 using Volo.Abp;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
 {
@@ -56,18 +57,12 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             return ObjectMapper.Map<SystemData, SystemDataDto>(systemData);
         }
 
-        private async Task CheckUniqueValueCode(string code, string valueCode,Guid? id=null){
-
-            var records = await _systemDataRepository.GetListAsync(x => x.Code == code && x.ValueCode == valueCode);
-            if(id is null){
-                if(records.Any())
-                {
-                    throw new UserFriendlyException(message: L["Error:PartialCheckSystemDataCodeUniquenessAppService:554"], code: "1");
-                }
-                    
-            }
-
-            if(records.Where(x => x.Id != id).Any())
+        private async Task CheckUniqueValueCode(string code, string valueCode, Guid? id = null)
+        {
+            if (await _systemDataRepository.AnyAsync(x => 
+                    (x.Code == code && x.ValueCode == valueCode && id == null) ||
+                    (x.Code == code && x.ValueCode == valueCode && x.Id != id && id != null)
+               ))
             {
                 throw new UserFriendlyException(message: L["Error:PartialCheckSystemDataCodeUniquenessAppService:554"], code: "1");
             }
