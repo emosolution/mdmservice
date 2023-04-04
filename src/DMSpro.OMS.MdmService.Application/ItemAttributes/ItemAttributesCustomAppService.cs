@@ -92,7 +92,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             return await GetListDevextremesAsync(canReset: null);
         }
 
-        [Authorize(MdmServicePermissions.ItemAttributes.Edit)]
+        [Authorize(MdmServicePermissions.ItemAttributes.Delete)]
         public virtual async Task<LoadResult> ResetAsync()
         {
             if (!(await CheckCanReset()))
