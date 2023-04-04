@@ -36,7 +36,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
         }
 
         [HttpDelete]
-        [Route("{id}")]
         public virtual Task<LoadResult> DeleteAsync()
         {
             return _itemAttributesAppService.DeleteAsync();
@@ -53,7 +52,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributes
         [Route("flat")]
         public Task<LoadResult> CreateFlatAsync(ItemAttributeCreateDto input)
         {
-            return _itemAttributesAppService.CreateHierarchyAsync(input);
+            return _itemAttributesAppService.CreateFlatAsync(input);
         }
 
         [HttpDelete]
