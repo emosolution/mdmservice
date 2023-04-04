@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp;
 using System.Linq;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 {
@@ -63,14 +64,11 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 
         private async Task CheckHierarchiesForRelease(Guid id)
         {
-            if (!(await _salesOrgHierarchyRepository.GetListAsync(
-                x => x.SalesOrgHeaderId == id && x.IsRoute == true && 
-                x.Active == true)).Any())
+            if (!await _salesOrgHierarchyRepository.AnyAsync(x => x.SalesOrgHeaderId == id && x.IsRoute == true && x.Active == true))
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:551"], code: "0");
             }
-            if ((await _salesOrgHierarchyRepository.GetListAsync(
-                x => x.DirectChildren == 0 && x.IsRoute != true)).Any())
+            if (await _salesOrgHierarchyRepository.AnyAsync(x => x.DirectChildren == 0 && x.IsRoute != true))
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:552"], code: "0");
             }
