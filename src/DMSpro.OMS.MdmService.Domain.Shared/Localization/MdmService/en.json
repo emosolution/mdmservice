@@ -1078,6 +1078,7 @@
     "Error:ItemAttributesAppService:550": "Cannot reset all attributes when there is at least one attribute value",
     "Error:ItemAttributesAppService:551": "Cannot find any attribute for deletion",
     "Error:ItemAttributesAppService:552": "Cannot delete attribute which already has at least one value name",
-    "Error:ItemAttributesAppService:553": "Maximum number of item attributes reached"
+    "Error:ItemAttributesAppService:553": "Maximum number of item attributes reached",
+    "Error:ItemAttributesAppService:554": "Item attribute name already exists"
   }
 }

@@ -9,8 +9,6 @@ using DMSpro.OMS.Shared.Domain.Devextreme;
 using DevExtreme.AspNet.Data.ResponseModel;
 using System.Collections.Generic;
 using System.Linq;
-using DevExtreme.AspNet.Data;
-using DMSpro.OMS.Shared.Lib.Parser;
 
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
@@ -49,7 +47,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         [Authorize(MdmServicePermissions.ItemAttributes.Create)]
         public virtual async Task<LoadResult> CreateFlatAsync(ItemAttributeCreateDto input)
         {
-            CheckInput(input.AttrName);
+            await CheckNameUniqueness(input.AttrName);
 
             var firstInactiveAttribute = await GetAttributeForCreation();
             firstInactiveAttribute.HierarchyLevel = null;
@@ -62,7 +60,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         [Authorize(MdmServicePermissions.ItemAttributes.Create)]
         public virtual async Task<LoadResult> CreateHierarchyAsync(ItemAttributeCreateDto input)
         {
-            CheckInput(input.AttrName);
+            await CheckNameUniqueness(input.AttrName);
 
             var firstInactiveAttribute = await GetAttributeForCreation();
             int hierarchyLevel = 0;
@@ -85,7 +83,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         [Authorize(MdmServicePermissions.ItemAttributes.Edit)]
         public virtual async Task<LoadResult> UpdateAsync(Guid id, ItemAttributeUpdateDto input)
         {
-            CheckInput(input.AttrName);
+            await CheckNameUniqueness(input.AttrName, id);
 
             var attribute = await _itemAttributeRepository.GetAsync(id);
             attribute.AttrName = input.AttrName;
@@ -161,13 +159,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             itemAttribute.HierarchyLevel = null;
         }
 
-        private static void CheckInput(string attrName)
-        {
-            Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
-            Check.Length(attrName, nameof(attrName),
-                ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
-        }
-
         private async Task<ItemAttribute> GetAttributeForCreation()
         {
             var firstInactiveAttribute = await GetFirstInactiveAttribute();
@@ -176,6 +167,20 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
                 throw new UserFriendlyException(message: L["Error:ItemAttributesAppService:553"], code: "0");
             }
             return firstInactiveAttribute;
+        }
+
+        private async Task CheckNameUniqueness(string attrName, Guid? id = null)
+        {
+            Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
+            Check.Length(attrName, nameof(attrName),
+                ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
+
+            if (await _itemAttributeRepository.AnyAsync(x => x.Id != id &&
+                x.AttrName == attrName))
+            {
+                throw new UserFriendlyException(message: L["Error:ItemAttributesAppService:554"],
+                    code: "0");
+            }
         }
     }
 }
