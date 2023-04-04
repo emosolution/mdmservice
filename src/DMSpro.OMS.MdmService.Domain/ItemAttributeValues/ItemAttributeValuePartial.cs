@@ -1,10 +1,14 @@
+using DMSpro.OMS.MdmService.ItemAttributes;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
 	public partial class ItemAttributeValue
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual ItemAttribute ItemAttribute { get; set; }
+        public virtual ItemAttributeValue Parent { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
             return string.Format(DefaultSorting, withEntityName ? "ItemAttribute." : string.Empty);
         }
 
+        public const int CodeMaxLength = 20;
         public const int AttrNoMinLength = 0;
         public const int AttrNoMaxLength = 19;
         public const int AttrNameMinLength = 1;

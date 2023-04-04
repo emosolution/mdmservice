@@ -15,6 +15,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
     {
         public virtual Guid? TenantId { get; set; }
 
+        [NotNull]
+        public virtual string Code { get; set; }
+
         public virtual int AttrNo { get; set; }
 
         [NotNull]
@@ -45,6 +48,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 
             Check.NotNull(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName), ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
+            Code = attrNo.ToString();
             AttrNo = attrNo;
             AttrName = attrName;
             Active = active;

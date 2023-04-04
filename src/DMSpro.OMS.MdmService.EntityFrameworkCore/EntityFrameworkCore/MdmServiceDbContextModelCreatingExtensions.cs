@@ -519,6 +519,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemAttributes", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(ItemAttribute.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(ItemAttribute.Code)).IsRequired().HasMaxLength(ItemAttributeConsts.CodeMaxLength);
             b.Property(x => x.AttrNo).HasColumnName(nameof(ItemAttribute.AttrNo)).HasMaxLength(ItemAttributeConsts.AttrNoMaxLength);
             b.Property(x => x.AttrName).HasColumnName(nameof(ItemAttribute.AttrName)).IsRequired().HasMaxLength(ItemAttributeConsts.AttrNameMaxLength);
             b.Property(x => x.HierarchyLevel).HasColumnName(nameof(ItemAttribute.HierarchyLevel));
