@@ -70,7 +70,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:551"], code: "0");
             }
             if ((await _salesOrgHierarchyRepository.GetListAsync(
-                x => x.DirectChildren == 0 && x.IsRoute != false)).Any())
+                x => x.DirectChildren == 0 && x.IsRoute != true)).Any())
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:552"], code: "0");
             }
