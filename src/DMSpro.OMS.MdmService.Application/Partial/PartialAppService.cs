@@ -74,7 +74,7 @@ namespace DMSpro.OMS.MdmService.Partial
             LocalizationResource = typeof(MdmServiceResource);
         }
 
-        private async Task CheckPermission(string operationPermission = "")
+        protected async Task CheckPermission(string operationPermission = "")
         {
             string lastString = operationPermission == "" ? "" : $".{operationPermission}";
             await AuthorizationService.CheckAsync($"{_permissionDefault}{lastString}");
