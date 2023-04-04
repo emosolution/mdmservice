@@ -99,7 +99,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
 
     private async Task SeedCustomerAttribute()
     {
-        List<CustomerAttribute> seedCustomerAttributes = new List<CustomerAttribute>();
+        List<CustomerAttribute> seedCustomerAttributes = new();
         for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)
         {
             short AttrNo = (short)i;
