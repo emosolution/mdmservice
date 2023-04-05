@@ -14,6 +14,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         
         Task<ItemAttributeValueDto> CreateRootAsync(ItemAttributeValueCreateRootDto input);
 
+        Task<ItemAttributeValueDto> CreateFlatAsync(ItemAttributeValueCreateFlatDto input);
+
         Task<ItemAttributeValueDto> UpdateAsync(Guid id, ItemAttributeValueUpdateDto input);
     }
 }

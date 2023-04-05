@@ -11,6 +11,5 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Required]
         [StringLength(ItemAttributeValueConsts.CodeMaxLength, MinimumLength = ItemAttributeValueConsts.CodeMinLength)]
         public string Code { get; set; }
-        public Guid ItemAttributeId { get; set; }
     }
 }

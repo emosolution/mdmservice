@@ -239,7 +239,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:ItemAttributeValues"],
                 "/ItemAttributeValues",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.ItemAttributeValues.Default
+                requiredPermissionName: MdmServicePermissions.ItemAttributes.Default
             ).RequireFeatures(MdmFeatures.ItemAttributes)
         );
 

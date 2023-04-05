@@ -37,8 +37,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             {
                 AttrValName = "5a3d3efa016e4c0594b807b9745cdb113927af82dfbe452f97c763eaba8a4ccae6faef8ec7a94995b831ce3929330bdfd6a975d6a4bc4f278fbe52e176a1478feb3038352b1a441cb751f9b448df14c9764ffb70c2034bce83c7a83c7599095d04fa9e6379774e448bd232e9f0e2bbe9cc0391a91e56491a94f599ac8802566",
                 Code = "5a3d3efa016e4c0594b807b9745cdb113927af82dfbe452f97c763eaba8a4ccae6faef8ec7a94995b831ce3929330bdfd6a975d6a4bc4f278fbe52e176a1478feb3038352b1a441cb751f9b448df14c9764ffb70c2034bce83c7a83c7599095d04fa9e6379774e448bd232e9f0e2bbe9cc0391a91e56491a94f599ac8802566",
-                ItemAttributeId = Guid.Parse("486c2977-cc43-4b0d-8018-cfe1bdd6188c"),
-
             };
 
             // Act
@@ -59,7 +57,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             var input = new ItemAttributeValueUpdateDto()
             {
                 AttrValName = "b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5",
-                Code = "b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5",
             };
 
             // Act
@@ -70,7 +67,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
             result.ShouldNotBe(null);
             result.AttrValName.ShouldBe("b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5");
-            result.Code.ShouldBe("b2722eb53d1742259a18a35c20f81a4c3345b21d6fea45f38b13bbb2694ef308ab4067182b904f6fbedd61b8559108080fa7c6336c4b4dcbbecbd55cef894646614a1748cc2d46769e97db511b6c4eaf86f6a3c5f4c14b04a6adb5ebe055c6bab370b9e0366f45baad4a61199f8e79a16f3584be5aae482a866e6d5e09c3ba5");
         }
 
         [Fact]

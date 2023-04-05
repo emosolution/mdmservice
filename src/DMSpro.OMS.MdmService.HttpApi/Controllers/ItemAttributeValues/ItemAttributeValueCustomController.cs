@@ -41,6 +41,13 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributeValues
             return _itemAttributeValuesAppService.CreateHierarchyAsync(input);
         }
 
+        [HttpPost]
+        [Route("flat")]
+        public virtual Task<ItemAttributeValueDto> CreateFlatAsync(ItemAttributeValueCreateFlatDto input)
+        {
+            return _itemAttributeValuesAppService.CreateFlatAsync(input);
+        }
+
         [HttpPut]
         [Route("{id}")]
         public virtual Task<ItemAttributeValueDto> UpdateAsync(Guid id, ItemAttributeValueUpdateDto input)

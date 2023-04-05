@@ -6,30 +6,31 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.Items;
+using DMSpro.OMS.MdmService.ItemGroupAttributes;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
-    [Authorize(MdmServicePermissions.ItemAttributeValues.Default)]
+    [Authorize(MdmServicePermissions.ItemAttributes.Default)]
     public partial class ItemAttributeValuesAppService : PartialAppService<ItemAttributeValue, ItemAttributeValueWithDetailsDto, IItemAttributeValueRepository>,
         IItemAttributeValuesAppService
     {
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
         private readonly IItemRepository _itemRepository;
-        private readonly ItemAttributeValueManager _itemAttributeValueManager;
+        private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
 
         private readonly IItemAttributeRepository _itemAttributeRepository;
 
         public ItemAttributeValuesAppService(ICurrentTenant currentTenant,
             IItemAttributeValueRepository repository,
             IItemRepository itemRepository,
-            ItemAttributeValueManager itemAttributeValueManager,
+            IItemGroupAttributeRepository itemGroupAttributeRepository,
             IConfiguration settingProvider,
             IItemAttributeRepository itemAttributeRepository)
-            : base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributeValues.Default)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributes.Default)
         {
             _itemAttributeValueRepository = repository;
             _itemRepository = itemRepository;
-            _itemAttributeValueManager = itemAttributeValueManager;
+            _itemGroupAttributeRepository = itemGroupAttributeRepository;
 
             _itemAttributeRepository = itemAttributeRepository;
 

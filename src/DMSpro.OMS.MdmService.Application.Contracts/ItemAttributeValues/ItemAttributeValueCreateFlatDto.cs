@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
-    public class ItemAttributeValueCreateHierarchyDto
+    public class ItemAttributeValueCreateFlatDto
     {
         [Required]
         [StringLength(ItemAttributeValueConsts.AttrValNameMaxLength, MinimumLength = ItemAttributeValueConsts.AttrValNameMinLength)]
@@ -11,6 +11,6 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Required]
         [StringLength(ItemAttributeValueConsts.CodeMaxLength, MinimumLength = ItemAttributeValueConsts.CodeMinLength)]
         public string Code { get; set; }
-        public Guid ParentId { get; set; }
+        public Guid ItemAttributeId { get; set; }
     }
 }
