@@ -19,7 +19,7 @@ using Volo.Abp.Domain.Repositories;
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
 
-    [Authorize(MdmServicePermissions.CusAttributeValues.Default)]
+    [Authorize(MdmServicePermissions.CustomerAttributes.Default)]
     public partial class CusAttributeValuesAppService 
     {
         public virtual async Task<PagedResultDto<CusAttributeValueWithNavigationPropertiesDto>> GetListAsync(GetCusAttributeValuesInput input)
@@ -77,7 +77,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             };
         }
 
-        [Authorize(MdmServicePermissions.CusAttributeValues.Delete)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             AllowEditDelete(id, "D");
@@ -119,7 +119,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             }
         }
 
-        [Authorize(MdmServicePermissions.CusAttributeValues.Create)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Create)]
         public virtual async Task<CusAttributeValueDto> CreateAsync(CusAttributeValueCreateDto input)
         {
             if (input.CustomerAttributeId == default)
@@ -134,7 +134,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             return ObjectMapper.Map<CusAttributeValue, CusAttributeValueDto>(cusAttributeValue);
         }
 
-        [Authorize(MdmServicePermissions.CusAttributeValues.Edit)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Edit)]
         public virtual async Task<CusAttributeValueDto> UpdateAsync(Guid id, CusAttributeValueUpdateDto input)
         {
             if (input.CustomerAttributeId == default)

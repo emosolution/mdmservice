@@ -1,27 +1,5 @@
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-
-using System;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {

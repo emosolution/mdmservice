@@ -1,41 +1,49 @@
+using DMSpro.OMS.MdmService.Shared;
 using DMSpro.OMS.MdmService.GeoMasters;
-using DMSpro.OMS.MdmService.CustomerGroups;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
-using Volo.Abp.Caching;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupGeos
 {
 
-    [Authorize(MdmServicePermissions.CustomerGroupGeos.Default)]
-    public class CustomerGroupGeosAppService : ApplicationService, ICustomerGroupGeosAppService
-    {
-        private readonly ICustomerGroupGeoRepository _customerGroupGeoRepository;
-        private readonly CustomerGroupGeoManager _customerGroupGeoManager;
-
-        public CustomerGroupGeosAppService(ICustomerGroupGeoRepository customerGroupGeoRepository, CustomerGroupGeoManager customerGroupGeoManager, IDistributedCache<CustomerGroupGeoExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerGroup, Guid> customerGroupRepository, IRepository<GeoMaster, Guid> geoMasterRepository)
-        {
-            _customerGroupGeoRepository = customerGroupGeoRepository;
-            _customerGroupGeoManager = customerGroupGeoManager;
-        }
-
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
+    public partial class CustomerGroupGeosAppService
+    {   
         public virtual async Task<CustomerGroupGeoDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<CustomerGroupGeo, CustomerGroupGeoDto>(await _customerGroupGeoRepository.GetAsync(id));
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupGeos.Delete)]
+        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
+        {
+            var query = (await _geoMasterRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                    x => x.Code != null &&
+                         x.Code.Contains(input.Filter));
+
+            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<GeoMaster>();
+            var totalCount = query.Count();
+            return new PagedResultDto<LookupDto<Guid>>
+            {
+                TotalCount = totalCount,
+                Items = ObjectMapper.Map<List<GeoMaster>, List<LookupDto<Guid>>>(lookupData)
+            };
+        }
+
+        [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerGroupGeoRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupGeos.Create)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupGeoDto> CreateAsync(CustomerGroupGeoCreateDto input)
         {
             if (input.CustomerGroupId == default)
@@ -43,22 +51,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerGroup"]]);
             }
             if (input.GeoMaster0Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster1Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster2Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster3Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster4Id == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
             }
@@ -70,7 +62,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             return ObjectMapper.Map<CustomerGroupGeo, CustomerGroupGeoDto>(customerGroupGeo);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupGeos.Edit)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupGeoDto> UpdateAsync(Guid id, CustomerGroupGeoUpdateDto input)
         {
             if (input.CustomerGroupId == default)
@@ -78,22 +70,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerGroup"]]);
             }
             if (input.GeoMaster0Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster1Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster2Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster3Id == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
-            }
-            if (input.GeoMaster4Id == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["GeoMaster"]]);
             }

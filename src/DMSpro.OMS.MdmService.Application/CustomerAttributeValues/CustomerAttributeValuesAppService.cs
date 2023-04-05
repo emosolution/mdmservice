@@ -22,7 +22,7 @@ using Microsoft.Extensions.Caching.Distributed;
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
 
-    [Authorize(MdmServicePermissions.CustomerAttributeValues.Default)]
+    [Authorize(MdmServicePermissions.CustomerAttributes.Default)]
     public class CustomerAttributeValuesAppService : ApplicationService, ICustomerAttributeValuesAppService
     {
         private readonly IDistributedCache<CustomerAttributeValueExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
@@ -92,13 +92,13 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             };
         }
 
-        [Authorize(MdmServicePermissions.CustomerAttributeValues.Delete)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerAttributeValueRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerAttributeValues.Create)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Create)]
         public virtual async Task<CustomerAttributeValueDto> CreateAsync(CustomerAttributeValueCreateDto input)
         {
             if (input.CustomerAttributeId == default)
@@ -113,7 +113,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             return ObjectMapper.Map<CustomerAttributeValue, CustomerAttributeValueDto>(customerAttributeValue);
         }
 
-        [Authorize(MdmServicePermissions.CustomerAttributeValues.Edit)]
+        [Authorize(MdmServicePermissions.CustomerAttributes.Edit)]
         public virtual async Task<CustomerAttributeValueDto> UpdateAsync(Guid id, CustomerAttributeValueUpdateDto input)
         {
             if (input.CustomerAttributeId == default)

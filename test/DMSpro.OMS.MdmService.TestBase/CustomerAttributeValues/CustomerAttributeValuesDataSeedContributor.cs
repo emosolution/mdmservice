@@ -1,11 +1,9 @@
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {

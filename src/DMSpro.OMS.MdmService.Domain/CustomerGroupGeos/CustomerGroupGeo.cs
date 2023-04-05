@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.CustomerGroups;
-using DMSpro.OMS.MdmService.GeoMasters;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -13,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupGeos
 {
-    public class CustomerGroupGeo : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerGroupGeo : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 
@@ -23,17 +17,17 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
         public virtual bool Active { get; set; }
         public Guid CustomerGroupId { get; set; }
         public Guid GeoMaster0Id { get; set; }
-        public Guid GeoMaster1Id { get; set; }
-        public Guid GeoMaster2Id { get; set; }
-        public Guid GeoMaster3Id { get; set; }
-        public Guid GeoMaster4Id { get; set; }
+        public Guid? GeoMaster1Id { get; set; }
+        public Guid? GeoMaster2Id { get; set; }
+        public Guid? GeoMaster3Id { get; set; }
+        public Guid? GeoMaster4Id { get; set; }
 
         public CustomerGroupGeo()
         {
 
         }
 
-        public CustomerGroupGeo(Guid id, Guid customerGroupId, Guid geoMaster0Id, Guid geoMaster1Id, Guid geoMaster2Id, Guid geoMaster3Id, Guid geoMaster4Id, string description, bool active)
+        public CustomerGroupGeo(Guid id, Guid customerGroupId, Guid geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, string description, bool active)
         {
 
             Id = id;

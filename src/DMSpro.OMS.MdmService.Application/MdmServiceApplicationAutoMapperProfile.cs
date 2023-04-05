@@ -363,8 +363,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerGroupListWithNavigationProperties, CustomerGroupListWithNavigationPropertiesDto>();
 
         CreateMap<CustomerGroupGeo, CustomerGroupGeoDto>();
-        CreateMap<CustomerGroupGeo, CustomerGroupGeoExcelDto>();
-        CreateMap<CustomerGroupGeoWithNavigationProperties, CustomerGroupGeoWithNavigationPropertiesDto>();
+        CreateMap<CustomerGroupGeo, CustomerGroupGeoWithDetailsDto>();
 
         CreateMap<CustomerAttributeValue, CustomerAttributeValueDto>();
         CreateMap<CustomerAttributeValue, CustomerAttributeValueExcelDto>();

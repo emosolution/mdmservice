@@ -875,20 +875,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
     });
-        builder.Entity<CustomerGroupGeo>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupGeos", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupGeo.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupGeo.Description)).HasMaxLength(CustomerGroupGeoConsts.DescriptionMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupGeo.Active));
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
-    });
 
         builder.Entity<CustomerAttributeValue>(b =>
     {
@@ -928,5 +914,19 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
         b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
     });
+        builder.Entity<CustomerGroupGeo>(b =>
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupGeos", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupGeo.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupGeo.Description)).HasMaxLength(CustomerGroupGeoConsts.DescriptionMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupGeo.Active));
+            b.HasOne(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.GeoMaster0).WithMany().IsRequired().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
+        });
     }
 }

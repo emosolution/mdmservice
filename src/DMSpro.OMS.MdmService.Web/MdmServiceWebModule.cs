@@ -97,7 +97,7 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/EmployeeImages/Index", MdmServicePermissions.EmployeeProfiles.Default);
             options.Conventions.AuthorizePage("/EmployeeAttachments/Index", MdmServicePermissions.EmployeeProfiles.Default);
             options.Conventions.AuthorizePage("/PriceUpdateDetails/Index", MdmServicePermissions.PriceUpdateDetails.Default);
-            options.Conventions.AuthorizePage("/CusAttributeValues/Index", MdmServicePermissions.CusAttributeValues.Default);
+            options.Conventions.AuthorizePage("/CusAttributeValues/Index", MdmServicePermissions.CustomerAttributes.Default);
             options.Conventions.AuthorizePage("/Customers/Index", MdmServicePermissions.Customers.Default);
             options.Conventions.AuthorizePage("/CustomerContacts/Index", MdmServicePermissions.Customers.Default);
             options.Conventions.AuthorizePage("/CustomerAttachments/Index", MdmServicePermissions.Customers.Default);
@@ -110,10 +110,10 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/ItemImages/Index", MdmServicePermissions.Items.Default);
             options.Conventions.AuthorizePage("/ItemAttachments/Index", MdmServicePermissions.Items.Default);
             options.Conventions.AuthorizePage("/ItemGroupLists/Index", MdmServicePermissions.ItemGroups.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupLists/Index", MdmServicePermissions.CustomerGroupLists.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupGeos/Index", MdmServicePermissions.CustomerGroupGeos.Default);
-            options.Conventions.AuthorizePage("/CustomerAttributeValues/Index", MdmServicePermissions.CustomerAttributeValues.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupAttributes/Index", MdmServicePermissions.CustomerGroupAttributes.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupLists/Index", MdmServicePermissions.CustomerGroups.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupGeos/Index", MdmServicePermissions.CustomerGroups.Default);
+            options.Conventions.AuthorizePage("/CustomerAttributeValues/Index", MdmServicePermissions.CustomerAttributes.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupAttributes/Index", MdmServicePermissions.CustomerGroups.Default);
         });
     }
 }

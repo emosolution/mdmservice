@@ -20,14 +20,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
         }
 
         public async Task<CustomerGroupGeo> CreateAsync(
-        Guid customerGroupId, Guid geoMaster0Id, Guid geoMaster1Id, Guid geoMaster2Id, Guid geoMaster3Id, Guid geoMaster4Id, string description, bool active)
+        Guid customerGroupId, Guid geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, string description, bool active)
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.NotNull(geoMaster0Id, nameof(geoMaster0Id));
-            Check.NotNull(geoMaster1Id, nameof(geoMaster1Id));
-            Check.NotNull(geoMaster2Id, nameof(geoMaster2Id));
-            Check.NotNull(geoMaster3Id, nameof(geoMaster3Id));
-            Check.NotNull(geoMaster4Id, nameof(geoMaster4Id));
             Check.Length(description, nameof(description), CustomerGroupGeoConsts.DescriptionMaxLength);
 
             var customerGroupGeo = new CustomerGroupGeo(
@@ -40,15 +36,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
 
         public async Task<CustomerGroupGeo> UpdateAsync(
             Guid id,
-            Guid customerGroupId, Guid geoMaster0Id, Guid geoMaster1Id, Guid geoMaster2Id, Guid geoMaster3Id, Guid geoMaster4Id, string description, bool active, [CanBeNull] string concurrencyStamp = null
+            Guid customerGroupId, Guid geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, string description, bool active, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.NotNull(geoMaster0Id, nameof(geoMaster0Id));
-            Check.NotNull(geoMaster1Id, nameof(geoMaster1Id));
-            Check.NotNull(geoMaster2Id, nameof(geoMaster2Id));
-            Check.NotNull(geoMaster3Id, nameof(geoMaster3Id));
-            Check.NotNull(geoMaster4Id, nameof(geoMaster4Id));
             Check.Length(description, nameof(description), CustomerGroupGeoConsts.DescriptionMaxLength);
 
             var customerGroupGeo = await _customerGroupGeoRepository.GetAsync(id);

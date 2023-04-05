@@ -496,7 +496,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                icon: "fa fa-file-alt"
            )
             .RequirePermissions(false, MdmServicePermissions.CustomerAttributes.Default,
-                MdmServicePermissions.CusAttributeValues.Default,
+                MdmServicePermissions.CustomerAttributes.Default,
                 MdmServicePermissions.Vendors.Default,
                 MdmServicePermissions.CustomerGroups.Default,
                 MdmServicePermissions.CustomerGroupByAtts.Default,
@@ -526,7 +526,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:MdmService:CusAttributeValues"],
                 "/Mdm/CusAttributeValues",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CusAttributeValues.Default
+                requiredPermissionName: MdmServicePermissions.CustomerAttributes.Default
             ).RequireFeatures(MdmFeatures.CustomerAttributes)
         );
 
@@ -719,7 +719,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupLists"],
                 "/CustomerGroupLists",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CustomerGroupLists.Default
+                requiredPermissionName: MdmServicePermissions.CustomerGroups.Default
             )
         );
     }
@@ -732,7 +732,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupGeos"],
                 "/CustomerGroupGeos",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CustomerGroupGeos.Default
+                requiredPermissionName: MdmServicePermissions.CustomerGroups.Default
             )
         );
     }
@@ -745,7 +745,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:CustomerAttributeValues"],
                 "/CustomerAttributeValues",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CustomerAttributeValues.Default
+                requiredPermissionName: MdmServicePermissions.CustomerAttributes.Default
             )
         );
     }
@@ -758,7 +758,7 @@ public class MdmServiceMenuContributor : IMenuContributor
                 context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupAttributes"],
                 "/CustomerGroupAttributes",
                 icon: "fa fa-file-alt",
-                requiredPermissionName: MdmServicePermissions.CustomerGroupAttributes.Default
+                requiredPermissionName: MdmServicePermissions.CustomerGroups.Default
             )
         );
     }

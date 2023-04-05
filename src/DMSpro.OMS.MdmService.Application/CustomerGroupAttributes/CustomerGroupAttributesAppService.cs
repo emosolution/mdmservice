@@ -13,7 +13,7 @@ using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {
 
-    [Authorize(MdmServicePermissions.CustomerGroupAttributes.Default)]
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
     public class CustomerGroupAttributesAppService : ApplicationService, ICustomerGroupAttributesAppService
     {
         private readonly ICustomerGroupAttributeRepository _customerGroupAttributeRepository;
@@ -25,13 +25,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             _customerGroupAttributeManager = customerGroupAttributeManager; 
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupAttributes.Delete)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerGroupAttributeRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupAttributes.Create)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupAttributeDto> CreateAsync(CustomerGroupAttributeCreateDto input)
         {
             if (input.CustomerGroupId == default)
@@ -46,7 +46,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             return ObjectMapper.Map<CustomerGroupAttribute, CustomerGroupAttributeDto>(customerGroupAttribute);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupAttributes.Edit)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupAttributeDto> UpdateAsync(Guid id, CustomerGroupAttributeUpdateDto input)
         {
             if (input.CustomerGroupId == default)

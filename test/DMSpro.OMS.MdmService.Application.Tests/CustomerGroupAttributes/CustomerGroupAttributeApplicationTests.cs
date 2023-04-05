@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _customerGroupAttributesAppService.GetListAsync(new GetCustomerGroupAttributesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.CustomerGroupAttribute.Id == Guid.Parse("92e68d29-550e-4915-a91e-8e7bfae5acaa")).ShouldBe(true);
-            result.Items.Any(x => x.CustomerGroupAttribute.Id == Guid.Parse("635debef-ac63-477b-8826-cb029d906217")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act

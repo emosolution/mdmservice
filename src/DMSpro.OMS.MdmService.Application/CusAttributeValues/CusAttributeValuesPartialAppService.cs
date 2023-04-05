@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.CusAttributeValues
 {
-    [Authorize(MdmServicePermissions.CusAttributeValues.Default)]
+    [Authorize(MdmServicePermissions.CustomerAttributes.Default)]
     public partial class CusAttributeValuesAppService : PartialAppService<CusAttributeValue, CusAttributeValueWithDetailsDto, ICusAttributeValueRepository>,
         ICusAttributeValuesAppService
     {
@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CusAttributeValues
             IConfiguration settingProvider,
             ICustomerAttributeRepository customerAttributeRepository,
             IDistributedCache<CusAttributeValueExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CusAttributeValues.Default)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerAttributes.Default)
         {
             _cusAttributeValueRepository = repository;
             _customerRepository = customerRepository;

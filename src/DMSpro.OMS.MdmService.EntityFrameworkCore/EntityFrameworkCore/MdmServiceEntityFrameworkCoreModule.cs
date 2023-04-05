@@ -411,6 +411,16 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                     .Include(o => o.NumberingConfig);
             });
 
+            options.Entity<CustomerGroupGeo>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup)
+                    .Include(o => o.GeoMaster0)
+                    .Include(o => o.GeoMaster1)
+                    .Include(o => o.GeoMaster2)
+                    .Include(o => o.GeoMaster3)
+                    .Include(o => o.GeoMaster4);
+            });
+
         });
     }
 }

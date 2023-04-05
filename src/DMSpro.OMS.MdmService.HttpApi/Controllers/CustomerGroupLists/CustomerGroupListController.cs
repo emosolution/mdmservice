@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
-using DMSpro.OMS.MdmService.CustomerGroupLists;
 using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupLists
 {
@@ -25,37 +23,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
         }
 
         [HttpGet]
-        public Task<PagedResultDto<CustomerGroupListWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupListsInput input)
-        {
-            return _customerGroupListsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<CustomerGroupListWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _customerGroupListsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<CustomerGroupListDto> GetAsync(Guid id)
         {
             return _customerGroupListsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("customer-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
-        {
-            return _customerGroupListsAppService.GetCustomerLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("customer-group-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCustomerGroupLookupAsync(LookupRequestDto input)
-        {
-            return _customerGroupListsAppService.GetCustomerGroupLookupAsync(input);
         }
 
         [HttpPost]
@@ -76,20 +47,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
         public virtual Task DeleteAsync(Guid id)
         {
             return _customerGroupListsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(CustomerGroupListExcelDownloadDto input)
-        {
-            return _customerGroupListsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _customerGroupListsAppService.GetDownloadTokenAsync();
         }
     }
 }

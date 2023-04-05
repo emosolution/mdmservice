@@ -161,11 +161,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         customerAttributePermission.AddChild(MdmServicePermissions.CustomerAttributes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerAttributes);
         customerAttributePermission.AddChild(MdmServicePermissions.CustomerAttributes.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerAttributes);
 
-        var cusAttributeValuePermission = myGroup.AddPermission(MdmServicePermissions.CusAttributeValues.Default, L("Permission:MdmService:CusAttributeValue")).RequireFeatures(MdmFeatures.CustomerAttributes);
-        cusAttributeValuePermission.AddChild(MdmServicePermissions.CusAttributeValues.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerAttributes);
-        cusAttributeValuePermission.AddChild(MdmServicePermissions.CusAttributeValues.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerAttributes);
-        cusAttributeValuePermission.AddChild(MdmServicePermissions.CusAttributeValues.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerAttributes);
-
         var customerPermission = myGroup.AddPermission(MdmServicePermissions.Customers.Default, L("Permission:MdmService:Customer")).RequireFeatures(MdmFeatures.CustomerProfiles);
         customerPermission.AddChild(MdmServicePermissions.Customers.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerProfiles);
         customerPermission.AddChild(MdmServicePermissions.Customers.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerProfiles);
@@ -180,21 +175,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         customerGroupPermission.AddChild(MdmServicePermissions.CustomerGroups.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerGroups);
         customerGroupPermission.AddChild(MdmServicePermissions.CustomerGroups.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerGroups);
         customerGroupPermission.AddChild(MdmServicePermissions.CustomerGroups.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerGroups);
-
-        var customerGroupByAttPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupByAtts.Default, L("Permission:MdmService:CustomerGroupByAtt")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByAttPermission.AddChild(MdmServicePermissions.CustomerGroupByAtts.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByAttPermission.AddChild(MdmServicePermissions.CustomerGroupByAtts.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByAttPermission.AddChild(MdmServicePermissions.CustomerGroupByAtts.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerGroups);
-
-        var customerGroupByListPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupByLists.Default, L("Permission:MdmService:CustomerGroupByList")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByListPermission.AddChild(MdmServicePermissions.CustomerGroupByLists.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByListPermission.AddChild(MdmServicePermissions.CustomerGroupByLists.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByListPermission.AddChild(MdmServicePermissions.CustomerGroupByLists.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerGroups);
-
-        var customerGroupByGeoPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupByGeos.Default, L("Permission:MdmService:CustomerGroupByGeo")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByGeoPermission.AddChild(MdmServicePermissions.CustomerGroupByGeos.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByGeoPermission.AddChild(MdmServicePermissions.CustomerGroupByGeos.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.CustomerGroups);
-        customerGroupByGeoPermission.AddChild(MdmServicePermissions.CustomerGroupByGeos.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.CustomerGroups);
 
         var customerAssignmentPermission = myGroup.AddPermission(MdmServicePermissions.CustomerAssignments.Default, L("Permission:MdmService:CustomerAssignment")).RequireFeatures(MdmFeatures.CustomerAssignments); ;
         customerAssignmentPermission.AddChild(MdmServicePermissions.CustomerAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.CustomerAssignments); ;
@@ -235,26 +215,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
 
         var masterDataManipulatorPermission = myGroup.AddPermission(MdmServicePermissions.MasterDataManipulators.Default, L("Permission:MdmService:MasterDataManipulators"));
         masterDataManipulatorPermission.AddChild(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs, L("Permission:MdmService:MasterDataManipulators:CreateNumberConfigs"));
-
-        var customerGroupListPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupLists.Default, L("Permission:CustomerGroupLists"));
-        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Create, L("Permission:Create"));
-        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Edit, L("Permission:Edit"));
-        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Delete, L("Permission:Delete"));
-
-        var customerGroupGeoPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupGeos.Default, L("Permission:CustomerGroupGeos"));
-        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Create, L("Permission:Create"));
-        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Edit, L("Permission:Edit"));
-        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Delete, L("Permission:Delete"));
-
-        var customerAttributeValuePermission = myGroup.AddPermission(MdmServicePermissions.CustomerAttributeValues.Default, L("Permission:CustomerAttributeValues"));
-        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Create, L("Permission:Create"));
-        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Edit, L("Permission:Edit"));
-        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Delete, L("Permission:Delete"));
-
-        var customerGroupAttributePermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupAttributes.Default, L("Permission:CustomerGroupAttributes"));
-        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Create, L("Permission:Create"));
-        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Edit, L("Permission:Edit"));
-        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

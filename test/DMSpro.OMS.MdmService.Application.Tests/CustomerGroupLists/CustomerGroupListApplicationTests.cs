@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Shouldly;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
@@ -16,19 +15,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
         {
             _customerGroupListsAppService = GetRequiredService<ICustomerGroupListsAppService>();
             _customerGroupListRepository = GetRequiredService<IRepository<CustomerGroupList, Guid>>();
-        }
-
-        [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _customerGroupListsAppService.GetListAsync(new GetCustomerGroupListsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.CustomerGroupList.Id == Guid.Parse("8db9ae5a-ff2e-4197-a667-6e6ce2be499f")).ShouldBe(true);
-            result.Items.Any(x => x.CustomerGroupList.Id == Guid.Parse("bd122a43-609a-4d91-ba43-b74af4e22391")).ShouldBe(true);
         }
 
         [Fact]

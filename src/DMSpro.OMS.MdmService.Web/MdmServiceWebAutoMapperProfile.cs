@@ -1,11 +1,3 @@
-using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupAttributes;
-using DMSpro.OMS.MdmService.CustomerGroupAttributes;
-using DMSpro.OMS.MdmService.Web.Pages.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupGeos;
-using DMSpro.OMS.MdmService.CustomerGroupGeos;
-using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupLists;
-using DMSpro.OMS.MdmService.CustomerGroupLists;
 /*
 using DMSpro.OMS.MdmService.Web.Pages.Items;
 using DMSpro.OMS.MdmService.Items;
@@ -451,21 +443,5 @@ public class MdmServiceWebAutoMapperProfile : Profile
         CreateMap<ItemGroupListUpdateViewModel, ItemGroupListUpdateDto>();
         CreateMap<ItemGroupListCreateViewModel, ItemGroupListCreateDto>();
         */
-
-        CreateMap<CustomerGroupListDto, CustomerGroupListUpdateViewModel>();
-        CreateMap<CustomerGroupListUpdateViewModel, CustomerGroupListUpdateDto>();
-        CreateMap<CustomerGroupListCreateViewModel, CustomerGroupListCreateDto>();
-
-        CreateMap<CustomerGroupGeoDto, CustomerGroupGeoUpdateViewModel>();
-        CreateMap<CustomerGroupGeoUpdateViewModel, CustomerGroupGeoUpdateDto>();
-        CreateMap<CustomerGroupGeoCreateViewModel, CustomerGroupGeoCreateDto>();
-
-        CreateMap<CustomerAttributeValueDto, CustomerAttributeValueUpdateViewModel>();
-        CreateMap<CustomerAttributeValueUpdateViewModel, CustomerAttributeValueUpdateDto>();
-        CreateMap<CustomerAttributeValueCreateViewModel, CustomerAttributeValueCreateDto>();
-
-        CreateMap<CustomerGroupAttributeDto, CustomerGroupAttributeUpdateViewModel>();
-        CreateMap<CustomerGroupAttributeUpdateViewModel, CustomerGroupAttributeUpdateDto>();
-        CreateMap<CustomerGroupAttributeCreateViewModel, CustomerGroupAttributeCreateDto>();
     }
 }

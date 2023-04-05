@@ -19,12 +19,11 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupLists
 {
 
-    [Authorize(MdmServicePermissions.CustomerGroupLists.Default)]
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
     public class CustomerGroupListsAppService : ApplicationService, ICustomerGroupListsAppService
     {
         private readonly IDistributedCache<CustomerGroupListExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
@@ -96,13 +95,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             };
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupLists.Delete)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerGroupListRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupLists.Create)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupListDto> CreateAsync(CustomerGroupListCreateDto input)
         {
             if (input.CustomerId == default)
@@ -121,7 +120,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             return ObjectMapper.Map<CustomerGroupList, CustomerGroupListDto>(customerGroupList);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupLists.Edit)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupListDto> UpdateAsync(Guid id, CustomerGroupListUpdateDto input)
         {
             if (input.CustomerId == default)
