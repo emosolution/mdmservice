@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.CustomerGroups;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -13,7 +7,7 @@ using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {
-    public class CustomerGroupAttribute : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public partial class CustomerGroupAttribute : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

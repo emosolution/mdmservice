@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
     [Area("mdmService")]
     [ControllerName("CustomerGroupAttribute")]
     [Route("api/mdm-service/customer-group-attributes")]
-    public class CustomerGroupAttributeController : AbpController, ICustomerGroupAttributesAppService
+    public partial class CustomerGroupAttributeController : AbpController, ICustomerGroupAttributesAppService
     {
         private readonly ICustomerGroupAttributesAppService _customerGroupAttributesAppService;
 

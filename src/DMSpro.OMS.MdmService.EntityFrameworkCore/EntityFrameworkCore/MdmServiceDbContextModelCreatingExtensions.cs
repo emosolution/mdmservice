@@ -887,33 +887,33 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<CustomerGroupAttribute>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupAttributes", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupAttribute.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupAttribute.Description)).HasMaxLength(CustomerGroupAttributeConsts.DescriptionMaxLength);
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupAttributes", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupAttribute.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupAttribute.Description)).HasMaxLength(CustomerGroupAttributeConsts.DescriptionMaxLength);
+            b.HasOne(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr0).WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr1).WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr2).WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr3).WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr4).WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr5).WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr6).WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr7).WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr8).WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr9).WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr10).WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr11).WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr12).WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr13).WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr14).WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr15).WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr16).WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr17).WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr18).WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Attr19).WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
+        });
         builder.Entity<CustomerGroupGeo>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupGeos", MdmServiceDbProperties.DbSchema);

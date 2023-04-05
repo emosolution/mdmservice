@@ -1,30 +1,15 @@
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using DMSpro.OMS.MdmService.CustomerGroups;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using DMSpro.OMS.MdmService.Permissions;
-using Volo.Abp.Caching;
-using static DMSpro.OMS.MdmService.Permissions.MdmServicePermissions;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {
 
     [Authorize(MdmServicePermissions.CustomerGroups.Default)]
-    public class CustomerGroupAttributesAppService : ApplicationService, ICustomerGroupAttributesAppService
-    {
-        private readonly ICustomerGroupAttributeRepository _customerGroupAttributeRepository;
-        private readonly CustomerGroupAttributeManager _customerGroupAttributeManager;
-
-        public CustomerGroupAttributesAppService(ICustomerGroupAttributeRepository customerGroupAttributeRepository, CustomerGroupAttributeManager customerGroupAttributeManager, IDistributedCache<CustomerGroupAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache, IRepository<CustomerGroup, Guid> customerGroupRepository, IRepository<CustomerAttributeValue, Guid> customerAttributeValueRepository)
-        {
-            _customerGroupAttributeRepository = customerGroupAttributeRepository;
-            _customerGroupAttributeManager = customerGroupAttributeManager; 
-        }
-
+    public partial class CustomerGroupAttributesAppService
+    { 
         [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
