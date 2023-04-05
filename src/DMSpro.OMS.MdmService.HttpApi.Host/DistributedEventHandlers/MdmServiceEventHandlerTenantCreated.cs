@@ -73,7 +73,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
                 await _numberingConfigsInternalAppService.CreateAllConfigsForTenantAsync(
                     new List<Guid>() { eventData.Id });
 
-                
+              
             }
         }
         catch (Exception e)

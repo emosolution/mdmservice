@@ -10,7 +10,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
         Task DeleteAsync(Guid id);
 
-        Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input);
+        Task<ItemAttributeValueDto> CreateHierarchyAsync(ItemAttributeValueCreateHierarchyDto input);
+        
+        Task<ItemAttributeValueDto> CreateRootAsync(ItemAttributeValueCreateRootDto input);
 
         Task<ItemAttributeValueDto> UpdateAsync(Guid id, ItemAttributeValueUpdateDto input);
     }

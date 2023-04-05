@@ -24,14 +24,14 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
 
         }
 
-        public ItemAttributeValue(Guid id, Guid itemAttributeId, Guid? parentId, string attrValName)
+        public ItemAttributeValue(Guid id, Guid itemAttributeId, Guid? parentId, string attrValName, string code)
         {
 
             Id = id;
             Check.NotNull(attrValName, nameof(attrValName));
             Check.Length(attrValName, nameof(attrValName), ItemAttributeValueConsts.AttrValNameMaxLength, ItemAttributeValueConsts.AttrValNameMinLength);
             AttrValName = attrValName;
-            Code = attrValName;
+            Code = code;
             ItemAttributeId = itemAttributeId;
             ParentId = parentId;
         }

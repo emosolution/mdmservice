@@ -10,8 +10,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Required]
         [StringLength(ItemAttributeValueConsts.AttrValNameMaxLength, MinimumLength = ItemAttributeValueConsts.AttrValNameMinLength)]
         public string AttrValName { get; set; }
-        public Guid ItemAttributeId { get; set; }
-        public Guid? ParentId { get; set; }
+        [Required]
+        [StringLength(ItemAttributeValueConsts.CodeMaxLength, MinimumLength = ItemAttributeValueConsts.CodeMinLength)]
+        public string Code { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

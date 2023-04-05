@@ -1,10 +1,6 @@
-using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.ItemAttributeValues;
-using DMSpro.OMS.MdmService.ItemAttributes;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
@@ -25,33 +21,20 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         }
 
         [Authorize(MdmServicePermissions.ItemAttributeValues.Create)]
-        public virtual async Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input)
+        public virtual async Task<ItemAttributeValueDto> CreateRootAsync(ItemAttributeValueCreateRootDto input)
         {
-            if (input.ItemAttributeId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemAttribute"]]);
-            }
+            throw new System.NotImplementedException();
+        }
 
-            var itemAttributeValue = await _itemAttributeValueManager.CreateAsync(
-            input.ItemAttributeId, input.ParentId, input.AttrValName);
-
-            return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
+        public virtual async Task<ItemAttributeValueDto> CreateHierarchyAsync(ItemAttributeValueCreateHierarchyDto input)
+        {
+            throw new System.NotImplementedException();
         }
 
         [Authorize(MdmServicePermissions.ItemAttributeValues.Edit)]
         public virtual async Task<ItemAttributeValueDto> UpdateAsync(Guid id, ItemAttributeValueUpdateDto input)
         {
-            if (input.ItemAttributeId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["ItemAttribute"]]);
-            }
-
-            var itemAttributeValue = await _itemAttributeValueManager.UpdateAsync(
-            id,
-            input.ItemAttributeId, input.ParentId, input.AttrValName, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
+            throw new System.NotImplementedException();
         }
     }
 }

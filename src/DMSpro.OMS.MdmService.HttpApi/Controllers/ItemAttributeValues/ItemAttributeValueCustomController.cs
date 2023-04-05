@@ -28,9 +28,17 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemAttributeValues
         }
 
         [HttpPost]
-        public virtual Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input)
+        [Route("root")]
+        public virtual Task<ItemAttributeValueDto> CreateRootAsync(ItemAttributeValueCreateRootDto input)
         {
-            return _itemAttributeValuesAppService.CreateAsync(input);
+            return _itemAttributeValuesAppService.CreateRootAsync(input);
+        }
+
+        [HttpPost]
+        [Route("hierarchy")]
+        public virtual Task<ItemAttributeValueDto> CreateHierarchyAsync(ItemAttributeValueCreateHierarchyDto input)
+        {
+            return _itemAttributeValuesAppService.CreateHierarchyAsync(input);
         }
 
         [HttpPut]
