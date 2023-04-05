@@ -76,7 +76,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
             Guid? inputIdentityUserId = null, DateTime? checkTime = null)
         {
-            return 
+            return
                 await _companyIdentityUserAssignmentsInternalAppService
                     .GetCurrentlySelectedCompanyAsync(inputIdentityUserId, checkTime);
         }
@@ -84,23 +84,25 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         private async Task<List<IdentityUser>>
             GetListIdentityUsers(List<string> identityUserIds)
         {
-            using GrpcChannel channel =
-                GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]);
-            var client =
-                new IdentityUsersProtoAppService.IdentityUsersProtoAppServiceClient(channel);
-            GetListIdentityUsersRequest request = new()
+            using (GrpcChannel channel =
+                GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]))
             {
-                TenantId = _currentTenant.Id.ToString(),
-            };
-            request.IdentityUserIds.Add(identityUserIds);
-            var response = await client.GetListIdentityUsersAsync(request);
-            if ((response.IdentityUsers == null && identityUserIds.Count != 0) ||
-                response.IdentityUsers.Count != identityUserIds.Count)
-            {
-                throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
+                var client =
+                    new IdentityUsersProtoAppService.IdentityUsersProtoAppServiceClient(channel);
+                GetListIdentityUsersRequest request = new()
+                {
+                    TenantId = _currentTenant.Id.ToString(),
+                };
+                request.IdentityUserIds.Add(identityUserIds);
+                var response = await client.GetListIdentityUsersAsync(request);
+                if ((response.IdentityUsers == null && identityUserIds.Count != 0) ||
+                    response.IdentityUsers.Count != identityUserIds.Count)
+                {
+                    throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
+                }
+                List<IdentityUser> identityUsers = response.IdentityUsers.ToList();
+                return identityUsers;
             }
-            List<IdentityUser> identityUsers = response.IdentityUsers.ToList();
-            return identityUsers;
         }
 
         private List<CompanyIdentityUserAssignmentDevExtremeDto>
