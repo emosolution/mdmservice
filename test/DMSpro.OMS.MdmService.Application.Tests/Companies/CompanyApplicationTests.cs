@@ -61,7 +61,6 @@ namespace DMSpro.OMS.MdmService.Companies
                 Active = true,
                 EffectiveDate = new DateTime(2002, 7, 13),
                 EndDate = new DateTime(2015, 10, 5),
-                IsHO = true,
                 Latitude = "f692f34f276a40d7850e40964d562bb9b3d3da8662b349fd8c52fbcc3fd989542c359bd72bee45f68db1b1402d102c79394d2c2b8d21499ca086f46aa23ed95f6eea711af2444ba391fb0d09371603462a813064cc21450f9fbcd80cb621dd4103ceea81652b4ba1a34499f59ffc0ef54c3b82cad5c447b2a4ea7dd8e43a220",
                 Longitude = "f5ff81dd7ed747c7a4344419bf5fe321375476d22c1643d8af1f56c13e845c61006a3ceb681242bf90a11adca148b02d435215438d5047f1bb1c248187b566c7045267aa14d249c9a8cad91e18d174681fe9549834d84c0a9a6b22f826318831436c6dd1bef34435ba308fb16d2efb5257915525992c48bf921ed5441d19cf4",
                 ContactName = "469a1f5dd8514ea2a66c8a1c7382c93a4551aef35cb349eb9b61b2502d6ba3a10c89a2b7f15b414d862ac121e25665db19afb93be85f45b4b8998462b9af2a2b43bf9e86773b4c15afa8af956c8e7f60f79c020cd2f54d78afbb2209957de7a0156a36afe24e488793b6051f31305611b2fdb46391ea473da7ea40f21dcc5e0",
@@ -88,7 +87,7 @@ namespace DMSpro.OMS.MdmService.Companies
             result.Active.ShouldBe(true);
             result.EffectiveDate.ShouldBe(new DateTime(2002, 7, 13));
             result.EndDate.ShouldBe(new DateTime(2015, 10, 5));
-            result.IsHO.ShouldBe(true);
+            result.IsHO.ShouldBe(false);
             result.Latitude.ShouldBe("f692f34f276a40d7850e40964d562bb9b3d3da8662b349fd8c52fbcc3fd989542c359bd72bee45f68db1b1402d102c79394d2c2b8d21499ca086f46aa23ed95f6eea711af2444ba391fb0d09371603462a813064cc21450f9fbcd80cb621dd4103ceea81652b4ba1a34499f59ffc0ef54c3b82cad5c447b2a4ea7dd8e43a220");
             result.Longitude.ShouldBe("f5ff81dd7ed747c7a4344419bf5fe321375476d22c1643d8af1f56c13e845c61006a3ceb681242bf90a11adca148b02d435215438d5047f1bb1c248187b566c7045267aa14d249c9a8cad91e18d174681fe9549834d84c0a9a6b22f826318831436c6dd1bef34435ba308fb16d2efb5257915525992c48bf921ed5441d19cf4");
             result.ContactName.ShouldBe("469a1f5dd8514ea2a66c8a1c7382c93a4551aef35cb349eb9b61b2502d6ba3a10c89a2b7f15b414d862ac121e25665db19afb93be85f45b4b8998462b9af2a2b43bf9e86773b4c15afa8af956c8e7f60f79c020cd2f54d78afbb2209957de7a0156a36afe24e488793b6051f31305611b2fdb46391ea473da7ea40f21dcc5e0");
@@ -114,7 +113,6 @@ namespace DMSpro.OMS.MdmService.Companies
                 Active = true,
                 EffectiveDate = new DateTime(2014, 2, 19),
                 EndDate = new DateTime(2015, 4, 27),
-                IsHO = true,
                 Latitude = "15a77e97510e415fa2aa397ac23ddbb1755950cf5b4a48db85369ce5afbfc497da619339e923470f8e833ced8bd4541c2d889e660956486ea524e39af62481449313867c4374440c99c93485dcb5a82bf437cdca94b8466f83ef81943d95c2827b334414c72c478c87acdf54f7aa9a5c24ecaddbda73457fb4e9e86b833826a",
                 Longitude = "7ba9257268d64849bce76878787fbf37c9559fc85f5840ca897f3752eb9c8174142fead3557340dca247f38bd1b1bf3c7eb84745aa174ab5b6ad52091573010f4eba1d0679384dd798b528ed7aea327b797cff8a8bb548ed94b70fbf8d692e14948ae9d7ff9e4bc4bbc1fafa84e58c09ed907b70a7fe427984754f109f7d8e8",
                 ContactName = "1ba99f7b541c4915ba05000776de4bf4e71840ebc9064cb58c67a4337b38e629ce9297629fe54744a2180c0136f323c4e8add8e6f9574b8ead4e2a434ca0f9a81e056bb2d5e44ef983545f7edbb22c2b573fc3ce4a3b4f0a97bccf773a83ab9ea4188a83702d498797cd84c70f8ec48df69e40e6e528434ea455cce46e0b742",
@@ -141,7 +139,7 @@ namespace DMSpro.OMS.MdmService.Companies
             result.Active.ShouldBe(true);
             result.EffectiveDate.ShouldBe(new DateTime(2014, 2, 19));
             result.EndDate.ShouldBe(new DateTime(2015, 4, 27));
-            result.IsHO.ShouldBe(true);
+            result.IsHO.ShouldBe(false);
             result.Latitude.ShouldBe("15a77e97510e415fa2aa397ac23ddbb1755950cf5b4a48db85369ce5afbfc497da619339e923470f8e833ced8bd4541c2d889e660956486ea524e39af62481449313867c4374440c99c93485dcb5a82bf437cdca94b8466f83ef81943d95c2827b334414c72c478c87acdf54f7aa9a5c24ecaddbda73457fb4e9e86b833826a");
             result.Longitude.ShouldBe("7ba9257268d64849bce76878787fbf37c9559fc85f5840ca897f3752eb9c8174142fead3557340dca247f38bd1b1bf3c7eb84745aa174ab5b6ad52091573010f4eba1d0679384dd798b528ed7aea327b797cff8a8bb548ed94b70fbf8d692e14948ae9d7ff9e4bc4bbc1fafa84e58c09ed907b70a7fe427984754f109f7d8e8");
             result.ContactName.ShouldBe("1ba99f7b541c4915ba05000776de4bf4e71840ebc9064cb58c67a4337b38e629ce9297629fe54744a2180c0136f323c4e8add8e6f9574b8ead4e2a434ca0f9a81e056bb2d5e44ef983545f7edbb22c2b573fc3ce4a3b4f0a97bccf773a83ab9ea4188a83702d498797cd84c70f8ec48df69e40e6e528434ea455cce46e0b742");

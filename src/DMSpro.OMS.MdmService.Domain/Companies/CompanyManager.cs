@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.Companies
         }
 
         public async Task<Company> CreateAsync(
-            Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null)
+            Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CompanyConsts.CodeMaxLength, CompanyConsts.CodeMinLength);
@@ -42,7 +42,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
             var company = new Company(
              GuidGenerator.Create(),
-                parentId, geoLevel0Id, geoLevel1Id, geoLevel2Id, geoLevel3Id, geoLevel4Id, code, name, street, address, phone, license, taxCode, vatName, vatAddress, erpCode, active, effectiveDate, isHO, latitude, longitude, contactName, contactPhone, endDate
+                parentId, geoLevel0Id, geoLevel1Id, geoLevel2Id, geoLevel3Id, geoLevel4Id, code, name, street, address, phone, license, taxCode, vatName, vatAddress, erpCode, active, effectiveDate, isHO: false, latitude, longitude, contactName, contactPhone, endDate
              );
 
             return await _companyRepository.InsertAsync(company);
@@ -50,7 +50,7 @@ namespace DMSpro.OMS.MdmService.Companies
 
         public async Task<Company> UpdateAsync(
             Guid id,
-            Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, bool isHO, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid? parentId, Guid? geoLevel0Id, Guid? geoLevel1Id, Guid? geoLevel2Id, Guid? geoLevel3Id, Guid? geoLevel4Id, string code, string name, string street, string address, string phone, string license, string taxCode, string vatName, string vatAddress, string erpCode, bool active, DateTime effectiveDate, string latitude, string longitude, string contactName, string contactPhone, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -92,7 +92,6 @@ namespace DMSpro.OMS.MdmService.Companies
             company.Active = active;
             company.EffectiveDate = effectiveDate;
             company.EndDate = endDate;
-            company.IsHO = isHO;
             company.Latitude = latitude;
             company.Longitude = longitude;
             company.ContactName = contactName;

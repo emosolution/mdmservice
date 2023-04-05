@@ -31,7 +31,6 @@ namespace DMSpro.OMS.MdmService.Companies
         public bool Active { get; set; } = true;
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public bool IsHO { get; set; } = false;
         [StringLength(CompanyConsts.LatitudeMaxLength)]
         public string Latitude { get; set; }
         [StringLength(CompanyConsts.LongitudeMaxLength)]
