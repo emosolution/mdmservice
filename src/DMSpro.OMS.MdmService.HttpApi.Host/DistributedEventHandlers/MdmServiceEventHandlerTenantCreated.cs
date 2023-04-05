@@ -10,6 +10,8 @@ using Volo.Abp.Uow;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.NumberingConfigs;
+using System.Runtime.CompilerServices;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService;
 public class MdmServiceDistributedEventHandler : IDistributedEventHandler<TenantCreatedEto>, ITransientDependency
@@ -23,6 +25,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
     private readonly ICustomerAttributeRepository _customerAttributeRepository;
     private readonly ISystemDatasInternalAppService _systemDatasInternalAppService;
     private readonly INumberingConfigsInternalAppService _numberingConfigsInternalAppService;
+    private readonly ICompaniesInternalAppService _companiesInternalAppService;
 
     //private readonly ILogger<MdmServiceDistributedEventHandler> _logger;
     private readonly IGuidGenerator _guidGenerator;
@@ -33,9 +36,9 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
 
         IItemAttributeRepository itemAttributeRepository,
         ICustomerAttributeRepository customerAttributeRepository,
-        ISystemDataRepository systemDataRepository,
         ISystemDatasInternalAppService systemDatasInternalAppService,
         INumberingConfigsInternalAppService numberingConfigsInternalAppService,
+        ICompaniesInternalAppService companiesInternalAppService,
 
         //ILogger<MdmServiceDistributedEventHandler> logger,
         IGuidGenerator guidGenerator,
@@ -47,6 +50,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         _customerAttributeRepository = customerAttributeRepository;
         _systemDatasInternalAppService = systemDatasInternalAppService;
         _numberingConfigsInternalAppService = numberingConfigsInternalAppService;
+        _companiesInternalAppService = companiesInternalAppService;
 
         //_logger = logger;
         _guidGenerator = guidGenerator;
@@ -67,13 +71,13 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
 
                 await _systemDatasInternalAppService.CreateAllForTenantAsync(new List<Guid>() { eventData.Id });
 
+                await _companiesInternalAppService.SeedHOCompanyAndAssignAdminToHO(eventData.Id);
+
                 await uow.CompleteAsync();
                 
                 // Must be after UOW completed or there would be no seeded system data 
                 await _numberingConfigsInternalAppService.CreateAllConfigsForTenantAsync(
                     new List<Guid>() { eventData.Id });
-
-                
             }
         }
         catch (Exception e)
