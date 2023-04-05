@@ -1,12 +1,8 @@
-using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
-using DMSpro.OMS.MdmService.CustomerAttributeValues;
-using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
@@ -14,7 +10,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
     [Area("mdmService")]
     [ControllerName("CustomerAttributeValue")]
     [Route("api/mdm-service/customer-attribute-values")]
-    public class CustomerAttributeValueController : AbpController, ICustomerAttributeValuesAppService
+    public partial class CustomerAttributeValueController : AbpController, ICustomerAttributeValuesAppService
     {
         private readonly ICustomerAttributeValuesAppService _customerAttributeValuesAppService;
 

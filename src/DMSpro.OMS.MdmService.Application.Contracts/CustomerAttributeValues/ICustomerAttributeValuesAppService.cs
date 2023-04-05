@@ -4,7 +4,7 @@ using Volo.Abp.Application.Services;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
-    public interface ICustomerAttributeValuesAppService : IApplicationService
+    public partial interface ICustomerAttributeValuesAppService : IApplicationService
     {
         Task<CustomerAttributeValueDto> GetAsync(Guid id);
 

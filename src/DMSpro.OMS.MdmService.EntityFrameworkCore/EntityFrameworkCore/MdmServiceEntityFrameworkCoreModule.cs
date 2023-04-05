@@ -421,6 +421,12 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
                     .Include(o => o.GeoMaster4);
             });
 
+            options.Entity<CustomerAttributeValue>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerAttribute)
+                    .Include(o => o.Parent);
+            });
+
         });
     }
 }
