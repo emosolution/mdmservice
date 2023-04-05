@@ -31,6 +31,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
         {
+            await CheckPermission();
             // var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
             var assignmentWithNavigationProperties =
                 await _companyIdentityUserAssignmentRepository.GetListWithNavigationPropertiesAsync();
