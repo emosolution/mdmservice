@@ -13,7 +13,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
     [Area("mdmService")]
     [ControllerName("CustomerGroupList")]
     [Route("api/mdm-service/customer-group-lists")]
-    public class CustomerGroupListController : AbpController, ICustomerGroupListsAppService
+    public partial class CustomerGroupListController : AbpController, ICustomerGroupListsAppService
     {
         private readonly ICustomerGroupListsAppService _customerGroupListsAppService;
 

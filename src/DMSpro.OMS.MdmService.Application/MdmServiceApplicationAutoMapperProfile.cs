@@ -359,8 +359,7 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
 
         CreateMap<CustomerGroupList, CustomerGroupListDto>();
-        CreateMap<CustomerGroupList, CustomerGroupListExcelDto>();
-        CreateMap<CustomerGroupListWithNavigationProperties, CustomerGroupListWithNavigationPropertiesDto>();
+        CreateMap<CustomerGroupList, CustomerGroupListWithDetailsDto>();
 
         CreateMap<CustomerGroupGeo, CustomerGroupGeoDto>();
         CreateMap<CustomerGroupGeo, CustomerGroupGeoWithDetailsDto>();

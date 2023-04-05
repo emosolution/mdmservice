@@ -866,26 +866,26 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<CustomerGroupList>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupLists", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupList.TenantId));
-        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupList.Description)).HasMaxLength(CustomerGroupListConsts.DescriptionMaxLength);
-        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupList.Active));
-        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupLists", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupList.TenantId));
+            b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupList.Description)).HasMaxLength(CustomerGroupListConsts.DescriptionMaxLength);
+            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupList.Active));
+            b.HasOne(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        });
 
         builder.Entity<CustomerAttributeValue>(b =>
-    {
-        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributeValues", MdmServiceDbProperties.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttributeValue.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(CustomerAttributeValue.Code)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.CodeMaxLength);
-        b.Property(x => x.AttrValName).HasColumnName(nameof(CustomerAttributeValue.AttrValName)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.AttrValNameMaxLength);
-        b.HasOne(x => x.CustomerAttribute).WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
-        b.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-    });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributeValues", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttributeValue.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(CustomerAttributeValue.Code)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.CodeMaxLength);
+            b.Property(x => x.AttrValName).HasColumnName(nameof(CustomerAttributeValue.AttrValName)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.AttrValNameMaxLength);
+            b.HasOne(x => x.CustomerAttribute).WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        });
         builder.Entity<CustomerGroupAttribute>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupAttributes", MdmServiceDbProperties.DbSchema);
