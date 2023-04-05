@@ -35170,13 +35170,47 @@
                   }
                 },
                 {
-                  "name": "CreateAsync",
+                  "name": "CreateHierarchyAsync",
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
+                      "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto"
+                  }
+                },
+                {
+                  "name": "CreateRootAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto"
+                  }
+                },
+                {
+                  "name": "CreateFlatAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -35311,18 +35345,18 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemAttributeValues.IItemAttributeValuesAppService"
             },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
+            "CreateRootAsyncByInput": {
+              "uniqueName": "CreateRootAsyncByInput",
+              "name": "CreateRootAsync",
               "httpMethod": "POST",
-              "url": "api/mdm-service/item-attribute-values",
+              "url": "api/mdm-service/item-attribute-values/root",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
+                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -35332,8 +35366,82 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateDto",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateRootDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto",
+                "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributeValues.IItemAttributeValuesAppService"
+            },
+            "CreateHierarchyAsyncByInput": {
+              "uniqueName": "CreateHierarchyAsyncByInput",
+              "name": "CreateHierarchyAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/item-attribute-values/hierarchy",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateHierarchyDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto",
+                "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.ItemAttributeValues.IItemAttributeValuesAppService"
+            },
+            "CreateFlatAsyncByInput": {
+              "uniqueName": "CreateFlatAsyncByInput",
+              "name": "CreateFlatAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/item-attribute-values/flat",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.ItemAttributeValues.ItemAttributeValueCreateFlatDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,

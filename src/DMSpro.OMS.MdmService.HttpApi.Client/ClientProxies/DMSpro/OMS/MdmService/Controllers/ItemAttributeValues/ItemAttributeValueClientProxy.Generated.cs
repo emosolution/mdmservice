@@ -27,11 +27,27 @@ public partial class ItemAttributeValueClientProxy : ClientProxyBase<IItemAttrib
         });
     }
 
-    public virtual async Task<ItemAttributeValueDto> CreateAsync(ItemAttributeValueCreateDto input)
+    public virtual async Task<ItemAttributeValueDto> CreateRootAsync(ItemAttributeValueCreateRootDto input)
     {
-        return await RequestAsync<ItemAttributeValueDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<ItemAttributeValueDto>(nameof(CreateRootAsync), new ClientProxyRequestTypeValue
         {
-            { typeof(ItemAttributeValueCreateDto), input }
+            { typeof(ItemAttributeValueCreateRootDto), input }
+        });
+    }
+
+    public virtual async Task<ItemAttributeValueDto> CreateHierarchyAsync(ItemAttributeValueCreateHierarchyDto input)
+    {
+        return await RequestAsync<ItemAttributeValueDto>(nameof(CreateHierarchyAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(ItemAttributeValueCreateHierarchyDto), input }
+        });
+    }
+
+    public virtual async Task<ItemAttributeValueDto> CreateFlatAsync(ItemAttributeValueCreateFlatDto input)
+    {
+        return await RequestAsync<ItemAttributeValueDto>(nameof(CreateFlatAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(ItemAttributeValueCreateFlatDto), input }
         });
     }
 
