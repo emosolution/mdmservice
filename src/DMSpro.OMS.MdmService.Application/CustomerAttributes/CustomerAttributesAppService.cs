@@ -63,26 +63,26 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
             if (!input.Active)
             {
                 if (await _customerRepository.AnyAsync(x =>
-                    (attribute.AttrNo == 0 && x.Attribute0Id.HasValue) ||
-                    (attribute.AttrNo == 1 && x.Attribute1Id.HasValue) ||
-                    (attribute.AttrNo == 2 && x.Attribute2Id.HasValue) ||
-                    (attribute.AttrNo == 3 && x.Attribute3Id.HasValue) ||
-                    (attribute.AttrNo == 4 && x.Attribute4Id.HasValue) ||
-                    (attribute.AttrNo == 5 && x.Attribute5Id.HasValue) ||
-                    (attribute.AttrNo == 6 && x.Attribute6Id.HasValue) ||
-                    (attribute.AttrNo == 7 && x.Attribute7Id.HasValue) ||
-                    (attribute.AttrNo == 8 && x.Attribute8Id.HasValue) ||
-                    (attribute.AttrNo == 9 && x.Attribute9Id.HasValue) ||
-                    (attribute.AttrNo == 10 && x.Attribute10Id.HasValue) ||
-                    (attribute.AttrNo == 11 && x.Attribute11Id.HasValue) ||
-                    (attribute.AttrNo == 12 && x.Attribute12Id.HasValue) ||
-                    (attribute.AttrNo == 13 && x.Attribute13Id.HasValue) ||
-                    (attribute.AttrNo == 14 && x.Attribute14Id.HasValue) ||
-                    (attribute.AttrNo == 15 && x.Attribute15Id.HasValue) ||
-                    (attribute.AttrNo == 16 && x.Attribute16Id.HasValue) ||
-                    (attribute.AttrNo == 17 && x.Attribute17Id.HasValue) ||
-                    (attribute.AttrNo == 18 && x.Attribute18Id.HasValue) ||
-                    (attribute.AttrNo == 19 && x.Attribute19Id.HasValue)
+                    (attribute.AttrNo == 0 && x.Attr0Id.HasValue) ||
+                    (attribute.AttrNo == 1 && x.Attr1Id.HasValue) ||
+                    (attribute.AttrNo == 2 && x.Attr2Id.HasValue) ||
+                    (attribute.AttrNo == 3 && x.Attr3Id.HasValue) ||
+                    (attribute.AttrNo == 4 && x.Attr4Id.HasValue) ||
+                    (attribute.AttrNo == 5 && x.Attr5Id.HasValue) ||
+                    (attribute.AttrNo == 6 && x.Attr6Id.HasValue) ||
+                    (attribute.AttrNo == 7 && x.Attr7Id.HasValue) ||
+                    (attribute.AttrNo == 8 && x.Attr8Id.HasValue) ||
+                    (attribute.AttrNo == 9 && x.Attr9Id.HasValue) ||
+                    (attribute.AttrNo == 10 && x.Attr10Id.HasValue) ||
+                    (attribute.AttrNo == 11 && x.Attr11Id.HasValue) ||
+                    (attribute.AttrNo == 12 && x.Attr12Id.HasValue) ||
+                    (attribute.AttrNo == 13 && x.Attr13Id.HasValue) ||
+                    (attribute.AttrNo == 14 && x.Attr14Id.HasValue) ||
+                    (attribute.AttrNo == 15 && x.Attr15Id.HasValue) ||
+                    (attribute.AttrNo == 16 && x.Attr16Id.HasValue) ||
+                    (attribute.AttrNo == 17 && x.Attr17Id.HasValue) ||
+                    (attribute.AttrNo == 18 && x.Attr18Id.HasValue) ||
+                    (attribute.AttrNo == 19 && x.Attr19Id.HasValue)
                     ))
                 {
                     throw new UserFriendlyException(L["Error:General:UpdateContraint:550"]);

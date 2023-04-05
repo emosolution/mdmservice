@@ -1,14 +1,4 @@
-using DMSpro.OMS.MdmService.SystemDatas;
-using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.GeoMasters;
-using DMSpro.OMS.MdmService.CusAttributeValues;
-using DMSpro.OMS.MdmService.Customers;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -84,26 +74,26 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? GeoMaster2Id { get; set; }
         public Guid? GeoMaster3Id { get; set; }
         public Guid? GeoMaster4Id { get; set; }
-        public Guid? Attribute0Id { get; set; }
-        public Guid? Attribute1Id { get; set; }
-        public Guid? Attribute2Id { get; set; }
-        public Guid? Attribute3Id { get; set; }
-        public Guid? Attribute4Id { get; set; }
-        public Guid? Attribute5Id { get; set; }
-        public Guid? Attribute6Id { get; set; }
-        public Guid? Attribute7Id { get; set; }
-        public Guid? Attribute8Id { get; set; }
-        public Guid? Attribute9Id { get; set; }
-        public Guid? Attribute10Id { get; set; }
-        public Guid? Attribute11Id { get; set; }
-        public Guid? Attribute12Id { get; set; }
-        public Guid? Attribute13Id { get; set; }
-        public Guid? Attribute14Id { get; set; }
-        public Guid? Attribute15Id { get; set; }
-        public Guid? Attribute16Id { get; set; }
-        public Guid? Attribute17Id { get; set; }
-        public Guid? Attribute18Id { get; set; }
-        public Guid? Attribute19Id { get; set; }
+        public Guid? Attr0Id { get; set; }
+        public Guid? Attr1Id { get; set; }
+        public Guid? Attr2Id { get; set; }
+        public Guid? Attr3Id { get; set; }
+        public Guid? Attr4Id { get; set; }
+        public Guid? Attr5Id { get; set; }
+        public Guid? Attr6Id { get; set; }
+        public Guid? Attr7Id { get; set; }
+        public Guid? Attr8Id { get; set; }
+        public Guid? Attr9Id { get; set; }
+        public Guid? Attr10Id { get; set; }
+        public Guid? Attr11Id { get; set; }
+        public Guid? Attr12Id { get; set; }
+        public Guid? Attr13Id { get; set; }
+        public Guid? Attr14Id { get; set; }
+        public Guid? Attr15Id { get; set; }
+        public Guid? Attr16Id { get; set; }
+        public Guid? Attr17Id { get; set; }
+        public Guid? Attr18Id { get; set; }
+        public Guid? Attr19Id { get; set; }
         public Guid? PaymentId { get; set; }
 
         public Customer()
@@ -111,7 +101,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
         }
 
-        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
+        public Customer(Guid id, Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
         {
 
             Id = id;
@@ -159,26 +149,26 @@ namespace DMSpro.OMS.MdmService.Customers
             GeoMaster2Id = geoMaster2Id;
             GeoMaster3Id = geoMaster3Id;
             GeoMaster4Id = geoMaster4Id;
-            Attribute0Id = attribute0Id;
-            Attribute1Id = attribute1Id;
-            Attribute2Id = attribute2Id;
-            Attribute3Id = attribute3Id;
-            Attribute4Id = attribute4Id;
-            Attribute5Id = attribute5Id;
-            Attribute6Id = attribute6Id;
-            Attribute7Id = attribute7Id;
-            Attribute8Id = attribute8Id;
-            Attribute9Id = attribute9Id;
-            Attribute10Id = attribute10Id;
-            Attribute11Id = attribute11Id;
-            Attribute12Id = attribute12Id;
-            Attribute13Id = attribute13Id;
-            Attribute14Id = attribute14Id;
-            Attribute15Id = attribute15Id;
-            Attribute16Id = attribute16Id;
-            Attribute17Id = attribute17Id;
-            Attribute18Id = attribute18Id;
-            Attribute19Id = attribute19Id;
+            Attr0Id = attr0Id;
+            Attr1Id = attr1Id;
+            Attr2Id = attr2Id;
+            Attr3Id = attr3Id;
+            Attr4Id = attr4Id;
+            Attr5Id = attr5Id;
+            Attr6Id = attr6Id;
+            Attr7Id = attr7Id;
+            Attr8Id = attr8Id;
+            Attr9Id = attr9Id;
+            Attr10Id = attr10Id;
+            Attr11Id = attr11Id;
+            Attr12Id = attr12Id;
+            Attr13Id = attr13Id;
+            Attr14Id = attr14Id;
+            Attr15Id = attr15Id;
+            Attr16Id = attr16Id;
+            Attr17Id = attr17Id;
+            Attr18Id = attr18Id;
+            Attr19Id = attr19Id;
             PaymentId = paymentId;
         }
 

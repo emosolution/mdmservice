@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.CusAttributeValues;
 using DMSpro.OMS.MdmService.GeoMasters;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.Companies;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
@@ -32,45 +32,45 @@ namespace DMSpro.OMS.MdmService.Customers
 
         private readonly GeoMastersDataSeedContributor _geoMastersDataSeedContributor4;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor0;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor0;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor1;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor1;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor2;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor2;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor3;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor3;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor4;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor4;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor5;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor5;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor6;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor6;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor7;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor7;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor8;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor8;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor9;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor9;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor10;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor10;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor11;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor11;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor12;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor12;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor13;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor13;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor14;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor14;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor15;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor15;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor16;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor16;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor17;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor17;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor18;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor18;
 
-        private readonly CusAttributeValuesDataSeedContributor _cusAttributeValuesDataSeedContributor19;
+        private readonly CustomerAttributeValuesDataSeedContributor _customerAttributeValuesDataSeedContributor19;
 
         private readonly CustomersDataSeedContributor _customersDataSeedContributor;
 
@@ -79,26 +79,26 @@ namespace DMSpro.OMS.MdmService.Customers
             GeoMastersDataSeedContributor geoMastersDataSeedContributor0, GeoMastersDataSeedContributor geoMastersDataSeedContributor1,
             GeoMastersDataSeedContributor geoMastersDataSeedContributor2, GeoMastersDataSeedContributor geoMastersDataSeedContributor3, 
             GeoMastersDataSeedContributor geoMastersDataSeedContributor4, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor0, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor1, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor2, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor3, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor4, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor5, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor6, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor7,
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor8, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor9, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor10, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor11,
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor12, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor13,
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor14,
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor15, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor16, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor17, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor18, 
-            CusAttributeValuesDataSeedContributor cusAttributeValuesDataSeedContributor19, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor0, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor1, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor2, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor3, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor4, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor5, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor6, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor7,
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor8, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor9, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor10, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor11,
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor12, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor13,
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor14,
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor15, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor16, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor17, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor18, 
+            CustomerAttributeValuesDataSeedContributor customerAttributeValuesDataSeedContributor19, 
             CustomersDataSeedContributor customersDataSeedContributor)
         {
             _customerRepository = customerRepository;
@@ -109,16 +109,16 @@ namespace DMSpro.OMS.MdmService.Customers
             _geoMastersDataSeedContributor2 = geoMastersDataSeedContributor2; 
             _geoMastersDataSeedContributor3 = geoMastersDataSeedContributor3; 
             _geoMastersDataSeedContributor4 = geoMastersDataSeedContributor4; 
-            _cusAttributeValuesDataSeedContributor0 = cusAttributeValuesDataSeedContributor0; _cusAttributeValuesDataSeedContributor1 = cusAttributeValuesDataSeedContributor1; 
-            _cusAttributeValuesDataSeedContributor2 = cusAttributeValuesDataSeedContributor2; _cusAttributeValuesDataSeedContributor3 = cusAttributeValuesDataSeedContributor3; 
-            _cusAttributeValuesDataSeedContributor4 = cusAttributeValuesDataSeedContributor4; _cusAttributeValuesDataSeedContributor5 = cusAttributeValuesDataSeedContributor5; 
-            _cusAttributeValuesDataSeedContributor6 = cusAttributeValuesDataSeedContributor6; _cusAttributeValuesDataSeedContributor7 = cusAttributeValuesDataSeedContributor7; 
-            _cusAttributeValuesDataSeedContributor8 = cusAttributeValuesDataSeedContributor8; _cusAttributeValuesDataSeedContributor9 = cusAttributeValuesDataSeedContributor9; 
-            _cusAttributeValuesDataSeedContributor10 = cusAttributeValuesDataSeedContributor10; _cusAttributeValuesDataSeedContributor11 = cusAttributeValuesDataSeedContributor11; 
-            _cusAttributeValuesDataSeedContributor12 = cusAttributeValuesDataSeedContributor12; _cusAttributeValuesDataSeedContributor13 = cusAttributeValuesDataSeedContributor13; 
-            _cusAttributeValuesDataSeedContributor14 = cusAttributeValuesDataSeedContributor14; _cusAttributeValuesDataSeedContributor15 = cusAttributeValuesDataSeedContributor15; 
-            _cusAttributeValuesDataSeedContributor16 = cusAttributeValuesDataSeedContributor16; _cusAttributeValuesDataSeedContributor17 = cusAttributeValuesDataSeedContributor17; 
-            _cusAttributeValuesDataSeedContributor18 = cusAttributeValuesDataSeedContributor18; _cusAttributeValuesDataSeedContributor19 = cusAttributeValuesDataSeedContributor19;
+            _customerAttributeValuesDataSeedContributor0 = customerAttributeValuesDataSeedContributor0; _customerAttributeValuesDataSeedContributor1 = customerAttributeValuesDataSeedContributor1; 
+            _customerAttributeValuesDataSeedContributor2 = customerAttributeValuesDataSeedContributor2; _customerAttributeValuesDataSeedContributor3 = customerAttributeValuesDataSeedContributor3; 
+            _customerAttributeValuesDataSeedContributor4 = customerAttributeValuesDataSeedContributor4; _customerAttributeValuesDataSeedContributor5 = customerAttributeValuesDataSeedContributor5; 
+            _customerAttributeValuesDataSeedContributor6 = customerAttributeValuesDataSeedContributor6; _customerAttributeValuesDataSeedContributor7 = customerAttributeValuesDataSeedContributor7; 
+            _customerAttributeValuesDataSeedContributor8 = customerAttributeValuesDataSeedContributor8; _customerAttributeValuesDataSeedContributor9 = customerAttributeValuesDataSeedContributor9; 
+            _customerAttributeValuesDataSeedContributor10 = customerAttributeValuesDataSeedContributor10; _customerAttributeValuesDataSeedContributor11 = customerAttributeValuesDataSeedContributor11; 
+            _customerAttributeValuesDataSeedContributor12 = customerAttributeValuesDataSeedContributor12; _customerAttributeValuesDataSeedContributor13 = customerAttributeValuesDataSeedContributor13; 
+            _customerAttributeValuesDataSeedContributor14 = customerAttributeValuesDataSeedContributor14; _customerAttributeValuesDataSeedContributor15 = customerAttributeValuesDataSeedContributor15; 
+            _customerAttributeValuesDataSeedContributor16 = customerAttributeValuesDataSeedContributor16; _customerAttributeValuesDataSeedContributor17 = customerAttributeValuesDataSeedContributor17; 
+            _customerAttributeValuesDataSeedContributor18 = customerAttributeValuesDataSeedContributor18; _customerAttributeValuesDataSeedContributor19 = customerAttributeValuesDataSeedContributor19;
             _customersDataSeedContributor = customersDataSeedContributor;
         }
 
@@ -132,140 +132,140 @@ namespace DMSpro.OMS.MdmService.Customers
             await _systemDatasDataSeedContributor.SeedAsync(context);
             await _companiesDataSeedContributor.SeedAsync(context);
             await _priceListsDataSeedContributor.SeedAsync(context);
+            await _geoMastersDataSeedContributor0.SeedAsync(context);
             await _geoMastersDataSeedContributor1.SeedAsync(context);
             await _geoMastersDataSeedContributor2.SeedAsync(context);
             await _geoMastersDataSeedContributor3.SeedAsync(context);
             await _geoMastersDataSeedContributor4.SeedAsync(context);
-            await _geoMastersDataSeedContributor0.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor1.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor2.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor3.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor4.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor5.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor6.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor7.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor8.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor9.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor10.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor11.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor12.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor13.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor14.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor15.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor16.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor17.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor18.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor19.SeedAsync(context);
-            await _cusAttributeValuesDataSeedContributor0.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor0.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor1.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor2.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor3.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor4.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor5.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor6.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor7.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor8.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor9.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor10.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor11.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor12.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor13.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor14.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor15.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor16.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor17.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor18.SeedAsync(context);
+            await _customerAttributeValuesDataSeedContributor19.SeedAsync(context);
             await _customersDataSeedContributor.SeedAsync(context);
 
             await _customerRepository.InsertAsync(new Customer
             (
-                id: Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
-                code: "1b9b88c5bbf14ca085c3",
-                name: "bdaf7e4d09a74f2480bd9029b0c79aeb88c842d89baa4a75b93a7906e23324f8680eb89f84884a77a823ffeb2b99535535d943463de844688a0aab15cfbbf05c208fb47a90fd4ecebad2ee58fcdfec2871f2cf4ef45a4079b6bc35fdf197082a519080fc0b4a4d3c89c0eba4adacde7170155333772b4356ae4775ed3e01455",
-                phone1: "5ec763ba9ca246e3bf48f00228e841453dec5bbcca62490bbe",
-                phone2: "92ba7b1d270f4f618b79c945cf92188604d3fd2fac6d4b6082",
-                erpCode: "f2ebfe64aa974f8fbbb7",
-                license: "cfd41d68087b48138c0df120c21ed6ac90636a5078c843659c",
-                taxCode: "79ece263e1e84e0ca8ca421dd1bb5ac23a1a71c3763b445a86",
-                vatName: "2f19d75e508f45cdb8c519a7fda004c90ed80e1342c74371b27fa9d4a19388a899f537e2beb44e118c6747cd16d8336fa5748fd91ab440a8a6ef69370c504d901c2ecb69a5f245648d1dadd703242eecaf1ff35ff87846b98e94fc13252efa8387955145d84545558428c9ced61a90a29d0431fbe0644948a38d9e5c319bb4b",
-                vatAddress: "cc35eeb997c54c18b6737df1c95039648b2f9fb15c124070a834c8987e52b42ec2d647f4644b474ab43babb30e54a5af857216b3e0214c8d8245381765b4b3db7afacca34975435ab77f13ccd0352f5a4abdb83530604e10a00e4f7e96fd23b929332d3b3dfa458581f4f69e3a134639dfd21bd0ccc74fa89ff4817253d2c74df03cacf249894a94bf4d4c05990dc8e4b7b847745d644a64b32e00de525c9ffe4da2fb4957684663831d2520c22c17fdb1818875a5cf4eb08dbd6c28f1ed1ce8ec917b0b275e4945b4010089f558a664849c6fe691f54dc7859d9ce453ef148cfc429ba3c2b04e46b7eaa47bee19ba02192207756edc4090a1bafe5dbbfb6b1e7472318dcca14ddd9b4d558698f7b7bb6c27a169e8c5492a89246e3f2b3930010dcd657401654ae1a131ff144f0ac109ea0f155c1abb47f4808f9849a7eb01162aed873e34d547c8a1b096bea9b328f9039310b9aa43433bbc81e614ba5b0477bbc6569d4dc7450a896d8af073e40e2d3bc7e7b656594cb584578b78ba570aa816e34eb7ca88425d9800a5fe40acfe4dbd6e0da436fa4a4ab5980f429d82182ba55bcdc59373453ab95faddd8c43a26997637d718f7548a08daa040cc93afd21fff9ca9a9ec64a2ea643e01532809b19eae7f86176534dc99369bb818e373d0607694d9faeae4f37b39fc267534518d87a06f0b2",
+                id: Guid.Parse("b01d38a2-a195-46f8-8e56-23ec001f6931"),
+                code: "5fc4eb8d9d6a48dab1dd",
+                name: "d380c142804643a28efa3474b1033df623d49f9a4b9c406c8777353fcc6bfad03c4e48e57415454aa408bcfa01005c45b5617b069f2f43d998ddb294dbbd85d6e176160037604164ab05ac2e6b69e786875e08de5a774847afec3ebd9b18e40fa221b3f3c9a9451985c56b5bf3589dffa59d10c73e0f4141a429ef68674a3cd",
+                phone1: "99ad41f38666458d96a07442088f37e3fa7b395adafe4bb586",
+                phone2: "0da1a5c17ede47c7a2c3303c86b6867f3ab7c8b87b564a72ba",
+                erpCode: "6f020e741ef1434ba67a",
+                license: "34bd05dae541435b8749e454114fce4ca308402f1121483790",
+                taxCode: "5b38d1c5b85e4224af25f3eb75f82d1f5317c39e45fc4b66b2",
+                vatName: "dddc572b11a14f648f482274435e1302a8eb1addd83d4aa0b13507766efde7674fde50a6ce7b4b3b990bcbf7dac4278fd02e51a1deca4225864f5958b8bbc9d361c5e0dbb09f4b8b8e388c0276156aec8cf0e41855094cdd876b8f5aa57cd98fe26151ccbbf8465f96b08fe811593e016527d19ab36e4ea3923c092ed63d100",
+                vatAddress: "5258a317699f47d180f7bca2343b31708ec3e629ca6e41b68b98fa2aff865081cc245d835a30487d9b665fff43e3a71fcfcc5fb2f877425b9e64c09491fb6fd9ff0adec533b3460e956ded59b1be0be246e730aa4c574acb99ea17c6ca707cacafc6625aa5844c13be282ff5df7febdf11e999c59b364d019205d4b1b75b1d8f55d9dccdfa2d49eb98835b0b11cc6b9659db175cc5fe498db9d3b56e28158e1bf1f75d3d5930432099c52d971bc907ccb7f76bb690dd4c3184017330e284df1c512e363794e2488aa9a628a40a49e1e7c74b10a835ac4377a4541dacc9b892fb45ec1e385dbc4888b1571be1c089e27456685f4f2fba4253844620c428aaa73a437810b8be944944b9bbf5900c8419c68763d1aa935b405e908e4edcf5ad0759dfdcc2c3d519478daa62373434f816a9fc8158cc258e42afb5f8867a32759e3af7ed87798c08423d86dc0eb52f64a56b1034bac2bb95448d86c54e77c2164adb3d17fb04634e49c8bedbe606f587511f71bea1ba1d4941f3bb7417958c761904f3833d03c19d48c883e3789e8ebda9f65b0c932ae1aa48c1a732f5514ae1be5dabb75d752bde4f93ab7dbfcfcfbe5cf28588bb3a72344bf7b6071f9a8fd134180d39f990150349cdb477535782dc939a8e28b4a09bb24ceba89d2f7c2a16a4092de644decb1b4e978a6e4d3d2172b228eac34681",
                 active: true,
-                effectiveDate: new DateTime(2007, 4, 21),
-                endDate: new DateTime(2007, 9, 18),
-                creditLimit: 1743462039,
+                effectiveDate: new DateTime(2022, 5, 15),
+                endDate: new DateTime(2011, 10, 4),
+                creditLimit: 919200647,
                 isCompany: true,
-                warehouseId: Guid.Parse("c081cb6f-95e4-4e5d-9539-bd00cf188d15"),
-                street: "2c0e7a7849f24cff89d30ee197d3d0a023f03972b34b429796a9d456c94104b5ad8db081aede4cfab4d04835e0d042d91aff442efb6648c6a4d6613be25a36926b91c7f8caa648988b9ffde67bf29b14c3a8000e2bde4cf2a9470709f3a71c03df9b642639614504ab4c9fc7e7858ca4bbc2a9aaf42148ed8ff05adac77a8a3",
-                address: "e5c59ace1e764635b3a5e45354a7378791e6cdec5e104a0a85f33e1aaf01610ab111f1781c3d4624be628fdfec70804f6f126ccf743c42528d5ce7f88f2ad253dd20ad009af340fbb9151146ad7863d95b7a6d8442a74f0393555398b7b1cd272cfa76b3c1bd4cec80455f62f4a36b4d685fffb133b4485596fdc570ce390828ce8a3b05b83e4124a75c3afafd239b480f19487b5776497c99bd1cd67dc9b95152193ac0101341fc9f2754627d6c46b2ec68c5f8305841f2b085c9d6877ec7fa188194fec6784e20a5f0d25668d6623eecf5e6eb1245475f849946e32919cd68eaf3e4c39b1f4a75ad1da7d847cc2064d133a26f75884725b9ae",
-                latitude: "750d874b6015471a8ab17743f106a461907822099c1545baac13236192e0130b8ee96e937361423fa19aaf77b9477bb059705b8cddba463995fa9114be18f4817b989653198844cea56a80b2dcb3a050c75c83eef58849979c29a3c80d5033627eddc44ea14f41d2a8525cbb5b8b259f0cceea3ab0ca4d8081602a238f5443f",
-                longitude: "5853b4b8964a4d6994575692aa8ba17a356e6f510efd4307ab6c8cd25ce777774f99dc1b816448adb501230c4d5946b4c5b38c444eac4dd4b042f22c70cbbfe3a78747c8714c4e23b05a5f06aa9a2d417881b2cb52e048feb4ecca87e5161c89e3ba994f0840488fb4ebac2fc1abd2cb56058c19b2844796b468617c44ae0d9",
-                sfaCustomerCode: "b3e56d170fc64964b837",
-                lastOrderDate: new DateTime(2004, 4, 16),
+                warehouseId: Guid.Parse("aceff041-f1dd-4dd0-8b1a-9c05e2d5255a"),
+                street: "3584e74b0e864d85a7c8aa19d70c6865242305aadbe545849deea673f45853d525dc1ec3271b45c5a221c060414a80579e66d543e71c4d45908c5c6736faaef1dfbd3b66358447c09477217c5de012ac31615242cceb4cc79bc5c8ca7af557ac415ec99e3e794bbda0f1e769650cca0964ccd5ca1590482894332164b4e8350",
+                address: "29de2d21ad3340ed8a802962c81e051dcfa4a3dda3304a0fbe857889671c8e8e8adba1ba78c843a8a56fd3ff467d2414785aef9e178241a9a41572e6d131d00687b94ffc336245879ba2889d845b570f1e538d9de36647288173fcaebe16785bd93adfe5fd7d46f99285d95b465a3b37b77aef51c4e447a5b6fe89608adb4826d0821bc1951d457eaf334c3e1933c18aff239b33a37c447199491a01d9383bea241e24a227474a57a9b22598d48f03a095969062ec7b46989bf165b43b2ce27cb045728e093d49db96a9d7bf856e4f79c119b0bd0eb6477c9e84cbbe2102ab932fb01ff799154cab9344a597861eb8b5588c5d23aa744b829c1b",
+                latitude: "e89afb6958d14ba1a84ec34f24a432d0eb0789644d484f5faf18d28c2c91048729ddf6a8c30f45059288210e549d51472758199a5ed048cd8004ce6981e06b71b9eecebf853c44679382a54411bdc0699eddaa3928b14287bcd07f1628d1b977b3b3f3f8340748b2ae497ee0e68d3795bb604b139b4645648fbf9b4ed641e1a",
+                longitude: "d12a0accbdd4420ea62e89c08140e0f8cbc0f103a0744abba3274c163cd1320e64302fdc0ba44576b24e3f7e2c85390945bff9f4375e4938bcfaeeb7a5b4d57d0bd67ad79f60424abaf0ee9c401573e8496b89384eb041109bcdaaec7c76edcde43090cd85334c85b05e5dec1ebc5170ff2414c4d0534cffa3e3d08b9f1782d",
+                sfaCustomerCode: "875187295c07475fbfd5",
+                lastOrderDate: new DateTime(2012, 6, 12),
                 paymentTermId: null,
                 linkedCompanyId: null,
-                priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
+                priceListId: null,
                 geoMaster0Id: null,
                 geoMaster1Id: null,
                 geoMaster2Id: null,
                 geoMaster3Id: null,
                 geoMaster4Id: null,
-                attribute0Id: null,
-                attribute1Id: null,
-                attribute2Id: null,
-                attribute3Id: null,
-                attribute4Id: null,
-                attribute5Id: null,
-                attribute6Id: null,
-                attribute7Id: null,
-                attribute8Id: null,
-                attribute9Id: null,
-                attribute10Id: null,
-                attribute11Id: null,
-                attribute12Id: null,
-                attribute13Id: null,
-                attribute14Id: null,
-                attribute15Id: null,
-                attribute16Id: null,
-                attribute17Id: null,
-                attribute18Id: null,
-                attribute19Id: null,
+                attr0Id: null,
+                attr1Id: null,
+                attr2Id: null,
+                attr3Id: null,
+                attr4Id: null,
+                attr5Id: null,
+                attr6Id: null,
+                attr7Id: null,
+                attr8Id: null,
+                attr9Id: null,
+                attr10Id: null,
+                attr11Id: null,
+                attr12Id: null,
+                attr13Id: null,
+                attr14Id: null,
+                attr15Id: null,
+                attr16Id: null,
+                attr17Id: null,
+                attr18Id: null,
+                attr19Id: null,
                 paymentId: null
             ));
 
             await _customerRepository.InsertAsync(new Customer
             (
-                id: Guid.Parse("0fe1132a-a470-49af-976c-0132f54e3aa7"),
-                code: "395de3e12c144ec3b331",
-                name: "d147029119774b39b1d2828eb0e2b129c232db29ce834905af1b9602a6862a0737857b2668d0420a99c943ecb7ddbafaabed728dc4de4f4ca7c58e40cadef2844dcc94990cfb43159ef926d159432f333fc4a55497a049fab5579dd63a92ec1a44285bcbc8614aefb92989876405f3eb0bea425e80184f63a2479324cd3eebb",
-                phone1: "2e6ce6a885a348d9b3f17a6be9e19e4d54835f2f9119434f89",
-                phone2: "bd34c8db0bbf459b9bf5b3b10eb87f9c8d9fce61f4384752b5",
-                erpCode: "9a96dfc7097b41c89faa",
-                license: "8e921b98d94b48388dffb0489af3e5bc98b7ba4424554023bd",
-                taxCode: "0619c088b2e841259bb18a64cb88ac4c6daa08e5f9ab40958c",
-                vatName: "4138db9ca7044b73b7c5fc73277077657e910fba68fe494888a3140cb75398c982a3145877b6487195a337512c4b60c0dcc87a16db974aa0a5eefdac999bca65628212b4c2544276a3e6e843ccd250d4a4cdf509265a4c7da1c786d9ad6aa624b3c15c34b6d74034a6133a03b5dc5fd51998519339bc4835b161cf723b40505",
-                vatAddress: "a20e368991c84252b1f52989ea0ce333a421bf3f947c4e2d8383ae70f8e97c6c5d14bfdc455d4f088cd1b56488afc1ff15f9dd913ca04772b1fc90d70a0855c43b796629a5b14357851fd3106c8c194095dd067f95d043d9b6b8b20db98e47752c420ce55e924c6b97b33bd34952d8cf46ed3ef0faa64a49b0328a1e241b5651cbad1b4465fa410ab075d132bbc5cb5ce8d9ce7fc6c847b49fdde10164d20cd343ca1d8478fe409a9037595febdebf83378d8f8455ad492393fea0276a91b9ce2c38d720a73b49fb9c3255a5e3caf23fb2a8c7994dd84d28bb9c4ecf6508076ef3aa4c1ace6c4519877b4a92a6c48b1f18f29b7779e841c9b97f3e01e5a9ad76818d54e160404d7796038b1b690111eb619616e4e9a140f5848486f685ec6f9d0f69ecfbfbba40879208334c6e7a7bddc20e5bd39b7e454f89d5388c20e45624afbb46f4c50d41d8a80bfff22b158b8b0b13ae6b96a24460a19e87687090db08723afe6bc9164d60b57f8e25ad61d5eb6814e69eab9141cdb169bb4e18abc3bb29ac83ba91514706bec47fb8882065e90c37cb082e1e4be0a705e0f417defae9f4453315899442aa9b369c6aec2544fe8565ad95734b414293ccc3ae962770775718bf9404b4470889c762cb7d7a1adfdac292aaff8e40ec91ea7a935a2623423ad336ad7cb9447eb2c5d3ab4ecfd94933e38916",
+                id: Guid.Parse("6a5382e8-87b0-4716-afc6-a8bd737377fc"),
+                code: "8ab05448ebbc4cc9bd2c",
+                name: "7a2577aba23849cf9ef3b8725e7505bc5162493448b34e5885fe80694dc11dbbb7934139c4d64faeb4b51bf9b9c0acb65511bc22cb2a430c88174b39140b51930283cfda894143f4bfce392ef90098b8281c7ab7fbad4f2da24062cbda69c218b0cd9a32a7854ee99b50db744ad9388e74368fcf10db4e4b80515fc436d279f",
+                phone1: "3965fa0ee9ca473e9613d18b8dbe3d56379a08ace97441019d",
+                phone2: "995968b4283c443b9165b5f28311555136cf756df3e34f19a9",
+                erpCode: "ff9ec3bdc7eb4e51a732",
+                license: "8fe20536dca34b628956865ae2bfba2114357cd6e7d041dd93",
+                taxCode: "b041a3bc3951486bb96d52ea5c9c3ff9227d1c90e9534cad91",
+                vatName: "9f323dd156cc4d6cb1ae7d473a9540657e59771ede2849cdbfb71dd012cccdb9c143b492d9f54c4898ce8642ad3014391686de1c51ee4d128e50d0ca1bb877ef0068dd8376a44fe7b2492390bd99f106a1d154fe178c410d9f3a8cc875fc019388bc0b607d964c979b87a434dddbdcf2ee217e89f23f459f9537481cda2bf12",
+                vatAddress: "ade75b006ef94a379cb5fda695382ad4964634e731974e5dbdab3cdd2ba8c924a4f4eedf5f724e588a7fdc5c0a7584dc58e0d68e15694bc39242cfb123914b40b8ccfe879ee342f6bddb182e01c09ea789ff1f15dff143d5a2e3dcfc452e0f4b708a45ba0dd34bc98caba50604c4774d1d61350e4bbb423496e0c1e5c44ba313ca2f396939244cd3818ac87f587457c5f624b6cceb1f4abaa517348ff0c6bbe07c86377f3cad4dbb8eb92703613767775724ee3baba4420dba294548280f677081b5156fe5a445ae82d89571bd06f09b995d66dbd7464935bbbd8caa6f95c1e38065f8bb352a495c92dd8cfefcce2355477a221556a64af78881bebb7ad2f38c77ce14587d37472a94fcf3884766910f81a71faa5be048d78e44b8d4da24e40a55c787601c854a268a900d70b173052b71cd9072733c4f0ea87fdc05c3fe3e178aaa1c293ad44df69b6b0b0042afa985535d67fc44174f5691dca7cbfd52fb7adc3d6fa59318455d8d716e7ce8e2e6e4e4cd479a839741c982ea3feff011ef7b5577d98badfe414e83d6480479502a9dd3799b1c39db4a0d9ca5b95b49cf34aaf5dd2e6ffe3844dcb53074dd0ff8f9fef07f1699250041bda18a4e730169f02f6b679b3393b841699ecdaf299ff05703ff1dac27dbd74e51a408d7a8ffd3a1482ea50c223c074953a03fdd65bc4ad22faec015c7",
                 active: true,
-                effectiveDate: new DateTime(2003, 7, 9),
-                endDate: new DateTime(2003, 4, 12),
-                creditLimit: 590469961,
+                effectiveDate: new DateTime(2019, 8, 12),
+                endDate: new DateTime(2022, 5, 7),
+                creditLimit: 1903392816,
                 isCompany: true,
-                warehouseId: Guid.Parse("6cd39781-a799-47a0-9652-052bb016df88"),
-                street: "51a7f41a2c3a4f78b9d60eb97578ef59220bccc4cf0d4f5485ef634bd81c566854839acdbe06405086b8951c78e6f54e98ad8c7fda3e485bb3522bc3e162982175acbd40686e443bb31f905308cace95e2a44e32b9254f8cb26f487a8c2ba29fc58fda82c72c4388bc8f3731034f192df009f48b5ea8405392548a134b2e080",
-                address: "9bc4cf9a58c84de4a00e42c50b42c6fa549383f559554b5e92f3183743be17bc6de30d8b3f7c4fb3b21165c610c95e22a90436ffe3d64cf5a1fa8887f5746b6d5bed7a7d58c8431c87a858a386490bbf96f359d423c3408b9d5ec523e34a9c72a8f86a28a19b4a2da6fae50becf113fab470677f21d04b7d910a52809e994ead7e7ed13927454553850964c934af37c7ca701404e4fc4e798edb9fee74f542a134e61ca2932a42a0ac9dbad87c865e2cce55e833220c4e1aa2270c42e54beafa76f32a058ded459b8f8a0146687f1fa753caadb359674729adbf8825ea49f61f5550a31a15074060b69d89dca139d41153349d4c8a9943eda0f5",
-                latitude: "42c0eb2eb2c048c494feee7ee2b786612eaf578785bf44a68a51d2096fc541c0bcc60581073a43e09ec2b05d10dcfa2539297c26f34647e582bf1ec0c1a001a0dd407b75b27c4db9a8e5b454fd2994f4aeb2242cc6db474fb0b4f03d184553cc9298e05ab916461da5d852822bb2020966aba3038a964820adf37b0ba41765d",
-                longitude: "cb35f059fd4f4ce9aa76ecaf6e5969ff19a6e96462af429fb22e817538b4078961ebae029070414f9e5dba438739f1b21fc2534b6d284435bb2df2d0264ec49635b1a8f684d24b5489a92439920c34d5d1f54c0dc78540d085accb0692851c5794bdcd035dbe45708d6177316417d1787af1637d6cfe408a911562246bab128",
-                sfaCustomerCode: "9421f3a8474a40c0aa04",
-                lastOrderDate: new DateTime(2009, 11, 19),
+                warehouseId: Guid.Parse("f71e6ce5-98d9-46a7-9b11-94333a888d81"),
+                street: "caa399adfc1a4ff0af1d308f82e7786a65b4dd1620fa4a15841b152c21bc5c8a8fdda16c6db64d2abde3fbe8083f046dc9684c365fa54a6eb98de8ab3d6a1ff7b53d3d614a59497ca1399f468286c9f5350bf186a84c4108a6873aba9b7605a49b54cd58d8b64eb0803bca3223d91beab00fd7e31f1a40868e6b6c0ee5fa04d",
+                address: "3dad404775d64db294208b5727596463addeb4472bb0433889b283cb3d191a82d75acc26cd1041b8ab95f8657ba90a50f49775eae3ed416392586b3e74adf59e10a5adf8a8dc4f16935c0a8b36eab96df931da89bda54ce6b096cc391e1e1ae3c7f0e540e42e4847aa624366c27b6d8be7e59b5dab444ceabcba4501a52dc619aac5167c33e9484b9fda223d02aadf3698f125296e7e4edf86e139c68481d57b7c74cffea9a944488f0db27aadabb012742775a4974e4622af0e54a65b101c00212b1faf07874d6789ee3388f5994cd8cd831fb5419b4b688989bce09ba08dd8a8aae331fd6f4e5982dd2c10e1a9b7df5acfba7a437c4436ba5d",
+                latitude: "dc23f48d7d9c4a80a4197267c2b9ab11fc2ca9cef49c45c0b86cb9b38a79d081db87013fd5a14b3683035400beb17891028ad878aba44a36a2b05fb236b96a08dab28ab8c107466c8fa0befd517887d9e6c20548a3ea4ce29d10561e32d0b3ed598f791731a24eac963138c443e41956ffd4f48a0f8845e7bac92bb639090fa",
+                longitude: "17acf3d9874044f495dc7a73b525ea83dd0404d5b35747a0b1eef6f47378f3fc35f978981b184a8da3952a7278339e7fe8652acc16234e0fabf6d5a7c2cca3727dfb014a789c4bc3827405639411d99a66512df2787848179790ac0a2382e6cd9da925e5664e4808b82caf8a65062617f5235055ce804f6b8ed6fe212a8f4cc",
+                sfaCustomerCode: "bd4175a2f1f145408f01",
+                lastOrderDate: new DateTime(2001, 1, 5),
                 paymentTermId: null,
                 linkedCompanyId: null,
-                priceListId: Guid.Parse("8c8c5f33-b4f5-48e0-895d-60f857e7b1f5"),
+                priceListId: null,
                 geoMaster0Id: null,
                 geoMaster1Id: null,
                 geoMaster2Id: null,
                 geoMaster3Id: null,
                 geoMaster4Id: null,
-                attribute0Id: null,
-                attribute1Id: null,
-                attribute2Id: null,
-                attribute3Id: null,
-                attribute4Id: null,
-                attribute5Id: null,
-                attribute6Id: null,
-                attribute7Id: null,
-                attribute8Id: null,
-                attribute9Id: null,
-                attribute10Id: null,
-                attribute11Id: null,
-                attribute12Id: null,
-                attribute13Id: null,
-                attribute14Id: null,
-                attribute15Id: null,
-                attribute16Id: null,
-                attribute17Id: null,
-                attribute18Id: null,
-                attribute19Id: null,
+                attr0Id: null,
+                attr1Id: null,
+                attr2Id: null,
+                attr3Id: null,
+                attr4Id: null,
+                attr5Id: null,
+                attr6Id: null,
+                attr7Id: null,
+                attr8Id: null,
+                attr9Id: null,
+                attr10Id: null,
+                attr11Id: null,
+                attr12Id: null,
+                attr13Id: null,
+                attr14Id: null,
+                attr15Id: null,
+                attr16Id: null,
+                attr17Id: null,
+                attr18Id: null,
+                attr19Id: null,
                 paymentId: null
             ));
 

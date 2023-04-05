@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,7 +17,7 @@ namespace DMSpro.OMS.MdmService.Customers
         }
 
         public async Task<Customer> CreateAsync(
-        Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
+        Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CustomerConsts.CodeMaxLength, CustomerConsts.CodeMinLength);
@@ -42,7 +39,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
             var customer = new Customer(
              GuidGenerator.Create(),
-             paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attribute0Id, attribute1Id, attribute2Id, attribute3Id, attribute4Id, attribute5Id, attribute6Id, attribute7Id, attribute8Id, attribute9Id, attribute10Id, attribute11Id, attribute12Id, attribute13Id, attribute14Id, attribute15Id, attribute16Id, attribute17Id, attribute18Id, attribute19Id, paymentId, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDate, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDate, endDate, creditLimit
+             paymentTermId, linkedCompanyId, priceListId, geoMaster0Id, geoMaster1Id, geoMaster2Id, geoMaster3Id, geoMaster4Id, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, paymentId, code, name, phone1, phone2, erpCode, license, taxCode, vatName, vatAddress, active, effectiveDate, isCompany, warehouseId, street, address, latitude, longitude, sfaCustomerCode, lastOrderDate, endDate, creditLimit
              );
 
             return await _customerRepository.InsertAsync(customer);
@@ -50,7 +47,7 @@ namespace DMSpro.OMS.MdmService.Customers
 
         public async Task<Customer> UpdateAsync(
             Guid id,
-            Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attribute0Id, Guid? attribute1Id, Guid? attribute2Id, Guid? attribute3Id, Guid? attribute4Id, Guid? attribute5Id, Guid? attribute6Id, Guid? attribute7Id, Guid? attribute8Id, Guid? attribute9Id, Guid? attribute10Id, Guid? attribute11Id, Guid? attribute12Id, Guid? attribute13Id, Guid? attribute14Id, Guid? attribute15Id, Guid? attribute16Id, Guid? attribute17Id, Guid? attribute18Id, Guid? attribute19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, [CanBeNull] string concurrencyStamp = null
+            Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -81,26 +78,26 @@ namespace DMSpro.OMS.MdmService.Customers
             customer.GeoMaster2Id = geoMaster2Id;
             customer.GeoMaster3Id = geoMaster3Id;
             customer.GeoMaster4Id = geoMaster4Id;
-            customer.Attribute0Id = attribute0Id;
-            customer.Attribute1Id = attribute1Id;
-            customer.Attribute2Id = attribute2Id;
-            customer.Attribute3Id = attribute3Id;
-            customer.Attribute4Id = attribute4Id;
-            customer.Attribute5Id = attribute5Id;
-            customer.Attribute6Id = attribute6Id;
-            customer.Attribute7Id = attribute7Id;
-            customer.Attribute8Id = attribute8Id;
-            customer.Attribute9Id = attribute9Id;
-            customer.Attribute10Id = attribute10Id;
-            customer.Attribute11Id = attribute11Id;
-            customer.Attribute12Id = attribute12Id;
-            customer.Attribute13Id = attribute13Id;
-            customer.Attribute14Id = attribute14Id;
-            customer.Attribute15Id = attribute15Id;
-            customer.Attribute16Id = attribute16Id;
-            customer.Attribute17Id = attribute17Id;
-            customer.Attribute18Id = attribute18Id;
-            customer.Attribute19Id = attribute19Id;
+            customer.Attr0Id = attr0Id;
+            customer.Attr1Id = attr1Id;
+            customer.Attr2Id = attr2Id;
+            customer.Attr3Id = attr3Id;
+            customer.Attr4Id = attr4Id;
+            customer.Attr5Id = attr5Id;
+            customer.Attr6Id = attr6Id;
+            customer.Attr7Id = attr7Id;
+            customer.Attr8Id = attr8Id;
+            customer.Attr9Id = attr9Id;
+            customer.Attr10Id = attr10Id;
+            customer.Attr11Id = attr11Id;
+            customer.Attr12Id = attr12Id;
+            customer.Attr13Id = attr13Id;
+            customer.Attr14Id = attr14Id;
+            customer.Attr15Id = attr15Id;
+            customer.Attr16Id = attr16Id;
+            customer.Attr17Id = attr17Id;
+            customer.Attr18Id = attr18Id;
+            customer.Attr19Id = attr19Id;
             customer.PaymentId = paymentId;
             customer.Code = code;
             customer.Name = name;
