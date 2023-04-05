@@ -1,0 +1,28 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using DMSpro.OMS.MdmService.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupAttributes
+@using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+@using System.Globalization
+@inject IHtmlLocalizer<MdmServiceResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/CustomerGroupAttributes/CreateModal" autocomplete="off">
+    <abp-modal id="CustomerGroupAttributeCreateModal">
+        <abp-modal-header title="@L["NewCustomerGroupAttribute"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="CustomerGroupAttribute.Description" />
+
+                                <abp-select asp-for="CustomerGroupAttribute.CustomerGroupId" asp-items="Model.CustomerGroupLookupListRequired" label="@L["CustomerGroup"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr0Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr0"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr1Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr1"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr2Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr2"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr3Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr3"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr4Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr4"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr5Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr5"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr6Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr6"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr7Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr7"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr8Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr8"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr9Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr9"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr10Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr10"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr11Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr11"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr12Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr12"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr13Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr13"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr14Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr14"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr15Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr15"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr16Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr16"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr17Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr17"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr18Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr18"].Value"/>            <abp-select asp-for="CustomerGroupAttribute.Attr19Id" asp-items="Model.CustomerAttributeValueLookupList" label="@L["Attr19"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

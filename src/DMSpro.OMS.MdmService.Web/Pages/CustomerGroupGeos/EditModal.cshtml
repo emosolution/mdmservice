@@ -1,0 +1,32 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using DMSpro.OMS.MdmService.Localization
+@using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupGeos
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using DMSpro.OMS.MdmService.CustomerGroupGeos;
+@using System.Globalization
+@inject IHtmlLocalizer<MdmServiceResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/CustomerGroupGeos/EditModal" autocomplete="off">
+    <abp-modal id="CustomerGroupGeoEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="CustomerGroupGeo.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="CustomerGroupGeo.Description" />
+
+            <abp-input asp-for="CustomerGroupGeo.Active" />
+
+                                <abp-select asp-for="CustomerGroupGeo.CustomerGroupId" asp-items="Model.CustomerGroupLookupListRequired" label="@L["CustomerGroup"].Value"/>            <abp-select asp-for="CustomerGroupGeo.GeoMaster0Id" asp-items="Model.GeoMasterLookupListRequired" label="@L["GeoMaster0"].Value"/>            <abp-select asp-for="CustomerGroupGeo.GeoMaster1Id" asp-items="Model.GeoMasterLookupListRequired" label="@L["GeoMaster1"].Value"/>            <abp-select asp-for="CustomerGroupGeo.GeoMaster2Id" asp-items="Model.GeoMasterLookupListRequired" label="@L["GeoMaster2"].Value"/>            <abp-select asp-for="CustomerGroupGeo.GeoMaster3Id" asp-items="Model.GeoMasterLookupListRequired" label="@L["GeoMaster3"].Value"/>            <abp-select asp-for="CustomerGroupGeo.GeoMaster4Id" asp-items="Model.GeoMasterLookupListRequired" label="@L["GeoMaster4"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

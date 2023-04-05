@@ -27,6 +27,14 @@ public class MdmServiceMenuContributor : IMenuContributor
         AddMenuItemSalesOrganizations(context, moduleMenu);
         AddMenuItemCustomers(context, moduleMenu);
         AddMenuItemRouteAndMCP(context, moduleMenu);
+
+        AddMenuItemCustomerGroupLists(context, moduleMenu);
+
+        AddMenuItemCustomerGroupGeos(context, moduleMenu);
+
+        AddMenuItemCustomerAttributeValues(context, moduleMenu);
+
+        AddMenuItemCustomerGroupAttributes(context, moduleMenu);
     }
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
@@ -700,6 +708,58 @@ public class MdmServiceMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: MdmServicePermissions.RouteAssignments.Default
             ).RequireFeatures(MdmFeatures.RouteAssignments)
+        );
+    }
+
+    private static void AddMenuItemCustomerGroupLists(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    {
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.CustomerGroupLists,
+                context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupLists"],
+                "/CustomerGroupLists",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.CustomerGroupLists.Default
+            )
+        );
+    }
+
+    private static void AddMenuItemCustomerGroupGeos(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    {
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.CustomerGroupGeos,
+                context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupGeos"],
+                "/CustomerGroupGeos",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.CustomerGroupGeos.Default
+            )
+        );
+    }
+
+    private static void AddMenuItemCustomerAttributeValues(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    {
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.CustomerAttributeValues,
+                context.GetLocalizer<MdmServiceResource>()["Menu:CustomerAttributeValues"],
+                "/CustomerAttributeValues",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.CustomerAttributeValues.Default
+            )
+        );
+    }
+
+    private static void AddMenuItemCustomerGroupAttributes(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
+    {
+        parentMenu.AddItem(
+            new ApplicationMenuItem(
+                Menus.MdmServiceMenus.CustomerGroupAttributes,
+                context.GetLocalizer<MdmServiceResource>()["Menu:CustomerGroupAttributes"],
+                "/CustomerGroupAttributes",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: MdmServicePermissions.CustomerGroupAttributes.Default
+            )
         );
     }
 }

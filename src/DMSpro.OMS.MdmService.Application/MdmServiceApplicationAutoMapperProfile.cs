@@ -1,3 +1,7 @@
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
+using DMSpro.OMS.MdmService.CustomerGroupGeos;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.CustomerImages;
 using Volo.Abp.AutoMapper;
@@ -353,5 +357,23 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<NumberingConfigDetail, NumberingConfigDetailDto>().Ignore(x => x.SuggestedCode);
         CreateMap<NumberingConfigDetail, NumberingConfigDetailWithDetailsDto>();
         CreateMap<NumberingConfig, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
+
+        CreateMap<CustomerGroupList, CustomerGroupListDto>();
+        CreateMap<CustomerGroupList, CustomerGroupListExcelDto>();
+        CreateMap<CustomerGroupListWithNavigationProperties, CustomerGroupListWithNavigationPropertiesDto>();
+
+        CreateMap<CustomerGroupGeo, CustomerGroupGeoDto>();
+        CreateMap<CustomerGroupGeo, CustomerGroupGeoExcelDto>();
+        CreateMap<CustomerGroupGeoWithNavigationProperties, CustomerGroupGeoWithNavigationPropertiesDto>();
+
+        CreateMap<CustomerAttributeValue, CustomerAttributeValueDto>();
+        CreateMap<CustomerAttributeValue, CustomerAttributeValueExcelDto>();
+        CreateMap<CustomerAttributeValueWithNavigationProperties, CustomerAttributeValueWithNavigationPropertiesDto>();
+
+        CreateMap<CustomerAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
+
+        CreateMap<CustomerGroupAttribute, CustomerGroupAttributeDto>();
+        CreateMap<CustomerGroupAttribute, CustomerGroupAttributeExcelDto>();
+        CreateMap<CustomerGroupAttributeWithNavigationProperties, CustomerGroupAttributeWithNavigationPropertiesDto>();
     }
 }

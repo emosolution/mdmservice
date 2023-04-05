@@ -1,0 +1,146 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using DMSpro.OMS.MdmService.Permissions
+@using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupAttributes
+@using DMSpro.OMS.MdmService.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using DMSpro.OMS.MdmService.Localization
+@inject IHtmlLocalizer<MdmServiceResource> L
+@inject IAuthorizationService Authorization
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["CustomerGroupAttributes"].Value;
+    PageLayout.Content.MenuItemName = MdmServiceMenus.CustomerGroupAttributes;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/CustomerGroupAttributes/index.js" />
+}
+
+@section content_toolbar {
+    <abp-button id="ExportToExcelButton" text="@L["ExportToExcel"].Value" icon="download" size="Small" button-type="Primary" />
+    @if (await Authorization.IsGrantedAsync(MdmServicePermissions.CustomerGroupAttributes.Create))
+    {
+        <abp-button id="NewCustomerGroupAttributeButton" text="@L["NewCustomerGroupAttribute"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+            <abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>
+        </abp-row>
+
+        <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="DescriptionFilter" label="@L["Description"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="CustomerGroupIdFilter" label="@L["CustomerGroup"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr0IdFilter" label="@L["Attr0"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr1IdFilter" label="@L["Attr1"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr2IdFilter" label="@L["Attr2"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr3IdFilter" label="@L["Attr3"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr4IdFilter" label="@L["Attr4"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr5IdFilter" label="@L["Attr5"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr6IdFilter" label="@L["Attr6"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr7IdFilter" label="@L["Attr7"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr8IdFilter" label="@L["Attr8"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr9IdFilter" label="@L["Attr9"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr10IdFilter" label="@L["Attr10"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr11IdFilter" label="@L["Attr11"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr12IdFilter" label="@L["Attr12"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr13IdFilter" label="@L["Attr13"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr14IdFilter" label="@L["Attr14"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr15IdFilter" label="@L["Attr15"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr16IdFilter" label="@L["Attr16"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr17IdFilter" label="@L["Attr17"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr18IdFilter" label="@L["Attr18"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-select asp-for="Attr19IdFilter" label="@L["Attr19"].Value" />
+            </abp-column>
+        </abp-row>
+
+        <abp-table striped-rows="true" id="CustomerGroupAttributesTable">
+            <thead>
+				<tr>
+					<th>@L["Actions"]</th>
+					<th>@L["Description"]</th>
+					<th>@L["CustomerGroup"]</th>
+					<th>@L["Attr0"]</th>
+					<th>@L["Attr1"]</th>
+					<th>@L["Attr2"]</th>
+					<th>@L["Attr3"]</th>
+					<th>@L["Attr4"]</th>
+					<th>@L["Attr5"]</th>
+					<th>@L["Attr6"]</th>
+					<th>@L["Attr7"]</th>
+					<th>@L["Attr8"]</th>
+					<th>@L["Attr9"]</th>
+					<th>@L["Attr10"]</th>
+					<th>@L["Attr11"]</th>
+					<th>@L["Attr12"]</th>
+					<th>@L["Attr13"]</th>
+					<th>@L["Attr14"]</th>
+					<th>@L["Attr15"]</th>
+					<th>@L["Attr16"]</th>
+					<th>@L["Attr17"]</th>
+					<th>@L["Attr18"]</th>
+					<th>@L["Attr19"]</th>
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

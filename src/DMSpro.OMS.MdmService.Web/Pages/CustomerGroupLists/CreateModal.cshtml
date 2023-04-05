@@ -1,0 +1,30 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using DMSpro.OMS.MdmService.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using DMSpro.OMS.MdmService.Web.Pages.CustomerGroupLists
+@using DMSpro.OMS.MdmService.CustomerGroupLists;
+@using System.Globalization
+@inject IHtmlLocalizer<MdmServiceResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/CustomerGroupLists/CreateModal" autocomplete="off">
+    <abp-modal id="CustomerGroupListCreateModal">
+        <abp-modal-header title="@L["NewCustomerGroupList"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="CustomerGroupList.Description" />
+
+            <abp-input asp-for="CustomerGroupList.Active" />
+
+                                <abp-select asp-for="CustomerGroupList.CustomerId" asp-items="Model.CustomerLookupListRequired" label="@L["Customer"].Value"/>            <abp-select asp-for="CustomerGroupList.CustomerGroupId" asp-items="Model.CustomerGroupLookupListRequired" label="@L["CustomerGroup"].Value"/>
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

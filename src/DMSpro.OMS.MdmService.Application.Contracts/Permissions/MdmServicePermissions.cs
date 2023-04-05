@@ -397,4 +397,36 @@ public class MdmServicePermissions
         public const string Default = GroupName + ".MasterDataManipulators";
         public const string CreateNumberConfigs = Default + ".CreateNumberConfigs";
     }
+
+    public static class CustomerGroupLists
+    {
+        public const string Default = GroupName + ".CustomerGroupLists";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class CustomerGroupGeos
+    {
+        public const string Default = GroupName + ".CustomerGroupGeos";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class CustomerAttributeValues
+    {
+        public const string Default = GroupName + ".CustomerAttributeValues";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class CustomerGroupAttributes
+    {
+        public const string Default = GroupName + ".CustomerGroupAttributes";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

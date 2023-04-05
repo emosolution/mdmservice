@@ -1,3 +1,7 @@
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
+using DMSpro.OMS.MdmService.CustomerGroupGeos;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -861,5 +865,68 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<NumberingConfig>(x => x.NumberingConfig).WithMany().IsRequired().HasForeignKey(x => x.NumberingConfigId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
         });
+        builder.Entity<CustomerGroupList>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupLists", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupList.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupList.Description)).HasMaxLength(CustomerGroupListConsts.DescriptionMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupList.Active));
+        b.HasOne<Customer>().WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CustomerGroupGeo>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupGeos", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupGeo.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupGeo.Description)).HasMaxLength(CustomerGroupGeoConsts.DescriptionMaxLength);
+        b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupGeo.Active));
+        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<GeoMaster>().WithMany().IsRequired().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
+    });
+
+        builder.Entity<CustomerAttributeValue>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributeValues", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttributeValue.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(CustomerAttributeValue.Code)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.CodeMaxLength);
+        b.Property(x => x.AttrValName).HasColumnName(nameof(CustomerAttributeValue.AttrValName)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.AttrValNameMaxLength);
+        b.HasOne<CustomerAttribute>().WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+    });
+        builder.Entity<CustomerGroupAttribute>(b =>
+    {
+        b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupAttributes", MdmServiceDbProperties.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupAttribute.TenantId));
+        b.Property(x => x.Description).HasColumnName(nameof(CustomerGroupAttribute.Description)).HasMaxLength(CustomerGroupAttributeConsts.DescriptionMaxLength);
+        b.HasOne<CustomerGroup>().WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<CustomerAttributeValue>().WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
+    });
     }
 }

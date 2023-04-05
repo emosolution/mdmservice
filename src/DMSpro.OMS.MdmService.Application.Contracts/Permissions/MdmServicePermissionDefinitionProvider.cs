@@ -235,6 +235,26 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
 
         var masterDataManipulatorPermission = myGroup.AddPermission(MdmServicePermissions.MasterDataManipulators.Default, L("Permission:MdmService:MasterDataManipulators"));
         masterDataManipulatorPermission.AddChild(MdmServicePermissions.MasterDataManipulators.CreateNumberConfigs, L("Permission:MdmService:MasterDataManipulators:CreateNumberConfigs"));
+
+        var customerGroupListPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupLists.Default, L("Permission:CustomerGroupLists"));
+        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Create, L("Permission:Create"));
+        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Edit, L("Permission:Edit"));
+        customerGroupListPermission.AddChild(MdmServicePermissions.CustomerGroupLists.Delete, L("Permission:Delete"));
+
+        var customerGroupGeoPermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupGeos.Default, L("Permission:CustomerGroupGeos"));
+        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Create, L("Permission:Create"));
+        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Edit, L("Permission:Edit"));
+        customerGroupGeoPermission.AddChild(MdmServicePermissions.CustomerGroupGeos.Delete, L("Permission:Delete"));
+
+        var customerAttributeValuePermission = myGroup.AddPermission(MdmServicePermissions.CustomerAttributeValues.Default, L("Permission:CustomerAttributeValues"));
+        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Create, L("Permission:Create"));
+        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Edit, L("Permission:Edit"));
+        customerAttributeValuePermission.AddChild(MdmServicePermissions.CustomerAttributeValues.Delete, L("Permission:Delete"));
+
+        var customerGroupAttributePermission = myGroup.AddPermission(MdmServicePermissions.CustomerGroupAttributes.Default, L("Permission:CustomerGroupAttributes"));
+        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Create, L("Permission:Create"));
+        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Edit, L("Permission:Edit"));
+        customerGroupAttributePermission.AddChild(MdmServicePermissions.CustomerGroupAttributes.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

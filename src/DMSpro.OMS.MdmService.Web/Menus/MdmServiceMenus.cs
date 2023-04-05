@@ -81,4 +81,13 @@ public class MdmServiceMenus
     public const string MCPDetails = RouteAndMCP + ".MCPDetail";
     public const string VisitPlans = RouteAndMCP + ".VisitPlans";
     public const string RouteAssignments = RouteAndMCP + ".RouteAssignments";
+
+    public const string CustomerGroupLists = Prefix + ".CustomerGroupLists";
+
+    public const string CustomerGroupGeos = Prefix + ".CustomerGroupGeos";
+
+    public const string CustomerAttributeValues = Prefix + ".CustomerAttributeValues";
+
+    public const string CustomerGroupAttributes = Prefix + ".CustomerGroupAttributes";
+
 }

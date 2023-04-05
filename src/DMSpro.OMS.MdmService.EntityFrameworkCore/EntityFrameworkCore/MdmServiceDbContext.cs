@@ -1,3 +1,7 @@
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
+using DMSpro.OMS.MdmService.CustomerGroupGeos;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.CustomerImages;
@@ -62,6 +66,10 @@ namespace DMSpro.OMS.MdmService.EntityFrameworkCore;
 [ConnectionStringName(MdmServiceDbProperties.ConnectionStringName)]
 public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
 {
+    public DbSet<CustomerGroupAttribute> CustomerGroupAttributes { get; set; }
+    public DbSet<CustomerAttributeValue> CustomerAttributeValues { get; set; }
+    public DbSet<CustomerGroupGeo> CustomerGroupGeos { get; set; }
+    public DbSet<CustomerGroupList> CustomerGroupLists { get; set; }
     public DbSet<NumberingConfigDetail> NumberingConfigDetails { get; set; }
     public DbSet<CustomerImage> CustomerImages { get; set; }
     public DbSet<ItemGroupList> ItemGroupLists { get; set; }

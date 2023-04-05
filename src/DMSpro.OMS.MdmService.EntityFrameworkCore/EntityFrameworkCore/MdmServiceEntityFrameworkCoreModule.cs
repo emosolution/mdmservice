@@ -1,3 +1,7 @@
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
+using DMSpro.OMS.MdmService.CustomerGroupGeos;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.CustomerImages;
 using DMSpro.OMS.MdmService.ItemGroupLists;
@@ -187,6 +191,14 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CustomerImage, CustomerImages.EfCoreCustomerImageRepository>();
 
             options.AddRepository<NumberingConfigDetail, NumberingConfigDetails.EfCoreNumberingConfigDetailRepository>();
+
+            options.AddRepository<CustomerGroupList, CustomerGroupLists.EfCoreCustomerGroupListRepository>();
+
+            options.AddRepository<CustomerGroupGeo, CustomerGroupGeos.EfCoreCustomerGroupGeoRepository>();
+
+            options.AddRepository<CustomerAttributeValue, CustomerAttributeValues.EfCoreCustomerAttributeValueRepository>();
+
+            options.AddRepository<CustomerGroupAttribute, CustomerGroupAttributes.EfCoreCustomerGroupAttributeRepository>();
 
         });
 
