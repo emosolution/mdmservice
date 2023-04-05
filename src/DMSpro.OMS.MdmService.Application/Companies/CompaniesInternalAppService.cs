@@ -1,11 +1,16 @@
 ﻿using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 using DMSpro.OMS.MdmService.Localization;
+using DMSpro.OMS.Shared.Protos.IdentityService.IdentityUsers;
+using DMSpro.OMS.Shared.Protos.Shared.Import;
+using Grpc.Net.Client;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.MultiTenancy;
 
 namespace DMSpro.OMS.MdmService.Companies
 {
@@ -13,13 +18,19 @@ namespace DMSpro.OMS.MdmService.Companies
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
+        private readonly ICurrentTenant _currentTenant;
+        private readonly IConfiguration _settingProvider;
 
         public CompaniesInternalAppService(
             ICompanyRepository companyRepository,
-            ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository)
+            ICompanyIdentityUserAssignmentRepository companyIdentityUserAssignmentRepository,
+            ICurrentTenant currentTenant,
+            IConfiguration settingProvider)
         {
             _companyRepository = companyRepository;
             _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
+            _currentTenant = currentTenant;
+            _settingProvider = settingProvider;
 
             LocalizationResource = typeof(MdmServiceResource);
         }
@@ -76,6 +87,71 @@ namespace DMSpro.OMS.MdmService.Companies
                 }
                 return null;
             }
+        }
+
+        public virtual async Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId)
+        {
+            using (_currentTenant.Change(tenantId))
+            {
+                Guid hoCompanyID = await SeedHOCompany(tenantId);
+                using (GrpcChannel channel =
+                    GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]))
+                {
+                    var client =
+                        new IdentityUsersProtoAppService.IdentityUsersProtoAppServiceClient(channel);
+                    ListCodeAndIdRequest request = new()
+                    {
+                        TenantId = _currentTenant.Id.ToString(),
+                    };
+                    request.Codes.Add("admin");
+                    var response = await client.GetCodeAndIdWithCodeAsync(request);
+                    if (response.CodeAndIds == null || response.CodeAndIds.Count != 1)
+                    {
+                        throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
+                    }
+                    CodeAndId codeAndId = response.CodeAndIds[0];
+                    Guid adminId = Guid.Parse(codeAndId.Id);
+                    CompanyIdentityUserAssignment assignment = new(
+                        GuidGenerator.Create(), hoCompanyID, adminId);
+                    await _companyIdentityUserAssignmentRepository.InsertAsync(assignment);
+                    return ObjectMapper.Map<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto>(assignment);
+                }
+            }
+        }
+
+        private async Task<Guid> SeedHOCompany(Guid tenantId)
+        {
+            Company hoCompany = new(
+            #region INPUT PARAMS
+                id: GuidGenerator.Create(),
+                parentId: null,
+                geoLevel0Id: null,
+                geoLevel1Id: null,
+                geoLevel2Id: null,
+                geoLevel3Id: null,
+                geoLevel4Id: null,
+                code: "HOCompany",
+                name: "HO Company",
+                street: null,
+                address: null,
+                phone: null,
+                license: null,
+                taxCode: null,
+                vatName: null,
+                vatAddress: null,
+                erpCode: null,
+                active: true,
+                effectiveDate: DateTime.Now,
+                isHO: true,
+                latitude: null,
+                longitude: null,
+                contactName: null,
+                contactPhone: null,
+                endDate: null
+            #endregion
+            );
+            await _companyRepository.InsertAsync(hoCompany);
+            return hoCompany.Id;
         }
     }
 }

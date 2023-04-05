@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
@@ -11,5 +12,7 @@ namespace DMSpro.OMS.MdmService.Companies
         Task<CompanyWithTenantDto> CheckCompanyBelongToIdentityUserAsync(Guid companyId, Guid identityUserId, Guid? tenantId);
 
         Task<CompanyDto> CheckActiveAsync(Guid id, DateTime? checkingDate, bool throwErrorOnInactive = false);
+
+        Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId);
     }
 }
