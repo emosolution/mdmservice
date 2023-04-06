@@ -24,6 +24,21 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid WarehouseId { get; set; }
         public string Street { get; set; }
         public string Address { get; set; }
+        public string FullAddress
+        {
+            get
+            {
+                return string.Format("{0} {1}{2}{3}{4}{5}{6}", 
+                    Address,
+                    Street,
+                    GeoMaster4 == null ? "" : $", {GeoMaster4?.Name}",
+                    GeoMaster3 == null ? "" : $", {GeoMaster3?.Name}",
+                    GeoMaster2 == null ? "" : $", {GeoMaster2?.Name}",
+                    GeoMaster1 == null ? "" : $", {GeoMaster1?.Name}",
+                    GeoMaster0 == null ? "" : $", {GeoMaster0?.Name}"
+                );
+            }
+        }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string SFACustomerCode { get; set; }
