@@ -6,6 +6,11 @@ using Volo.Abp.Data;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using System.Linq;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
@@ -150,6 +155,32 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
                itemAttributeId, parentId, attrValName, code);
             await _itemAttributeValueRepository.InsertAsync(itemAttributeValue);
             return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
+        }
+
+        [Authorize(MdmServicePermissions.ItemAttributes.Default)]
+        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var items = await _repository.WithDetailsAsync();
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            if (inputDev.Group == null)
+            {
+                results.data =
+                    ObjectMapper.Map<IEnumerable<ItemAttributeValue>,
+                        IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
+            }
+            List<Guid> itemAttributeValueIds = new();
+            foreach (var item in results.data)
+            {
+                var dto = (ItemAttributeValueDto)item;
+                itemAttributeValueIds.Add(dto.Id);
+            }
+            var children = await _repository.GetListAsync(x => x.ParentId != null && 
+                itemAttributeValueIds.Contains((Guid)x.ParentId));
+            var itemAttributeValueWithChild = children.Select(x => x.ParentId.ToString()).Distinct().ToArray();
+            results.summary = new object[] { itemAttributeValueWithChild };
+            return results;
         }
     }
 }
