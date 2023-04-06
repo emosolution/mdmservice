@@ -1082,7 +1082,7 @@
     "Error:ItemAttributesAppService:554": "Item attribute name already exists",
     "Error:ItemAttributeValuesAppService:550": "This value already used by at least one item and cannot be deleted",
     "Error:ItemAttributeValuesAppService:551": "This value already used by at least one item group and cannot be deleted",
-    "Error:ItemAttributeValuesAppService:552": "This value is neither a flat attribute nor at last hierarchical level",
+    "Error:ItemAttributeValuesAppService:552": "Cannot delete value that already has at least one child",
     "Error:ItemAttributeValuesAppService:553": "This value name already exists",
     "Error:ItemAttributeValuesAppService:554": "This value code already exists",
     "Error:ItemAttributeValuesAppService:555": "Cannot find root attribute",
