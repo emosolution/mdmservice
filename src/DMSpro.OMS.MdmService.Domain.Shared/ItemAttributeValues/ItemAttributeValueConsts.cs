@@ -10,7 +10,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         }
 
         public const int CodeMinLength = 1;
-        public const int CodeMaxLength = 1;
+        public const int CodeMaxLength = 20;
         public const int AttrValNameMinLength = 1;
         public const int AttrValNameMaxLength = 255;
     }
