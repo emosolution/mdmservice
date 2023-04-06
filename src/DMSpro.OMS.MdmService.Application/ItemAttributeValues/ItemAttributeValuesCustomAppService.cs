@@ -6,6 +6,11 @@ using Volo.Abp.Data;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using System.Linq;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemAttributeValues
 {
@@ -22,14 +27,9 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             await CheckAttributeValueUsedByItem(id);
             await CheckAttributeValueUsedByItemGroup(id);
             var itemAttributeValue = await _itemAttributeValueRepository.GetAsync(id);
-            var itemAttribute = await _itemAttributeRepository.GetAsync(itemAttributeValue.ItemAttributeId);
-            if (itemAttribute.HierarchyLevel != null)
+            if (await _itemAttributeValueRepository.AnyAsync(x => x.ParentId == itemAttributeValue.Id))
             {
-                var lastHierarchicalLevel = await _itemAttributeRepository.GetLastHierarchyLevel();
-                if (itemAttribute.HierarchyLevel != lastHierarchicalLevel)
-                {
-                    throw new UserFriendlyException(message: L["Error:ItemAttributeValuesAppService:552"], code: "1");
-                }
+                throw new UserFriendlyException(message: L["Error:ItemAttributeValuesAppService:552"], code: "1");
             }
             await _itemAttributeValueRepository.DeleteAsync(id);
         }
@@ -74,7 +74,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         [Authorize(MdmServicePermissions.ItemAttributes.Edit)]
         public virtual async Task<ItemAttributeValueDto> UpdateAsync(Guid id, ItemAttributeValueUpdateDto input)
         {
-            await CheckName(input.AttrValName);
+            await CheckName(input.AttrValName, id);
 
             var itemAttributeValue = await _itemAttributeValueRepository.GetAsync(id);
             itemAttributeValue.AttrValName = input.AttrValName;
@@ -125,12 +125,13 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             await CheckName(attrName);
         }
 
-        private async Task CheckName(string attrName)
+        private async Task CheckName(string attrName, Guid? id = null)
         {
             Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName),
                 ItemAttributeValueConsts.AttrValNameMaxLength, ItemAttributeValueConsts.AttrValNameMinLength);
-            if (await _itemAttributeValueRepository.AnyAsync(x => x.AttrValName == attrName))
+            var record = await _itemAttributeValueRepository.FirstOrDefaultAsync(x => x.AttrValName == attrName);
+            if (record != null && record.Id != id)
             {
                 throw new UserFriendlyException(message: L["Error:ItemAttributeValuesAppService:553"], code: "0");
             }
@@ -154,6 +155,32 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
                itemAttributeId, parentId, attrValName, code);
             await _itemAttributeValueRepository.InsertAsync(itemAttributeValue);
             return ObjectMapper.Map<ItemAttributeValue, ItemAttributeValueDto>(itemAttributeValue);
+        }
+
+        [Authorize(MdmServicePermissions.ItemAttributes.Default)]
+        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            var items = await _repository.WithDetailsAsync();
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            if (inputDev.Group == null)
+            {
+                results.data =
+                    ObjectMapper.Map<IEnumerable<ItemAttributeValue>,
+                        IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
+            }
+            List<Guid> itemAttributeValueIds = new();
+            foreach (var item in results.data)
+            {
+                var dto = (ItemAttributeValueDto)item;
+                itemAttributeValueIds.Add(dto.Id);
+            }
+            var children = await _repository.GetListAsync(x => x.ParentId != null && 
+                itemAttributeValueIds.Contains((Guid)x.ParentId));
+            var itemAttributeValueWithChild = children.Select(x => x.ParentId.ToString()).Distinct().ToArray();
+            results.summary = new object[] { itemAttributeValueWithChild };
+            return results;
         }
     }
 }
