@@ -26,6 +26,7 @@ copy %microServicePath%HttpApi.Client\bin\Debug\netstandard2.0\*.HttpApi.Client.
 
 copy %microServicePath%Web\bin\Debug\net7.0\*.Web.dll %commondllPath%
 
-dotnet publish -o %fullDeployPath%
-
 cd %microServicePath%HttpApi.Host
+
+dotnet publish -c Release -o %fullDeployPath%
+
