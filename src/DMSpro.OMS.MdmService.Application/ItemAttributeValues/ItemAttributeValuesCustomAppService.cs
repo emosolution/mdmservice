@@ -51,11 +51,16 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
         public virtual async Task<ItemAttributeValueDto> CreateHierarchyAsync(ItemAttributeValueCreateHierarchyDto input)
         {
             await CheckCodeAndName(input.Code, input.AttrValName);
-            var itemAttribute = await _itemAttributeRepository.GetAsync(x => x.Id == input.ParentId);
-            if (itemAttribute.HierarchyLevel == null)
+            var parentItemAttributeValue =
+                await _itemAttributeValueRepository.GetAsync(x => x.Id == input.ParentId);
+            var parentItemAttribtute =
+                await _itemAttributeRepository.GetAsync(x => x.Id == parentItemAttributeValue.ItemAttributeId);
+            if (parentItemAttribtute.HierarchyLevel == null)
             {
                 throw new UserFriendlyException(message: L["Error:ItemAttributeValuesAppService:556"], code: "1");
             }
+            var itemAttribute = 
+                await _itemAttributeRepository.GetAsync(x => x.HierarchyLevel == parentItemAttribtute.HierarchyLevel + 1);
             return await InsertAsync(itemAttribute.Id, input.ParentId, input.AttrValName, input.Code);
         }
 
@@ -176,7 +181,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
                 var dto = (ItemAttributeValueDto)item;
                 itemAttributeValueIds.Add(dto.Id);
             }
-            var children = await _repository.GetListAsync(x => x.ParentId != null && 
+            var children = await _repository.GetListAsync(x => x.ParentId != null &&
                 itemAttributeValueIds.Contains((Guid)x.ParentId));
             var itemAttributeValueWithChild = children.Select(x => x.ParentId.ToString()).Distinct().ToArray();
             results.summary = new object[] { itemAttributeValueWithChild };
