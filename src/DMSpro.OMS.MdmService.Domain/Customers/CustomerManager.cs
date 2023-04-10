@@ -47,11 +47,19 @@ namespace DMSpro.OMS.MdmService.Customers
 
         public async Task<Customer> UpdateAsync(
             Guid id,
-            Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? paymentId, string code, string name, string phone1, string phone2, string erpCode, string license, string taxCode, string vatName, string vatAddress, bool active, DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, string address, string latitude, string longitude, string sfaCustomerCode, DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, [CanBeNull] string concurrencyStamp = null
-        )
+            Guid? paymentTermId, Guid? linkedCompanyId, Guid? priceListId, 
+            Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, 
+            Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, 
+            Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, 
+            Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, 
+            Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, 
+            Guid? paymentId, string name, string phone1, string phone2, string erpCode, 
+            string license, string taxCode, string vatName, string vatAddress, bool active, 
+            DateTime effectiveDate, bool isCompany, Guid warehouseId, string street, 
+            string address, string latitude, string longitude, string sfaCustomerCode, 
+            DateTime lastOrderDate, DateTime? endDate = null, int? creditLimit = null, 
+            [CanBeNull] string concurrencyStamp = null)
         {
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), CustomerConsts.CodeMaxLength, CustomerConsts.CodeMinLength);
             Check.Length(name, nameof(name), CustomerConsts.NameMaxLength);
             Check.Length(phone1, nameof(phone1), CustomerConsts.Phone1MaxLength);
             Check.Length(phone2, nameof(phone2), CustomerConsts.Phone2MaxLength);
@@ -99,7 +107,6 @@ namespace DMSpro.OMS.MdmService.Customers
             customer.Attr18Id = attr18Id;
             customer.Attr19Id = attr19Id;
             customer.PaymentId = paymentId;
-            customer.Code = code;
             customer.Name = name;
             customer.Phone1 = phone1;
             customer.Phone2 = phone2;

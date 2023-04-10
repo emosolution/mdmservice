@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
@@ -60,7 +61,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             (Code: "SY01", ValueCode: "P3", ValueName: "A/P Invoices"),
             (Code: "SY01", ValueCode: "P4", ValueName: "A/P Credit Memos"),
             // General Objects
-            (Code: "SY01", ValueCode: "M1", ValueName: "Customers"),
+            (Code: "SY01", ValueCode: "M1", ValueName: CustomerConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M2", ValueName: EmployeeProfileConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M3", ValueName: "Routes"),
             (Code: "SY01", ValueCode: "M4", ValueName: ItemConsts.NumberingConfigObjectType),

@@ -6,9 +6,6 @@ namespace DMSpro.OMS.MdmService.Customers
 {
     public class CustomerCreateDto
     {
-        [Required]
-        [StringLength(CustomerConsts.CodeMaxLength, MinimumLength = CustomerConsts.CodeMinLength)]
-        public string Code { get; set; }
         [StringLength(CustomerConsts.NameMaxLength)]
         public string Name { get; set; }
         [StringLength(CustomerConsts.Phone1MaxLength)]

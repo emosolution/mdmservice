@@ -35,8 +35,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
                 input.Email, input.Phone, input.Address, 
                 input.Active, input.EffectiveDate, input.DateOfBirth, input.EndDate, 
                 input.IdentityUserId, input.EmployeeType);
-            await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(EmployeeProfileConsts.NumberingConfigObjectType,
-                companyId, dto.CurrentNumber);
+            await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(
+                EmployeeProfileConsts.NumberingConfigObjectType, companyId, dto.CurrentNumber);
             return ObjectMapper.Map<EmployeeProfile, EmployeeProfileDto>(employeeProfile);
         }
 

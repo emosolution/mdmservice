@@ -1,6 +1,6 @@
 namespace DMSpro.OMS.MdmService.Customers
 {
-    public static class CustomerConsts
+    public static partial class CustomerConsts
     {
         private const string DefaultSorting = "{0}Code asc";
 

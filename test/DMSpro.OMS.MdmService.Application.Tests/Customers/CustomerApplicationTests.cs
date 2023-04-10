@@ -35,7 +35,6 @@ namespace DMSpro.OMS.MdmService.Customers
             // Arrange
             var input = new CustomerCreateDto
             {
-                Code = "5c56291714bf407386e1",
                 Name = "529472750fcf4a5c8a29247dbba4c0633430cef51bdd40cdb1316490efdc5d05f9765564c6414f068e1f6f6deec06c55e01538e2ab114a459a6176e68dd2febc85c308314d37423b9fd19aa68578c4a9ed18f748d6f8419187f2f5802788dd6a017fe80c9f294d33affda9b6e55c536dafad3131910248cbb97cc3d99aee3ba",
                 Phone1 = "9f73d3345bd141d0bcaba65368e5d2494c0681804f174c158f",
                 Phone2 = "99105fa6243544658583fa05eca328e3271b84f9240c48ca8a",
@@ -65,7 +64,6 @@ namespace DMSpro.OMS.MdmService.Customers
             var result = await _customerRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("5c56291714bf407386e1");
             result.Name.ShouldBe("529472750fcf4a5c8a29247dbba4c0633430cef51bdd40cdb1316490efdc5d05f9765564c6414f068e1f6f6deec06c55e01538e2ab114a459a6176e68dd2febc85c308314d37423b9fd19aa68578c4a9ed18f748d6f8419187f2f5802788dd6a017fe80c9f294d33affda9b6e55c536dafad3131910248cbb97cc3d99aee3ba");
             result.Phone1.ShouldBe("9f73d3345bd141d0bcaba65368e5d2494c0681804f174c158f");
             result.Phone2.ShouldBe("99105fa6243544658583fa05eca328e3271b84f9240c48ca8a");
@@ -94,7 +92,6 @@ namespace DMSpro.OMS.MdmService.Customers
             // Arrange
             var input = new CustomerUpdateDto()
             {
-                Code = "8c840d4e4d6e4a31a26a",
                 Name = "f0707a3bd90f4d4cb1de1e24cef2406849deedc3eb0b4d6b8fe2ba8a5cd94e7c7b577b981d324c79b4f212549be3269691383810d993449d8105e169c64a4d022cd7e837511b4016a9b18d17de1cd87934a443602f754baebff028ef2d88bcc3e810e59143544c77a320131ba3eb05dd3fb06fba06e749748f572e3a5dd6515",
                 Phone1 = "e3610edfbe0646289adcd51c7252c4080564f9ca9a3d495094",
                 Phone2 = "2d2e6ac2de064c0cbeff9c7bc12d0afa5b2786a5cb2b4973a1",
@@ -124,7 +121,6 @@ namespace DMSpro.OMS.MdmService.Customers
             var result = await _customerRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("8c840d4e4d6e4a31a26a");
             result.Name.ShouldBe("f0707a3bd90f4d4cb1de1e24cef2406849deedc3eb0b4d6b8fe2ba8a5cd94e7c7b577b981d324c79b4f212549be3269691383810d993449d8105e169c64a4d022cd7e837511b4016a9b18d17de1cd87934a443602f754baebff028ef2d88bcc3e810e59143544c77a320131ba3eb05dd3fb06fba06e749748f572e3a5dd6515");
             result.Phone1.ShouldBe("e3610edfbe0646289adcd51c7252c4080564f9ca9a3d495094");
             result.Phone2.ShouldBe("2d2e6ac2de064c0cbeff9c7bc12d0afa5b2786a5cb2b4973a1");
