@@ -92,8 +92,10 @@ namespace DMSpro.OMS.MdmService.Companies
         public virtual async Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId)
         {
             using (_currentTenant.Change(tenantId))
-            {
+            {   
+                Console.WriteLine("Start Seed");
                 Guid hoCompanyID = await SeedHOCompany(tenantId);
+                Console.WriteLine(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]);
                 using (GrpcChannel channel =
                     GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:IdentiyServiceUrl"]))
                 {
@@ -104,11 +106,13 @@ namespace DMSpro.OMS.MdmService.Companies
                         TenantId = _currentTenant.Id.ToString(),
                     };
                     request.Codes.Add("admin");
+                    Console.WriteLine("AdMIN");
                     var response = await client.GetCodeAndIdWithCodeAsync(request);
                     if (response.CodeAndIds == null || response.CodeAndIds.Count != 1)
                     {
                         throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
                     }
+                    Console.WriteLine("AdMIN2");
                     CodeAndId codeAndId = response.CodeAndIds[0];
                     Guid adminId = Guid.Parse(codeAndId.Id);
                     CompanyIdentityUserAssignment assignment = new(

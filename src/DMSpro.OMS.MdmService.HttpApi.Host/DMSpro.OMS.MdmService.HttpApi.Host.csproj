@@ -107,8 +107,7 @@
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.0" />
-		<Protobuf Include="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\MdmService\*.proto" 
-			AdditionalImportDirs="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\google\" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\MdmService\*.proto" AdditionalImportDirs="..\..\..\sharerepos\DMSPro.OMS.Shared.Protos\google\" GrpcServices="Server" />
 	</ItemGroup>
 
 	<ItemGroup>

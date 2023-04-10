@@ -61,14 +61,15 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
             using var uow = _unitOfWorkManager.Begin(abpUnitOfWorkOptions, true);
             using (_currentTenant.Change(eventData.Id))
             {
+                Console.WriteLine("SEED");
                 await SeedItemAttributes();
-
+                Console.WriteLine("F ITemS");
                 await SeedCustomerAttribute();
-
+                Console.WriteLine("F Cust");
                 await _systemDatasInternalAppService.CreateAllForTenantAsync(new List<Guid>() { eventData.Id });
-
+                Console.WriteLine("F Sysdata");
                 await _companiesInternalAppService.SeedHOCompanyAndAssignAdminToHO(eventData.Id);
-
+                Console.WriteLine("HO");
                 await uow.CompleteAsync();
                 
                 // Must be after UOW completed or there would be no seeded system data 
