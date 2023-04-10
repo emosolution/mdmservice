@@ -1,13 +1,11 @@
-using DMSpro.OMS.MdmService.Shared;
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Content;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
 
-namespace DMSpro.OMS.MdmService.CustomerGroupLists
+namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupLists
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]

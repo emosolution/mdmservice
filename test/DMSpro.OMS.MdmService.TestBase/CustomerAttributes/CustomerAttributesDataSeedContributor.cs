@@ -29,19 +29,17 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
 
             await _customerAttributeRepository.InsertAsync(new CustomerAttribute
             (
-                id: Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"),
-                attrNo: 8,
-                attrName: "d75a8396156444f7a4f8fef68925c67a9bc1cafd5a644b549e088f6b2f9064f921eba12b503149358e7fbcd9ded79c61c291",
-                hierarchyLevel: 17,
+                id: Guid.Parse("fe36733c-32c1-4fb0-a391-3764f01cde30"),
+                attrNo: 0,
+                attrName: "0fa86c88b9f34f8babb0c81937b6509b52bf0d66a089462db98e8f3557ae7b2ab3554ec628754fc0894c2fa0f7cdd1cb80f4",
                 active: true
             ));
 
             await _customerAttributeRepository.InsertAsync(new CustomerAttribute
             (
-                id: Guid.Parse("d7a80fca-0873-49ee-860d-38bbc820d59e"),
-                attrNo: 11,
-                attrName: "2f7842cae56248f798b63e33dfb6986c2a1d649fb83d4b32b2d97ee7fd7a27a4b38e51023db14a4591d02e49fd832e770675",
-                hierarchyLevel: 17,
+                id: Guid.Parse("435fc449-90cb-4685-802b-c139695f2402"),
+                attrNo: 17,
+                attrName: "ac6d926cd9bd481da3132db2a6f313ec94d7ffd1e67a4a9bb29f5d711dac70021952e25de5fd41ed8fd08da23f6a88edc8b6",
                 active: true
             ));
 

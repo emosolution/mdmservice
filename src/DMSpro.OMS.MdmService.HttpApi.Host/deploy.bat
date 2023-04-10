@@ -1,17 +1,17 @@
 
 
-set projectRoot=c:\code\redant\
+set projectRoot=\Users\lecaothuy\Projects\redantsolution\
 set microServiceFullName=MdmService
 set commondllName=mdm
 set microServicePath=src\DMSpro.OMS.%microServiceFullName%.
 set microServiceFullPath=%projectRoot%%microServiceFullName%\%microServicePath%
 set commondllPath=..\commondll\Development\Services\%commondllName%\
-set deployedPath=C:\Code\redant\deploydmspro\
+set deployedPath=\Users\lecaothuy\Projects\redantsolution\deploydmspro\
 set deployFolder=MDMService
 set microServiceDeployFolder=services\%deployFolder%\
 set fullDeployPath=%deployedPath%%microServiceDeployFolder%
-set commiter=hovanbuu@gmail.com
-set gitCommitMessage="Update and deploy %microServiceFullName% by %commiter%"
+set commiter=kalickvn@gmail.com
+set gitCommitMessage="MDM Deploy %microServiceFullName% by %commiter%"
 
 dotnet clean
 

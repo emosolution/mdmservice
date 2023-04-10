@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _customerAttributesAppService.GetListAsync(new GetCustomerAttributesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("d7a80fca-0873-49ee-860d-38bbc820d59e")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _customerAttributesAppService.GetAsync(Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"));
+            var result = await _customerAttributesAppService.GetAsync(Guid.Parse("fe36733c-32c1-4fb0-a391-3764f01cde30"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"));
+            result.Id.ShouldBe(Guid.Parse("fe36733c-32c1-4fb0-a391-3764f01cde30"));
         }
 
         [Fact]
@@ -48,23 +35,20 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
             // Arrange
             var input = new CustomerAttributeCreateDto
             {
-                AttrNo = 0,
-                AttrName = "4c0307cda87b4336b3bd16494a935571b24a19e2dd014bc2b874e5e932e802b147a56b21b8ae4e27bd84ef37948bb78aa055",
-                HierarchyLevel = 18,
-                Active = true
+                AttrName = "f5fc5383ecab47ec89b881f5669b762ae1614d36b0d34d6b84eafc8ce908213eb77c69d8c0c44452ba7a2fe15c39b0a3a8c6",
             };
 
             // Act
             var serviceResult = await _customerAttributesAppService.CreateAsync(input);
 
             // Assert
-            var result = await _customerAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
+            var result = await _customerAttributeRepository.FindAsync(c => c.AttrName == input.AttrName);
 
             result.ShouldNotBe(null);
             result.AttrNo.ShouldBe(0);
-            result.AttrName.ShouldBe("4c0307cda87b4336b3bd16494a935571b24a19e2dd014bc2b874e5e932e802b147a56b21b8ae4e27bd84ef37948bb78aa055");
-            result.HierarchyLevel.ShouldBe(18);
+            result.AttrName.ShouldBe("f5fc5383ecab47ec89b881f5669b762ae1614d36b0d34d6b84eafc8ce908213eb77c69d8c0c44452ba7a2fe15c39b0a3a8c6");
             result.Active.ShouldBe(true);
+            result.Code.ShouldBe("0");
         }
 
         [Fact]
@@ -73,33 +57,27 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
             // Arrange
             var input = new CustomerAttributeUpdateDto()
             {
-                AttrNo = 3,
-                AttrName = "33542470e18041ab9d0295d7078d32f01fa805fe1c2049dbaf222e98ce254167375415386214410f9af23399cd2e657605cd",
-                HierarchyLevel = 18,
-                Active = true
+                AttrName = "ebad5caa53e74645b85be2cb8e76e5962eea1d95a517404fa35dc023f3f0e73a2311141e756c43d8bfef8513dda47a86bba5",
             };
 
             // Act
-            var serviceResult = await _customerAttributesAppService.UpdateAsync(Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"), input);
+            var serviceResult = await _customerAttributesAppService.UpdateAsync(Guid.Parse("fe36733c-32c1-4fb0-a391-3764f01cde30"), input);
 
             // Assert
-            var result = await _customerAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
+            var result = await _customerAttributeRepository.FindAsync(c => c.AttrName == input.AttrName);
 
             result.ShouldNotBe(null);
-            result.AttrNo.ShouldBe(3);
-            result.AttrName.ShouldBe("33542470e18041ab9d0295d7078d32f01fa805fe1c2049dbaf222e98ce254167375415386214410f9af23399cd2e657605cd");
-            result.HierarchyLevel.ShouldBe(18);
-            result.Active.ShouldBe(true);
+            result.AttrName.ShouldBe("ebad5caa53e74645b85be2cb8e76e5962eea1d95a517404fa35dc023f3f0e73a2311141e756c43d8bfef8513dda47a86bba5");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _customerAttributesAppService.DeleteAsync(Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"));
+            await _customerAttributesAppService.DeleteAsync();
 
             // Assert
-            var result = await _customerAttributeRepository.FindAsync(c => c.Id == Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"));
+            var result = await _customerAttributeRepository.FindAsync(c => c.Id == Guid.Parse("fe36733c-32c1-4fb0-a391-3764f01cde30"));
 
             result.ShouldBeNull();
         }

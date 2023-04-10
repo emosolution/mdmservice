@@ -6,7 +6,7 @@ using Volo.Abp.Content;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DMSpro.OMS.Shared.Domain.Devextreme;
 
-namespace DMSpro.OMS.MdmService.CustomerGroupLists
+namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupLists
 {
     public partial class CustomerGroupListController
     {

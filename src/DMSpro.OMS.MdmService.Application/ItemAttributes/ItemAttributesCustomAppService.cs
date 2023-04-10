@@ -16,6 +16,8 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
     [Authorize(MdmServicePermissions.ItemAttributes.Default)]
     public partial class ItemAttributesAppService
     {
+        private readonly List<string> _reservedNames = ItemAttributeConsts.GenerateReservedNames();
+
         public virtual async Task<ItemAttributeDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<ItemAttribute, ItemAttributeDto>(await _itemAttributeRepository.GetAsync(id));
@@ -172,15 +174,18 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         // check name is not empty and not duplicated when update
         private async Task CheckNameUniqueness(string attrName, Guid? id = null)
         {
+            if (_reservedNames.Contains(attrName))
+            {
+                throw new UserFriendlyException(message: L["Error:ItemAttributesAppService:555"], code: "0");
+            }
             Check.NotNullOrWhiteSpace(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName),
                 ItemAttributeConsts.AttrNameMaxLength, ItemAttributeConsts.AttrNameMinLength);
-
             var existingAttribute = 
                 await _itemAttributeRepository.FirstOrDefaultAsync(x => x.AttrName == attrName);
             if (existingAttribute != null && existingAttribute.Id != id)
             {
-                throw new UserFriendlyException(message: L["Error:ItemAttributesAppService:554"], code: "0");
+                throw new UserFriendlyException(message: L["Error:ItemAttributesAppService:554"], code: "0"); 
             }
         }
     }

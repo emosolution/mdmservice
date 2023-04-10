@@ -10,15 +10,11 @@ using Volo.Abp.Uow;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributes;
 using DMSpro.OMS.MdmService.NumberingConfigs;
-using System.Runtime.CompilerServices;
 using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService;
 public class MdmServiceDistributedEventHandler : IDistributedEventHandler<TenantCreatedEto>, ITransientDependency
 {
-    private static readonly int ITEM_ATTRIBUTE_ROWS = 20;
-    private static readonly int CUSTOMER_ATTRIBUTE_ROWS = 20;
-
     private readonly ICurrentTenant _currentTenant;
 
     private readonly IItemAttributeRepository _itemAttributeRepository;
@@ -90,7 +86,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
     private async Task SeedItemAttributes()
     {
         List<ItemAttribute> seedProductAttributes = new();
-        for (int i = 0; i < ITEM_ATTRIBUTE_ROWS; i++)
+        for (int i = 0; i < ItemAttributeConsts.NumberOfAttribute; i++)
         {
             short AttrNo = (short)i;
             string AttrName = $"{ItemAttributeConsts.DefaultAttributeNamePrefix}{i}";
@@ -104,12 +100,12 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
     private async Task SeedCustomerAttribute()
     {
         List<CustomerAttribute> seedCustomerAttributes = new();
-        for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)
+        for (int i = 0; i < CustomerAttributeConsts.NumberOfAttribute; i++)
         {
             short AttrNo = (short)i;
-            string AttrName = "Attribute " + i;
+            string AttrName = $"{CustomerAttributeConsts.DefaultAttributeNamePrefix}{i}";
             Guid id = _guidGenerator.Create();
-            CustomerAttribute data = new(id, AttrNo, AttrName, false, null);
+            CustomerAttribute data = new(id, AttrNo, AttrName, false);
             seedCustomerAttributes.Add(data);
         }
         await _customerAttributeRepository.InsertManyAsync(seedCustomerAttributes);
