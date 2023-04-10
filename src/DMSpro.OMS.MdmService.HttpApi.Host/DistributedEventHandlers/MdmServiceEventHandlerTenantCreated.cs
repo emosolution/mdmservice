@@ -107,9 +107,9 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
         for (int i = 0; i < CUSTOMER_ATTRIBUTE_ROWS; i++)
         {
             short AttrNo = (short)i;
-            string AttrName = "Attribute " + i;
+            string AttrName = $"{CustomerAttributeConsts.DefaultAttributeNamePrefix}{i}";
             Guid id = _guidGenerator.Create();
-            CustomerAttribute data = new(id, AttrNo, AttrName, false, null);
+            CustomerAttribute data = new(id, AttrNo, AttrName, false);
             seedCustomerAttributes.Add(data);
         }
         await _customerAttributeRepository.InsertManyAsync(seedCustomerAttributes);

@@ -13,7 +13,9 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
         public const int AttrNoMaxLength = 19;
         public const int AttrNameMinLength = 1;
         public const int AttrNameMaxLength = 100;
-        public const int HierarchyLevelMinLength = 0;
-        public const int HierarchyLevelMaxLength = 19;
+        public const int CodeMinLength = 1;
+        public const int CodeMaxLength = 20;
+
+        public const string DefaultAttributeNamePrefix = "Attribute ";
     }
 }
