@@ -287,7 +287,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<SalesOrgHeader>(x => x.SalesOrgHeader).WithMany().IsRequired().HasForeignKey(x => x.SalesOrgHeaderId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<SalesOrgHierarchy>(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
-
         builder.Entity<CustomerAttribute>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerAttributes", MdmServiceDbProperties.DbSchema);
@@ -295,10 +294,9 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.TenantId).HasColumnName(nameof(CustomerAttribute.TenantId));
             b.Property(x => x.AttrNo).HasColumnName(nameof(CustomerAttribute.AttrNo)).HasMaxLength(CustomerAttributeConsts.AttrNoMaxLength);
             b.Property(x => x.AttrName).HasColumnName(nameof(CustomerAttribute.AttrName)).IsRequired().HasMaxLength(CustomerAttributeConsts.AttrNameMaxLength);
-            b.Property(x => x.HierarchyLevel).HasColumnName(nameof(CustomerAttribute.HierarchyLevel)).HasMaxLength(CustomerAttributeConsts.HierarchyLevelMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(CustomerAttribute.Active));
+            b.Property(x => x.Code).HasColumnName(nameof(CustomerAttribute.Code)).IsRequired().HasMaxLength(CustomerAttributeConsts.CodeMaxLength);
         });
-
         builder.Entity<CusAttributeValue>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CusAttributeValues", MdmServiceDbProperties.DbSchema);

@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace DMSpro.OMS.MdmService.CustomerAttributeValues
+namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributeValues
 {
     [RemoteService(Name = "MdmService")]
     [Area("mdmService")]

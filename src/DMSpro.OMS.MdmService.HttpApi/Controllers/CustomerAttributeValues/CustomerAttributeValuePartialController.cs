@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Content;
 using Volo.Abp;
 
-namespace DMSpro.OMS.MdmService.CustomerAttributeValues
+namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributeValues
 {
     public partial class CustomerAttributeValueController
     {

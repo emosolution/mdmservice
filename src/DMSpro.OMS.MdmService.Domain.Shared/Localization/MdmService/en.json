@@ -1079,13 +1079,19 @@
     "Error:ItemAttributesAppService:551": "Cannot find any attribute for deletion",
     "Error:ItemAttributesAppService:552": "Cannot delete attribute which already has at least one value name",
     "Error:ItemAttributesAppService:553": "Maximum number of item attributes reached",
-    "Error:ItemAttributesAppService:554": "Item attribute name already exists",
+    "Error:ItemAttributesAppService:554": "This item attribute name already exists",
+    "Error:ItemAttributesAppService:555": "This item attribute name is reserved",
     "Error:ItemAttributeValuesAppService:550": "This value already used by at least one item and cannot be deleted",
     "Error:ItemAttributeValuesAppService:551": "This value already used by at least one item group and cannot be deleted",
     "Error:ItemAttributeValuesAppService:552": "Cannot delete value that already has at least one child",
     "Error:ItemAttributeValuesAppService:553": "This value name already exists",
     "Error:ItemAttributeValuesAppService:554": "This value code already exists",
     "Error:ItemAttributeValuesAppService:555": "Cannot find root attribute",
-    "Error:ItemAttributeValuesAppService:556": "Parent cannot be a flat attribute"
+    "Error:ItemAttributeValuesAppService:556": "Parent cannot be a flat attribute",
+    "Error:CustomerAttributesAppService:550": "This customer attribute name already exists",
+    "Error:CustomerAttributesAppService:551": "This customer attribute name is reserved",
+    "Error:CustomerAttributesAppService:552": "This attribute already has at least one value",
+    "Error:CustomerAttributesAppService:553": "No active attribute can be found",
+    "Error:CustomerAttributesAppService:554": "Maximum number of customer attributes reached"
   }
 }

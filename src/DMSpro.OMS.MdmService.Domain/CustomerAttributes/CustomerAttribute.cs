@@ -1,8 +1,4 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -20,16 +16,17 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
         [NotNull]
         public virtual string AttrName { get; set; }
 
-        public virtual int? HierarchyLevel { get; set; }
-
         public virtual bool Active { get; set; }
+
+        [NotNull]
+        public virtual string Code { get; set; }
 
         public CustomerAttribute()
         {
 
         }
 
-        public CustomerAttribute(Guid id, int attrNo, string attrName, bool active, int? hierarchyLevel = null)
+        public CustomerAttribute(Guid id, int attrNo, string attrName, bool active)
         {
 
             Id = id;
@@ -45,20 +42,10 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
 
             Check.NotNull(attrName, nameof(attrName));
             Check.Length(attrName, nameof(attrName), CustomerAttributeConsts.AttrNameMaxLength, CustomerAttributeConsts.AttrNameMinLength);
-            if (hierarchyLevel < CustomerAttributeConsts.HierarchyLevelMinLength)
-            {
-                throw new ArgumentOutOfRangeException(nameof(hierarchyLevel), hierarchyLevel, "The value of 'hierarchyLevel' cannot be lower than " + CustomerAttributeConsts.HierarchyLevelMinLength);
-            }
-
-            if (hierarchyLevel > CustomerAttributeConsts.HierarchyLevelMaxLength)
-            {
-                throw new ArgumentOutOfRangeException(nameof(hierarchyLevel), hierarchyLevel, "The value of 'hierarchyLevel' cannot be greater than " + CustomerAttributeConsts.HierarchyLevelMaxLength);
-            }
-
             AttrNo = attrNo;
             AttrName = attrName;
             Active = active;
-            HierarchyLevel = hierarchyLevel;
+            Code = $"{attrNo}";
         }
 
     }

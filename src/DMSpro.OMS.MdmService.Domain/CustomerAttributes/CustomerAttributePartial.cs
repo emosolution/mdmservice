@@ -14,6 +14,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
         {
             return new()
             {
+				"Code",
                 "AttrName",
             };
         }

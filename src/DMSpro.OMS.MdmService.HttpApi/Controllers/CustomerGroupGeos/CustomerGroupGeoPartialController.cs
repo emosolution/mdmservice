@@ -6,7 +6,7 @@ using System;
 using Volo.Abp.Content;
 using Volo.Abp;
 
-namespace DMSpro.OMS.MdmService.CustomerGroupGeos
+namespace DMSpro.OMS.MdmService.Controllers.CustomerGroupGeos
 {
     public partial class CustomerGroupGeoController
     {

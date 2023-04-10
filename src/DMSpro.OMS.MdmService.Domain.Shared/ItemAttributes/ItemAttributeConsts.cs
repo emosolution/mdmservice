@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DMSpro.OMS.MdmService.ItemAttributes
 {
     public static class ItemAttributeConsts
@@ -16,5 +18,16 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
         public const int AttrNameMaxLength = 20;
 
         public const string DefaultAttributeNamePrefix = "Attribute ";
+        public const int NumberOfAttribute = 20;
+
+        public static List<string> GenerateReservedNames()
+        {
+            List<string> result = new();
+            for (int i = 0; i < NumberOfAttribute; i++)
+            {
+                result.Add($"{DefaultAttributeNamePrefix}{i}");
+            }
+            return result;
+        }
     }
 }

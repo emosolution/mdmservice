@@ -15,18 +15,15 @@ namespace DMSpro.OMS.MdmService.ItemAttributes
 	{
 		private readonly IItemAttributeRepository _itemAttributeRepository;
 		private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
-		private readonly IItemRepository _itemRepository;
 
 		public ItemAttributesAppService(ICurrentTenant currentTenant,
 			IItemAttributeValueRepository itemAttributeValueRepository,
 			IItemAttributeRepository repository,
-			IItemRepository itemRepository,
 			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemAttributes.Default)
 		{
 			_itemAttributeRepository = repository;
 			_itemAttributeValueRepository = itemAttributeValueRepository;
-			_itemRepository = itemRepository;
 			_repositories.AddIfNotContains(
 				new KeyValuePair<string, object>("IItemAttributeRepository", _itemAttributeRepository));
 		}
