@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
@@ -13,6 +12,5 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
         [StringLength(CustomerAttributeValueConsts.AttrValNameMaxLength, MinimumLength = CustomerAttributeValueConsts.AttrValNameMinLength)]
         public string AttrValName { get; set; }
         public Guid CustomerAttributeId { get; set; }
-        public Guid? ParentId { get; set; }
     }
 }

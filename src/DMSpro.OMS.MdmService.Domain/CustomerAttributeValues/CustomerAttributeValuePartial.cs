@@ -5,7 +5,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
     public partial class CustomerAttributeValue 
     {
-        public virtual CustomerAttributeValue Parent { get; set; }
         public virtual CustomerAttribute CustomerAttribute { get; set; }
 
         public Dictionary<string, (int, string, string, string)>
@@ -14,7 +13,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             return new()
             {
                 { "CustomerAttributeId", (1, "ICustomerAttributeRepository", "", "") },
-                { "ParentId", (0, "ICustomerAttributeValueRepository", "", "") },
             };
         }
 

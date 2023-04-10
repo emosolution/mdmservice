@@ -37,7 +37,6 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributes
         }
 
         [HttpDelete]
-        [Route("{id}")]
         public virtual Task<LoadResult> DeleteAsync()
         {
             return _customerAttributesAppService.DeleteAsync();

@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
         }
 
         public async Task<CustomerAttributeValue> CreateAsync(
-        Guid customerAttributeId, Guid? parentId, string code, string attrValName)
+        Guid customerAttributeId, string code, string attrValName)
         {
             Check.NotNull(customerAttributeId, nameof(customerAttributeId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
@@ -30,7 +30,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 
             var customerAttributeValue = new CustomerAttributeValue(
              GuidGenerator.Create(),
-             customerAttributeId, parentId, code, attrValName
+             customerAttributeId, code, attrValName
              );
 
             return await _customerAttributeValueRepository.InsertAsync(customerAttributeValue);
@@ -38,7 +38,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 
         public async Task<CustomerAttributeValue> UpdateAsync(
             Guid id,
-            Guid customerAttributeId, Guid? parentId, string code, string attrValName, [CanBeNull] string concurrencyStamp = null
+            Guid customerAttributeId, string code, string attrValName, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(customerAttributeId, nameof(customerAttributeId));
@@ -50,7 +50,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             var customerAttributeValue = await _customerAttributeValueRepository.GetAsync(id);
 
             customerAttributeValue.CustomerAttributeId = customerAttributeId;
-            customerAttributeValue.ParentId = parentId;
             customerAttributeValue.Code = code;
             customerAttributeValue.AttrValName = attrValName;
 

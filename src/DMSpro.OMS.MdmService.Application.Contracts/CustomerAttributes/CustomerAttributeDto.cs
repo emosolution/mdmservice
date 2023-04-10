@@ -9,6 +9,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
         public int AttrNo { get; set; }
         public string AttrName { get; set; }
         public string Code { get; set; }
+        public bool Active { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

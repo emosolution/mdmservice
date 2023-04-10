@@ -168,12 +168,12 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             {
                 results.data =
                     ObjectMapper.Map<IEnumerable<ItemAttributeValue>,
-                        IEnumerable<ItemAttributeValueDto>>(results.data.Cast<ItemAttributeValue>());
+                        IEnumerable<ItemAttributeValueWithDetailsDto>>(results.data.Cast<ItemAttributeValue>());
             }
             List<Guid> itemAttributeValueIds = new();
             foreach (var item in results.data)
             {
-                var dto = (ItemAttributeValueDto)item;
+                var dto = (ItemAttributeValueWithDetailsDto)item;
                 itemAttributeValueIds.Add(dto.Id);
             }
             var children = await _repository.GetListAsync(x => x.ParentId != null && 

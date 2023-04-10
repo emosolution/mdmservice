@@ -17,14 +17,13 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
         [NotNull]
         public virtual string AttrValName { get; set; }
         public Guid CustomerAttributeId { get; set; }
-        public Guid? ParentId { get; set; }
 
         public CustomerAttributeValue()
         {
 
         }
 
-        public CustomerAttributeValue(Guid id, Guid customerAttributeId, Guid? parentId, string code, string attrValName)
+        public CustomerAttributeValue(Guid id, Guid customerAttributeId, string code, string attrValName)
         {
 
             Id = id;
@@ -35,8 +34,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             Code = code;
             AttrValName = attrValName;
             CustomerAttributeId = customerAttributeId;
-            ParentId = parentId;
         }
-
     }
 }

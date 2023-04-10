@@ -882,8 +882,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Code).HasColumnName(nameof(CustomerAttributeValue.Code)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.CodeMaxLength);
             b.Property(x => x.AttrValName).HasColumnName(nameof(CustomerAttributeValue.AttrValName)).IsRequired().HasMaxLength(CustomerAttributeValueConsts.AttrValNameMaxLength);
             b.HasOne(x => x.CustomerAttribute).WithMany().IsRequired().HasForeignKey(x => x.CustomerAttributeId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         });
+
         builder.Entity<CustomerGroupAttribute>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupAttributes", MdmServiceDbProperties.DbSchema);
