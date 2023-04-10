@@ -1,6 +1,6 @@
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public static class EmployeeProfileConsts
+    public static partial class EmployeeProfileConsts
     {
         private const string DefaultSorting = "{0}Code asc";
 

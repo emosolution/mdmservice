@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,7 +17,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         }
 
         public async Task<EmployeeProfile> CreateAsync(
-        Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null)
+        Guid? workingPositionId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null, EmployeeTypes? employeeType = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
@@ -36,7 +33,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 
             var employeeProfile = new EmployeeProfile(
              GuidGenerator.Create(),
-             workingPositionId, employeeTypeId, code, erpCode, firstName, lastName, idCardNumber, email, phone, address, active, effectiveDate, dateOfBirth, endDate, identityUserId
+             workingPositionId, code, erpCode, firstName, lastName, idCardNumber, email, phone, address, active, effectiveDate, dateOfBirth, endDate, identityUserId, employeeType
              );
 
             return await _employeeProfileRepository.InsertAsync(employeeProfile);
@@ -44,11 +41,9 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 
         public async Task<EmployeeProfile> UpdateAsync(
             Guid id,
-            Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null, [CanBeNull] string concurrencyStamp = null
+            Guid? workingPositionId, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null, EmployeeTypes? employeeType = null, [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
             Check.Length(erpCode, nameof(erpCode), EmployeeProfileConsts.ERPCodeMaxLength);
             Check.NotNullOrWhiteSpace(firstName, nameof(firstName));
             Check.Length(firstName, nameof(firstName), EmployeeProfileConsts.FirstNameMaxLength, EmployeeProfileConsts.FirstNameMinLength);
@@ -62,8 +57,6 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             var employeeProfile = await _employeeProfileRepository.GetAsync(id);
 
             employeeProfile.WorkingPositionId = workingPositionId;
-            employeeProfile.EmployeeTypeId = employeeTypeId;
-            employeeProfile.Code = code;
             employeeProfile.ERPCode = erpCode;
             employeeProfile.FirstName = firstName;
             employeeProfile.LastName = lastName;
@@ -76,6 +69,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             employeeProfile.DateOfBirth = dateOfBirth;
             employeeProfile.EndDate = endDate;
             employeeProfile.IdentityUserId = identityUserId;
+            employeeProfile.EmployeeType = employeeType;
 
             employeeProfile.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _employeeProfileRepository.UpdateAsync(employeeProfile);

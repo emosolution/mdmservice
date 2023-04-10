@@ -44,19 +44,19 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public virtual DateTime? EndDate { get; set; }
 
         public virtual Guid? IdentityUserId { get; set; }
+
+        public virtual EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
-        public Guid? EmployeeTypeId { get; set; }
 
         public EmployeeProfile()
         {
 
         }
 
-        public EmployeeProfile(Guid id, Guid? workingPositionId, Guid? employeeTypeId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null)
+        public EmployeeProfile(Guid id, Guid? workingPositionId, string code, string erpCode, string firstName, string lastName, string idCardNumber, string email, string phone, string address, bool active, DateTime effectiveDate, DateTime? dateOfBirth = null, DateTime? endDate = null, Guid? identityUserId = null, EmployeeTypes? employeeType = null)
         {
 
             Id = id;
-            Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), EmployeeProfileConsts.CodeMaxLength, EmployeeProfileConsts.CodeMinLength);
             Check.Length(erpCode, nameof(erpCode), EmployeeProfileConsts.ERPCodeMaxLength, 0);
             Check.NotNull(firstName, nameof(firstName));
@@ -75,12 +75,12 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             Phone = phone;
             Address = address;
             Active = active;
-            DateOfBirth = dateOfBirth;
             EffectiveDate = effectiveDate;
+            DateOfBirth = dateOfBirth;
             EndDate = endDate;
             IdentityUserId = identityUserId;
+            EmployeeType = employeeType;
             WorkingPositionId = workingPositionId;
-            EmployeeTypeId = employeeTypeId;
         }
 
     }

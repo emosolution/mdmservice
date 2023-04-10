@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.WorkingPositions;
 using System;
 using System.Threading.Tasks;
@@ -16,13 +15,11 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly WorkingPositionsDataSeedContributor _workingPositionsDataSeedContributor;
 
-        private readonly SystemDatasDataSeedContributor _systemDatasDataSeedContributor;
-
-        public EmployeeProfilesDataSeedContributor(IEmployeeProfileRepository employeeProfileRepository, IUnitOfWorkManager unitOfWorkManager, WorkingPositionsDataSeedContributor workingPositionsDataSeedContributor, SystemDatasDataSeedContributor systemDatasDataSeedContributor)
+        public EmployeeProfilesDataSeedContributor(IEmployeeProfileRepository employeeProfileRepository, IUnitOfWorkManager unitOfWorkManager, WorkingPositionsDataSeedContributor workingPositionsDataSeedContributor)
         {
             _employeeProfileRepository = employeeProfileRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _workingPositionsDataSeedContributor = workingPositionsDataSeedContributor; _systemDatasDataSeedContributor = systemDatasDataSeedContributor;
+            _workingPositionsDataSeedContributor = workingPositionsDataSeedContributor;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -33,46 +30,45 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             }
 
             await _workingPositionsDataSeedContributor.SeedAsync(context);
-            await _systemDatasDataSeedContributor.SeedAsync(context);
 
             await _employeeProfileRepository.InsertAsync(new EmployeeProfile
             (
-                id: Guid.Parse("3fc2a4ad-9179-4e93-a189-3ea230977844"),
-                code: "6fcfb9a17810436f86e9",
-                erpCode: "5076de5771cb4fdb96f5",
-                firstName: "51e6dc36268146adb4e132652632250d9551e1104182491db8537914c876a294a90e6a292cc04b5b8fdf35bba3e1ad8803402c54cfcf42b0aab5603e306c5cc87898aa819165425ca222937ab703a0a3e10f49e84eac43dc979cb18e8246c7a5948a3ba3f8b74b5f8ad02b1bfda37b1a131523a308dc4cca98d068ba4299bfb",
-                lastName: "771b48b985334a6ea7052eaab186d5a5d99cbdfc78cf4919a1ef092f8c5aa5ae942cf5a2cbfa4c4ab7c324ee98ed1a8e6bcd6471d4404dacbad46a9907bf4adcff0c46953e7e40f39e7f715d2abc2c7753bf2a0d1cbc4feb85f3b7abdfc3a8a6c9ac0561a1a047cd9c91bcd200e6f115fa16ecd7b75446a98fe775a8ab8f82f",
-                dateOfBirth: new DateTime(2017, 7, 1),
-                idCardNumber: "d65c49d50a9c4e5e8609a8d681688625a842971918b34855b9fd3bffb9016c2b5d58bf541a64422e8a15226df507c46d9e1f5b2f42c64d208f3ac650e90860dc052e1ee2a20642dea9cbaa2e2204deeba25fd33281a349d98ae927a644f1d0ef1f6634e352d24e0e9d811038c1470c33824c3e5ca7ae43218d5858697ccb94a",
-                email: "0fa89b8a61dc4f038c150b203af998e028cb2e8cc63341d095966e7cf5de7206ff20fa05054746719c37497c1b1aa86bd1d6e9029eae455ba524af1a2720@fbc2b20337e041118044a9317c01b487ecf72088d5af47ac91c7e9a5fb7968dea5cf98044bbc476197b6190610d215210148028da63e45238ea50eaa2928.com",
-                phone: "42e0a6d320c74ac09650fe522f9897094c21e1e112e341d0b0e08372e7e8a7bbb2168195861d4b27a6e99125ddbf0bfcd4ca7301cf644b6aa96f9fc7ef3aaa50e412821885884b2b845fa2c81345756cb92558f6d3a34387a930afb95ee82a2fe405626956d04568a8dbbbbc41fbb7594669f1bad8d34304a4cfb8ff4abe6b8",
-                address: "725fb08d8d504d618c2b19f6f118069f85b859e98a4544e381530efe665179091c71692bdea84dacab2bf20d39a3d7228604fbeb89d040979d8fef6b6a3036af8f3cd59cae984449a6823b21a2dae5fbf2f6b46ab1f9426db8be008dd9a957077dfc016943594fe6a5281e098358aa37d2dfe9f73f3240c881ba2485c4e85cf3e09204454a724c13819436c1423769198287ed2f525740c585ec2d91f84863c37686d886c0834d9cbf65d4a83b8a48b86d32e2d4e3c2426a8406d754c3a508af28dfcb5f6d744f398b63835d8c0220311484fc70521e4db987b2e945d89f380866969b20e2db4ce396b00648fb28e25616f424676ea64859a642",
+                id: Guid.Parse("1fb0435c-53b9-4183-a98c-c656337727cf"),
+                code: "b6857091adda49a2adf5",
+                erpCode: "eb2d11e8b38f42e8bc44",
+                firstName: "7cdbbf096dea4dceb7645fd4ab002366185de5c80d184ba3bdd162386e665be02c804225f4a34cb5a60584840ad4137cc5c9634b93e444beb0ac762f96311a77e756b1825d0f4b7aa85a96c046bc379bdc43a0054efe447d841d86c2b2b8fe4d1db720ca2dca40fbb41b14e45325284b3f82da0e4b75413e8443fe78bb09c87",
+                lastName: "aee634de295d4606892089c56d0235990154894502bb436ca736d44af24b0ba2b4ebeea10af54ab7a51b69882f248d8ca2980132d9434202bbf9a74bc18e5ed88f58909f267b4122a02c747581cd696223bf5d4f0943413ca8b6b53e1c457c6210bc9b0bff7846ef888e0a793ad3c59a1f8f5573ce15439fb3b6b5013310330",
+                dateOfBirth: new DateTime(2016, 1, 12),
+                idCardNumber: "91a90408cca54bd6ad40d7e31738afb2d8686ceffb28478ca8252a125fd952b6ca9a4be4363b45be87409b748f1db23ac3edae92fc064ac5abbfb2d33c374df8f7c79b8d66214ccd95acf20d3e0ec4a526ed157f259846358219a2ec5edaab7cd8fb75bef7bc43988d1dc09b61018fd59615d7634f5a45949d53727cc622a59",
+                email: "d89aa3c09d30403b823c717d5b668c922a593078c472410cb6d8851aa46a6d4003738d387e0749feab8a0e1f47f5c591ddeb637224304fb5b1d10dea1f38@c810319d5a464e81bc471f02793bb34400fe605d49ca4dd98d4667a6f8da9774e89abbc357ac42ab9923cf35207581e6a5982fafaa7b40b581f337f727f9.com",
+                phone: "f1c6c519d23847faa76a7cfcc0f29775df81fb0d76614e12b925758f3a6cfa09e151d34c8d5748ff8096c6817f87ae9a20244969e0d6482eb189f2006e85b5517a4bc2ab51614c81bca91cfe2cd682b19b1e04fe33ac480ab4b0471b3f79f4605d61d814cca340369ebce4a263c30766918133799450407baf3df764c4973fd",
+                address: "d1c46517be384958b2152abc0ef327c7fc8a0c9c9b4e442d8de0aef318409f105ddd05eee0194a758fadcc505ed93be94f9514a3bd09413eb4b059aca6166012401ff138be7247c4bbbe119ee9fc82c678386a67f818469b944cfea81bc0537f92aa070fd46341e4b469dfb39f382a241e94fb0688524139827c5ce65e2d704c012460dd0b274d33a2374fd243270a5c7062b60eeadf4b14b5fb3c678662c7cfee3e508d1fe84e50b297ea6eb5d6ac9823bb5216155a4396967ac8f59addb4df6f0efb21d65b4932afa33cd0dd6aba8120040016e0964ea99a26d086226722bf43dfa812b6114d3088f88e9b3c1d545cfe98edda70e840c489c5",
                 active: true,
-                effectiveDate: new DateTime(2013, 10, 12),
-                endDate: new DateTime(2008, 10, 12),
-                identityUserId: Guid.Parse("bb669a19-b38a-4979-918b-8dcaec855cf4"),
-                workingPositionId: null,
-                employeeTypeId: null
+                effectiveDate: new DateTime(2021, 2, 22),
+                endDate: new DateTime(2021, 8, 10),
+                identityUserId: Guid.Parse("0cb9bdfe-7c8d-466a-a663-f9b7c0e17ecc"),
+                employeeType: default,
+                workingPositionId: null
             ));
 
             await _employeeProfileRepository.InsertAsync(new EmployeeProfile
             (
-                id: Guid.Parse("1006f6e9-95fe-4b64-933a-f0eaaee0df16"),
-                code: "b76edc3615014b14aab5",
-                erpCode: "4d56d63d4a554feaa0b7",
-                firstName: "ca036d17d04346e087fd6ffd91e93ffddd8688293675402b9ad280918e409a4797a37134c51548418f44094e14fd1f8228d07d8ca34e405fb011a264b116f2438b1f7b7dccb54300997a2ddeb43056e5f04ca20c245d47508436d4601e9a66082fe6e7662455404aac3fd019a8bcbb7bea1787cffb894fe9a24aef01c44f5b5",
-                lastName: "3a381efa8bf54868ba5a947ff553d16e997e746a3b4c4020b44ead49cd5091145a0e718152784a999f55f83e0b9f08ca047be86f46474846860dffa7a9e109df268ca5a973e4493d9d375ebc4e4a2942c4c8682e45f748309e30be3aad42ac1725b91120e15a4702a9c1d81e6e5353b4dfddcb0308d1480e8ab3f6e7cafa4c7",
-                dateOfBirth: new DateTime(2010, 7, 27),
-                idCardNumber: "66de414712a14ed0a9c399a6a1ace4d652a2561cb66943c198810e4a7b9cecdf35b76207b4414c98bf30ab76bde3dd8f6a3275f168ae44fa90450f5b2e174d4c26a5d9986fc149b7be1025ae3a99c62b59ccaf2e09a94ff39bc5ea65f5ae099ef5a475cb672f451fa5dda2729913e23d189728422341447bb2a8b8ca488eb90",
-                email: "7c44c1b64819428f91c88c7c955cf36e3b153adf80c44ad5bd62afdd6bf188f1bb9f1f184ec849ccb09e40f9c1d686d04a64997d1a5a43b8af51919e07cd@fae5fc32080c46c7a052c1c449b62c152b626c2434c54866a56315cb7e3108d6fa9b5858030c407daa139b52c0bed48c99e3f691b1524a2ab39fa0ed2f39.com",
-                phone: "2ff508d64537493d835564bc8e23b69d7424b7f646554090b4da6d8491706db41221d9d7bc19422988d3ba3d361ecc4dc2d95374ff884e63bfed463fd97996ae64e2acc730684c1d9cf21843d6cebdc636b55a2812fb4393bd94393b8cc016289b342bdb8fdb491f9e9a04a8fe96b8c47d4ec090dcf047c6a2625270663f69d",
-                address: "5fe60d2a79e240758595e882a03ec29f7d6dd420e5844d0380a48e642a4b5279d5797e0ff43447f4bc3a30310e4d18f8290b2904970a41289e8402b0573ef951df158a7644974661b6548ad950617d4c530c629a30214f77b8f46bea70269e432d63b9ea8e0d40c19b8cf530fc78892cfb6ae5c704e3428096f85895ea6182601479d5d260c64a099a6b6aa509b6b635a9ce989ee8f04376a527b034150d80b8a4d76e8656eb4549ab2f035989d50c3eb14375699ff249199f09ad30854444f1ca4f8282f5bd4c2385267178e8d5d011ed3e3f8d4fa6406c9f5fbc075bc1ed39c645d0f1d95a4bd2b857934ab5a12211c2f96ede7b27468993ca",
+                id: Guid.Parse("32df1798-92d6-4ae8-a915-d71d6f15197e"),
+                code: "883d2c60753e40a49f2a",
+                erpCode: "cda3b8fa11bc46529f6e",
+                firstName: "051ce15bf9554ffb88fa3dbb8861c328b524ce1f155a4da78a4ba516bffb278aa2c110edc94942d3955ee49756a41fa8f1d5dd4fb1b34f7883a44751226851e9ae8b5ec87b95483b9f6573be95dd00fa5d376bb339c94132b8d0033e3a61fa3891cbe8748d4a4849a5030b42bed2a6049be4861d79ce4c0597f83f77121c469",
+                lastName: "5583b062798e4a878b62bde301e3a8719e69adb83cb34933923ec6a197f14d07183826581f9642888406334a4cdd0ecc346af3b66ac948fa9d895ecc1c2e3e75414a54a1b1cc48b282353d89989df396301a1a31da6d41b498cc053381d2fc975df132aac45c4cbeba910c6b40b9cae5f1337ece18484952b64fbdbf8f9906e",
+                dateOfBirth: new DateTime(2013, 2, 1),
+                idCardNumber: "e86dc8df491a4bf9876d13a40cd7fde1daaa3fe897c248aab7c56efd715d6c9751c6f8d983ce4fbc8d8194d0f2f86c04b46595e4f81146c99acd57d5fcb871ab3ee71df7603248ba9c7d17fd129de4fd52485c2fdc344cdcb806af4898998aa9dfb1d56c579f4cdc9bd28adfad0a48c8c7e643d53e76455f975fbbf90ecfb9f",
+                email: "b9712a50c72740fe9d2af6a8af3a2326e25b2e03b2d04da98e0288d9bcd43ef7508602a4d2d8455fb34ab2e19930ec84aff22d0ed53146a4bb31784c1fed@30f1f860950e4176b4b223d1490fb1f23ce07e9cc0f04fbb84807dc5b864669f725d2097f03045c491c3d4c6cbc5f872804e11e84a7a4155896021c36ae3.com",
+                phone: "7acc804f43234bd1b6cb7740bd75c7095ae7a04fe0aa44aebe91de366c4e117820c472c0f3854e359b90d44dd7d30e45dac762bf16684fc79195c756a4d84cdd755c53e30a604f2fb83548412ac74c700b6c1bda8a6240f0849f5d4b5de79a9c8196ecb96bc04d068c446db195a50b862ca49688d03942929e9124376d6e902",
+                address: "ca0d88d05703460db24624ab3f1c478f504673b1a44d405fb1cba055fcd918c98f426acef88e4cf4bbd9f20186f703754d1ea88722fb4a7db0cb0892314a2fb57cb4d339d5434cfd97cbaccdca7ead873cdfeee855ec4b488ba29a9f5b4294dcdedadd4927b64f0388d32c2a08090d56239350505e604dfd85b9b078424654112c71654af890443a9715371c240fe002953d30ed6eeb4ea589c474b8f8d2660d45fa0fa7630746f79ff05479640a7e5d6224a6fe7aed47a086f97bf120be5a84536081cf25744593a5d2dedd379ca4e4bb17630e1ddb43ba8622637ad0335479bec795541c5345c8b7a703acf1a04db8513d71b7bd864cd7820a",
                 active: true,
-                effectiveDate: new DateTime(2016, 11, 24),
-                endDate: new DateTime(2011, 7, 26),
-                identityUserId: Guid.Parse("94a644c4-862b-42fe-a0b6-fb2c26bdab85"),
-                workingPositionId: null,
-                employeeTypeId: null
+                effectiveDate: new DateTime(2009, 1, 24),
+                endDate: new DateTime(2006, 2, 20),
+                identityUserId: Guid.Parse("3a8c3f43-488d-4581-9b43-44f716029458"),
+                employeeType: default,
+                workingPositionId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

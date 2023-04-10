@@ -191,7 +191,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.EndDate).HasColumnName(nameof(EmployeeProfile.EndDate));
             b.Property(x => x.IdentityUserId).HasColumnName(nameof(EmployeeProfile.IdentityUserId));
             b.HasOne<WorkingPosition>(x => x.WorkingPosition).WithMany().HasForeignKey(x => x.WorkingPositionId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<SystemData>(x => x.EmployeeType).WithMany().HasForeignKey(x => x.EmployeeTypeId).OnDelete(DeleteBehavior.NoAction);
+            b.Property(x => x.EmployeeType).HasColumnName(nameof(EmployeeProfile.EmployeeType));
         });
 
         builder.Entity<PriceList>(b =>

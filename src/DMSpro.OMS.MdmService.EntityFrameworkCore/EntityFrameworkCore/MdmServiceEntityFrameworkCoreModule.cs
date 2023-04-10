@@ -294,7 +294,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<EmployeeProfile>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.EmployeeType).Include(o => o.WorkingPosition);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.WorkingPosition);
             });
 
             options.Entity<HolidayDetail>(orderOptions =>

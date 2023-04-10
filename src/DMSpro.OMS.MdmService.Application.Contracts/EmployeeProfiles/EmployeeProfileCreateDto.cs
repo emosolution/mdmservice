@@ -6,9 +6,6 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
     public class EmployeeProfileCreateDto
     {
-        [Required]
-        [StringLength(EmployeeProfileConsts.CodeMaxLength, MinimumLength = EmployeeProfileConsts.CodeMinLength)]
-        public string Code { get; set; }
         [StringLength(EmployeeProfileConsts.ERPCodeMaxLength)]
         public string ERPCode { get; set; }
         [Required]
@@ -30,7 +27,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Guid? IdentityUserId { get; set; }
+        public EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
-        public Guid? EmployeeTypeId { get; set; }
     }
 }
