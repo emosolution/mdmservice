@@ -55513,7 +55513,7 @@
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
               "name": "CreateAsync",
-              "httpMethod": null,
+              "httpMethod": "POST",
               "url": "api/mdm-service/customer-attributes",
               "supportedVersions": [],
               "parametersOnMethod": [
