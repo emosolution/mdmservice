@@ -63,7 +63,6 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             // General Objects
             (Code: "SY01", ValueCode: "M1", ValueName: CustomerConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M2", ValueName: EmployeeProfileConsts.NumberingConfigObjectType),
-            (Code: "SY01", ValueCode: "M3", ValueName: "Routes"),
             (Code: "SY01", ValueCode: "M4", ValueName: ItemConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M5", ValueName: "Vendors"),
             (Code: "SY01", ValueCode: "M6", ValueName: SalesOrgHierarchyConsts.NumberingConfigObjectType),
