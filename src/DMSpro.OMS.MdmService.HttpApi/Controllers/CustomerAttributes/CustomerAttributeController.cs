@@ -43,6 +43,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerAttributes
             return _customerAttributesAppService.DeleteAsync();
         }
 
+        [HttpPost]
         public Task<LoadResult> CreateAsync(CustomerAttributeCreateDto input)
         {
             return _customerAttributesAppService.CreateAsync(input);

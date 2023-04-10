@@ -17,9 +17,8 @@ public class MdmServiceMenus
     public const string Companies = Prefix + ".Companies";
     public const string CompanyMaster = Companies + ".CompanyMasters";
     public const string Currencies = Companies + ".Currencies";
-    public const string Measurements = Companies + ".Measurements";
-    public const string DimensionMeasurements = Measurements + ".DimensionMeasurements";
-    public const string WeightMeasurements = Measurements + ".WeightMeasurements";
+    public const string DimensionMeasurements = Companies + ".DimensionMeasurements";
+    public const string WeightMeasurements = Companies + ".WeightMeasurements";
     public const string VATs = Companies + ".VATs";
     public const string SalesChannels = Companies + ".SalesChannels";
     public const string CompanyIdentityUserAssignments = Companies + ".CompanyIdentityUserAssignments";
@@ -34,21 +33,15 @@ public class MdmServiceMenus
     public const string ItemImages = ItemMaster + ".ItemImages";
     public const string ItemAttachments = ItemMaster + ".ItemAttachments";
     public const string ItemGroups = ItemMaster + ".ItemGroups";
-    public const string ItemGroupAttributes = ItemMaster + ".ItemGroupAttributes";
-    public const string ItemGroupLists = ItemMaster + ".ItemGroupLists";
     public const string PriceLists = ItemMaster + ".PriceLists";
-    public const string PriceListDefs = ItemMaster + ".PriceListDefs";
     public const string PriceListDetails = ItemMaster + ".PriceListDetails";
     public const string PriceUpdate = ItemMaster + ".PriceUpdates";
-    public const string PriceUpdateDefs = ItemMaster + ".PriceUpdateDefs";
     public const string PriceUpdateDetails = ItemMaster + ".PriceUpdateDetails";
     public const string PriceListAssignments = ItemMaster + ".PriceAssignments";
 
     public const string SalesOrganizations = Prefix + ".SalesOrganizations";
     public const string WorkingPositions = SalesOrganizations + ".WorkingPositions";
     public const string EmployeeProfiles = SalesOrganizations + ".EmployeeProfiles";
-    public const string EmployeeImages = SalesOrganizations + ".EmployeeImages";
-    public const string EmployeeAttachments = SalesOrganizations + ".EmployeeAttachments";
     public const string SalesOrgs = SalesOrganizations + ".SalesOrgs";
     public const string SalesOrgHeaders = SalesOrgs + ".SalesOrgHeaders";
     public const string SalesOrgHierarchies = Prefix + ".SalesOrgHierarchies";
@@ -60,34 +53,20 @@ public class MdmServiceMenus
 
     public const string Customers = Prefix + ".Customers";
     public const string CustomerAttributes = Customers + ".CustomerAttributes";
-    public const string CustomerAttributeDefs = CustomerAttributes + ".CustomerAttributeDefs";
-    public const string CusAttributeValues = CustomerAttributes + ".CusAttributeValues";
+    public const string CustomerAttributeValues = Customers + ".CustomerAttributeValues";
     public const string CustomerProfiles = Customers + ".CustomerProfiles";
-    public const string CustomerContacts = CustomerProfiles + ".CustomerContacts";
-    public const string CustomerAttachments = CustomerProfiles + ".CustomerAttachments";
+    public const string CustomerContacts = Customers + ".CustomerContacts";
+    public const string CustomerAttachments = Customers + ".CustomerAttachments";
     public const string Vendors = Customers + ".Vendors";
     public const string CustomerGroups = Customers + ".CustomerGroups";
-    public const string CustomerGroupDefs = CustomerGroups + ".CustomerGroupDefs";
-    public const string CustomerGroupByAtts = CustomerGroups + ".CustomerGroupByAtts";
-    public const string CustomerGroupByLists = CustomerGroups + ".CustomerGroupByLists";
-    public const string CustomerGroupByGeos = CustomerGroups + ".CustomerGroupByGeos";
     public const string CustomerAssignments = Customers + ".CustomerAssignments";
 
     public const string RouteAndMCP = Prefix + ".RoutesAndMCPs";
-    public const string HolidayDefs = RouteAndMCP + ".HolidayDefs";
+    public const string Holidays = RouteAndMCP + ".Holidays";
     public const string HolidayDetails = RouteAndMCP + ".HolidayDetails";
     public const string Routes = RouteAndMCP + ".Routes";
     public const string MCPHeaders = RouteAndMCP + ".MCPHeader";
     public const string MCPDetails = RouteAndMCP + ".MCPDetail";
     public const string VisitPlans = RouteAndMCP + ".VisitPlans";
     public const string RouteAssignments = RouteAndMCP + ".RouteAssignments";
-
-    public const string CustomerGroupLists = Prefix + ".CustomerGroupLists";
-
-    public const string CustomerGroupGeos = Prefix + ".CustomerGroupGeos";
-
-    public const string CustomerAttributeValues = Prefix + ".CustomerAttributeValues";
-
-    public const string CustomerGroupAttributes = Prefix + ".CustomerGroupAttributes";
-
 }
