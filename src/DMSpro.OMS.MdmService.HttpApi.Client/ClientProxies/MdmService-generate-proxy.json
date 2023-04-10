@@ -55486,23 +55486,10 @@
               "uniqueName": "DeleteAsync",
               "name": "DeleteAsync",
               "httpMethod": "DELETE",
-              "url": "api/mdm-service/customer-attributes/{id}",
+              "url": "api/mdm-service/customer-attributes",
               "supportedVersions": [],
               "parametersOnMethod": [],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": null,
-                  "typeSimple": null,
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
+              "parameters": [],
               "returnValue": {
                 "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
                 "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
