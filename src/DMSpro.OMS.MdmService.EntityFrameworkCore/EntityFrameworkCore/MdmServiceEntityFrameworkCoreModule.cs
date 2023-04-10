@@ -423,8 +423,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<CustomerAttributeValue>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerAttribute)
-                    .Include(o => o.Parent);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerAttribute);
             });
 
             options.Entity<CustomerGroupAttribute>(orderOptions =>

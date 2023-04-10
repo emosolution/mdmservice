@@ -1092,6 +1092,10 @@
     "Error:CustomerAttributesAppService:551": "This customer attribute name is reserved",
     "Error:CustomerAttributesAppService:552": "This attribute already has at least one value",
     "Error:CustomerAttributesAppService:553": "No active attribute can be found",
-    "Error:CustomerAttributesAppService:554": "Maximum number of customer attributes reached"
+    "Error:CustomerAttributesAppService:554": "Maximum number of customer attributes reached",
+    "Error:CustomerAttributeValuesAppService:550": "This value already used by at least one customer and cannot be deleted",
+    "Error:CustomerAttributeValuesAppService:551": "This value already used by at least one customer group and cannot be deleted",
+    "Error:CustomerAttributeValuesAppService:552": "This value name already exists",
+    "Error:CustomerAttributeValuesAppService:553": "This value code already exists"
   }
 }

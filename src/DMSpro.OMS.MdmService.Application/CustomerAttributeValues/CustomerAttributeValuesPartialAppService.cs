@@ -5,6 +5,8 @@ using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.Partial;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
+using DMSpro.OMS.MdmService.Customers;
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
 
 namespace DMSpro.OMS.MdmService.CustomerAttributeValues
 {
@@ -14,19 +16,22 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
         ICustomerAttributeValuesAppService
     {
         private readonly ICustomerAttributeValueRepository _customerAttributeValueRepository;
-        private readonly CustomerAttributeValueManager _customerAttributeValueManager;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerGroupAttributeRepository _customerGroupAttributeRepository;
 
         private readonly ICustomerAttributeRepository _customerAttributeRepository;
 
         public CustomerAttributeValuesAppService(ICurrentTenant currentTenant,
             ICustomerAttributeValueRepository repository,
-            CustomerAttributeValueManager customerAttributeValueManager,
+            ICustomerRepository customerRepository,
+            ICustomerGroupAttributeRepository customerGroupAttributeRepository,
             IConfiguration settingProvider,
             ICustomerAttributeRepository customerAttributeRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerAttributes.Default)
         {
             _customerAttributeValueRepository = repository;
-            _customerAttributeValueManager = customerAttributeValueManager;
+            _customerRepository = customerRepository;
+            _customerGroupAttributeRepository = customerGroupAttributeRepository;
 
             _customerAttributeRepository = customerAttributeRepository;
 

@@ -58,9 +58,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             // Arrange
             var input = new CustomerAttributeValueUpdateDto()
             {
-                Code = "bc11b74089024b92b544",
                 AttrValName = "410dcaf5343447a4875cf26e50d7d19942dffb402b2e42558a3382428bcde0358b1d254a13b74670a10a55c80d445a2eab30d0afaa90485eb1e7ff384f8d8add5afc22c16142483c989750ec87e8d59ef11aa91ce2814d49a114b69a63540f161c397e9b108840e3a4fe49ae7a0158f4dfaef930c5474e9dbc251c88399d903",
-                CustomerAttributeId = Guid.Parse("14d12cb7-01d4-4f12-ace1-bce02dcebeae"),
 
             };
 
@@ -71,7 +69,6 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             var result = await _customerAttributeValueRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("bc11b74089024b92b544");
             result.AttrValName.ShouldBe("410dcaf5343447a4875cf26e50d7d19942dffb402b2e42558a3382428bcde0358b1d254a13b74670a10a55c80d445a2eab30d0afaa90485eb1e7ff384f8d8add5afc22c16142483c989750ec87e8d59ef11aa91ce2814d49a114b69a63540f161c397e9b108840e3a4fe49ae7a0158f4dfaef930c5474e9dbc251c88399d903");
         }
 
