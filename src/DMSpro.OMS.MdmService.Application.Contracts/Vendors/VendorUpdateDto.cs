@@ -1,15 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
     public class VendorUpdateDto : IHasConcurrencyStamp
     {
-        [Required]
-        [StringLength(VendorConsts.CodeMaxLength, MinimumLength = VendorConsts.CodeMinLength)]
-        public string Code { get; set; }
         [Required]
         [StringLength(VendorConsts.NameMaxLength, MinimumLength = VendorConsts.NameMinLength)]
         public string Name { get; set; }

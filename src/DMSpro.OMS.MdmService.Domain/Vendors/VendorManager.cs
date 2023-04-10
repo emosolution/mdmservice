@@ -47,13 +47,11 @@ namespace DMSpro.OMS.MdmService.Vendors
 
         public async Task<Vendor> UpdateAsync(
             Guid id,
-            Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid companyId, Guid? linkedCompanyId, string code, string name, string shortName, string phone1, string phone2, string erpCode, bool active, string street, string address, string latitude, string longitude, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
+            Guid priceListId, Guid? geoMaster0Id, Guid? geoMaster1Id, Guid? geoMaster2Id, Guid? geoMaster3Id, Guid? geoMaster4Id, Guid companyId, Guid? linkedCompanyId, string name, string shortName, string phone1, string phone2, string erpCode, bool active, string street, string address, string latitude, string longitude, DateTime? endDate = null, [CanBeNull] string concurrencyStamp = null
         )
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNull(companyId, nameof(companyId));
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), VendorConsts.CodeMaxLength, VendorConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), VendorConsts.NameMaxLength, VendorConsts.NameMinLength);
             Check.Length(shortName, nameof(shortName), VendorConsts.ShortNameMaxLength);
@@ -75,7 +73,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             vendor.GeoMaster4Id = geoMaster4Id;
             vendor.CompanyId = companyId;
             vendor.LinkedCompanyId = linkedCompanyId;
-            vendor.Code = code;
             vendor.Name = name;
             vendor.ShortName = shortName;
             vendor.Phone1 = phone1;

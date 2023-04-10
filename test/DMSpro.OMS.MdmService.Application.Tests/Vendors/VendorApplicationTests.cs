@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _vendorsAppService.GetListAsync(new GetVendorsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Vendor.Id == Guid.Parse("1f7f0feb-4286-440d-86d0-3e8dba6e75fa")).ShouldBe(true);
-            result.Items.Any(x => x.Vendor.Id == Guid.Parse("2341d664-3a18-4717-96e4-fc7326ea3bac")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
@@ -48,7 +35,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             // Arrange
             var input = new VendorCreateDto
             {
-                Code = "2ca7392e5f944a199ce4",
                 Name = "449bca56583846e89e5d1842cd581f21b132911de5624cf6b2354a7fccdc37d1549b73b7ea2d487391ff570918e095a48b213fd278664749aebb049347b1512951266efe4fe8493890af5d75ec51bd8fbb4c47b308c94f5aaf028d004961b4baa3bf70ca",
                 ShortName = "b324eff50db34d4e9c284beaea723620a557bc37a3ba47e2b3641c107154e669d4046747f7d9453ab50cef17bdc6b5ee502f26f4e13947a4a2be3e62c10af0c9cae9698039b14d87b277ec22cd291ae323216d7ba6dc41ecb22d637e1951d7125d282bde",
                 Phone1 = "ef998c84f480424ba89fe43b6d43e3f8fa09262e36184f948b3d5a752fdb652ff6d5814ba84d47c7b37a148576ebb0e3baf13e600b494fcfaf5bc96829ead033d6560c94b1824053bb038030d2ac8633c1bc7bb6ca6449efbaaa4182c278f4e71720ab558ab94a69a76cfa503dee496873ee1399982e4a2b904fad318cb8dd1",
@@ -72,7 +58,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             var result = await _vendorRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("2ca7392e5f944a199ce4");
             result.Name.ShouldBe("449bca56583846e89e5d1842cd581f21b132911de5624cf6b2354a7fccdc37d1549b73b7ea2d487391ff570918e095a48b213fd278664749aebb049347b1512951266efe4fe8493890af5d75ec51bd8fbb4c47b308c94f5aaf028d004961b4baa3bf70ca");
             result.ShortName.ShouldBe("b324eff50db34d4e9c284beaea723620a557bc37a3ba47e2b3641c107154e669d4046747f7d9453ab50cef17bdc6b5ee502f26f4e13947a4a2be3e62c10af0c9cae9698039b14d87b277ec22cd291ae323216d7ba6dc41ecb22d637e1951d7125d282bde");
             result.Phone1.ShouldBe("ef998c84f480424ba89fe43b6d43e3f8fa09262e36184f948b3d5a752fdb652ff6d5814ba84d47c7b37a148576ebb0e3baf13e600b494fcfaf5bc96829ead033d6560c94b1824053bb038030d2ac8633c1bc7bb6ca6449efbaaa4182c278f4e71720ab558ab94a69a76cfa503dee496873ee1399982e4a2b904fad318cb8dd1");
@@ -92,7 +77,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             // Arrange
             var input = new VendorUpdateDto()
             {
-                Code = "ce70c87e2f7a4aafbe5e",
                 Name = "0855ecd5e1ae46cab5131f820db6fae1c57c39c4387d450c9c9e75041da581efa29634d185074eb692123f4a5564b5ee7a3514198ded44a89e109866e608a2c371b06342e9b049c9bbeb82d5bea0443adda253bfe297432fad852a5426fa760d9b92e855",
                 ShortName = "294cd32ab82c4252a1daa6567377168b223473bef43d4dff851a267a1e818057d7defbbc3a3c40b4b9d26b63f26025d82666f6a2f7b245de9254a8058358c20f59ff53031ede4ceb9f68b4e2ef53929ce557fca3969c4bd2a3cc0b8e15b381e1302dd70d",
                 Phone1 = "3f9a687e5b244b0abdca3b791272aff7447bf281369241a0a845bd0e1f63269586961967511040c1a81716df1ad56a69b818078c0c5d4dc788c46f38860d20e4869afc3d48fb4e41bb2e4a85373e432bde02ce8be3f6418881ab09ba89aa3871a6df42e6b85a4be8aa2266b4ff9a8e6e0ab7df3329e748a192a09271528bf31",
@@ -116,7 +100,6 @@ namespace DMSpro.OMS.MdmService.Vendors
             var result = await _vendorRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("ce70c87e2f7a4aafbe5e");
             result.Name.ShouldBe("0855ecd5e1ae46cab5131f820db6fae1c57c39c4387d450c9c9e75041da581efa29634d185074eb692123f4a5564b5ee7a3514198ded44a89e109866e608a2c371b06342e9b049c9bbeb82d5bea0443adda253bfe297432fad852a5426fa760d9b92e855");
             result.ShortName.ShouldBe("294cd32ab82c4252a1daa6567377168b223473bef43d4dff851a267a1e818057d7defbbc3a3c40b4b9d26b63f26025d82666f6a2f7b245de9254a8058358c20f59ff53031ede4ceb9f68b4e2ef53929ce557fca3969c4bd2a3cc0b8e15b381e1302dd70d");
             result.Phone1.ShouldBe("3f9a687e5b244b0abdca3b791272aff7447bf281369241a0a845bd0e1f63269586961967511040c1a81716df1ad56a69b818078c0c5d4dc788c46f38860d20e4869afc3d48fb4e41bb2e4a85373e432bde02ce8be3f6418881ab09ba89aa3871a6df42e6b85a4be8aa2266b4ff9a8e6e0ab7df3329e748a192a09271528bf31");

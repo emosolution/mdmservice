@@ -24,44 +24,10 @@ namespace DMSpro.OMS.MdmService.Controllers.Vendors
         }
 
         [HttpGet]
-        public Task<PagedResultDto<VendorWithNavigationPropertiesDto>> GetListAsync(GetVendorsInput input)
-        {
-            return _vendorsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<VendorWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _vendorsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<VendorDto> GetAsync(Guid id)
         {
             return _vendorsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("price-list-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
-        {
-            return _vendorsAppService.GetPriceListLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("geo-master-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetGeoMasterLookupAsync(LookupRequestDto input)
-        {
-            return _vendorsAppService.GetGeoMasterLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("company-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetCompanyLookupAsync(LookupRequestDto input)
-        {
-            return _vendorsAppService.GetCompanyLookupAsync(input);
         }
 
         [HttpPost]
@@ -82,20 +48,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Vendors
         public virtual Task DeleteAsync(Guid id)
         {
             return _vendorsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(VendorExcelDownloadDto input)
-        {
-            return _vendorsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _vendorsAppService.GetDownloadTokenAsync();
         }
     }
 }

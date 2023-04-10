@@ -1,14 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
     public class VendorCreateDto
     {
-        [Required]
-        [StringLength(VendorConsts.CodeMaxLength, MinimumLength = VendorConsts.CodeMinLength)]
-        public string Code { get; set; }
         [Required]
         [StringLength(VendorConsts.NameMaxLength, MinimumLength = VendorConsts.NameMinLength)]
         public string Name { get; set; }

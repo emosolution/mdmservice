@@ -270,9 +270,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<Vendor, VendorDto>();
         CreateMap<Vendor, VendorWithDetailsDto>();
-        CreateMap<Vendor, VendorExcelDto>();
-
-        CreateMap<VendorWithNavigationProperties, VendorWithNavigationPropertiesDto>();
 
         CreateMap<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>();
 

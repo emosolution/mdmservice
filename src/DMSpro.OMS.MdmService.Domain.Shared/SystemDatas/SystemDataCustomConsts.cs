@@ -1,8 +1,8 @@
 using DMSpro.OMS.MdmService.Customers;
 using DMSpro.OMS.MdmService.EmployeeProfiles;
 using DMSpro.OMS.MdmService.Items;
-using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
+using DMSpro.OMS.MdmService.Vendors;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.SystemDatas
@@ -64,7 +64,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             (Code: "SY01", ValueCode: "M1", ValueName: CustomerConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M2", ValueName: EmployeeProfileConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M4", ValueName: ItemConsts.NumberingConfigObjectType),
-            (Code: "SY01", ValueCode: "M5", ValueName: "Vendors"),
+            (Code: "SY01", ValueCode: "M5", ValueName: VendorConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M6", ValueName: SalesOrgHierarchyConsts.NumberingConfigObjectType),
             // Inventory
             (Code: "SY01", ValueCode: "I1", ValueName: "Goods Receipts"),

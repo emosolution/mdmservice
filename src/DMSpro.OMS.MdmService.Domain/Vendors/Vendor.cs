@@ -1,6 +1,3 @@
-using DMSpro.OMS.MdmService.PriceLists;
-using DMSpro.OMS.MdmService.GeoMasters;
-using DMSpro.OMS.MdmService.Companies;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -55,15 +52,6 @@ namespace DMSpro.OMS.MdmService.Vendors
         public Guid? GeoMaster4Id { get; set; }
         public Guid CompanyId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
-
-        public virtual PriceList PriceList { get; set; }
-        public virtual GeoMaster GeoMaster0 { get; set; }
-        public virtual GeoMaster GeoMaster1 { get; set; }
-        public virtual GeoMaster GeoMaster2 { get; set; }
-        public virtual GeoMaster GeoMaster3 { get; set; }
-        public virtual GeoMaster GeoMaster4 { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual Company LinkedCompany {get; set; }
 
         public Vendor()
         {

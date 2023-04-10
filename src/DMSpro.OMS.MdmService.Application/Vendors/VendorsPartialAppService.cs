@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -6,9 +5,9 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.PriceLists;
-using System.Runtime.CompilerServices;
 using DMSpro.OMS.MdmService.GeoMasters;
 using DMSpro.OMS.MdmService.Companies;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 
 namespace DMSpro.OMS.MdmService.Vendors
 {
@@ -17,9 +16,8 @@ namespace DMSpro.OMS.MdmService.Vendors
         IVendorsAppService
     {
         private readonly IVendorRepository _vendorRepository;
-        private readonly IDistributedCache<VendorExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly VendorManager _vendorManager;
+        private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
 
         private readonly IPriceListRepository _priceListRepository;
         private readonly IGeoMasterRepository _geoMasterRepository;
@@ -28,16 +26,16 @@ namespace DMSpro.OMS.MdmService.Vendors
         public VendorsAppService(ICurrentTenant currentTenant,
             IVendorRepository repository,
             VendorManager vendorManager,
+            INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
             IConfiguration settingProvider,
             IPriceListRepository priceListRepository,
             IGeoMasterRepository geoMasterRepository,
-            ICompanyRepository companyRepository,
-            IDistributedCache<VendorExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            ICompanyRepository companyRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.Vendors.Default)
         {
             _vendorRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _vendorManager = vendorManager;
+            _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
 
             _priceListRepository = priceListRepository;
             _geoMasterRepository = geoMasterRepository;
