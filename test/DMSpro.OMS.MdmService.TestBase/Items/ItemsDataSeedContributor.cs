@@ -2,7 +2,6 @@ using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.VATs;
-using DMSpro.OMS.MdmService.SystemDatas;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
@@ -16,8 +15,7 @@ namespace DMSpro.OMS.MdmService.Items
         private bool IsSeeded = false;
         private readonly IItemRepository _itemRepository;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
-        private readonly SystemDatasDataSeedContributor _systemDatasDataSeedContributor;
-
+        
         private readonly VATsDataSeedContributor _vATsDataSeedContributor;
 
         private readonly UOMGroupsDataSeedContributor _uOMGroupsDataSeedContributor;
@@ -68,7 +66,9 @@ namespace DMSpro.OMS.MdmService.Items
 
         private readonly ItemAttributeValuesDataSeedContributor _itemAttributeValuesDataSeedContributor19;
 
-        public ItemsDataSeedContributor(IItemRepository itemRepository, IUnitOfWorkManager unitOfWorkManager, SystemDatasDataSeedContributor systemDatasDataSeedContributor, VATsDataSeedContributor vATsDataSeedContributor, 
+        public ItemsDataSeedContributor(IItemRepository itemRepository, 
+            IUnitOfWorkManager unitOfWorkManager,
+            VATsDataSeedContributor vATsDataSeedContributor, 
             UOMGroupsDataSeedContributor uOMGroupsDataSeedContributor, 
             UOMsDataSeedContributor uOMsDataSeedContributor0,
             UOMsDataSeedContributor uOMsDataSeedContributor1, 
@@ -86,7 +86,7 @@ namespace DMSpro.OMS.MdmService.Items
         {
             _itemRepository = itemRepository;
             _unitOfWorkManager = unitOfWorkManager;
-            _systemDatasDataSeedContributor = systemDatasDataSeedContributor; _vATsDataSeedContributor = vATsDataSeedContributor; 
+            _vATsDataSeedContributor = vATsDataSeedContributor; 
             _uOMGroupsDataSeedContributor = uOMGroupsDataSeedContributor;
             _uOMsDataSeedContributor0 = uOMsDataSeedContributor0;
             _uOMsDataSeedContributor1 = uOMsDataSeedContributor1; 
@@ -110,7 +110,6 @@ namespace DMSpro.OMS.MdmService.Items
                 return;
             }
 
-            await _systemDatasDataSeedContributor.SeedAsync(context);
             await _vATsDataSeedContributor.SeedAsync(context);
             await _uOMGroupsDataSeedContributor.SeedAsync(context);
             await _uOMsDataSeedContributor0.SeedAsync(context);
@@ -139,25 +138,25 @@ namespace DMSpro.OMS.MdmService.Items
 
             await _itemRepository.InsertAsync(new Item
             (
-                id: Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"),
-                code: "0fb2857d1ace436e8d44",
-                name: "0c987874b116471bbd08d8cd316a4b4c355b5ee0b9bd4331bfaf3bba86c1907bf7d812f109de446bb30a97ac77d871469895c4ca2e904fbf8cab40aa0cb8253b99adf9fa2e8c4c8a98b77f9d61d12b97491d4a4f7e1e4e828ae8c9afd93049b22cee5663f5014dcc8fee3914aafa2767c520ebb20e6343459495af25af067c9",
-                shortName: "9bcac9b7363a473e96af98897b367f13b11022e68d2a48958b8a52dd959e3ad8ca6f95cded8c4c2383fa4706dc4defcf314c51275ad04426bc8ae1c2a4ca6263fec793f5daf14caa863772bb0228a2ec27f8d99c5d86446eb383806a3c13e3527bd54f743810464280b955f7a088ecc502b3141cce4548b89b3135beaeb02f7",
-                erpCode: "d42de760d4184242b684",
-                barcode: "18a9ac33b5a3407fa1934260ef3f6b26bae9e67b174546a6ae",
+                id: Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"),
+                code: "c044c01babf1464d8e65",
+                name: "cb3e0b3e45d0423f8b4787a38dff9480c6df0817887747cea8ca714bf069a25f3e0c2200c81f47258859c76ff06ad01d595fd14f8cc04efe85608ac0cbec266156fb2e211a8b4532bafe100a6d56ec7daf4ae04e173a43c4aa89321448fdfacb9e0de4ca79804e1384cb9608ccac01ba8703c69a36ff4fc882bebf58eda9190",
+                shortName: "30f728ec43c045ec8247ffaa6a342e0e9afe77a7348645c4bdaf43cbbc78a96478b314e37c854bf6879e611f97fa5b3ea95a0f6660c744cabcbc239f7b8442511a95b7b0416d4962b1b23b34b50d924d83574f526f084261a5971b1c84e0320a739cb11e1c2a462daac57bda9665c55f1c8cedbf91b54769a24596873d9d0c8",
+                erpCode: "945a90ef55354e0294cf",
+                barcode: "daa5b45b12644e37889345387314f7a57b8622b22e344bf3ae",
                 isPurchasable: true,
                 isSaleable: true,
                 isInventoriable: true,
-                basePrice: 1368830664,
+                basePrice: 937374410,
                 active: true,
                 manageItemBy: default,
                 expiredType: default,
-                expiredValue: 1108883893,
+                expiredValue: 1531633523,
                 issueMethod: default,
                 canUpdate: true,
-                purUnitRate: 2142153009,
-                salesUnitRate: 529866238,
-                itemTypeId: Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
+                purUnitRate: 1317906569,
+                salesUnitRate: 1457712268,
+                itemType: default,
                 vatId: Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 uomGroupId: Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
                 inventoryUOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
@@ -187,25 +186,25 @@ namespace DMSpro.OMS.MdmService.Items
 
             await _itemRepository.InsertAsync(new Item
             (
-                id: Guid.Parse("ca66e65e-0340-47a1-a505-9351422ca037"),
-                code: "d13b0ba482c64ef6ae9e",
-                name: "0fbd46d477f844749ed9b5180165c37781619646554c438e9bf32d18ee51800604117ff27b4c446fbe9025ddeed5003624c88bb05fe54dd9b812bf987f6fe4a93939ea411b8542ae9b0b0ba4106f0498797c3070c0b344d9b260dc6a525cf375c7598da75d2e4b2baa0cd0bccaa5cb7d79991f96271b41db9925ce9481ea44e",
-                shortName: "f1b9c2f5ea474e898bcdaa9d42d0f6b3a0862b74e5874a19977c04e9c4107e6e401f9cc39d18434bab57744698391e46cc123fa63eea4b25a35e4ed6a42ea7e6d13e622170ea43b69ed334e977b8513b44764c905b2643068e60b55ebbe59d4f1f4a9f8d04d1498a8ca8d44f3bac478325d2eaa56e914ba68e1b2115302e424",
-                erpCode: "e926997da7b3417b9f27",
-                barcode: "bd7e23dd8f834673876fcfe0da21d982cd3033f66b8e41e6a5",
+                id: Guid.Parse("75911d26-2787-40e1-9c0c-0fa58211b3da"),
+                code: "ae34af1fff4f44b084b2",
+                name: "907256313b724328b4c58ae1f553c5c151da08d3c4364589bfaf4641e17a50f01ecad6f1e61b4a09aac791e49c6e359feeb85d57bfe3477b94829c323b678b19cc3a441d9c8b4097bd70d7c53871c7c84a45221f88344017b65e747d6592a6da50cfc0b572784eb9a277abac63a8de930fca2546938a4af080db93354c05713",
+                shortName: "a0dec9af01134b37a83c5a99773954a7a192b40eeb004f689035f22d51da1cfa8767bbc4897942b3ae83aed447999ba87760533dd5084cd7b2deaabdbda7f83ddcad8930bfbf4c24a94c2dbf080769c7c1d784d55db445dc8cf5aa3cebbe3864a7bbe65591624fb89a81f8d0137562752b28e7caba324f0b8511e75791de9e8",
+                erpCode: "18dc58fbf1494c0c8703",
+                barcode: "a0ac8d8596d84722b429f70b73639b2361cdef5e964c44a782",
                 isPurchasable: true,
                 isSaleable: true,
                 isInventoriable: true,
-                basePrice: 902969002,
+                basePrice: 1862005778,
                 active: true,
                 manageItemBy: default,
                 expiredType: default,
-                expiredValue: 743586526,
+                expiredValue: 1105758068,
                 issueMethod: default,
                 canUpdate: true,
-                purUnitRate: 424110346,
-                salesUnitRate: 925853544,
-                itemTypeId: Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
+                purUnitRate: 1449709802,
+                salesUnitRate: 1244251629,
+                itemType: default,
                 vatId: Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 uomGroupId: Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
                 inventoryUOMId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),

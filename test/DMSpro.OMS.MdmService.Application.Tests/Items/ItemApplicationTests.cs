@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.Items
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _itemsAppService.GetListAsync(new GetItemsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Item.Id == Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4")).ShouldBe(true);
-            result.Items.Any(x => x.Item.Id == Guid.Parse("ca66e65e-0340-47a1-a505-9351422ca037")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemsAppService.GetAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
+            var result = await _itemsAppService.GetAsync(Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
+            result.Id.ShouldBe(Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"));
         }
 
         [Fact]
@@ -48,24 +35,23 @@ namespace DMSpro.OMS.MdmService.Items
             // Arrange
             var input = new ItemCreateDto
             {
-                Code = "88284ef0d5db4fcea8a1",
-                Name = "59b63471d09a436c9950bd5875c2edb17610916af7b742b7a1e0c300fe7c9b14f9c17203495d4cb2aac3e784b2ad9367bf2691aa6a41403fa887fac5bdb7f4a8381f2c4d12f54c9ba882a1daf572845f8987573159444f258b00338c013525c669a2c49ba1f744cd9259bea1c6d6e6a0758af25df49540dfb8eeb88e44de79f",
-                ShortName = "a766e703ae264927a26f4892b1ebff07cee71c871b864c948b5d8da645f0dd2869d6e24e0e0845acb99f90ba1cead10a3f271dcb394f45908dded5e5d4d94d1b2a9adb2f0c574bc69c5a09929d4c88efe841ffecc7ec449bb2709793fdb9c45f0dba7182374542fca6b42becc3b47bd0ece651e621ef4fbbbcde30183595784",
-                erpCode = "c2ee9921b55c467faf88",
-                Barcode = "f7580b6b59814c62a67b5181ea0b32a11b0db50c4e26451086",
+                Name = "4792f9f6be354004aa0e09e7d71cd4af18c3dc7cbf1c436483e04f56bf1dd546ad897dd2014e46be9df66a7accf8da6a83d6f447393344a7abac56e9c084ac047979ce8ce08b41cf9b593e6894964d029d9b925d1d95421c90ea30dcdab069f4c1d572f243a64c9d90a71a17bf1af331a0920c3f93384409b4e5c76cfc1f620",
+                ShortName = "d5864a7f38ea4b2ea7dbf147e26e1d87979773c3bf14483e8a2e26a6cd63ed99a5ae5dcfb6e64f0297cde641a2d43523a64bb26b640a4114b779b727d04eb458b443372c380745deaf5740ea520e7832d36f943bd3fa4a8a8c1ab8df37b0637b47b150c13f774997a8564a91d3bfcacb588ac28a451d40c4ba8022df15f9808",
+                erpCode = "880d5e326822489f82ea",
+                Barcode = "e775b959674142aead61bb7c026252ceabdb129192784dc9b8",
                 IsPurchasable = true,
                 IsSaleable = true,
                 IsInventoriable = true,
-                BasePrice = 1118378735,
+                BasePrice = 2125583594,
                 Active = true,
                 ManageItemBy = default,
                 ExpiredType = default,
-                ExpiredValue = 261270654,
+                ExpiredValue = 1857327589,
                 IssueMethod = default,
                 CanUpdate = true,
-                PurUnitRate = 1522992531,
-                SalesUnitRate = 283141640,
-                ItemTypeId = Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
+                PurUnitRate = 806122061,
+                SalesUnitRate = 989201396,
+                ItemType = default,
                 VatId = Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 UomGroupId = Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
                 InventoryUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
@@ -81,23 +67,23 @@ namespace DMSpro.OMS.MdmService.Items
             var result = await _itemRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("88284ef0d5db4fcea8a1");
-            result.Name.ShouldBe("59b63471d09a436c9950bd5875c2edb17610916af7b742b7a1e0c300fe7c9b14f9c17203495d4cb2aac3e784b2ad9367bf2691aa6a41403fa887fac5bdb7f4a8381f2c4d12f54c9ba882a1daf572845f8987573159444f258b00338c013525c669a2c49ba1f744cd9259bea1c6d6e6a0758af25df49540dfb8eeb88e44de79f");
-            result.ShortName.ShouldBe("a766e703ae264927a26f4892b1ebff07cee71c871b864c948b5d8da645f0dd2869d6e24e0e0845acb99f90ba1cead10a3f271dcb394f45908dded5e5d4d94d1b2a9adb2f0c574bc69c5a09929d4c88efe841ffecc7ec449bb2709793fdb9c45f0dba7182374542fca6b42becc3b47bd0ece651e621ef4fbbbcde30183595784");
-            result.erpCode.ShouldBe("c2ee9921b55c467faf88");
-            result.Barcode.ShouldBe("f7580b6b59814c62a67b5181ea0b32a11b0db50c4e26451086");
+            result.Name.ShouldBe("4792f9f6be354004aa0e09e7d71cd4af18c3dc7cbf1c436483e04f56bf1dd546ad897dd2014e46be9df66a7accf8da6a83d6f447393344a7abac56e9c084ac047979ce8ce08b41cf9b593e6894964d029d9b925d1d95421c90ea30dcdab069f4c1d572f243a64c9d90a71a17bf1af331a0920c3f93384409b4e5c76cfc1f620");
+            result.ShortName.ShouldBe("d5864a7f38ea4b2ea7dbf147e26e1d87979773c3bf14483e8a2e26a6cd63ed99a5ae5dcfb6e64f0297cde641a2d43523a64bb26b640a4114b779b727d04eb458b443372c380745deaf5740ea520e7832d36f943bd3fa4a8a8c1ab8df37b0637b47b150c13f774997a8564a91d3bfcacb588ac28a451d40c4ba8022df15f9808");
+            result.erpCode.ShouldBe("880d5e326822489f82ea");
+            result.Barcode.ShouldBe("e775b959674142aead61bb7c026252ceabdb129192784dc9b8");
             result.IsPurchasable.ShouldBe(true);
             result.IsSaleable.ShouldBe(true);
             result.IsInventoriable.ShouldBe(true);
-            result.BasePrice.ShouldBe(1118378735);
+            result.BasePrice.ShouldBe(2125583594);
             result.Active.ShouldBe(true);
             result.ManageItemBy.ShouldBe(default);
             result.ExpiredType.ShouldBe(default);
-            result.ExpiredValue.ShouldBe(261270654);
+            result.ExpiredValue.ShouldBe(1857327589);
             result.IssueMethod.ShouldBe(default);
             result.CanUpdate.ShouldBe(true);
-            result.PurUnitRate.ShouldBe(1522992531);
-            result.SalesUnitRate.ShouldBe(283141640);
+            result.PurUnitRate.ShouldBe(806122061);
+            result.SalesUnitRate.ShouldBe(989201396);
+            result.ItemType.ShouldBe(default);
         }
 
         [Fact]
@@ -106,24 +92,23 @@ namespace DMSpro.OMS.MdmService.Items
             // Arrange
             var input = new ItemUpdateDto()
             {
-                Code = "18cea4780bc84f8bb7e7",
-                Name = "a2024d00fc75454f9a1fb1b5bc131d2e5bb4a345631e45cfb7e3958a4e527a90dbb7c59b66b84e9ba7b397ef407f8ed512bfe4fce8fd4610847cccf6a9c51a99d8f52eaca00d42f9a55c2dc2570d8caabccfb593a9cd48c3ad5a6f9978abf150c8c53a1ea2044469966862bb6b23d5f10ab7a6e8cea04abe8f345f2f579f777",
-                ShortName = "516f1544a9d04fdcb33369f261d32777e0c979c641834a37aa435f422dff8a48b917ccc6ac63439b9e3eece2c061eb5d4e61d76fae584fd4a707e539cfa773b2f52b744c155547fab47311376f6e069a1e38f08226034b77a93a44430de4c687c3c00f0354d845fa929ad04976b73dcb1b2eee783f0640169ca68093434d6c2",
-                erpCode = "92f4e2d95b8243c58ff8",
-                Barcode = "2ac4670003e74ed7b935bc3544f2e1b3206fe4e9e51e47769e",
+                Name = "ffa88d332cd24a9a8236370e61eb15c84aaa6ab7ea524357a3e19da26e02c722ac27b5b73afa4086aae5dd947f8590c9330bf486e5e449bdb679eddc2b594c75412c5e43378c4fc6a25b506530ceaee08e9289db9a5c4252ab9b5c3571e0ac0fd8dde9f0b15440df9385d9776840385f4e4abd291d984167a84cce8ab29652c",
+                ShortName = "af15b8d264664eb19454e9aec51c60b23849cd5ef06b4a3580ec51d50d17f87052c15eaac42a4494bf2c6c27988b48dd3e9b31b1eb8840859ed881526a101f1af75c613dd0394896897cb5c332259cb22b36f1c5632f4b7a8202ec4b9723489914bb113a870e4c96922797a861d4577780c88c33ff344422876bf86074462fb",
+                erpCode = "e9f86761fdb44d2eb76e",
+                Barcode = "a72dac0dffdf448da54b50bff5c535bfd6b36a45bca84ad29d",
                 IsPurchasable = true,
                 IsSaleable = true,
                 IsInventoriable = true,
-                BasePrice = 78554204,
+                BasePrice = 1637301533,
                 Active = true,
                 ManageItemBy = default,
                 ExpiredType = default,
-                ExpiredValue = 499406014,
+                ExpiredValue = 2030144152,
                 IssueMethod = default,
                 CanUpdate = true,
-                PurUnitRate = 613278082,
-                SalesUnitRate = 593255752,
-                ItemTypeId = Guid.Parse("0769ab5b-e53d-4065-a948-55423dd223f7"),
+                PurUnitRate = 1407412368,
+                SalesUnitRate = 1775138598,
+                ItemType = default,
                 VatId = Guid.Parse("4c99eb1e-38da-41e2-ac16-1914592fc547"),
                 UomGroupId = Guid.Parse("f8b2ef88-6487-4c6a-9ea9-45604bc8756a"),
                 InventoryUOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
@@ -133,39 +118,39 @@ namespace DMSpro.OMS.MdmService.Items
             };
 
             // Act
-            var serviceResult = await _itemsAppService.UpdateAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"), input);
+            var serviceResult = await _itemsAppService.UpdateAsync(Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"), input);
 
             // Assert
             var result = await _itemRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("18cea4780bc84f8bb7e7");
-            result.Name.ShouldBe("a2024d00fc75454f9a1fb1b5bc131d2e5bb4a345631e45cfb7e3958a4e527a90dbb7c59b66b84e9ba7b397ef407f8ed512bfe4fce8fd4610847cccf6a9c51a99d8f52eaca00d42f9a55c2dc2570d8caabccfb593a9cd48c3ad5a6f9978abf150c8c53a1ea2044469966862bb6b23d5f10ab7a6e8cea04abe8f345f2f579f777");
-            result.ShortName.ShouldBe("516f1544a9d04fdcb33369f261d32777e0c979c641834a37aa435f422dff8a48b917ccc6ac63439b9e3eece2c061eb5d4e61d76fae584fd4a707e539cfa773b2f52b744c155547fab47311376f6e069a1e38f08226034b77a93a44430de4c687c3c00f0354d845fa929ad04976b73dcb1b2eee783f0640169ca68093434d6c2");
-            result.erpCode.ShouldBe("92f4e2d95b8243c58ff8");
-            result.Barcode.ShouldBe("2ac4670003e74ed7b935bc3544f2e1b3206fe4e9e51e47769e");
+            result.Name.ShouldBe("ffa88d332cd24a9a8236370e61eb15c84aaa6ab7ea524357a3e19da26e02c722ac27b5b73afa4086aae5dd947f8590c9330bf486e5e449bdb679eddc2b594c75412c5e43378c4fc6a25b506530ceaee08e9289db9a5c4252ab9b5c3571e0ac0fd8dde9f0b15440df9385d9776840385f4e4abd291d984167a84cce8ab29652c");
+            result.ShortName.ShouldBe("af15b8d264664eb19454e9aec51c60b23849cd5ef06b4a3580ec51d50d17f87052c15eaac42a4494bf2c6c27988b48dd3e9b31b1eb8840859ed881526a101f1af75c613dd0394896897cb5c332259cb22b36f1c5632f4b7a8202ec4b9723489914bb113a870e4c96922797a861d4577780c88c33ff344422876bf86074462fb");
+            result.erpCode.ShouldBe("e9f86761fdb44d2eb76e");
+            result.Barcode.ShouldBe("a72dac0dffdf448da54b50bff5c535bfd6b36a45bca84ad29d");
             result.IsPurchasable.ShouldBe(true);
             result.IsSaleable.ShouldBe(true);
             result.IsInventoriable.ShouldBe(true);
-            result.BasePrice.ShouldBe(78554204);
+            result.BasePrice.ShouldBe(1637301533);
             result.Active.ShouldBe(true);
             result.ManageItemBy.ShouldBe(default);
             result.ExpiredType.ShouldBe(default);
-            result.ExpiredValue.ShouldBe(499406014);
+            result.ExpiredValue.ShouldBe(2030144152);
             result.IssueMethod.ShouldBe(default);
             result.CanUpdate.ShouldBe(true);
-            result.PurUnitRate.ShouldBe(613278082);
-            result.SalesUnitRate.ShouldBe(593255752);
+            result.PurUnitRate.ShouldBe(1407412368);
+            result.SalesUnitRate.ShouldBe(1775138598);
+            result.ItemType.ShouldBe(default);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemsAppService.DeleteAsync(Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
+            await _itemsAppService.DeleteAsync(Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"));
 
             // Assert
-            var result = await _itemRepository.FindAsync(c => c.Id == Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4"));
+            var result = await _itemRepository.FindAsync(c => c.Id == Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"));
 
             result.ShouldBeNull();
         }

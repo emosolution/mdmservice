@@ -1,5 +1,6 @@
 ﻿using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.PriceLists;
@@ -26,10 +27,6 @@ namespace DMSpro.OMS.MdmService.Items
         [Authorize(MdmServicePermissions.Items.Create)]
         public virtual async Task<ItemDto> CreateAsync(ItemCreateDto input)
         {
-            if (input.ItemTypeId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SystemData"]]);
-            }
             if (input.VatId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["VAT"]]);
@@ -50,10 +47,19 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
-            await CheckCodeUniqueness(input.Code);
+            (var numberingConfig, var hoCompanyId) = await GetCodeFromNumberingConfig();
             var item = await _itemManager.CreateAsync(
-            input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Code, input.Name, input.ShortName, input.erpCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice, input.Active, input.ManageItemBy, input.CanUpdate, input.PurUnitRate, input.SalesUnitRate, input.ExpiredType, input.ExpiredValue, input.IssueMethod
-            );
+                input.VatId, input.UomGroupId, input.InventoryUOMId,
+                input.PurUOMId, input.SalesUOMId,
+                input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id,
+                input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id,
+                input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id,
+                input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id,
+                numberingConfig.SuggestedCode, input.Name, input.ShortName, input.erpCode, input.Barcode,
+                input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice,
+                input.Active, input.ManageItemBy,
+                input.PurUnitRate, input.SalesUnitRate,
+                input.ItemType, input.ExpiredType, input.ExpiredValue, input.IssueMethod);
 
             //Add Item to Price List
             if (await _priceListRepository.CountAsync() > 0)
@@ -99,7 +105,8 @@ namespace DMSpro.OMS.MdmService.Items
                 }
                 await _priceListDetailRepository.InsertManyAsync(priceListDetails);
             }
-
+            await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(
+                ItemConsts.NumberingConfigObjectType, hoCompanyId, numberingConfig.CurrentNumber);
             return ObjectMapper.Map<Item, ItemDto>(item);
         }
 
@@ -108,10 +115,6 @@ namespace DMSpro.OMS.MdmService.Items
         {
             await CheckCanBeUpdated(id);
 
-            if (input.ItemTypeId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["SystemData"]]);
-            }
             if (input.VatId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["VAT"]]);
@@ -132,10 +135,20 @@ namespace DMSpro.OMS.MdmService.Items
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
             }
-            await CheckCodeUniqueness(input.Code, id);
             var item = await _itemManager.UpdateAsync(
-            id,
-            input.ItemTypeId, input.VatId, input.UomGroupId, input.InventoryUOMId, input.PurUOMId, input.SalesUOMId, input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id, input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id, input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id, input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, input.Code, input.Name, input.ShortName, input.erpCode, input.Barcode, input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice, input.Active, input.ManageItemBy, input.CanUpdate, input.PurUnitRate, input.SalesUnitRate, input.ExpiredType, input.ExpiredValue, input.IssueMethod, input.ConcurrencyStamp
+                id,
+                input.VatId, input.UomGroupId, input.InventoryUOMId,
+                input.PurUOMId, input.SalesUOMId,
+                input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id,
+                input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id,
+                input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id,
+                input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id,
+                input.Name, input.ShortName, input.erpCode, input.Barcode,
+                input.IsPurchasable, input.IsSaleable, input.IsInventoriable, input.BasePrice,
+                input.Active, input.ManageItemBy,
+                input.PurUnitRate, input.SalesUnitRate,
+                input.ItemType, input.ExpiredType, input.ExpiredValue, input.IssueMethod,
+                input.ConcurrencyStamp
             );
 
             //Update Price to PriceList
@@ -170,6 +183,11 @@ namespace DMSpro.OMS.MdmService.Items
             return ObjectMapper.Map<Item, ItemDto>(item);
         }
 
+        public virtual async Task<ItemDto> GetAsync(Guid id)
+        {
+            return ObjectMapper.Map<Item, ItemDto>(await _itemRepository.GetAsync(id));
+        }
+
         private async Task CheckCanBeUpdated(Guid id)
         {
             var record = await _itemRepository.GetAsync(id);
@@ -198,6 +216,17 @@ namespace DMSpro.OMS.MdmService.Items
                 Images = ObjectMapper.Map<List<ItemImage>, List<ItemImageDto>>(images),
             };
             return result;
+        }
+
+        private async Task<(NumberingConfigDetailDto, Guid)> GetCodeFromNumberingConfig()
+        {
+            var hoCompany = await _companyRepository.GetAsync(x => x.IsHO == true);
+            var dto = 
+                await _numberingConfigDetailsInternalAppService.GetSuggestedNumberingConfigAsync(
+                    ItemConsts.NumberingConfigObjectType, hoCompany.Id);
+            string code = dto.SuggestedCode;
+            await CheckCodeUniqueness(code);
+            return (dto, hoCompany.Id);
         }
     }
 }

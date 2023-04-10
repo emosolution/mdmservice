@@ -1,5 +1,4 @@
 ﻿using System;
-using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.UOMGroups;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.VATs;
@@ -26,7 +25,7 @@ namespace DMSpro.OMS.MdmService.Items
         public bool CanUpdate { get; set; }
         public decimal PurUnitRate { get; set; }
         public decimal SalesUnitRate { get; set; }
-        public Guid ItemTypeId { get; set; }
+        public ItemTypes ItemType { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
         public Guid InventoryUOMId { get; set; }
@@ -55,7 +54,6 @@ namespace DMSpro.OMS.MdmService.Items
 
         public string ConcurrencyStamp { get; set; }
 
-        public virtual SystemDataDto ItemType { get; set; }
         public virtual VATDto VAT { get; set; }
         public virtual UOMGroupDto UOMGroup { get; set; }
         public virtual UOMDto InventoryUOM { get; set; }

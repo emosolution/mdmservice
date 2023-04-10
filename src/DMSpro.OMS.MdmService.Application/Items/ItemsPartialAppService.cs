@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -8,13 +7,15 @@ using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.VATs;
 using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.UOMGroups;
-using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
 using DMSpro.OMS.MdmService.ItemAttachments;
 using DMSpro.OMS.MdmService.ItemImages;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.PriceListDetails;
 using DMSpro.OMS.MdmService.UOMGroupDetails;
+using DMSpro.OMS.MdmService.NumberingConfigDetails;
+using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.Items
 {
@@ -23,19 +24,15 @@ namespace DMSpro.OMS.MdmService.Items
         IItemsAppService
     {
         private readonly IItemRepository _itemRepository;
-        private readonly IDistributedCache<ItemExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly ItemManager _itemManager;
-
+        private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
+        private readonly ICompanyRepository _companyRepository;
         private readonly IItemAttachmentRepository _itemAttachmentRepository;
         private readonly IItemImageRepository _itemImageRepository;
-        //private readonly IItemAttachmentsAppService _itemAttachmentsAppService;
-        //private readonly IItemImagesAppService _itemImagesAppService;
 
         private readonly IVATRepository _vATRepository;
         private readonly IUOMGroupRepository _uOMGroupRepository;
         private readonly IUOMGroupDetailRepository _uOMGroupDetailRepository;
-        private readonly ISystemDataRepository _systemDataRepository;
         private readonly IPriceListRepository _priceListRepository;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
@@ -46,34 +43,29 @@ namespace DMSpro.OMS.MdmService.Items
         public ItemsAppService(ICurrentTenant currentTenant,
             IItemRepository repository,
             ItemManager itemManager,
+            INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
+            ICompanyRepository companyRepository,
             IItemAttachmentRepository itemAttachmentRepository,
             IItemImageRepository itemImageRepository,
-            //IItemAttachmentsAppService itemAttachmentsAppService,
-            //IItemImagesAppService itemImagesAppService,
             IConfiguration settingProvider,
             IVATRepository vATRepository,
             IUOMGroupRepository uOMGroupRepository,
             IUOMGroupDetailRepository uOMGroupDetailRepository,
             IItemAttributeValueRepository itemAttributeValueRepository,
             IUOMRepository uOMRepository,
-            ISystemDataRepository systemDataRepository,
             IPriceListRepository priceListRepository,
             IPriceListDetailRepository priceListDetailRepository,
-            IDistributedCache<ItemExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
             IItemsInternalAppService itemsInternalAppService)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.Items.Default)
         {
             _itemRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemManager = itemManager;
-
+            _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
+            _companyRepository = companyRepository;
             _itemAttachmentRepository = itemAttachmentRepository;
             _itemImageRepository = itemImageRepository;
-            //_itemAttachmentsAppService = itemAttachmentsAppService;
-            //_itemImagesAppService = itemImagesAppService;
 
             _vATRepository = vATRepository;
-            _systemDataRepository = systemDataRepository;
             _priceListRepository = priceListRepository;
             _priceListDetailRepository = priceListDetailRepository;
             _itemAttributeValueRepository = itemAttributeValueRepository;
@@ -89,8 +81,6 @@ namespace DMSpro.OMS.MdmService.Items
                 new KeyValuePair<string, object>("IUOMGroupRepository", _uOMGroupRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IUOMRepository", _uOMRepository));
-            _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("ISystemDataRepository", _systemDataRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemAttributeValueRepository", _itemAttributeValueRepository));
             

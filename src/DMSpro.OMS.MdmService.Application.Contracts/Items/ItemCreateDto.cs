@@ -1,15 +1,10 @@
-using DMSpro.OMS.MdmService.Items;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Items
 {
     public class ItemCreateDto
     {
-        [Required]
-        [StringLength(ItemConsts.CodeMaxLength, MinimumLength = ItemConsts.CodeMinLength)]
-        public string Code { get; set; }
         [Required]
         [StringLength(ItemConsts.NameMaxLength, MinimumLength = ItemConsts.NameMinLength)]
         public string Name { get; set; }
@@ -31,7 +26,7 @@ namespace DMSpro.OMS.MdmService.Items
         public bool CanUpdate { get; set; } = true;
         public decimal PurUnitRate { get; set; }
         public decimal SalesUnitRate { get; set; }
-        public Guid ItemTypeId { get; set; }
+        public ItemTypes ItemType { get; set; } = ((ItemTypes[])Enum.GetValues(typeof(ItemTypes)))[0];
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
         public Guid InventoryUOMId { get; set; }

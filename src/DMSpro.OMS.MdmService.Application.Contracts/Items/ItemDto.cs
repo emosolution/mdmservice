@@ -24,7 +24,7 @@ namespace DMSpro.OMS.MdmService.Items
         public bool CanUpdate { get; set; }
         public decimal PurUnitRate { get; set; }
         public decimal SalesUnitRate { get; set; }
-        public Guid ItemTypeId { get; set; }
+        public ItemTypes ItemType { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
         public Guid InventoryUOMId { get; set; }

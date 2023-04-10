@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.Items;
 using DMSpro.OMS.MdmService.SalesOrgHeaders;
 using DMSpro.OMS.MdmService.SalesOrgHierarchies;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ namespace DMSpro.OMS.MdmService.SystemDatas
         public static List<(string Code, string ValueCode, string ValueName)> SeedData = new()
         {
             //Seed ItemType - MD02
-            (Code: "MD02", ValueCode: "I", ValueName: "Item"),
-            (Code: "MD02", ValueCode: "P", ValueName: "POSM"),
-            (Code: "MD02", ValueCode: "D", ValueName: "Discount"),
-            (Code: "MD02", ValueCode: "V", ValueName: "Voucher"),
+            // (Code: "MD02", ValueCode: "I", ValueName: "Item"),
+            // (Code: "MD02", ValueCode: "P", ValueName: "POSM"),
+            // (Code: "MD02", ValueCode: "D", ValueName: "Discount"),
+            // (Code: "MD02", ValueCode: "V", ValueName: "Voucher"),
 
             //MD05 - Payment Term
             (Code: "MD05", ValueCode: "5", ValueName: "5"),
@@ -61,7 +62,7 @@ namespace DMSpro.OMS.MdmService.SystemDatas
             (Code: "SY01", ValueCode: "M1", ValueName: "Customers"),
             (Code: "SY01", ValueCode: "M2", ValueName: "Employees"),
             (Code: "SY01", ValueCode: "M3", ValueName: "Routes"),
-            (Code: "SY01", ValueCode: "M4", ValueName: "Items"),
+            (Code: "SY01", ValueCode: "M4", ValueName: ItemConsts.NumberingConfigObjectType),
             (Code: "SY01", ValueCode: "M5", ValueName: "Vendors"),
             (Code: "SY01", ValueCode: "M6", ValueName: SalesOrgHierarchyConsts.NumberingConfigObjectType),
             // Inventory

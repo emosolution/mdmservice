@@ -1,14 +1,4 @@
-using DMSpro.OMS.MdmService.Items;
-using DMSpro.OMS.MdmService.SystemDatas;
-using DMSpro.OMS.MdmService.VATs;
-using DMSpro.OMS.MdmService.UOMGroups;
-using DMSpro.OMS.MdmService.UOMs;
-using DMSpro.OMS.MdmService.ItemAttributeValues;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -59,7 +49,8 @@ namespace DMSpro.OMS.MdmService.Items
         public virtual decimal PurUnitRate { get; set; }
 
         public virtual decimal SalesUnitRate { get; set; }
-        public Guid ItemTypeId { get; set; }
+
+        public virtual ItemTypes ItemType { get; set; }
         public Guid VatId { get; set; }
         public Guid UomGroupId { get; set; }
         public Guid InventoryUOMId { get; set; }
@@ -86,18 +77,12 @@ namespace DMSpro.OMS.MdmService.Items
         public Guid? Attr18Id { get; set; }
         public Guid? Attr19Id { get; set; }
 
-        public virtual SystemData ItemType { get; set; }
-        public virtual VAT VAT { get; set; }
-        public virtual UOMGroup UOMGroup { get; set; }
-        public virtual UOM InventoryUOM { get; set; }
-        public virtual UOM PurUOM { get; set; }
-        public virtual UOM SalesUOM { get; set; }
         public Item()
         {
 
         }
 
-        public Item(Guid id, Guid itemTypeId, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string erpCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, decimal purUnitRate, decimal salesUnitRate, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
+        public Item(Guid id, Guid vatId, Guid uomGroupId, Guid inventoryUOMId, Guid purUOMId, Guid salesUOMId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string code, string name, string shortName, string erpCode, string barcode, bool isPurchasable, bool isSaleable, bool isInventoriable, decimal basePrice, bool active, ManageBy manageItemBy, bool canUpdate, decimal purUnitRate, decimal salesUnitRate, ItemTypes itemType, ExpiredType? expiredType = null, int? expiredValue = null, IssueMethod? issueMethod = null)
         {
 
             Id = id;
@@ -122,10 +107,10 @@ namespace DMSpro.OMS.MdmService.Items
             CanUpdate = canUpdate;
             PurUnitRate = purUnitRate;
             SalesUnitRate = salesUnitRate;
+            ItemType = itemType;
             ExpiredType = expiredType;
             ExpiredValue = expiredValue;
             IssueMethod = issueMethod;
-            ItemTypeId = itemTypeId;
             VatId = vatId;
             UomGroupId = uomGroupId;
             InventoryUOMId = inventoryUOMId;

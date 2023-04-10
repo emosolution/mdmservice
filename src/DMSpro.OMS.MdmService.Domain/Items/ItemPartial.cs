@@ -1,15 +1,23 @@
+using DMSpro.OMS.MdmService.UOMGroups;
+using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.VATs;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.Items
 {
 	public partial class Item
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual VAT VAT { get; set; }
+        public virtual UOMGroup UOMGroup { get; set; }
+        public virtual UOM InventoryUOM { get; set; }
+        public virtual UOM PurUOM { get; set; }
+        public virtual UOM SalesUOM { get; set; }
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()
 			{
-				{ "ItemTypeId", (1, "ISystemDataRepository", "", "") },
                 { "VatId", (1, "IVATRepository", "", "") },
                 { "UomGroupId", (1, "IUOMGroupRepository", "", "") },
                 { "InventoryUOMId", (1, "IUOMRepository", "", "") },

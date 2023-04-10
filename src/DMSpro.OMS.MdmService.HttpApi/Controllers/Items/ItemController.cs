@@ -27,60 +27,13 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         }
 
         [HttpGet]
-        public Task<PagedResultDto<ItemWithNavigationPropertiesDto>> GetListAsync(GetItemsInput input)
-        {
-            return _itemsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<ItemWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _itemsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<ItemDto> GetAsync(Guid id)
         {
             return _itemsAppService.GetAsync(id);
         }
 
-        [HttpGet]
-        [Route("system-data-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetSystemDataLookupAsync(LookupRequestDto input)
-        {
-            return _itemsAppService.GetSystemDataLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("v-aT-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetVATLookupAsync(LookupRequestDto input)
-        {
-            return _itemsAppService.GetVATLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("u-oMGroup-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetUOMGroupLookupAsync(LookupRequestDto input)
-        {
-            return _itemsAppService.GetUOMGroupLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("u-oM-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetUOMLookupAsync(LookupRequestDto input)
-        {
-            return _itemsAppService.GetUOMLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("item-attribute-value-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetItemAttributeValueLookupAsync(LookupRequestDto input)
-        {
-            return _itemsAppService.GetItemAttributeValueLookupAsync(input);
-        }
-
+        
         [HttpPost]
         public virtual Task<ItemDto> CreateAsync(ItemCreateDto input)
         {
@@ -103,20 +56,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Items
         public virtual Task DeleteAsync(Guid id)
         {
             return _itemsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemExcelDownloadDto input)
-        {
-            return _itemsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _itemsAppService.GetDownloadTokenAsync();
         }
     }
 }

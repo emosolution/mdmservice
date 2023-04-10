@@ -579,7 +579,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.ExpiredValue).HasColumnName(nameof(Item.ExpiredValue));
             b.Property(x => x.IssueMethod).HasColumnName(nameof(Item.IssueMethod));
             b.Property(x => x.CanUpdate).HasColumnName(nameof(Item.CanUpdate));
-            b.HasOne<SystemData>(x => x.ItemType).WithMany().IsRequired().HasForeignKey(x => x.ItemTypeId).OnDelete(DeleteBehavior.NoAction);
+            b.Property(x => x.ItemType).HasColumnName(nameof(Item.ItemType));
             b.HasOne<VAT>(x => x.VAT).WithMany().IsRequired().HasForeignKey(x => x.VatId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<UOMGroup>(x => x.UOMGroup).WithMany().IsRequired().HasForeignKey(x => x.UomGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<UOM>(x => x.InventoryUOM).WithMany().IsRequired().HasForeignKey(x => x.InventoryUOMId).OnDelete(DeleteBehavior.NoAction);

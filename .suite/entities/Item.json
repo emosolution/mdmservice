@@ -402,24 +402,36 @@
       "EnumValues": null,
       "IsSelected": true,
       "OrdinalIndex": 0
+    },
+    {
+      "Id": "51fb6791-0d58-4dda-b068-2c070dc50b93",
+      "Name": "ItemType",
+      "Type": "enum",
+      "EnumType": "ItemTypes",
+      "EnumNamespace": "DMSpro.OMS.MdmService.Items",
+      "EnumAngularImport": "shared/enums/item-types",
+      "EnumFilePath": "/src/DMSpro.OMS.MdmService.Domain.Shared/Items/ItemTypes.cs",
+      "DefaultValue": null,
+      "IsNullable": false,
+      "IsRequired": false,
+      "IsTextArea": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": {
+        "Item": 0,
+        "POSM": 1,
+        "Discount": 2,
+        "Voucher": 3
+      },
+      "IsSelected": true,
+      "OrdinalIndex": 0
     }
   ],
   "NavigationProperties": [
-    {
-      "EntityNameWithDuplicationNumber": "SystemData",
-      "EntitySetNameWithDuplicationNumber": "SystemDatas",
-      "ReferencePropertyName": "ItemType",
-      "UiPickType": "Dropdown",
-      "IsRequired": true,
-      "Name": "ItemTypeId",
-      "DisplayProperty": "Code",
-      "Namespace": "DMSpro.OMS.MdmService.SystemDatas",
-      "EntityName": "SystemData",
-      "EntitySetName": "SystemDatas",
-      "DtoNamespace": "DMSpro.OMS.MdmService.SystemDatas",
-      "DtoEntityName": "SystemDataDto",
-      "Type": "Guid"
-    },
     {
       "EntityNameWithDuplicationNumber": "VAT",
       "EntitySetNameWithDuplicationNumber": "VATs",
