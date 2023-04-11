@@ -1117,6 +1117,8 @@
     "Error:ItemGroupAttributesAppService:552": "Item attribute number {0} is not active",
     "Error:ItemGroupAttributesAppService:553": "Item attribute value at position {0} is not valid",
     "Error:ItemGroupListsAppService:550": "Parent item group' status is no longer OPEN",
-    "Error:ItemGroupListsAppService:551": "Parent item group is not of type grouped by list of items"
+    "Error:ItemGroupListsAppService:551": "Parent item group is not of type grouped by list of items",
+    "Error:GeoMastersInternalAppService:550": "Invalid geographical parent at level {0}",
+    "Error:GeoMastersInternalAppService:551": "Invalid geographical at level {0}"
   }
 }
