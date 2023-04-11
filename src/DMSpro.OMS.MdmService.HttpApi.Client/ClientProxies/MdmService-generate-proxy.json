@@ -35849,6 +35849,23 @@
                   }
                 },
                 {
+                  "name": "GetWithAvatarAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileWithAvatarDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileWithAvatarDto"
+                  }
+                },
+                {
                   "name": "GetListDevextremesAsync",
                   "parametersOnMethod": [
                     {
@@ -36112,6 +36129,43 @@
               "returnValue": {
                 "type": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileFullDto",
                 "typeSimple": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileFullDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeProfiles.IEmployeeProfilesAppService"
+            },
+            "GetWithAvatarAsyncById": {
+              "uniqueName": "GetWithAvatarAsyncById",
+              "name": "GetWithAvatarAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-profiles/with-avatar/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileWithAvatarDto",
+                "typeSimple": "DMSpro.OMS.MdmService.EmployeeProfiles.EmployeeProfileWithAvatarDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeProfiles.IEmployeeProfilesAppService"
