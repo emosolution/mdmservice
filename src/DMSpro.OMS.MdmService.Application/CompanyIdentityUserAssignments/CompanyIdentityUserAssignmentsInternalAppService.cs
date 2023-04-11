@@ -31,6 +31,10 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             var assignments = 
                 await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                     x.IdentityUserId == identityUserId);
+            if(CurrentUser is not null && CurrentUser.TenantId is null){
+                return null;
+            }
+            
             if (assignments.Count < 1)
             {
                 throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");

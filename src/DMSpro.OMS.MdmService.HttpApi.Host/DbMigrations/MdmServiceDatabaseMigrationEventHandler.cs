@@ -8,6 +8,8 @@ using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Uow;
 using Volo.Saas.Tenants;
+using DMSpro.OMS.Shared.Domain.DistributedEvents;
+using DMSpro.OMS.MdmService.Companies;
 
 namespace DMSpro.OMS.MdmService.DbMigrations;
 
@@ -15,15 +17,19 @@ public class MdmServiceDatabaseMigrationEventHandler
     : DatabaseMigrationEventHandlerBase<MdmServiceDbContext>,
         IDistributedEventHandler<TenantCreatedEto>,
         IDistributedEventHandler<TenantConnectionStringUpdatedEto>,
-        IDistributedEventHandler<ApplyDatabaseMigrationsEto>
+        IDistributedEventHandler<ApplyDatabaseMigrationsEto>,
+        IDistributedEventHandler<AdminTenantCreatedEto>
 {
+    private readonly ICompaniesInternalAppService _companiesInternalAppService;
+
     public MdmServiceDatabaseMigrationEventHandler(
         ILoggerFactory loggerFactory,
         ICurrentTenant currentTenant,
         IUnitOfWorkManager unitOfWorkManager,
         ITenantStore tenantStore,
         ITenantRepository tenantRepository,
-        IDistributedEventBus distributedEventBus
+        IDistributedEventBus distributedEventBus,
+        ICompaniesInternalAppService companiesInternalAppService
     ) : base(
         loggerFactory,
         currentTenant,
@@ -33,7 +39,7 @@ public class MdmServiceDatabaseMigrationEventHandler
         distributedEventBus,
         MdmServiceDbProperties.ConnectionStringName)
     {
-
+        _companiesInternalAppService = companiesInternalAppService;
     }
 
     public async Task HandleEventAsync(ApplyDatabaseMigrationsEto eventData)
@@ -70,6 +76,23 @@ public class MdmServiceDatabaseMigrationEventHandler
             await HandleErrorTenantCreatedAsync(eventData, ex);
         }
     }
+
+    public async Task HandleEventAsync(AdminTenantCreatedEto eventData)
+    {
+        try
+        {
+            Console.WriteLine("kaklaic");
+            Console.WriteLine(eventData);
+            await _companiesInternalAppService.SeedHOCompanyAndAssignAdminToHO(eventData.TenantId.Value,eventData.IdentityUserId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Loi seed AdminCreatedEto");
+            Console.WriteLine(ex);
+            //await HandleErrorTenantCreatedAsync(eventData, ex);
+        }
+    }
+
 
     public async Task HandleEventAsync(TenantConnectionStringUpdatedEto eventData)
     {
