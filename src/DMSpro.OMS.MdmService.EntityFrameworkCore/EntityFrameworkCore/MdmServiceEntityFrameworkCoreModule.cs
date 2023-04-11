@@ -338,7 +338,12 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<MCPDetail>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader).Include(o => o.Customer);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.MCPHeader)
+                    .Include(o => o.Customer).ThenInclude(x => x.GeoMaster0)
+                    .Include(o => o.Customer).ThenInclude(x => x.GeoMaster1)
+                    .Include(o => o.Customer).ThenInclude(x => x.GeoMaster2)
+                    .Include(o => o.Customer).ThenInclude(x => x.GeoMaster3)
+                    .Include(o => o.Customer).ThenInclude(x => x.GeoMaster4);
             });
 
             options.Entity<NumberingConfig>(orderOptions =>
