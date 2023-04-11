@@ -44,9 +44,9 @@ public partial class ItemGroupClientProxy : ClientProxyBase<IItemGroupsAppServic
         });
     }
 
-    public virtual async Task DeleteAsync(Guid id)
+    public virtual async Task ReleaseAsync(Guid id)
     {
-        await RequestAsync(nameof(DeleteAsync), new ClientProxyRequestTypeValue
+        await RequestAsync(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

@@ -1,9 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
@@ -11,7 +8,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
     {
         Task<ItemGroupDto> GetAsync(Guid id);
 
-        Task DeleteAsync(Guid id);
+        Task ReleaseAsync(Guid id);
 
         Task<ItemGroupDto> CreateAsync(ItemGroupCreateDto input);
 

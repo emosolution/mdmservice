@@ -40,11 +40,11 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
             return _itemGroupsAppService.UpdateAsync(id, input);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        [HttpPut]
+        [Route("release/{id}")]
+        public virtual Task ReleaseAsync(Guid id)
         {
-            return _itemGroupsAppService.DeleteAsync(id);
+            return _itemGroupsAppService.ReleaseAsync(id);
         }
     }
 }

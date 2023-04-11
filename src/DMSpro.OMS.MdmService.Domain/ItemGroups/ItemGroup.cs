@@ -22,7 +22,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         public virtual GroupType Type { get; set; }
 
-        public virtual bool Selectable { get; set; }    
+        public virtual bool? Selectable { get; set; }    
 
         public virtual GroupStatus Status { get; set; }
 
@@ -31,9 +31,8 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         }
 
-        public ItemGroup(Guid id, string code, string name, string description, GroupType type, GroupStatus status, bool selectable)
+        public ItemGroup(Guid id, string code, string name, string description, GroupType type, GroupStatus status, bool? selectable)
         {
-
             Id = id;
             Check.NotNull(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
@@ -45,6 +44,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             Description = description;
             Type = type;
             Status = status;
+            selectable ??= true;
             Selectable = selectable;
         }
     }

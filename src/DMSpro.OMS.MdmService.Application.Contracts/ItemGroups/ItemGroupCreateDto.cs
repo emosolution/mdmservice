@@ -14,7 +14,6 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         [StringLength(ItemGroupConsts.DescriptionMaxLength)]
         public string Description { get; set; }
         public GroupType Type { get; set; } = ((GroupType[])Enum.GetValues(typeof(GroupType)))[0];
-        public GroupStatus Status { get; set; } = ((GroupStatus[])Enum.GetValues(typeof(GroupStatus)))[0];
-        public bool Selectable { get; set; }
+        public bool? Selectable { get; set; }
     }
 }

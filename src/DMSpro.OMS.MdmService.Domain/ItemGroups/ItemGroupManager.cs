@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 
         public async Task<ItemGroup> CreateAsync(
             string code, string name, string description,
-            GroupType type, GroupStatus status, bool selectable)
+            GroupType type, bool? selectable)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
@@ -26,37 +26,31 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             Check.Length(name, nameof(name), ItemGroupConsts.NameMaxLength);
             Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength);
             Check.NotNull(type, nameof(type));
-            Check.NotNull(status, nameof(status));
 
             var itemGroup = new ItemGroup(
                  GuidGenerator.Create(),
-                 code, name, description, type, status, selectable);
+                 code, name, description, type, GroupStatus.OPEN, selectable);
 
             return await _itemGroupRepository.InsertAsync(itemGroup);
         }
 
         public async Task<ItemGroup> UpdateAsync(
             Guid id,
-            string code, string name, string description, 
-            GroupType type, GroupStatus status, bool selectable,
+            string name, string description, 
+            GroupType type, bool? selectable,
             [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), ItemGroupConsts.CodeMaxLength, ItemGroupConsts.CodeMinLength);
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.Length(name, nameof(name), ItemGroupConsts.NameMaxLength);
             Check.Length(description, nameof(description), ItemGroupConsts.DescriptionMaxLength);
             Check.NotNull(type, nameof(type));
-            Check.NotNull(status, nameof(status));
 
             var itemGroup = await _itemGroupRepository.GetAsync(id);
 
-            itemGroup.Code = code;
             itemGroup.Name = name;
             itemGroup.Description = description;
             itemGroup.Type = type;
-            itemGroup.Status = status;
             itemGroup.Selectable = selectable;
 
             itemGroup.SetConcurrencyStampIfNotNull(concurrencyStamp);

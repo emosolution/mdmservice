@@ -25687,7 +25687,7 @@
                   }
                 },
                 {
-                  "name": "DeleteAsync",
+                  "name": "ReleaseAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -25939,11 +25939,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemGroups.IItemGroupsAppService"
             },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/mdm-service/item-groups/{id}",
+            "ReleaseAsyncById": {
+              "uniqueName": "ReleaseAsyncById",
+              "name": "ReleaseAsync",
+              "httpMethod": "PUT",
+              "url": "api/mdm-service/item-groups/release/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {

@@ -1096,6 +1096,11 @@
     "Error:CustomerAttributeValuesAppService:550": "This value already used by at least one customer and cannot be deleted",
     "Error:CustomerAttributeValuesAppService:551": "This value already used by at least one customer group and cannot be deleted",
     "Error:CustomerAttributeValuesAppService:552": "This value name already exists",
-    "Error:CustomerAttributeValuesAppService:553": "This value code already exists"
+    "Error:CustomerAttributeValuesAppService:553": "This value code already exists",
+    "Error:ItemGroupsAppService:550": "Can only update item group with status OPEN",
+    "Error:ItemGroupsAppService:551": "Can only release item group with status OPEN",
+    "Error:ItemGroupsAppService:552": "No item has been assigned to this group",
+    "Error:ItemGroupsAppService:553": "No attribute has been assigned to this group",
+    "Error:ItemGroupsAppService:554": "Unknow item group type found"
   }
 }
