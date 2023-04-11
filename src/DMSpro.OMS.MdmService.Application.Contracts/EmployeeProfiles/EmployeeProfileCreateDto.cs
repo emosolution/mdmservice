@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Volo.Abp.Content;
+using JetBrains.Annotations;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
@@ -29,5 +31,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public Guid? IdentityUserId { get; set; }
         public EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
+        [CanBeNull]
+        public IRemoteStreamContent Avatar { get; set; }
     }
 }

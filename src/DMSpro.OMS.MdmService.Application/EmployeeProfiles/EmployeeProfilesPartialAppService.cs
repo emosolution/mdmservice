@@ -20,6 +20,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         private readonly EmployeeProfileManager _employeeProfileManager;
         private readonly IEmployeeAttachmentRepository _employeeAttachmentRepository;
         private readonly IEmployeeImageRepository _employeeImageRepository;
+        private readonly IEmployeeImagesAppService _employeeImagesAppService;
         private readonly ICompanyRepository _companyRepository;
         private readonly INumberingConfigDetailsInternalAppService _numberingConfigDetailsInternalAppService;
 
@@ -31,6 +32,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             EmployeeProfileManager employeeProfileManager,
             IEmployeeAttachmentRepository employeeAttachmentRepository,
             IEmployeeImageRepository employeeImageRepository,
+            IEmployeeImagesAppService employeeImagesAppService,
             ICompanyRepository companyRepository,
             INumberingConfigDetailsInternalAppService numberingConfigDetailsInternalAppService,
             IConfiguration settingProvider,
@@ -41,6 +43,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             _employeeProfileManager = employeeProfileManager;
             _employeeAttachmentRepository = employeeAttachmentRepository;
             _employeeImageRepository = employeeImageRepository;
+            _employeeImagesAppService = employeeImagesAppService;
             _companyRepository = companyRepository;
             _numberingConfigDetailsInternalAppService = numberingConfigDetailsInternalAppService;
 
