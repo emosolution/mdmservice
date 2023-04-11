@@ -13,6 +13,6 @@ namespace DMSpro.OMS.MdmService.Companies
 
         Task<CompanyDto> CheckActiveAsync(Guid id, DateTime? checkingDate, bool throwErrorOnInactive = false);
 
-        Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId);
+        Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId,Guid adminId);
     }
 }
