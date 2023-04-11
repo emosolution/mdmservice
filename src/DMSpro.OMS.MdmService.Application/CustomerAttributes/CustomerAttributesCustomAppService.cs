@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributes
             {
                 throw new UserFriendlyException(message: L["Error:CustomerAttributesAppService:553"], code: "1");
             }
-            if (!(await _customerAttributeValueRepository.AnyAsync(x => x.CustomerAttributeId == lastAttribute.Id)))
+            if (await _customerAttributeValueRepository.AnyAsync(x => x.CustomerAttributeId == lastAttribute.Id))
             {
                 throw new UserFriendlyException(message: L["Error:CustomerAttributesAppService:552"], code: "0");
             }
