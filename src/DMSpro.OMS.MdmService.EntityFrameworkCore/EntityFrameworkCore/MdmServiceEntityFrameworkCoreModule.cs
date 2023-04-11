@@ -228,10 +228,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.SalesOrgHierarchy).Include(o => o.Company).Include(o => o.ItemGroup);
             });
-            options.Entity<CusAttributeValue>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.CustomerAttribute);
-            });
 
             options.Entity<CustomerAssignment>(orderOptions =>
             {
@@ -251,23 +247,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.Entity<CustomerContact>(orderOptions =>
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer);
-            });
-
-            options.Entity<CustomerGroupByAtt>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup).Include(o => o.CusAttributeValue);
-            });
-
-            options.Entity<CustomerGroupByGeo>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.CustomerGroup)
-                    .Include(o => o.GeoMaster0).Include(o => o.GeoMaster1).Include(o => o.GeoMaster2)
-                    .Include(o => o.GeoMaster3).Include(o => o.GeoMaster4);
-            });
-
-            options.Entity<CustomerGroupByList>(orderOptions =>
-            {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Customer).Include(o => o.CustomerGroup);
             });
 
             options.Entity<CustomerInZone>(orderOptions =>
@@ -310,6 +289,21 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.Entity<ItemAttributeValue>(orderOptions =>
             {
                 orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.Parent).Include(o => o.ItemAttribute);
+            });
+
+            options.Entity<ItemGroupAttribute>(orderOptions =>
+            {
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup)
+                    .Include(o => o.Attr0).Include(o => o.Attr1)
+                    .Include(o => o.Attr2).Include(o => o.Attr3)
+                    .Include(o => o.Attr4).Include(o => o.Attr5)
+                    .Include(o => o.Attr6).Include(o => o.Attr7)
+                    .Include(o => o.Attr8).Include(o => o.Attr9)
+                    .Include(o => o.Attr10).Include(o => o.Attr11)
+                    .Include(o => o.Attr12).Include(o => o.Attr13)
+                    .Include(o => o.Attr14).Include(o => o.Attr15)
+                    .Include(o => o.Attr16).Include(o => o.Attr17)
+                    .Include(o => o.Attr18).Include(o => o.Attr19);
             });
 
             options.Entity<ItemGroupList>(orderOptions =>

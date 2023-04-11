@@ -6,7 +6,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
     public class ItemGroupAttributeDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        public string dummy { get; set; }
+        public string Description { get; set; }
         public Guid ItemGroupId { get; set; }
         public Guid? Attr0Id { get; set; }
         public Guid? Attr1Id { get; set; }

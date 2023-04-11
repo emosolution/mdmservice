@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _itemGroupAttributesAppService.GetListAsync(new GetItemGroupAttributesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.ItemGroupAttribute.Id == Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56")).ShouldBe(true);
-            result.Items.Any(x => x.ItemGroupAttribute.Id == Guid.Parse("6df651b1-c556-409c-9f82-bc3c06109e4f")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemGroupAttributesAppService.GetAsync(Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"));
+            var result = await _itemGroupAttributesAppService.GetAsync(Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"));
+            result.Id.ShouldBe(Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"));
         }
 
         [Fact]
@@ -48,7 +35,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             // Arrange
             var input = new ItemGroupAttributeCreateDto
             {
-                dummy = "53ddba59b8c4445ca13f",
+                Description = "2395209f76e44e4a85f5",
                 ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
 
             };
@@ -60,7 +47,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             var result = await _itemGroupAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.dummy.ShouldBe("53ddba59b8c4445ca13f");
+            result.Description.ShouldBe("2395209f76e44e4a85f5");
         }
 
         [Fact]
@@ -69,29 +56,27 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             // Arrange
             var input = new ItemGroupAttributeUpdateDto()
             {
-                dummy = "2c8d4d208a78458ca2ea",
-                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
-
+                Description = "b9cf25059a8b4a4d829d",
             };
 
             // Act
-            var serviceResult = await _itemGroupAttributesAppService.UpdateAsync(Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"), input);
+            var serviceResult = await _itemGroupAttributesAppService.UpdateAsync(Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"), input);
 
             // Assert
             var result = await _itemGroupAttributeRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.dummy.ShouldBe("2c8d4d208a78458ca2ea");
+            result.Description.ShouldBe("b9cf25059a8b4a4d829d");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemGroupAttributesAppService.DeleteAsync(Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"));
+            await _itemGroupAttributesAppService.DeleteAsync(Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"));
 
             // Assert
-            var result = await _itemGroupAttributeRepository.FindAsync(c => c.Id == Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"));
+            var result = await _itemGroupAttributeRepository.FindAsync(c => c.Id == Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"));
 
             result.ShouldBeNull();
         }

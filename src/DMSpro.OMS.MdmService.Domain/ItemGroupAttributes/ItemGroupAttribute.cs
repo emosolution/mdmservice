@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.ItemGroups;
-using DMSpro.OMS.MdmService.ItemAttributeValues;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -17,8 +11,8 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
     {
         public virtual Guid? TenantId { get; set; }
 
-        [NotNull]
-        public virtual string dummy { get; set; }
+        [CanBeNull]
+        public virtual string Description { get; set; }
         public Guid ItemGroupId { get; set; }
         public Guid? Attr0Id { get; set; }
         public Guid? Attr1Id { get; set; }
@@ -46,13 +40,12 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
         }
 
-        public ItemGroupAttribute(Guid id, Guid itemGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? attr5Id, string dummy)
+        public ItemGroupAttribute(Guid id, Guid itemGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? attr5Id, string description)
         {
 
             Id = id;
-            Check.NotNull(dummy, nameof(dummy));
-            Check.Length(dummy, nameof(dummy), ItemGroupAttributeConsts.dummyMaxLength, ItemGroupAttributeConsts.dummyMinLength);
-            this.dummy = dummy;
+            Check.Length(description, nameof(description), ItemGroupAttributeConsts.DescriptionMaxLength, 0);
+            Description = description;
             ItemGroupId = itemGroupId;
             Attr0Id = attr0Id;
             Attr1Id = attr1Id;
