@@ -1096,6 +1096,16 @@
     "Error:CustomerAttributeValuesAppService:550": "This value already used by at least one customer and cannot be deleted",
     "Error:CustomerAttributeValuesAppService:551": "This value already used by at least one customer group and cannot be deleted",
     "Error:CustomerAttributeValuesAppService:552": "This value name already exists",
-    "Error:CustomerAttributeValuesAppService:553": "This value code already exists"
+    "Error:CustomerAttributeValuesAppService:553": "This value code already exists",
+    "EntityFieldName:MDMService:ItemAttributeValue:Code": "Code",
+    "Button:MDMService:ItemAttribute:CreateRoot": "Root",
+    "Button:MDMService:ItemAttribute:CreateHierarchy": "Child",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Code": "Code",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Name": "Name",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Attribute": "Attribute",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Item": "Item",
+    "EntityFieldValue:MDMService:Item:ItemTypes:POSM": "POSM",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Discount": "Discount",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Voucher": "Voucher"
   }
 }
