@@ -71,6 +71,19 @@ public class MdmServiceDatabaseMigrationEventHandler
         }
     }
 
+    public async Task HandleEventAsync(AdminTenantCreatedEto eventData)
+    {
+        try
+        {
+            await MigrateDatabaseSchemaAsync(eventData.Id);
+        }
+        catch (Exception ex)
+        {
+            await HandleErrorTenantCreatedAsync(eventData, ex);
+        }
+    }
+
+
     public async Task HandleEventAsync(TenantConnectionStringUpdatedEto eventData)
     {
         if (eventData.ConnectionStringName != DatabaseName && eventData.ConnectionStringName != ConnectionStrings.DefaultConnectionStringName ||
