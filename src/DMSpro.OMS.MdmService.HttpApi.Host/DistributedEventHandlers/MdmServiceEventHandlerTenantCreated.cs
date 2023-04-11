@@ -67,7 +67,7 @@ public class MdmServiceDistributedEventHandler : IDistributedEventHandler<Tenant
 
                 await _systemDatasInternalAppService.CreateAllForTenantAsync(new List<Guid>() { eventData.Id });
 
-                await _companiesInternalAppService.SeedHOCompanyAndAssignAdminToHO(eventData.Id);
+                //await _companiesInternalAppService.SeedHOCompanyAndAssignAdminToHO(eventData.Id);
 
                 await uow.CompleteAsync();
                 

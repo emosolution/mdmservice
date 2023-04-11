@@ -60,6 +60,14 @@ public partial class EmployeeProfileClientProxy : ClientProxyBase<IEmployeeProfi
         });
     }
 
+    public virtual async Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id)
+    {
+        return await RequestAsync<EmployeeProfileWithAvatarDto>(nameof(GetWithAvatarAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
     public virtual async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
     {
         return await RequestAsync<LoadResult>(nameof(GetListDevextremesAsync), new ClientProxyRequestTypeValue

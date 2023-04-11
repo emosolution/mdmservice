@@ -89,7 +89,7 @@ namespace DMSpro.OMS.MdmService.Companies
             }
         }
 
-        public virtual async Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId)
+        public virtual async Task<CompanyIdentityUserAssignmentDto> SeedHOCompanyAndAssignAdminToHO(Guid tenantId,Guid adminId)
         {
             using (_currentTenant.Change(tenantId))
             {
@@ -104,13 +104,13 @@ namespace DMSpro.OMS.MdmService.Companies
                         TenantId = _currentTenant.Id.ToString(),
                     };
                     request.Codes.Add("admin");
-                    var response = await client.GetCodeAndIdWithCodeAsync(request);
-                    if (response.CodeAndIds == null || response.CodeAndIds.Count != 1)
-                    {
-                        throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
-                    }
-                    CodeAndId codeAndId = response.CodeAndIds[0];
-                    Guid adminId = Guid.Parse(codeAndId.Id);
+                    //var response = await client.GetCodeAndIdWithCodeAsync(request);
+                    //if (response.CodeAndIds == null || response.CodeAndIds.Count != 1)
+                    //{
+                    //    throw new Exception(L["Error:CompanyIdentityUserAssignment:552"]);
+                    //}
+                    //CodeAndId codeAndId = response.CodeAndIds[0];
+                    //Guid adminId = Guid.Parse(codeAndId.Id);
                     CompanyIdentityUserAssignment assignment = new(
                         GuidGenerator.Create(), hoCompanyID, adminId);
                     await _companyIdentityUserAssignmentRepository.InsertAsync(assignment);
@@ -118,6 +118,7 @@ namespace DMSpro.OMS.MdmService.Companies
                 }
             }
         }
+
 
         private async Task<Guid> SeedHOCompany(Guid tenantId)
         {

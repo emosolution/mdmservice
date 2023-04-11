@@ -6,5 +6,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
     public partial interface IEmployeeProfilesAppService
     {
         Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id);
+
+        Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id);
     }
 }

@@ -30,10 +30,10 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var (dto, companyId) = await GetCodeFromNumberingConfig();
             var employeeProfile = await _employeeProfileManager.CreateAsync(
-                input.WorkingPositionId, dto.SuggestedCode, input.ERPCode, 
-                input.FirstName, input.LastName, input.IdCardNumber, 
-                input.Email, input.Phone, input.Address, 
-                input.Active, input.EffectiveDate, input.DateOfBirth, input.EndDate, 
+                input.WorkingPositionId, dto.SuggestedCode, input.ERPCode,
+                input.FirstName, input.LastName, input.IdCardNumber,
+                input.Email, input.Phone, input.Address,
+                input.Active, input.EffectiveDate, input.DateOfBirth, input.EndDate,
                 input.IdentityUserId, input.EmployeeType);
             await _numberingConfigDetailsInternalAppService.SaveNumberingConfigAsync(
                 EmployeeProfileConsts.NumberingConfigObjectType, companyId, dto.CurrentNumber);
@@ -46,11 +46,11 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             CheckEffectiveDate(input.EffectiveDate, input.EndDate);
             var employeeProfile = await _employeeProfileManager.UpdateAsync(
                 id,
-                input.WorkingPositionId, input.ERPCode, 
-                input.FirstName, input.LastName, input.IdCardNumber, 
-                input.Email, input.Phone, input.Address, input.Active, 
+                input.WorkingPositionId, input.ERPCode,
+                input.FirstName, input.LastName, input.IdCardNumber,
+                input.Email, input.Phone, input.Address, input.Active,
                 input.EffectiveDate, input.DateOfBirth, input.EndDate,
-                input.IdentityUserId, input.EmployeeType, 
+                input.IdentityUserId, input.EmployeeType,
                 input.ConcurrencyStamp);
 
             return ObjectMapper.Map<EmployeeProfile, EmployeeProfileDto>(employeeProfile);
@@ -79,6 +79,22 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
             string code = dto.SuggestedCode;
             await CheckCodeUniqueness(code);
             return (dto, hoCompany.Id);
+        }
+
+        public virtual async Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id)
+        {
+            var employee = await _employeeProfileRepository.GetAsync(id);
+            var dto = ObjectMapper.Map<EmployeeProfile, EmployeeProfileWithAvatarDto>(employee);
+            var employeeAvatarImages = (await _employeeImageRepository.GetListAsync(
+                x => x.EmployeeProfileId == id && x.IsAvatar == true))
+                .OrderByDescending(x => x.CreationTime).ToList();
+            if (employeeAvatarImages.Count < 1)
+            {
+                return dto;
+            }
+            var avatarImage = employeeAvatarImages.FirstOrDefault();
+            dto.Avatar = await _employeeImagesAppService.GetFileAsync(avatarImage.FileId);
+            return dto;
         }
     }
 }

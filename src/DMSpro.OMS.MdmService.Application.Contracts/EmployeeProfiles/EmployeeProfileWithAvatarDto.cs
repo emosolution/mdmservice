@@ -1,29 +1,21 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using Volo.Abp.Domain.Entities;
 using JetBrains.Annotations;
+using System;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
+using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.EmployeeProfiles
 {
-    public class EmployeeProfileUpdateDto : IHasConcurrencyStamp
+    public class EmployeeProfileWithAvatarDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        [StringLength(EmployeeProfileConsts.ERPCodeMaxLength)]
+        public string Code { get; set; }
         public string ERPCode { get; set; }
-        [Required]
-        [StringLength(EmployeeProfileConsts.FirstNameMaxLength, MinimumLength = EmployeeProfileConsts.FirstNameMinLength)]
         public string FirstName { get; set; }
-        [StringLength(EmployeeProfileConsts.LastNameMaxLength)]
         public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        [StringLength(EmployeeProfileConsts.IdCardNumberMaxLength)]
         public string IdCardNumber { get; set; }
-        [EmailAddress]
-        [StringLength(EmployeeProfileConsts.EmailMaxLength)]
         public string Email { get; set; }
-        [StringLength(EmployeeProfileConsts.PhoneMaxLength)]
         public string Phone { get; set; }
-        [StringLength(EmployeeProfileConsts.AddressMaxLength)]
         public string Address { get; set; }
         public bool Active { get; set; }
         public DateTime EffectiveDate { get; set; }
@@ -32,7 +24,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
         [CanBeNull]
-        public IRemoteStreamContent Avatar { get; set; }
+        public IRemoteStreamContent Avatar { get; set; }   
 
         public string ConcurrencyStamp { get; set; }
     }

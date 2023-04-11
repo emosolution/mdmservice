@@ -64,11 +64,13 @@ namespace DMSpro.OMS.MdmService.SalesOrgHeaders
 
         private async Task CheckHierarchiesForRelease(Guid id)
         {
-            if (!await _salesOrgHierarchyRepository.AnyAsync(x => x.SalesOrgHeaderId == id && x.IsRoute == true && x.Active == true))
+            if (!await _salesOrgHierarchyRepository.AnyAsync(
+                x => x.SalesOrgHeaderId == id && x.IsRoute == true && x.Active == true))
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:551"], code: "0");
             }
-            if (await _salesOrgHierarchyRepository.AnyAsync(x => x.DirectChildren == 0 && x.IsRoute != true))
+            if (await _salesOrgHierarchyRepository.AnyAsync(
+                x => x.DirectChildren == 0 && x.IsRoute != true && x.SalesOrgHeaderId == id))
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHeadersAppService:552"], code: "0");
             }
