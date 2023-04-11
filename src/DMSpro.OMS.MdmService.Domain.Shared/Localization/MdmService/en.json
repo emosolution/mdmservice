@@ -1101,6 +1101,16 @@
     "Error:ItemGroupsAppService:551": "Can only release item group with status OPEN",
     "Error:ItemGroupsAppService:552": "No item has been assigned to this group",
     "Error:ItemGroupsAppService:553": "No attribute has been assigned to this group",
-    "Error:ItemGroupsAppService:554": "Unknow item group type found"
+    "Error:ItemGroupsAppService:554": "Unknow item group type found",
+    "EntityFieldName:MDMService:ItemAttributeValue:Code": "Code",
+    "Button:MDMService:ItemAttribute:CreateRoot": "Root",
+    "Button:MDMService:ItemAttribute:CreateHierarchy": "Child",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Code": "Code",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Name": "Name",
+    "EntityFieldName:MDMService:CustomerAttributeValue:Attribute": "Attribute",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Item": "Item",
+    "EntityFieldValue:MDMService:Item:ItemTypes:POSM": "POSM",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Discount": "Discount",
+    "EntityFieldValue:MDMService:Item:ItemTypes:Voucher": "Voucher"
   }
 }
