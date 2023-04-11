@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -16,8 +15,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         IItemGroupListsAppService
     {
         private readonly IItemGroupListRepository _itemGroupListRepository;
-        private readonly IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly ItemGroupListManager _itemGroupListManager;
 
         private readonly IUOMRepository _uOMRepository;
@@ -30,12 +27,10 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             IConfiguration settingProvider,
             IUOMRepository uOMRepository,
             IItemRepository itemRepository,
-            IItemGroupRepository itemGroupRepository,
-            IDistributedCache<ItemGroupListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IItemGroupRepository itemGroupRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemGroups.Default)
         {
             _itemGroupListRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemGroupListManager = itemGroupListManager;
 
             _uOMRepository = uOMRepository;
@@ -44,8 +39,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemGroupListRepository", _itemGroupListRepository));
-            _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("IUOMRepository", _uOMRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IItemRepository", _itemRepository));
             _repositories.AddIfNotContains(

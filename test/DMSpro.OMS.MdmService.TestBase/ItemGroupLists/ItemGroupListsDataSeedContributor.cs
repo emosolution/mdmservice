@@ -41,22 +41,22 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
             await _itemGroupListRepository.InsertAsync(new ItemGroupList
             (
-                id: Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"),
-                rate: 1476865559,
-                price: 147435680,
+                id: Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"),
+                rate: 459374827,
+                price: 39570775,
                 itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
-                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"),
-                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                itemId: Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"),
+                uomId: null
             ));
 
             await _itemGroupListRepository.InsertAsync(new ItemGroupList
             (
-                id: Guid.Parse("f79d3b25-7067-439c-b323-243f3b027b21"),
-                rate: 1793381621,
-                price: 1000491669,
+                id: Guid.Parse("3d732bba-56a0-413a-b5cb-bf75e4752fa3"),
+                rate: 318406865,
+                price: 2029635422,
                 itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
-                itemId: Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"),
-                uomId: Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                itemId: Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"),
+                uomId: null
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();

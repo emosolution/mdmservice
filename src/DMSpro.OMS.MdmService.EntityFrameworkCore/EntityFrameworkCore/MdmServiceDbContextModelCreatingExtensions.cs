@@ -629,7 +629,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Price).HasColumnType("decimal(19,2)").HasColumnName(nameof(ItemGroupList.Price));
             b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<UOM>(x => x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<UOM>().WithMany().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<MCPHeader>(b =>
         {

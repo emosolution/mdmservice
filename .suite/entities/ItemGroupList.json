@@ -18,7 +18,7 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "69f2b608-343e-473f-8553-59aa2f44af13",
+      "Id": "9278f344-8435-448e-b35a-b1646ebc1744",
       "Name": "Rate",
       "Type": "int",
       "EnumType": "",
@@ -26,7 +26,7 @@
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
       "DefaultValue": null,
-      "IsNullable": false,
+      "IsNullable": true,
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
@@ -40,7 +40,7 @@
       "OrdinalIndex": 0
     },
     {
-      "Id": "008faf50-e831-46a6-a1c3-1e9197081a4b",
+      "Id": "847d8e6b-13ac-426f-b3bf-32297067f02d",
       "Name": "Price",
       "Type": "decimal",
       "EnumType": "",
@@ -48,7 +48,7 @@
       "EnumAngularImport": "shared/enums",
       "EnumFilePath": null,
       "DefaultValue": null,
-      "IsNullable": false,
+      "IsNullable": true,
       "IsRequired": false,
       "IsTextArea": false,
       "MinLength": null,
@@ -98,7 +98,7 @@
       "EntitySetNameWithDuplicationNumber": "UOMs",
       "ReferencePropertyName": "Uom",
       "UiPickType": "Dropdown",
-      "IsRequired": true,
+      "IsRequired": false,
       "Name": "UomId",
       "DisplayProperty": "Code",
       "Namespace": "DMSpro.OMS.MdmService.UOMs",

@@ -308,7 +308,7 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
 
             options.Entity<ItemGroupList>(orderOptions =>
             {
-                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.UOM).Include(o => o.Item);
+                orderOptions.DefaultWithDetailsFunc = query => query.Include(o => o.ItemGroup).Include(o => o.Item);
             });
 
             options.Entity<ItemImage>(orderOptions =>

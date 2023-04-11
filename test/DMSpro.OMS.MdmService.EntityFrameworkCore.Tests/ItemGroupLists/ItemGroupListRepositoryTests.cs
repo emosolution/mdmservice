@@ -31,7 +31,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"));
+                result.First().Id.ShouldBe(Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"));
             });
         }
 

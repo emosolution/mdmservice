@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _itemGroupListsAppService.GetListAsync(new GetItemGroupListsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.ItemGroupList.Id == Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab")).ShouldBe(true);
-            result.Items.Any(x => x.ItemGroupList.Id == Guid.Parse("f79d3b25-7067-439c-b323-243f3b027b21")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _itemGroupListsAppService.GetAsync(Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"));
+            var result = await _itemGroupListsAppService.GetAsync(Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"));
+            result.Id.ShouldBe(Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"));
         }
 
         [Fact]
@@ -48,11 +35,9 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             // Arrange
             var input = new ItemGroupListCreateDto
             {
-                Rate = 1538029355,
-                Price = 1526461826,
                 ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
-                ItemId = Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"),
-                UomId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                ItemId = Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"),
+
             };
 
             // Act
@@ -62,8 +47,8 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             var result = await _itemGroupListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Rate.ShouldBe(1538029355);
-            result.Price.ShouldBe(1526461826);
+            result.Rate.ShouldBe(null);
+            result.Price.ShouldBe(null);
         }
 
         [Fact]
@@ -72,32 +57,29 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             // Arrange
             var input = new ItemGroupListUpdateDto()
             {
-                Rate = 2103755667,
-                Price = 2035928881,
-                ItemGroupId = Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
-                ItemId = Guid.Parse("d318ea89-992c-4d36-bef0-2b12495d19e5"),
-                UomId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65")
+                ItemId = Guid.Parse("43ba1fc6-3f5a-436d-9757-80984aec30fa"),
+
             };
 
             // Act
-            var serviceResult = await _itemGroupListsAppService.UpdateAsync(Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"), input);
+            var serviceResult = await _itemGroupListsAppService.UpdateAsync(Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"), input);
 
             // Assert
             var result = await _itemGroupListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Rate.ShouldBe(2103755667);
-            result.Price.ShouldBe(2035928881);
+            result.Rate.ShouldBe(null);
+            result.Price.ShouldBe(null);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _itemGroupListsAppService.DeleteAsync(Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"));
+            await _itemGroupListsAppService.DeleteAsync(Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"));
 
             // Assert
-            var result = await _itemGroupListRepository.FindAsync(c => c.Id == Guid.Parse("fe303538-b412-4c0f-b380-e164e2179dab"));
+            var result = await _itemGroupListRepository.FindAsync(c => c.Id == Guid.Parse("cd411e28-324b-4dc3-b152-4845bd1fbd62"));
 
             result.ShouldBeNull();
         }

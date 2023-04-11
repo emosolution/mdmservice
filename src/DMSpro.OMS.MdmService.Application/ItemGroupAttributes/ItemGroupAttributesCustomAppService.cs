@@ -77,11 +77,11 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             var itemGroup = await _itemGroupRepository.GetAsync(itemGroupId);
             if (itemGroup.Status != GroupStatus.OPEN)
             {
-                throw new UserFriendlyException(message: L["Error:ItemGroupAttributesAppService:550"], code: "0");
+                throw new UserFriendlyException(message: L["Error:ItemGroupAttributesAppService:550"], code: "1");
             }
             if (itemGroup.Type != GroupType.ATTRIBUTE)
             {
-                throw new UserFriendlyException(message: L["Error:ItemGroupAttributesAppService:551"], code: "0");
+                throw new UserFriendlyException(message: L["Error:ItemGroupAttributesAppService:551"], code: "1");
             }
         }
 

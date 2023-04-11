@@ -1,9 +1,14 @@
+using DMSpro.OMS.MdmService.ItemGroups;
+using DMSpro.OMS.MdmService.Items;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemGroupLists
 {
     public partial class ItemGroupList
     {
+        public virtual ItemGroup ItemGroup { get; set; }
+        public virtual Item Item { get; set; }
+
         public Dictionary<string, (int, string, string, string)>
             GetExcelTemplateInfo()
         {
@@ -11,7 +16,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
             {
                 { "ItemGroupId", (1, "IItemGroupRepository", "", "") },
                 { "ItemId", (1, "IItemRepository", "", "") },
-                { "Uom", (1, "IUOMRepository", "", "") },
             };
         }
 
