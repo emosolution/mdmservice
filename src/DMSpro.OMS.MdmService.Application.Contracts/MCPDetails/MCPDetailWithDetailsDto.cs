@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.MCPDetails
 
         public string ConcurrencyStamp { get; set; }
 
-        public CustomerDto Customer { get; set; }
+        public CustomerWithDetailsDto Customer { get; set; }
         public MCPHeaderDto MCPHeader { get; set; }
         
         public MCPDetailWithDetailsDto()
