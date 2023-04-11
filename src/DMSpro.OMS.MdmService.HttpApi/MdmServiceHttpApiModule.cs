@@ -4,7 +4,7 @@ using DMSpro.OMS.MdmService.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 namespace DMSpro.OMS.MdmService;
 
 [DependsOn(
@@ -28,5 +28,12 @@ public class MdmServiceHttpApiModule : AbpModule
                 .Get<MdmServiceResource>()
                 .AddBaseTypes(typeof(AbpUiResource));
         });
+        Configure<AbpAspNetCoreMvcOptions>(options =>
+        {
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeProfileCreateDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(EmployeeProfileWithAvatarDto));
+            //options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateMultipleFileInput));
+        });
+
     }
 }
