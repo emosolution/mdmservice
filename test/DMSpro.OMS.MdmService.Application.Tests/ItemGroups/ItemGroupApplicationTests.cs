@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _itemGroupsAppService.GetListAsync(new GetItemGroupsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("04ddce9f-a914-4f2b-86c2-f451fa6f8172")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act

@@ -12,6 +12,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         public string Description { get; set; }
         public GroupType Type { get; set; }
         public GroupStatus Status { get; set; }
+        public bool Selectable { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

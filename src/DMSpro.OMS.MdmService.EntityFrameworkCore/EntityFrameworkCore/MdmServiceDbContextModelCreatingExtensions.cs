@@ -505,6 +505,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
             b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
             b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
+            b.Property(x => x.Selectable).HasColumnName(nameof(ItemGroup.Selectable)).HasDefaultValue(true).IsRequired();
         });
 
         builder.Entity<ItemAttributeValue>(b =>

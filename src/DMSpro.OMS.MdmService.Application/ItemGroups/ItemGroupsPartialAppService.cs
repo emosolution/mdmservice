@@ -13,19 +13,15 @@ namespace DMSpro.OMS.MdmService.ItemGroups
 		IItemGroupsAppService
 	{
 		private readonly IItemGroupRepository _itemGroupRepository;
-		private readonly IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
 		private readonly ItemGroupManager _itemGroupManager;
 
 		public ItemGroupsAppService(ICurrentTenant currentTenant,
 			IItemGroupRepository repository,
 			ItemGroupManager itemGroupManager,
-			IConfiguration settingProvider,
-			IDistributedCache<ItemGroupExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemGroups.Default)
 		{
 			_itemGroupRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_itemGroupManager = itemGroupManager;
 			
 			_repositories.AddIfNotContains(

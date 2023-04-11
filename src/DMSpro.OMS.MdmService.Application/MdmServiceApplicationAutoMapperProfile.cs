@@ -111,7 +111,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<UOMGroupDetail, UOMGroupDetailExcelDto>();
 
         CreateMap<ItemGroup, ItemGroupDto>();
-        CreateMap<ItemGroup, ItemGroupExcelDto>();
 
         CreateMap<PriceListDetail, PriceListDetailDto>();
         CreateMap<PriceListDetail, PriceListDetailWithDetailsDto>();
