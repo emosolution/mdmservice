@@ -1,4 +1,3 @@
-using DMSpro.OMS.MdmService.ItemGroups;
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
