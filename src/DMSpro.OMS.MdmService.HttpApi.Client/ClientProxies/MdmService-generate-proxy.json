@@ -35007,6 +35007,23 @@
                   }
                 },
                 {
+                  "name": "GetFileLocalAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.RemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.RemoteStreamContent"
+                  }
+                },
+                {
                   "name": "CreateAsync",
                   "parametersOnMethod": [
                     {
@@ -35703,6 +35720,43 @@
               "returnValue": {
                 "type": "Volo.Abp.Content.IRemoteStreamContent",
                 "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"
+            },
+            "GetFileLocalAsyncById": {
+              "uniqueName": "GetFileLocalAsyncById",
+              "name": "GetFileLocalAsync",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/employee-images/get-fileLocal",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Content.RemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.RemoteStreamContent"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.EmployeeImages.IEmployeeImagesAppService"

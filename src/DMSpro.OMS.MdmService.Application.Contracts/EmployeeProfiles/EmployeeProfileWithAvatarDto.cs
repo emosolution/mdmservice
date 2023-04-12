@@ -27,5 +27,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public RemoteStreamContent Avatar { get; set; }   
 
         public string ConcurrencyStamp { get; set; }
+        public EmployeeProfileWithAvatarDto()
+		{
+		}
     }
 }

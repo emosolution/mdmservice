@@ -93,7 +93,8 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
                 return dto;
             }
             var avatarImage = employeeAvatarImages.FirstOrDefault();
-            dto.Avatar = await _employeeImagesAppService.GetFileAsync(avatarImage.FileId);
+            dto.Avatar = await _employeeImagesAppService.GetFileLocalAsync(avatarImage.FileId);
+            Console.WriteLine(dto.Avatar.GetStream());
             return dto;
         }
     }

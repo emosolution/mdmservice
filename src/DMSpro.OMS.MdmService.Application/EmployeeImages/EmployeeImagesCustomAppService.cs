@@ -85,6 +85,23 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             return remoteStreamContent;
         }
 
+        [Authorize(MdmServicePermissions.EmployeeProfiles.Default)]
+        public virtual async Task<RemoteStreamContent> GetFileLocalAsync(Guid id)
+        {
+            using GrpcChannel channel = GrpcChannel.ForAddress(_settingProvider["GrpcRemotes:FileManagementServiceUrl"]);
+            GetFileRequest request = new()
+            {
+                TenantId = _currentTenant.Id == null ? "" : _currentTenant.Id.ToString(),
+                Id = id.ToString(),
+            };
+            var client = new FilesProtoAppService.FilesProtoAppServiceClient(channel);
+            var response = await client.GetFileAsync(request);
+            MemoryStream memoryStream = new MemoryStream(response.Content.ToByteArray());
+            RemoteStreamContent remoteStreamContent = new RemoteStreamContent(stream: memoryStream,
+                fileName: response.File.FileName, contentType: response.File.ContentType);
+            return remoteStreamContent;
+        }
+
         private async Task<EmployeeImageDto> CreateImageAsync(Guid employeeId, string description, 
             bool active, IRemoteStreamContent inputFile, bool isAvatarImage = false)
         {

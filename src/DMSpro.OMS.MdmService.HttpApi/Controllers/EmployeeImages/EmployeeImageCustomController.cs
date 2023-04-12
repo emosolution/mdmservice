@@ -48,6 +48,24 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeImages
             }
         }
 
+        [HttpGet]
+        [Route("get-fileLocal")]
+        public virtual async Task<RemoteStreamContent> GetFileLocalAsync(Guid id)
+        {
+            try
+            {
+                return await _employeeImagesAppService.GetFileLocalAsync(id);
+            }
+            catch (BusinessException bex)
+            {
+                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
+            }
+            catch (Exception e)
+            {
+                throw new UserFriendlyException(message: e.Message, code: "1");
+            }
+        }
+
         [HttpPost]
         public virtual async Task<EmployeeImageDto> CreateAsync([Required] Guid employeeId,
             [Required] IRemoteStreamContent inputFile,

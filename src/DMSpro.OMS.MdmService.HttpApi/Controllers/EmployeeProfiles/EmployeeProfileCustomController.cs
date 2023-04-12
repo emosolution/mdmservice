@@ -18,6 +18,7 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
         [Route("with-avatar/{id}")]
         public virtual async Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id)
         {
+            Console.WriteLine("VAO GET AVATAR NHA");
             return await _employeeProfilesAppService.GetWithAvatarAsync(id);
         }
     }

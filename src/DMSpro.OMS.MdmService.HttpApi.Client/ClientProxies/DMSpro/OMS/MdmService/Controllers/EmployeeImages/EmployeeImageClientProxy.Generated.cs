@@ -81,6 +81,14 @@ public partial class EmployeeImageClientProxy : ClientProxyBase<IEmployeeImagesA
         });
     }
 
+    public virtual async Task<RemoteStreamContent> GetFileLocalAsync(Guid id)
+    {
+        return await RequestAsync<RemoteStreamContent>(nameof(GetFileLocalAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
     public virtual async Task<EmployeeImageDto> CreateAsync(Guid employeeId, IRemoteStreamContent inputFile, string description, bool active)
     {
         return await RequestAsync<EmployeeImageDto>(nameof(CreateAsync), new ClientProxyRequestTypeValue
