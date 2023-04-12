@@ -1,13 +1,7 @@
-using DMSpro.OMS.MdmService.Shared;
-using DMSpro.OMS.MdmService.Customers;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.CustomerGroups;
 
@@ -22,25 +16,11 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             return ObjectMapper.Map<CustomerGroupList, CustomerGroupListDto>(await _customerGroupListRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetCustomerLookupAsync(LookupRequestDto input)
-        {
-            var query = (await _customerRepository.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                    x => x.Code != null &&
-                         x.Code.Contains(input.Filter));
-
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<Customer>();
-            var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid>>
-            {
-                TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<Customer>, List<LookupDto<Guid>>>(lookupData)
-            };
-        }
-
         [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            var customerGroupList = await _customerGroupListRepository.GetAsync(id);
+            await CheckCustomerGroup(customerGroupList.CustomerGroupId);
             await _customerGroupListRepository.DeleteAsync(id);
         }
 
@@ -56,9 +36,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
                 throw new UserFriendlyException(L["The {0} field is required.", L["CustomerGroup"]]);
             }
 
+            await CheckCustomerGroup(input.CustomerGroupId);
+            await CheckCustomer(input.CustomerId);
             var customerGroupList = await _customerGroupListManager.CreateAsync(
-                input.CustomerId, input.CustomerGroupId);
-
+                input.CustomerId, input.CustomerGroupId, null, true);
             return ObjectMapper.Map<CustomerGroupList, CustomerGroupListDto>(customerGroupList);
         }
 
@@ -69,8 +50,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Customer"]]);
             }
-
-            var customerGroupList = await _customerGroupListManager.UpdateAsync(
+            var customerGroupList = await _customerGroupListRepository.GetAsync(id);
+            await CheckCustomerGroup(customerGroupList.CustomerGroupId);
+            await CheckCustomer(input.CustomerId);
+            await _customerGroupListManager.UpdateAsync(
                 id,
                 input.CustomerId, input.ConcurrencyStamp);
 
@@ -90,7 +73,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             }
         }
 
-        private async Task CheckItem(Guid customerId)
+        private async Task CheckCustomer(Guid customerId)
         {
             var customer = await _customerRepository.GetAsync(customerId);
             if (!customer.Active)

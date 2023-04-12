@@ -17,14 +17,14 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
         }
 
         public async Task<CustomerGroupList> CreateAsync(
-            Guid customerId, Guid customerGroupId)
+            Guid customerId, Guid customerGroupId, string description, bool active)
         {
             Check.NotNull(customerId, nameof(customerId));
             Check.NotNull(customerGroupId, nameof(customerGroupId));
 
             var customerGroupList = new CustomerGroupList(
                 GuidGenerator.Create(),
-                customerId, customerGroupId, null, true);
+                customerId, customerGroupId, description, active);
 
             return await _customerGroupListRepository.InsertAsync(customerGroupList);
         }
