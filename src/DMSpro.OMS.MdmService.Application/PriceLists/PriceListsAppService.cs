@@ -27,6 +27,10 @@ namespace DMSpro.OMS.MdmService.PriceLists
             {
                 throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
             }
+            if (priceList.IsReleased)
+            {
+                throw new UserFriendlyException(L["rror:PriceListsAppService:550"], code: "1");
+            }
             await _priceListRepository.DeleteAsync(id);
         }
 
@@ -52,17 +56,22 @@ namespace DMSpro.OMS.MdmService.PriceLists
         public virtual async Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
         {
             await CheckCodeUniqueness(input.Code, id);
+            var priceList = await _priceListRepository.GetAsync(id);
+            if (priceList.IsReleased)
+            {
+                throw new UserFriendlyException(L["rror:PriceListsAppService:550"], code: "1");
+            }
 
             await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
 
-            var priceList = await _priceListManager.UpdateAsync(
+            var record = await _priceListManager.UpdateAsync(
                 id,
                 input.BasePriceListId, input.Code, input.Name, input.Active,
                 input.IsDefaultForCustomer, input.IsDefaultForVendor,
                 input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType,
                 input.ConcurrencyStamp);
 
-            return ObjectMapper.Map<PriceList, PriceListDto>(priceList);
+            return ObjectMapper.Map<PriceList, PriceListDto>(record);
         }
 
         private async Task HandleDefault(bool defaultForCustomer, bool defaultForVendor)
