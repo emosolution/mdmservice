@@ -24,7 +24,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
         [CanBeNull]
-        public IRemoteStreamContent Avatar { get; set; }   
+        public RemoteStreamContent Avatar { get; set; }   
 
         public string ConcurrencyStamp { get; set; }
     }
