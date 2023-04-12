@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.IO;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
 using Volo.Abp.Domain.Entities;
@@ -24,7 +25,7 @@ namespace DMSpro.OMS.MdmService.EmployeeProfiles
         public EmployeeTypes? EmployeeType { get; set; }
         public Guid? WorkingPositionId { get; set; }
         [CanBeNull]
-        public RemoteStreamContent Avatar { get; set; }   
+        public Stream Avatar { get; set; }   
 
         public string ConcurrencyStamp { get; set; }
         public EmployeeProfileWithAvatarDto()

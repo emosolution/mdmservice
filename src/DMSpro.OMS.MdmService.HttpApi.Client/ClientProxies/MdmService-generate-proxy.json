@@ -8848,6 +8848,260 @@
             }
           }
         },
+        "DMSpro.OMS.MdmService.Controllers.SystemDatas.SystemDataInternalController": {
+          "controllerName": "SystemDataInternal",
+          "controllerGroupName": "SystemDataInternal",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "DMSpro.OMS.MdmService.Controllers.SystemDatas.SystemDataInternalController",
+          "interfaces": [
+            {
+              "type": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService",
+              "name": "ISystemDatasInternalAppService",
+              "methods": [
+                {
+                  "name": "GetSystemDataByCodeAndValueName",
+                  "parametersOnMethod": [
+                    {
+                      "name": "code",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "valueName",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto"
+                  }
+                },
+                {
+                  "name": "GetNumberingConfigsSystemData",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.SystemDatas.SystemDataDto>",
+                    "typeSimple": "[DMSpro.OMS.MdmService.SystemDatas.SystemDataDto]"
+                  }
+                },
+                {
+                  "name": "GetNumberConfigSystemDataByValueName",
+                  "parametersOnMethod": [
+                    {
+                      "name": "valueName",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto"
+                  }
+                },
+                {
+                  "name": "CreateAllForTenantAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "tenantIds",
+                      "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<System.Guid>",
+                      "typeSimple": "[string]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "CreateAllForHostAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "CreateAllForHostAsync": {
+              "uniqueName": "CreateAllForHostAsync",
+              "name": "CreateAllForHostAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/system-datas-internal/create-all-for-host",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService"
+            },
+            "CreateAllForTenantAsyncByTenantIds": {
+              "uniqueName": "CreateAllForTenantAsyncByTenantIds",
+              "name": "CreateAllForTenantAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/system-datas-internal/create-all-for-tenant",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "tenantIds",
+                  "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<System.Guid>",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "tenantIds",
+                  "name": "tenantIds",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<System.Guid>",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService"
+            },
+            "GetNumberConfigSystemDataByValueNameByValueName": {
+              "uniqueName": "GetNumberConfigSystemDataByValueNameByValueName",
+              "name": "GetNumberConfigSystemDataByValueName",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/system-datas-internal/for-number-config-by-value-name",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "valueName",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "valueName",
+                  "name": "valueName",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto",
+                "typeSimple": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService"
+            },
+            "GetNumberingConfigsSystemData": {
+              "uniqueName": "GetNumberingConfigsSystemData",
+              "name": "GetNumberingConfigsSystemData",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/system-datas-internal/for-numbering-config",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.SystemDatas.SystemDataDto>",
+                "typeSimple": "[DMSpro.OMS.MdmService.SystemDatas.SystemDataDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService"
+            },
+            "GetSystemDataByCodeAndValueNameByCodeAndValueName": {
+              "uniqueName": "GetSystemDataByCodeAndValueNameByCodeAndValueName",
+              "name": "GetSystemDataByCodeAndValueName",
+              "httpMethod": "GET",
+              "url": "api/mdm-service/system-datas-internal/by-code-and-value-name",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "code",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "valueName",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "code",
+                  "name": "code",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "valueName",
+                  "name": "valueName",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto",
+                "typeSimple": "DMSpro.OMS.MdmService.SystemDatas.SystemDataDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.SystemDatas.ISystemDatasInternalAppService"
+            }
+          }
+        },
         "DMSpro.OMS.MdmService.Controllers.SystemConfigs.SystemConfigController": {
           "controllerName": "SystemConfig",
           "controllerGroupName": "SystemConfig",
@@ -19608,6 +19862,155 @@
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsAppService"
+            }
+          }
+        },
+        "DMSpro.OMS.MdmService.Controllers.NumberingConfigs.NumberingConfigInternalController": {
+          "controllerName": "NumberingConfigInternal",
+          "controllerGroupName": "NumberingConfigInternal",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "DMSpro.OMS.MdmService.Controllers.NumberingConfigs.NumberingConfigInternalController",
+          "interfaces": [
+            {
+              "type": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsInternalAppService",
+              "name": "INumberingConfigsInternalAppService",
+              "methods": [
+                {
+                  "name": "CreateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                      "type": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                      "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto"
+                  }
+                },
+                {
+                  "name": "CreateAllConfigsForTenantAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "tenantIds",
+                      "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "type": "System.Collections.Generic.List<System.Guid>",
+                      "typeSimple": "[string]",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto>",
+                    "typeSimple": "[DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto]"
+                  }
+                },
+                {
+                  "name": "CreateAllConfigsForHostAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto>",
+                    "typeSimple": "[DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto]"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "CreateAllConfigsForHostAsync": {
+              "uniqueName": "CreateAllConfigsForHostAsync",
+              "name": "CreateAllConfigsForHostAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/numbering-configs-internal/create-all-for-host",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto>",
+                "typeSimple": "[DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsInternalAppService"
+            },
+            "CreateAllConfigsForTenantAsyncByTenantIds": {
+              "uniqueName": "CreateAllConfigsForTenantAsyncByTenantIds",
+              "name": "CreateAllConfigsForTenantAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/numbering-configs-internal/create-all-for-tenant",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "tenantIds",
+                  "typeAsString": "System.Collections.Generic.List`1[[System.Guid, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.Collections.Generic.List<System.Guid>",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "tenantIds",
+                  "name": "tenantIds",
+                  "jsonName": null,
+                  "type": "System.Collections.Generic.List<System.Guid>",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto>",
+                "typeSimple": "[DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsInternalAppService"
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/mdm-service/numbering-configs-internal",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto, DMSpro.OMS.MdmService.Application.Contracts",
+                  "type": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                  "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto",
+                "typeSimple": "DMSpro.OMS.MdmService.NumberingConfigs.NumberingConfigDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "DMSpro.OMS.MdmService.NumberingConfigs.INumberingConfigsInternalAppService"
             }
           }
         },
