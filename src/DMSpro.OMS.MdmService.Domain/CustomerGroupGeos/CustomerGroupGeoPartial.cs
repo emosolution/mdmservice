@@ -6,6 +6,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
 {
     public partial class CustomerGroupGeo
     {
+        public virtual CustomerGroup CustomerGroup { get; set; }
+        public virtual GeoMaster GeoMaster0 { get; set; }
+        public virtual GeoMaster GeoMaster1 { get; set; }
+        public virtual GeoMaster GeoMaster2 { get; set; }
+        public virtual GeoMaster GeoMaster3 { get; set; }
+        public virtual GeoMaster GeoMaster4 { get; set; }
+
         public Dictionary<string, (int, string, string, string)>
                GetExcelTemplateInfo()
         {
@@ -24,13 +31,5 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
         {
             return new();
         }
-
-        public virtual CustomerGroup CustomerGroup { get; set; }
-        public virtual GeoMaster GeoMaster0 { get; set; }
-        public virtual GeoMaster GeoMaster1 { get; set; }
-        public virtual GeoMaster GeoMaster2 { get; set; }
-        public virtual GeoMaster GeoMaster3 { get; set; }
-        public virtual GeoMaster GeoMaster4 { get; set; }
-
     }
 }

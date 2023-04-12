@@ -18,6 +18,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
         private readonly CustomerGroupGeoManager _customerGroupGeoManager;
 
         private readonly IGeoMasterRepository _geoMasterRepository;
+        private readonly IGeoMastersInternalAppService _geoMastersInternalAppService;
         private readonly ICustomerGroupRepository _customerGroupRepository;
 
         public CustomerGroupGeosAppService(ICurrentTenant currentTenant,
@@ -25,6 +26,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             CustomerGroupGeoManager customerGroupGeoManager,
             IConfiguration settingProvider,
             IGeoMasterRepository geoMasterRepository,
+            IGeoMastersInternalAppService geoMastersInternalAppService,
             ICustomerGroupRepository customerGroupRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
         {
@@ -32,6 +34,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             _customerGroupGeoManager = customerGroupGeoManager;
 
             _geoMasterRepository = geoMasterRepository;
+            _geoMastersInternalAppService = geoMastersInternalAppService;
             _customerGroupRepository = customerGroupRepository;
 
             _repositories.AddIfNotContains(
