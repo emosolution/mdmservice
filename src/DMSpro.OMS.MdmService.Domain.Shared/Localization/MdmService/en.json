@@ -1138,6 +1138,7 @@
     "Error:PriceUpdatesAppService:553": "Update details and price details counts mismatch",
     "Error:PriceUpdatesAppService:554": "Not all price details belong to the same price list",
     "Error:PriceUpdatesAppService:555": "Update detail cannot be determined",
+    "Error:PriceUpdatesAppService:556": "Price update can only be performed on unreleased price list",
     "InfoMessage:PriceUpdatesAppService:001": "Are you sure you want to execute this update now?",
     "Error:PriceUpdateDetailsAppService:550": "Update details can no longer be modified",
     "Error:PriceUpdateDetailsAppService:551": "Price detail already exists in this update",
