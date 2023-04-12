@@ -19,7 +19,7 @@ using DMSpro.OMS.MdmService.Customers;
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
 
-    [Authorize(MdmServicePermissions.CustomerGroupByLists.Default)]
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
     public partial class CustomerGroupByListsAppService 
     {
         public virtual async Task<PagedResultDto<CustomerGroupByListWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByListsInput input)
@@ -78,13 +78,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
            };
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByLists.Delete)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerGroupByListRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByLists.Create)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupByListDto> CreateAsync(CustomerGroupByListCreateDto input)
         {
             if (input.CustomerGroupId == default)
@@ -103,7 +103,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
             return ObjectMapper.Map<CustomerGroupByList, CustomerGroupByListDto>(customerGroupByList);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByLists.Edit)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupByListDto> UpdateAsync(Guid id, CustomerGroupByListUpdateDto input)
         {
             if (input.CustomerGroupId == default)

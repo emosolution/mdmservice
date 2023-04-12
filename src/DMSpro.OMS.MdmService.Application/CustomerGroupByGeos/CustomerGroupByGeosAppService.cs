@@ -19,7 +19,7 @@ using DMSpro.OMS.MdmService.Shared;
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
 
-    [Authorize(MdmServicePermissions.CustomerGroupByGeos.Default)]
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
     public partial class CustomerGroupByGeosAppService
     {
         public virtual async Task<PagedResultDto<CustomerGroupByGeoWithNavigationPropertiesDto>> GetListAsync(GetCustomerGroupByGeosInput input)
@@ -77,13 +77,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             };
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByGeos.Delete)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _customerGroupByGeoRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByGeos.Create)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupByGeoDto> CreateAsync(CustomerGroupByGeoCreateDto input)
         {
             if (input.CustomerGroupId == default)
@@ -98,7 +98,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
             return ObjectMapper.Map<CustomerGroupByGeo, CustomerGroupByGeoDto>(customerGroupByGeo);
         }
 
-        [Authorize(MdmServicePermissions.CustomerGroupByGeos.Edit)]
+        [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupByGeoDto> UpdateAsync(Guid id, CustomerGroupByGeoUpdateDto input)
         {
             if (input.CustomerGroupId == default)

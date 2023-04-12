@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 {
-	[Authorize(MdmServicePermissions.CustomerGroupByGeos.Default)]
+	[Authorize(MdmServicePermissions.CustomerGroups.Default)]
 	public partial class CustomerGroupByGeosAppService : PartialAppService<CustomerGroupByGeo, CustomerGroupByGeoWithDetailsDto, ICustomerGroupByGeoRepository>,
 		ICustomerGroupByGeosAppService
 	{
@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByGeos
 			IGeoMasterRepository geoMasterRepository,
 			ICustomerGroupRepository customerGroupRepository,
 			IDistributedCache<CustomerGroupByGeoExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByGeos.Default)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
 		{
 			_customerGroupByGeoRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

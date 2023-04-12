@@ -282,29 +282,6 @@ public class MdmServicePermissions
         public const string Delete = Default + ".Delete";
     }
 
-    public static class CustomerGroupByAtts
-    {
-        public const string Default = GroupName + ".CustomerGroupByAtts";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class CustomerGroupByLists
-    {
-        public const string Default = GroupName + ".CustomerGroupByLists";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-
-    public static class CustomerGroupByGeos
-    {
-        public const string Default = GroupName + ".CustomerGroupByGeos";
-        public const string Edit = Default + ".Edit";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
     public static class CustomerAssignments
     {
         public const string Default = GroupName + ".CustomerAssignments";

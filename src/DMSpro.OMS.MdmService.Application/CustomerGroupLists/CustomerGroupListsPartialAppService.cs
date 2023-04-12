@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             IConfiguration settingProvider,
             ICustomerRepository customerRepository,
             ICustomerGroupRepository customerGroupRepository)
-            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByLists.Default)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
         {
             _customerGroupListRepository = repository;
             _customerGroupListManager = customerGroupListManager;
