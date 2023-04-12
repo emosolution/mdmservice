@@ -15,7 +15,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             var numberingConfig = await _numberingConfigRepository.GetAsync(id);
             var systemData = await _systemDataRepository.GetAsync(numberingConfig.SystemDataId);
             (string prefix, int paddingZeroNumber, string suffix) =
-               NumberingConfigConsts.GetBaseData(input.Suffix,
+               NumberingConfigConsts.GetBaseData(input.Prefix,
                    input.PaddingZeroNumber, input.Suffix, systemData.ValueName);
 
             numberingConfig.Prefix = prefix;
