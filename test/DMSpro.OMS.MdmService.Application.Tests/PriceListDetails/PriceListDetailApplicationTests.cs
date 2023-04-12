@@ -77,7 +77,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
                 Price = 1665595640,
                 BasedOnPrice = 1063313221,
                 Description = "db8ab61c2b96460496a8ba",
-                PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
+                //PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41"),
                 UOMId = Guid.Parse("805b2e46-7e18-44a4-8c46-20f77fc9de65"),
                 ItemId = Guid.Parse("b84be110-0545-45ad-8195-2bf93d4dcec4")
             };
