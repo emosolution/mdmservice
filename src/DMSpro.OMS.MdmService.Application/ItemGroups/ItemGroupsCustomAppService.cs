@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
-using Volo.Abp.Data;
 using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
@@ -18,7 +17,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         }
 
         [Authorize(MdmServicePermissions.ItemGroups.Delete)]
-        public virtual async Task ReleaseAsync(Guid id)
+        public virtual async Task<ItemGroupDto> ReleaseAsync(Guid id)
         {
             var itemGroup = await _itemGroupRepository.GetAsync(id);
             if (itemGroup.Status != GroupStatus.OPEN)
@@ -42,6 +41,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             }
             itemGroup.Status = GroupStatus.RELEASED;
             await _itemGroupRepository.UpdateAsync(itemGroup);
+            return ObjectMapper.Map<ItemGroup, ItemGroupDto>(itemGroup);
         }
 
         [Authorize(MdmServicePermissions.ItemGroups.Create)]
