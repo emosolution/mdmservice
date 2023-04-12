@@ -8,7 +8,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
     {
         Task<ItemGroupDto> GetAsync(Guid id);
 
-        Task ReleaseAsync(Guid id);
+        Task<ItemGroupDto> ReleaseAsync(Guid id);
 
         Task<ItemGroupDto> CreateAsync(ItemGroupCreateDto input);
 

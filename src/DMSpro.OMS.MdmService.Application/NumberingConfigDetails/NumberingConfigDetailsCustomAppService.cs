@@ -38,15 +38,13 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
             var header = await _numberingConfigRepository.GetAsync(detail.NumberingConfigId);
             var systemData = await _systemDataRepository.GetAsync(header.SystemDataId);
 
-            await CheckExistingConfigDetail(header.Id, detail.CompanyId);
-
             (string prefix, int paddingZeroNumber, string suffix, int currentNumer, bool active) =
-                NumberingConfigDetailConsts.GetBaseDetailData(input.Suffix,
+                NumberingConfigDetailConsts.GetBaseDetailData(input.Prefix,
                 input.PaddingZeroNumber, input.Suffix, input.CurrentNumber,
                 input.Active, systemData.ValueName);
-            detail.Suffix = suffix;
-            detail.PaddingZeroNumber = paddingZeroNumber;
             detail.Prefix = prefix;
+            detail.PaddingZeroNumber = paddingZeroNumber;
+            detail.Suffix = suffix;
             detail.CurrentNumber = currentNumer;
             detail.Active = active;
             await _numberingConfigDetailRepository.UpdateAsync(detail);

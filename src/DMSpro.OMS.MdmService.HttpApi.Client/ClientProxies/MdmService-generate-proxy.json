@@ -25699,8 +25699,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
+                    "type": "DMSpro.OMS.MdmService.ItemGroups.ItemGroupDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.ItemGroups.ItemGroupDto"
                   }
                 },
                 {
@@ -25970,8 +25970,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
+                "type": "DMSpro.OMS.MdmService.ItemGroups.ItemGroupDto",
+                "typeSimple": "DMSpro.OMS.MdmService.ItemGroups.ItemGroupDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.ItemGroups.IItemGroupsAppService"

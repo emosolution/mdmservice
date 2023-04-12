@@ -42,7 +42,7 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
 
         [HttpPut]
         [Route("release/{id}")]
-        public virtual Task ReleaseAsync(Guid id)
+        public virtual Task<ItemGroupDto> ReleaseAsync(Guid id)
         {
             return _itemGroupsAppService.ReleaseAsync(id);
         }

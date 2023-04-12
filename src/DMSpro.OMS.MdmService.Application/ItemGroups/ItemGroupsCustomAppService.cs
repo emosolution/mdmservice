@@ -16,7 +16,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
         }
 
         [Authorize(MdmServicePermissions.ItemGroups.Edit)]
-        public virtual async Task ReleaseAsync(Guid id)
+        public virtual async Task<ItemGroupDto> ReleaseAsync(Guid id)
         {
             var itemGroup = await _itemGroupRepository.GetAsync(id);
             if (itemGroup.Status != GroupStatus.OPEN)
@@ -24,12 +24,12 @@ namespace DMSpro.OMS.MdmService.ItemGroups
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:551"], code: "1");
             }
             if (itemGroup.Type == GroupType.LIST &&
-                await _itemGroupListRepository.AnyAsync(x => x.ItemGroupId == id))
+                !(await _itemGroupListRepository.AnyAsync(x => x.ItemGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:552"], code: "1");
             }
             else if (itemGroup.Type == GroupType.ATTRIBUTE &&
-                await _itemGroupAttributeRepository.AnyAsync(x => x.ItemGroupId == id))
+                !(await _itemGroupAttributeRepository.AnyAsync(x => x.ItemGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:553"], code: "1");
             }
@@ -40,6 +40,7 @@ namespace DMSpro.OMS.MdmService.ItemGroups
             }
             itemGroup.Status = GroupStatus.RELEASED;
             await _itemGroupRepository.UpdateAsync(itemGroup);
+            return ObjectMapper.Map<ItemGroup, ItemGroupDto>(itemGroup);
         }
 
         [Authorize(MdmServicePermissions.ItemGroups.Create)]
