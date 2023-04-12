@@ -55,6 +55,11 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
             }
+            var priceList = await _priceListRepository.GetAsync(input.PriceListId);
+            if (!priceList.IsReleased)
+            {
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:556"], code: "0");
+            }
             await CheckCodeUniqueness(input.Code);
             var priceUpdate = await _priceUpdateManager.CreateAsync(
                 input.PriceListId, input.Code, input.Description, isScheduled: false);
