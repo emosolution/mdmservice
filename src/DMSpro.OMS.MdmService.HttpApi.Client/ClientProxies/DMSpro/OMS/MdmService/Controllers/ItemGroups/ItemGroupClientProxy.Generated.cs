@@ -44,9 +44,9 @@ public partial class ItemGroupClientProxy : ClientProxyBase<IItemGroupsAppServic
         });
     }
 
-    public virtual async Task ReleaseAsync(Guid id)
+    public virtual async Task<ItemGroupDto> ReleaseAsync(Guid id)
     {
-        await RequestAsync(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<ItemGroupDto>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });
