@@ -25,17 +25,17 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
                 throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:551"], code: "1");
             }
             if (customerGroup.GroupBy == Type.LIST &&
-                await _customerGroupListRepository.AnyAsync(x => x.CustomerGroupId== id))
+                !(await _customerGroupListRepository.AnyAsync(x => x.CustomerGroupId== id)))
             {
                 throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:552"], code: "1");
             }
             else if (customerGroup.GroupBy == Type.ATTRIBUTE &&
-                await _customerGroupAttributeRepository.AnyAsync(x => x.CustomerGroupId == id))
+                !(await _customerGroupAttributeRepository.AnyAsync(x => x.CustomerGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:553"], code: "1");
             }
             else if (customerGroup.GroupBy == Type.GEO &&
-                await _customerGroupGeoRepository.AnyAsync(x => x.CustomerGroupId == id))
+                !(await _customerGroupGeoRepository.AnyAsync(x => x.CustomerGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:554"], code: "1");
             }
