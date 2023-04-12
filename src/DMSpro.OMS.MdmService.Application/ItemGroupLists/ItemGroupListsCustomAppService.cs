@@ -76,7 +76,11 @@ namespace DMSpro.OMS.MdmService.ItemGroupLists
 
         private async Task CheckItem(Guid itemId)
         {
-            await _itemRepository.GetAsync(itemId);
+            var item = await _itemRepository.GetAsync(itemId);
+            if (!item.Active)
+            {
+                throw new UserFriendlyException(message: L["Error:ItemGroupListsAppService:552"], code: "1");
+            }
         }
     }
 }
