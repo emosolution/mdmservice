@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
@@ -39,7 +40,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
                     "EntityFieldValue:MDMService:PriceUpdate:Status:OPEN"], code: "0");
             }
             DateTime now = DateTime.Now;
-            await ExecutePriceUpdate(priceUpdate);
+            await ExecutePriceUpdate(priceUpdate.Id, now);
             priceUpdate.Status = PriceUpdateStatus.COMPLETED;
             priceUpdate.ReleasedDate = now;
             priceUpdate.CompleteDate = now;
@@ -79,9 +80,36 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(record);
         }
 
-        private async Task ExecutePriceUpdate(PriceUpdate priceUpdate)
+        private async Task<int> ExecutePriceUpdate(Guid priceUpdateId, DateTime now)
         {
-            throw new NotImplementedException();
+            var updateDetails = await _priceUpdateDetailRepository.GetListAsync(
+                x => x.PriceUpdateId == priceUpdateId);
+            var priceDetailIds = updateDetails.Select(x => x.PriceListDetailId).Distinct().ToList();
+            if (updateDetails.Count != priceDetailIds.Count)
+            {
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:553"], code: "0");
+            }
+            var priceDetails = await _priceListDetailRepository.GetListAsync(
+                x => priceDetailIds.Contains(x.Id));
+            var priceListIds = priceDetails.Select(x => x.PriceListId).Distinct().ToList();
+            if (priceListIds.Count != 1)
+            {
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:554"], code: "0");
+            }
+            foreach (var priceDetail in priceDetails)
+            {
+                var updates = updateDetails.Where(x => x.PriceListDetailId == priceDetail.Id);
+                if (updates.Count() != 1)
+                {
+                    throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:555"], code: "0");
+                }
+                var update = updates.First();
+                priceDetail.Price = update.NewPrice;
+                update.UpdatedDate = now;
+            }
+            await _priceListDetailRepository.UpdateManyAsync(priceDetails);
+            await _priceUpdateDetailRepository.UpdateManyAsync(updateDetails);
+            return updateDetails.Count;
         }
     }
 }

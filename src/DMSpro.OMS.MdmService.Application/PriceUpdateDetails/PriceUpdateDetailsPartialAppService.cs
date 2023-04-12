@@ -9,7 +9,7 @@ using DMSpro.OMS.MdmService.PriceListDetails;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
-    [Authorize(MdmServicePermissions.PriceUpdateDetails.Default)]
+    [Authorize(MdmServicePermissions.PriceUpdates.Default)]
     public partial class PriceUpdateDetailsAppService : PartialAppService<PriceUpdateDetail, PriceUpdateDetailWithDetailsDto, IPriceUpdateDetailRepository>,
         IPriceUpdateDetailsAppService
     {
@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
             IConfiguration settingProvider,
             IPriceUpdateRepository priceUpdateRepository,
             IPriceListDetailRepository priceListDetailRepository)
-            : base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceUpdateDetails.Default)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceUpdates.Default)
         {
             _priceUpdateDetailRepository = repository;
             _priceUpdateDetailManager = priceUpdateDetailManager;

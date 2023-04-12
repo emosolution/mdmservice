@@ -98,11 +98,6 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceUpdate);
         priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Release, L("Permission:MdmService:PriceUpdate:Release")).RequireFeatures(MdmFeatures.PriceUpdate);
 
-        var priceUpdateDetailPermission = myGroup.AddPermission(MdmServicePermissions.PriceUpdateDetails.Default, L("Permission:MdmService:PriceUpdateDetail")).RequireFeatures(MdmFeatures.PriceUpdate);
-        priceUpdateDetailPermission.AddChild(MdmServicePermissions.PriceUpdateDetails.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceUpdate);
-        priceUpdateDetailPermission.AddChild(MdmServicePermissions.PriceUpdateDetails.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceUpdate);
-        priceUpdateDetailPermission.AddChild(MdmServicePermissions.PriceUpdateDetails.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.PriceUpdate);
-
         var pricelistAssignmentPermission = myGroup.AddPermission(MdmServicePermissions.PriceListAssignments.Default, L("Permission:MdmService:PriceListAssignment")).RequireFeatures(MdmFeatures.PriceListAssignments);
         pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceListAssignments);
         pricelistAssignmentPermission.AddChild(MdmServicePermissions.PriceListAssignments.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceListAssignments);

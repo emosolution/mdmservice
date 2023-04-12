@@ -9,7 +9,7 @@ using Volo.Abp.Domain.Repositories;
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
 
-    [Authorize(MdmServicePermissions.PriceUpdateDetails.Default)]
+    [Authorize(MdmServicePermissions.PriceUpdates.Default)]
     public partial class PriceUpdateDetailsAppService
     {
         public virtual async Task<PriceUpdateDetailDto> GetAsync(Guid id)
@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
             return ObjectMapper.Map<PriceUpdateDetail, PriceUpdateDetailDto>(await _priceUpdateDetailRepository.GetAsync(id));
         }
 
-        [Authorize(MdmServicePermissions.PriceUpdateDetails.Delete)]
+        [Authorize(MdmServicePermissions.PriceUpdates.Edit)]
         public virtual async Task DeleteAsync(Guid id)
         {
             var detail = await _priceUpdateDetailRepository.GetAsync(id);
@@ -25,7 +25,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
             await _priceUpdateDetailRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.PriceUpdateDetails.Create)]
+        [Authorize(MdmServicePermissions.PriceUpdates.Create)]
         public virtual async Task<PriceUpdateDetailDto> CreateAsync(PriceUpdateDetailCreateDto input)
         {
             if (input.PriceUpdateId == default)
@@ -56,7 +56,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
             return ObjectMapper.Map<PriceUpdateDetail, PriceUpdateDetailDto>(priceUpdateDetail);
         }
 
-        [Authorize(MdmServicePermissions.PriceUpdateDetails.Edit)]
+        [Authorize(MdmServicePermissions.PriceUpdates.Edit)]
         public virtual async Task<PriceUpdateDetailDto> UpdateAsync(Guid id, PriceUpdateDetailUpdateDto input)
         {
             var detail = await _priceUpdateDetailRepository.GetAsync(id);

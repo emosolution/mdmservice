@@ -95,7 +95,7 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/EmployeeProfiles/Index", MdmServicePermissions.EmployeeProfiles.Default);
             options.Conventions.AuthorizePage("/EmployeeImages/Index", MdmServicePermissions.EmployeeProfiles.Default);
             options.Conventions.AuthorizePage("/EmployeeAttachments/Index", MdmServicePermissions.EmployeeProfiles.Default);
-            options.Conventions.AuthorizePage("/PriceUpdateDetails/Index", MdmServicePermissions.PriceUpdateDetails.Default);
+            options.Conventions.AuthorizePage("/PriceUpdateDetails/Index", MdmServicePermissions.PriceUpdates.Default);
             options.Conventions.AuthorizePage("/CusAttributeValues/Index", MdmServicePermissions.CustomerAttributes.Default);
             options.Conventions.AuthorizePage("/Customers/Index", MdmServicePermissions.Customers.Default);
             options.Conventions.AuthorizePage("/CustomerContacts/Index", MdmServicePermissions.Customers.Default);
