@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Microsoft.EntityFrameworkCore;
+using DMSpro.OMS.MdmService.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
-	public partial class EfCorePriceUpdateRepository
-	{
-		public virtual async Task<Guid?> GetIdByCodeAsync(string code)
+	public partial class EfCorePriceUpdateRepository : EfCoreRepository<MdmServiceDbContext, PriceUpdate, Guid>, IPriceUpdateRepository
+    {
+        public EfCorePriceUpdateRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
+            : base(dbContextProvider)
+        {
+
+        }
+
+        public virtual async Task<Guid?> GetIdByCodeAsync(string code)
 		{
 		var item = (await GetDbSetAsync()).Where(x => x.Code == code).FirstOrDefault();
 		return item?.Id;
@@ -19,7 +28,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
 		{
 			var items = (await GetDbSetAsync()).Where(x => codes.Contains(x.Code));
 			Dictionary<string, Guid> result = new();
-			if (items.Count() < 1)
+			if (!items.Any())
             {
                 return result;
             }

@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,47 +17,40 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         }
 
         public async Task<PriceUpdate> CreateAsync(
-        Guid priceListId, string code, string description, DateTime effectiveDate, PriceUpdateStatus status, DateTime? updateStatusDate = null)
+            Guid priceListId, string code, string description, bool isScheduled,
+            DateTime? effectiveDate = null, DateTime? endDate = null)
         {
             Check.NotNull(priceListId, nameof(priceListId));
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), PriceUpdateConsts.CodeMaxLength, PriceUpdateConsts.CodeMinLength);
             Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength);
-            Check.NotNull(effectiveDate, nameof(effectiveDate));
-            Check.NotNull(status, nameof(status));
 
             var priceUpdate = new PriceUpdate(
-             GuidGenerator.Create(),
-             priceListId, code, description, effectiveDate, status, updateStatusDate
-             );
+                GuidGenerator.Create(),
+                priceListId, code, description, PriceUpdateStatus.OPEN, isScheduled,
+                effectiveDate, endDate, null, null, null);
 
             return await _priceUpdateRepository.InsertAsync(priceUpdate);
         }
 
         public async Task<PriceUpdate> UpdateAsync(
             Guid id,
-            Guid priceListId, string code, string description, DateTime effectiveDate, PriceUpdateStatus status, DateTime? updateStatusDate = null, [CanBeNull] string concurrencyStamp = null
+            string description, bool isScheduled,
+            DateTime? effectiveDate = null, DateTime? endDate = null,
+            [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNull(priceListId, nameof(priceListId));
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), PriceUpdateConsts.CodeMaxLength, PriceUpdateConsts.CodeMinLength);
             Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength);
-            Check.NotNull(effectiveDate, nameof(effectiveDate));
-            Check.NotNull(status, nameof(status));
 
             var priceUpdate = await _priceUpdateRepository.GetAsync(id);
 
-            priceUpdate.PriceListId = priceListId;
-            priceUpdate.Code = code;
             priceUpdate.Description = description;
+            priceUpdate.IsScheduled = isScheduled;
             priceUpdate.EffectiveDate = effectiveDate;
-            priceUpdate.Status = status;
-            priceUpdate.UpdateStatusDate = updateStatusDate;
+            priceUpdate.EndDate = endDate;
 
             priceUpdate.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _priceUpdateRepository.UpdateAsync(priceUpdate);
         }
-
     }
 }

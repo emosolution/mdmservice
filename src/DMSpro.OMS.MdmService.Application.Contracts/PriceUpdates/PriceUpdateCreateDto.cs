@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
@@ -11,9 +10,13 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         public string Code { get; set; }
         [StringLength(PriceUpdateConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public DateTime EffectiveDate { get; set; }
-        public PriceUpdateStatus Status { get; set; } = ((PriceUpdateStatus[])Enum.GetValues(typeof(PriceUpdateStatus)))[0];
-        public DateTime? UpdateStatusDate { get; set; }
+        //public DateTime? EffectiveDate { get; set; }
+        //public DateTime? EndDate { get; set; }
+        //public PriceUpdateStatus Status { get; set; } = ((PriceUpdateStatus[])Enum.GetValues(typeof(PriceUpdateStatus)))[0];
+        //public bool IsScheduled { get; set; } = false;
+        //public DateTime? ReleasedDate { get; set; }
+        //public DateTime? CancelledDate { get; set; }
+        //public DateTime? CompleteDate { get; set; }
         public Guid PriceListId { get; set; }
     }
 }

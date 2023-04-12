@@ -1,9 +1,4 @@
-using DMSpro.OMS.MdmService.PriceLists;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -22,19 +17,33 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         [CanBeNull]
         public virtual string Description { get; set; }
 
-        public virtual DateTime EffectiveDate { get; set; }
+        public virtual DateTime? EffectiveDate { get; set; }
+
+        public virtual DateTime? EndDate { get; set; }
 
         public virtual PriceUpdateStatus Status { get; set; }
 
-        public virtual DateTime? UpdateStatusDate { get; set; }
+        public virtual bool IsScheduled { get; set; }
+
+        public virtual DateTime? ReleasedDate { get; set; }
+
+        public virtual DateTime? CancelledDate { get; set; }
+
+        public virtual DateTime? CompleteDate { get; set; }
         public Guid PriceListId { get; set; }
-        public virtual PriceList PriceList { get; set; }
+
         public PriceUpdate()
         {
 
         }
 
-        public PriceUpdate(Guid id, Guid priceListId, string code, string description, DateTime effectiveDate, PriceUpdateStatus status, DateTime? updateStatusDate = null)
+        public PriceUpdate(
+            Guid id, 
+            Guid priceListId, string code, string description, 
+            PriceUpdateStatus status, bool isScheduled, 
+            DateTime? effectiveDate = null, DateTime? endDate = null, 
+            DateTime? releasedDate = null, DateTime? cancelledDate = null, 
+            DateTime? completeDate = null)
         {
 
             Id = id;
@@ -43,9 +52,13 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             Check.Length(description, nameof(description), PriceUpdateConsts.DescriptionMaxLength, 0);
             Code = code;
             Description = description;
-            EffectiveDate = effectiveDate;
             Status = status;
-            UpdateStatusDate = updateStatusDate;
+            IsScheduled = isScheduled;
+            EffectiveDate = effectiveDate;
+            EndDate = endDate;
+            ReleasedDate = releasedDate;
+            CancelledDate = cancelledDate;
+            CompleteDate = completeDate;
             PriceListId = priceListId;
         }
 

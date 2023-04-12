@@ -209,18 +209,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.IsDefaultForVendor).HasColumnName(nameof(PriceList.IsDefaultForVendor));
             b.HasOne<PriceList>(x => x.BasePriceList).WithMany().HasForeignKey(x => x.BasePriceListId).OnDelete(DeleteBehavior.NoAction);
         });
-        builder.Entity<PriceUpdate>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "PriceUpdates", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(PriceUpdate.TenantId));
-            b.Property(x => x.Code).HasColumnName(nameof(PriceUpdate.Code)).IsRequired().HasMaxLength(PriceUpdateConsts.CodeMaxLength);
-            b.Property(x => x.Description).HasColumnName(nameof(PriceUpdate.Description)).HasMaxLength(PriceUpdateConsts.DescriptionMaxLength);
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(PriceUpdate.EffectiveDate));
-            b.Property(x => x.Status).HasColumnName(nameof(PriceUpdate.Status));
-            b.Property(x => x.UpdateStatusDate).HasColumnName(nameof(PriceUpdate.UpdateStatusDate));
-            b.HasOne<PriceList>(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
-        });
 
         builder.Entity<PriceUpdateDetail>(b =>
         {
@@ -358,7 +346,24 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
             b.Property(x => x.Description).HasColumnName(nameof(CustomerGroup.Description)).HasMaxLength(CustomerGroupConsts.DescriptionMaxLength);
         });
-        
+
+        builder.Entity<PriceUpdate>(b =>
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "PriceUpdates", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(PriceUpdate.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(PriceUpdate.Code)).IsRequired().HasMaxLength(PriceUpdateConsts.CodeMaxLength);
+            b.Property(x => x.Description).HasColumnName(nameof(PriceUpdate.Description)).HasMaxLength(PriceUpdateConsts.DescriptionMaxLength);
+            b.Property(x => x.EffectiveDate).HasColumnName(nameof(PriceUpdate.EffectiveDate));
+            b.Property(x => x.EndDate).HasColumnName(nameof(PriceUpdate.EndDate));
+            b.Property(x => x.Status).HasColumnName(nameof(PriceUpdate.Status));
+            b.Property(x => x.IsScheduled).HasColumnName(nameof(PriceUpdate.IsScheduled));
+            b.Property(x => x.ReleasedDate).HasColumnName(nameof(PriceUpdate.ReleasedDate));
+            b.Property(x => x.CancelledDate).HasColumnName(nameof(PriceUpdate.CancelledDate));
+            b.Property(x => x.CompleteDate).HasColumnName(nameof(PriceUpdate.CompleteDate));
+            b.HasOne(x => x.PriceList).WithMany().IsRequired().HasForeignKey(x => x.PriceListId).OnDelete(DeleteBehavior.NoAction);
+        });
+
         builder.Entity<Holiday>(b =>
             {
                 b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);

@@ -14,8 +14,6 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         IPriceUpdatesAppService
     {
         private readonly IPriceUpdateRepository _priceUpdateRepository;
-        private readonly IDistributedCache<PriceUpdateExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly PriceUpdateManager _priceUpdateManager;
 
         private readonly IPriceListRepository _priceListRepository;
@@ -24,12 +22,10 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             IPriceUpdateRepository repository,
             PriceUpdateManager priceUpdateManager,
             IConfiguration settingProvider,
-            IPriceListRepository priceListRepository,
-            IDistributedCache<PriceUpdateExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IPriceListRepository priceListRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceUpdates.Default)
         {
             _priceUpdateRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _priceUpdateManager = priceUpdateManager;
 
             _priceListRepository = priceListRepository;

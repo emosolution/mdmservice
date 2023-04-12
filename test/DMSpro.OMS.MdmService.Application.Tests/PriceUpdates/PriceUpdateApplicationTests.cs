@@ -19,27 +19,14 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _priceUpdatesAppService.GetListAsync(new GetPriceUpdatesInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.PriceUpdate.Id == Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92")).ShouldBe(true);
-            result.Items.Any(x => x.PriceUpdate.Id == Guid.Parse("7f7060db-f287-4989-bf0e-81aed3a69434")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _priceUpdatesAppService.GetAsync(Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"));
+            var result = await _priceUpdatesAppService.GetAsync(Guid.Parse("552e1fe9-81ad-4bee-9ade-1f1ae70f867f"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"));
+            result.Id.ShouldBe(Guid.Parse("552e1fe9-81ad-4bee-9ade-1f1ae70f867f"));
         }
 
         [Fact]
@@ -48,12 +35,9 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             // Arrange
             var input = new PriceUpdateCreateDto
             {
-                Code = "ffed9172aac94ff485cb",
-                Description = "d197b8bab9a84d60b52226733248d30501d887ca1442472fbd7c975741b5f5da710b8eccda75431ba634a45abc2d044bd2ccc68130cf4c7096455dd783d26772f801cacd5caf4744a38c4113efe15f4eb4d02811b7234f20b395ae41484769cd8a9e5d21c24d4cc193a5c7c197d8da9ee4ba984493f94e18985f25b2b7b100a9d8478ab62bca43c8b9b34ac31dab315aeb51fcc7ad034630a30b65ba2c9d80726c3ab79288f5436390455a0f51f9a3600f86c6c6d5a048d4a5a0bfb069d9714c46fa3037eacf4d68b477ab8c5c780dfea849387cd0a1499bb1ee48ef397e40436d38420995414a6bb6d164a0cf02f84be401cdb9ffc44d56a377",
-                EffectiveDate = new DateTime(2005, 6, 18),
-                Status = default,
-                UpdateStatusDate = new DateTime(2002, 6, 21),
-                PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41")
+                Code = "9c9f7be4ab0548a3a4f3",
+                Description = "27b13685da34457c980fed2f82284c18640640288e4247fd86c1f5a358e1ef4e6f599ff027ad4ab2af2fe97220308f9151d73331db6d4d7f9909c2f831a41c4087cc3ba0dbc4489a9c7212fc8ea4ddcdbd7ea6e9508347398d99c4fac881d1df6d9c57967cad43eb8951a1ce9c93abb9828bac482f144250867afc0e2a53758c97b34ce2647e458489f7d4cf78c2c345a574a4798a29435a8dc4b437c4bd0c31ea615b97718044ed823e936bd71065f535f1ce9e4be9423ca9a4fb78872d7630165bf32dbc5e4a36b50c208556662dcbf19d1feeaa3b4a25a65930ff8f0c1bfa22e5695ddb94467c9a3fc1e8c1c1ef1479d61da5b9e14551883f",
+                PriceListId = Guid.Parse("4758593c-d51b-4934-a996-ee0572f5c083")
             };
 
             // Act
@@ -63,11 +47,15 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             var result = await _priceUpdateRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("ffed9172aac94ff485cb");
-            result.Description.ShouldBe("d197b8bab9a84d60b52226733248d30501d887ca1442472fbd7c975741b5f5da710b8eccda75431ba634a45abc2d044bd2ccc68130cf4c7096455dd783d26772f801cacd5caf4744a38c4113efe15f4eb4d02811b7234f20b395ae41484769cd8a9e5d21c24d4cc193a5c7c197d8da9ee4ba984493f94e18985f25b2b7b100a9d8478ab62bca43c8b9b34ac31dab315aeb51fcc7ad034630a30b65ba2c9d80726c3ab79288f5436390455a0f51f9a3600f86c6c6d5a048d4a5a0bfb069d9714c46fa3037eacf4d68b477ab8c5c780dfea849387cd0a1499bb1ee48ef397e40436d38420995414a6bb6d164a0cf02f84be401cdb9ffc44d56a377");
-            result.EffectiveDate.ShouldBe(new DateTime(2005, 6, 18));
-            result.Status.ShouldBe(default);
-            result.UpdateStatusDate.ShouldBe(new DateTime(2002, 6, 21));
+            result.Code.ShouldBe("9c9f7be4ab0548a3a4f3");
+            result.Description.ShouldBe("27b13685da34457c980fed2f82284c18640640288e4247fd86c1f5a358e1ef4e6f599ff027ad4ab2af2fe97220308f9151d73331db6d4d7f9909c2f831a41c4087cc3ba0dbc4489a9c7212fc8ea4ddcdbd7ea6e9508347398d99c4fac881d1df6d9c57967cad43eb8951a1ce9c93abb9828bac482f144250867afc0e2a53758c97b34ce2647e458489f7d4cf78c2c345a574a4798a29435a8dc4b437c4bd0c31ea615b97718044ed823e936bd71065f535f1ce9e4be9423ca9a4fb78872d7630165bf32dbc5e4a36b50c208556662dcbf19d1feeaa3b4a25a65930ff8f0c1bfa22e5695ddb94467c9a3fc1e8c1c1ef1479d61da5b9e14551883f");
+            result.EffectiveDate.ShouldBe(null);
+            result.EndDate.ShouldBe(null);
+            result.Status.ShouldBe(PriceUpdateStatus.OPEN);
+            result.IsScheduled.ShouldBe(false);
+            result.ReleasedDate.ShouldBe(null);
+            result.CancelledDate.ShouldBe(null);
+            result.CompleteDate.ShouldBe(null);
         }
 
         [Fact]
@@ -76,38 +64,25 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             // Arrange
             var input = new PriceUpdateUpdateDto()
             {
-                Code = "d7216abb28dc44a48bd7",
-                Description = "e3e89efc4f5b486096eba8772d856f4467c2c80305a34248b5bbb82a1a84d6bd90ad90e65f5b4cd3b5772c1297bce3d19774d00688084a198cc4ab45b2d180a66c6ccd3e5d134bfebdfd7c577a78835216edfca7d5344004bbe76ae5fec4cc99ac1636b3bc764c29b0eb4c8616db50e9e87922a82d014aab9d36a9eebfc86a79a57b3115ab9a46908af04064f89eb1d7c5d583bd30b8421e9a6c5de70a904d0bd8c04564c29f4211942ee39920401262c01ce85c9e124c08bd999952826e310ec5f23b0ad217460a8837bc093484bb4e90a5da31a043405f9f3f98732641a9145dc77c2dab7a46b8a340348c51dbb410fa0d65a056074af083e1",
-                EffectiveDate = new DateTime(2022, 9, 7),
-                Status = default,
-                UpdateStatusDate = new DateTime(2014, 6, 10),
-                PriceListId = Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41")
+                Description = "32291bcf24be41508c065ef9467fd2dcf44e1f34281044e8821da9deaf494c31863e6edb467f4c1e9af61ade035a4c6e60219da069ce48a78da81016e5e84d0f4cfb97566a4447e8bc6a55f2998208e0013ed96dcd1f468b956ff4be7ba12a6e6ae7cb00587244a2a78062d4e85a1da9fdba0adecb02408fa59cc125e2125955201f8fdcb3854f70af25952a2b5ad08bba359681583d402d8dd5737c10fc0c4f8ef912c4257742f8a61baf910ec129d31a935064866548d0a05665b0b3c509e718b3e788a26d4618974614977e7d1dccab940998af1c4345ac690f0932c2d3d93246a891a71d4096bea138d6c27d8835a7bd6a5d6ab64771af6c",
             };
 
             // Act
-            var serviceResult = await _priceUpdatesAppService.UpdateAsync(Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"), input);
+            var serviceResult = await _priceUpdatesAppService.UpdateAsync(Guid.Parse("552e1fe9-81ad-4bee-9ade-1f1ae70f867f"), input);
 
             // Assert
             var result = await _priceUpdateRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("d7216abb28dc44a48bd7");
-            result.Description.ShouldBe("e3e89efc4f5b486096eba8772d856f4467c2c80305a34248b5bbb82a1a84d6bd90ad90e65f5b4cd3b5772c1297bce3d19774d00688084a198cc4ab45b2d180a66c6ccd3e5d134bfebdfd7c577a78835216edfca7d5344004bbe76ae5fec4cc99ac1636b3bc764c29b0eb4c8616db50e9e87922a82d014aab9d36a9eebfc86a79a57b3115ab9a46908af04064f89eb1d7c5d583bd30b8421e9a6c5de70a904d0bd8c04564c29f4211942ee39920401262c01ce85c9e124c08bd999952826e310ec5f23b0ad217460a8837bc093484bb4e90a5da31a043405f9f3f98732641a9145dc77c2dab7a46b8a340348c51dbb410fa0d65a056074af083e1");
-            result.EffectiveDate.ShouldBe(new DateTime(2022, 9, 7));
-            result.Status.ShouldBe(default);
-            result.UpdateStatusDate.ShouldBe(new DateTime(2014, 6, 10));
-        }
-
-        [Fact]
-        public async Task DeleteAsync()
-        {
-            // Act
-            await _priceUpdatesAppService.DeleteAsync(Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"));
-
-            // Assert
-            var result = await _priceUpdateRepository.FindAsync(c => c.Id == Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"));
-
-            result.ShouldBeNull();
+            result.Code.ShouldBe("2f91575e4eb24b058ae9");
+            result.Description.ShouldBe("32291bcf24be41508c065ef9467fd2dcf44e1f34281044e8821da9deaf494c31863e6edb467f4c1e9af61ade035a4c6e60219da069ce48a78da81016e5e84d0f4cfb97566a4447e8bc6a55f2998208e0013ed96dcd1f468b956ff4be7ba12a6e6ae7cb00587244a2a78062d4e85a1da9fdba0adecb02408fa59cc125e2125955201f8fdcb3854f70af25952a2b5ad08bba359681583d402d8dd5737c10fc0c4f8ef912c4257742f8a61baf910ec129d31a935064866548d0a05665b0b3c509e718b3e788a26d4618974614977e7d1dccab940998af1c4345ac690f0932c2d3d93246a891a71d4096bea138d6c27d8835a7bd6a5d6ab64771af6c");
+            result.EffectiveDate.ShouldBe(null);
+            result.EndDate.ShouldBe(null);
+            result.Status.ShouldBe(PriceUpdateStatus.OPEN);
+            result.IsScheduled.ShouldBe(false);
+            result.ReleasedDate.ShouldBe(null);
+            result.CancelledDate.ShouldBe(null);
+            result.CompleteDate.ShouldBe(null);
         }
     }
 }

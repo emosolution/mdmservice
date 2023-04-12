@@ -96,7 +96,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         var priceUpdatePermission = myGroup.AddPermission(MdmServicePermissions.PriceUpdates.Default, L("Permission:MdmService:PriceUpdate")).RequireFeatures(MdmFeatures.PriceUpdate);
         priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceUpdate);
         priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.PriceUpdate);
-        priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.PriceUpdate);
+        priceUpdatePermission.AddChild(MdmServicePermissions.PriceUpdates.Release, L("Permission:MdmService:PriceUpdate:Release")).RequireFeatures(MdmFeatures.PriceUpdate);
 
         var priceUpdateDetailPermission = myGroup.AddPermission(MdmServicePermissions.PriceUpdateDetails.Default, L("Permission:MdmService:PriceUpdateDetail")).RequireFeatures(MdmFeatures.PriceUpdate);
         priceUpdateDetailPermission.AddChild(MdmServicePermissions.PriceUpdateDetails.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.PriceUpdate);

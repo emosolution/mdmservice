@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
-	public partial interface IPriceUpdateRepository
+	public partial interface IPriceUpdateRepository : IRepository<PriceUpdate, Guid>
 	{
 		Task<Guid?> GetIdByCodeAsync(string code);
 

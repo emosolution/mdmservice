@@ -1,69 +1,50 @@
-using DMSpro.OMS.MdmService.PriceLists;
 using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Permissions;
-using MiniExcelLibs;
-using Volo.Abp.Content;
-using Volo.Abp.Authorization;
-using Microsoft.Extensions.Caching.Distributed;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.PriceUpdates
 {
 
     [Authorize(MdmServicePermissions.PriceUpdates.Default)]
     public partial class PriceUpdatesAppService
-    { 
-        public virtual async Task<PagedResultDto<PriceUpdateWithNavigationPropertiesDto>> GetListAsync(GetPriceUpdatesInput input)
-        {
-            var totalCount = await _priceUpdateRepository.GetCountAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax, input.PriceListId);
-            var items = await _priceUpdateRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax, input.PriceListId, input.Sorting, input.MaxResultCount, input.SkipCount);
-
-            return new PagedResultDto<PriceUpdateWithNavigationPropertiesDto>
-            {
-                TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<PriceUpdateWithNavigationProperties>, List<PriceUpdateWithNavigationPropertiesDto>>(items)
-            };
-        }
-
-        public virtual async Task<PriceUpdateWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return ObjectMapper.Map<PriceUpdateWithNavigationProperties, PriceUpdateWithNavigationPropertiesDto>
-                (await _priceUpdateRepository.GetWithNavigationPropertiesAsync(id));
-        }
-
+    {
         public virtual async Task<PriceUpdateDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(await _priceUpdateRepository.GetAsync(id));
         }
 
-        public virtual async Task<PagedResultDto<LookupDto<Guid>>> GetPriceListLookupAsync(LookupRequestDto input)
+        [Authorize(MdmServicePermissions.PriceUpdates.Edit)]
+        public virtual async Task<PriceUpdateDto> CancelAsync(Guid id)
         {
-            var query = (await _priceListRepository.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
-                    x => x.Code != null &&
-                         x.Code.Contains(input.Filter));
-
-            var lookupData = await query.PageBy(input.SkipCount, input.MaxResultCount).ToDynamicListAsync<PriceList>();
-            var totalCount = query.Count();
-            return new PagedResultDto<LookupDto<Guid>>
+            var priceUpdate = await _priceUpdateRepository.GetAsync(id);
+            if (priceUpdate.Status != PriceUpdateStatus.OPEN)
             {
-                TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<PriceList>, List<LookupDto<Guid>>>(lookupData)
-            };
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:550"], code: "0");
+            }
+            priceUpdate.Status = PriceUpdateStatus.CANCELLED;
+            priceUpdate.CancelledDate = DateTime.Now;
+            await _priceUpdateRepository.UpdateAsync(priceUpdate);
+            return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(priceUpdate);
         }
 
-        [Authorize(MdmServicePermissions.PriceUpdates.Delete)]
-        public virtual async Task DeleteAsync(Guid id)
+        [Authorize(MdmServicePermissions.PriceUpdates.Release)]
+        public virtual async Task<PriceUpdateDto> ReleaseAsync(Guid id)
         {
-            await _priceUpdateRepository.DeleteAsync(id);
+            var priceUpdate = await _priceUpdateRepository.GetAsync(id);
+            if (priceUpdate.Status != PriceUpdateStatus.OPEN)
+            {
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:551",
+                    "EntityFieldValue:MDMService:PriceUpdate:Status:OPEN"], code: "0");
+            }
+            DateTime now = DateTime.Now;
+            await ExecutePriceUpdate(priceUpdate);
+            priceUpdate.Status = PriceUpdateStatus.COMPLETED;
+            priceUpdate.ReleasedDate = now;
+            priceUpdate.CompleteDate = now;
+            await _priceUpdateRepository.UpdateAsync(priceUpdate);
+            return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(priceUpdate);
         }
 
         [Authorize(MdmServicePermissions.PriceUpdates.Create)]
@@ -75,8 +56,7 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
             }
             await CheckCodeUniqueness(input.Code);
             var priceUpdate = await _priceUpdateManager.CreateAsync(
-            input.PriceListId, input.Code, input.Description, input.EffectiveDate, input.Status, input.UpdateStatusDate
-            );
+                input.PriceListId, input.Code, input.Description, isScheduled: false);
 
             return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(priceUpdate);
         }
@@ -84,64 +64,24 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         [Authorize(MdmServicePermissions.PriceUpdates.Edit)]
         public virtual async Task<PriceUpdateDto> UpdateAsync(Guid id, PriceUpdateUpdateDto input)
         {
-            if (input.PriceListId == default)
+            var priceUpdate = await _priceUpdateRepository.GetAsync(id);
+            if (priceUpdate.Status != PriceUpdateStatus.OPEN)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
+                throw new UserFriendlyException(message: L["Error:PriceUpdatesAppService:552",
+                    "EntityFieldValue:MDMService:PriceUpdate:Status:OPEN"], code: "0");
             }
-            await CheckCodeUniqueness(input.Code, id);
-            var priceUpdate = await _priceUpdateManager.UpdateAsync(
-            id,
-            input.PriceListId, input.Code, input.Description, input.EffectiveDate, input.Status, input.UpdateStatusDate, input.ConcurrencyStamp
-            );
+            var record = await _priceUpdateManager.UpdateAsync(
+                id,
+                input.Description, isScheduled: false,
+                effectiveDate: null, endDate: null,
+                input.ConcurrencyStamp);
 
-            return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(priceUpdate);
+            return ObjectMapper.Map<PriceUpdate, PriceUpdateDto>(record);
         }
 
-        [AllowAnonymous]
-        public virtual async Task<IRemoteStreamContent> GetListAsExcelFileAsync(PriceUpdateExcelDownloadDto input)
+        private async Task ExecutePriceUpdate(PriceUpdate priceUpdate)
         {
-            var downloadToken = await _excelDownloadTokenCache.GetAsync(input.DownloadToken);
-            if (downloadToken == null || input.DownloadToken != downloadToken.Token)
-            {
-                throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
-            }
-
-            var priceUpdates = await _priceUpdateRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.Code, input.Description, input.EffectiveDateMin, input.EffectiveDateMax, input.Status, input.UpdateStatusDateMin, input.UpdateStatusDateMax);
-            var items = priceUpdates.Select(item => new
-            {
-                Code = item.PriceUpdate.Code,
-                Description = item.PriceUpdate.Description,
-                EffectiveDate = item.PriceUpdate.EffectiveDate,
-                Status = item.PriceUpdate.Status,
-                UpdateStatusDate = item.PriceUpdate.UpdateStatusDate,
-
-                PriceListCode = item.PriceList?.Code,
-
-            });
-
-            var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(items);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            return new RemoteStreamContent(memoryStream, "PriceUpdates.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-
-        public async Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            var token = Guid.NewGuid().ToString("N");
-
-            await _excelDownloadTokenCache.SetAsync(
-                token,
-                new PriceUpdateExcelDownloadTokenCacheItem { Token = token },
-                new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30)
-                });
-
-            return new DownloadTokenResultDto
-            {
-                Token = token
-            };
+            throw new NotImplementedException();
         }
     }
 }

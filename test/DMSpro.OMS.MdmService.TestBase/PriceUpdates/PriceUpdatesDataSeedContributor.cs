@@ -33,24 +33,32 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
 
             await _priceUpdateRepository.InsertAsync(new PriceUpdate
             (
-                id: Guid.Parse("78a68318-a06f-4b7c-83bf-04c616e9ea92"),
-                code: "1cf7c827627a48618862",
-                description: "1895bd57b14c4cebbbd8366989cf08fd26b4575473c24dfe8348084700b9800a500905f3d21b47bf8f96899168ba29a2449e4b3552054064abf3b941088fc0604d6a23465a0347638e379b436b3c8ec168e065d14ce04f4a964b75ca56721579ab1a344161724b15bb2e330cee2e2a6d04914e8c2bee4664b4c8833cb6b14b8632ab98c2f0ee43d4960b3cde358465a0fc36423d55634924a18a0e4e42ac60a588a301f59d5a49d78ddb5d1fcdd265e4d7e278892c3242d7a3abd893e05a565f5f450d4e30f84fafb5f5e5fe93b92222888c66c1c0e04968ad18b2fc5a7a8b703ddd993f73074949a799f390ac32ba2e0ac89eb8474b4c25a30f",
-                effectiveDate: new DateTime(2006, 7, 4),
+                id: Guid.Parse("552e1fe9-81ad-4bee-9ade-1f1ae70f867f"),
+                code: "7aaf9d5dd32d4689beb8",
+                description: "c182524609f7473ebb9df1de920bd07a180ed576692c4c9391db65d63ea9321aa6fb9ec3616644b4a753543502d7b292f6f01487d9544505849323451b0758be371f5e35c1ac4261a2db16e2abe187fc76bc0a1f2e984d53ba844f43f01b29c232a2192a5482434db4ee45eae529c1c3b7ef8b0934df454e815d22097f318fbee9d5be556c2d4319a458a8341473c5642cf50882ba634435a52eb6d98489fd716e19711a171e4843ade308226e18d894c99748cfaf5449f094841e0b54256068472ac38c339441aba9453f6f5e0f295e3cac881c482c462eac93c3a7e5d88f942d87446d602c48049ca1a812e2cb4afe4ed01fcda9a44bed8615",
+                effectiveDate: new DateTime(2022, 2, 27),
+                endDate: new DateTime(2009, 7, 14),
                 status: default,
-                updateStatusDate: new DateTime(2010, 1, 23),
-                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41")
+                isScheduled: true,
+                releasedDate: new DateTime(2012, 9, 12),
+                cancelledDate: new DateTime(2002, 8, 25),
+                completeDate: new DateTime(2011, 11, 20),
+                priceListId: Guid.Parse("4758593c-d51b-4934-a996-ee0572f5c083")
             ));
 
             await _priceUpdateRepository.InsertAsync(new PriceUpdate
             (
-                id: Guid.Parse("7f7060db-f287-4989-bf0e-81aed3a69434"),
-                code: "78c4bbf758d94f29a590",
-                description: "36a5675141364a9bb6694ea8271bcd055125f25e839e4f87aad79373b1367355857eebcdc53c43048a4571124d7eba02a1b2ce0fe5b44ab1927e22a580fe3a3b88948e042b354fbd82ed3aa278ef09ec93eb5b47c23d40b69f4c189e85df1814ceddf05c5a1f4d43b57167538c4def72871ca020101f4fa096ffb6c7db3a81e0214373e229de4c608f1e73245403a2eb77f23b15be1346a6860bfe41763cb476c8342ec0364e47689072b6fdb55335a7959de479e5994bc6a14e95d8cc227008207c8b559cdd4d258f5606f7efaaca39c93b465931e34f9487dcb7f1b540dae18805c1b5c4d24e32a1b76db3f40379ff30a11eb632064fe0bafe",
-                effectiveDate: new DateTime(2009, 2, 11),
+                id: Guid.Parse("b788e8cf-068c-4675-abb8-acc5c24ca1f8"),
+                code: "24e50de6b901402c9762",
+                description: "1b608a82cbe04bd1a5a481f3e198ae3380a793e773904066a5ef210059cf00dd30884d6ffbc848c0994b012f2d1d639955eff0b8600a4479ae88068821cf05d99c52b3557950419e86ffe01aa633163e29fc0b7a4afc4910b27e2592b13514b1861c1eaa74cd435f8ed012770449ffb5e3eb0aac4d314180abdaedd6b1fd93923da9a95a106747709e7f6dd88e18b978f8a10e33c55f4b5fa5f351859f366927ef5aae6e4096479b8e3a6ceffcfaadb3758c9852f2f0454c9af53c81a9e113765bf89743176b4d44a9bdc006fedfae91df567f43edb74b69b5607f1040a0812a192feb3907b24469952544b13a24f3482ed08e664c364e68bcd5",
+                effectiveDate: new DateTime(2022, 6, 6),
+                endDate: new DateTime(2001, 8, 7),
                 status: default,
-                updateStatusDate: new DateTime(2009, 1, 8),
-                priceListId: Guid.Parse("587b2afd-c04a-4dda-bcb1-759beb5e3a41")
+                isScheduled: true,
+                releasedDate: new DateTime(2020, 10, 5),
+                cancelledDate: new DateTime(2003, 7, 9),
+                completeDate: new DateTime(2016, 9, 25),
+                priceListId: Guid.Parse("4758593c-d51b-4934-a996-ee0572f5c083")
             ));
 
             await _unitOfWorkManager.Current.SaveChangesAsync();
