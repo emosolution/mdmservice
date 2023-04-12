@@ -1,3 +1,4 @@
+using DMSpro.OMS.MdmService.CustomerGroups;
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -8,10 +9,10 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public bool Active { get; set; }
-        public DateTime? EffectiveDate { get; set; }
+        public bool Selectable { get; set; }
         public Type GroupBy { get; set; }
         public Status Status { get; set; }
+        public string Description { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

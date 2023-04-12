@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.CustomerGroups
@@ -8,14 +6,12 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
     public class CustomerGroupUpdateDto : IHasConcurrencyStamp
     {
         [Required]
-        [StringLength(CustomerGroupConsts.CodeMaxLength, MinimumLength = CustomerGroupConsts.CodeMinLength)]
-        public string Code { get; set; }
-        [StringLength(CustomerGroupConsts.NameMaxLength)]
+        [StringLength(CustomerGroupConsts.NameMaxLength, MinimumLength = CustomerGroupConsts.NameMinLength)]
         public string Name { get; set; }
-        public bool Active { get; set; }
-        public DateTime? EffectiveDate { get; set; }
+        public bool Selectable { get; set; }
         public Type GroupBy { get; set; }
-        public Status Status { get; set; }
+        [StringLength(CustomerGroupConsts.DescriptionMaxLength)]
+        public string Description { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

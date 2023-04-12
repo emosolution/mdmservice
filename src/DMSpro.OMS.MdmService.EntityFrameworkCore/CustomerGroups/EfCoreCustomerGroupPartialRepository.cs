@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Microsoft.EntityFrameworkCore;
+using DMSpro.OMS.MdmService.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore;
 
 namespace DMSpro.OMS.MdmService.CustomerGroups
 {
-	public partial class EfCoreCustomerGroupRepository
-	{
-		public virtual async Task<Guid?> GetIdByCodeAsync(string code)
+	public partial class EfCoreCustomerGroupRepository : EfCoreRepository<MdmServiceDbContext, CustomerGroup, Guid>, ICustomerGroupRepository
+    {
+        public EfCoreCustomerGroupRepository(IDbContextProvider<MdmServiceDbContext> dbContextProvider)
+            : base(dbContextProvider)
+        {
+
+        }
+
+        public virtual async Task<Guid?> GetIdByCodeAsync(string code)
 		{
 		var item = (await GetDbSetAsync()).Where(x => x.Code == code).FirstOrDefault();
 		return item?.Id;

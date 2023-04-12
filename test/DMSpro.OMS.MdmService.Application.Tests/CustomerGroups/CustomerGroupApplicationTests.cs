@@ -27,19 +27,19 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("f28f4bcc-161b-4637-82f9-478e41abb83c")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("95fce899-bd21-4400-9f35-12c36d113f82")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _customerGroupsAppService.GetAsync(Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"));
+            var result = await _customerGroupsAppService.GetAsync(Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"));
+            result.Id.ShouldBe(Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21"));
         }
 
         [Fact]
@@ -48,12 +48,12 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             // Arrange
             var input = new CustomerGroupCreateDto
             {
-                Code = "ff1e2686cc454eb1a036",
-                Name = "eeb07d56c4df497da6adcd75dfd9ce7fb6e9609ee8e3477cbbddb6f054554e45fbfca807a71c45f9b484a490d4e11be2c87309d78521438db487fb015fa47762855eb1f984ed416da8a79ad203bb53b3a6ecafb0d5b74e02b91ed48f9b6dd0d1b053d9afdbdc4eed8e462d58b01985152bde86a42ef8440b815ec22c792535c",
-                Active = true,
-                EffectiveDate = new DateTime(2017, 8, 23),
+                Code = "99ccc1613a30435ebca1",
+                Name = "01934a399f5f4728b022e187ecef253cbac9ed89436049e38a7649692be644ccff5af6e89bca45f0accc3ea57118837470e50d6f79d84e99a27d9824e4db04662276cfe18f91450598a3bffcf39bfc238c95cef654aa4339a5c4c64b7308d0b4c69679c875194e5aad9c1fb7b53e602cf916f78828824c5cb1c8504f4747dfc",
+                Selectable = true,
                 GroupBy = default,
-                Status = default
+                Status = default,
+                Description = "71cdb4246c16421aa976782943125c172a1cdd7e4c0749efa15d19e77e221d1f123e45cf4d90427bbe14da59a28bcc163e0f1a3650144146be12ed666cf68c770ca8d6c222b148c29128458259d25838530e085509aa49b391090073ccd040af6e88348c2a044d75951768f678d0cf0ec8fc4271f44d4e54a1593ac047ca1f3"
             };
 
             // Act
@@ -63,12 +63,12 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             var result = await _customerGroupRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("ff1e2686cc454eb1a036");
-            result.Name.ShouldBe("eeb07d56c4df497da6adcd75dfd9ce7fb6e9609ee8e3477cbbddb6f054554e45fbfca807a71c45f9b484a490d4e11be2c87309d78521438db487fb015fa47762855eb1f984ed416da8a79ad203bb53b3a6ecafb0d5b74e02b91ed48f9b6dd0d1b053d9afdbdc4eed8e462d58b01985152bde86a42ef8440b815ec22c792535c");
-            result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2017, 8, 23));
+            result.Code.ShouldBe("99ccc1613a30435ebca1");
+            result.Name.ShouldBe("01934a399f5f4728b022e187ecef253cbac9ed89436049e38a7649692be644ccff5af6e89bca45f0accc3ea57118837470e50d6f79d84e99a27d9824e4db04662276cfe18f91450598a3bffcf39bfc238c95cef654aa4339a5c4c64b7308d0b4c69679c875194e5aad9c1fb7b53e602cf916f78828824c5cb1c8504f4747dfc");
+            result.Selectable.ShouldBe(true);
             result.GroupBy.ShouldBe(default);
             result.Status.ShouldBe(default);
+            result.Description.ShouldBe("71cdb4246c16421aa976782943125c172a1cdd7e4c0749efa15d19e77e221d1f123e45cf4d90427bbe14da59a28bcc163e0f1a3650144146be12ed666cf68c770ca8d6c222b148c29128458259d25838530e085509aa49b391090073ccd040af6e88348c2a044d75951768f678d0cf0ec8fc4271f44d4e54a1593ac047ca1f3");
         }
 
         [Fact]
@@ -77,37 +77,37 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             // Arrange
             var input = new CustomerGroupUpdateDto()
             {
-                Code = "ad719b7ac4964d90ae4d",
-                Name = "909d9c8d51cc41bf9d344eb2dd4020bea03e3e7c84e94d2eb0a603bde0667288a2f76dcd2e7c487bbf4a1449cef049bb8ba39506f0094139a091d442dae02e847958ce701dee403ba5a09aa761381d39a032864fcf374a518499985c4dc5f5a9a931dd400a294a4c860459e3c633afbc57061bec8a4c4748be21ecb45bcdad5",
-                Active = true,
-                EffectiveDate = new DateTime(2008, 3, 6),
+                Code = "85e5894ad2544eeabda3",
+                Name = "c12bf694bc344d588e05d3bf090d22c12bb5a9e2d2af4670a184134e18113323f996bfe3a2df4c3097896dfaa2743c090e1aac789c0e407ab54159fbb8db88a125e8c6fdd954422ba611267dd84598e2587567c610844ada836b5a05e23fde9c29090289fb5f46af8ecb021bc8e8c6c52497b15e5bb8467cabc14b5f12799ef",
+                Selectable = true,
                 GroupBy = default,
-                Status = default
+                Status = default,
+                Description = "e5796352849e4edab745cdaf93740a2e32b457fd2105489fa8422020af023917e7ba2c7829d5433680ed17fa0b09b94e5b26d623c1154a96bd0f6d795c358d2b39a35cb1bc0b4471bf6c133f63a45ce1c2cccef2e05247c1b677e6ff1e6fec5be91972e4a9c5462cb6fe835b7e8f5c07c4518bbec1724cbc840772e507870ec"
             };
 
             // Act
-            var serviceResult = await _customerGroupsAppService.UpdateAsync(Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"), input);
+            var serviceResult = await _customerGroupsAppService.UpdateAsync(Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21"), input);
 
             // Assert
             var result = await _customerGroupRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("ad719b7ac4964d90ae4d");
-            result.Name.ShouldBe("909d9c8d51cc41bf9d344eb2dd4020bea03e3e7c84e94d2eb0a603bde0667288a2f76dcd2e7c487bbf4a1449cef049bb8ba39506f0094139a091d442dae02e847958ce701dee403ba5a09aa761381d39a032864fcf374a518499985c4dc5f5a9a931dd400a294a4c860459e3c633afbc57061bec8a4c4748be21ecb45bcdad5");
-            result.Active.ShouldBe(true);
-            result.EffectiveDate.ShouldBe(new DateTime(2008, 3, 6));
+            result.Code.ShouldBe("85e5894ad2544eeabda3");
+            result.Name.ShouldBe("c12bf694bc344d588e05d3bf090d22c12bb5a9e2d2af4670a184134e18113323f996bfe3a2df4c3097896dfaa2743c090e1aac789c0e407ab54159fbb8db88a125e8c6fdd954422ba611267dd84598e2587567c610844ada836b5a05e23fde9c29090289fb5f46af8ecb021bc8e8c6c52497b15e5bb8467cabc14b5f12799ef");
+            result.Selectable.ShouldBe(true);
             result.GroupBy.ShouldBe(default);
             result.Status.ShouldBe(default);
+            result.Description.ShouldBe("e5796352849e4edab745cdaf93740a2e32b457fd2105489fa8422020af023917e7ba2c7829d5433680ed17fa0b09b94e5b26d623c1154a96bd0f6d795c358d2b39a35cb1bc0b4471bf6c133f63a45ce1c2cccef2e05247c1b677e6ff1e6fec5be91972e4a9c5462cb6fe835b7e8f5c07c4518bbec1724cbc840772e507870ec");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _customerGroupsAppService.DeleteAsync(Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"));
+            await _customerGroupsAppService.DeleteAsync(Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21"));
 
             // Assert
-            var result = await _customerGroupRepository.FindAsync(c => c.Id == Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"));
+            var result = await _customerGroupRepository.FindAsync(c => c.Id == Guid.Parse("6e78fef6-50e3-40a1-b9fb-3124691bbd21"));
 
             result.ShouldBeNull();
         }

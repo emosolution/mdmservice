@@ -389,12 +389,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroup.TenantId));
             b.Property(x => x.Code).HasColumnName(nameof(CustomerGroup.Code)).IsRequired().HasMaxLength(CustomerGroupConsts.CodeMaxLength);
-            b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).HasMaxLength(CustomerGroupConsts.NameMaxLength);
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroup.Active));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroup.EffectiveDate));
+            b.Property(x => x.Name).HasColumnName(nameof(CustomerGroup.Name)).IsRequired().HasMaxLength(CustomerGroupConsts.NameMaxLength);
+            b.Property(x => x.Selectable).HasColumnName(nameof(CustomerGroup.Selectable));
             b.Property(x => x.GroupBy).HasColumnName(nameof(CustomerGroup.GroupBy));
             b.Property(x => x.Status).HasColumnName(nameof(CustomerGroup.Status));
+            b.Property(x => x.Description).HasColumnName(nameof(CustomerGroup.Description)).HasMaxLength(CustomerGroupConsts.DescriptionMaxLength);
         });
+        
         builder.Entity<Holiday>(b =>
             {
                 b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);

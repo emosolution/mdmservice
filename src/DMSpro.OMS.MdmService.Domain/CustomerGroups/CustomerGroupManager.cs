@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,41 +17,39 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         }
 
         public async Task<CustomerGroup> CreateAsync(
-        string code, string name, bool active, Type groupBy, Status status, DateTime? effectiveDate = null)
+        string code, string name, bool selectable, Type groupBy, string description)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CustomerGroupConsts.CodeMaxLength, CustomerGroupConsts.CodeMinLength);
-            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength);
+            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength, CustomerGroupConsts.NameMinLength);
             Check.NotNull(groupBy, nameof(groupBy));
-            Check.NotNull(status, nameof(status));
+            Check.Length(description, nameof(description), CustomerGroupConsts.DescriptionMaxLength);
 
             var customerGroup = new CustomerGroup(
-             GuidGenerator.Create(),
-             code, name, active, groupBy, status, effectiveDate
-             );
+                GuidGenerator.Create(),
+                code, name, selectable, groupBy, Status.OPEN, description);
 
             return await _customerGroupRepository.InsertAsync(customerGroup);
         }
 
         public async Task<CustomerGroup> UpdateAsync(
             Guid id,
-            string code, string name, bool active, Type groupBy, Status status, DateTime? effectiveDate = null, [CanBeNull] string concurrencyStamp = null
+            string name, bool selectable, Type groupBy, string description, 
+            [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNullOrWhiteSpace(code, nameof(code));
-            Check.Length(code, nameof(code), CustomerGroupConsts.CodeMaxLength, CustomerGroupConsts.CodeMinLength);
-            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength);
+            Check.NotNullOrWhiteSpace(name, nameof(name));
+            Check.Length(name, nameof(name), CustomerGroupConsts.NameMaxLength, CustomerGroupConsts.NameMinLength);
             Check.NotNull(groupBy, nameof(groupBy));
-            Check.NotNull(status, nameof(status));
+            Check.Length(description, nameof(description), CustomerGroupConsts.DescriptionMaxLength);
 
             var customerGroup = await _customerGroupRepository.GetAsync(id);
 
-            customerGroup.Code = code;
             customerGroup.Name = name;
-            customerGroup.Active = active;
+            customerGroup.Selectable = selectable;
             customerGroup.GroupBy = groupBy;
-            customerGroup.Status = status;
-            customerGroup.EffectiveDate = effectiveDate;
+            customerGroup.Description = description;
 
             customerGroup.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _customerGroupRepository.UpdateAsync(customerGroup);

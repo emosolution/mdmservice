@@ -41904,23 +41904,6 @@
               "name": "ICustomerGroupsAppService",
               "methods": [
                 {
-                  "name": "GetListAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput",
-                      "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto>"
-                  }
-                },
-                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -41938,7 +41921,7 @@
                   }
                 },
                 {
-                  "name": "DeleteAsync",
+                  "name": "ReleaseAsync",
                   "parametersOnMethod": [
                     {
                       "name": "id",
@@ -41994,31 +41977,6 @@
                   "returnValue": {
                     "type": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto",
                     "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto"
-                  }
-                },
-                {
-                  "name": "GetListAsExcelFileAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "input",
-                      "typeAsString": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
-                      "type": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto",
-                      "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "Volo.Abp.Content.IRemoteStreamContent",
-                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-                  }
-                },
-                {
-                  "name": "GetDownloadTokenAsync",
-                  "parametersOnMethod": [],
-                  "returnValue": {
-                    "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
-                    "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
                   }
                 },
                 {
@@ -42084,163 +42042,6 @@
             }
           ],
           "actions": {
-            "GetListAsyncByInput": {
-              "uniqueName": "GetListAsyncByInput",
-              "name": "GetListAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/customer-groups",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.GetCustomerGroupsInput",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "FilterText",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Code",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Name",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "EffectiveDateMin",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "EffectiveDateMax",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "GroupBy",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.Type?",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.Type?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Status",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.Status?",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.Status?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Sorting",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "SkipCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "MaxResultCount",
-                  "jsonName": null,
-                  "type": "System.Int32",
-                  "typeSimple": "number",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto>"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
-            },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
               "name": "GetAsync",
@@ -42372,11 +42173,11 @@
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
             },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
+            "ReleaseAsyncById": {
+              "uniqueName": "ReleaseAsyncById",
+              "name": "ReleaseAsync",
               "httpMethod": "DELETE",
-              "url": "api/mdm-service/customer-groups/{id}",
+              "url": "api/mdm-service/customer-groups/release/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
@@ -42405,154 +42206,6 @@
               "returnValue": {
                 "type": "System.Void",
                 "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
-            },
-            "GetListAsExcelFileAsyncByInput": {
-              "uniqueName": "GetListAsExcelFileAsyncByInput",
-              "name": "GetListAsExcelFileAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/customer-groups/as-excel-file",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto, DMSpro.OMS.MdmService.Application.Contracts",
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupExcelDownloadDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "DownloadToken",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "FilterText",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Code",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Name",
-                  "jsonName": null,
-                  "type": "System.String",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Active",
-                  "jsonName": null,
-                  "type": "System.Boolean?",
-                  "typeSimple": "boolean?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "EffectiveDateMin",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "EffectiveDateMax",
-                  "jsonName": null,
-                  "type": "System.DateTime?",
-                  "typeSimple": "string?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "GroupBy",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.Type?",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.Type?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "Status",
-                  "jsonName": null,
-                  "type": "DMSpro.OMS.MdmService.CustomerGroups.Status?",
-                  "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.Status?",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "ModelBinding",
-                  "descriptorName": "input"
-                }
-              ],
-              "returnValue": {
-                "type": "Volo.Abp.Content.IRemoteStreamContent",
-                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
-            },
-            "GetDownloadTokenAsync": {
-              "uniqueName": "GetDownloadTokenAsync",
-              "name": "GetDownloadTokenAsync",
-              "httpMethod": "GET",
-              "url": "api/mdm-service/customer-groups/download-token",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto",
-                "typeSimple": "DMSpro.OMS.MdmService.Shared.DownloadTokenResultDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"
