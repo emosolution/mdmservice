@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -8,10 +7,10 @@ using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.SystemDatas;
 using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.GeoMasters;
-using DMSpro.OMS.MdmService.CusAttributeValues;
 using DMSpro.OMS.MdmService.Companies;
 using DMSpro.OMS.MdmService.CustomerAttachments;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
+using DMSpro.OMS.MdmService.CustomerAttributeValues;
 
 namespace DMSpro.OMS.MdmService.Customers
 {
@@ -27,7 +26,7 @@ namespace DMSpro.OMS.MdmService.Customers
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly IPriceListRepository _priceListRepository;
         private readonly IGeoMasterRepository _geoMasterRepository;
-        private readonly ICusAttributeValueRepository _cusAttributeValueRepository;
+        private readonly ICustomerAttributeValueRepository _customerAttributeValueRepository;
         private readonly ICompanyRepository _companyRepository;
 
         public CustomersAppService(ICurrentTenant currentTenant,
@@ -39,7 +38,7 @@ namespace DMSpro.OMS.MdmService.Customers
             ISystemDataRepository systemDataRepository,
             IPriceListRepository priceListRepository,
             IGeoMasterRepository geoMasterRepository,
-            ICusAttributeValueRepository cusAttributeValueRepository,
+            ICustomerAttributeValueRepository customerAttributeValueRepository,
             ICompanyRepository companyRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
         {
@@ -51,7 +50,7 @@ namespace DMSpro.OMS.MdmService.Customers
             _systemDataRepository = systemDataRepository;
             _priceListRepository = priceListRepository;
             _geoMasterRepository = geoMasterRepository;
-            _cusAttributeValueRepository = cusAttributeValueRepository;
+            _customerAttributeValueRepository = customerAttributeValueRepository;
             _companyRepository = companyRepository;
 
             _repositories.AddIfNotContains(
@@ -61,7 +60,7 @@ namespace DMSpro.OMS.MdmService.Customers
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IGeoMasterRepository", _geoMasterRepository));
             _repositories.AddIfNotContains(
-                new KeyValuePair<string, object>("ICusAttributeValueRepository", _cusAttributeValueRepository));
+                new KeyValuePair<string, object>("ICustomerAttributeValueRepository", _customerAttributeValueRepository));
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("ICompanyRepository", _companyRepository));
         }
