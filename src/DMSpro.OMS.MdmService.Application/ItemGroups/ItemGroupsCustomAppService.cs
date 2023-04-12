@@ -7,7 +7,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.ItemGroups
 {
-    [RemoteService(IsEnabled = false)]
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
     public partial class ItemGroupsAppService
     {

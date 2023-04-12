@@ -37,13 +37,13 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             else if (customerGroup.GroupBy == Type.GEO &&
                 await _customerGroupGeoRepository.AnyAsync(x => x.CustomerGroupId == id))
             {
-                throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:553"], code: "1");
+                throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:554"], code: "1");
             }
             else if (customerGroup.GroupBy != Type.ATTRIBUTE &&
                 customerGroup.GroupBy != Type.LIST &&
                 customerGroup.GroupBy != Type.GEO)
             {
-                throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:554"], code: "1");
+                throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:555"], code: "1");
             }
             customerGroup.Status = Status.RELEASED;
             await _customerGroupRepository.UpdateAsync(customerGroup);
@@ -52,7 +52,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         [Authorize(MdmServicePermissions.CustomerGroups.Create)]
         public virtual async Task<CustomerGroupDto> CreateAsync(CustomerGroupCreateDto input)
         {
-
+            await CheckCodeUniqueness(input.Code);
             var customerGroup = await _customerGroupManager.CreateAsync(
                 input.Code, input.Name, input.Selectable, input.GroupBy, input.Description);
 
@@ -62,8 +62,12 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
         public virtual async Task<CustomerGroupDto> UpdateAsync(Guid id, CustomerGroupUpdateDto input)
         {
-
-            var customerGroup = await _customerGroupManager.UpdateAsync(
+            var customerGroup = await _customerGroupRepository.GetAsync(id);
+            if (customerGroup.Status != Status.OPEN)
+            {
+                throw new UserFriendlyException(message: L["Error:CustomerGroupsAppService:550"], code: "1");
+            }
+            await _customerGroupManager.UpdateAsync(
                 id,
                 input.Name, input.Selectable, input.GroupBy, input.Description, 
                 input.ConcurrencyStamp);
