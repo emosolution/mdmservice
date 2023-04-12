@@ -24,37 +24,10 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceUpdateDetails
         }
 
         [HttpGet]
-        public Task<PagedResultDto<PriceUpdateDetailWithNavigationPropertiesDto>> GetListAsync(GetPriceUpdateDetailsInput input)
-        {
-            return _priceUpdateDetailsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<PriceUpdateDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _priceUpdateDetailsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<PriceUpdateDetailDto> GetAsync(Guid id)
         {
             return _priceUpdateDetailsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("price-update-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetPriceUpdateLookupAsync(LookupRequestDto input)
-        {
-            return _priceUpdateDetailsAppService.GetPriceUpdateLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("price-list-detail-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetPriceListDetailLookupAsync(LookupRequestDto input)
-        {
-            return _priceUpdateDetailsAppService.GetPriceListDetailLookupAsync(input);
         }
 
         [HttpPost]
@@ -75,20 +48,6 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceUpdateDetails
         public virtual Task DeleteAsync(Guid id)
         {
             return _priceUpdateDetailsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(PriceUpdateDetailExcelDownloadDto input)
-        {
-            return _priceUpdateDetailsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _priceUpdateDetailsAppService.GetDownloadTokenAsync();
         }
     }
 }

@@ -1,10 +1,16 @@
+using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.PriceUpdates;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
 	public partial class PriceUpdateDetail
 	{
-		public Dictionary<string, (int, string, string, string)>
+        public virtual PriceUpdate PriceUpdate { get; set; }
+        public virtual PriceListDetail PriceListDetail { get; set; }
+
+
+        public Dictionary<string, (int, string, string, string)>
 			GetExcelTemplateInfo()
 		{
 			return new()

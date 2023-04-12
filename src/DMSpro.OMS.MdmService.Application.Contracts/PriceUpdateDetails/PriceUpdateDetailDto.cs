@@ -6,8 +6,8 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
     public class PriceUpdateDetailDto : FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        public int PriceBeforeUpdate { get; set; }
-        public int NewPrice { get; set; }
+        public decimal PriceBeforeUpdate { get; set; }
+        public decimal NewPrice { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public Guid PriceUpdateId { get; set; }
         public Guid PriceListDetailId { get; set; }

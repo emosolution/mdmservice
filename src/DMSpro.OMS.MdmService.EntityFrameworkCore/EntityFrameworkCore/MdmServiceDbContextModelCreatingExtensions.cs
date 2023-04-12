@@ -215,12 +215,13 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "PriceUpdateDetails", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(PriceUpdateDetail.TenantId));
-            b.Property(x => x.PriceBeforeUpdate).HasColumnName(nameof(PriceUpdateDetail.PriceBeforeUpdate));
-            b.Property(x => x.NewPrice).HasColumnName(nameof(PriceUpdateDetail.NewPrice));
+            b.Property(x => x.PriceBeforeUpdate).HasColumnType("decimal(19,2)").HasColumnName(nameof(PriceUpdateDetail.PriceBeforeUpdate));
+            b.Property(x => x.NewPrice).HasColumnType("decimal(19,2)").HasColumnName(nameof(PriceUpdateDetail.NewPrice));
             b.Property(x => x.UpdatedDate).HasColumnName(nameof(PriceUpdateDetail.UpdatedDate));
-            b.HasOne<PriceUpdate>(x => x.PriceUpdate).WithMany().IsRequired().HasForeignKey(x => x.PriceUpdateId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<PriceListDetail>(x => x.PriceListDetail).WithMany().IsRequired().HasForeignKey(x => x.PriceListDetailId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.PriceUpdate).WithMany().IsRequired().HasForeignKey(x => x.PriceUpdateId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne(x => x.PriceListDetail).WithMany().IsRequired().HasForeignKey(x => x.PriceListDetailId).OnDelete(DeleteBehavior.NoAction);
         });
+
         builder.Entity<PricelistAssignment>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "PricelistAssignments", MdmServiceDbProperties.DbSchema);

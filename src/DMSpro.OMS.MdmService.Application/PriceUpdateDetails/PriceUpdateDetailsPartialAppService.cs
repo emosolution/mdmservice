@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -15,8 +14,6 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
         IPriceUpdateDetailsAppService
     {
         private readonly IPriceUpdateDetailRepository _priceUpdateDetailRepository;
-        private readonly IDistributedCache<PriceUpdateDetailExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly PriceUpdateDetailManager _priceUpdateDetailManager;
 
         private readonly IPriceUpdateRepository _priceUpdateRepository;
@@ -27,12 +24,10 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
             PriceUpdateDetailManager priceUpdateDetailManager,
             IConfiguration settingProvider,
             IPriceUpdateRepository priceUpdateRepository,
-            IPriceListDetailRepository priceListDetailRepository,
-            IDistributedCache<PriceUpdateDetailExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IPriceListDetailRepository priceListDetailRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceUpdateDetails.Default)
         {
             _priceUpdateDetailRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _priceUpdateDetailManager = priceUpdateDetailManager;
 
             _priceUpdateRepository = priceUpdateRepository;
