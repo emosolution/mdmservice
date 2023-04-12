@@ -26,12 +26,12 @@ namespace DMSpro.OMS.MdmService.ItemGroups
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:551"], code: "1");
             }
             if (itemGroup.Type == GroupType.LIST &&
-                await _itemGroupListRepository.AnyAsync(x => x.ItemGroupId == id))
+                !(await _itemGroupListRepository.AnyAsync(x => x.ItemGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:552"], code: "1");
             }
             else if (itemGroup.Type == GroupType.ATTRIBUTE &&
-                await _itemGroupAttributeRepository.AnyAsync(x => x.ItemGroupId == id))
+                !(await _itemGroupAttributeRepository.AnyAsync(x => x.ItemGroupId == id)))
             {
                 throw new UserFriendlyException(message: L["Error:ItemGroupsAppService:553"], code: "1");
             }
