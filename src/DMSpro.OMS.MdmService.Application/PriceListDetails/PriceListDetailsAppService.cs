@@ -97,6 +97,8 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         [Authorize(MdmServicePermissions.PriceListDetails.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            var detail = await _priceListDetailRepository.GetAsync(id);
+            await CheckHeader(detail.PriceListId);
             await _priceListDetailRepository.DeleteAsync(id);
         }
 
@@ -115,7 +117,7 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
-
+            await CheckHeader(input.PriceListId);
             var priceListDetail = await _priceListDetailManager.CreateAsync(
             input.PriceListId, input.UOMId, input.ItemId, input.Price, input.Description, input.BasedOnPrice
             );
@@ -126,10 +128,6 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
         [Authorize(MdmServicePermissions.PriceListDetails.Edit)]
         public virtual async Task<PriceListDetailDto> UpdateAsync(Guid id, PriceListDetailUpdateDto input)
         {
-            if (input.PriceListId == default)
-            {
-                throw new UserFriendlyException(L["The {0} field is required.", L["PriceList"]]);
-            }
             if (input.UOMId == default)
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["UOM"]]);
@@ -138,13 +136,14 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Item"]]);
             }
+            var detail = await _priceListDetailRepository.GetAsync(id);
+            await CheckHeader(detail.PriceListId);
+            var record = await _priceListDetailManager.UpdateAsync(
+                id,
+                input.UOMId, input.ItemId, input.Price, input.Description, input.BasedOnPrice, 
+                input.ConcurrencyStamp);
 
-            var priceListDetail = await _priceListDetailManager.UpdateAsync(
-            id,
-            input.PriceListId, input.UOMId, input.ItemId, input.Price, input.Description, input.BasedOnPrice, input.ConcurrencyStamp
-            );
-
-            return ObjectMapper.Map<PriceListDetail, PriceListDetailDto>(priceListDetail);
+            return ObjectMapper.Map<PriceListDetail, PriceListDetailDto>(record);
         }
 
         [AllowAnonymous]
@@ -192,6 +191,15 @@ namespace DMSpro.OMS.MdmService.PriceListDetails
             {
                 Token = token
             };
+        }
+
+        private async Task CheckHeader(Guid headerId)
+        {
+            var header = await _priceListRepository.GetAsync(headerId);
+            if (header.IsReleased == true)
+            {
+                throw new UserFriendlyException(message: L["Error:PriceListsAppService:550"], code: "1");
+            }
         }
     }
 }
