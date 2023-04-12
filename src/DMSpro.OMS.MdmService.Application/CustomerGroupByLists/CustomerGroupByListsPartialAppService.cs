@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.CustomerGroups;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 {
-	[Authorize(MdmServicePermissions.CustomerGroupByLists.Default)]
+	[Authorize(MdmServicePermissions.CustomerGroups.Default)]
 	public partial class CustomerGroupByListsAppService : PartialAppService<CustomerGroupByList, CustomerGroupByListWithDetailsDto, ICustomerGroupByListRepository>,
 		ICustomerGroupByListsAppService
 	{
@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByLists
 			ICustomerRepository customerRepository,
 			ICustomerGroupRepository customerGroupRepository,
 			IDistributedCache<CustomerGroupByListExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByLists.Default)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
 		{
 			_customerGroupByListRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;

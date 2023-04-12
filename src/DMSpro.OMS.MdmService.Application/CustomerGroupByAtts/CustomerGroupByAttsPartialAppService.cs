@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.CusAttributeValues;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
 {
-    [Authorize(MdmServicePermissions.CustomerGroupByAtts.Default)]
+    [Authorize(MdmServicePermissions.CustomerGroups.Default)]
     public partial class CustomerGroupByAttsAppService : PartialAppService<CustomerGroupByAtt, CustomerGroupByAttsWithDetailsDto, ICustomerGroupByAttRepository>,
         ICustomerGroupByAttsAppService
     {
@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupByAtts
             ICustomerGroupRepository customerGroupRepository,
             ICusAttributeValueRepository cusAttributeValueRepository,
             IDistributedCache<CustomerGroupByAttExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroupByAtts.Default)
+            : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
         {
             _customerGroupByAttRepository = repository;
             _excelDownloadTokenCache = excelDownloadTokenCache;

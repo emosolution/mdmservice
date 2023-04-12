@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.ItemGroups;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
 {
@@ -21,12 +18,6 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
         public ItemGroupController(IItemGroupsAppService itemGroupsAppService)
         {
             _itemGroupsAppService = itemGroupsAppService;
-        }
-
-        [HttpGet]
-        public virtual Task<PagedResultDto<ItemGroupDto>> GetListAsync(GetItemGroupsInput input)
-        {
-            return _itemGroupsAppService.GetListAsync(input);
         }
 
         [HttpGet]
@@ -49,25 +40,11 @@ namespace DMSpro.OMS.MdmService.Controllers.ItemGroups
             return _itemGroupsAppService.UpdateAsync(id, input);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        [HttpPut]
+        [Route("release/{id}")]
+        public virtual Task ReleaseAsync(Guid id)
         {
-            return _itemGroupsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(ItemGroupExcelDownloadDto input)
-        {
-            return _itemGroupsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _itemGroupsAppService.GetDownloadTokenAsync();
+            return _itemGroupsAppService.ReleaseAsync(id);
         }
     }
 }

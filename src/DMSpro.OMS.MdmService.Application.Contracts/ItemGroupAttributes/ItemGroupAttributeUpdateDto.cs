@@ -1,21 +1,19 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
     public class ItemGroupAttributeUpdateDto : IHasConcurrencyStamp
     {
-        [Required]
-        [StringLength(ItemGroupAttributeConsts.dummyMaxLength, MinimumLength = ItemGroupAttributeConsts.dummyMinLength)]
-        public string dummy { get; set; }
-        public Guid ItemGroupId { get; set; }
+        [StringLength(ItemGroupAttributeConsts.DescriptionMaxLength)]
+        public string Description { get; set; }
         public Guid? Attr0Id { get; set; }
         public Guid? Attr1Id { get; set; }
         public Guid? Attr2Id { get; set; }
         public Guid? Attr3Id { get; set; }
         public Guid? Attr4Id { get; set; }
+        public Guid? Attr5Id { get; set; }
         public Guid? Attr6Id { get; set; }
         public Guid? Attr7Id { get; set; }
         public Guid? Attr8Id { get; set; }
@@ -30,7 +28,6 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
         public Guid? Attr17Id { get; set; }
         public Guid? Attr18Id { get; set; }
         public Guid? Attr19Id { get; set; }
-        public Guid? Attr5Id { get; set; }
 
         public string ConcurrencyStamp { get; set; }
     }

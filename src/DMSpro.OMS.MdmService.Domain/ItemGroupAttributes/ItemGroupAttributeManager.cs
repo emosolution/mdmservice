@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,15 +17,19 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
         }
 
         public async Task<ItemGroupAttribute> CreateAsync(
-        Guid itemGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? attr5Id, string dummy)
+            Guid itemGroupId, 
+            Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id,
+            Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, 
+            Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, 
+            Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, 
+            string description)
         {
             Check.NotNull(itemGroupId, nameof(itemGroupId));
-            Check.NotNullOrWhiteSpace(dummy, nameof(dummy));
-            Check.Length(dummy, nameof(dummy), ItemGroupAttributeConsts.dummyMaxLength, ItemGroupAttributeConsts.dummyMinLength);
+            Check.Length(description, nameof(description), ItemGroupAttributeConsts.DescriptionMaxLength);
 
             var itemGroupAttribute = new ItemGroupAttribute(
              GuidGenerator.Create(),
-             itemGroupId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, attr5Id, dummy
+             itemGroupId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, attr5Id, description
              );
 
             return await _itemGroupAttributeRepository.InsertAsync(itemGroupAttribute);
@@ -36,24 +37,23 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
         public async Task<ItemGroupAttribute> UpdateAsync(
             Guid id,
-            Guid itemGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, Guid? attr5Id, string dummy, [CanBeNull] string concurrencyStamp = null
+            Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, 
+            Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, 
+            Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, 
+            Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, 
+            string description, [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNull(itemGroupId, nameof(itemGroupId));
-            Check.NotNullOrWhiteSpace(dummy, nameof(dummy));
-            Check.Length(dummy, nameof(dummy), ItemGroupAttributeConsts.dummyMaxLength, ItemGroupAttributeConsts.dummyMinLength);
+            Check.Length(description, nameof(description), ItemGroupAttributeConsts.DescriptionMaxLength);
 
-            var queryable = await _itemGroupAttributeRepository.GetQueryableAsync();
-            var query = queryable.Where(x => x.Id == id);
+            var itemGroupAttribute = await _itemGroupAttributeRepository.GetAsync(id);
 
-            var itemGroupAttribute = await AsyncExecuter.FirstOrDefaultAsync(query);
-
-            itemGroupAttribute.ItemGroupId = itemGroupId;
             itemGroupAttribute.Attr0Id = attr0Id;
             itemGroupAttribute.Attr1Id = attr1Id;
             itemGroupAttribute.Attr2Id = attr2Id;
             itemGroupAttribute.Attr3Id = attr3Id;
             itemGroupAttribute.Attr4Id = attr4Id;
+            itemGroupAttribute.Attr5Id = attr5Id;
             itemGroupAttribute.Attr6Id = attr6Id;
             itemGroupAttribute.Attr7Id = attr7Id;
             itemGroupAttribute.Attr8Id = attr8Id;
@@ -68,8 +68,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             itemGroupAttribute.Attr17Id = attr17Id;
             itemGroupAttribute.Attr18Id = attr18Id;
             itemGroupAttribute.Attr19Id = attr19Id;
-            itemGroupAttribute.Attr5Id = attr5Id;
-            itemGroupAttribute.dummy = dummy;
+            itemGroupAttribute.Description = description;
 
             itemGroupAttribute.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _itemGroupAttributeRepository.UpdateAsync(itemGroupAttribute);

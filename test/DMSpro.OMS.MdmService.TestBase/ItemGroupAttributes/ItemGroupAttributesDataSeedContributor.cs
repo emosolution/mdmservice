@@ -114,8 +114,8 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
             await _itemGroupAttributeRepository.InsertAsync(new ItemGroupAttribute
             (
-                id: Guid.Parse("6b6c5675-12e0-4835-8f68-a5c3e46e9f56"),
-                dummy: "2702e04d2baa44f3aa88",
+                id: Guid.Parse("2f32f56e-e4b3-4ae8-acbc-b6c91dab8c37"),
+                description: "c387ce006b72477a84b4",
                 itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
                 attr0Id: null,
                 attr1Id: null,
@@ -141,8 +141,8 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
             await _itemGroupAttributeRepository.InsertAsync(new ItemGroupAttribute
             (
-                id: Guid.Parse("6df651b1-c556-409c-9f82-bc3c06109e4f"),
-                dummy: "6c0058c980fb4f10b428",
+                id: Guid.Parse("7617c211-0122-4256-a53b-ec8f2172474c"),
+                description: "d77924d5ee1744fbaecf",
                 itemGroupId: Guid.Parse("13208751-3cd3-4b59-b410-4a28a1b9022f"),
                 attr0Id: null,
                 attr1Id: null,

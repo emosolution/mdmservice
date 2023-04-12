@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using DMSpro.OMS.MdmService.Localization;
 using DMSpro.OMS.MdmService.Permissions;
-using DMSpro.OMS.MdmService.Web.Menus;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AutoMapper;
@@ -36,10 +35,10 @@ public class MdmServiceWebModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpNavigationOptions>(options =>
-        {
-            options.MenuContributors.Add(new MdmServiceMenuContributor());
-        });
+        //Configure<AbpNavigationOptions>(options =>
+        //{
+        //    options.MenuContributors.Add(new MdmServiceMenuContributor());
+        //});
 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
@@ -82,9 +81,9 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/EmployeeInZones/Index", MdmServicePermissions.EmployeeInZones.Default);
             options.Conventions.AuthorizePage("/CustomerAttributes/Index", MdmServicePermissions.CustomerAttributes.Default);
             options.Conventions.AuthorizePage("/CustomerGroups/Index", MdmServicePermissions.CustomerGroups.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupByAtts/Index", MdmServicePermissions.CustomerGroupByAtts.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupByLists/Index", MdmServicePermissions.CustomerGroupByLists.Default);
-            options.Conventions.AuthorizePage("/CustomerGroupByGeos/Index", MdmServicePermissions.CustomerGroupByGeos.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupByAtts/Index", MdmServicePermissions.CustomerGroups.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupByLists/Index", MdmServicePermissions.CustomerGroups.Default);
+            options.Conventions.AuthorizePage("/CustomerGroupByGeos/Index", MdmServicePermissions.CustomerGroups.Default);
             options.Conventions.AuthorizePage("/CustomerAssignments/Index", MdmServicePermissions.CustomerAssignments.Default);
             options.Conventions.AuthorizePage("/Holidays/Index", MdmServicePermissions.Holidays.Default);
             options.Conventions.AuthorizePage("/HolidayDetails/Index", MdmServicePermissions.HolidayDetails.Default);

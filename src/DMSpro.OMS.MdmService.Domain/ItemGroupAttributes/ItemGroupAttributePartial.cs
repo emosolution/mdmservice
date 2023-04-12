@@ -1,9 +1,33 @@
+using DMSpro.OMS.MdmService.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemGroups;
 using System.Collections.Generic;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
     public partial class ItemGroupAttribute
     {
+        public virtual ItemGroup ItemGroup { get; set; }
+        public virtual ItemAttributeValue Attr0 { get; set; }
+        public virtual ItemAttributeValue Attr1 { get; set; }
+        public virtual ItemAttributeValue Attr2 { get; set; }
+        public virtual ItemAttributeValue Attr3 { get; set; }
+        public virtual ItemAttributeValue Attr4 { get; set; }
+        public virtual ItemAttributeValue Attr5 { get; set; }
+        public virtual ItemAttributeValue Attr6 { get; set; }
+        public virtual ItemAttributeValue Attr7 { get; set; }
+        public virtual ItemAttributeValue Attr8 { get; set; }
+        public virtual ItemAttributeValue Attr9 { get; set; }
+        public virtual ItemAttributeValue Attr10 { get; set; }
+        public virtual ItemAttributeValue Attr11 { get; set; }
+        public virtual ItemAttributeValue Attr12 { get; set; }
+        public virtual ItemAttributeValue Attr13 { get; set; }
+        public virtual ItemAttributeValue Attr14 { get; set; }
+        public virtual ItemAttributeValue Attr15 { get; set; }
+        public virtual ItemAttributeValue Attr16 { get; set; }
+        public virtual ItemAttributeValue Attr17 { get; set; }
+        public virtual ItemAttributeValue Attr18 { get; set; }
+        public virtual ItemAttributeValue Attr19 { get; set; }
+
         public Dictionary<string, (int, string, string, string)>
             GetExcelTemplateInfo()
         {
@@ -35,10 +59,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 
         public List<string> GetNotNullProperty()
         {
-            return new()
-            {
-                "dummy",
-            };
+            return new();
         }
     }
 }

@@ -7,19 +7,19 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.ItemGroups;
 using DMSpro.OMS.MdmService.ItemAttributeValues;
+using DMSpro.OMS.MdmService.ItemAttributes;
 
 namespace DMSpro.OMS.MdmService.ItemGroupAttributes
 {
     [Authorize(MdmServicePermissions.ItemGroups.Default)]
-    public partial class ItemGroupAttributesAppService : PartialAppService<ItemGroupAttribute, ItemGroupAttributeDto, IItemGroupAttributeRepository>,
+    public partial class ItemGroupAttributesAppService : PartialAppService<ItemGroupAttribute, ItemGroupAttributeWithDetailsDto, IItemGroupAttributeRepository>,
         IItemGroupAttributesAppService
     {
         private readonly IItemGroupAttributeRepository _itemGroupAttributeRepository;
-        private readonly IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string>
-            _excelDownloadTokenCache;
         private readonly ItemGroupAttributeManager _itemGroupAttributeManager;
 
         private readonly IItemGroupRepository _itemGroupRepository;
+        private readonly IItemAttributeRepository _itemAttributeRepository;
         private readonly IItemAttributeValueRepository _itemAttributeValueRepository;
 
         public ItemGroupAttributesAppService(ICurrentTenant currentTenant,
@@ -27,15 +27,15 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             ItemGroupAttributeManager itemGroupAttributeManager,
             IConfiguration settingProvider,
             IItemGroupRepository itemGroupRepository,
-            IItemAttributeValueRepository itemAttributeValueRepository,
-            IDistributedCache<ItemGroupAttributeExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IItemAttributeRepository itemAttributeRepository,
+            IItemAttributeValueRepository itemAttributeValueRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.ItemGroups.Default)
         {
             _itemGroupAttributeRepository = repository;
-            _excelDownloadTokenCache = excelDownloadTokenCache;
             _itemGroupAttributeManager = itemGroupAttributeManager;
 
             _itemGroupRepository = itemGroupRepository;
+            _itemAttributeRepository = itemAttributeRepository;
             _itemAttributeValueRepository = itemAttributeValueRepository;
 
             _repositories.AddIfNotContains(

@@ -18,8 +18,8 @@
   "CreateTests": true,
   "Properties": [
     {
-      "Id": "069ae9b5-f28b-4a4b-930e-d5d0c2583bdc",
-      "Name": "dummy",
+      "Id": "63120997-ace2-4c59-9374-fb53cb203bde",
+      "Name": "Description",
       "Type": "string",
       "EnumType": "",
       "EnumNamespace": "",
@@ -27,9 +27,9 @@
       "EnumFilePath": null,
       "DefaultValue": null,
       "IsNullable": false,
-      "IsRequired": true,
+      "IsRequired": false,
       "IsTextArea": false,
-      "MinLength": 1,
+      "MinLength": null,
       "MaxLength": 20,
       "SortOrder": 0,
       "SortType": 0,

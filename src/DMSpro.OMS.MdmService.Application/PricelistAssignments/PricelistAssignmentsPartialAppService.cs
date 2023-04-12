@@ -9,6 +9,10 @@ using DMSpro.OMS.MdmService.PriceLists;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using System.Threading.Tasks;
 using System;
+using DMSpro.OMS.MdmService.CustomerGroupAttributes;
+using DMSpro.OMS.MdmService.CustomerGroupLists;
+using DMSpro.OMS.MdmService.CustomerGroupGeos;
+using DMSpro.OMS.MdmService.Customers;
 
 namespace DMSpro.OMS.MdmService.PricelistAssignments
 {
@@ -20,20 +24,31 @@ namespace DMSpro.OMS.MdmService.PricelistAssignments
 
 		private readonly IPriceListRepository _priceListRepository;
 		private readonly ICustomerGroupRepository _customerGroupRepository;
+        private readonly ICustomerGroupAttributeRepository _customerGroupAttributeRepository;
+        private readonly ICustomerGroupListRepository _customerGroupListRepository;
+        private readonly ICustomerGroupGeoRepository _customerGroupGeoRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-		public PricelistAssignmentsAppService(ICurrentTenant currentTenant,
+        public PricelistAssignmentsAppService(ICurrentTenant currentTenant,
 			IPricelistAssignmentRepository repository,
 			IConfiguration settingProvider,
 			IPriceListRepository priceListRepository,
-			ICustomerGroupRepository customerGroupRepository)
+			ICustomerGroupRepository customerGroupRepository,
+			ICustomerGroupAttributeRepository customerGroupAttributeRepository,
+			ICustomerGroupListRepository customerGroupListRepository,
+			ICustomerGroupGeoRepository customerGroupGeoRepository,
+			ICustomerRepository customerRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceListAssignments.Default)
 		{
 			_pricelistAssignmentRepository = repository;
 
 			_priceListRepository = priceListRepository;
 			_customerGroupRepository = customerGroupRepository;
-
-			_repositories.AddIfNotContains(
+            _customerGroupAttributeRepository = customerGroupAttributeRepository;
+            _customerGroupListRepository = customerGroupListRepository;
+            _customerGroupGeoRepository = customerGroupGeoRepository;
+            _customerRepository = customerRepository;
+            _repositories.AddIfNotContains(
 				new KeyValuePair<string, object>("IPricelistAssignmentRepository", _pricelistAssignmentRepository));
 			_repositories.AddIfNotContains(
 				new KeyValuePair<string, object>("IPriceListRepository", _priceListRepository));

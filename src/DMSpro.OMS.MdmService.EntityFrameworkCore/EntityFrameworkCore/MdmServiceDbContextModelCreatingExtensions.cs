@@ -505,6 +505,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Description).HasColumnName(nameof(ItemGroup.Description)).HasMaxLength(ItemGroupConsts.DescriptionMaxLength);
             b.Property(x => x.Type).HasColumnName(nameof(ItemGroup.Type));
             b.Property(x => x.Status).HasColumnName(nameof(ItemGroup.Status));
+            b.Property(x => x.Selectable).HasColumnName(nameof(ItemGroup.Selectable)).HasDefaultValue(true).IsRequired();
         });
 
         builder.Entity<ItemAttributeValue>(b =>
@@ -534,29 +535,30 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "ItemGroupAttributes", MdmServiceDbProperties.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.TenantId).HasColumnName(nameof(ItemGroupAttribute.TenantId));
-            b.Property(x => x.dummy).HasColumnName(nameof(ItemGroupAttribute.dummy)).IsRequired().HasMaxLength(ItemGroupAttributeConsts.dummyMaxLength);
-            b.HasOne<ItemGroup>().WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<ItemAttributeValue>().WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
+            b.Property(x => x.Description).HasColumnName(nameof(ItemGroupAttribute.Description)).HasMaxLength(ItemGroupAttributeConsts.DescriptionMaxLength);
+            b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr0).WithMany().HasForeignKey(x => x.Attr0Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr1).WithMany().HasForeignKey(x => x.Attr1Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr2).WithMany().HasForeignKey(x => x.Attr2Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr3).WithMany().HasForeignKey(x => x.Attr3Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr4).WithMany().HasForeignKey(x => x.Attr4Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr5).WithMany().HasForeignKey(x => x.Attr5Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr6).WithMany().HasForeignKey(x => x.Attr6Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr7).WithMany().HasForeignKey(x => x.Attr7Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr8).WithMany().HasForeignKey(x => x.Attr8Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr9).WithMany().HasForeignKey(x => x.Attr9Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr10).WithMany().HasForeignKey(x => x.Attr10Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr11).WithMany().HasForeignKey(x => x.Attr11Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr12).WithMany().HasForeignKey(x => x.Attr12Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr13).WithMany().HasForeignKey(x => x.Attr13Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr14).WithMany().HasForeignKey(x => x.Attr14Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr15).WithMany().HasForeignKey(x => x.Attr15Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr16).WithMany().HasForeignKey(x => x.Attr16Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr17).WithMany().HasForeignKey(x => x.Attr17Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr18).WithMany().HasForeignKey(x => x.Attr18Id).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<ItemAttributeValue>(x => x.Attr19).WithMany().HasForeignKey(x => x.Attr19Id).OnDelete(DeleteBehavior.NoAction);
         });
+
         builder.Entity<Item>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Items", MdmServiceDbProperties.DbSchema);
@@ -627,7 +629,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.Price).HasColumnType("decimal(19,2)").HasColumnName(nameof(ItemGroupList.Price));
             b.HasOne<ItemGroup>(x => x.ItemGroup).WithMany().IsRequired().HasForeignKey(x => x.ItemGroupId).OnDelete(DeleteBehavior.NoAction);
             b.HasOne<Item>(x => x.Item).WithMany().IsRequired().HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<UOM>(x => x.UOM).WithMany().IsRequired().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
+            b.HasOne<UOM>().WithMany().HasForeignKey(x => x.UomId).OnDelete(DeleteBehavior.NoAction);
         });
         builder.Entity<MCPHeader>(b =>
         {

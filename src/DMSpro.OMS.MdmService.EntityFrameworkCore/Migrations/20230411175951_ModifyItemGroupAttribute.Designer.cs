@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DMSpro.OMS.MdmService.Migrations
 {
     [DbContext(typeof(MdmServiceDbContext))]
-    partial class MdmServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230411175951_ModifyItemGroupAttribute")]
+    partial class ModifyItemGroupAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2981,11 +2984,11 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(19,2)")
                         .HasColumnName("Price");
 
-                    b.Property<int?>("Rate")
+                    b.Property<int>("Rate")
                         .HasColumnType("int")
                         .HasColumnName("Rate");
 
@@ -2993,7 +2996,7 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
 
-                    b.Property<Guid?>("UomId")
+                    b.Property<Guid>("UomId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -6297,14 +6300,17 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DMSpro.OMS.MdmService.UOMs.UOM", null)
+                    b.HasOne("DMSpro.OMS.MdmService.UOMs.UOM", "UOM")
                         .WithMany()
                         .HasForeignKey("UomId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Item");
 
                     b.Navigation("ItemGroup");
+
+                    b.Navigation("UOM");
                 });
 
             modelBuilder.Entity("DMSpro.OMS.MdmService.ItemImages.ItemImage", b =>

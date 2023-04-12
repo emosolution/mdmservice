@@ -5,6 +5,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using DMSpro.OMS.MdmService.Localization;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -20,6 +21,8 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         {
             _companyIdentityUserAssignmentRepository = companyIdentityUserAssignmentRepository;
             _companiesInternalAppService = companiesInternalAppService;
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
         [AllowAnonymous]
