@@ -44,9 +44,9 @@ public partial class CustomerGroupClientProxy : ClientProxyBase<ICustomerGroupsA
         });
     }
 
-    public virtual async Task ReleaseAsync(Guid id)
+    public virtual async Task<CustomerGroupDto> ReleaseAsync(Guid id)
     {
-        await RequestAsync(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
+        return await RequestAsync<CustomerGroupDto>(nameof(ReleaseAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

@@ -8,7 +8,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
     {
         Task<CustomerGroupDto> GetAsync(Guid id);
 
-        Task ReleaseAsync(Guid id);
+        Task<CustomerGroupDto> ReleaseAsync(Guid id);
 
         Task<CustomerGroupDto> CreateAsync(CustomerGroupCreateDto input);
 

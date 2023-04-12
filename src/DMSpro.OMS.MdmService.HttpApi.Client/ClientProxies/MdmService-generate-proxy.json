@@ -41933,8 +41933,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "System.Void",
-                    "typeSimple": "System.Void"
+                    "type": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto",
+                    "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto"
                   }
                 },
                 {
@@ -42204,8 +42204,8 @@
                 }
               ],
               "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
+                "type": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto",
+                "typeSimple": "DMSpro.OMS.MdmService.CustomerGroups.CustomerGroupDto"
               },
               "allowAnonymous": null,
               "implementFrom": "DMSpro.OMS.MdmService.CustomerGroups.ICustomerGroupsAppService"

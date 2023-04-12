@@ -17,7 +17,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
         }
 
         [Authorize(MdmServicePermissions.CustomerGroups.Edit)]
-        public virtual async Task ReleaseAsync(Guid id)
+        public virtual async Task<CustomerGroupDto> ReleaseAsync(Guid id)
         {
             var customerGroup = await _customerGroupRepository.GetAsync(id);
             if (customerGroup.Status != Status.OPEN)
@@ -47,6 +47,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroups
             }
             customerGroup.Status = Status.RELEASED;
             await _customerGroupRepository.UpdateAsync(customerGroup);
+            return ObjectMapper.Map<CustomerGroup, CustomerGroupDto>(customerGroup);
         }
 
         [Authorize(MdmServicePermissions.CustomerGroups.Create)]
