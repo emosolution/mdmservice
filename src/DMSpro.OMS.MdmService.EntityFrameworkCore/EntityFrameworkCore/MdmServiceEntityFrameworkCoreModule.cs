@@ -30,9 +30,6 @@ using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
-using DMSpro.OMS.MdmService.CustomerGroupByGeos;
-using DMSpro.OMS.MdmService.CustomerGroupByLists;
-using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.CustomerInZones;
@@ -127,12 +124,6 @@ public class MdmServiceEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CustomerAttribute, CustomerAttributes.EfCoreCustomerAttributeRepository>();
 
             options.AddRepository<CustomerGroup, CustomerGroups.EfCoreCustomerGroupRepository>();
-
-            options.AddRepository<CustomerGroupByAtt, CustomerGroupByAtts.EfCoreCustomerGroupByAttRepository>();
-
-            options.AddRepository<CustomerGroupByList, CustomerGroupByLists.EfCoreCustomerGroupByListRepository>();
-
-            options.AddRepository<CustomerGroupByGeo, CustomerGroupByGeos.EfCoreCustomerGroupByGeoRepository>();
 
             options.AddRepository<CustomerAssignment, CustomerAssignments.EfCoreCustomerAssignmentRepository>();
 

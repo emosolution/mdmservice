@@ -57,7 +57,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             var input = new CustomerGroupAttributeUpdateDto()
             {
                 Description = "c26f0ac3dd0c4fb8b84df032b5c8d22431d38b470bb945e790bf69db409517e930040b03c5a44a72a4f22080d9b4d6f24c9bff4227b444d5848d633acce57ceb405220d7c455434981ef30622d4081138de7b2e2819d401dacb36e0de580989886d0912a11174642ac9f802d4db895323a00afd22e1644dfb78e31d8b6ef710",
-                CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"),
 
             };
 

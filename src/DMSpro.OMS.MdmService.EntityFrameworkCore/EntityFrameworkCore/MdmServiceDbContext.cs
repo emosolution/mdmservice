@@ -31,9 +31,6 @@ using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
-using DMSpro.OMS.MdmService.CustomerGroupByGeos;
-using DMSpro.OMS.MdmService.CustomerGroupByLists;
-using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.CustomerInZones;
@@ -99,9 +96,6 @@ public class MdmServiceDbContext : AbpDbContext<MdmServiceDbContext>
     public DbSet<HolidayDetail> HolidayDetails { get; set; }
     public DbSet<Holiday> Holidays { get; set; }
     public DbSet<CustomerAssignment> CustomerAssignments { get; set; }
-    public DbSet<CustomerGroupByGeo> CustomerGroupByGeos { get; set; }
-    public DbSet<CustomerGroupByList> CustomerGroupByLists { get; set; }
-    public DbSet<CustomerGroupByAtt> CustomerGroupByAtts { get; set; }
     public DbSet<CustomerGroup> CustomerGroups { get; set; }
     public DbSet<CustomerAttribute> CustomerAttributes { get; set; }
     public DbSet<CustomerInZone> CustomerInZones { get; set; }

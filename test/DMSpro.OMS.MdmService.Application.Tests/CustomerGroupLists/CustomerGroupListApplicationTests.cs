@@ -34,8 +34,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             // Arrange
             var input = new CustomerGroupListCreateDto
             {
-                Description = "6283ceadaa65478dbedc",
-                Active = true,
                 CustomerId = Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
                 CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             };
@@ -47,7 +45,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             var result = await _customerGroupListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("6283ceadaa65478dbedc");
+            result.Description.ShouldBe(null);
             result.Active.ShouldBe(true);
         }
 
@@ -57,10 +55,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             // Arrange
             var input = new CustomerGroupListUpdateDto()
             {
-                Description = "21cd6891f3c447cf9258",
-                Active = true,
                 CustomerId = Guid.Parse("03de2fdd-eb64-4eb0-bdae-cc79b5ee1a51"),
-                CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f")
             };
 
             // Act
@@ -70,7 +65,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupLists
             var result = await _customerGroupListRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("21cd6891f3c447cf9258");
+            result.Description.ShouldBe(null);
             result.Active.ShouldBe(true);
         }
 

@@ -30,9 +30,6 @@ using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
-using DMSpro.OMS.MdmService.CustomerGroupByGeos;
-using DMSpro.OMS.MdmService.CustomerGroupByLists;
-using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.CustomerInZones;
@@ -349,40 +346,6 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
         });
 
-        builder.Entity<CustomerGroupByGeo>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByGeos", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByGeo.TenantId));
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupByGeo.Active));
-            b.Property(x => x.EffectiveDate).HasColumnName(nameof(CustomerGroupByGeo.EffectiveDate));
-            b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster0).WithMany().HasForeignKey(x => x.GeoMaster0Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster1).WithMany().HasForeignKey(x => x.GeoMaster1Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster2).WithMany().HasForeignKey(x => x.GeoMaster2Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster3).WithMany().HasForeignKey(x => x.GeoMaster3Id).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<GeoMaster>(x => x.GeoMaster4).WithMany().HasForeignKey(x => x.GeoMaster4Id).OnDelete(DeleteBehavior.NoAction);
-        });
-
-        builder.Entity<CustomerGroupByList>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByLists", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByList.TenantId));
-            b.Property(x => x.Active).HasColumnName(nameof(CustomerGroupByList.Active));
-            b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<Customer>(x => x.Customer).WithMany().IsRequired().HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.NoAction);
-        });
-        builder.Entity<CustomerGroupByAtt>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroupByAtts", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CustomerGroupByAtt.TenantId));
-            b.Property(x => x.ValueCode).HasColumnName(nameof(CustomerGroupByAtt.ValueCode)).HasMaxLength(CustomerGroupByAttConsts.ValueCodeMaxLength);
-            b.Property(x => x.ValueName).HasColumnName(nameof(CustomerGroupByAtt.ValueName)).HasMaxLength(CustomerGroupByAttConsts.ValueNameMaxLength);
-            b.HasOne<CustomerGroup>(x => x.CustomerGroup).WithMany().IsRequired().HasForeignKey(x => x.CustomerGroupId).OnDelete(DeleteBehavior.NoAction);
-            b.HasOne<CusAttributeValue>(x => x.CusAttributeValue).WithMany().IsRequired().HasForeignKey(x => x.CusAttributeValueId).OnDelete(DeleteBehavior.NoAction);
-        });
         builder.Entity<CustomerGroup>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CustomerGroups", MdmServiceDbProperties.DbSchema);

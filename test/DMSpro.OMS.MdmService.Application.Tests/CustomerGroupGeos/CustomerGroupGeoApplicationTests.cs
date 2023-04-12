@@ -35,8 +35,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             // Arrange
             var input = new CustomerGroupGeoCreateDto
             {
-                Description = "632fd606e0704e9085db",
-                Active = true,
                 CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"),
                 GeoMaster0Id = Guid.Parse("d9d076a2-ac81-4ca0-950c-5a573acea367"),
 
@@ -49,7 +47,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             var result = await _customerGroupGeoRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("632fd606e0704e9085db");
+            result.Description.ShouldBe(null);
             result.Active.ShouldBe(true);
         }
 
@@ -59,9 +57,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             // Arrange
             var input = new CustomerGroupGeoUpdateDto()
             {
-                Description = "40864eca44d1453abb9c",
-                Active = true,
-                CustomerGroupId = Guid.Parse("a0ff5319-aa04-4e71-b0d6-05b8800ed64f"),
                 GeoMaster0Id = Guid.Parse("d9d076a2-ac81-4ca0-950c-5a573acea367"),
 
             };
@@ -73,7 +68,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
             var result = await _customerGroupGeoRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Description.ShouldBe("40864eca44d1453abb9c");
+            result.Description.ShouldBe(null);
             result.Active.ShouldBe(true);
         }
 

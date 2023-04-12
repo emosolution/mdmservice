@@ -34,9 +34,6 @@ using DMSpro.OMS.MdmService.MCPHeaders;
 using DMSpro.OMS.MdmService.HolidayDetails;
 using DMSpro.OMS.MdmService.Holidays;
 using DMSpro.OMS.MdmService.CustomerAssignments;
-using DMSpro.OMS.MdmService.CustomerGroupByGeos;
-using DMSpro.OMS.MdmService.CustomerGroupByLists;
-using DMSpro.OMS.MdmService.CustomerGroupByAtts;
 using DMSpro.OMS.MdmService.CustomerGroups;
 using DMSpro.OMS.MdmService.CustomerAttributes;
 using DMSpro.OMS.MdmService.CustomerInZones;
@@ -145,18 +142,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerAttribute, CustomerAttributeDto>();
 
         CreateMap<CustomerGroup, CustomerGroupDto>();
-
-        CreateMap<CustomerGroupByAtt, CustomerGroupByAttDto>();
-        CreateMap<CustomerGroupByAtt, CustomerGroupByAttsWithDetailsDto>();
-        CreateMap<CustomerGroupByAtt, CustomerGroupByAttExcelDto>();
-
-        CreateMap<CustomerGroupByList, CustomerGroupByListDto>();
-        CreateMap<CustomerGroupByList, CustomerGroupByListWithDetailsDto>();
-        CreateMap<CustomerGroupByList, CustomerGroupByListExcelDto>();
-
-        CreateMap<CustomerGroupByGeo, CustomerGroupByGeoDto>();
-        CreateMap<CustomerGroupByGeo, CustomerGroupByGeoWithDetailsDto>();
-        CreateMap<CustomerGroupByGeo, CustomerGroupByGeoExcelDto>();
 
         CreateMap<CustomerAssignment, CustomerAssignmentDto>();
         CreateMap<CustomerAssignment, CustomerAssignmentWithDetailsDto>();
@@ -271,12 +256,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<Vendor, VendorWithDetailsDto>();
 
         CreateMap<CustomerAssignmentWithNavigationProperties, CustomerAssignmentWithNavigationPropertiesDto>();
-
-        CreateMap<CustomerGroupByAttWithNavigationProperties, CustomerGroupByAttWithNavigationPropertiesDto>();
-
-        CreateMap<CustomerGroupByGeoWithNavigationProperties, CustomerGroupByGeoWithNavigationPropertiesDto>();
-
-        CreateMap<CustomerGroupByListWithNavigationProperties, CustomerGroupByListWithNavigationPropertiesDto>();
 
         CreateMap<CusAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
 
