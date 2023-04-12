@@ -47649,65 +47649,6 @@
               "name": "ICustomerGroupAttributesAppService",
               "methods": [
                 {
-                  "name": "GetListDevextremesAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "inputDev",
-                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
-                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
-                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
-                  }
-                },
-                {
-                  "name": "UpdateFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
-                      "type": "Volo.Abp.Content.IRemoteStreamContent",
-                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                },
-                {
-                  "name": "InsertFromExcelAsync",
-                  "parametersOnMethod": [
-                    {
-                      "name": "file",
-                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
-                      "type": "Volo.Abp.Content.IRemoteStreamContent",
-                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
-                      "isOptional": false,
-                      "defaultValue": null
-                    }
-                  ],
-                  "returnValue": {
-                    "type": "System.Int32",
-                    "typeSimple": "number"
-                  }
-                },
-                {
-                  "name": "GenerateExcelTemplatesAsync",
-                  "parametersOnMethod": [],
-                  "returnValue": {
-                    "type": "Volo.Abp.Content.IRemoteStreamContent",
-                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
-                  }
-                },
-                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -47781,6 +47722,65 @@
                   "returnValue": {
                     "type": "DMSpro.OMS.MdmService.CustomerGroupAttributes.CustomerGroupAttributeDto",
                     "typeSimple": "DMSpro.OMS.MdmService.CustomerGroupAttributes.CustomerGroupAttributeDto"
+                  }
+                },
+                {
+                  "name": "GetListDevextremesAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "inputDev",
+                      "typeAsString": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme, DMSpro.OMS.Shared.Domain",
+                      "type": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "typeSimple": "DMSpro.OMS.Shared.Domain.Devextreme.DataLoadOptionDevextreme",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "DevExtreme.AspNet.Data.ResponseModel.LoadResult",
+                    "typeSimple": "DevExtreme.AspNet.Data.ResponseModel.LoadResult"
+                  }
+                },
+                {
+                  "name": "UpdateFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "InsertFromExcelAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "file",
+                      "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                      "type": "Volo.Abp.Content.IRemoteStreamContent",
+                      "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Int32",
+                    "typeSimple": "number"
+                  }
+                },
+                {
+                  "name": "GenerateExcelTemplatesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Volo.Abp.Content.IRemoteStreamContent",
+                    "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
                   }
                 }
               ]

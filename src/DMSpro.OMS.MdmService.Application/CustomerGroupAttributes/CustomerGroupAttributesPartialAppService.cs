@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.CustomerAttributeValues;
+using DMSpro.OMS.MdmService.CustomerAttributes;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {
@@ -18,6 +19,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
         private readonly CustomerGroupAttributeManager _customerGroupAttributeManager;
 
         private readonly ICustomerGroupRepository _customerGroupRepository;
+        private readonly ICustomerAttributeRepository _customerAttributeRepository;
         private readonly ICustomerAttributeValueRepository _customerAttributeValueRepository;
 
         public CustomerGroupAttributesAppService(ICurrentTenant currentTenant,
@@ -25,6 +27,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             CustomerGroupAttributeManager customerGroupByAttManager,
             IConfiguration settingProvider,
             ICustomerGroupRepository customerGroupRepository,
+            ICustomerAttributeRepository customerAttributeRepository,
             ICustomerAttributeValueRepository customerAttributeValueRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.CustomerGroups.Default)
         {
@@ -32,6 +35,7 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             _customerGroupAttributeManager = customerGroupByAttManager;
 
             _customerGroupRepository = customerGroupRepository;
+            _customerAttributeRepository = customerAttributeRepository;
             _customerAttributeValueRepository = customerAttributeValueRepository;
 
             _repositories.AddIfNotContains(

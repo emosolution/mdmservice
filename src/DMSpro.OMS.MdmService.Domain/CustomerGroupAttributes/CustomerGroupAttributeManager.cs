@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -20,30 +17,41 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
         }
 
         public async Task<CustomerGroupAttribute> CreateAsync(
-        Guid customerGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string description)
+            Guid customerGroupId, 
+            Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, 
+            Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, 
+            Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, 
+            Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, 
+            string description)
         {
             Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.Length(description, nameof(description), CustomerGroupAttributeConsts.DescriptionMaxLength);
 
             var customerGroupAttribute = new CustomerGroupAttribute(
-             GuidGenerator.Create(),
-             customerGroupId, attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, description
-             );
+                GuidGenerator.Create(), customerGroupId, 
+                attr0Id, attr1Id, attr2Id, attr3Id, attr4Id, 
+                attr5Id, attr6Id, attr7Id, attr8Id, attr9Id, 
+                attr10Id, attr11Id, attr12Id, attr13Id, attr14Id, 
+                attr15Id, attr16Id, attr17Id, attr18Id, attr19Id, 
+                description);
 
             return await _customerGroupAttributeRepository.InsertAsync(customerGroupAttribute);
         }
 
         public async Task<CustomerGroupAttribute> UpdateAsync(
             Guid id,
-            Guid customerGroupId, Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, string description, [CanBeNull] string concurrencyStamp = null
+            Guid? attr0Id, Guid? attr1Id, Guid? attr2Id, Guid? attr3Id, Guid? attr4Id, 
+            Guid? attr5Id, Guid? attr6Id, Guid? attr7Id, Guid? attr8Id, Guid? attr9Id, 
+            Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id, 
+            Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id, 
+            string description, 
+            [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNull(customerGroupId, nameof(customerGroupId));
             Check.Length(description, nameof(description), CustomerGroupAttributeConsts.DescriptionMaxLength);
 
             var customerGroupAttribute = await _customerGroupAttributeRepository.GetAsync(id);
 
-            customerGroupAttribute.CustomerGroupId = customerGroupId;
             customerGroupAttribute.Attr0Id = attr0Id;
             customerGroupAttribute.Attr1Id = attr1Id;
             customerGroupAttribute.Attr2Id = attr2Id;

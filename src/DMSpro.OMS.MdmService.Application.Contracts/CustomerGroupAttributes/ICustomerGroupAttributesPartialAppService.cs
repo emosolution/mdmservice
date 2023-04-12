@@ -1,17 +1,18 @@
-using System;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DMSpro.OMS.Shared.Domain.Devextreme;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Services;
+using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
 {
-    public partial interface ICustomerGroupAttributesAppService : IApplicationService
+    public partial interface ICustomerGroupAttributesAppService
     {
-        Task<CustomerGroupAttributeDto> GetAsync(Guid id);
+        Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev);
 
-        Task DeleteAsync(Guid id);
+        Task<int> UpdateFromExcelAsync(IRemoteStreamContent file);
 
-        Task<CustomerGroupAttributeDto> CreateAsync(CustomerGroupAttributeCreateDto input);
+        Task<int> InsertFromExcelAsync(IRemoteStreamContent file);
 
-        Task<CustomerGroupAttributeDto> UpdateAsync(Guid id, CustomerGroupAttributeUpdateDto input);
+        Task<IRemoteStreamContent> GenerateExcelTemplatesAsync();
     }
 }

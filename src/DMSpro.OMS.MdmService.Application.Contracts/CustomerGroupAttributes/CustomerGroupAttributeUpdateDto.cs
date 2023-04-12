@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
 namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
@@ -9,7 +8,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
     {
         [StringLength(CustomerGroupAttributeConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public Guid CustomerGroupId { get; set; }
         public Guid? Attr0Id { get; set; }
         public Guid? Attr1Id { get; set; }
         public Guid? Attr2Id { get; set; }
