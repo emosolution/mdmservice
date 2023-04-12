@@ -42176,7 +42176,7 @@
             "ReleaseAsyncById": {
               "uniqueName": "ReleaseAsyncById",
               "name": "ReleaseAsync",
-              "httpMethod": "DELETE",
+              "httpMethod": "PUT",
               "url": "api/mdm-service/customer-groups/release/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [

@@ -40,7 +40,7 @@ namespace DMSpro.OMS.MdmService.Controllers.CustomerGroups
             return _customerGroupsAppService.UpdateAsync(id, input);
         }
 
-        [HttpDelete]
+        [HttpPut]
         [Route("release/{id}")]
         public virtual Task<CustomerGroupDto> ReleaseAsync(Guid id)
         {
