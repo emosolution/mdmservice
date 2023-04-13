@@ -147,7 +147,7 @@ namespace DMSpro.OMS.MdmService.ItemAttributeValues
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code),
                 ItemAttributeValueConsts.CodeMaxLength, ItemAttributeValueConsts.CodeMinLength);
-            if (await _itemAttributeValueRepository.AnyAsync(x => x.AttrValName == code))
+            if (await _itemAttributeValueRepository.AnyAsync(x => x.Code == code))
             {
                 throw new UserFriendlyException(message: L["Error:ItemAttributeValuesAppService:554"], code: "0");
             }
