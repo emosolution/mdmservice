@@ -5,7 +5,6 @@ namespace DMSpro.OMS.MdmService.CustomerGroupGeos
 {
     public class CustomerGroupGeoCreateDto
     {
-        [StringLength(CustomerGroupGeoConsts.DescriptionMaxLength)]
         public Guid CustomerGroupId { get; set; }
         public Guid GeoMaster0Id { get; set; }
         public Guid? GeoMaster1Id { get; set; }
