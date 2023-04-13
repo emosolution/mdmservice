@@ -69,7 +69,6 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             var input = new CompanyIdentityUserAssignmentUpdateDto()
             {
                 IdentityUserId = Guid.Parse("b7eeaf6a-eff1-4f34-90c2-aa07da987132"),
-                CompanyId = Guid.Parse("97c129fa-c970-43b3-9230-6e1353c77557")
             };
 
             // Act

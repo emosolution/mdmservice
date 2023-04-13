@@ -23,6 +23,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         Guid companyId, Guid identityUserId)
         {
             Check.NotNull(companyId, nameof(companyId));
+            Check.NotNull(identityUserId, nameof(identityUserId));
 
             var companyIdentityUserAssignment = new CompanyIdentityUserAssignment(
              GuidGenerator.Create(),
@@ -34,17 +35,16 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 
         public async Task<CompanyIdentityUserAssignment> UpdateAsync(
             Guid id,
-            Guid companyId, Guid identityUserId, [CanBeNull] string concurrencyStamp = null
+            Guid identityUserId, [CanBeNull] string concurrencyStamp = null
         )
         {
-            Check.NotNull(companyId, nameof(companyId));
+            Check.NotNull(identityUserId, nameof(identityUserId));
 
             var queryable = await _companyIdentityUserAssignmentRepository.GetQueryableAsync();
             var query = queryable.Where(x => x.Id == id);
 
             var companyIdentityUserAssignment = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-            companyIdentityUserAssignment.CompanyId = companyId;
             companyIdentityUserAssignment.IdentityUserId = identityUserId;
 
             companyIdentityUserAssignment.SetConcurrencyStampIfNotNull(concurrencyStamp);

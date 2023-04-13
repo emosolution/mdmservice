@@ -15,7 +15,6 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp.Domain.Repositories;
-using DMSpro.OMS.MdmService.PriceUpdateDetails;
 
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
@@ -75,6 +74,10 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             {
                 throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
             }
+            if (input.IdentityUserId == default)
+            {
+                throw new UserFriendlyException(L["The {0} field is required.", L["User"]]);
+            }
 
             if (await _companyIdentityUserAssignmentRepository.AnyAsync(x => x.IdentityUserId == input.IdentityUserId && x.CompanyId == input.CompanyId))
             {
@@ -91,15 +94,13 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         [Authorize(MdmServicePermissions.CompanyIdentityUserAssignments.Edit)]
         public virtual async Task<CompanyIdentityUserAssignmentDto> UpdateAsync(Guid id, CompanyIdentityUserAssignmentUpdateDto input)
         {
-            if (input.CompanyId == default)
+            if (input.IdentityUserId == default)
             {
-                throw new UserFriendlyException(L["The {0} field is required.", L["Company"]]);
+                throw new UserFriendlyException(L["The {0} field is required.", L["User"]]);
             }
-
             var companyIdentityUserAssignment = await _companyIdentityUserAssignmentManager.UpdateAsync(
-            id,
-            input.CompanyId, input.IdentityUserId, input.ConcurrencyStamp
-            );
+                id,
+                input.IdentityUserId, input.ConcurrencyStamp);
 
             return ObjectMapper.Map<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto>(companyIdentityUserAssignment);
         }
