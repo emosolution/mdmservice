@@ -12,9 +12,9 @@ namespace DMSpro.OMS.MdmService.PriceUpdates
         //public DateTime? EndDate { get; set; }
         public PriceUpdateStatus Status { get; set; }
         //public bool IsScheduled { get; set; }
-        public DateTime? ReleasedDate { get; set; }
+        //public DateTime? ReleasedDate { get; set; }
         public DateTime? CancelledDate { get; set; }
-        //public DateTime? CompleteDate { get; set; }
+        public DateTime? CompleteDate { get; set; }
         public Guid PriceListId { get; set; }
 
         public string ConcurrencyStamp { get; set; }
