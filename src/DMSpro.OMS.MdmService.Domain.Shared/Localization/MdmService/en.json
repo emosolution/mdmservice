@@ -1118,7 +1118,6 @@
     "Error:ItemGroupListsAppService:551": "Parent item group is not of type grouped by list of items",
     "Error:ItemGroupListsAppService:552": "Cannot assign inactive item to a group",
     "Error:GeoMastersInternalAppService:550": "Invalid geographical parent at level {0}",
-    "Error:GeoMastersInternalAppService:551": "Invalid geographical at level {0}",
     "Error:CustomerGroupsAppService:550": "Can only update customer group with status OPEN",
     "Error:CustomerGroupsAppService:551": "Can only release customer group with status OPEN",
     "Error:CustomerGroupsAppService:552": "No customer has been assigned to this group",

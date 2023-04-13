@@ -43,18 +43,12 @@ namespace DMSpro.OMS.MdmService.GeoMasters
                 return null;
             }
             var geo = await _geoMasterRepository.GetAsync(x => x.Id == geoId);
-            int geoLevel = 1;
             if (parentGeo != null)
             {
-                geoLevel = parentGeo.Level + 1;
                 if (geo.ParentId != parentGeo.Id)
                 {
-                    throw new UserFriendlyException(message: L["Error:GeoMastersInternalAppService:550", $"{geoLevel}"], code: "1");
+                    throw new UserFriendlyException(message: L["Error:GeoMastersInternalAppService:550", $"{parentGeo.Level + 1}"], code: "1");
                 }
-            }
-            if (geo.Level != geoLevel)
-            {
-                throw new UserFriendlyException(message: L["Error:GeoMastersInternalAppService:551", $"{geoLevel}"], code: "1");
             }
             return ObjectMapper.Map<GeoMaster, GeoMasterDto>(geo);
         }
