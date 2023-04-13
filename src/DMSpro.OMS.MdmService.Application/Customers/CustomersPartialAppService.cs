@@ -26,6 +26,7 @@ namespace DMSpro.OMS.MdmService.Customers
         private readonly ISystemDataRepository _systemDataRepository;
         private readonly IPriceListRepository _priceListRepository;
         private readonly IGeoMasterRepository _geoMasterRepository;
+        private readonly IGeoMastersInternalAppService _geoMastersInternalAppService;
         private readonly ICustomerAttributeValueRepository _customerAttributeValueRepository;
         private readonly ICompanyRepository _companyRepository;
 
@@ -38,6 +39,7 @@ namespace DMSpro.OMS.MdmService.Customers
             ISystemDataRepository systemDataRepository,
             IPriceListRepository priceListRepository,
             IGeoMasterRepository geoMasterRepository,
+            IGeoMastersInternalAppService geoMastersInternalAppService,
             ICustomerAttributeValueRepository customerAttributeValueRepository,
             ICompanyRepository companyRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.Customers.Default)
@@ -50,6 +52,7 @@ namespace DMSpro.OMS.MdmService.Customers
             _systemDataRepository = systemDataRepository;
             _priceListRepository = priceListRepository;
             _geoMasterRepository = geoMasterRepository;
+            _geoMastersInternalAppService = geoMastersInternalAppService;
             _customerAttributeValueRepository = customerAttributeValueRepository;
             _companyRepository = companyRepository;
 

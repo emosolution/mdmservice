@@ -701,6 +701,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.erpCode).HasColumnName(nameof(Customer.erpCode)).HasMaxLength(CustomerConsts.erpCodeMaxLength);
             b.Property(x => x.License).HasColumnName(nameof(Customer.License)).HasMaxLength(CustomerConsts.LicenseMaxLength);
             b.Property(x => x.TaxCode).HasColumnName(nameof(Customer.TaxCode)).HasMaxLength(CustomerConsts.TaxCodeMaxLength);
+            b.Property(x => x.FullAddress).HasColumnName(nameof(Customer.FullAddress)).HasMaxLength(CustomerConsts.FullAddressMaxLength);
             b.Property(x => x.vatName).HasColumnName(nameof(Customer.vatName)).HasMaxLength(CustomerConsts.vatNameMaxLength);
             b.Property(x => x.vatAddress).HasColumnName(nameof(Customer.vatAddress)).HasMaxLength(CustomerConsts.vatAddressMaxLength);
             b.Property(x => x.Active).HasColumnName(nameof(Customer.Active));

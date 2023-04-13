@@ -26,7 +26,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string SFACustomerCode { get; set; }
-        public DateTime LastOrderDate { get; set; }
+        public DateTime? LastOrderDate { get; set; }
         public Guid? PaymentTermId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
         public Guid? PriceListId { get; set; }
@@ -35,6 +35,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public Guid? GeoMaster2Id { get; set; }
         public Guid? GeoMaster3Id { get; set; }
         public Guid? GeoMaster4Id { get; set; }
+        public string FullAddress { get; set; }
         public Guid? Attr0Id { get; set; }
         public Guid? Attr1Id { get; set; }
         public Guid? Attr2Id { get; set; }
