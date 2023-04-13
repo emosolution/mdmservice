@@ -37,7 +37,7 @@ namespace DMSpro.OMS.MdmService.Customers
         public string Longitude { get; set; }
         [StringLength(CustomerConsts.SFACustomerCodeMaxLength)]
         public string SFACustomerCode { get; set; }
-        public DateTime LastOrderDate { get; set; }
+        public DateTime? LastOrderDate { get; set; }
         public Guid? PaymentTermId { get; set; }
         public Guid? LinkedCompanyId { get; set; }
         public Guid? PriceListId { get; set; }
