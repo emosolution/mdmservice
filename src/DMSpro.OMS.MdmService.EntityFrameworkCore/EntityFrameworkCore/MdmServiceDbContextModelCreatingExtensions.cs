@@ -444,15 +444,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
             b.Property(x => x.DataSource).HasColumnName(nameof(SystemConfig.DataSource)).HasMaxLength(SystemConfigConsts.DataSourceMaxLength);
         });
 
-        builder.Entity<CompanyIdentityUserAssignment>(b =>
-        {
-            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
-            b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
-            b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
-            b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
-        });
+        // builder.Entity<CompanyIdentityUserAssignment>(b =>
+        // {
+        //     b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyIdentityUserAssignments", MdmServiceDbProperties.DbSchema);
+        //     b.ConfigureByConvention();
+        //     b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
+        //     b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
+        //     b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
+        //     b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        // });
         builder.Entity<CompanyInZone>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "CompanyInZones", MdmServiceDbProperties.DbSchema);
@@ -820,7 +820,7 @@ public static class MdmServiceDbContextModelCreatingExtensions
         b.Property(x => x.TenantId).HasColumnName(nameof(CompanyIdentityUserAssignment.TenantId));
         b.Property(x => x.IdentityUserId).HasColumnName(nameof(CompanyIdentityUserAssignment.IdentityUserId));
         b.Property(x => x.CurrentlySelected).HasColumnName(nameof(CompanyIdentityUserAssignment.CurrentlySelected));
-        b.HasOne<Company>().WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
+        b.HasOne<Company>(x => x.Company).WithMany().IsRequired().HasForeignKey(x => x.CompanyId).OnDelete(DeleteBehavior.NoAction);
     });
         builder.Entity<NumberingConfigDetail>(b =>
         {

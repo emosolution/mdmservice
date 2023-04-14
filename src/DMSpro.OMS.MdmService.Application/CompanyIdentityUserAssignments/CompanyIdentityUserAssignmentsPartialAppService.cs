@@ -10,7 +10,7 @@ using DMSpro.OMS.MdmService.Permissions;
 namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
 {
     public partial class CompanyIdentityUserAssignmentsAppService :
-        PartialAppService<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentDto, ICompanyIdentityUserAssignmentRepository>,
+        PartialAppService<CompanyIdentityUserAssignment, CompanyIdentityUserAssignmentWithDetailsDto, ICompanyIdentityUserAssignmentRepository>,
         ICompanyIdentityUserAssignmentsAppService
     {
         private readonly ICompanyIdentityUserAssignmentRepository _companyIdentityUserAssignmentRepository;
