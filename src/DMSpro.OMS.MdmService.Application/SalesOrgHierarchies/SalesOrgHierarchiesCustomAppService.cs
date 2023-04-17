@@ -75,6 +75,12 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:551"], code: "0");
             }
             var parent = await _salesOrgHierarchyRepository.GetAsync((Guid)input.ParentId);
+
+            if (await _salesOrgHierarchyRepository.AnyAsync(x => x.SalesOrgHeaderId == parent.SalesOrgHeaderId && x.Name == input.Name))
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:NameUniqueness"]);
+            }
+
             if (parent.IsRoute || parent.IsSellingZone)
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:554"], code: "1");
@@ -104,6 +110,12 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
                 throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:551"], code: "0");
             }
             var parent = await _salesOrgHierarchyRepository.GetAsync((Guid)input.ParentId);
+
+            if (await _salesOrgHierarchyRepository.AnyAsync(x => x.SalesOrgHeaderId == parent.SalesOrgHeaderId && x.Name == input.Name))
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:NameUniqueness"]);
+            }
+
             if (parent.IsRoute)
             {
                 throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:555"], code: "1");
@@ -143,6 +155,14 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             Check.Length(input.Name, nameof(input.Name), SalesOrgHierarchyConsts.NameMaxLength, SalesOrgHierarchyConsts.NameMaxLength);
 
             var record = await _salesOrgHierarchyRepository.GetAsync(x => x.Id == id);
+
+            if (await _salesOrgHierarchyRepository.AnyAsync(x => x.SalesOrgHeaderId == record.SalesOrgHeaderId
+                && x.Id != id
+                && x.Name == input.Name))
+            {
+                throw new UserFriendlyException(message: L["Error:SalesOrgHierarchiesAppService:NameUniqueness"]);
+            }
+
             var header = await CheckHeader(record.SalesOrgHeaderId);
             await _salesOrgHierarchiesInternalAppService.ValidateOrganizationUnitAsync(
                 id, input.Name, record.ParentId, record.SalesOrgHeaderId);
