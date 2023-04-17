@@ -5,6 +5,7 @@ using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.EmployeeProfiles;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
@@ -16,19 +17,21 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
 		private readonly IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string>
 			_excelDownloadTokenCache;
 		private readonly WorkingPositionManager _workingPositionManager;
+        private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
-		public WorkingPositionsAppService(ICurrentTenant currentTenant,
+        public WorkingPositionsAppService(ICurrentTenant currentTenant,
 			IWorkingPositionRepository repository,
 			WorkingPositionManager workingPositionManager,
 			IConfiguration settingProvider,
+			IEmployeeProfileRepository employeeProfileRepository,
 			IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.WorkingPositions.Default)
 		{
 			_workingPositionRepository = repository;
 			_excelDownloadTokenCache = excelDownloadTokenCache;
 			_workingPositionManager = workingPositionManager;
-			
-			_repositories.AddIfNotContains(
+            _employeeProfileRepository = employeeProfileRepository;
+            _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IWorkingPositionRepository", _workingPositionRepository));
 		}
     }

@@ -10,6 +10,8 @@ using Volo.Abp.Content;
 using Volo.Abp.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 using DMSpro.OMS.MdmService.Shared;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp;
 
 namespace DMSpro.OMS.MdmService.WorkingPositions
 {
@@ -37,6 +39,9 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         [Authorize(MdmServicePermissions.WorkingPositions.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
+            if (await _employeeProfileRepository.AnyAsync(x => x.WorkingPositionId == id)) {
+                throw new UserFriendlyException(L["Error:General:DeleteContraint:550"]);
+            }
             await _workingPositionRepository.DeleteAsync(id);
         }
 

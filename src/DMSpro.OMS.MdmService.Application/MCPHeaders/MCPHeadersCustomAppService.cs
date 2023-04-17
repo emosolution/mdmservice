@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
+using Volo.Abp.Domain.Repositories;
 
 namespace DMSpro.OMS.MdmService.MCPHeaders
 {
@@ -37,6 +38,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         [Authorize(MdmServicePermissions.MCPs.Create)]
         public virtual async Task<MCPDto> CreateMCPAsync(MCPCreateDto mcpCreateDto)
         {
+            await MCPCheckCodeUniqueness(mcpCreateDto.MCPHeaderDto.Code);
+
             MCPHeaderCreateDto headerCreateDto = mcpCreateDto.MCPHeaderDto;
             MCPHeader header = await _mCPHeaderManager.CreateAsync(
             #region INPUT PARAMS
@@ -94,6 +97,8 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
         [Authorize(MdmServicePermissions.MCPs.Edit)]
         public virtual async Task<MCPDto> UpdateMCPAsync(Guid headerId, MCPUpdateDto mcpUpdateDto)
         {
+            await MCPCheckCodeUniqueness(mcpUpdateDto.MCPHeaderDto.Code, headerId);
+
             MCPHeaderUpdateDto headerUpdateDto = mcpUpdateDto.MCPHeaderDto;
             MCPHeader header = await _mCPHeaderManager.UpdateAsync(id: headerId,
                 routeId: headerUpdateDto.RouteId,
@@ -183,6 +188,24 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
                 MCPDetails = detailDtos,
             };
             return mcpDto;
+        }
+
+        private async Task MCPCheckCodeUniqueness(string code, Guid? headerId = null)
+        {
+            if (headerId != null) //update
+            { 
+                if (await _mCPHeaderRepository.AnyAsync(x => x.Id != headerId && x.Code == code))
+                {
+                    throw new UserFriendlyException(message: L["Error:PartialCheckCodeUniquenessAppService:552"], code: "0");
+                }
+            }
+            else 
+            {
+                if (await _mCPHeaderRepository.AnyAsync(x => x.Code == code))
+                {
+                    throw new UserFriendlyException(message: L["Error:PartialCheckCodeUniquenessAppService:552"], code: "0");
+                }
+            }
         }
     }
 }

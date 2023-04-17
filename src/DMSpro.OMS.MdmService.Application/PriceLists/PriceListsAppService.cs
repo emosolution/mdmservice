@@ -62,6 +62,14 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 throw new UserFriendlyException(L["rror:PriceListsAppService:550"], code: "1");
             }
 
+            if (priceList.IsBase)
+            { 
+                input.Active = true;
+                input.ArithmeticFactor = null;
+                input.ArithmeticFactorType = null;
+                input.ArithmeticOperation = null;
+            }
+
             await HandleDefault(input.IsDefaultForCustomer, input.IsDefaultForVendor);
 
             var record = await _priceListManager.UpdateAsync(
@@ -71,7 +79,38 @@ namespace DMSpro.OMS.MdmService.PriceLists
                 input.ArithmeticOperation, input.ArithmeticFactor, input.ArithmeticFactorType,
                 input.ConcurrencyStamp);
 
+            await HandleUpdatePriceListDetail(record);
+
             return ObjectMapper.Map<PriceList, PriceListDto>(record);
+        }
+
+        private async Task HandleUpdatePriceListDetail(PriceList input)
+        {
+            var listPriceDetailUpdate = new List<PriceListDetail>();
+            foreach (var item in await _priceListDetailRepository.GetListAsync(x => x.PriceListId == input.Id))
+            {
+                decimal addValue = 0;
+                if (input.ArithmeticFactorType == ArithmeticFactorType.PERCENTAGE)
+                {
+                    addValue = item.BasedOnPrice.Value * (input.ArithmeticFactor ?? 0) / 100;
+                }
+                else addValue = input.ArithmeticFactor ?? 0;
+
+                switch (input.ArithmeticOperation)
+                {
+                    case ArithmeticOperator.ADD:
+                        item.Price = item.BasedOnPrice.Value + addValue;
+                        break;
+                    case ArithmeticOperator.SUBTRACT:
+                        item.Price = item.BasedOnPrice.Value - addValue;
+                        break;
+                    default:
+                        break;
+                }
+
+                listPriceDetailUpdate.Add(item);
+            }
+            await _priceListDetailRepository.UpdateManyAsync(listPriceDetailUpdate);
         }
 
         private async Task HandleDefault(bool defaultForCustomer, bool defaultForVendor)
