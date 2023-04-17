@@ -146,7 +146,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             var header = await CheckHeader(record.SalesOrgHeaderId);
             await _salesOrgHierarchiesInternalAppService.ValidateOrganizationUnitAsync(
                 id, input.Name, record.ParentId, record.SalesOrgHeaderId);
-            record.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
+            //record.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
             await _salesOrgHierarchyRepository.UpdateAsync(record);
             return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(record);
         }
