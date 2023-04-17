@@ -152,7 +152,7 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             Guid id, SalesOrgHierarchyUpdateDto input)
         {
             Check.NotNullOrWhiteSpace(input.Name, nameof(input.Name));
-            Check.Length(input.Name, nameof(input.Name), SalesOrgHierarchyConsts.NameMaxLength, SalesOrgHierarchyConsts.NameMaxLength);
+            //Check.Length(input.Name, nameof(input.Name), SalesOrgHierarchyConsts.NameMaxLength, SalesOrgHierarchyConsts.NameMaxLength);
 
             var record = await _salesOrgHierarchyRepository.GetAsync(x => x.Id == id);
 
@@ -164,8 +164,8 @@ namespace DMSpro.OMS.MdmService.SalesOrgHierarchies
             }
 
             var header = await CheckHeader(record.SalesOrgHeaderId);
-            await _salesOrgHierarchiesInternalAppService.ValidateOrganizationUnitAsync(
-                id, input.Name, record.ParentId, record.SalesOrgHeaderId);
+            //await _salesOrgHierarchiesInternalAppService.ValidateOrganizationUnitAsync(
+            //    id, input.Name, record.ParentId, record.SalesOrgHeaderId);
             //record.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
             await _salesOrgHierarchyRepository.UpdateAsync(record);
             return ObjectMapper.Map<SalesOrgHierarchy, SalesOrgHierarchyDto>(record);
