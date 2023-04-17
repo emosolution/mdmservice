@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             }
             if (priceList.IsReleased)
             {
-                throw new UserFriendlyException(L["rror:PriceListsAppService:550"], code: "1");
+                throw new UserFriendlyException(L["Error:PriceListsAppService:550"], code: "1");
             }
             await _priceListRepository.DeleteAsync(id);
         }
@@ -59,7 +59,7 @@ namespace DMSpro.OMS.MdmService.PriceLists
             var priceList = await _priceListRepository.GetAsync(id);
             if (priceList.IsReleased)
             {
-                throw new UserFriendlyException(L["rror:PriceListsAppService:550"], code: "1");
+                throw new UserFriendlyException(L["Error:PriceListsAppService:550"], code: "1");
             }
 
             if (priceList.IsBase)
