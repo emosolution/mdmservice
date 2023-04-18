@@ -110,7 +110,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttributeValues
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code),
                 CustomerAttributeValueConsts.CodeMaxLength, CustomerAttributeValueConsts.CodeMinLength);
-            if (await _customerAttributeValueRepository.AnyAsync(x => x.AttrValName == code))
+            if (await _customerAttributeValueRepository.AnyAsync(x => x.Code == code))
             {
                 throw new UserFriendlyException(message: L["Error:CustomerAttributeValuesAppService:553"], code: "0");
             }
