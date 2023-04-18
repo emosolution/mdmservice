@@ -15,12 +15,6 @@ using Prometheus;
 using Volo.Abp;
 using Volo.Abp.Modularity;
 using DMSpro.OMS.MdmService.Companies;
-using DMSpro.OMS.MdmService.Vendors;
-using DMSpro.OMS.MdmService.Customers;
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-using DMSpro.OMS.MdmService.VATs;
-using DMSpro.OMS.MdmService.Items;
-using DMSpro.OMS.MdmService.UOMs;
 using DMSpro.OMS.MdmService.NumberingConfigDetails;
 using DMSpro.OMS.MdmService.SalesOrders;
 
