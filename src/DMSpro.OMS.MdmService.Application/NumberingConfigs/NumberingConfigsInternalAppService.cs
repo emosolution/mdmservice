@@ -3,7 +3,6 @@ using DMSpro.OMS.MdmService.SystemDatas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -36,11 +35,11 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
             var config = await _numberingConfigRepository.GetListAsync(x => x.SystemDataId == systemData.Id);
             if (config.Count > 1)
             {
-                throw new BusinessException(message: L["Error:NumberingConfig:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:NumberingConfig:550"], code: "1");
             }
             if (config.Count > 0)
             {
-                throw new BusinessException(message: L["Error:NumberingConfig:551"], code: "1");
+                throw new UserFriendlyException(message: L["Error:NumberingConfig:551"], code: "1");
             }
 
             string description = $"Numbering config for {input.ObjectType}";
@@ -94,14 +93,9 @@ namespace DMSpro.OMS.MdmService.NumberingConfigs
                     }
                     if (count > 1)
                     {
-                        var detailDict = new Dictionary<string, string>
-                        {
-                            ["code"] = systemData.Code,
-                            ["valueName"] = objectType,
-                        };
-                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: L["Error:SystemData:550"],
-                            code: "1", details: detailString);
+                        throw new UserFriendlyException(
+                            message: L["Error:SystemData:550", systemData.Code, objectType],
+                            code: "1");
                     }
                     (string prefix, int paddingZeroNumber, string suffix) =
                         NumberingConfigConsts.GetPresetDataOfConfig(objectType);

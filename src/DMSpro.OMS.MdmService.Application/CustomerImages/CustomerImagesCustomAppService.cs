@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Content;
@@ -32,7 +31,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             {
                 if (itemPOSMId == null)
                 {
-                    throw new BusinessException(message: L["Error:CustomerImage:550"], code: "1");
+                    throw new UserFriendlyException(message: L["Error:CustomerImage:550"], code: "1");
                 }
             }
             return await CreateImageAsync(customerId, inputFile,
@@ -61,7 +60,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             {
                 if (itemPOSMId == null)
                 {
-                    throw new BusinessException(message: L["Error:CustomerImage:550"], code: "1");
+                    throw new UserFriendlyException(message: L["Error:CustomerImage:550"], code: "1");
                 }
             }
             return await UpdateImageAsync(id, customerId, inputFile,
@@ -87,9 +86,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
             var stream = new MemoryStream();
             await inputFile.GetStream().CopyToAsync(stream);
@@ -126,9 +123,7 @@ namespace DMSpro.OMS.MdmService.CustomerImages
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
 
             var record = await _customerImageRepository.GetAsync(id);

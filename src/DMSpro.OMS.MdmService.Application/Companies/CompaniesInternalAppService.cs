@@ -83,7 +83,7 @@ namespace DMSpro.OMS.MdmService.Companies
             {
                 if (throwErrorOnInactive)
                 {
-                    throw new BusinessException(message: L["Error:CompaniesAppService:550"], code: "1");
+                    throw new UserFriendlyException(message: L["Error:CompaniesAppService:550"], code: "1");
                 }
                 return null;
             }

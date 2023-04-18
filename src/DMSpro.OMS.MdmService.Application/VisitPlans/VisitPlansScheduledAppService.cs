@@ -96,9 +96,9 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                     successfulGeneration++;
                     Console.WriteLine($"{visitPlans.Count} visit plans will be generated for MCPDetail ${mCPDetail.Code}.");
                 }
-                catch (BusinessException be)
+                catch (UserFriendlyException ufe)
                 {
-                    Console.WriteLine($"Failed to generate visit plan for MCPDetail {mCPDetail.Code}. Error: {be.Message}.");
+                    Console.WriteLine($"Failed to generate visit plan for MCPDetail {mCPDetail.Code}. Error: {ufe.Message}.");
                 }
             }
             await _visitPlanRepository.InsertManyAsync(allVisitPlans);
@@ -120,7 +120,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             DateTime? MCPDetailDateEnd = mcpDetail.EndDate;
             if (MCPDetailDateEnd != null && MCPDetailDateEnd < MCPDetailDateStart)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:560"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:560"], code: "0");
             }
             DateTime dateStart = GetMaxDateFromList(inputDateStart, MCPDetailDateStart);
             DateTime dateEnd = ((DateTime)GetMinDateFromList(inputDateEnd, MCPDetailDateEnd)).Date;
@@ -304,7 +304,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 return mcpHeader;
             }
-            throw new BusinessException(message: L["Error:VisitPlanGeneration:556"], code: "0");
+            throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:556"], code: "0");
         }
 
         private async Task<SalesOrgHierarchy> GetRoute(Guid routeId)
@@ -312,11 +312,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             var route = await _salesOrgHierarchyRepository.GetAsync(routeId);
             if (!route.IsRoute)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:557"], code: "1");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:557"], code: "1");
             }
             if (!route.Active)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:557"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:557"], code: "0");
             }
             return route;
         }
@@ -327,11 +327,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 x => x.Id == route.ParentId);
             if (!sellingZone.IsSellingZone)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:550"], code: "1");
             }
             if (!sellingZone.Active)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:551"], code: "1");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:551"], code: "1");
             }
             return sellingZone;
         }
@@ -344,11 +344,11 @@ namespace DMSpro.OMS.MdmService.VisitPlans
 
             if (assignments.Count < 1)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:552"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:552"], code: "0");
             }
             if (assignments.Count > 1)
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:553"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:553"], code: "0");
             }
             return assignments.First();
         }
@@ -359,7 +359,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
                 x.Active == true);
             if (!companies.Any())
             {
-                throw new BusinessException(message: L["Error:VisitPlanGeneration:554"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlanGeneration:554"], code: "0");
             }
         }
 

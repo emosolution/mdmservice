@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Content;
@@ -144,11 +143,8 @@ namespace DMSpro.OMS.MdmService.Partial
                                 break;
                             }
                         }
-                        Console.WriteLine("====");
-                        Console.WriteLine(propertyTypeName);
-                        var detailDict = new Dictionary<string, string> { ["propertyType"] = propertyTypeName };
-                        string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                        throw new BusinessException(message: L["Error:ImportHandler:585"], code: "1", details: detailString);
+                        throw new UserFriendlyException(message: L["Error:ImportHandler:585", propertyTypeName], 
+                            code: "1");
                 }
             }
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -218,7 +214,7 @@ namespace DMSpro.OMS.MdmService.Partial
             MethodInfo method = type.GetMethod(EXCEL_TEMPLATE_INFO_METHOD);
             if (method == null)
             {
-                throw new BusinessException(message: L["Error:ImportHandler:586"], code: "1");
+                throw new UserFriendlyException(message: L["Error:ImportHandler:586"], code: "1");
             }
             object result = method.Invoke(instance, null);
             if (result == null)
@@ -237,7 +233,7 @@ namespace DMSpro.OMS.MdmService.Partial
             MethodInfo method = type.GetMethod(NOT_NULL_STRING_METHOD);
             if (method == null)
             {
-                throw new BusinessException(message: L["Error:ImportHandler:587"], code: "1");
+                throw new UserFriendlyException(message: L["Error:ImportHandler:587"], code: "1");
             }
             object result = method.Invoke(instance, null);
             if (result == null)

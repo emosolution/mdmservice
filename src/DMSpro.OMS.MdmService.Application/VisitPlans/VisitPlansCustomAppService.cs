@@ -29,7 +29,7 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             List<VisitPlan> visitPlans = await _visitPlanRepository.GetListAsync(x => ids.Contains(x.Id));
             if (visitPlans.Count != ids.Count)
             {
-                throw new BusinessException(message: L["Error:VisitPlansAppService:551"], code: "0");
+                throw new UserFriendlyException(message: L["Error:VisitPlansAppService:551"], code: "0");
             }
             var mcpDetailList = visitPlans.Select(x => x.MCPDetailId).ToList();
             var customerList = visitPlans.Select(x => x.CustomerId).ToList();
@@ -45,14 +45,14 @@ namespace DMSpro.OMS.MdmService.VisitPlans
             {
                 if (visitPlan.DateVisit.Date < tomorrow)
                 {
-                    throw new BusinessException(message: L["Error:VisitPlansAppService:552"], code: "0");
+                    throw new UserFriendlyException(message: L["Error:VisitPlansAppService:552"], code: "0");
                 }
                 if (exitingVisitPlans.Any(x => x.MCPDetailId == visitPlan.MCPDetailId &&
                     x.CustomerId == visitPlan.CustomerId &&
                     x.RouteId == visitPlan.RouteId &&
                     x.ItemGroupId == visitPlan.ItemGroupId))
                 {
-                    throw new BusinessException(message: L["Error:VisitPlansAppService:555"], code: "0");
+                    throw new UserFriendlyException(message: L["Error:VisitPlansAppService:555"], code: "0");
                 }
                 visitPlan.DateVisit = newDate.Date;
             }

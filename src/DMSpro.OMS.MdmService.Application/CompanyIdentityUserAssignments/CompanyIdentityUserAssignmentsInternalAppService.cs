@@ -40,14 +40,14 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             
             if (assignments.Count < 1)
             {
-                throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
+                throw new UserFriendlyException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
             }
             CompanyDto selectedCompany;
             var selectedAssignment = assignments.OrderBy(x => x.CreationTime)
                 .Where(x => x.CurrentlySelected == true).ToList();
             if (selectedAssignment.Count > 1)
             {
-                throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:553"], code: "1");
+                throw new UserFriendlyException(message: L["Error:CompanyIdentityUserAssignment:553"], code: "1");
             }
             else if (selectedAssignment.Count == 1)
             {

@@ -10,7 +10,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text.Json;
 using Volo.Abp.Content;
 
 namespace DMSpro.OMS.MdmService.EmployeeImages
@@ -91,9 +90,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
             var stream = new MemoryStream();
             await inputFile.GetStream().CopyToAsync(stream);
@@ -129,9 +126,7 @@ namespace DMSpro.OMS.MdmService.EmployeeImages
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedImageContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
 
             var record = await _employeeImageRepository.GetAsync(id);

@@ -3,7 +3,6 @@ using DMSpro.OMS.MdmService.NumberingConfigs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -28,14 +27,9 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                 x.ValueName == valueName);
             if (items.Count != 1)
             {
-                var detailDict = new Dictionary<string, string>
-                {
-                    ["code"] = NumberingConfigConsts.SystemDataCode,
-                    ["valueName"] = valueName,
-                };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:SystemData:550"],
-                    code: "1", details: detailString);
+                throw new UserFriendlyException(
+                    message: L["Error:SystemData:550", NumberingConfigConsts.SystemDataCode, valueName],
+                    code: "1");
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
         }
@@ -46,14 +40,8 @@ namespace DMSpro.OMS.MdmService.SystemDatas
                 x.ValueName == valueName);
             if (items.Count != 1)
             {
-                var detailDict = new Dictionary<string, string>
-                {
-                    ["code"] = code,
-                    ["valueName"] = valueName,
-                };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:SystemData:550"],
-                    code: "1", details: detailString);
+                throw new UserFriendlyException(message: L["Error:SystemData:550", code, valueName],
+                    code: "1");
             }
             return ObjectMapper.Map<SystemData, SystemDataDto>(items.First());
         }

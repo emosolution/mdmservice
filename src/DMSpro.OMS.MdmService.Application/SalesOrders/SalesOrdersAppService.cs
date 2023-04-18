@@ -299,7 +299,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
                     identityUserId, postingDate);
             if (companyDto.Id != companyId)
             {
-                throw new BusinessException(message: L["Error:SalesOrdersAppService:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:SalesOrdersAppService:550"], code: "1");
             }
         }
 
@@ -646,7 +646,7 @@ namespace DMSpro.OMS.MdmService.SalesOrders
             {
                 return await GetAllItemIdsFromItemGroupAttr(itemGroup.Id);
             }
-            throw new BusinessException(message: L["Error:SalesOrdersAppService:551"], code: "1");
+            throw new UserFriendlyException(message: L["Error:SalesOrdersAppService:551"], code: "1");
         }
 
         private async Task<List<Guid>> GetAllItemIdsFromItemGroupList(Guid itemGroupId)
