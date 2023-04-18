@@ -23,20 +23,20 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 
         [HttpPost]
         [Route("create-all-for-host")]
-        public Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync()
+        public virtual Task<List<NumberingConfigDto>> CreateAllConfigsForHostAsync()
         {
             return _appService.CreateAllConfigsForHostAsync();
         }
 
         [HttpPost]
         [Route("create-all-for-tenant")]
-        public Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(List<Guid> tenantIds)
+        public virtual Task<List<NumberingConfigDto>> CreateAllConfigsForTenantAsync(List<Guid> tenantIds)
         {
             return _appService.CreateAllConfigsForTenantAsync(tenantIds);
         }
 
         [HttpPost]
-        public Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
+        public virtual Task<NumberingConfigDto> CreateAsync(NumberingConfigCreateDto input)
         {
             throw new NotImplementedException();
         }

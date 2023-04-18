@@ -9,16 +9,16 @@ namespace DMSpro.OMS.MdmService.Controllers.EmployeeProfiles
     {
         [HttpGet]
         [Route("employee-profile/{id}")]
-        public async Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id)
+        public virtual Task<EmployeeProfileFullDto> GetEmployeeProfileAsync(Guid id)
         {
-            return await _employeeProfilesAppService.GetEmployeeProfileAsync(id);
+            return _employeeProfilesAppService.GetEmployeeProfileAsync(id);
         }
 
         [HttpGet]
         [Route("with-avatar/{id}")]
-        public virtual async Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id)
+        public virtual Task<EmployeeProfileWithAvatarDto> GetWithAvatarAsync(Guid id)
         {
-            return await _employeeProfilesAppService.GetWithAvatarAsync(id);
+            return _employeeProfilesAppService.GetWithAvatarAsync(id);
         }
     }
 }

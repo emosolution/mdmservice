@@ -23,35 +23,35 @@ namespace DMSpro.OMS.MdmService.Controllers.SystemDatas
 
         [HttpPost]
         [Route("create-all-for-host")]
-        public virtual async Task CreateAllForHostAsync()
+        public virtual Task CreateAllForHostAsync()
         {
-            await _appService.CreateAllForHostAsync();
+            return _appService.CreateAllForHostAsync();
         }
 
         [HttpPost]
         [Route("create-all-for-tenant")]
-        public virtual async Task CreateAllForTenantAsync(List<Guid> tenantIds)
+        public virtual Task CreateAllForTenantAsync(List<Guid> tenantIds)
         {
-            await _appService.CreateAllForTenantAsync(tenantIds);
+            return _appService.CreateAllForTenantAsync(tenantIds);
         }
 
         [HttpGet]
         [Route("for-number-config-by-value-name")]
-        public Task<SystemDataDto> GetNumberConfigSystemDataByValueName(string valueName)
+        public virtual Task<SystemDataDto> GetNumberConfigSystemDataByValueName(string valueName)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("for-numbering-config")]
-        public Task<List<SystemDataDto>> GetNumberingConfigsSystemData()
+        public virtual Task<List<SystemDataDto>> GetNumberingConfigsSystemData()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("by-code-and-value-name")]
-        public Task<SystemDataDto> GetSystemDataByCodeAndValueName(string code, string valueName)
+        public virtual Task<SystemDataDto> GetSystemDataByCodeAndValueName(string code, string valueName)
         {
             throw new NotImplementedException();
         }

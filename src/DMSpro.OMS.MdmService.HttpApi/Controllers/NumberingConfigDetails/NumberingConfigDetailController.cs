@@ -24,53 +24,20 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigDetails
         [Route("{id}")]
         public virtual Task<NumberingConfigDetailDto> GetAsync(Guid id)
         {
-            try
-            {
-                return _numberingConfigDetailsAppService.GetAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _numberingConfigDetailsAppService.GetAsync(id);
         }
 
         [HttpPost]
         public virtual Task<NumberingConfigDetailDto> CreateAsync(NumberingConfigDetailCreateDto input)
         {
-            try
-            {
-                return _numberingConfigDetailsAppService.CreateAsync(input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _numberingConfigDetailsAppService.CreateAsync(input);
         }
 
         [HttpPut]
         [Route("{id}")]
         public virtual Task<NumberingConfigDetailDto> UpdateAsync(Guid id, NumberingConfigDetailUpdateDto input)
         {
-            try
-            {
-                return _numberingConfigDetailsAppService.UpdateAsync(id, input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+             return _numberingConfigDetailsAppService.UpdateAsync(id, input);
         }
     }
 }
