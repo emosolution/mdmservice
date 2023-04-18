@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using DMSpro.OMS.MdmService.PriceListDetails;
+using DMSpro.OMS.MdmService.UOMs;
+using DMSpro.OMS.MdmService.Items;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
@@ -18,13 +20,17 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 
         private readonly IPriceUpdateRepository _priceUpdateRepository;
         private readonly IPriceListDetailRepository _priceListDetailRepository;
+        private readonly IUOMRepository _uOMRepository;
+        private readonly IItemRepository _itemRepository;
 
         public PriceUpdateDetailsAppService(ICurrentTenant currentTenant,
             IPriceUpdateDetailRepository repository,
             PriceUpdateDetailManager priceUpdateDetailManager,
             IConfiguration settingProvider,
             IPriceUpdateRepository priceUpdateRepository,
-            IPriceListDetailRepository priceListDetailRepository)
+            IPriceListDetailRepository priceListDetailRepository,
+            IUOMRepository uOMRepository,
+            IItemRepository itemRepository)
             : base(currentTenant, repository, settingProvider, MdmServicePermissions.PriceUpdates.Default)
         {
             _priceUpdateDetailRepository = repository;
@@ -32,7 +38,8 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 
             _priceUpdateRepository = priceUpdateRepository;
             _priceListDetailRepository = priceListDetailRepository;
-
+            _uOMRepository = uOMRepository;
+            _itemRepository = itemRepository;
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IPriceUpdateDetailRepository", _priceUpdateDetailRepository));
             _repositories.AddIfNotContains(

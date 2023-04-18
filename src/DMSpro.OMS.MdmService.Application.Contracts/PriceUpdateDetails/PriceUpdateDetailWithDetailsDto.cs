@@ -6,7 +6,6 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
 	public class PriceUpdateDetailWithDetailsDto : PriceUpdateDetailDto, IHasConcurrencyStamp
     {
-        public PriceUpdateDto PriceUpdate { get; set; }
         public PriceListDetailDto PriceListDetail { get; set; }
         public PriceUpdateDetailWithDetailsDto()
 		{

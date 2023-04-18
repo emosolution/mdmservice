@@ -5,6 +5,12 @@ using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
 using DMSpro.OMS.MdmService.PriceUpdates;
 using Volo.Abp.Domain.Repositories;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using DMSpro.OMS.Shared.Domain.Devextreme;
+using DMSpro.OMS.Shared.Lib.Parser;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.PriceUpdateDetails
 {
@@ -77,6 +83,46 @@ namespace DMSpro.OMS.MdmService.PriceUpdateDetails
                 throw new UserFriendlyException(message: L["Error:PriceUpdateDetailsAppService:550"], code: "1");
             }
             return header;
+        }
+
+        public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
+        {
+            await CheckPermission();
+            var items = await _repository.WithDetailsAsync();
+            var base_dataloadoption = new DataSourceLoadOptionsBase();
+            DataLoadParser.Parse(base_dataloadoption, inputDev);
+            LoadResult results = DataSourceLoader.Load(items, base_dataloadoption);
+            var details = results.data.Cast<PriceUpdateDetail>().ToList();
+            if (inputDev.Group == null)
+            {
+                results.data = ObjectMapper.Map<List<PriceUpdateDetail>,
+                    List<PriceUpdateDetailWithDetailsDto>>(details);
+            }
+            var priceListDetails = details.Select(x => x.PriceListDetail).ToList();
+            var uomIds = priceListDetails.Select(x => x.UOMId).Distinct().ToList();
+            var itemIds = priceListDetails.Select(x => x.ItemId).Distinct().ToList();
+            var uomsInDetails = await _uOMRepository.GetListAsync(x => uomIds.Contains(x.Id));
+            var itemsInDetails = await _itemRepository.GetListAsync(x => itemIds.Contains(x.Id));
+            var uomDictionary = uomsInDetails.ToDictionary(x => x.Id, x => new
+            {
+                x.Id,
+                x.Code,
+                x.Name,
+            });
+            var itemDictionary = itemsInDetails.ToDictionary(x => x.Id, x => new
+            {
+                x.Id,
+                x.Code,
+                x.Name,
+                x.ShortName,
+            });
+            var dictionaries = new
+            {
+                UomDictionary = uomDictionary,
+                ItemDictionary = itemDictionary,
+            };
+            results.summary = new object[] { dictionaries };
+            return results;
         }
     }
 }
