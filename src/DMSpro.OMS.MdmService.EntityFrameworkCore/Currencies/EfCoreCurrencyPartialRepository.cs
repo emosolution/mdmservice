@@ -27,7 +27,7 @@ namespace DMSpro.OMS.MdmService.Currencies
             {
                 if (result.ContainsKey(item.Code))
                 {
-                    throw new BusinessException(message: "Error:ImportHandler:570", code: "1");
+                    throw new BusinessException(message: item.Code);
                 }
                 Guid id = item.Id;
                 string code = item.Code;    

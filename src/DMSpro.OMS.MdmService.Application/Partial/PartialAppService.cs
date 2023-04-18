@@ -542,18 +542,20 @@ namespace DMSpro.OMS.MdmService.Partial
                     throw new UserFriendlyException(message: L["Error:ImportHandler:559", repoName],
                         code: "1");
                 }
-
-                var task = (Task<Dictionary<string, Guid>>)method.Invoke(repo, new object[] { codes });
-                Dictionary<string, Guid> idAndCode = await task;
-                if (idAndCode == null)
+                try
                 {
-                    throw new UserFriendlyException(message: L["Error:ImportHandler:570"], code: "1");
+                    var task = (Task<Dictionary<string, Guid>>)method.Invoke(repo, new object[] { codes });
+                    Dictionary<string, Guid> idAndCode = await task;
+                    if (!_codeFromDBAndSheetRepo.Contains(repoName) && idAndCode.Count != codes.Count)
+                    {
+                        throw new UserFriendlyException(message: L["Error:ImportHandler:560"], code: "1");
+                    }
+                    result.Add(repoName, idAndCode);
                 }
-                if (!_codeFromDBAndSheetRepo.Contains(repoName) && idAndCode.Count != codes.Count)
+                catch (BusinessException bex)
                 {
-                    throw new UserFriendlyException(message: L["Error:ImportHandler:560"], code: "1");
+                    throw new UserFriendlyException(message: L["Error:ImportHandler:570", bex.Message], code: "1");
                 }
-                result.Add(repoName, idAndCode);
             }
             return result;
         }
