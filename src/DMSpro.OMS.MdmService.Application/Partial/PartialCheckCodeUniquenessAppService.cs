@@ -43,7 +43,7 @@ public partial class PartialAppService<T, TDto, TRepository>
             }
             return;
         }
-        throw new BusinessException(message: L["Error:PartialCheckCodeUniquenessAppService:551"], code: "1");
+        throw new UserFriendlyException(message: L["Error:PartialCheckCodeUniquenessAppService:551"], code: "1");
     }
 
     protected void CheckEffectiveDate(DateTime? effectiveDate, DateTime? endDate)

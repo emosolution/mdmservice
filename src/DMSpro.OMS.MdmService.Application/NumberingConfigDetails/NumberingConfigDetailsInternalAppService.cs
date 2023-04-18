@@ -47,7 +47,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                 x.SystemDataId == systemData.Id);
             if (headers.Count != 1)
             {
-                throw new BusinessException(message: L["Error:NumberingConfig:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:NumberingConfig:550"], code: "1");
             }
             var header = headers.First();
             var details =
@@ -56,7 +56,7 @@ namespace DMSpro.OMS.MdmService.NumberingConfigDetails
                     x.NumberingConfigId == header.Id);
             if (details.Count > 1)
             {
-                throw new BusinessException(message: L["Error:NumberingConfigDetail:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:NumberingConfigDetail:550"], code: "1");
             }
             if (details.Count == 1)
             {

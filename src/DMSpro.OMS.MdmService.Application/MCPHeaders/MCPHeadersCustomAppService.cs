@@ -18,7 +18,7 @@ namespace DMSpro.OMS.MdmService.MCPHeaders
             DateTime today = DateTime.Now.Date;
             if (endDate.Date <= today)
             {
-                throw new BusinessException(message: L["Error:MCPHeader:550"], code: "0");
+                throw new UserFriendlyException(message: L["Error:MCPHeader:550"], code: "0");
             }
 
             MCPHeader header = await _repository.GetAsync(x => x.Id == id);

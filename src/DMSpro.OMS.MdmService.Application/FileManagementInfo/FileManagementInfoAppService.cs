@@ -5,9 +5,9 @@ using DMSpro.OMS.Shared.Protos.FileManagementService.Directories;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Configuration;
 using Volo.Abp;
-using System.Text.Json;
 using Volo.Abp.Application.Services;
 using static DMSpro.OMS.Shared.Protos.FileManagementService.Directories.DirectoriesProtoAppService;
+using DMSpro.OMS.MdmService.Localization;
 
 namespace DMSpro.OMS.MdmService.FileManagementInfo
 {
@@ -80,9 +80,11 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
             CustomerAttachmentDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "CustomerAttachments");
             EmployeeAttachmentDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "EmployeeAttachments");
             EmployeeImageDirectoryId = GetDirectoryId(directoryClient, null, tenantIdString, "EmployeeImages");
+
+            LocalizationResource = typeof(MdmServiceResource);
         }
 
-        private static Guid GetDirectoryId(DirectoriesProtoAppServiceClient client, Guid? parentDirectoryId,
+        private Guid GetDirectoryId(DirectoriesProtoAppServiceClient client, Guid? parentDirectoryId,
             string tenantIdString, string directoryName)
         {
             CreateDirectoryRequest request = new()
@@ -94,9 +96,7 @@ namespace DMSpro.OMS.MdmService.FileManagementInfo
             var response = client.CreateDirectoryIfNotExists(request);
             if (response.Directory == null)
             {
-                var detailDict = new Dictionary<string, string> { ["name"] = directoryName };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new BusinessException(message: "Error:FileManagement:550", code: "1", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:550", directoryName], code: "1");
             }
             Directory directory = response.Directory;
             return Guid.Parse(directory.Id);

@@ -12,60 +12,26 @@ namespace DMSpro.OMS.MdmService.Controllers.CompanyIdentityUserAssignments
     {
         [HttpGet]
         [Route("GetListCompanyByCurrentUser")]
-        public Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
+        public virtual Task<LoadResult> GetListCompanyByCurrentUserAsync(DataLoadOptionDevextreme inputDev)
         {
-            try
-            {
-                return _companyIdentityUserAssignmentsAppService.GetListCompanyByCurrentUserAsync(inputDev);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyIdentityUserAssignmentsAppService.GetListCompanyByCurrentUserAsync(inputDev);
         }
 
         [HttpPost]
         [Route("set-selected-company")]
-        public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
+        public virtual Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
-            try
-            {
-                return await 
-                    _companyIdentityUserAssignmentsAppService.SetCurrentlySelectedCompanyAsync(companyId);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _companyIdentityUserAssignmentsAppService.SetCurrentlySelectedCompanyAsync(companyId);
+            
         }
 
         [HttpPost]
         [Route("get-selected-company")]
-        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
+        public virtual Task<CompanyDto> GetCurrentlySelectedCompanyAsync(
             Guid? identityUserId = null, DateTime? checkTime = null)
         {
-            try
-            {
-                return await
-                    _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(
+            return _companyIdentityUserAssignmentsAppService.GetCurrentlySelectedCompanyAsync(
                         identityUserId, checkTime);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
         }
     }
 }

@@ -22,72 +22,30 @@ namespace DMSpro.OMS.MdmService.Controllers.PriceLists
 
         [HttpGet]
         [Route("{id}")]
-        public virtual async Task<PriceListDto> GetAsync(Guid id)
+        public virtual Task<PriceListDto> GetAsync(Guid id)
         {
-            try { 
-            return await _priceListsAppService.GetAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _priceListsAppService.GetAsync(id);
         }
 
         [HttpPost]
-        public virtual async Task<PriceListDto> CreateAsync(PriceListCreateDto input)
+        public virtual Task<PriceListDto> CreateAsync(PriceListCreateDto input)
         {
-            try
-            {
-                return await _priceListsAppService.CreateAsync(input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _priceListsAppService.CreateAsync(input);
+
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual async Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
+        public virtual Task<PriceListDto> UpdateAsync(Guid id, PriceListUpdateDto input)
         {
-            try
-            {
-                return await _priceListsAppService.UpdateAsync(id, input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _priceListsAppService.UpdateAsync(id, input);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual Task DeleteAsync(Guid id)
         {
-            try
-            {
-                await _priceListsAppService.DeleteAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _priceListsAppService.DeleteAsync(id);
         }
     }
 }

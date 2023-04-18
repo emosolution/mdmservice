@@ -22,38 +22,17 @@ namespace DMSpro.OMS.MdmService.Controllers.NumberingConfigs
 
         [HttpGet]
         [Route("{id}")]
-        public virtual async Task<NumberingConfigDto> GetAsync(Guid id)
+        public virtual Task<NumberingConfigDto> GetAsync(Guid id)
         {
-            try
-            {
-                return await _numberingConfigsAppService.GetAsync(id);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _numberingConfigsAppService.GetAsync(id);
+            
         }
 
         [HttpPut]
         [Route("{id}")]
-        public virtual async Task<NumberingConfigDto> UpdateAsync(Guid id, NumberingConfigUpdateDto input)
+        public virtual Task<NumberingConfigDto> UpdateAsync(Guid id, NumberingConfigUpdateDto input)
         {
-            try
-            {
-                return await _numberingConfigsAppService.UpdateAsync(id, input);
-            }
-            catch (BusinessException bex)
-            {
-                throw new UserFriendlyException(message: bex.Message, code: bex.Code, details: bex.Details);
-            }
-            catch (Exception e)
-            {
-                throw new UserFriendlyException(message: e.Message, code: "1");
-            }
+            return _numberingConfigsAppService.UpdateAsync(id, input);
         }
     }
 }

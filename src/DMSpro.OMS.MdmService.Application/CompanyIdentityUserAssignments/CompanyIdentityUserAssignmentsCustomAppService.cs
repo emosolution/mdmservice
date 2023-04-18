@@ -33,30 +33,6 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             return results;
         }
 
-        // public override async Task<LoadResult> GetListDevextremesAsync(DataLoadOptionDevextreme inputDev)
-        // {
-        //     await CheckPermission();
-        //     // var items = await _companyIdentityUserAssignmentRepository.GetQueryAbleForNavigationPropertiesAsync(null);
-        //     var assignmentWithNavigationProperties =
-        //         await _companyIdentityUserAssignmentRepository.GetListWithNavigationPropertiesAsync();
-        //     var assignments =
-        //         assignmentWithNavigationProperties.Select(x => x.CompanyIdentityUserAssignment).ToList();
-        //     var identityUserIds =
-        //         assignments.Select(x => x.IdentityUserId.ToString()).Distinct().ToList();
-        //     List<IdentityUser> identityUsers = await GetListIdentityUsers(identityUserIds);
-        //     List<CompanyIdentityUserAssignmentDevExtremeDto> dtos =
-        //         CreateCompanyIdentityUserAssignmentDevExtremeDtos(
-        //             assignmentWithNavigationProperties, identityUsers);
-        //     var base_dataloadoption = new DataSourceLoadOptionsBase();
-        //     DataLoadParser.Parse(base_dataloadoption, inputDev);
-        //     LoadResult results = DataSourceLoader.Load(dtos, base_dataloadoption);
-        //     if (inputDev.Group == null)
-        //     {
-        //         results.data = dtos;
-        //     }
-        //     return results;
-        // }
-
         [AllowAnonymous]
         public virtual async Task<CompanyDto> SetCurrentlySelectedCompanyAsync(Guid companyId)
         {
@@ -70,7 +46,7 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             var companies = assignments.Distinct().Select(x => x.CompanyId).ToList();
             if (!companies.Contains(companyId))
             {
-                throw new BusinessException(message: L["Error:CompanyIdentityUserAssignment:550"], code: "1");
+                throw new UserFriendlyException(message: L["Error:CompanyIdentityUserAssignment:550"], code: "1");
             }
             foreach (var assignment in assignments)
             {

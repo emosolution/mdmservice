@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Content;
@@ -24,9 +23,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
             var stream = new MemoryStream();
             await inputFile.GetStream().CopyToAsync(stream);
@@ -59,9 +56,7 @@ namespace DMSpro.OMS.MdmService.CustomerAttachments
             string contentType = inputFile.ContentType;
             if (!_fileManagementInfoAppService.AcceptedAttachmentContentTypes.Contains(contentType))
             {
-                var detailDict = new Dictionary<string, string> { ["contentType"] = contentType };
-                string detailString = JsonSerializer.Serialize(detailDict).ToString();
-                throw new UserFriendlyException(message: L["Error:FileManagement:551"], code: "0", details: detailString);
+                throw new UserFriendlyException(message: L["Error:FileManagement:551", contentType], code: "0");
             }
 
             var record = await _customerAttachmentRepository.GetAsync(id);
