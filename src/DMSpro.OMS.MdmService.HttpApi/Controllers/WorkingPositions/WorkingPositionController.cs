@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.WorkingPositions;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.WorkingPositions
 {
@@ -23,11 +20,6 @@ namespace DMSpro.OMS.MdmService.Controllers.WorkingPositions
             _workingPositionsAppService = workingPositionsAppService;
         }
 
-        [HttpGet]
-        public virtual Task<PagedResultDto<WorkingPositionDto>> GetListAsync(GetWorkingPositionsInput input)
-        {
-            return _workingPositionsAppService.GetListAsync(input);
-        }
 
         [HttpGet]
         [Route("{id}")]
@@ -54,20 +46,6 @@ namespace DMSpro.OMS.MdmService.Controllers.WorkingPositions
         public virtual Task DeleteAsync(Guid id)
         {
             return _workingPositionsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(WorkingPositionExcelDownloadDto input)
-        {
-            return _workingPositionsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _workingPositionsAppService.GetDownloadTokenAsync();
         }
     }
 }

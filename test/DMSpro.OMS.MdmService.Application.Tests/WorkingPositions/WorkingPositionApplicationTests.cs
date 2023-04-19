@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _workingPositionsAppService.GetListAsync(new GetWorkingPositionsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("e08027cb-400d-48f2-b73c-376d57f32c3b")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("efc05168-a02c-42d4-ad3e-dd9a94111b88")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
@@ -73,7 +60,6 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
             // Arrange
             var input = new WorkingPositionUpdateDto()
             {
-                Code = "29abc7fb2f59436d8a45",
                 Name = "290111e992c24b22b34823cdc966f4e3981919036d0947ad815b2968730e244e1abfcb6b510f47c1890ee678a3c45d4eb1e9808d6c354019a03f4c606a303fad936cd7fc0af84ce3a5b3207b8feb84a1f37293ba8d1f441995c672cf268f5b301848eab8471342fe8fa915bb3a6b324174b41895a18e4147860627f7e8faa5a",
                 Description = "46e0f7e6d3b542aa904a33f32d4ce1a2f6d18f38cfc947e0b11dc3edb0dc943399dec2ad001a4e4f9bc792e91fe116f3bbee4657e67643619615661a908107eded3838e0660544bab59f0be438819c92cbc81192bf3c4508babd7c810fb25954c36c2cc9c753451bbdfa375b0d379953a1e6c33cb367465d80a1afbe675351db69857edbc66745269951405dadaa9fc119dc1acc57d74118a4cdb067ae835eb9b80107580bb64f5e8a93c62fc091294a46d47e08471247bfa8f8b90fbc1388a4feaf85937b984197a4aa94576c4687ff14b6ee939dac48e188b9bfead99bdb090639398fa14a4dae8bea33d4967596402ad26c90780c473a909a",
                 Active = true
@@ -86,7 +72,6 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
             var result = await _workingPositionRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.Code.ShouldBe("29abc7fb2f59436d8a45");
             result.Name.ShouldBe("290111e992c24b22b34823cdc966f4e3981919036d0947ad815b2968730e244e1abfcb6b510f47c1890ee678a3c45d4eb1e9808d6c354019a03f4c606a303fad936cd7fc0af84ce3a5b3207b8feb84a1f37293ba8d1f441995c672cf268f5b301848eab8471342fe8fa915bb3a6b324174b41895a18e4147860627f7e8faa5a");
             result.Description.ShouldBe("46e0f7e6d3b542aa904a33f32d4ce1a2f6d18f38cfc947e0b11dc3edb0dc943399dec2ad001a4e4f9bc792e91fe116f3bbee4657e67643619615661a908107eded3838e0660544bab59f0be438819c92cbc81192bf3c4508babd7c810fb25954c36c2cc9c753451bbdfa375b0d379953a1e6c33cb367465d80a1afbe675351db69857edbc66745269951405dadaa9fc119dc1acc57d74118a4cdb067ae835eb9b80107580bb64f5e8a93c62fc091294a46d47e08471247bfa8f8b90fbc1388a4feaf85937b984197a4aa94576c4687ff14b6ee939dac48e188b9bfead99bdb090639398fa14a4dae8bea33d4967596402ad26c90780c473a909a");
             result.Active.ShouldBe(true);
