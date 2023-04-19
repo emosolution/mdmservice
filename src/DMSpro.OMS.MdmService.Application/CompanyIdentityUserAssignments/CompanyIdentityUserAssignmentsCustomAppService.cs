@@ -40,6 +40,10 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             {
                 return null;
             }
+            if (_currentTenant.Id == null)
+            {
+                return null;
+            }
             var selectedCompany = await _companiesInternalAppService.CheckActiveAsync(companyId, null, true);
             var assignments = await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                 x.IdentityUserId == _currentUser.Id);
@@ -65,6 +69,10 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
             Guid? inputIdentityUserId = null, DateTime? checkTime = null)
         {
             if (!_currentUser.IsAuthenticated)
+            {
+                return null;
+            }
+            if (_currentTenant.Id == null)
             {
                 return null;
             }

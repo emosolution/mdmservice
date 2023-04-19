@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using DMSpro.OMS.Shared.Protos.MdmService.Companies;
 using Grpc.Core;
-using DMSpro.OMS.MdmService.Helpers;
 using Volo.Abp.MultiTenancy;
-using System.Linq;
 using DMSpro.OMS.MdmService.CompanyIdentityUserAssignments;
 
 namespace DMSpro.OMS.MdmService.Companies;

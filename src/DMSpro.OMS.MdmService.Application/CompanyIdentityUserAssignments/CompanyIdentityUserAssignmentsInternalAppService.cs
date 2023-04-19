@@ -26,18 +26,15 @@ namespace DMSpro.OMS.MdmService.CompanyIdentityUserAssignments
         }
 
         [AllowAnonymous]
-        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(Guid? inputIdentityUserId = null, 
+        public virtual async Task<CompanyDto> GetCurrentlySelectedCompanyAsync(Guid? inputIdentityUserId = null,
             DateTime? checkTime = null)
         {
             DateTime time = checkTime == null ? DateTime.Now : (DateTime)checkTime;
-            Guid? identityUserId = inputIdentityUserId == null ? CurrentUser.Id : (Guid) inputIdentityUserId;
-            var assignments = 
+            Guid? identityUserId = inputIdentityUserId == null ? CurrentUser.Id : (Guid)inputIdentityUserId;
+            var assignments =
                 await _companyIdentityUserAssignmentRepository.GetListAsync(x =>
                     x.IdentityUserId == identityUserId);
-            // if(CurrentUser is not null && CurrentUser.TenantId is null){
-            //     return null;
-            // }
-            
+
             if (assignments.Count < 1)
             {
                 throw new UserFriendlyException(message: L["Error:CompanyIdentityUserAssignment:551"], code: "1");
