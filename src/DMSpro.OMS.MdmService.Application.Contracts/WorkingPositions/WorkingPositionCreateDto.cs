@@ -11,6 +11,5 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
         public string Name { get; set; }
         [StringLength(WorkingPositionConsts.DescriptionMaxLength)]
         public string Description { get; set; }
-        public bool Active { get; set; } = true;
     }
 }
