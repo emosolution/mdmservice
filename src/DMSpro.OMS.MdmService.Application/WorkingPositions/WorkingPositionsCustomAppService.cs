@@ -37,7 +37,7 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
             await CheckCodeUniqueness(input.Code);
 
             WorkingPosition workingPosition = new(GuidGenerator.Create(), input.Code, input.Name,
-                input.Description, input.Active);
+                input.Description, active: true);
             await _workingPositionRepository.InsertAsync(workingPosition);
 
             return ObjectMapper.Map<WorkingPosition, WorkingPositionDto>(workingPosition);
@@ -53,7 +53,6 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
 
             workingPosition.Name = input.Name;
             workingPosition.Description = input.Description;
-            workingPosition.Active = input.Active;
 
             workingPosition.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
             await _workingPositionRepository.UpdateAsync(workingPosition);
