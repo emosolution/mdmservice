@@ -128,7 +128,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<NumberingConfig, NumberingConfigWithDetailsDto>();
 
         CreateMap<WorkingPosition, WorkingPositionDto>();
-        CreateMap<WorkingPosition, WorkingPositionExcelDto>();
 
         CreateMap<SalesOrgEmpAssignment, SalesOrgEmpAssignmentDto>();
         CreateMap<SalesOrgEmpAssignment, SalesOrgEmpAssignmentWithDetailsDto>();

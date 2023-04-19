@@ -14,22 +14,15 @@ namespace DMSpro.OMS.MdmService.WorkingPositions
 		IWorkingPositionsAppService
 	{
 		private readonly IWorkingPositionRepository _workingPositionRepository;
-		private readonly IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly WorkingPositionManager _workingPositionManager;
         private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
         public WorkingPositionsAppService(ICurrentTenant currentTenant,
 			IWorkingPositionRepository repository,
-			WorkingPositionManager workingPositionManager,
 			IConfiguration settingProvider,
-			IEmployeeProfileRepository employeeProfileRepository,
-			IDistributedCache<WorkingPositionExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IEmployeeProfileRepository employeeProfileRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.WorkingPositions.Default)
 		{
 			_workingPositionRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_workingPositionManager = workingPositionManager;
             _employeeProfileRepository = employeeProfileRepository;
             _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IWorkingPositionRepository", _workingPositionRepository));
