@@ -148,7 +148,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
         CreateMap<CustomerAssignment, CustomerAssignmentExcelDto>();
 
         CreateMap<Holiday, HolidayDto>();
-        CreateMap<Holiday, HolidayExcelDto>();
 
         CreateMap<HolidayDetail, HolidayDetailDto>();
         CreateMap<HolidayDetail, HolidayDetailWithDetailsDto>();

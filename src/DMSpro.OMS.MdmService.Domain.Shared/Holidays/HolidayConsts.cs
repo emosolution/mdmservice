@@ -13,5 +13,6 @@ namespace DMSpro.OMS.MdmService.Holidays
         public const int YearMaxLength = 2099;
         public const int DescriptionMinLength = 1;
         public const int DescriptionMaxLength = 500;
+        public const int CodeMaxLength = 4;
     }
 }

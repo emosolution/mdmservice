@@ -14,7 +14,7 @@ namespace DMSpro.OMS.MdmService.Holidays
         {
             return new()
             {
-                "Description",
+				"Code",
             };
         }
     }

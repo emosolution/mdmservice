@@ -4,6 +4,7 @@ using DMSpro.OMS.MdmService.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DMSpro.OMS.MdmService.Migrations
 {
     [DbContext(typeof(MdmServiceDbContext))]
-    partial class MdmServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230420091629_AddCodeToHoliday")]
+    partial class AddCodeToHoliday
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2253,7 +2256,6 @@ namespace DMSpro.OMS.MdmService.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)")
                         .HasColumnName("Code");

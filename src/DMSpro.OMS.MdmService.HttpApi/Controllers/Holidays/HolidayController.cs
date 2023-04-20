@@ -7,7 +7,6 @@ using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.Holidays;
 using Volo.Abp.Content;
 using DMSpro.OMS.MdmService.Shared;
-using Microsoft.AspNetCore.Http;
 
 namespace DMSpro.OMS.MdmService.Controllers.Holidays
 {
@@ -22,12 +21,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Holidays
         public HolidayController(IHolidaysAppService holidaysAppService)
         {
             _holidaysAppService = holidaysAppService;
-        }
-
-        [HttpGet]
-        public virtual Task<PagedResultDto<HolidayDto>> GetListAsync(GetHolidaysInput input)
-        {
-            return _holidaysAppService.GetListAsync(input);
         }
 
         [HttpGet]
@@ -55,20 +48,6 @@ namespace DMSpro.OMS.MdmService.Controllers.Holidays
         public virtual Task DeleteAsync(Guid id)
         {
             return _holidaysAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(HolidayExcelDownloadDto input)
-        {
-            return _holidaysAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _holidaysAppService.GetDownloadTokenAsync();
         }
     }
 }

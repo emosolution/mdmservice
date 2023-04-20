@@ -371,7 +371,8 @@ public static class MdmServiceDbContextModelCreatingExtensions
                 b.ConfigureByConvention();
                 b.Property(x => x.TenantId).HasColumnName(nameof(Holiday.TenantId));
                 b.Property(x => x.Year).HasColumnName(nameof(Holiday.Year)).IsRequired().HasMaxLength(HolidayConsts.YearMaxLength);
-                b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).IsRequired().HasMaxLength(HolidayConsts.DescriptionMaxLength);
+                b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).HasMaxLength(HolidayConsts.DescriptionMaxLength);
+                b.Property(x => x.Code).HasColumnName(nameof(Holiday.Code)).IsRequired().HasMaxLength(HolidayConsts.CodeMaxLength);
             });
         builder.Entity<HolidayDetail>(b =>
         {
