@@ -2,10 +2,11 @@
 
 	<Import Project="..\..\common.props" />
 
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<RootNamespace>DMSpro.OMS.MdmService</RootNamespace>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>DMSpro.OMS.MdmService</RootNamespace>
+    </PropertyGroup>
 
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'DMSpro.OMS.MdmService.HttpApi.Host' " />
 	<ItemGroup>
@@ -144,4 +145,11 @@
 			<HintPath>..\..\..\commondll\Development\Services\administration\DMSpro.OMS.AdministrationService.EntityFrameworkCore.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+	<ItemGroup>
+        <Compile Remove="Logs\**" />
+        <Content Remove="Logs\**" />
+        <EmbeddedResource Remove="Logs\**" />
+        <None Remove="Logs\**" />
+    </ItemGroup>
+
 </Project>

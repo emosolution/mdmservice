@@ -4,16 +4,17 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
+               <Nullable>enable</Nullable>
 		<RootNamespace>DMSpro.OMS.MdmService</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="EPPlus" Version="6.1.2" />
 		<PackageReference Include="MiniExcel" Version="1.26.2" />
-		<PackageReference Include="Volo.Abp.Caching" Version="7.0.0" />
-		<PackageReference Include="Volo.Abp.Ddd.Application" Version="7.0.0" />
-		<PackageReference Include="Volo.Abp.AutoMapper" Version="7.0.0" />
-		<PackageReference Include="Volo.Abp.Features" Version="7.0.0" />
+		<PackageReference Include="Volo.Abp.Caching" Version="7.1.1" />
+		<PackageReference Include="Volo.Abp.Ddd.Application" Version="7.1.1" />
+		<PackageReference Include="Volo.Abp.AutoMapper" Version="7.1.1" />
+		<PackageReference Include="Volo.Abp.Features" Version="7.1.1" />
 		<ProjectReference Include="..\DMSpro.OMS.MdmService.Application.Contracts\DMSpro.OMS.MdmService.Application.Contracts.csproj" />
 		<ProjectReference Include="..\DMSpro.OMS.MdmService.Domain\DMSpro.OMS.MdmService.Domain.csproj" />
 		<PackageReference Include="Volo.Abp.BackgroundWorkers.Hangfire" Version="7.0.0" />
