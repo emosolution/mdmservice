@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp.Data;
+using System.Runtime.CompilerServices;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
 
-    [Authorize(MdmServicePermissions.HolidayDetails.Default)]
+    [Authorize(MdmServicePermissions.Holidays.Default)]
     public partial class HolidayDetailsAppService 
     {
         public virtual async Task<HolidayDetailDto> GetAsync(Guid id)
@@ -16,13 +17,13 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             return ObjectMapper.Map<HolidayDetail, HolidayDetailDto>(await _holidayDetailRepository.GetAsync(id));
         }
 
-        [Authorize(MdmServicePermissions.HolidayDetails.Delete)]
+        [Authorize(MdmServicePermissions.Holidays.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             await _holidayDetailRepository.DeleteAsync(id);
         }
 
-        [Authorize(MdmServicePermissions.HolidayDetails.Create)]
+        [Authorize(MdmServicePermissions.Holidays.Create)]
         public virtual async Task<HolidayDetailDto> CreateAsync(HolidayDetailCreateDto input)
         {
             if (input.HolidayId == default)
@@ -49,7 +50,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             return ObjectMapper.Map<HolidayDetail, HolidayDetailDto>(holidayDetail);
         }
 
-        [Authorize(MdmServicePermissions.HolidayDetails.Edit)]
+        [Authorize(MdmServicePermissions.Holidays.Edit)]
         public virtual async Task<HolidayDetailDto> UpdateAsync(Guid id, HolidayDetailUpdateDto input)
         {
             if (input.StartDate == default)
@@ -74,6 +75,14 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             holidayDetail.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
             await _holidayDetailRepository.UpdateAsync(holidayDetail);
             return ObjectMapper.Map<HolidayDetail, HolidayDetailDto>(holidayDetail);
+        }
+
+        private void CheckInputDate(DateTime startDate, DateTime endDate)
+        {
+            if (endDate.Date < startDate.Date)
+            {
+
+            }
         }
     }
 }

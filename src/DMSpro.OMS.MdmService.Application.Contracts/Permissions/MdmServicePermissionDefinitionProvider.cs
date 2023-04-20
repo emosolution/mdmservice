@@ -176,12 +176,7 @@ public class MdmServicePermissionDefinitionProvider : PermissionDefinitionProvid
         holidayPermission.AddChild(MdmServicePermissions.Holidays.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Holidays);
         holidayPermission.AddChild(MdmServicePermissions.Holidays.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Holidays);
         holidayPermission.AddChild(MdmServicePermissions.Holidays.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Holidays);
-
-        var holidayDetailPermission = myGroup.AddPermission(MdmServicePermissions.HolidayDetails.Default, L("Permission:MdmService:HolidayDetail")).RequireFeatures(MdmFeatures.Holidays);
-        holidayDetailPermission.AddChild(MdmServicePermissions.HolidayDetails.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Holidays);
-        holidayDetailPermission.AddChild(MdmServicePermissions.HolidayDetails.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Holidays);
-        holidayDetailPermission.AddChild(MdmServicePermissions.HolidayDetails.Delete, L("Permission:Delete")).RequireFeatures(MdmFeatures.Holidays);
-
+     
         var routePermission = myGroup.AddPermission(MdmServicePermissions.Routes.Default, L("Permission:MdmService:Route")).RequireFeatures(MdmFeatures.Routes);
         routePermission.AddChild(MdmServicePermissions.Routes.Create, L("Permission:Create")).RequireFeatures(MdmFeatures.Routes);
         routePermission.AddChild(MdmServicePermissions.Routes.Edit, L("Permission:Edit")).RequireFeatures(MdmFeatures.Routes);
