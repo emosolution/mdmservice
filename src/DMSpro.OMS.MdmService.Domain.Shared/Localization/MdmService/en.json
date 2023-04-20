@@ -1057,7 +1057,7 @@
     "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
     "Error:PartialCheckSystemDataCodeUniquenessAppService:554": "Input ValueCode already exists",
     "Error:ItemsAppService:550": "Item can no longer be updated",
-    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate",
+    "Error:MdmService:General:550": "EndDate must be greater than EffectiveDate",
     "Error:SalesOrgHeadersAppService:550": "Only sales organization with OPEN status can be released",
     "Error:SalesOrgHeadersAppService:551": "Cannot realse sales organization with out any route",
     "Error:SalesOrgHeadersAppService:552": "All last nodes must be routes",
@@ -1142,6 +1142,7 @@
     "Error:PriceUpdateDetailsAppService:552": "Price detail does not belong to price list specified in update",
     "Error:PriceListsAppService:550":"Cannot modify released price list",
     "Data:CustomersAppService:Address": "Street number",
-    "Data:CustomersAppService:Street": "Street name"
+    "Data:CustomersAppService:Street": "Street name",
+    "Error:SalesOrgEmpAssignmentsAppService:550":"This employee is already assigned to this area in this time period"
   }
 }

@@ -46,7 +46,7 @@ public partial class PartialAppService<T, TDto, TRepository>
         throw new UserFriendlyException(message: L["Error:PartialCheckCodeUniquenessAppService:551"], code: "1");
     }
 
-    protected void CheckEffectiveDate(DateTime? effectiveDate, DateTime? endDate)
+    protected void CheckEffectiveDate(DateTime effectiveDate, DateTime? endDate)
     {
         if(endDate is null)
         {
@@ -54,7 +54,7 @@ public partial class PartialAppService<T, TDto, TRepository>
         }
         if(effectiveDate >= endDate)
         {
-            throw new UserFriendlyException(message: L["Error:MdmService:Company:EffectiveDateCompareEndDate"], code: "1");
+            throw new UserFriendlyException(message: L["Error:MdmService:General:550"], code: "0");
         }
         
     }

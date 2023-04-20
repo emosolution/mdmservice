@@ -3,10 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using DMSpro.OMS.MdmService.SalesOrgEmpAssignments;
-using Volo.Abp.Content;
-using DMSpro.OMS.MdmService.Shared;
 
 namespace DMSpro.OMS.MdmService.Controllers.SalesOrgEmpAssignments
 {
@@ -24,37 +21,10 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgEmpAssignments
         }
 
         [HttpGet]
-        public Task<PagedResultDto<SalesOrgEmpAssignmentWithNavigationPropertiesDto>> GetListAsync(GetSalesOrgEmpAssignmentsInput input)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<SalesOrgEmpAssignmentWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<SalesOrgEmpAssignmentDto> GetAsync(Guid id)
         {
             return _salesOrgEmpAssignmentsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("sales-org-hierarchy-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetSalesOrgHierarchyLookupAsync(LookupRequestDto input)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetSalesOrgHierarchyLookupAsync(input);
-        }
-
-        [HttpGet]
-        [Route("employee-profile-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetEmployeeProfileLookupAsync(LookupRequestDto input)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetEmployeeProfileLookupAsync(input);
         }
 
         [HttpPost]
@@ -75,20 +45,6 @@ namespace DMSpro.OMS.MdmService.Controllers.SalesOrgEmpAssignments
         public virtual Task DeleteAsync(Guid id)
         {
             return _salesOrgEmpAssignmentsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(SalesOrgEmpAssignmentExcelDownloadDto input)
-        {
-            return _salesOrgEmpAssignmentsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _salesOrgEmpAssignmentsAppService.GetDownloadTokenAsync();
         }
     }
 }

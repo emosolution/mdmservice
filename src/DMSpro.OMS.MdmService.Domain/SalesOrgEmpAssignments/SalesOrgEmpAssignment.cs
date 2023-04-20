@@ -1,10 +1,4 @@
-using DMSpro.OMS.MdmService.SalesOrgHierarchies;
-using DMSpro.OMS.MdmService.EmployeeProfiles;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -28,8 +22,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeProfileId { get; set; }
 
-        public virtual SalesOrgHierarchy SalesOrgHierarchy { get; set; }
-        public virtual EmployeeProfile EmployeeProfile { get; set; }
         public SalesOrgEmpAssignment()
         {
 
@@ -37,7 +29,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 
         public SalesOrgEmpAssignment(Guid id, Guid salesOrgHierarchyId, Guid employeeProfileId, bool isBase, DateTime effectiveDate, string hierarchyCode, DateTime? endDate = null)
         {
-
             Id = id;
             Check.Length(hierarchyCode, nameof(hierarchyCode), SalesOrgEmpAssignmentConsts.HierarchyCodeMaxLength, 0);
             IsBase = isBase;
@@ -47,6 +38,5 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
             SalesOrgHierarchyId = salesOrgHierarchyId;
             EmployeeProfileId = employeeProfileId;
         }
-
     }
 }
