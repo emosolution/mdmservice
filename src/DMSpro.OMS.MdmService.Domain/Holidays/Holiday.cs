@@ -36,7 +36,7 @@ namespace DMSpro.OMS.MdmService.Holidays
                 throw new ArgumentOutOfRangeException(nameof(year), year, "The value of 'year' cannot be greater than " + HolidayConsts.YearMaxLength);
             }
 
-            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
+            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength);
             Year = year;
             Description = description;
             Code = year.ToString();

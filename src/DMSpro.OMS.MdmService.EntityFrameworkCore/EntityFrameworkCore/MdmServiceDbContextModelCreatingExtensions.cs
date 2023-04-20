@@ -366,14 +366,15 @@ public static class MdmServiceDbContextModelCreatingExtensions
         });
 
         builder.Entity<Holiday>(b =>
-            {
-                b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
-                b.ConfigureByConvention();
-                b.Property(x => x.TenantId).HasColumnName(nameof(Holiday.TenantId));
-                b.Property(x => x.Year).HasColumnName(nameof(Holiday.Year)).IsRequired().HasMaxLength(HolidayConsts.YearMaxLength);
-                b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).HasMaxLength(HolidayConsts.DescriptionMaxLength);
-                b.Property(x => x.Code).HasColumnName(nameof(Holiday.Code)).IsRequired().HasMaxLength(HolidayConsts.CodeMaxLength);
-            });
+        {
+            b.ToTable(MdmServiceDbProperties.DbTablePrefix + "Holidays", MdmServiceDbProperties.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(Holiday.TenantId));
+            b.Property(x => x.Year).HasColumnName(nameof(Holiday.Year)).IsRequired().HasMaxLength(HolidayConsts.YearMaxLength);
+            b.Property(x => x.Description).HasColumnName(nameof(Holiday.Description)).HasMaxLength(HolidayConsts.DescriptionMaxLength);
+            b.Property(x => x.Code).HasColumnName(nameof(Holiday.Code)).IsRequired().HasMaxLength(HolidayConsts.CodeMaxLength);
+        });
+
         builder.Entity<HolidayDetail>(b =>
         {
             b.ToTable(MdmServiceDbProperties.DbTablePrefix + "HolidayDetails", MdmServiceDbProperties.DbSchema);

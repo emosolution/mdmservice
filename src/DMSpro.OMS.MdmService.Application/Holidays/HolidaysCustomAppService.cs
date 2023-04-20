@@ -33,7 +33,7 @@ namespace DMSpro.OMS.MdmService.Holidays
         public virtual async Task<HolidayDto> CreateAsync(HolidayCreateDto input)
         {
             Check.Range(input.Year, nameof(input.Year), HolidayConsts.YearMinLength, HolidayConsts.YearMaxLength);
-            Check.Length(input.Description, nameof(input.Description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
+            Check.Length(input.Description, nameof(input.Description), HolidayConsts.DescriptionMaxLength);
             if (await _holidayRepository.AnyAsync(x => x.Year == input.Year))
             {
                 throw new UserFriendlyException(message: L["Error:HolidaysAppService:552"], code: "0");
@@ -47,7 +47,7 @@ namespace DMSpro.OMS.MdmService.Holidays
         public virtual async Task<HolidayDto> UpdateAsync(Guid id, HolidayUpdateDto input)
         {
             Check.Range(input.Year, nameof(input.Year), HolidayConsts.YearMinLength, HolidayConsts.YearMaxLength);
-            Check.Length(input.Description, nameof(input.Description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
+            Check.Length(input.Description, nameof(input.Description), HolidayConsts.DescriptionMaxLength);
 
             var holiday = await _holidayRepository.GetAsync(id);
             if (await _holidayRepository.AnyAsync(x => x.Year == input.Year && x.Id != id))
