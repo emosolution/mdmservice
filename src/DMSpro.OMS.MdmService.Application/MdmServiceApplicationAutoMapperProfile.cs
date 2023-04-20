@@ -151,7 +151,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<HolidayDetail, HolidayDetailDto>();
         CreateMap<HolidayDetail, HolidayDetailWithDetailsDto>();
-        CreateMap<HolidayDetail, HolidayDetailExcelDto>();
 
         CreateMap<MCPHeader, MCPHeaderDto>();
         CreateMap<MCPHeader, MCPHeaderExcelDto>();
@@ -254,7 +253,6 @@ public class MdmServiceApplicationAutoMapperProfile : Profile
 
         CreateMap<CusAttributeValue, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.AttrValName));
 
-        CreateMap<HolidayDetailWithNavigationProperties, HolidayDetailWithNavigationPropertiesDto>();
         CreateMap<Holiday, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Description));
 
         CreateMap<MCPHeaderWithNavigationProperties, MCPHeaderWithNavigationPropertiesDto>();
