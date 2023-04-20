@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _holidayDetailsAppService.GetListAsync(new GetHolidayDetailsInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.HolidayDetail.Id == Guid.Parse("99bdfcdc-9dc9-4787-b12a-c845e47eb8a4")).ShouldBe(true);
-            result.Items.Any(x => x.HolidayDetail.Id == Guid.Parse("017061bc-8b2e-49c5-9442-4fd04573c3ef")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act
@@ -75,7 +62,6 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
                 StartDate = new DateTime(2006, 1, 2),
                 EndDate = new DateTime(2002, 11, 10),
                 Description = "20b85722681f4b67b122c7af67abf43dc15d1419fbb64",
-                HolidayId = Guid.Parse("28d9ba00-744d-4d08-98f9-9176190c3756")
             };
 
             // Act

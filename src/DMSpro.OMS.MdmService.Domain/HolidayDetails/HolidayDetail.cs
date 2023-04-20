@@ -1,9 +1,5 @@
 using DMSpro.OMS.MdmService.Holidays;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using JetBrains.Annotations;
@@ -23,15 +19,12 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
         [CanBeNull]
         public virtual string Description { get; set; }
         public Guid HolidayId { get; set; }
-        public virtual Holiday Holiday { get; set; }
         public HolidayDetail()
         {
-
         }
 
         public HolidayDetail(Guid id, Guid holidayId, DateTime startDate, DateTime endDate, string description)
         {
-
             Id = id;
             Check.Length(description, nameof(description), HolidayDetailConsts.DescriptionMaxLength, 0);
             StartDate = startDate;
@@ -39,6 +32,5 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             Description = description;
             HolidayId = holidayId;
         }
-
     }
 }

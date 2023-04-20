@@ -19,19 +19,6 @@ namespace DMSpro.OMS.MdmService.Holidays
         }
 
         [Fact]
-        public async Task GetListAsync()
-        {
-            // Act
-            var result = await _holidaysAppService.GetListAsync(new GetHolidaysInput());
-
-            // Assert
-            result.TotalCount.ShouldBe(2);
-            result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("28d9ba00-744d-4d08-98f9-9176190c3756")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("a874421a-b7c7-4e6f-ba3e-7af161ab5e8e")).ShouldBe(true);
-        }
-
-        [Fact]
         public async Task GetAsync()
         {
             // Act

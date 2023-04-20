@@ -24,30 +24,10 @@ namespace DMSpro.OMS.MdmService.Controllers.HolidayDetails
         }
 
         [HttpGet]
-        public Task<PagedResultDto<HolidayDetailWithNavigationPropertiesDto>> GetListAsync(GetHolidayDetailsInput input)
-        {
-            return _holidayDetailsAppService.GetListAsync(input);
-        }
-
-        [HttpGet]
-        [Route("with-navigation-properties/{id}")]
-        public Task<HolidayDetailWithNavigationPropertiesDto> GetWithNavigationPropertiesAsync(Guid id)
-        {
-            return _holidayDetailsAppService.GetWithNavigationPropertiesAsync(id);
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public virtual Task<HolidayDetailDto> GetAsync(Guid id)
         {
             return _holidayDetailsAppService.GetAsync(id);
-        }
-
-        [HttpGet]
-        [Route("holiday-lookup")]
-        public Task<PagedResultDto<LookupDto<Guid>>> GetHolidayLookupAsync(LookupRequestDto input)
-        {
-            return _holidayDetailsAppService.GetHolidayLookupAsync(input);
         }
 
         [HttpPost]
@@ -68,20 +48,6 @@ namespace DMSpro.OMS.MdmService.Controllers.HolidayDetails
         public virtual Task DeleteAsync(Guid id)
         {
             return _holidayDetailsAppService.DeleteAsync(id);
-        }
-
-        [HttpGet]
-        [Route("as-excel-file")]
-        public virtual Task<IRemoteStreamContent> GetListAsExcelFileAsync(HolidayDetailExcelDownloadDto input)
-        {
-            return _holidayDetailsAppService.GetListAsExcelFileAsync(input);
-        }
-
-        [HttpGet]
-        [Route("download-token")]
-        public Task<DownloadTokenResultDto> GetDownloadTokenAsync()
-        {
-            return _holidayDetailsAppService.GetDownloadTokenAsync();
         }
     }
 }

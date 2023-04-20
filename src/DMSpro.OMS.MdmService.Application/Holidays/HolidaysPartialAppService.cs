@@ -1,10 +1,10 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using DMSpro.OMS.MdmService.Partial;
+using DMSpro.OMS.MdmService.HolidayDetails;
 
 namespace DMSpro.OMS.MdmService.Holidays
 {
@@ -13,22 +13,17 @@ namespace DMSpro.OMS.MdmService.Holidays
 		IHolidaysAppService
 	{
 		private readonly IHolidayRepository _holidayRepository;
-		private readonly IDistributedCache<HolidayExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly HolidayManager _holidayManager;
+        private readonly IHolidayDetailRepository _holidayDetailRepository;
 
-		public HolidaysAppService(ICurrentTenant currentTenant,
+        public HolidaysAppService(ICurrentTenant currentTenant,
 			IHolidayRepository repository,
-			HolidayManager holidayManager,
-			IConfiguration settingProvider,
-			IDistributedCache<HolidayExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+            IHolidayDetailRepository holidayDetailRepository,
+			IConfiguration settingProvider)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Holidays.Default)
 		{
 			_holidayRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_holidayManager = holidayManager;
-			
-			_repositories.AddIfNotContains(
+            _holidayDetailRepository = holidayDetailRepository;
+            _repositories.AddIfNotContains(
                 new KeyValuePair<string, object>("IHolidayRepository", _holidayRepository));
 		}
     }

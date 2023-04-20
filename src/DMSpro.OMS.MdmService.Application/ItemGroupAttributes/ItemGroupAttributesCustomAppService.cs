@@ -66,7 +66,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
                 input.Attr0Id, input.Attr1Id, input.Attr2Id, input.Attr3Id, input.Attr4Id,
                 input.Attr5Id, input.Attr6Id, input.Attr7Id, input.Attr8Id, input.Attr9Id,
                 input.Attr10Id, input.Attr11Id, input.Attr12Id, input.Attr13Id, input.Attr14Id,
-                input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id, 
+                input.Attr15Id, input.Attr16Id, input.Attr17Id, input.Attr18Id, input.Attr19Id,
                 input.Description, input.ConcurrencyStamp);
 
             return ObjectMapper.Map<ItemGroupAttribute, ItemGroupAttributeDto>(itemGroupAttribute);
@@ -91,6 +91,13 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
             Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id,
             Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id)
         {
+            if (attr0Id == null && attr1Id == null && attr2Id == null && attr3Id == null && attr4Id == null &&
+                attr5Id == null && attr6Id == null && attr7Id == null && attr8Id == null && attr9Id == null &&
+                attr10Id == null && attr11Id == null && attr12Id == null && attr13Id == null && attr14Id == null &&
+                attr15Id == null && attr16Id == null && attr17Id == null && attr18Id == null && attr19Id == null)
+            {
+                throw new UserFriendlyException(message:L["Error:ItemGroupAttributesAppService:554"], code: "0");
+            }
             List<(Guid?, int)> checkInputs = new()
             {
                 (attr0Id, 1), (attr1Id, 2), (attr2Id, 3),(attr3Id, 4),(attr4Id, 5),
@@ -104,7 +111,7 @@ namespace DMSpro.OMS.MdmService.ItemGroupAttributes
                 {
                     continue;
                 }
-                await CheckAttributeValue((Guid) input.Item1, input.Item2);
+                await CheckAttributeValue((Guid)input.Item1, input.Item2);
             }
         }
 

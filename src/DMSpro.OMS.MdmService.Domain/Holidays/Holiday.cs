@@ -1,23 +1,20 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
-using JetBrains.Annotations;
-
 using Volo.Abp;
+using JetBrains.Annotations;
 
 namespace DMSpro.OMS.MdmService.Holidays
 {
     public partial class Holiday : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        [NotNull]
+        public virtual string Code { get; set; }
+        
         public virtual Guid? TenantId { get; set; }
 
         public virtual int Year { get; set; }
 
-        [NotNull]
         public virtual string Description { get; set; }
 
         public Holiday()
@@ -39,11 +36,10 @@ namespace DMSpro.OMS.MdmService.Holidays
                 throw new ArgumentOutOfRangeException(nameof(year), year, "The value of 'year' cannot be greater than " + HolidayConsts.YearMaxLength);
             }
 
-            Check.NotNull(description, nameof(description));
-            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength, HolidayConsts.DescriptionMinLength);
+            Check.Length(description, nameof(description), HolidayConsts.DescriptionMaxLength);
             Year = year;
             Description = description;
+            Code = year.ToString();
         }
-
     }
 }
