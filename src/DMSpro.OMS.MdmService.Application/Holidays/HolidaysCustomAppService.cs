@@ -5,7 +5,6 @@ using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp;
 using System.Linq;
-using Microsoft.AspNetCore.Components.Forms;
 using Volo.Abp.Data;
 
 namespace DMSpro.OMS.MdmService.Holidays
@@ -62,6 +61,7 @@ namespace DMSpro.OMS.MdmService.Holidays
             holiday.Year = input.Year;
             holiday.Description = input.Description;
             holiday.Code = input.Year.ToString();
+            holiday.SetConcurrencyStampIfNotNull(input.ConcurrencyStamp);
 
             await _holidayRepository.UpdateAsync(holiday);
 
