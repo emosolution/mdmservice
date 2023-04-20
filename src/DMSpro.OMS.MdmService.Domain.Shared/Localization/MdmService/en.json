@@ -1112,6 +1112,7 @@
     "Error:ItemGroupAttributesAppService:551": "Parent item group is not of type grouped by attributes",
     "Error:ItemGroupAttributesAppService:552": "Item attribute number {0} is not active",
     "Error:ItemGroupAttributesAppService:553": "Item attribute value at position {0} is not valid",
+    "Error:ItemGroupAttributesAppService:554": "At least one attribute value must be chosen",
     "Error:ItemGroupListsAppService:550": "Parent item group' status is no longer OPEN",
     "Error:ItemGroupListsAppService:551": "Parent item group is not of type grouped by list of items",
     "Error:ItemGroupListsAppService:552": "Cannot assign inactive item to a group",
@@ -1140,7 +1141,7 @@
     "Error:PriceUpdateDetailsAppService:550": "Update details can no longer be modified",
     "Error:PriceUpdateDetailsAppService:551": "Price detail already exists in this update",
     "Error:PriceUpdateDetailsAppService:552": "Price detail does not belong to price list specified in update",
-    "Error:PriceListsAppService:550":"Cannot modify released price list",
+    "Error:PriceListsAppService:550": "Cannot modify released price list",
     "Data:CustomersAppService:Address": "Street number",
     "Data:CustomersAppService:Street": "Street name"
   }
