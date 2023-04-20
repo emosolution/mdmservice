@@ -92,6 +92,15 @@ namespace DMSpro.OMS.MdmService.CustomerGroupAttributes
             Guid? attr10Id, Guid? attr11Id, Guid? attr12Id, Guid? attr13Id, Guid? attr14Id,
             Guid? attr15Id, Guid? attr16Id, Guid? attr17Id, Guid? attr18Id, Guid? attr19Id)
         {
+
+            if (attr0Id == null && attr1Id == null && attr2Id == null && attr3Id == null && attr4Id == null &&
+                attr5Id == null && attr6Id == null && attr7Id == null && attr8Id == null && attr9Id == null &&
+                attr10Id == null && attr11Id == null && attr12Id == null && attr13Id == null && attr14Id == null &&
+                attr15Id == null && attr16Id == null && attr17Id == null && attr18Id == null && attr19Id == null)
+            {
+                throw new UserFriendlyException(message: L["Error:CustomerGroupAttributesAppService:554"], code: "0");
+            }
+
             List<(Guid?, int)> checkInputs = new()
             {
                 (attr0Id, 1), (attr1Id, 2), (attr2Id, 3),(attr3Id, 4),(attr4Id, 5),

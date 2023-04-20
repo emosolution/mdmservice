@@ -1127,6 +1127,7 @@
     "Error:CustomerGroupAttributesAppService:551": "Parent customer group is not of type grouped by attributes",
     "Error:CustomerGroupAttributesAppService:552": "Customer attribute number {0} is not active",
     "Error:CustomerGroupAttributesAppService:553": "Customer attribute value at position {0} is not valid",
+    "Error:CustomerGroupAttributesAppService:554": "At least one attribute value must be chosen",
     "Error:CustomerGroupListsAppService:550": "Parent customer group' status is no longer OPEN",
     "Error:CustomerGroupListsAppService:551": "Parent customer group is not of type grouped by list of customers",
     "Error:CustomerGroupListsAppService:552": "Cannot assign inactive customer to a group",
