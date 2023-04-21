@@ -9,7 +9,6 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
         public bool IsBase { get; set; }
         public DateTime EffectiveDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public string HierarchyCode { get; set; }
         public Guid SalesOrgHierarchyId { get; set; }
         public Guid EmployeeProfileId { get; set; }
 

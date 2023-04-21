@@ -1,4 +1,3 @@
-using Volo.Abp.Caching;
 using DMSpro.OMS.MdmService.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.MultiTenancy;
@@ -15,25 +14,18 @@ namespace DMSpro.OMS.MdmService.SalesOrgEmpAssignments
 		ISalesOrgEmpAssignmentsAppService
 	{
 		private readonly ISalesOrgEmpAssignmentRepository _salesOrgEmpAssignmentRepository;
-		private readonly IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string>
-			_excelDownloadTokenCache;
-		private readonly SalesOrgEmpAssignmentManager _salesOrgEmpAssignmentManager;
 
 		private readonly ISalesOrgHierarchyRepository _salesOrgHierarchyRepository;
 		private readonly IEmployeeProfileRepository _employeeProfileRepository;
 
 		public SalesOrgEmpAssignmentsAppService(ICurrentTenant currentTenant,
 			ISalesOrgEmpAssignmentRepository repository,
-			SalesOrgEmpAssignmentManager salesOrgEmpAssignmentManager,
 			IConfiguration settingProvider,
 			ISalesOrgHierarchyRepository salesOrgHierarchyRepository,
-			IEmployeeProfileRepository employeeProfileRepository,
-			IDistributedCache<SalesOrgEmpAssignmentExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+			IEmployeeProfileRepository employeeProfileRepository)
 			: base(currentTenant, repository, settingProvider, MdmServicePermissions.SalesOrgEmpAssignments.Default)
 		{
 			_salesOrgEmpAssignmentRepository = repository;
-			_excelDownloadTokenCache = excelDownloadTokenCache;
-			_salesOrgEmpAssignmentManager = salesOrgEmpAssignmentManager;
 
 			_salesOrgHierarchyRepository= salesOrgHierarchyRepository;
 			_employeeProfileRepository = employeeProfileRepository;

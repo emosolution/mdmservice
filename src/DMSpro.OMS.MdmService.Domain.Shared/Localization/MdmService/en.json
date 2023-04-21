@@ -1057,7 +1057,7 @@
     "Error:PartialCheckCodeUniquenessAppService:553": "Input code cannot be null or empty",
     "Error:PartialCheckSystemDataCodeUniquenessAppService:554": "Input ValueCode already exists",
     "Error:ItemsAppService:550": "Item can no longer be updated",
-    "Error:MdmService:Company:EffectiveDateCompareEndDate": "EndDate must be greater than EffectiveDate",
+    "Error:MdmService:General:550": "EndDate must be greater than EffectiveDate",
     "Error:SalesOrgHeadersAppService:550": "Only sales organization with OPEN status can be released",
     "Error:SalesOrgHeadersAppService:551": "Cannot realse sales organization with out any route",
     "Error:SalesOrgHeadersAppService:552": "All last nodes must be routes",
@@ -1147,6 +1147,7 @@
     "Data:CustomersAppService:Street": "Street name",
     "Error:HolidaysAppService:550": "Cannot delete holiday that already has at least one detail",
     "Error:HolidaysAppService:551": "Cannot change year of holiday that already has at least one detail",
-    "Error:HolidaysAppService:552": "This holiday year already exists"
+    "Error:HolidaysAppService:552": "This holiday year already exists",
+    "Error:SalesOrgEmpAssignmentsAppService:550":"This employee is already assigned to this area in this time period"
   }
 }
