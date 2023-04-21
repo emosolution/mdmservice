@@ -86,7 +86,7 @@ public class MdmServiceWebModule : AbpModule
             options.Conventions.AuthorizePage("/CustomerGroupByGeos/Index", MdmServicePermissions.CustomerGroups.Default);
             options.Conventions.AuthorizePage("/CustomerAssignments/Index", MdmServicePermissions.CustomerAssignments.Default);
             options.Conventions.AuthorizePage("/Holidays/Index", MdmServicePermissions.Holidays.Default);
-            options.Conventions.AuthorizePage("/HolidayDetails/Index", MdmServicePermissions.HolidayDetails.Default);
+            options.Conventions.AuthorizePage("/HolidayDetails/Index", MdmServicePermissions.Holidays.Default);
             options.Conventions.AuthorizePage("/Routes/Index", MdmServicePermissions.Routes.Default);
             options.Conventions.AuthorizePage("/MCPHeaders/Index", MdmServicePermissions.MCPs.Default);
             options.Conventions.AuthorizePage("/MCPDetails/Index", MdmServicePermissions.MCPs.Default);

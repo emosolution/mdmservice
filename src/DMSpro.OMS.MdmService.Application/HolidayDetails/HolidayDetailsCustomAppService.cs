@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
 using DMSpro.OMS.MdmService.Permissions;
 using Volo.Abp.Data;
-using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
 
     [Authorize(MdmServicePermissions.Holidays.Default)]
-    public partial class HolidayDetailsAppService 
+    public partial class HolidayDetailsAppService
     {
         public virtual async Task<HolidayDetailDto> GetAsync(Guid id)
         {
@@ -42,6 +42,10 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             Check.NotNull(input.StartDate, nameof(input.StartDate));
             Check.NotNull(input.EndDate, nameof(input.EndDate));
             Check.Length(input.Description, nameof(input.Description), HolidayDetailConsts.DescriptionMaxLength);
+            CheckEffectiveDate(input.StartDate, input.EndDate);
+            await CheckOverlappingDates(input.HolidayId, input.StartDate, input.EndDate);
+            var holiday = await _holidayRepository.GetAsync(input.HolidayId);
+            CheckDatesWithinHolidayYear(holiday.Year, input.StartDate, input.EndDate);
 
             var holidayDetail = new HolidayDetail(
                 GuidGenerator.Create(),
@@ -65,8 +69,12 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             Check.NotNull(input.StartDate, nameof(input.StartDate));
             Check.NotNull(input.EndDate, nameof(input.EndDate));
             Check.Length(input.Description, nameof(input.Description), HolidayDetailConsts.DescriptionMaxLength);
-
+            CheckEffectiveDate(input.StartDate, input.EndDate);
             var holidayDetail = await _holidayDetailRepository.GetAsync(id);
+            await CheckOverlappingDates(holidayDetail.HolidayId,
+                input.StartDate, input.EndDate, id);
+            var holiday = await _holidayRepository.GetAsync(holidayDetail.HolidayId);
+            CheckDatesWithinHolidayYear(holiday.Year, input.StartDate, input.EndDate);
 
             holidayDetail.StartDate = input.StartDate.Date;
             holidayDetail.EndDate = input.EndDate.Date;
@@ -77,11 +85,29 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
             return ObjectMapper.Map<HolidayDetail, HolidayDetailDto>(holidayDetail);
         }
 
-        private void CheckInputDate(DateTime startDate, DateTime endDate)
+        private async Task CheckOverlappingDates(Guid holidayId,
+            DateTime startDate, DateTime endDate, Guid? id = null)
         {
-            if (endDate.Date < startDate.Date)
+            var details = await _holidayDetailRepository.GetListAsync(
+                x => x.HolidayId == holidayId &&
+                x.Id != id);
+            if (details.Any(
+                x => (x.StartDate >= startDate && x.StartDate <= endDate) ||
+                (x.EndDate >= startDate && x.EndDate <= endDate) ||
+                (x.StartDate <= startDate && x.EndDate >= endDate)))
             {
+                throw new UserFriendlyException(message: L["Error:HolidayDetailsAppService:550"], code: "0");
+            }
+        }
 
+        private void CheckDatesWithinHolidayYear(int year, DateTime startDate, DateTime endDate)
+        {
+            var startOfYear = new DateTime(year, 1, 1);
+            var endOfYear = new DateTime(year, 12, 31);
+            if (startDate.Date < startOfYear || startDate > endOfYear ||
+                endDate < startDate || endDate > endOfYear)
+            {
+                throw new UserFriendlyException(message: L["Error:HolidayDetailsAppService:551"], code: "0");
             }
         }
     }
