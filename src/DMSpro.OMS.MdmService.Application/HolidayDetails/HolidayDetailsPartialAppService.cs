@@ -8,7 +8,7 @@ using DMSpro.OMS.MdmService.Holidays;
 
 namespace DMSpro.OMS.MdmService.HolidayDetails
 {
-	[Authorize(MdmServicePermissions.HolidayDetails.Default)]
+	[Authorize(MdmServicePermissions.Holidays.Default)]
 	public partial class HolidayDetailsAppService : PartialAppService<HolidayDetail, HolidayDetailWithDetailsDto, IHolidayDetailRepository>,
 		IHolidayDetailsAppService
 	{
@@ -20,7 +20,7 @@ namespace DMSpro.OMS.MdmService.HolidayDetails
 			IHolidayDetailRepository repository,
 			IConfiguration settingProvider,
 			IHolidayRepository holidayRepository)
-			: base(currentTenant, repository, settingProvider, MdmServicePermissions.HolidayDetails.Default)
+			: base(currentTenant, repository, settingProvider, MdmServicePermissions.Holidays.Default)
 		{
 			_holidayDetailRepository = repository;
 			
