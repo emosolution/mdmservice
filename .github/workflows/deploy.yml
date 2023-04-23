@@ -9,12 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+      - name: Checkout sharerepos repo
+        uses: actions/checkout@v3
+        with:
+          repository: emosolution/sharerepos
+          token: ${{ secrets.BEN_ACTION_SECRET }}
+          path: sharerepos
+      - name: Checkout commondll repo
+        uses: actions/checkout@v3
+        with:
+          repository: emosolution/commondll
+          token: ${{ secrets.BEN_ACTION_SECRET }}
+          path: commondll
+      - name: Checkout mdmservice
+        uses: actions/checkout@v3
+        path: MdmService
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
